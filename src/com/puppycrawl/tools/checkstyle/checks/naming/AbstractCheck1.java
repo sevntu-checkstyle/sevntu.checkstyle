@@ -6,6 +6,7 @@ public class AbstractCheck1 {
 
 	public void draw() {
 		// jfhg jkfhjg hfj k
+		////////////////////
 		// no code
 	}
 }
