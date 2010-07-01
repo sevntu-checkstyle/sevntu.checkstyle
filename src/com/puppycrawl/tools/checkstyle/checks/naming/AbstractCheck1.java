@@ -5,6 +5,7 @@ public class AbstractCheck1 {
 	int startPoint;
 
 	public void draw() {
+		// jfhg jkfhjg hfj k
 		// no code
 	}
 }
