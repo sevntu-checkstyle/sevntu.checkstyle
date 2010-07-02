@@ -39,7 +39,7 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
 {
     /** Defualt format for abstract class names */
     private static final String DEFAULT_FORMAT = "^Abstract.*$|^.*Factory$";
-    //hgvvhghhg
+    //allow checking 'abstract' modifiers
     private boolean allowAbstractNameWithAbstractType = false;
     
     // Enable|Disable checking the class type
