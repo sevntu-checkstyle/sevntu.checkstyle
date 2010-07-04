@@ -93,6 +93,7 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
                     "illegal.abstract.class.name", className, getFormat());
             }
 		} else { // if class without abstract type
+			// TODO: Change order of && arguments
 			if (isMatchingClassName(className) && allowAbstractNameWithAbstractType) {
 				log(aAST.getLineNo(), aAST.getColumnNo(),
 						"no.abstract.class.type", className, getFormat());
