@@ -37,7 +37,7 @@ import com.puppycrawl.tools.checkstyle.checks.AbstractFormatCheck;
  */
 public final class AbstractClassNameCheck extends AbstractFormatCheck
 {
-    /** Defualt format for abstract class names */
+    /** Default format for abstract class names */
     private static final String DEFAULT_FORMAT = "^Abstract.*$|^.*Factory$";
     //allow checking 'abstract' modifiers
     private boolean allowAbstractNameWithAbstractType = false;
@@ -92,7 +92,8 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
                 log(aAST.getLineNo(), aAST.getColumnNo(),
                     "illegal.abstract.class.name", className, getFormat());
             }
-		} else { // if class without abstract type
+		} else { 
+			// if class without abstract type
 			// TODO: Change order of && arguments
 			if (isMatchingClassName(className) && allowAbstractNameWithAbstractType) {
 				log(aAST.getLineNo(), aAST.getColumnNo(),
