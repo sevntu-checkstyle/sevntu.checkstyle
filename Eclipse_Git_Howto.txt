@@ -1,0 +1,110 @@
+http://www.eclipse.org/egit/download/  - download plugin for Eclipse
+
+http://flavio.castelli.name/howto_use_git_with_svn - how to use
+
+===============================================================================
+installs for Ubuntu:
+sudo apt-get install git-core
+sudo apt-get install git-gui
+sudo apt-get install giggle 
+
+Cool Fonts for Tcl\Tk:
+sudo aptitude install tk8.5
+sudo update-alternatives --config wish
+and pick /usr/bin/wish8.5 from the list (3)
+
+===============================================================================
+Repositories:
+
+github: 
+user:sevntu-checkstyle
+project name:sevntu.checkstyle
+password: sevcheck
+
+===============================================================================
+Manual how to install GIT on Eclipse:
+http://www.vogella.de/articles/EGit/article.html 
+
+===============================================================================
+Local GitHub Config:
+http://github.com/blog/180-local-github-config
+
+===============================================================================
+Global Setup:
+http://help.github.com/git-email-settings/
+
+Setting user name and email globally in git:
+$ git config --global user.name "YourName"
+$ git config --global user.email "Your e-mail"
+
+Overriding settings for individual repos:
+$ cd my_other_repo
+$ git config user.name "YourName"
+$ git config user.email "Your e-mail"
+
+For checking the information:
+$ git config --global github.user
+
+===============================================================================
+Create work folder(sevntu.checkstyle) and test it:
+
+$ cd /**/workspace/
+$ mkdir sevntu.checkstyle
+$ cd sevntu.checkstyle
+$ git init
+$ touch ReadMe
+$ git add ReadMe
+$ git commit -m 'first commit'
+$ git remote add origin git@github.com:sevntu-checkstyle/sevntu.checkstyle.git
+$ git push origin master
+
+If after this steps you see error message about lost history run:
+$ git pull origin master
+
+===============================================================================
+Problems with GIT and Eclipse?!
+
+Solving some questions you can find at http://help.github.com/remotes/
+
+1. Push --> Permission denied (publickey):
+http://help.github.com/troubleshooting-ssh/
+
+Finding what keys ssh is offering to the server is fairly simple. Run
+$ ssh -v git@github.com
+and look at the output.
+
+This is usually caused when ssh cannot find your keys. Make sure your key is in the default location, ~/.ssh. 
+If you run 
+$ ssh-keygen 
+and just press enter at all 3 prompts it will be placed to /home/*UserName*/.ssh/ automatically. Then you can add the contents of id_rsa.pub to my github keys. If id_rsa.pub doesn’t work try id_dsa.pub. You might need to generate a new dsa key with ssh-keygen -t dsa if you just have an rsa key.
+
+Then insert content from id_rsa.pub to web site http://github.com/sevntu-checkstyle/sevntu.checkstyle :
+a) open your git web page
+b) Account Settings --> SSH Public Keys --> Add another public key
+c) And copy content.
+
+2. Push -->  "Can't connect to any URI:" error when attempting to push a change to a local file origin repository:
+
+Bug. Edit the "config" file of your respository, typically found at <your repository's directory>/.git/config. (for example: /home/danil/workspace/my/sevntu.checkstyle/.git/config).
+Copy the line starting with "url =" and paste it, replacing "url" with
+"pushurl". The resulting section in the config file would look similar to
+
+[remote "origin"]
+	url = git+ssh://git@github.com/sevntu-checkstyle/sevntu.checkstyle.git
+	fetch = +refs/heads/master:refs/remotes/origin/master
+	push = refs/heads/master:refs/heads/master
+	pushurl = git+ssh://git@github.com/sevntu-checkstyle/sevntu.checkstyle.git
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+
+After saving the file, the wizard should work again.
+Information from site https://bugs.eclipse.org/bugs/show_bug.cgi?id=317389
+
+===============================================================================
+Useful links:
+http://wiki.eclipse.org/EGit/User_Guide
+http://help.github.com/troubleshooting-ssh/
+http://help.github.com/remotes/
+http://git-scm.com/
+http://www.kernel.org/pub/software/scm/git/docs/user-manual.html#Updating-a-repository-With-git-fetch
