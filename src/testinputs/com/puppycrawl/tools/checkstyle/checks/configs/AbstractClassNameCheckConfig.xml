@@ -5,11 +5,11 @@
 <module name="Checker">
   <module name="TreeWalker">
           <!-- your standard Checks that come with Checkstyle -->
-    <module name="UpperEll"/>
-    <module name="MethodLength"></module>
+  <!--  <module name="UpperEll"/>
+    <module name="MethodLength"/> -->
           <!-- your Check goes here -->
-    <module name="com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheck">
-      <property name="allowAbstractNameWithAbstractType" value="true"/>
-    </module>
-  </module>
+    	<module name="com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheck">
+      		<property name="allowAbstractNameWithAbstractType" value="true"/>
+    	</module>
+  	</module>
 </module>
