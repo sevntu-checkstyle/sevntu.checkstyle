@@ -25,15 +25,15 @@ import com.puppycrawl.tools.checkstyle.checks.AbstractFormatCheck;
 /**
  * <p>
  * Ensures that the names of abstract classes conforming to some
- * regular expression and  by some regular expression check up 
+ * regular expression and  by some regular expression check up
  * the abstract modifiers.
  * </p>
  * <p>
  * Rationale: Abstract classes are convenience base class
  * implementations of interfaces, not types as such. As such
- * they should be named to indicate this. Also if names of classes 
- * started with 'Abstract' it's very convenient that they will 
- * have abstract modifier.  
+ * they should be named to indicate this. Also if names of classes
+ * started with 'Abstract' it's very convenient that they will
+ * have abstract modifier.
  * </p>
  *
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
@@ -43,13 +43,17 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
 {
     /** Default format for abstract class names */
     private static final String DEFAULT_FORMAT = "^Abstract.*$|^.*Factory$";
-    //allow checking 'abstract' modifiers
-    private boolean allowAbstractNameWithAbstractType = false;
-    
-    // Enable|Disable checking the class type
-    public void setAllowAbstractNameWithAbstractType(boolean value) {
-		allowAbstractNameWithAbstractType = value;
-	}
+    /** allow checking 'abstract' modifiers */
+    private boolean mAllowAbstractNameWithAbstractType;
+
+    /**
+     * Enable|Disable checking the class type.
+     * @param aValue allow check abstract modifier.
+     */
+    public void setmAllowAbstractNameWithAbstractType(boolean aValue)
+    {
+        mAllowAbstractNameWithAbstractType = aValue;
+    }
 
     /** Creates new instance of the check. */
     public AbstractClassNameCheck()
@@ -87,22 +91,23 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
      */
     private void visitClassDef(DetailAST aAST)
     {
-    	final String className =
+        final String className =
             aAST.findFirstToken(TokenTypes.IDENT).getText();
-    	
         if (isAbstract(aAST)) {
-            
             if (!isMatchingClassName(className)) {
                 log(aAST.getLineNo(), aAST.getColumnNo(),
                     "illegal.abstract.class.name", className, getFormat());
             }
-		} else { 
-			// if class without abstract modifier
-			if (allowAbstractNameWithAbstractType && isMatchingClassName(className)) {
-				log(aAST.getLineNo(), aAST.getColumnNo(),
-						"no.abstract.class.type", className, getFormat());
-			}
-		}
+        }
+        else {
+            // if class without abstract modifier
+            if (mAllowAbstractNameWithAbstractType
+                    && isMatchingClassName(className))
+            {
+                log(aAST.getLineNo(), aAST.getColumnNo(),
+                        "no.abstract.class.type", className, getFormat());
+            }
+        }
     }
 
     /**

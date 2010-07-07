@@ -9,7 +9,7 @@
     <module name="MethodLength"/> -->
           <!-- your Check goes here -->
     	<module name="com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheck">
-      		<property name="allowAbstractNameWithAbstractType" value="true"/>
+      		<property name="mAllowAbstractNameWithAbstractType" value="true"/>
     	</module>
   	</module>
 </module>

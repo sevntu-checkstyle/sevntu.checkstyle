@@ -26,7 +26,6 @@ public class AbstractClassNameCheckTest extends BaseCheckTestSupport
             "9:1: Name 'FactoryWithBadName' must match pattern '^Abstract.*$|^.*Factory$'.",
             "13:5: Name 'NonAbstractInnerClass' must match pattern '^Abstract.*$|^.*Factory$'.",
         };
-        System.setProperty("testinputs.dir","/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/checks");
         verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
     }
     
@@ -44,7 +43,7 @@ public class AbstractClassNameCheckTest extends BaseCheckTestSupport
 				"33:5: Class 'AbstractInnerClass' must be abstract.",
 				"38:5: Class 'WellNamedFactory' must be abstract.",
 		};
-		checkConfig.addAttribute("allowAbstractNameWithAbstractType", "true");
+		checkConfig.addAttribute("mAllowAbstractNameWithAbstractType", "true");
 		verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
 	}  
 }
