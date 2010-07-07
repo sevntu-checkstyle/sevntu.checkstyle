@@ -11,12 +11,12 @@ abstract class FactoryWithBadName {
 
 abstract class AbstractClassName {
     abstract class NonAbstractInnerClass {
-	}
+    }
 }
 
 abstract class ClassFactory {
     abstract class WellNamedFactory {
-	}
+    }
 }
 
 class NonAbstractClass {
@@ -31,10 +31,10 @@ class Class1Factory {
 
 abstract class AbstractClassName2 {
     class AbstractInnerClass {
-	}
+    }
 }
 
 abstract class Class2Factory {
     class WellNamedFactory {
-	}
+    }
 }

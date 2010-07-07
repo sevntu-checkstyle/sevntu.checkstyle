@@ -1,17 +1,9 @@
 package com.puppycrawl.tools.checkstyle.checks.naming;
 
-import java.io.File;
-import java.util.Properties;
-
-import org.junit.Test;
-
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
-import com.puppycrawl.tools.checkstyle.ConfigurationLoader;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.PropertiesExpander;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
-import com.puppycrawl.tools.checkstyle.api.Configuration;
-
+import java.io.File;
+import org.junit.Test;
 
 public class AbstractClassNameCheckTest extends BaseCheckTestSupport
 {

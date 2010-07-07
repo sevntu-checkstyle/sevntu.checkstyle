@@ -1,0 +1,144 @@
+Index: src/testinputs/com/puppycrawl/tools/checkstyle/naming/InputAbstractClassName.java
+===================================================================
+--- src/testinputs/com/puppycrawl/tools/checkstyle/naming/InputAbstractClassName.java	(revision 2535)
++++ src/testinputs/com/puppycrawl/tools/checkstyle/naming/InputAbstractClassName.java	(working copy)
+@@ -2,7 +2,7 @@
+ 
+ abstract public class InputAbstractClassName {
+ }
+-
++// abstract --> ^Abstract.*$|^.*Factory$
+ abstract class NonAbstractClassName {
+ }
+ 
+@@ -21,3 +21,20 @@
+ 
+ class NonAbstractClass {
+ }
++
++//^Abstract.*$|^.*Factory$ --> abstract
++class AbstractClass {
++}
++
++class Class1Factory {
++}
++
++abstract class AbstractClassName2 {
++    class AbstractInnerClass {
++    }
++}
++
++abstract class Class2Factory {
++    class WellNamedFactory {
++    }
++}
+Index: src/tests/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheckTest.java
+===================================================================
+--- src/tests/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheckTest.java	(revision 2535)
++++ src/tests/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheckTest.java	(working copy)
+@@ -20,4 +20,22 @@
+         };
+         verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
+     }
++    
++    @Test
++    //^Abstract.*$|^.*Factory$ --> abstract
++	public void testIllegalClassType() throws Exception {
++		final DefaultConfiguration checkConfig = createCheckConfig(AbstractClassNameCheck.class);
++		final String[] expected = {
++				"3:1: Name 'InputAbstractClassName' must match pattern '^Abstract.*$|^.*Factory$'.",
++				"6:1: Name 'NonAbstractClassName' must match pattern '^Abstract.*$|^.*Factory$'.",
++				"9:1: Name 'FactoryWithBadName' must match pattern '^Abstract.*$|^.*Factory$'.",
++				"13:5: Name 'NonAbstractInnerClass' must match pattern '^Abstract.*$|^.*Factory$'.",
++				"26:1: Class 'AbstractClass' must be abstract.",
++				"29:1: Class 'Class1Factory' must be abstract.",
++				"33:5: Class 'AbstractInnerClass' must be abstract.",
++				"38:5: Class 'WellNamedFactory' must be abstract.",
++		};
++		checkConfig.addAttribute("mAllowAbstractNameWithAbstractType", "true");
++		verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
++	}  
+ }
+Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/messages.properties
+===================================================================
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/messages.properties	(revision 2535)
++++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/messages.properties	(working copy)
+@@ -1,3 +1,5 @@
+ name.invalidPattern=Name ''{0}'' must match pattern ''{1}''.
+ illegal.abstract.class.name=Name ''{0}'' must match pattern ''{1}''.
+-method.name.equals.class.name=Method Name ''{0}'' must not equal the enclosing class name.
+\ No newline at end of file
++no.abstract.class.type=Class ''{0}'' must be abstract.
++method.name.equals.class.name=Method Name ''{0}'' must not equal the enclosing class name.
++
+Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheck.java
+===================================================================
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheck.java	(revision 2535)
++++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheck.java	(working copy)
+@@ -25,21 +25,36 @@
+ /**
+  * <p>
+  * Ensures that the names of abstract classes conforming to some
+- * regular expression.
++ * regular expression and  by some regular expression check up
++ * the abstract modifiers.
+  * </p>
+  * <p>
+  * Rationale: Abstract classes are convenience base class
+  * implementations of interfaces, not types as such. As such
+- * they should be named to indicate this.
++ * they should be named to indicate this. Also if names of classes
++ * started with 'Abstract' it's very convenient that they will
++ * have abstract modifier.
+  * </p>
+  *
+  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
++ * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
+  */
+ public final class AbstractClassNameCheck extends AbstractFormatCheck
+ {
+-    /** Defualt format for abstract class names */
++    /** Default format for abstract class names */
+     private static final String DEFAULT_FORMAT = "^Abstract.*$|^.*Factory$";
++    /** allow checking 'abstract' modifiers */
++    private boolean mAllowAbstractNameWithAbstractType;
+ 
++    /**
++     * Enable|Disable checking the class type.
++     * @param aValue allow check abstract modifier.
++     */
++    public void setmAllowAbstractNameWithAbstractType(boolean aValue)
++    {
++        mAllowAbstractNameWithAbstractType = aValue;
++    }
++
+     /** Creates new instance of the check. */
+     public AbstractClassNameCheck()
+     {
+@@ -76,15 +91,23 @@
+      */
+     private void visitClassDef(DetailAST aAST)
+     {
++        final String className =
++            aAST.findFirstToken(TokenTypes.IDENT).getText();
+         if (isAbstract(aAST)) {
+-            final String className =
+-                aAST.findFirstToken(TokenTypes.IDENT).getText();
+-
+             if (!isMatchingClassName(className)) {
+                 log(aAST.getLineNo(), aAST.getColumnNo(),
+                     "illegal.abstract.class.name", className, getFormat());
+             }
+         }
++        else {
++            // if class without abstract modifier
++            if (mAllowAbstractNameWithAbstractType
++                    && isMatchingClassName(className))
++            {
++                log(aAST.getLineNo(), aAST.getColumnNo(),
++                        "no.abstract.class.type", className, getFormat());
++            }
++        }
+     }
+ 
+     /**
