@@ -25,15 +25,19 @@ import com.puppycrawl.tools.checkstyle.checks.AbstractFormatCheck;
 /**
  * <p>
  * Ensures that the names of abstract classes conforming to some
- * regular expression.
+ * regular expression and  by some regular expression check up 
+ * the abstract modifiers.
  * </p>
  * <p>
  * Rationale: Abstract classes are convenience base class
  * implementations of interfaces, not types as such. As such
- * they should be named to indicate this.
+ * they should be named to indicate this. Also if names of classes 
+ * started with 'Abstract' it's very convenient that they will 
+ * have abstract modifier.  
  * </p>
  *
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
+ * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  */
 public final class AbstractClassNameCheck extends AbstractFormatCheck
 {
@@ -93,7 +97,7 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
                     "illegal.abstract.class.name", className, getFormat());
             }
 		} else { 
-			// if class without abstract type
+			// if class without abstract modifier
 			if (allowAbstractNameWithAbstractType && isMatchingClassName(className)) {
 				log(aAST.getLineNo(), aAST.getColumnNo(),
 						"no.abstract.class.type", className, getFormat());
