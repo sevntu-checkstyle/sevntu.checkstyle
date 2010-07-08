@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.checks.naming;
+package com.puppycrawl.tools.checkstyle.checks.design;
 
 import java.util.ArrayList;
 
@@ -107,8 +107,10 @@ public class InnerClassCheck extends Check {
 				if (countInternalClass != 0)
 					countInternalClass--;
 			}
-			log(ast.getLineNo(),
-					"Fields and methods should be before inner classes");
+			log(ast.getLineNo(), ast.getColumnNo(),
+                    "arrangement.members.before.inner");
+			//log(ast.getLineNo(),
+			//		"Fields and methods should be before inner classes");
 		}
 	}
 }

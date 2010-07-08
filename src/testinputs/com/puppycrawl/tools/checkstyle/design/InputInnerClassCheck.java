@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.naming;
+package com.puppycrawl.tools.checkstyle.design;
 
 public class InputInnerClassCheck {
 	public int test1 = 100;

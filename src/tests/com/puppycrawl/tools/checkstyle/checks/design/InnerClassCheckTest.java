@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle;
+package com.puppycrawl.tools.checkstyle.checks.design;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ import com.puppycrawl.tools.checkstyle.api.Configuration;
 import com.puppycrawl.tools.checkstyle.api.SeverityLevel;
 import com.puppycrawl.tools.checkstyle.api.SeverityLevelCounter;
 
-public class InnerClassCheckTest2 {
+public class InnerClassCheckTest {
 
 	@Test
 	public void testVisitTokenDetailAST() {
 
-		String className = "/home/dev/workspace/Checkrs/src/exmp/Outer.java";
-		String configName = "/home/dev/workspace/config.xml";
+		String className = "/home/dev/workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/naming/InputInnerClassCheck.java";
+		String configName = "/home/dev/workspace/sevntu.checkstyle/configInnerClassCheck.xml";
 
 		final AuditListener listener = new SeverityLevelCounter(SeverityLevel.ERROR);
 
