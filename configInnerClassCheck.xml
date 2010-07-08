@@ -9,7 +9,7 @@
     <module name="MethodLength"/>
 -->
           <!-- your Check goes here -->
-    <module name="com.puppycrawl.tools.checkstyle.checks.naming.InnerClassCheck">
+    <module name="com.puppycrawl.tools.checkstyle.checks.design.InnerClassCheck">
       <!--<property name="max" value="2"/> -->
     </module>
   </module>
