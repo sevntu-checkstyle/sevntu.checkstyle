@@ -44,15 +44,15 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
     /** Default format for abstract class names */
     private static final String DEFAULT_FORMAT = "^Abstract.*$|^.*Factory$";
     /** allow checking 'abstract' modifiers */
-    private boolean mAllowAbstractNameWithAbstractType;
+    private boolean mAllowAbstractNameWithAbstractModifier;
 
     /**
      * Enable|Disable checking the class type.
      * @param aValue allow check abstract modifier.
      */
-    public void setmAllowAbstractNameWithAbstractType(boolean aValue)
+    public void setAllowAbstractNameWithAbstractModifier(boolean aValue)
     {
-        mAllowAbstractNameWithAbstractType = aValue;
+        mAllowAbstractNameWithAbstractModifier = aValue;
     }
 
     /** Creates new instance of the check. */
@@ -101,11 +101,11 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
         }
         else {
             // if class without abstract modifier
-            if (mAllowAbstractNameWithAbstractType
+            if (mAllowAbstractNameWithAbstractModifier
                     && isMatchingClassName(className))
             {
                 log(aAST.getLineNo(), aAST.getColumnNo(),
-                        "no.abstract.class.type", className, getFormat());
+                        "no.abstract.class.modifier", className, getFormat());
             }
         }
     }

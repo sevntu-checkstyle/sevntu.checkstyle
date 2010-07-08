@@ -30,12 +30,12 @@ public class AbstractClassNameCheckTest extends BaseCheckTestSupport
 				"6:1: Name 'NonAbstractClassName' must match pattern '^Abstract.*$|^.*Factory$'.",
 				"9:1: Name 'FactoryWithBadName' must match pattern '^Abstract.*$|^.*Factory$'.",
 				"13:5: Name 'NonAbstractInnerClass' must match pattern '^Abstract.*$|^.*Factory$'.",
-				"26:1: Class 'AbstractClass' must be abstract.",
-				"29:1: Class 'Class1Factory' must be abstract.",
-				"33:5: Class 'AbstractInnerClass' must be abstract.",
-				"38:5: Class 'WellNamedFactory' must be abstract.",
+				"26:1: Class 'AbstractClass' must have abstract modifier.",
+				"29:1: Class 'Class1Factory' must have abstract modifier.",
+				"33:5: Class 'AbstractInnerClass' must have abstract modifier.",
+				"38:5: Class 'WellNamedFactory' must have abstract modifier.",
 		};
-		checkConfig.addAttribute("mAllowAbstractNameWithAbstractType", "true");
+		checkConfig.addAttribute("allowAbstractNameWithAbstractModifier", "true");
 		verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
 	}  
 }

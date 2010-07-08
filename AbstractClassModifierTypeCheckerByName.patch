@@ -50,12 +50,12 @@ Index: src/tests/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassName
 +				"6:1: Name 'NonAbstractClassName' must match pattern '^Abstract.*$|^.*Factory$'.",
 +				"9:1: Name 'FactoryWithBadName' must match pattern '^Abstract.*$|^.*Factory$'.",
 +				"13:5: Name 'NonAbstractInnerClass' must match pattern '^Abstract.*$|^.*Factory$'.",
-+				"26:1: Class 'AbstractClass' must be abstract.",
-+				"29:1: Class 'Class1Factory' must be abstract.",
-+				"33:5: Class 'AbstractInnerClass' must be abstract.",
-+				"38:5: Class 'WellNamedFactory' must be abstract.",
++				"26:1: Class 'AbstractClass' must have abstract modifier.",
++				"29:1: Class 'Class1Factory' must have abstract modifier.",
++				"33:5: Class 'AbstractInnerClass' must have abstract modifier.",
++				"38:5: Class 'WellNamedFactory' must have abstract modifier.",
 +		};
-+		checkConfig.addAttribute("mAllowAbstractNameWithAbstractType", "true");
++		checkConfig.addAttribute("allowAbstractNameWithAbstractModifier", "true");
 +		verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
 +	}  
  }
@@ -63,14 +63,13 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/messages.pro
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/messages.properties	(revision 2535)
 +++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/messages.properties	(working copy)
-@@ -1,3 +1,5 @@
+@@ -1,3 +1,4 @@
  name.invalidPattern=Name ''{0}'' must match pattern ''{1}''.
  illegal.abstract.class.name=Name ''{0}'' must match pattern ''{1}''.
 -method.name.equals.class.name=Method Name ''{0}'' must not equal the enclosing class name.
 \ No newline at end of file
-+no.abstract.class.type=Class ''{0}'' must be abstract.
++no.abstract.class.modifier=Class ''{0}'' must have abstract modifier.
 +method.name.equals.class.name=Method Name ''{0}'' must not equal the enclosing class name.
-+
 Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheck.java
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClassNameCheck.java	(revision 2535)
@@ -101,15 +100,15 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClas
 +    /** Default format for abstract class names */
      private static final String DEFAULT_FORMAT = "^Abstract.*$|^.*Factory$";
 +    /** allow checking 'abstract' modifiers */
-+    private boolean mAllowAbstractNameWithAbstractType;
++    private boolean mAllowAbstractNameWithAbstractModifier;
  
 +    /**
 +     * Enable|Disable checking the class type.
 +     * @param aValue allow check abstract modifier.
 +     */
-+    public void setmAllowAbstractNameWithAbstractType(boolean aValue)
++    public void setAllowAbstractNameWithAbstractModifier(boolean aValue)
 +    {
-+        mAllowAbstractNameWithAbstractType = aValue;
++        mAllowAbstractNameWithAbstractModifier = aValue;
 +    }
 +
      /** Creates new instance of the check. */
@@ -132,11 +131,11 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/naming/AbstractClas
          }
 +        else {
 +            // if class without abstract modifier
-+            if (mAllowAbstractNameWithAbstractType
++            if (mAllowAbstractNameWithAbstractModifier
 +                    && isMatchingClassName(className))
 +            {
 +                log(aAST.getLineNo(), aAST.getColumnNo(),
-+                        "no.abstract.class.type", className, getFormat());
++                        "no.abstract.class.modifier", className, getFormat());
 +            }
 +        }
      }
