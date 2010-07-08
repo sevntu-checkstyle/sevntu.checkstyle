@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+  <module name="TreeWalker">
+          <!-- your standard Checks that come with Checkstyle -->
+<!--    <module name="UpperEll"/>
+    <module name="MethodLength"/>
+-->
+          <!-- your Check goes here -->
+    <module name="com.puppycrawl.tools.checkstyle.checks.naming.InnerClassCheck">
+      <!--<property name="max" value="2"/> -->
+    </module>
+  </module>
+</module>
