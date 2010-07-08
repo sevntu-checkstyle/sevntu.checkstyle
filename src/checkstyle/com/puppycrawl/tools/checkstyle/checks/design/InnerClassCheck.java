@@ -109,8 +109,6 @@ public class InnerClassCheck extends Check {
 			}
 			log(ast.getLineNo(), ast.getColumnNo(),
                     "arrangement.members.before.inner");
-			//log(ast.getLineNo(),
-			//		"Fields and methods should be before inner classes");
 		}
 	}
 }
