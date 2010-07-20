@@ -86,16 +86,16 @@ public class LineLengthCheck extends Check
 
     /** the regexp when long lines are ignored */
     private Pattern mIgnorePattern;
-    
+
     /** array of strings in source file */
-    private String[] lines;
-    
+    private String[] mLines;
+
     /** allow checking field length */
     private boolean mAllowFieldLengthIgnore;
-    
+
     /** allow checking method length */
     private boolean mAllowMethodLengthIgnore;
-    
+
     /**
      * Enable|Disable checking field length.
      * @param aValue allow check field length.
@@ -104,7 +104,7 @@ public class LineLengthCheck extends Check
     {
         mAllowFieldLengthIgnore = aValue;
     }
-    
+
     /**
      * Enable|Disable checking method length.
      * @param aValue allow check method length.
@@ -125,40 +125,49 @@ public class LineLengthCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-    	//disable checking field and method length
-    	if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
-    	//disable checking field length
-        else if (mAllowFieldLengthIgnore) return new int[]{TokenTypes.VARIABLE_DEF, };
-    	//disable checking method length
-    	else if (mAllowMethodLengthIgnore) return new int[]{TokenTypes.METHOD_DEF, };
-    	//check every string
-    	else return new int[0];
+        //disable checking field and method length
+        if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) {
+            return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
+        }
+        //disable checking field length
+        else if (mAllowFieldLengthIgnore) {
+            return new int[]{TokenTypes.VARIABLE_DEF, };
+        }
+        //disable checking method length
+        else if (mAllowMethodLengthIgnore) {
+            return new int[]{TokenTypes.METHOD_DEF, };
+        }
+        //check every string
+        else {
+            return new int[0];
+        }
     }
-    
+
     @Override
     public void visitToken(DetailAST aAST)
     {
-    	if (aAST.getParent().getType() == TokenTypes.OBJBLOCK)
-    	{
-    		int mNumberOfLine = aAST.getLineNo();
-    		lines[mNumberOfLine - 1] = null;
-    	}
+        if (aAST.getParent().getType() == TokenTypes.OBJBLOCK) {
+            final int mNumberOfLine = aAST.getLineNo();
+            mLines[mNumberOfLine - 1] = null;
+        }
     }
-    
+
     @Override
     public void beginTree(DetailAST aRootAST)
-    {    	
-        lines = getLines();
+    {
+        mLines = getLines();
     }
-    
+
     @Override
     public void finishTree(DetailAST aRootAST)
     {
-    	for (int i = 0; i < lines.length; i++) {
+        for (int i = 0; i < mLines.length; i++) {
 
-    		if (null == lines[i]) continue;
-    		
-            final String line = lines[i];
+            if (null == mLines[i]) {
+                continue;
+            }
+
+            final String line = mLines[i];
             final int realLength = Utils.lengthExpandedTabs(
                 line, line.length(), getTabWidth());
 
@@ -194,5 +203,4 @@ public class LineLengthCheck extends Check
             throw new ConversionException("unable to parse " + aFormat, e);
         }
     }
-
 }

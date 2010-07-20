@@ -1,7 +1,5 @@
 package com.puppycrawl.tools.checkstyle.checks.sizes;
 
-import java.io.File;
-
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
@@ -20,7 +18,6 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
             "18: Line is longer than 80 characters.",
             "145: Line is longer than 80 characters.",
         };
-        //System.setProperty("testinputs.dir", "/home/romani/Practice/workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         verify(checkConfig, getPath("InputSimple.java"), expected);
     }
 	
@@ -35,6 +32,7 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
         final String[] expected = {
             "1: Line is longer than 40 characters.",
             "5: Line is longer than 40 characters.",
+            "6: Line is longer than 40 characters.",
             "18: Line is longer than 40 characters.",
             "101: Line is longer than 40 characters.",
             "125: Line is longer than 40 characters.",
@@ -50,7 +48,6 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
             "200: Line is longer than 40 characters.",
             "207: Line is longer than 40 characters.",
         };
-        //System.setProperty("testinputs.dir", "/home/romani/Practice/workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         checkConfig.addAttribute("allowFieldLengthIgnore", "true");
         checkConfig.addAttribute("allowMethodLengthIgnore", "true");
         verify(checkConfig, getPath("InputSimple.java"), expected);

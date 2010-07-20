@@ -3,7 +3,7 @@
 // Created: Feb-2001
 // Ignore error
 ////////////////////////////////////////////////////////////////////////////////
-package com.puppycrawl.tools.checkstyle;
+@java.lang.annotation.Documented package com.puppycrawl.tools.checkstyle;
 import java.io.*;
 /**
  * Contains simple mistakes:

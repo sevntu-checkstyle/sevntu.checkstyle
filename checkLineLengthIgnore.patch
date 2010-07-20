@@ -1,0 +1,171 @@
+Index: src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java
+===================================================================
+--- src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java	(revision 2535)
++++ src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java	(working copy)
+@@ -6,7 +6,7 @@
+ 
+ public class LineLengthCheckTest extends BaseCheckTestSupport
+ {
+-    @Test
++	@Test
+     public void testSimple()
+         throws Exception
+     {
+@@ -20,4 +20,36 @@
+         };
+         verify(checkConfig, getPath("InputSimple.java"), expected);
+     }
+-}
++	
++    @Test
++    public void testSimpleIgnore()
++        throws Exception
++    {
++        final DefaultConfiguration checkConfig =
++            createCheckConfig(LineLengthCheck.class);
++        checkConfig.addAttribute("max", "40");
++        checkConfig.addAttribute("ignorePattern",  "^.*is OK.*regexp.*$");
++        final String[] expected = {
++            "1: Line is longer than 40 characters.",
++            "5: Line is longer than 40 characters.",
++            "6: Line is longer than 40 characters.",
++            "18: Line is longer than 40 characters.",
++            "101: Line is longer than 40 characters.",
++            "125: Line is longer than 40 characters.",
++            "128: Line is longer than 40 characters.",
++            "132: Line is longer than 40 characters.",
++            "145: Line is longer than 40 characters.",
++            "146: Line is longer than 40 characters.",
++            "148: Line is longer than 40 characters.",
++            "151: Line is longer than 40 characters.",
++            "152: Line is longer than 40 characters.",
++            "192: Line is longer than 40 characters.",
++            "195: Line is longer than 40 characters.",
++            "200: Line is longer than 40 characters.",
++            "207: Line is longer than 40 characters.",
++        };
++        checkConfig.addAttribute("allowFieldLengthIgnore", "true");
++        checkConfig.addAttribute("allowMethodLengthIgnore", "true");
++        verify(checkConfig, getPath("InputSimple.java"), expected);
++    }
++}
+\ No newline at end of file
+Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java
+===================================================================
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java	(revision 2535)
++++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java	(working copy)
+@@ -21,6 +21,7 @@
+ 
+ import com.puppycrawl.tools.checkstyle.api.Check;
+ import com.puppycrawl.tools.checkstyle.api.DetailAST;
++import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+ import com.puppycrawl.tools.checkstyle.api.Utils;
+ import java.util.regex.Pattern;
+ import java.util.regex.PatternSyntaxException;
+@@ -72,7 +73,8 @@
+  * &lt;/module&gt;
+  * </pre>
+  *
+- * @author Lars Kühne
++ * @author Lars KÃ¼hne
++ * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
+  */
+ public class LineLengthCheck extends Check
+ {
+@@ -85,7 +87,34 @@
+     /** the regexp when long lines are ignored */
+     private Pattern mIgnorePattern;
+ 
++    /** array of strings in source file */
++    private String[] mLines;
++
++    /** allow checking field length */
++    private boolean mAllowFieldLengthIgnore;
++
++    /** allow checking method length */
++    private boolean mAllowMethodLengthIgnore;
++
+     /**
++     * Enable|Disable checking field length.
++     * @param aValue allow check field length.
++     */
++    public void setAllowFieldLengthIgnore(boolean aValue)
++    {
++        mAllowFieldLengthIgnore = aValue;
++    }
++
++    /**
++     * Enable|Disable checking method length.
++     * @param aValue allow check method length.
++     */
++    public void setAllowMethodLengthIgnore(boolean aValue)
++    {
++        mAllowMethodLengthIgnore = aValue;
++    }
++
++    /**
+      * Creates a new <code>LineLengthCheck</code> instance.
+      */
+     public LineLengthCheck()
+@@ -96,16 +125,49 @@
+     @Override
+     public int[] getDefaultTokens()
+     {
+-        return new int[0];
++        //disable checking field and method length
++        if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) {
++            return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
++        }
++        //disable checking field length
++        else if (mAllowFieldLengthIgnore) {
++            return new int[]{TokenTypes.VARIABLE_DEF, };
++        }
++        //disable checking method length
++        else if (mAllowMethodLengthIgnore) {
++            return new int[]{TokenTypes.METHOD_DEF, };
++        }
++        //check every string
++        else {
++            return new int[0];
++        }
+     }
+ 
+     @Override
++    public void visitToken(DetailAST aAST)
++    {
++        if (aAST.getParent().getType() == TokenTypes.OBJBLOCK) {
++            final int mNumberOfLine = aAST.getLineNo();
++            mLines[mNumberOfLine - 1] = null;
++        }
++    }
++
++    @Override
+     public void beginTree(DetailAST aRootAST)
+     {
+-        final String[] lines = getLines();
+-        for (int i = 0; i < lines.length; i++) {
++        mLines = getLines();
++    }
+ 
+-            final String line = lines[i];
++    @Override
++    public void finishTree(DetailAST aRootAST)
++    {
++        for (int i = 0; i < mLines.length; i++) {
++
++            if (null == mLines[i]) {
++                continue;
++            }
++
++            final String line = mLines[i];
+             final int realLength = Utils.lengthExpandedTabs(
+                 line, line.length(), getTabWidth());
+ 
+@@ -141,5 +203,4 @@
+             throw new ConversionException("unable to parse " + aFormat, e);
+         }
+     }
+-
+-}
++}
+\ No newline at end of file
