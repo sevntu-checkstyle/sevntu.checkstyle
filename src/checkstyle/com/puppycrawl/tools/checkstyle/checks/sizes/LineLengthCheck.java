@@ -19,15 +19,13 @@
 
 package com.puppycrawl.tools.checkstyle.checks.sizes;
 
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
-import org.apache.commons.beanutils.ConversionException;
-
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.api.Utils;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+import org.apache.commons.beanutils.ConversionException;
 
 /**
  * Checks for long lines.
@@ -76,6 +74,7 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * </pre>
  *
  * @author Lars Kühne
+ * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
 public class LineLengthCheck extends Check
 {
@@ -90,6 +89,30 @@ public class LineLengthCheck extends Check
     
     /** array of strings in source file */
     private String[] lines;
+    
+    /** allow checking field length */
+    private boolean mAllowFieldLengthIgnore;
+    
+    /** allow checking method length */
+    private boolean mAllowMethodLengthIgnore;
+    
+    /**
+     * Enable|Disable checking field length.
+     * @param aValue allow check field length.
+     */
+    public void setAllowFieldLengthIgnore(boolean aValue)
+    {
+        mAllowFieldLengthIgnore = aValue;
+    }
+    
+    /**
+     * Enable|Disable checking method length.
+     * @param aValue allow check method length.
+     */
+    public void setAllowMethodLengthIgnore(boolean aValue)
+    {
+        mAllowMethodLengthIgnore = aValue;
+    }
 
     /**
      * Creates a new <code>LineLengthCheck</code> instance.
@@ -102,7 +125,14 @@ public class LineLengthCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
+    	//disable checking field and method length
+    	if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
+    	//disable checking field length
+        else if (mAllowFieldLengthIgnore) return new int[]{TokenTypes.VARIABLE_DEF, };
+    	//disable checking method length
+    	else if (mAllowMethodLengthIgnore) return new int[]{TokenTypes.METHOD_DEF, };
+    	//check every string
+    	else return new int[0];
     }
     
     @Override
