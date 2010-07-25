@@ -1,6 +1,7 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -18,8 +19,28 @@ public class CustomDeclarationOrderCheck extends Check
     
 	@Override
 	public int[] getDefaultTokens() {
-		// TODO Auto-generated method stub
-		return null;
+		final HashSet<String> classMembers = new HashSet<String>(); //HashSet for unique Tokens
+		for (FormatMatcher currentRule : mCustomOrderDeclaration) {
+			 classMembers.add(currentRule.mClassMember); //add Tokens
+		}
+		int defaultTokens[] = new int [classMembers.size()];
+		int i = 0;
+		for (String token : classMembers) {  //instead of iterator
+			if (token.equals("Field")) {
+				defaultTokens[i] = TokenTypes.VARIABLE_DEF;
+			}
+			else if (token.equals("CTOR")) {
+				defaultTokens[i] = TokenTypes.CTOR_DEF;
+			}
+			else if (token.equals("Method")){
+				defaultTokens[i] = TokenTypes.METHOD_DEF;
+			}
+			else if (token.equals("InnerClass")){
+				defaultTokens[i] = TokenTypes.CLASS_DEF;
+			}
+			i++;
+		}
+		return defaultTokens;
 	}
 	
 	@Override
@@ -37,7 +58,7 @@ public class CustomDeclarationOrderCheck extends Check
 	}
 	
 	/**
-	 * Parsing input line with custom declaration of order into massive
+	 * Parsing input line with custom declaration order into massive
 	 * @param aInputOrderDeclaration The string line with the user custom declaration 
 	 */
 	public void setCustomDeclarationOrder(String aInputOrderDeclaration) {
@@ -50,11 +71,16 @@ public class CustomDeclarationOrderCheck extends Check
      * Set whether or not the match is case sensitive.
      * @param aCaseInsensitive true if the match is case insensitive.
      */
-	public void setIgnoreCase(boolean aCaseInsensitive)
+	public void setIgnoreRegExCase(boolean aCaseInsensitive)
 	{
 		if (aCaseInsensitive) {
-			for (FormatMatcher currentRule : mCustomOrderDeclaration) {
-				currentRule.setCompileFlags(Pattern.CASE_INSENSITIVE);
+			if (mCustomOrderDeclaration.size() != 0) {
+				for (FormatMatcher currentRule : mCustomOrderDeclaration) {
+					currentRule.setCompileFlags(Pattern.CASE_INSENSITIVE);
+				}
+			}
+			else {
+				FormatMatcher.mCompileFlags = Pattern.CASE_INSENSITIVE;
 			}
 		}
 	}
@@ -68,16 +94,21 @@ public class CustomDeclarationOrderCheck extends Check
 	 private static final int mClassMemberPosition = 0;
 	 /** mRegExp position in parsed input massive*/
 	 private static final int mRegExpPosition = 1; 
+	 /** 
+	  * The flags to create the regular expression with. <br>
+	  * Default compile flag is 0 (the default).
+	  */
+	 public static int mCompileFlags = 0;
      /** The regexp to match against */
      private Pattern mRegExp;
      /** The Member of Class*/
-     private String mClassMember;
-     /** The string format of the RegExp */
      private String mFormat;
+     /** The string format of the RegExp */
+     private String mClassMember;
      
      /**
       * Creates a new <code>FormatMatcher</code> instance. 
-      * Parse into Definition and RegEx.
+      * Parse into Member and RegEx.
       * Defaults the compile flag to 0 (the default).
       * @param aInputRule input string with ClassDefinition and RegEx
       * @throws ConversionException unable to parse aDefaultFormat
@@ -85,7 +116,7 @@ public class CustomDeclarationOrderCheck extends Check
      public FormatMatcher(String aInputRule)
          throws ConversionException
      {
-         this(aInputRule, 0);
+         this(aInputRule, mCompileFlags);     
      }
 
      /**
@@ -100,15 +131,15 @@ public class CustomDeclarationOrderCheck extends Check
      {
     	 String inputRule[] = aInputRule.split("[()]");
     	 String aDefaultFormat = null;
-    	 mClassMember = inputRule[mClassMemberPosition];
+    	 mClassMember = inputRule[mClassMemberPosition].trim();
     	 if (inputRule.length < 2)
-    		// if RegExp is null
+    		// if RegExp is empty
     		 aDefaultFormat = "$^"; // the empty RegExp
     	 else aDefaultFormat = inputRule[mRegExpPosition];
          updateRegexp(aDefaultFormat, aCompileFlags);
      }
 
-     /** @return the regexp to match against */
+     /** @return the RegExp to match against */
      public final Pattern getRegexp()
      {
          return mRegExp;

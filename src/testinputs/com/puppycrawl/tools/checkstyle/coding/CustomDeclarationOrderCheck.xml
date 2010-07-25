@@ -7,8 +7,11 @@
     <module name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck">
     	<property name="customDeclarationOrder" 
     	value="Field(.*abstract.*public|.*public.*abstract) ###
+    	CTOR()###
     	Method(.*abstract.*public|.*public.*abstract) ###
-    	CTOR()"/>
+    	InnerClass ()###
+    	InnerClass (^Abstract.*)"/>
+    	<property name="ignoreRegExCase" value = "true"/>
     </module>
   </module>
 </module>
