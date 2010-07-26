@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2010  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.ArrayList;
@@ -16,15 +34,19 @@ public class CustomDeclarationOrderCheck extends Check
 {
     /** List of order declaration customizing by user */
     private final ArrayList<FormatMatcher> mCustomOrderDeclaration = new ArrayList<FormatMatcher>();
-    
+
 	@Override
-	public int[] getDefaultTokens() {
+	public int[] getDefaultTokens()
+	{
 		final HashSet<String> classMembers = new HashSet<String>(); //HashSet for unique Tokens
+
 		for (FormatMatcher currentRule : mCustomOrderDeclaration) {
 			 classMembers.add(currentRule.mClassMember); //add Tokens
 		}
+
 		int defaultTokens[] = new int [classMembers.size()];
 		int i = 0;
+
 		for (String token : classMembers) {  //instead of iterator
 			if (token.equals("Field")) {
 				defaultTokens[i] = TokenTypes.VARIABLE_DEF;
@@ -42,21 +64,54 @@ public class CustomDeclarationOrderCheck extends Check
 		}
 		return defaultTokens;
 	}
-	
-	@Override
-	public void visitToken(DetailAST aAST) {
-		// TODO Auto-generated method stub
 
+	@Override
+	public void visitToken(DetailAST aAST)
+	{
+		//final int parentType = aAST.getParent().getType();
+		aAST = aAST.findFirstToken(TokenTypes.MODIFIERS);
+		String str = getUniteModifiersList(aAST);
+		switch (aAST.getType()){
+		case TokenTypes.CLASS_DEF:
+
+		}
 	}
-	
+
 	@Override
 	public void leaveToken(DetailAST aAST)
 	{
-        if(aAST.getType() == TokenTypes.OBJBLOCK) {
+        if (aAST.getType() == TokenTypes.OBJBLOCK) {
            // mScopeStates.pop();
         }
 	}
+
+	private String getUniteModifiersList(DetailAST aAST)
+	{
+		String modifiers = "";
+		for (int i = 0; i < aAST.getChildCount(); i++) {
+				//aAST = aAST.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
+				if (aAST.findFirstToken(TokenTypes.ANNOTATION) != null)
+					aAST = aAST.findFirstToken(TokenTypes.ANNOTATION);
+				modifiers += concatLogic(aAST.getFirstChild());
+				aAST = aAST.getNextSibling();
+		}
+		return modifiers;
+	}
 	
+	private String concatLogic(DetailAST aAST){
+		String modifiers = "";
+		while (aAST != null) {
+			if (aAST.getType() == TokenTypes.ANNOTATION
+					|| aAST.getType() == TokenTypes.EXPR) {
+				modifiers += concatLogic(aAST.getFirstChild());
+				aAST = aAST.getNextSibling();
+			}
+			modifiers += aAST.getText();
+			aAST = aAST.getNextSibling();		
+		}
+		return modifiers;
+	}
+
 	/**
 	 * Parsing input line with custom declaration order into massive
 	 * @param aInputOrderDeclaration The string line with the user custom declaration 
@@ -66,7 +121,7 @@ public class CustomDeclarationOrderCheck extends Check
 			mCustomOrderDeclaration.add(new FormatMatcher(currentState));
 		}
 	}
-		
+
     /**
      * Set whether or not the match is case sensitive.
      * @param aCaseInsensitive true if the match is case insensitive.
@@ -80,7 +135,7 @@ public class CustomDeclarationOrderCheck extends Check
 				}
 			}
 			else {
-				FormatMatcher.mCompileFlags = Pattern.CASE_INSENSITIVE;
+				FormatMatcher.setFlags(Pattern.CASE_INSENSITIVE);
 			}
 		}
 	}
@@ -98,7 +153,7 @@ public class CustomDeclarationOrderCheck extends Check
 	  * The flags to create the regular expression with. <br>
 	  * Default compile flag is 0 (the default).
 	  */
-	 public static int mCompileFlags = 0;
+	 private static int mCompileFlags = 0;
      /** The regexp to match against */
      private Pattern mRegExp;
      /** The Member of Class*/
@@ -126,25 +181,36 @@ public class CustomDeclarationOrderCheck extends Check
       * See {@link Pattern#compile(java.lang.String, int)}
       * @throws ConversionException unable to parse aDefaultFormat
       */
-     public FormatMatcher(final String aInputRule, final int aCompileFlags)
-         throws ConversionException, ArrayIndexOutOfBoundsException
-     {
-    	 String inputRule[] = aInputRule.split("[()]");
-    	 String aDefaultFormat = null;
-    	 mClassMember = inputRule[mClassMemberPosition].trim();
-    	 if (inputRule.length < 2)
-    		// if RegExp is empty
-    		 aDefaultFormat = "$^"; // the empty RegExp
-    	 else aDefaultFormat = inputRule[mRegExpPosition];
-         updateRegexp(aDefaultFormat, aCompileFlags);
-     }
+		public FormatMatcher(final String aInputRule, final int aCompileFlags)
+				throws ConversionException, ArrayIndexOutOfBoundsException
+		{
+			String inputRule[] = aInputRule.split("[()]");
+			String aDefaultFormat = null;
+			mClassMember = inputRule[mClassMemberPosition].trim();
+
+			if (inputRule.length < 2)
+				// if RegExp is empty
+				aDefaultFormat = "$^"; // the empty RegExp
+			else
+				aDefaultFormat = inputRule[mRegExpPosition];
+
+			updateRegexp(aDefaultFormat, aCompileFlags);
+		}
+
+ 	/**
+ 	 * Saving compile flags for further usage 
+ 	 * @param aCompileFlags the aCompileFlags to set
+ 	 */
+ 	public static final void setFlags(int aCompileFlags) {
+ 		mCompileFlags = aCompileFlags;
+ 	}
 
      /** @return the RegExp to match against */
      public final Pattern getRegexp()
      {
          return mRegExp;
      }
-     
+
      /**
       * Set the compile flags for the regular expression.
       * @param aCompileFlags the compile flags to use.
