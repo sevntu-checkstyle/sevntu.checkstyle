@@ -33,7 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
 public class CustomDeclarationOrderCheck extends Check
 {
     /** List of order declaration customizing by user */
-    private final ArrayList<FormatMatcher> mCustomOrderDeclaration = new ArrayList<FormatMatcher>();
+	private final ArrayList<FormatMatcher> mCustomOrderDeclaration = new ArrayList<FormatMatcher>();
 
 	@Override
 	public int[] getDefaultTokens()
@@ -71,7 +71,7 @@ public class CustomDeclarationOrderCheck extends Check
 		//final int parentType = aAST.getParent().getType();
 		aAST = aAST.findFirstToken(TokenTypes.MODIFIERS);
 		String str = getUniteModifiersList(aAST);
-		switch (aAST.getType()){
+		switch (aAST.getType()) {
 		case TokenTypes.CLASS_DEF:
 
 		}
@@ -85,38 +85,52 @@ public class CustomDeclarationOrderCheck extends Check
         }
 	}
 
+	/**
+	 * Use for concatenation modifiers and annotations in single line. <br>
+	 * Contains TokenTypes parameters for entry in child.
+	 * @param aAST current aAST state.
+	 * @return the unit modifiers and annotation list.
+	 */
 	private String getUniteModifiersList(DetailAST aAST)
 	{
 		String modifiers = "";
-		for (int i = 0; i < aAST.getChildCount(); i++) {
-				//aAST = aAST.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
-				if (aAST.findFirstToken(TokenTypes.ANNOTATION) != null)
-					aAST = aAST.findFirstToken(TokenTypes.ANNOTATION);
-				modifiers += concatLogic(aAST.getFirstChild());
-				aAST = aAST.getNextSibling();
-		}
-		return modifiers;
-	}
-	
-	private String concatLogic(DetailAST aAST){
-		String modifiers = "";
-		while (aAST != null) {
-			if (aAST.getType() == TokenTypes.ANNOTATION
-					|| aAST.getType() == TokenTypes.EXPR) {
-				modifiers += concatLogic(aAST.getFirstChild());
-				aAST = aAST.getNextSibling();
-			}
-			modifiers += aAST.getText();
-			aAST = aAST.getNextSibling();		
+		if (aAST.getType() == TokenTypes.MODIFIERS
+				&& aAST.getParent().getType() != TokenTypes.SLIST  // delete when 
+				&& aAST.getFirstChild() != null) {	     //visitToken will be done
+			aAST = aAST.getFirstChild();
+			modifiers += concatLogic(aAST);
 		}
 		return modifiers;
 	}
 
 	/**
-	 * Parsing input line with custom declaration order into massive
-	 * @param aInputOrderDeclaration The string line with the user custom declaration 
+	 * Use for recursive tree traversal from first child of current tree top.
+	 * @param aAST current aAST state, first child of current tree top.
+	 * @return the unit modifiers and annotation list.
 	 */
-	public void setCustomDeclarationOrder(String aInputOrderDeclaration) {
+	private String concatLogic(DetailAST aAST)
+	{
+		String modifiers = "";
+
+		while (aAST != null) {
+			if (aAST.getType() == TokenTypes.ANNOTATION
+					|| aAST.getType() == TokenTypes.EXPR) {
+				modifiers += concatLogic(aAST.getFirstChild());
+				aAST = aAST.getNextSibling();
+			} else {
+				modifiers += aAST.getText();
+				aAST = aAST.getNextSibling();
+			}
+		}
+		return modifiers;
+	}
+
+	/**
+	 * Parsing input line with custom declaration order into massive.
+	 * @param aInputOrderDeclaration The string line with the user custom declaration.
+	 */
+	public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
+	{
 		for (String currentState : aInputOrderDeclaration.split("\\s*###\\s*")) {
 			mCustomOrderDeclaration.add(new FormatMatcher(currentState));
 		}
@@ -126,10 +140,10 @@ public class CustomDeclarationOrderCheck extends Check
      * Set whether or not the match is case sensitive.
      * @param aCaseInsensitive true if the match is case insensitive.
      */
-	public void setIgnoreRegExCase(boolean aCaseInsensitive)
+	public void setIgnoreRegExCase(final boolean aCaseInsensitive)
 	{
 		if (aCaseInsensitive) {
-			if (mCustomOrderDeclaration.size() != 0) {
+			if (!mCustomOrderDeclaration.isEmpty()) {
 				for (FormatMatcher currentRule : mCustomOrderDeclaration) {
 					currentRule.setCompileFlags(Pattern.CASE_INSENSITIVE);
 				}
@@ -139,16 +153,13 @@ public class CustomDeclarationOrderCheck extends Check
 			}
 		}
 	}
-    
+
+
     /**
-     * private class for members of class and their patterns
+     * private class for members of class and their patterns.
      */
 	private static class FormatMatcher
     {
-	 /** mClassMember position in parsed input massive*/
-	 private static final int mClassMemberPosition = 0;
-	 /** mRegExp position in parsed input massive*/
-	 private static final int mRegExpPosition = 1; 
 	 /** 
 	  * The flags to create the regular expression with. <br>
 	  * Default compile flag is 0 (the default).
@@ -157,18 +168,18 @@ public class CustomDeclarationOrderCheck extends Check
      /** The regexp to match against */
      private Pattern mRegExp;
      /** The Member of Class*/
-     private String mFormat;
-     /** The string format of the RegExp */
      private String mClassMember;
-     
+     /** The string format of the RegExp */
+     private String mFormat;
+
      /**
       * Creates a new <code>FormatMatcher</code> instance. 
       * Parse into Member and RegEx.
       * Defaults the compile flag to 0 (the default).
-      * @param aInputRule input string with ClassDefinition and RegEx
-      * @throws ConversionException unable to parse aDefaultFormat
+      * @param aInputRule input string with ClassDefinition and RegEx.
+      * @throws ConversionException unable to parse aDefaultFormat.
       */
-     public FormatMatcher(String aInputRule)
+     public FormatMatcher(final String aInputRule)
          throws ConversionException
      {
          this(aInputRule, mCompileFlags);     
@@ -176,32 +187,32 @@ public class CustomDeclarationOrderCheck extends Check
 
      /**
       * Creates a new <code>FormatMatcher</code> instance.
-      * @param aInputRule input string with ClassDefinition and RegEx
+      * @param aInputRule input string with ClassDefinition and RegEx.
       * @param aCompileFlags the Pattern flags to compile the regexp with.
       * See {@link Pattern#compile(java.lang.String, int)}
-      * @throws ConversionException unable to parse aDefaultFormat
+      * @throws ConversionException unable to parse aDefaultFormat.
       */
 		public FormatMatcher(final String aInputRule, final int aCompileFlags)
-				throws ConversionException, ArrayIndexOutOfBoundsException
-		{
-			String inputRule[] = aInputRule.split("[()]");
-			String aDefaultFormat = null;
-			mClassMember = inputRule[mClassMemberPosition].trim();
-
-			if (inputRule.length < 2)
-				// if RegExp is empty
-				aDefaultFormat = "$^"; // the empty RegExp
-			else
-				aDefaultFormat = inputRule[mRegExpPosition];
-
-			updateRegexp(aDefaultFormat, aCompileFlags);
+				throws ConversionException
+			{
+			try {
+				mClassMember = aInputRule.substring(0, aInputRule.indexOf('(')).trim();
+				String regExp = aInputRule.substring(aInputRule.indexOf('(') + 1, aInputRule.indexOf(')'));
+				if (regExp.isEmpty()) {
+					regExp = "$^"; 	// the empty regExp
+				}
+				updateRegexp(regExp, aCompileFlags);
+			} catch (StringIndexOutOfBoundsException exp) {
+				throw new StringIndexOutOfBoundsException("unable to parse input rule: "
+						+ aInputRule + " " + exp);
+			}
 		}
 
  	/**
- 	 * Saving compile flags for further usage 
- 	 * @param aCompileFlags the aCompileFlags to set
+ 	 * Saving compile flags for further usage.
+ 	 * @param aCompileFlags the aCompileFlags to set.
  	 */
- 	public static final void setFlags(int aCompileFlags) {
+ 	public static final void setFlags(final int aCompileFlags) {
  		mCompileFlags = aCompileFlags;
  	}
 
@@ -215,18 +226,18 @@ public class CustomDeclarationOrderCheck extends Check
       * Set the compile flags for the regular expression.
       * @param aCompileFlags the compile flags to use.
       */
-     public final void setCompileFlags(int aCompileFlags)
+     public final void setCompileFlags(final int aCompileFlags)
      {
          updateRegexp(mFormat, aCompileFlags);
      }
 
      /**
-      * Updates the regular expression using the supplied format and compiler
+      * Updates the regular expression using the supplied format and compiler.
       * flags. Will also update the member variables.
       * @param aFormat the format of the regular expression.
       * @param aCompileFlags the compiler flags to use.
       */
-     private void updateRegexp(String aFormat, int aCompileFlags)
+     private void updateRegexp(final String aFormat, final int aCompileFlags)
      {
          try {
              mRegExp = Utils.getPattern(aFormat, aCompileFlags);
