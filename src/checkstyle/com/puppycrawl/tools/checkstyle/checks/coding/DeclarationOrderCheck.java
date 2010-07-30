@@ -124,7 +124,9 @@ public class DeclarationOrderCheck extends Check
 
         case TokenTypes.METHOD_DEF:
             state = mScopeStates.peek();
-            if (parentType != TokenTypes.OBJBLOCK) {
+            if (aAST.getParent().getParent().getType()
+                    != TokenTypes.CLASS_DEF
+                    && parentType != TokenTypes.OBJBLOCK) {
                 return;
             }
 
