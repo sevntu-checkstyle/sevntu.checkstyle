@@ -39,19 +39,52 @@ public class CustomDeclarationOrderCheck extends Check
         new ArrayList<FormatMatcher>();
 
     /**
-     * 
+     * List of Declaration States. This is necessary due to
+     * inner classes that have their own state.
      */
     private final FastStack<ClassStates> mClassStates =
         new FastStack<ClassStates>();
-    
-    private static class ClassStates{
+
+    /** private class to encapsulate the state */
+    private static class ClassStates {
         private int mClassStates = 0;
     }
 
-    /**
-     * 
-     */
+    /** is current class as root */
     private boolean mClassRoot = true;
+
+    /**
+     * Parsing input line with custom declaration order into massive.
+     * 
+     * @param aInputOrderDeclaration The string line with the user custom
+     *            declaration.
+     */
+    public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
+    {
+        for (String currentState
+                : aInputOrderDeclaration.split("\\s*###\\s*")) {
+            mCustomOrderDeclaration.add(new FormatMatcher(currentState));
+        }
+    }
+
+    /**
+     * Set whether or not the match is case sensitive.
+     * 
+     * @param aCaseInsensitive true if the match is case insensitive.
+     */
+    public void setIgnoreRegExCase(final boolean aCaseInsensitive)
+    {
+        if (aCaseInsensitive) {
+            if (!mCustomOrderDeclaration.isEmpty()) {
+                for (FormatMatcher currentRule : mCustomOrderDeclaration) {
+                    currentRule.setCompileFlags(Pattern.CASE_INSENSITIVE);
+                }
+            }
+            else {
+                FormatMatcher.setFlags(Pattern.CASE_INSENSITIVE);
+            }
+        }
+    }
 
     @Override
     public int[] getDefaultTokens()
@@ -107,6 +140,10 @@ public class CustomDeclarationOrderCheck extends Check
         }
     }
 
+    /**
+     * Check class declaration order with custom declaration order.
+     * @param aAST current DetailAST state.
+     */
     private final void checkOrderLogic(DetailAST aAST)
     {
         ClassStates state = mClassStates.peek();
@@ -121,6 +158,33 @@ public class CustomDeclarationOrderCheck extends Check
         }
     }
 
+    /**
+     * Search in existing custom declaration order current aAST state. It's
+     * necessary for getting order of declarations.
+     * 
+     * @param aAST current DetailAST state.
+     * @return position in the list of the sequence declaration if
+     *         correspondence has been found. Else -1.
+     */
+    private int getPosition(DetailAST aAST)
+    {
+        final String modifiers = getUniteModifiersList(aAST);
+        for (int i = 0; i < mCustomOrderDeclaration.size(); i++) {
+            final FormatMatcher currentRule = mCustomOrderDeclaration.get(i);
+            if (currentRule.getClassMember().equals(aAST.getText())) {
+                /* find correspondence between list of modifiers and RegExp */
+                if (currentRule.getRegexp().matcher(modifiers).find()) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Writes log according to met type of token.
+     * @param aAST state for log.
+     */
     private final void writeLog(DetailAST aAST)
     {
         switch (aAST.getType()) {
@@ -136,31 +200,10 @@ public class CustomDeclarationOrderCheck extends Check
         case TokenTypes.CLASS_DEF:
             log(aAST, "declaration.order.class");
             break;
+        default:
         }
     }
 
-    /**
-     * Search in existing custom declaration order current aAST state. It's
-     * necessary for getting order of declarations.
-     * 
-     * @param aAST current aAST state.
-     * @return position in the list of the sequence declaration if
-     *         correspondence has been found. Else -1.
-     */
-    private int getPosition(DetailAST aAST)
-    {
-        final String modifiers = getUniteModifiersList(aAST);
-        for (int i = 0; i < mCustomOrderDeclaration.size(); i++) {
-            FormatMatcher currentRule = mCustomOrderDeclaration.get(i);
-            if (currentRule.mClassMember.equals(aAST.getText())) {
-                /* find correspondence between list of modifiers and RegExp */
-                if (currentRule.getRegexp().matcher(modifiers).find()) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
 
     @Override
     public void leaveToken(DetailAST aAST)
@@ -174,7 +217,8 @@ public class CustomDeclarationOrderCheck extends Check
      * Use for concatenation modifiers and annotations in single line. <br>
      * Contains TokenTypes parameters for entry in child.
      * 
-     * @param aAST current aAST state. return the unit annotations and modifiers
+     * @param aAST current DetailAST state.
+     * @return the unit annotations and modifiers
      *            and list.
      */
     private String getUniteModifiersList(DetailAST aAST)
@@ -192,7 +236,7 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Use for recursive tree traversal from first child of current tree top.
      * 
-     * @param aAST current aAST state, first child of current tree top.
+     * @param aAST current DetailAST state, first child of current tree top.
      * @return the unit modifiers and annotation list.
      */
     private String concatLogic(DetailAST aAST)
@@ -211,39 +255,6 @@ public class CustomDeclarationOrderCheck extends Check
             }
         }
         return modifiers;
-    }
-
-    /**
-     * Parsing input line with custom declaration order into massive.
-     * 
-     * @param aInputOrderDeclaration The string line with the user custom
-     *            declaration.
-     */
-    public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
-    {
-        for (String currentState
-                : aInputOrderDeclaration.split("\\s*###\\s*")) {
-            mCustomOrderDeclaration.add(new FormatMatcher(currentState));
-        }
-    }
-
-    /**
-     * Set whether or not the match is case sensitive.
-     * 
-     * @param aCaseInsensitive true if the match is case insensitive.
-     */
-    public void setIgnoreRegExCase(final boolean aCaseInsensitive)
-    {
-        if (aCaseInsensitive) {
-            if (!mCustomOrderDeclaration.isEmpty()) {
-                for (FormatMatcher currentRule : mCustomOrderDeclaration) {
-                    currentRule.setCompileFlags(Pattern.CASE_INSENSITIVE);
-                }
-            }
-            else {
-                FormatMatcher.setFlags(Pattern.CASE_INSENSITIVE);
-            }
-        }
     }
 
     /**
@@ -286,9 +297,18 @@ public class CustomDeclarationOrderCheck extends Check
         public FormatMatcher(final String aInputRule, final int aCompileFlags)
         {
             try {
-                mClassMember = normalizeMembersNames(aInputRule
+                mClassMember = aInputRule
                         .substring(0, aInputRule.indexOf('(')).trim()
-                        .toLowerCase());
+                        .toLowerCase();
+                final String classMember = normalizeMembersNames(mClassMember);
+                if (mClassMember.equals(classMember)) {
+                    throw new ConversionException("unable to parse "
+                            + mClassMember);
+                }
+                else {
+                    mClassMember = classMember;
+                }
+
                 String regExp = aInputRule.substring(
                         aInputRule.indexOf('(') + 1, aInputRule.indexOf(')'));
                 if (regExp.isEmpty()) {
@@ -311,7 +331,8 @@ public class CustomDeclarationOrderCheck extends Check
          * @return correct name of member or initial string if no matches was
          *         found.
          */
-        private final String normalizeMembersNames(String aInputMemberName)
+        private static final String normalizeMembersNames(
+                String aInputMemberName)
         {
             if (aInputMemberName.equals("field")) {
                 return "VARIABLE_DEF";
@@ -331,7 +352,7 @@ public class CustomDeclarationOrderCheck extends Check
                     }
                 }
             }
-            return aInputMemberName; //add exception?
+            return aInputMemberName;
         }
 
         /**
@@ -348,6 +369,12 @@ public class CustomDeclarationOrderCheck extends Check
         public final Pattern getRegexp()
         {
             return mRegExp;
+        }
+
+        /** @return the Class Member */
+        public final String getClassMember()
+        {
+            return mClassMember;
         }
 
         /**

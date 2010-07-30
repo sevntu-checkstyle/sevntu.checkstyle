@@ -7,15 +7,15 @@
     <module name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck">
     	<property name="customDeclarationOrder" 
     	value="Field(.*abstract.*public|.*public.*abstract) ###
-    	Field(@Rule) ### 
-    	Field(protected) ###
+		Field(@Rule) ### 
+   	Field(protected) ###
+    	InnerClass (public)###
     	Field(private) ###
     	CTOR()###
     	Method(^.*boolean.*$) ###
     	Method(.*abstract.*public|.*public.*abstract) ###
-    	InnerClass ()###
     	InnerClass (^Abstract.*)"/>
-    	<property name="ignoreRegExCase" value = "true"/>
+    	<property name = "ignoreRegExCase" value = "true"/>
     </module>
   </module>
 </module>
