@@ -6,15 +6,16 @@
   <module name="TreeWalker">
     <module name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck">
     	<property name="customDeclarationOrder" 
-    	value="Field(.*abstract.*public|.*public.*abstract) ###
+    	value="Field(.*final.*public|.*public.*final) ###
+		Field(@SuppressWarnings(.*serial.*)) ### 
 		Field(@Rule) ### 
-   	Field(protected) ###
-    	InnerClass (public)###
-    	Field(private) ###
+		Field(protected) ###
+		Field(private) ###
     	CTOR()###
-    	Method(^.*boolean.*$) ###
-    	Method(.*abstract.*public|.*public.*abstract) ###
-    	InnerClass (^Abstract.*)"/>
+    	Method() ###
+    	Method(.*abstract.*public|.*public.*abstract|protected) ###
+    	InnerClass (public.*abstract) ###
+    	InnerClass (private)"/> 
     	<property name = "ignoreRegExCase" value = "true"/>
     </module>
   </module>

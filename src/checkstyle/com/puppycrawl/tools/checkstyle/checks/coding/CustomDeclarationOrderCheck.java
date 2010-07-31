@@ -32,6 +32,31 @@ import com.puppycrawl.tools.checkstyle.api.FastStack;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.api.Utils;
 
+/**
+ * <p>
+ * Checks that the parts of a class declaration appear in the rules order set
+ * by user using regular expressions.<br>
+ * The rule consists of:
+ * <pre>
+ * ClassMember(RegExp)
+ * </pre>
+ * </p>
+ * To set class order use the following notation of the class members
+ * (register is not important):
+ * <p>
+ * <ol>
+ * <li>"Field" to denote the Fields</li>
+ * <li>"CTOR" to denote the Constructors</li>
+ * <li>"Method" to denote the Methods</li>
+ * <li>"InnerClass" to denote the Inner Classes</li>
+ * </ol>
+ * </p>
+ * <p>For Example:</p>
+ * <pre>
+ * <code>Field(.*final.*public|.*public.*final)</code>
+ * </pre>
+ * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
+ */
 public class CustomDeclarationOrderCheck extends Check
 {
     /** List of order declaration customizing by user */
@@ -39,18 +64,22 @@ public class CustomDeclarationOrderCheck extends Check
         new ArrayList<FormatMatcher>();
 
     /**
-     * List of Declaration States. This is necessary due to
-     * inner classes that have their own state.
+     * List of Declaration States. This is necessary due to inner classes that
+     * have their own state.
      */
     private final FastStack<ClassStates> mClassStates =
         new FastStack<ClassStates>();
 
-    /** private class to encapsulate the state */
-    private static class ClassStates {
-        private int mClassStates = 0;
+    /** Initialization declaration order from an initial position */
+    private static final int INITIAL_STATE = 0;
+
+    /** Private class to encapsulate the state */
+    private static class ClassStates
+    {
+        private int mClassStates = INITIAL_STATE;
     }
 
-    /** is current class as root */
+    /** Is current class as root */
     private boolean mClassRoot = true;
 
     /**
@@ -61,8 +90,8 @@ public class CustomDeclarationOrderCheck extends Check
      */
     public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
     {
-        for (String currentState
-                : aInputOrderDeclaration.split("\\s*###\\s*")) {
+        for (String currentState : aInputOrderDeclaration.split("\\s*###\\s*"))
+       {
             mCustomOrderDeclaration.add(new FormatMatcher(currentState));
         }
     }
@@ -142,6 +171,7 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Check class declaration order with custom declaration order.
+     * 
      * @param aAST current DetailAST state.
      */
     private final void checkOrderLogic(DetailAST aAST)
@@ -183,6 +213,7 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Writes log according to met type of token.
+     * 
      * @param aAST state for log.
      */
     private final void writeLog(DetailAST aAST)
@@ -204,7 +235,6 @@ public class CustomDeclarationOrderCheck extends Check
         }
     }
 
-
     @Override
     public void leaveToken(DetailAST aAST)
     {
@@ -218,8 +248,7 @@ public class CustomDeclarationOrderCheck extends Check
      * Contains TokenTypes parameters for entry in child.
      * 
      * @param aAST current DetailAST state.
-     * @return the unit annotations and modifiers
-     *            and list.
+     * @return the unit annotations and modifiers and list.
      */
     private String getUniteModifiersList(DetailAST aAST)
     {
@@ -297,11 +326,12 @@ public class CustomDeclarationOrderCheck extends Check
         public FormatMatcher(final String aInputRule, final int aCompileFlags)
         {
             try {
-                mClassMember = aInputRule
-                        .substring(0, aInputRule.indexOf('(')).trim()
-                        .toLowerCase();
+                /* parse mClassMember */
+                mClassMember = aInputRule.substring(0, aInputRule.indexOf('('))
+                        .trim().toLowerCase();
                 final String classMember = normalizeMembersNames(mClassMember);
                 if (mClassMember.equals(classMember)) {
+                    /* if Class Member has been specified wrong */
                     throw new ConversionException("unable to parse "
                             + mClassMember);
                 }
@@ -309,16 +339,19 @@ public class CustomDeclarationOrderCheck extends Check
                     mClassMember = classMember;
                 }
 
+                /* parse regExp */
                 String regExp = aInputRule.substring(
-                        aInputRule.indexOf('(') + 1, aInputRule.indexOf(')'));
+                        aInputRule.indexOf('(') + 1,
+                        aInputRule.lastIndexOf(')'));
                 if (regExp.isEmpty()) {
                     regExp = "$^"; // the empty regExp
                 }
                 updateRegexp(regExp, aCompileFlags);
             }
             catch (StringIndexOutOfBoundsException exp) {
+                /* if the structure of the input rule isn't correct */
                 throw new StringIndexOutOfBoundsException(
-                        "unable to parse input rule: " 
+                        "unable to parse input rule: "
                         + aInputRule + " " + exp);
             }
         }
@@ -388,8 +421,8 @@ public class CustomDeclarationOrderCheck extends Check
         }
 
         /**
-         * Updates the regular expression using the supplied format and
-         * compiler flags. Will also update the member variables.
+         * Updates the regular expression using the supplied format and compiler
+         * flags. Will also update the member variables.
          * 
          * @param aFormat the format of the regular expression.
          * @param aCompileFlags the compiler flags to use.
