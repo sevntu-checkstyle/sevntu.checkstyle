@@ -37,7 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * Checks that the parts of a class declaration appear in the rules order set
  * by user using regular expressions.<br>
  * The rule consists of:
- * <pre>
+ * <pre> 
  * ClassMember(RegExp)
  * </pre>
  * </p>
@@ -50,10 +50,14 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <li>"Method" to denote the Methods</li>
  * <li>"InnerClass" to denote the Inner Classes</li>
  * </ol>
+ * <p>
+ * RegExp can include modifiers(public, protected, private,
+ * abstract, static and others) and annotations of a class member.
+ * </p>
  * </p>
  * <p>For Example:</p>
  * <pre>
- * <code>Field(.*final.*public|.*public.*final)</code>
+ * <code>Method(.*final.*public|.*public.*final|@Ignore.*public.*)</code>
  * </pre>
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  */
@@ -76,6 +80,7 @@ public class CustomDeclarationOrderCheck extends Check
     /** Private class to encapsulate the state */
     private static class ClassStates
     {
+        /** new state */
         private int mClassStates = INITIAL_STATE;
     }
 
