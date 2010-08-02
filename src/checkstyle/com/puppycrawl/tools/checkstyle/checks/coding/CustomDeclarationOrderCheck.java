@@ -33,15 +33,17 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
 
 /**
  * <p>
- * Checks that the parts of a class declaration appear in the rules order set
- * by user using regular expressions.<br>
+ * Checks that the parts of a class declaration appear in the rules order set by
+ * user using regular expressions.<br>
  * The rule consists of:
- * <pre> 
+ * 
+ * <pre>
  * ClassMember(RegExp)
  * </pre>
+ * 
  * </p>
- * To set class order use the following notation of the class members
- * (register is not important):
+ * To set class order use the following notation of the class members (register
+ * is not important):
  * <p>
  * <ol>
  * <li>"Field" to denote the Fields</li>
@@ -50,22 +52,27 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <li>"InnerClass" to denote the Inner Classes</li>
  * </ol>
  * <p>
- * RegExp can include modifiers(public, protected, private,
- * abstract, static and others) and annotations of a class member.
+ * RegExp can include modifiers(public, protected, private, abstract, static and
+ * others) and annotations of a class member.
  * </p>
  * </p>
- * <p>For Example:</p>
+ * <p>
+ * For Example:
+ * </p>
+ * 
  * <pre>
  * <code>Method(.*final.*public|.*public.*final|@Ignore.*public.*)</code>
  * </pre>
+ * 
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  */
 public class CustomDeclarationOrderCheck extends Check
 {
+
     /** List of order declaration customizing by user */
     private final ArrayList<FormatMatcher> mCustomOrderDeclaration =
         new ArrayList<FormatMatcher>();
- 
+
     /**
      * List of Declaration States. This is necessary due to inner classes that
      * have their own state.
@@ -76,7 +83,11 @@ public class CustomDeclarationOrderCheck extends Check
     /** Initialization declaration order from an initial position */
     private static final int INITIAL_STATE = 0;
 
+    /** save compile flags for further usage */ 
     private int mCompileFlags = 0;
+
+    /** Is current class as root */
+    private boolean mClassRoot = true;
 
     /** Private class to encapsulate the state */
     private static class ClassStates
@@ -84,9 +95,6 @@ public class CustomDeclarationOrderCheck extends Check
         /** new state */
         private int mClassStates = INITIAL_STATE;
     }
-
-    /** Is current class as root */
-    private boolean mClassRoot = true;
 
     /**
      * Parsing input line with custom declaration order into massive.
@@ -96,8 +104,8 @@ public class CustomDeclarationOrderCheck extends Check
      */
     public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
     {
-        for (String currentState : aInputOrderDeclaration.split("\\s*###\\s*"))
-       {
+        for (String currentState
+                : aInputOrderDeclaration.split("\\s*###\\s*")) {
             mCustomOrderDeclaration.add(new FormatMatcher(currentState,
                     mCompileFlags));
         }
@@ -251,7 +259,11 @@ public class CustomDeclarationOrderCheck extends Check
     public void leaveToken(DetailAST aAST)
     {
         if (aAST.getType() == TokenTypes.CLASS_DEF) {
+
             mClassStates.pop();
+            if (mClassStates.isEmpty()) {
+                mClassRoot = true;
+            }
         }
     }
 
@@ -371,7 +383,7 @@ public class CustomDeclarationOrderCheck extends Check
         {
             String member = aInputMemberName;
             if (aInputMemberName.equals("field")) {
-                 member = "VARIABLE_DEF";
+                member = "VARIABLE_DEF";
             }
             else {
                 if (aInputMemberName.equals("method")) {

@@ -14,8 +14,7 @@
     	CTOR()###
     	Method() ###
     	Method(.*abstract.*public|.*public.*abstract|protected) ###
-    	InnerClass (public.*abstract) ###
-    	InnerClass (private)"/> 
+ "/> 
     	<property name = "ignoreRegExCase" value = "true"/>
     </module>
   </module>
