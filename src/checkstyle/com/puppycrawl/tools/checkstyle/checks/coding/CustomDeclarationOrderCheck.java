@@ -20,7 +20,6 @@ package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -66,7 +65,7 @@ public class CustomDeclarationOrderCheck extends Check
     /** List of order declaration customizing by user */
     private final ArrayList<FormatMatcher> mCustomOrderDeclaration =
         new ArrayList<FormatMatcher>();
-
+ 
     /**
      * List of Declaration States. This is necessary due to inner classes that
      * have their own state.
@@ -76,6 +75,8 @@ public class CustomDeclarationOrderCheck extends Check
 
     /** Initialization declaration order from an initial position */
     private static final int INITIAL_STATE = 0;
+
+    private int mCompileFlags = 0;
 
     /** Private class to encapsulate the state */
     private static class ClassStates
@@ -97,7 +98,8 @@ public class CustomDeclarationOrderCheck extends Check
     {
         for (String currentState : aInputOrderDeclaration.split("\\s*###\\s*"))
        {
-            mCustomOrderDeclaration.add(new FormatMatcher(currentState));
+            mCustomOrderDeclaration.add(new FormatMatcher(currentState,
+                    mCompileFlags));
         }
     }
 
@@ -115,7 +117,7 @@ public class CustomDeclarationOrderCheck extends Check
                 }
             }
             else {
-                FormatMatcher.setFlags(Pattern.CASE_INSENSITIVE);
+                mCompileFlags = Pattern.CASE_INSENSITIVE;
             }
         }
     }
@@ -131,22 +133,22 @@ public class CustomDeclarationOrderCheck extends Check
         }
 
         int defaultTokens[] = new int[classMembers.size()];
-        Iterator<String> iteratorClassMember = classMembers.iterator();
 
-        for (int i = 0; i < defaultTokens.length; i++) {
-            final String token = iteratorClassMember.next();
+        int index = 0;
+        for (String token : classMembers) {
             if (token.equals("VARIABLE_DEF")) {
-                defaultTokens[i] = TokenTypes.VARIABLE_DEF;
+                defaultTokens[index] = TokenTypes.VARIABLE_DEF;
             }
             else if (token.equals("METHOD_DEF")) {
-                defaultTokens[i] = TokenTypes.METHOD_DEF;
+                defaultTokens[index] = TokenTypes.METHOD_DEF;
             }
             else if (token.equals("CTOR_DEF")) {
-                defaultTokens[i] = TokenTypes.CTOR_DEF;
+                defaultTokens[index] = TokenTypes.CTOR_DEF;
             }
             else if (token.equals("CLASS_DEF")) {
-                defaultTokens[i] = TokenTypes.CLASS_DEF;
+                defaultTokens[index] = TokenTypes.CLASS_DEF;
             }
+            ++index;
         }
         return defaultTokens;
     }
@@ -167,10 +169,9 @@ public class CustomDeclarationOrderCheck extends Check
         }
         else {
             final int parentType = aAST.getParent().getType();
-            if (parentType != TokenTypes.OBJBLOCK) {
-                return;
+            if (parentType == TokenTypes.OBJBLOCK) {
+                checkOrderLogic(aAST);
             }
-            checkOrderLogic(aAST);
         }
     }
 
@@ -179,7 +180,7 @@ public class CustomDeclarationOrderCheck extends Check
      * 
      * @param aAST current DetailAST state.
      */
-    private final void checkOrderLogic(DetailAST aAST)
+    private final void checkOrderLogic(final DetailAST aAST)
     {
         ClassStates state = mClassStates.peek();
         final int position = getPosition(aAST);
@@ -201,19 +202,22 @@ public class CustomDeclarationOrderCheck extends Check
      * @return position in the list of the sequence declaration if
      *         correspondence has been found. Else -1.
      */
-    private int getPosition(DetailAST aAST)
+    private int getPosition(final DetailAST aAST)
     {
+        int result = -1;
         final String modifiers = getUniteModifiersList(aAST);
-        for (int i = 0; i < mCustomOrderDeclaration.size(); i++) {
-            final FormatMatcher currentRule = mCustomOrderDeclaration.get(i);
+        for (int index = 0; index < mCustomOrderDeclaration.size(); index++) {
+            final FormatMatcher currentRule = mCustomOrderDeclaration
+                    .get(index);
             if (currentRule.getClassMember().equals(aAST.getText())) {
-                /* find correspondence between list of modifiers and RegExp */
+                // find correspondence between list of modifiers and RegExp 
                 if (currentRule.getRegexp().matcher(modifiers).find()) {
-                    return i;
+                    result = index;
+                    break;
                 }
             }
         }
-        return -1;
+        return result;
     }
 
     /**
@@ -221,23 +225,26 @@ public class CustomDeclarationOrderCheck extends Check
      * 
      * @param aAST state for log.
      */
-    private final void writeLog(DetailAST aAST)
+    private final void writeLog(final DetailAST aAST)
     {
+        String token;
         switch (aAST.getType()) {
         case TokenTypes.VARIABLE_DEF:
-            log(aAST, "declaration.order.field");
+            token = "declaration.order.field";
             break;
         case TokenTypes.METHOD_DEF:
-            log(aAST, "declaration.order.method");
+            token = "declaration.order.method";
             break;
         case TokenTypes.CTOR_DEF:
-            log(aAST, "declaration.order.constructor");
+            token = "declaration.order.constructor";
             break;
         case TokenTypes.CLASS_DEF:
-            log(aAST, "declaration.order.class");
+            token = "declaration.order.class";
             break;
         default:
+            token = "Unknown element: " + aAST.getType();
         }
+        log(aAST, token);
     }
 
     @Override
@@ -255,16 +262,17 @@ public class CustomDeclarationOrderCheck extends Check
      * @param aAST current DetailAST state.
      * @return the unit annotations and modifiers and list.
      */
-    private String getUniteModifiersList(DetailAST aAST)
+    private String getUniteModifiersList(final DetailAST aAST)
     {
-        String modifiers = "";
-        aAST = aAST.findFirstToken(TokenTypes.MODIFIERS);
+        DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
 
-        if (aAST != null && aAST.getFirstChild() != null) {
-            aAST = aAST.getFirstChild();
-            modifiers += concatLogic(aAST);
+        StringBuffer modifiers = new StringBuffer();
+        if (ast != null && ast.getFirstChild() != null) {
+            ast = ast.getFirstChild();
+            modifiers.append(concatLogic(ast));
         }
-        return modifiers;
+
+        return modifiers.toString();
     }
 
     /**
@@ -273,22 +281,22 @@ public class CustomDeclarationOrderCheck extends Check
      * @param aAST current DetailAST state, first child of current tree top.
      * @return the unit modifiers and annotation list.
      */
-    private String concatLogic(DetailAST aAST)
+    private String concatLogic(final DetailAST aAST)
     {
-        String modifiers = "";
+        DetailAST ast = aAST;
 
-        while (aAST != null) {
-            if (aAST.getType() == TokenTypes.ANNOTATION
-                    || aAST.getType() == TokenTypes.EXPR) {
-                modifiers += concatLogic(aAST.getFirstChild());
-                aAST = aAST.getNextSibling();
+        StringBuffer modifiers = new StringBuffer();
+        while (ast != null) {
+            if (ast.getType() == TokenTypes.ANNOTATION
+                    || ast.getType() == TokenTypes.EXPR) {
+                modifiers.append(concatLogic(ast.getFirstChild()));
             }
             else {
-                modifiers += aAST.getText();
-                aAST = aAST.getNextSibling();
+                modifiers.append(ast.getText());
             }
+            ast = ast.getNextSibling();
         }
-        return modifiers;
+        return modifiers.toString();
     }
 
     /**
@@ -297,28 +305,16 @@ public class CustomDeclarationOrderCheck extends Check
     private static class FormatMatcher
     {
         /**
-         * The flags to create the regular expression with. <br>
-         * Default compile flag is 0 (the default).
+         * Save compile flag. It can be necessary to further change the logic of
+         * check.
          */
-        private static int mCompileFlags = 0;
+        private int mCompileFlags;
         /** The regexp to match against */
         private Pattern mRegExp;
         /** The Member of Class */
         private String mClassMember;
         /** The string format of the RegExp */
         private String mFormat;
-
-        /**
-         * Creates a new <code>FormatMatcher</code> instance. Parse into Member
-         * and RegEx. Defaults the compile flag to 0 (the default).
-         * 
-         * @param aInputRule input string with MemberDefinition and RegEx.
-         * @throws ConversionException unable to parse aDefaultFormat.
-         */
-        public FormatMatcher(final String aInputRule)
-        {
-            this(aInputRule, mCompileFlags);
-        }
 
         /**
          * Creates a new <code>FormatMatcher</code> instance.
@@ -330,13 +326,14 @@ public class CustomDeclarationOrderCheck extends Check
          */
         public FormatMatcher(final String aInputRule, final int aCompileFlags)
         {
+            mCompileFlags = aCompileFlags;
             try {
-                /* parse mClassMember */
+                // parse mClassMember
                 mClassMember = aInputRule.substring(0, aInputRule.indexOf('('))
                         .trim().toLowerCase();
                 final String classMember = normalizeMembersNames(mClassMember);
                 if (mClassMember.equals(classMember)) {
-                    /* if Class Member has been specified wrong */
+                    // if Class Member has been specified wrong
                     throw new ConversionException("unable to parse "
                             + mClassMember);
                 }
@@ -344,7 +341,7 @@ public class CustomDeclarationOrderCheck extends Check
                     mClassMember = classMember;
                 }
 
-                /* parse regExp */
+                // parse regExp
                 String regExp = aInputRule.substring(
                         aInputRule.indexOf('(') + 1,
                         aInputRule.lastIndexOf(')'));
@@ -354,7 +351,7 @@ public class CustomDeclarationOrderCheck extends Check
                 updateRegexp(regExp, aCompileFlags);
             }
             catch (StringIndexOutOfBoundsException exp) {
-                /* if the structure of the input rule isn't correct */
+                //if the structure of the input rule isn't correct
                 throw new StringIndexOutOfBoundsException(
                         "unable to parse input rule: "
                         + aInputRule + " " + exp);
@@ -372,35 +369,26 @@ public class CustomDeclarationOrderCheck extends Check
         private static final String normalizeMembersNames(
                 String aInputMemberName)
         {
+            String member = aInputMemberName;
             if (aInputMemberName.equals("field")) {
-                return "VARIABLE_DEF";
+                 member = "VARIABLE_DEF";
             }
             else {
                 if (aInputMemberName.equals("method")) {
-                    return "METHOD_DEF";
+                    member = "METHOD_DEF";
                 }
                 else {
                     if (aInputMemberName.equals("ctor")) {
-                        return "CTOR_DEF";
+                        member = "CTOR_DEF";
                     }
                     else {
                         if (aInputMemberName.equals("innerclass")) {
-                            return "CLASS_DEF";
+                            member = "CLASS_DEF";
                         }
                     }
                 }
             }
-            return aInputMemberName;
-        }
-
-        /**
-         * Saving compile flags for further usage.
-         * 
-         * @param aCompileFlags the aCompileFlags to set.
-         */
-        public static final void setFlags(final int aCompileFlags)
-        {
-            mCompileFlags = aCompileFlags;
+            return member;
         }
 
         /** @return the RegExp to match against */

@@ -40,7 +40,7 @@ public class InputCustomDeclarationOrder
     {
         return "test";
     }
-    
+
     InputCustomDeclarationOrder(int test) {
     }
 
@@ -52,7 +52,7 @@ public class InputCustomDeclarationOrder
             InputCustomDeclarationOrder
     {
 
-        private static final long innerT1 = 1L;
+        private static final long INNER_T1 = 1L;
         public final int innerT2 = 0;
         String innerT3;
 
