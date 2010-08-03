@@ -89,6 +89,12 @@ public class CustomDeclarationOrderCheck extends Check
     /** Is current class as root */
     private boolean mClassRoot = true;
 
+    /** allow check inner classes */
+    private boolean mInnerClass;
+
+    /** Use to write errors in parsing rules */
+    private static StringBuffer mParseException = new StringBuffer();
+
     /** Private class to encapsulate the state */
     private static class ClassStates
     {
@@ -137,12 +143,23 @@ public class CustomDeclarationOrderCheck extends Check
         final HashSet<String> classMembers = new HashSet<String>();
 
         for (FormatMatcher currentRule : mCustomOrderDeclaration) {
-            classMembers.add(currentRule.mClassMember); //add Tokens
+            // if class member has wrong name and can't be parsed
+            if (currentRule.getClassMember() == null) {
+                currentRule.mClassMember = "error";
+            }
+            // check InnerClass in rule
+            if (currentRule.getClassMember().equals("CLASS_DEF")) {
+                mInnerClass = true;
+            }
+            else {
+                classMembers.add(currentRule.mClassMember); //add Tokens
+            }
         }
 
-        int defaultTokens[] = new int[classMembers.size()];
+        int defaultTokens[] = new int[classMembers.size() + 1];
+        defaultTokens[0] = TokenTypes.CLASS_DEF;
 
-        int index = 0;
+        int index = 1;
         for (String token : classMembers) {
             if (token.equals("VARIABLE_DEF")) {
                 defaultTokens[index] = TokenTypes.VARIABLE_DEF;
@@ -153,8 +170,8 @@ public class CustomDeclarationOrderCheck extends Check
             else if (token.equals("CTOR_DEF")) {
                 defaultTokens[index] = TokenTypes.CTOR_DEF;
             }
-            else if (token.equals("CLASS_DEF")) {
-                defaultTokens[index] = TokenTypes.CLASS_DEF;
+            else {
+                defaultTokens[index] = defaultTokens[0];
             }
             ++index;
         }
@@ -164,14 +181,17 @@ public class CustomDeclarationOrderCheck extends Check
     @Override
     public void visitToken(DetailAST aAST)
     {
-
+        if (mParseException.length() != 0) {
+            // if we got exception
+            throw new ConversionException(mParseException.toString());
+        }
         if (aAST.getType() == TokenTypes.CLASS_DEF) {
             if (mClassRoot) {
                 mClassStates.push(new ClassStates());
                 mClassRoot = false;
             }
             else {
-                checkOrderLogic(aAST);
+                if (mInnerClass) checkOrderLogic(aAST);
                 mClassStates.push(new ClassStates());
             }
         }
@@ -259,7 +279,6 @@ public class CustomDeclarationOrderCheck extends Check
     public void leaveToken(DetailAST aAST)
     {
         if (aAST.getType() == TokenTypes.CLASS_DEF) {
-
             mClassStates.pop();
             if (mClassStates.isEmpty()) {
                 mClassRoot = true;
@@ -342,12 +361,16 @@ public class CustomDeclarationOrderCheck extends Check
             try {
                 // parse mClassMember
                 mClassMember = aInputRule.substring(0, aInputRule.indexOf('('))
-                        .trim().toLowerCase();
-                final String classMember = normalizeMembersNames(mClassMember);
-                if (mClassMember.equals(classMember)) {
+                        .trim();
+                final String classMember = normalizeMembersNames(mClassMember
+                        .toLowerCase());
+                if (mClassMember.toLowerCase().equals(classMember)) {
                     // if Class Member has been specified wrong
-                    throw new ConversionException("unable to parse "
-                            + mClassMember);
+/*                    throw new ConversionException("unable to parse "
+                            + mClassMember);*/
+                    mParseException.append("Warning! Unable to parse '"
+                            + mClassMember
+                            + "' in CustomDeclarationOrder check\n");
                 }
                 else {
                     mClassMember = classMember;
@@ -364,9 +387,12 @@ public class CustomDeclarationOrderCheck extends Check
             }
             catch (StringIndexOutOfBoundsException exp) {
                 //if the structure of the input rule isn't correct
-                throw new StringIndexOutOfBoundsException(
+/*                throw new StringIndexOutOfBoundsException(
                         "unable to parse input rule: "
-                        + aInputRule + " " + exp);
+                        + aInputRule + " " + exp);//*/
+                mParseException.append("Warning! Unable to parse '"
+                        + aInputRule + "' " + exp
+                        + " in CustomDeclarationOrder check\n");
             }
         }
 
