@@ -11,10 +11,10 @@
 		Field(@Rule) ### 
 		Field(protected) ###
 		Field(private) ###
-    	CTOR()###
+    	Ctor()###
     	Method() ###
     	Method(.*abstract.*public|.*public.*abstract|protected) ###
-    	InnerClasss (public.*abstract) ###
+    	InnerClass (public.*abstract) ###
     	InnerClass (private)"/> 
     	<property name = "ignoreRegExCase" value = "true"/>
     </module>

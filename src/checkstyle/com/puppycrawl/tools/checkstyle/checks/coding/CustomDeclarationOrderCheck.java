@@ -42,8 +42,8 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * </pre>
  * 
  * </p>
- * To set class order use the following notation of the class members (register
- * is not important):
+ * To set class order use the following notation of the class members (case
+ * insensitive):
  * <p>
  * <ol>
  * <li>"Field" to denote the Fields</li>
@@ -91,9 +91,6 @@ public class CustomDeclarationOrderCheck extends Check
 
     /** allow check inner classes */
     private boolean mInnerClass;
-
-    /** Use to write errors in parsing rules */
-    private static StringBuffer mParseException = new StringBuffer();
 
     /** Private class to encapsulate the state */
     private static class ClassStates
@@ -143,11 +140,7 @@ public class CustomDeclarationOrderCheck extends Check
         final HashSet<String> classMembers = new HashSet<String>();
 
         for (FormatMatcher currentRule : mCustomOrderDeclaration) {
-            // if class member has wrong name and can't be parsed
-            if (currentRule.getClassMember() == null) {
-                currentRule.mClassMember = "error";
-            }
-            // check InnerClass in rule
+            // check existing of InnerClass in rule
             if (currentRule.getClassMember().equals("CLASS_DEF")) {
                 mInnerClass = true;
             }
@@ -181,10 +174,7 @@ public class CustomDeclarationOrderCheck extends Check
     @Override
     public void visitToken(DetailAST aAST)
     {
-        if (mParseException.length() != 0) {
-            // if we got exception
-            throw new ConversionException(mParseException.toString());
-        }
+
         if (aAST.getType() == TokenTypes.CLASS_DEF) {
             if (mClassRoot) {
                 mClassStates.push(new ClassStates());
@@ -210,14 +200,14 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private final void checkOrderLogic(final DetailAST aAST)
     {
-        ClassStates state = mClassStates.peek();
-        final int position = getPosition(aAST);
-        if (position >= 0) {
-            if (state.mClassStates > position) {
-                writeLog(aAST);
+        ClassStates previousState = mClassStates.peek();
+        final int currentState = getPosition(aAST);
+        if (currentState >= 0) {
+            if (previousState.mClassStates > currentState) {
+                writeLog(aAST, currentState, previousState.mClassStates);
             }
             else {
-                state.mClassStates = position;
+                previousState.mClassStates = currentState;
             }
         }
     }
@@ -253,26 +243,30 @@ public class CustomDeclarationOrderCheck extends Check
      * 
      * @param aAST state for log.
      */
-    private final void writeLog(final DetailAST aAST)
+    private final void writeLog(final DetailAST aAST,
+            final int aExpectPosition, final int aCurrentPosition)
     {
         String token;
         switch (aAST.getType()) {
         case TokenTypes.VARIABLE_DEF:
-            token = "declaration.order.field";
+            token = "custom.declaration.order.field";
             break;
         case TokenTypes.METHOD_DEF:
-            token = "declaration.order.method";
+            token = "custom.declaration.order.method";
             break;
         case TokenTypes.CTOR_DEF:
-            token = "declaration.order.constructor";
+            token = "custom.declaration.order.constructor";
             break;
         case TokenTypes.CLASS_DEF:
-            token = "declaration.order.class";
+            token = "custom.declaration.order.class";
             break;
         default:
             token = "Unknown element: " + aAST.getType();
         }
-        log(aAST, token);
+        log(aAST,
+            token,
+            mCustomOrderDeclaration.get(aExpectPosition).getRule(),
+            mCustomOrderDeclaration.get(aCurrentPosition).getRule());
     }
 
     @Override
@@ -344,6 +338,8 @@ public class CustomDeclarationOrderCheck extends Check
         private Pattern mRegExp;
         /** The Member of Class */
         private String mClassMember;
+        /** The input full one rule with original names */
+        private String mRule;
         /** The string format of the RegExp */
         private String mFormat;
 
@@ -357,6 +353,7 @@ public class CustomDeclarationOrderCheck extends Check
          */
         public FormatMatcher(final String aInputRule, final int aCompileFlags)
         {
+            mRule = aInputRule;
             mCompileFlags = aCompileFlags;
             try {
                 // parse mClassMember
@@ -366,11 +363,8 @@ public class CustomDeclarationOrderCheck extends Check
                         .toLowerCase());
                 if (mClassMember.toLowerCase().equals(classMember)) {
                     // if Class Member has been specified wrong
-/*                    throw new ConversionException("unable to parse "
-                            + mClassMember);*/
-                    mParseException.append("Warning! Unable to parse '"
-                            + mClassMember
-                            + "' in CustomDeclarationOrder check\n");
+                    throw new ConversionException("unable to parse "
+                            + mClassMember);
                 }
                 else {
                     mClassMember = classMember;
@@ -387,12 +381,9 @@ public class CustomDeclarationOrderCheck extends Check
             }
             catch (StringIndexOutOfBoundsException exp) {
                 //if the structure of the input rule isn't correct
-/*                throw new StringIndexOutOfBoundsException(
+                throw new StringIndexOutOfBoundsException(
                         "unable to parse input rule: "
-                        + aInputRule + " " + exp);//*/
-                mParseException.append("Warning! Unable to parse '"
-                        + aInputRule + "' " + exp
-                        + " in CustomDeclarationOrder check\n");
+                        + aInputRule + " " + exp);
             }
         }
 
@@ -433,6 +424,12 @@ public class CustomDeclarationOrderCheck extends Check
         public final Pattern getRegexp()
         {
             return mRegExp;
+        }
+
+        /** @return the original immutable input rule */
+        public final String getRule()
+        {
+            return mRule;
         }
 
         /** @return the Class Member */
