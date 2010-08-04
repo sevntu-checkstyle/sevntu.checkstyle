@@ -111,9 +111,90 @@ public class CustomDeclarationOrderCheck extends Check
         for (String currentState
                 : aInputOrderDeclaration.split("\\s*###\\s*"))
         {
-            mCustomOrderDeclaration.add(new FormatMatcher(currentState,
-                    mCompileFlags));
+            mCustomOrderDeclaration
+                    .add(parseInputDeclarationRule(currentState));
         }
+    }
+
+    /**
+     * Parse input current declaration rule and create new instance of
+     * FormatMather with matcher
+     *
+     * @param aCurrentState input string with MemberDefinition and RegExp.
+     * @return new FormatMatcher with parsed and compile rule
+     */
+    private FormatMatcher parseInputDeclarationRule(final String aCurrentState)
+    {
+        String classMember;
+        String regExp;
+        try {
+            // parse mClassMember
+            classMember = aCurrentState.substring(0,
+                    aCurrentState.indexOf('(')).trim();
+            final String classMemberNormalized =
+                normalizeMembersNames(classMember.toLowerCase());
+            if (classMember.toLowerCase().equals(classMemberNormalized)) {
+                // if Class Member has been specified wrong
+                throw new ConversionException("unable to parse "
+                        + classMember);
+            }
+            else {
+                classMember = classMemberNormalized;
+            }
+
+            // parse regExp
+            regExp = aCurrentState.substring(
+                    aCurrentState.indexOf('(') + 1,
+                    aCurrentState.lastIndexOf(')'));
+            if (regExp.isEmpty()) {
+                regExp = "$^"; // the empty regExp
+            }
+
+        }
+        catch (StringIndexOutOfBoundsException exp) {
+            //if the structure of the input rule isn't correct
+            throw new StringIndexOutOfBoundsException(
+                    "unable to parse input rule: "
+                    + aCurrentState + " " + exp);
+        }
+
+        final FormatMatcher matcher = new FormatMatcher(aCurrentState,
+                classMember, mCompileFlags);
+        matcher.updateRegexp(regExp, mCompileFlags);
+        return matcher;
+    }
+
+    /**
+     * Finds correspondence between the reduced name of class member of and
+     * its complete naming in system.
+     *
+     * @param aInputMemberName a string name which must be normalize.
+     * @return correct name of member or initial string if no matches was
+     *         found.
+     */
+    private static String normalizeMembersNames(
+            String aInputMemberName)
+    {
+        String member = aInputMemberName;
+        if ("field".equals(aInputMemberName)) {
+            member = "VARIABLE_DEF";
+        }
+        else {
+            if ("method".equals(aInputMemberName)) {
+                member = "METHOD_DEF";
+            }
+            else {
+                if ("ctor".equals(aInputMemberName)) {
+                    member = "CTOR_DEF";
+                }
+                else {
+                    if ("innerclass".equals(aInputMemberName)) {
+                        member = "CLASS_DEF";
+                    }
+                }
+            }
+        }
+        return member;
     }
 
     /**
@@ -353,78 +434,19 @@ public class CustomDeclarationOrderCheck extends Check
         /**
          * Creates a new <code>FormatMatcher</code> instance.
          *
-         * @param aInputRule input string with MemberDefinition and RegEx.
+         * @param aInputRule input string with MemberDefinition and RegExp.
+         * @param aClassMember the member of class
          * @param aCompileFlags the Pattern flags to compile the regexp with.
          *            See {@link Pattern#compile(java.lang.String, int)}
          * @throws ConversionException unable to parse aDefaultFormat.
          */
-        public FormatMatcher(final String aInputRule, final int aCompileFlags)
+        public FormatMatcher(final String aInputRule,
+                final String aClassMember, final int aCompileFlags)
         {
-            mRule = aInputRule;
+            mClassMember = aClassMember;
             mCompileFlags = aCompileFlags;
-            try {
-                // parse mClassMember
-                mClassMember = aInputRule.substring(0, aInputRule.indexOf('('))
-                        .trim();
-                final String classMember = normalizeMembersNames(mClassMember
-                        .toLowerCase());
-                if (mClassMember.toLowerCase().equals(classMember)) {
-                    // if Class Member has been specified wrong
-                    throw new ConversionException("unable to parse "
-                            + mClassMember);
-                }
-                else {
-                    mClassMember = classMember;
-                }
+            mRule = aInputRule;
 
-                // parse regExp
-                String regExp = aInputRule.substring(
-                        aInputRule.indexOf('(') + 1,
-                        aInputRule.lastIndexOf(')'));
-                if (regExp.isEmpty()) {
-                    regExp = "$^"; // the empty regExp
-                }
-                updateRegexp(regExp, aCompileFlags);
-            }
-            catch (StringIndexOutOfBoundsException exp) {
-                //if the structure of the input rule isn't correct
-                throw new StringIndexOutOfBoundsException(
-                        "unable to parse input rule: "
-                        + aInputRule + " " + exp);
-            }
-        }
-
-        /**
-         * Finds correspondence between the reduced name of class member of and
-         * its complete naming in system.
-         *
-         * @param aInputMemberName a string name which must be normalize.
-         * @return correct name of member or initial string if no matches was
-         *         found.
-         */
-        private static String normalizeMembersNames(
-                String aInputMemberName)
-        {
-            String member = aInputMemberName;
-            if ("field".equals(aInputMemberName)) {
-                member = "VARIABLE_DEF";
-            }
-            else {
-                if ("method".equals(aInputMemberName)) {
-                    member = "METHOD_DEF";
-                }
-                else {
-                    if ("ctor".equals(aInputMemberName)) {
-                        member = "CTOR_DEF";
-                    }
-                    else {
-                        if ("innerclass".equals(aInputMemberName)) {
-                            member = "CLASS_DEF";
-                        }
-                    }
-                }
-            }
-            return member;
         }
 
         /** @return the RegExp to match against */
