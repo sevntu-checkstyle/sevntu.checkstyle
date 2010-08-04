@@ -8,10 +8,10 @@
     	<property name="customDeclarationOrder" 
     	value="Field(.*final.*public|.*public.*final) ###
 		Field(@SuppressWarnings(.*serial.*)) ### 
-		Field(@Rule) ### 
 		Field(protected) ###
 		Field(private) ###
     	Ctor()###
+    	Method(@Deprecated) ###
     	Method() ###
     	Method(.*abstract.*public|.*public.*abstract|protected) ###
     	InnerClass (public.*abstract) ###

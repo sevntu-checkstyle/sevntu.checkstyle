@@ -2,10 +2,6 @@ package com.puppycrawl.tools.checkstyle.coding;
 
 import java.util.ArrayList;
 
-import org.junit.AfterClass;
-import org.junit.Ignore;
-import org.junit.Rule;
-
 public class InputCustomDeclarationOrder {
 
     public static final int TEST = 0;
@@ -16,7 +12,6 @@ public class InputCustomDeclarationOrder {
             "Task 2", "Task N" };
 
     @SuppressWarnings("test")
-    @Rule
     private AbstractTest test2;
 
     protected double test3;
@@ -75,12 +70,11 @@ public class InputCustomDeclarationOrder {
         }
     }
 
-    @Ignore
+    @Deprecated
     public boolean test1() {
         return true;
     }
 
-    @AfterClass
     public boolean test2() {
         return true;
     }
