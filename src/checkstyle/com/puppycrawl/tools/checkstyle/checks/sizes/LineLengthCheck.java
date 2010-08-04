@@ -24,11 +24,6 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.api.Utils;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import org.apache.commons.beanutils.ConversionException;
@@ -106,54 +101,18 @@ public class LineLengthCheck extends Check
      * Enable|Disable checking field length.
      * @param aValue allow check field length.
      */
-    public void setAllowFieldLengthIgnore(final boolean aValue)
+    public void setAllowFieldLengthIgnore(boolean aValue)
     {
         mAllowFieldLengthIgnore = aValue;
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In setAllowFieldLengthIgnore: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     /**
      * Enable|Disable checking method length.
      * @param aValue allow check method length.
      */
-    public void setAllowMethodLengthIgnore(final boolean aValue)
+    public void setAllowMethodLengthIgnore(boolean aValue)
     {
         mAllowMethodLengthIgnore = aValue;
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In setAllowMethodLengthIgnore: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -167,25 +126,6 @@ public class LineLengthCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In getDefaultTokens: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         //disable checking field and method length
         if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) {
             return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
@@ -207,24 +147,6 @@ public class LineLengthCheck extends Check
     @Override
     public void visitToken(DetailAST aAST)
     {
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In visitToken: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         if (aAST.getParent().getType() == TokenTypes.OBJBLOCK) {
             final int mNumberOfLine = aAST.getLineNo();
             mLines[mNumberOfLine - 1] = null;
@@ -235,48 +157,11 @@ public class LineLengthCheck extends Check
     public void beginTree(DetailAST aRootAST)
     {
         mLines = getLines();
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In beginTree: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void finishTree(DetailAST aRootAST)
     {
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In finishTree: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         for (int i = 0; i < mLines.length; i++) {
 
             if (null == mLines[i]) {
@@ -302,25 +187,6 @@ public class LineLengthCheck extends Check
     public void setMax(int aLength)
     {
         mMax = aLength;
-
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In setMax: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -331,25 +197,6 @@ public class LineLengthCheck extends Check
     public void setIgnorePattern(String aFormat)
         throws ConversionException
     {
-        final PrintWriter file;
-        try {
-            file = new PrintWriter(
-                    new BufferedWriter(new FileWriter(
-                            "/home/romani/Practice/temp", true)));
-            file.print("In setIgnorePattern: "
-                    + mAllowFieldLengthIgnore + " "
-                    + mAllowMethodLengthIgnore + "\n");
-            file.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         try {
             mIgnorePattern = Utils.getPattern(aFormat);
         }
