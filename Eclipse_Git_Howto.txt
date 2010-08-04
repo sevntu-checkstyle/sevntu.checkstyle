@@ -46,6 +46,14 @@ For checking the information:
 $ git config --global github.user
 
 ===============================================================================
+Tasks for Eclipse
+http://dgreen99.github.com/org.eclipse.mylyn.github/site/ -- plugin for Eclipse
+Open panel Task, then New !Query! --> Add new --> GIT --> 
+Server: http://github.com/sevntu-checkstyle/sevntu.checkstyle
+GitHub User Id: sevntu-checkstyle
+GitHub API Token: 6216846d84106bdccddbaceed048740c
+
+===============================================================================
 Create work folder(sevntu.checkstyle) and test it:
 
 $ cd /**/workspace/
@@ -108,3 +116,24 @@ http://help.github.com/troubleshooting-ssh/
 http://help.github.com/remotes/
 http://git-scm.com/
 http://www.kernel.org/pub/software/scm/git/docs/user-manual.html#Updating-a-repository-With-git-fetch
+
+===============================================================================
+Problems with Merge:
+	http://www.kernel.org/pub/software/scm/git/docs/user-manual.html#resolving-a-merge
+	http://www.kernel.org/pub/software/scm/git/docs/git-diff.html
+
+Console:
+Open project, and run in Terminal:
+	$ git diff
+Git will show the  problems (files which cann't be merged) 
+Solve broblem by replace files manually
+	$ git add 'your new file'
+
+GUI:
+Open project, and run in Terminal:
+	$ git gui
+Switch needed branches. If you can't find branch, you may create new Locale Branch and download sources from Remote Branch.
+Then press Merge button, choose  branche to merge and ok.
+Solve the problem.
+Add edited file to GIT.
+If merge will done with crash you will see the report.
