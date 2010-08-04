@@ -15,27 +15,25 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
             createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                "18:5: Field definition in wrong order.",
-                "22:5: Field definition in wrong order.",
-                "24:5: Field definition in wrong order.",
-                "44:5: Constructor definition in wrong order.",
-                "56:9: Field definition in wrong order.",
-                "81:9: Class definition in wrong order.",
-                "93:5: Method definition in wrong order.",
-                "105:5: Field definition in wrong order." };
+                "18:5: Field definition in wrong order. Expected 'Field(@Rule)' then 'Field(private)'.",
+                "22:5: Field definition in wrong order. Expected 'Field(protected)' then 'Field(private)'.",
+                "24:5: Field definition in wrong order. Expected 'Field(@SuppressWarnings(.*serial.*))' then 'Field(private)'.",
+                "43:5: Constructor definition in wrong order. Expected 'Ctor()' then 'Method(.*abstract.*public|.*public.*abstract|protected)'.",
+                "54:9: Field definition in wrong order. Expected 'Field(.*final.*public|.*public.*final)' then 'Field(private)'.",
+                "74:9: Class definition in wrong order. Expected 'InnerClass (public.*abstract)' then 'InnerClass (private)'.",
+                "90:5: Method definition in wrong order. Expected 'Method(.*abstract.*public|.*public.*abstract|protected)' then 'InnerClass (private)'.",
+                "100:5: Field definition in wrong order. Expected 'Field(private)' then 'Ctor()'." };
         System.setProperty("testinputs.dir",
                 "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         checkConfig.addAttribute("customDeclarationOrder",
                                   "Field(.*final.*public|.*public.*final) ###"
                                 + "Field(@SuppressWarnings(.*serial.*)) ###"
                                 + "Field(@Rule) ###"
-                                + "Field(protected) ### "
+                                + "Field(protected) ###"
                                 + "Field(private) ###"
-                                + "CTOR()###"
+                                + "Ctor()###"
                                 + "Method() ###"
                                 + "Method(.*abstract.*public|.*public.*abstract|protected) ###"
-                                + "Method(@AfterClass) ###"
-                                + "Method(@Ignore) ###"
                                 + "InnerClass (public.*abstract) ###"
                                 + "InnerClass (private)");
         checkConfig.addAttribute("ignoreRegExCase", "true");

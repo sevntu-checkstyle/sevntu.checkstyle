@@ -36,34 +36,35 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * Checks that the parts of a class declaration appear in the rules order set by
  * user using regular expressions.<br>
  * The rule consists of:
- * 
+ *
  * <pre>
  * ClassMember(RegExp)
  * </pre>
- * 
+ *
  * </p>
  * To set class order use the following notation of the class members (case
  * insensitive):
  * <p>
  * <ol>
  * <li>"Field" to denote the Fields</li>
- * <li>"CTOR" to denote the Constructors</li>
+ * <li>"Ctor" to denote the Constructors</li>
  * <li>"Method" to denote the Methods</li>
  * <li>"InnerClass" to denote the Inner Classes</li>
  * </ol>
- * <p>
+ * </p>
  * RegExp can include modifiers(public, protected, private, abstract, static and
  * others) and annotations of a class member.
- * </p>
+ * <p>
+ * Use the separator # # # between the declarations
  * </p>
  * <p>
  * For Example:
  * </p>
- * 
+ *
  * <pre>
- * <code>Method(.*final.*public|.*public.*final|@Ignore.*public.*)</code>
+ * <code>Field(public) ### Method(.*public.*final|@Ignore.*public.*)</code>
  * </pre>
- * 
+ *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  */
 public class CustomDeclarationOrderCheck extends Check
@@ -83,8 +84,8 @@ public class CustomDeclarationOrderCheck extends Check
     /** Initialization declaration order from an initial position */
     private static final int INITIAL_STATE = 0;
 
-    /** save compile flags for further usage */ 
-    private int mCompileFlags = 0;
+    /** save compile flags for further usage */
+    private int mCompileFlags;
 
     /** Is current class as root */
     private boolean mClassRoot = true;
@@ -101,14 +102,15 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Parsing input line with custom declaration order into massive.
-     * 
+     *
      * @param aInputOrderDeclaration The string line with the user custom
      *            declaration.
      */
     public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
     {
         for (String currentState
-                : aInputOrderDeclaration.split("\\s*###\\s*")) {
+                : aInputOrderDeclaration.split("\\s*###\\s*"))
+        {
             mCustomOrderDeclaration.add(new FormatMatcher(currentState,
                     mCompileFlags));
         }
@@ -116,7 +118,7 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Set whether or not the match is case sensitive.
-     * 
+     *
      * @param aCaseInsensitive true if the match is case insensitive.
      */
     public void setIgnoreRegExCase(final boolean aCaseInsensitive)
@@ -141,7 +143,7 @@ public class CustomDeclarationOrderCheck extends Check
 
         for (FormatMatcher currentRule : mCustomOrderDeclaration) {
             // check existing of InnerClass in rule
-            if (currentRule.getClassMember().equals("CLASS_DEF")) {
+            if ("CLASS_DEF".equals(currentRule.getClassMember())) {
                 mInnerClass = true;
             }
             else {
@@ -149,18 +151,18 @@ public class CustomDeclarationOrderCheck extends Check
             }
         }
 
-        int defaultTokens[] = new int[classMembers.size() + 1];
+        final int defaultTokens[] = new int[classMembers.size() + 1];
         defaultTokens[0] = TokenTypes.CLASS_DEF;
 
         int index = 1;
         for (String token : classMembers) {
-            if (token.equals("VARIABLE_DEF")) {
+            if ("VARIABLE_DEF".equals(token)) {
                 defaultTokens[index] = TokenTypes.VARIABLE_DEF;
             }
-            else if (token.equals("METHOD_DEF")) {
+            else if ("METHOD_DEF".equals(token)) {
                 defaultTokens[index] = TokenTypes.METHOD_DEF;
             }
-            else if (token.equals("CTOR_DEF")) {
+            else if ("CTOR_DEF".equals(token)) {
                 defaultTokens[index] = TokenTypes.CTOR_DEF;
             }
             else {
@@ -181,7 +183,9 @@ public class CustomDeclarationOrderCheck extends Check
                 mClassRoot = false;
             }
             else {
-                if (mInnerClass) checkOrderLogic(aAST);
+                if (mInnerClass) {
+                    checkOrderLogic(aAST);
+                }
                 mClassStates.push(new ClassStates());
             }
         }
@@ -195,12 +199,12 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Check class declaration order with custom declaration order.
-     * 
+     *
      * @param aAST current DetailAST state.
      */
-    private final void checkOrderLogic(final DetailAST aAST)
+    private void checkOrderLogic(final DetailAST aAST)
     {
-        ClassStates previousState = mClassStates.peek();
+        final ClassStates previousState = mClassStates.peek();
         final int currentState = getPosition(aAST);
         if (currentState >= 0) {
             if (previousState.mClassStates > currentState) {
@@ -215,7 +219,7 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Search in existing custom declaration order current aAST state. It's
      * necessary for getting order of declarations.
-     * 
+     *
      * @param aAST current DetailAST state.
      * @return position in the list of the sequence declaration if
      *         correspondence has been found. Else -1.
@@ -228,7 +232,7 @@ public class CustomDeclarationOrderCheck extends Check
             final FormatMatcher currentRule = mCustomOrderDeclaration
                     .get(index);
             if (currentRule.getClassMember().equals(aAST.getText())) {
-                // find correspondence between list of modifiers and RegExp 
+                // find correspondence between list of modifiers and RegExp
                 if (currentRule.getRegexp().matcher(modifiers).find()) {
                     result = index;
                     break;
@@ -240,10 +244,12 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Writes log according to met type of token.
-     * 
+     *
      * @param aAST state for log.
+     * @param aExpectPosition the expected first position
+     * @param aCurrentPosition the current wrong position
      */
-    private final void writeLog(final DetailAST aAST,
+    private void writeLog(final DetailAST aAST,
             final int aExpectPosition, final int aCurrentPosition)
     {
         String token;
@@ -283,7 +289,7 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Use for concatenation modifiers and annotations in single line. <br>
      * Contains TokenTypes parameters for entry in child.
-     * 
+     *
      * @param aAST current DetailAST state.
      * @return the unit annotations and modifiers and list.
      */
@@ -291,7 +297,7 @@ public class CustomDeclarationOrderCheck extends Check
     {
         DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
 
-        StringBuffer modifiers = new StringBuffer();
+        final StringBuffer modifiers = new StringBuffer();
         if (ast != null && ast.getFirstChild() != null) {
             ast = ast.getFirstChild();
             modifiers.append(concatLogic(ast));
@@ -302,7 +308,7 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Use for recursive tree traversal from first child of current tree top.
-     * 
+     *
      * @param aAST current DetailAST state, first child of current tree top.
      * @return the unit modifiers and annotation list.
      */
@@ -310,10 +316,11 @@ public class CustomDeclarationOrderCheck extends Check
     {
         DetailAST ast = aAST;
 
-        StringBuffer modifiers = new StringBuffer();
+        final StringBuffer modifiers = new StringBuffer();
         while (ast != null) {
             if (ast.getType() == TokenTypes.ANNOTATION
-                    || ast.getType() == TokenTypes.EXPR) {
+                    || ast.getType() == TokenTypes.EXPR)
+            {
                 modifiers.append(concatLogic(ast.getFirstChild()));
             }
             else {
@@ -345,7 +352,7 @@ public class CustomDeclarationOrderCheck extends Check
 
         /**
          * Creates a new <code>FormatMatcher</code> instance.
-         * 
+         *
          * @param aInputRule input string with MemberDefinition and RegEx.
          * @param aCompileFlags the Pattern flags to compile the regexp with.
          *            See {@link Pattern#compile(java.lang.String, int)}
@@ -390,28 +397,28 @@ public class CustomDeclarationOrderCheck extends Check
         /**
          * Finds correspondence between the reduced name of class member of and
          * its complete naming in system.
-         * 
+         *
          * @param aInputMemberName a string name which must be normalize.
          * @return correct name of member or initial string if no matches was
          *         found.
          */
-        private static final String normalizeMembersNames(
+        private static String normalizeMembersNames(
                 String aInputMemberName)
         {
             String member = aInputMemberName;
-            if (aInputMemberName.equals("field")) {
+            if ("field".equals(aInputMemberName)) {
                 member = "VARIABLE_DEF";
             }
             else {
-                if (aInputMemberName.equals("method")) {
+                if ("method".equals(aInputMemberName)) {
                     member = "METHOD_DEF";
                 }
                 else {
-                    if (aInputMemberName.equals("ctor")) {
+                    if ("ctor".equals(aInputMemberName)) {
                         member = "CTOR_DEF";
                     }
                     else {
-                        if (aInputMemberName.equals("innerclass")) {
+                        if ("innerclass".equals(aInputMemberName)) {
                             member = "CLASS_DEF";
                         }
                     }
@@ -440,7 +447,7 @@ public class CustomDeclarationOrderCheck extends Check
 
         /**
          * Set the compile flags for the regular expression.
-         * 
+         *
          * @param aCompileFlags the compile flags to use.
          */
         public final void setCompileFlags(final int aCompileFlags)
@@ -451,7 +458,7 @@ public class CustomDeclarationOrderCheck extends Check
         /**
          * Updates the regular expression using the supplied format and compiler
          * flags. Will also update the member variables.
-         * 
+         *
          * @param aFormat the format of the regular expression.
          * @param aCompileFlags the compiler flags to use.
          */
