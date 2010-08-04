@@ -2,7 +2,7 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 ===================================================================
 --- src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarationOrder.java	(revision 0)
 +++ src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarationOrder.java	(revision 0)
-@@ -0,0 +1,98 @@
+@@ -0,0 +1,99 @@
 +package com.puppycrawl.tools.checkstyle.coding;
 +
 +import java.util.ArrayList;
@@ -101,7 +101,7 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 +    void test() {
 +    }
 +}
-\ No newline at end of file
++
 Index: src/tests/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheckTest.java
 ===================================================================
 --- src/tests/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheckTest.java	(revision 0)
@@ -155,7 +155,7 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheck.java	(revision 0)
 +++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheck.java	(revision 0)
-@@ -0,0 +1,499 @@
+@@ -0,0 +1,500 @@
 +////////////////////////////////////////////////////////////////////////////////
 +// checkstyle: Checks Java source code for adherence to a set of rules.
 +// Copyright (C) 2001-2010  Oliver Burn
@@ -655,7 +655,7 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +    }
 +
 +}
-\ No newline at end of file
++
 Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/messages.properties
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/messages.properties	(revision 2535)
