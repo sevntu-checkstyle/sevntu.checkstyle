@@ -15,7 +15,6 @@ Index: src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTes
          };
          verify(checkConfig, getPath("InputSimple.java"), expected);
      }
--}
 +	
 +    @Test
 +    public void testSimpleIgnore()
@@ -48,8 +47,7 @@ Index: src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTes
 +        checkConfig.addAttribute("allowMethodLengthIgnore", "true");
 +        verify(checkConfig, getPath("InputSimple.java"), expected);
 +    }
-+}
-\ No newline at end of file
+ }
 Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java	(revision 2535)
@@ -166,6 +164,4 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthChe
          }
      }
 -
--}
-+}
-\ No newline at end of file
+ }
