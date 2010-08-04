@@ -36,11 +36,11 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * Checks that the parts of a class declaration appear in the rules order set by
  * user using regular expressions.<br>
  * The rule consists of:
- *
+ * 
  * <pre>
  * ClassMember(RegExp)
  * </pre>
- *
+ * 
  * </p>
  * To set class order use the following notation of the class members (case
  * insensitive):
@@ -60,11 +60,11 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <p>
  * For Example:
  * </p>
- *
- * <pre>
- * <code>Field(public) ### Method(.*public.*final|@Ignore.*public.*)</code>
- * </pre>
- *
+ * <p>
+ * <code>Field(public) ### Ctor() ### Method(.*public.*final|@Ignore.*public.*)
+ * ### InnerClass(abstract.*private)</code>
+ * </p>
+ * 
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  */
 public class CustomDeclarationOrderCheck extends Check
