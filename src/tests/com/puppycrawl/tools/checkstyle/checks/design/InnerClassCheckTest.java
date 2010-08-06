@@ -19,9 +19,12 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
 				"26:17: Fields and methods should be before inner classes.",
 				"39:25: Fields and methods should be before inner classes.",
 				"40:25: Fields and methods should be before inner classes.",
-				"44:9: Fields and methods should be before inner classes."
+				"44:9: Fields and methods should be before inner classes.",
+				"60:25: Fields and methods should be before inner classes.",
+				"61:25: Fields and methods should be before inner classes.",
+				"65:9: Fields and methods should be before inner classes.",
+				"69:9: Fields and methods should be before inner classes.",
 		};
 		verify(checkConfig, getPath("design" + File.separator + "InputInnerClassCheck.java"), expected);
 	}
-
 }

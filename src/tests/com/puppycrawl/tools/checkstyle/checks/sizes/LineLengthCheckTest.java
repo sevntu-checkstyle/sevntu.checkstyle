@@ -20,7 +20,7 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
         };
         verify(checkConfig, getPath("InputSimple.java"), expected);
     }
-	
+
     @Test
     public void testSimpleIgnore()
         throws Exception
