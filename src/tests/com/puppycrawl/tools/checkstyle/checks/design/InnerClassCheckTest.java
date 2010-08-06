@@ -25,6 +25,8 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
 				"65:9: Fields and methods should be before inner classes.",
 				"69:9: Fields and methods should be before inner classes.",
 		};
+		System.setProperty("testinputs.dir",
+        "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
 		verify(checkConfig, getPath("design" + File.separator + "InputInnerClassCheck.java"), expected);
 	}
 }

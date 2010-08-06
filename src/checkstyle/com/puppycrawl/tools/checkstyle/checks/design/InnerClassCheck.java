@@ -66,7 +66,10 @@ public class InnerClassCheck extends Check
             mIsInnerClass.add(false);
             mStackIndex++;
         }
-        else if (aAST.getType() == TokenTypes.RCURLY) {
+        else if (aAST.getType() == TokenTypes.RCURLY
+                && ((aAST.getParent().getType() == TokenTypes.SLIST)
+                || aAST.getParent().getType() == TokenTypes.OBJBLOCK))
+        {
             mIsInnerClass.remove(--mStackIndex);
         }
         else if ((aAST.getType() == TokenTypes.VARIABLE_DEF

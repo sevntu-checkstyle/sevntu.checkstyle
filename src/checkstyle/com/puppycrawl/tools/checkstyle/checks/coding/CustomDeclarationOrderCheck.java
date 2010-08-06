@@ -35,12 +35,12 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <p>
  * Checks that the parts of a class declaration appear in the rules order set by
  * user using regular expressions.<br>
- * The rule consists of:
- * 
+ * The rule consists of: </br>
+ *
  * <pre>
  * ClassMember(RegExp)
  * </pre>
- * 
+ *
  * </p>
  * To set class order use the following notation of the class members (case
  * insensitive):
@@ -64,7 +64,7 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <code>Field(public) ### Ctor() ### Method(.*public.*final|@Ignore.*public.*)
  * ### InnerClass(abstract.*private)</code>
  * </p>
- * 
+ *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  */
 public class CustomDeclarationOrderCheck extends Check
@@ -265,14 +265,15 @@ public class CustomDeclarationOrderCheck extends Check
             }
             else {
                 if (mInnerClass) {
+                    //if we have condition to check Inner Classes order
                     checkOrderLogic(aAST);
                 }
                 mClassStates.push(new ClassStates());
             }
         }
         else {
-            final int parentType = aAST.getParent().getType();
-            if (parentType == TokenTypes.OBJBLOCK) {
+            final int parentParentType = aAST.getParent().getParent().getType();
+            if (parentParentType == TokenTypes.CLASS_DEF) {
                 checkOrderLogic(aAST);
             }
         }
@@ -369,7 +370,7 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Use for concatenation modifiers and annotations in single line. <br>
-     * Contains TokenTypes parameters for entry in child.
+     * Contains TokenTypes parameters for entry in child. </br>
      *
      * @param aAST current DetailAST state.
      * @return the unit annotations and modifiers and list.
