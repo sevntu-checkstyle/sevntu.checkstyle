@@ -52,6 +52,10 @@ public class InnerClassCheck extends Check
     @Override
     public void visitToken(DetailAST aAST)
     {
+        /** Is this a root class */
+        if (null == aAST.getParent()) {
+            mRootClass = true;
+        }
         /** First root class */
         if (mRootClass) {
             mRootClass = false;

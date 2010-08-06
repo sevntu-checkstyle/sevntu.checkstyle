@@ -45,3 +45,26 @@ public class InputInnerClassCheck {
 		System.out.println("test2");
 	}
 }
+
+class Temp2 {
+	class Inner1 {
+		int test4 = 400;
+
+		public void methodTestInner3() {
+			int test9 = 500;
+
+			class InnerInMethod3 {
+				int test10 = 500;
+			}
+
+			int test11 = 600; //error
+			int test12 = 800; //error
+		}
+	}
+
+	void methodTest2() { //error
+		System.out.println("test2");
+	}
+
+	private int i = 0; //error
+}
