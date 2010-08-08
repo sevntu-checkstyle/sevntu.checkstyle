@@ -35,7 +35,7 @@ public class AbstractClassNameCheckTest extends BaseCheckTestSupport
 				"33:5: Class 'AbstractInnerClass' must have abstract modifier.",
 				"38:5: Class 'WellNamedFactory' must have abstract modifier.",
 		};
-		checkConfig.addAttribute("allowAbstractNameWithAbstractModifier", "true");
+		checkConfig.addAttribute("checkModifier", "true");
 		verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);
 	}  
 }

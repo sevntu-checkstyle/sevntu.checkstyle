@@ -33,8 +33,8 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
 
 /**
  * <p>
- * Checks that the parts of a class declaration appear in the rules order set by
- * user using regular expressions.<br>
+ * Checks that the parts of a class(main, nested, member inner) declaration appear
+ * in the rules order set by user using regular expressions.<br>
  * The rule consists of: </br>
  *
  * <pre>
@@ -55,7 +55,7 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * RegExp can include modifiers(public, protected, private, abstract, static and
  * others) and annotations of a class member.
  * <p>
- * Use the separator # # # between the declarations
+ * Use the separator '###' between the declarations
  * </p>
  * <p>
  * For Example:

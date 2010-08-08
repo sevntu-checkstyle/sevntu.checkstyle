@@ -11,7 +11,7 @@
             <property-metadata name="format" datatype="Regex" default-value="^Abstract.*$|^.*Factory$">
                 <description>%AbstractClassName.format</description>
             </property-metadata>
-	    <property-metadata name="allowAbstractNameWithAbstractModifier" datatype="Boolean" default-value="false">
+	    <property-metadata name="checkModifier" datatype="Boolean" default-value="false">
                 <description>%AbstractClassName.allowAbstractNameWithAbstractModifier</description>
             </property-metadata>
             <message-key key="illegal.abstract.class.name"/>

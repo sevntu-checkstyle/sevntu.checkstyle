@@ -48,8 +48,8 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
             "200: Line is longer than 40 characters.",
             "207: Line is longer than 40 characters.",
         };
-        checkConfig.addAttribute("allowFieldLengthIgnore", "true");
-        checkConfig.addAttribute("allowMethodLengthIgnore", "true");
+        checkConfig.addAttribute("ignoreField", "true");
+        checkConfig.addAttribute("ignoreMethod", "true");
         verify(checkConfig, getPath("InputSimple.java"), expected);
     }
 }

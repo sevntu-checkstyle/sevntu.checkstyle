@@ -58,11 +58,11 @@
                 <description>%LineLength.tabWidth</description>
 </property-metadata>
 
-	    <property-metadata name="allowFieldLengthIgnore" datatype="Boolean" default-value="false">
+	    <property-metadata name="ignoreField" datatype="Boolean" default-value="false">
                 <description>%LineLength.allowFieldLengthIgnore</description>
 </property-metadata>
 
-	    <property-metadata name="allowMethodLengthIgnore" datatype="Boolean" default-value="false">
+	    <property-metadata name="ignoreMethod" datatype="Boolean" default-value="false">
                 <description>%LineLength.allowMethodLengthIgnore</description>
 </property-metadata>
 

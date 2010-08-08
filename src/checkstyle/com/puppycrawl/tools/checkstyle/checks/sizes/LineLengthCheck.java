@@ -101,7 +101,7 @@ public class LineLengthCheck extends Check
      * Enable|Disable checking field length.
      * @param aValue allow check field length.
      */
-    public void setAllowFieldLengthIgnore(boolean aValue)
+    public void setIgnoreField(boolean aValue)
     {
         mAllowFieldLengthIgnore = aValue;
     }
@@ -110,7 +110,7 @@ public class LineLengthCheck extends Check
      * Enable|Disable checking method length.
      * @param aValue allow check method length.
      */
-    public void setAllowMethodLengthIgnore(boolean aValue)
+    public void setIgnoreMethod(boolean aValue)
     {
         mAllowMethodLengthIgnore = aValue;
     }

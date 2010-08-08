@@ -50,7 +50,7 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
      * Enable|Disable checking the class type.
      * @param aValue allow check abstract modifier.
      */
-    public void setAllowAbstractNameWithAbstractModifier(boolean aValue)
+    public void setCheckModifier(boolean aValue)
     {
         mAllowAbstractNameWithAbstractModifier = aValue;
     }

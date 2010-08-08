@@ -5,8 +5,8 @@
 <module name="Checker">
   <module name="TreeWalker">
     	<module name="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck">
-      		<property name="allowFieldLengthIgnore" value="true"/>
-      		<property name="allowMethodLengthIgnore" value="true"/>
+      		<property name="ignoreField" value="true"/>
+      		<property name="ignoreMethod" value="true"/>
     	</module>
   	</module>
 </module>
