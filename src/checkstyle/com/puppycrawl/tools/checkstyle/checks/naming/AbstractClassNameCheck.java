@@ -106,9 +106,9 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
     {
         final String className =
             aAST.findFirstToken(TokenTypes.IDENT).getText();
-        if (mCheckName && isAbstract(aAST)) {
+        if (isAbstract(aAST)) {
             // if class has abstract modifier
-            if (!isMatchingClassName(className)) {
+            if (mCheckName && !isMatchingClassName(className)) {
                 log(aAST.getLineNo(), aAST.getColumnNo(),
                     "illegal.abstract.class.name", className, getFormat());
             }
