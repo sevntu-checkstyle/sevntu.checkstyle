@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InputLineLengthCheck {
+    
+    public InputLineLengthCheck() {
+        
+    }
+    
 	Map<StringBuilder, ArrayList<StringBuilder>> mTempVariableForCheck = new HashMap<StringBuilder, ArrayList<StringBuilder>>();
 	
 	public static <K, V> HashMap<K, V> newInstance(int mParametr1, int mParametr2, int mParametr3) throws IndexOutOfBoundsException, InstantiationException, IllegalMonitorStateException {

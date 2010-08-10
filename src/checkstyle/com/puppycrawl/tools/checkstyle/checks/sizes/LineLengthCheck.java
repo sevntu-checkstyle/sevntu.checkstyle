@@ -128,7 +128,8 @@ public class LineLengthCheck extends Check
     {
         //disable checking field and method length
         if (mIgnoreField && mIgnoreMethod) {
-            return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
+            return new int[]{TokenTypes.VARIABLE_DEF,
+                    TokenTypes.METHOD_DEF, TokenTypes.CTOR_DEF, };
         }
         //disable checking field length
         else if (mIgnoreField) {
@@ -136,7 +137,7 @@ public class LineLengthCheck extends Check
         }
         //disable checking method length
         else if (mIgnoreMethod) {
-            return new int[]{TokenTypes.METHOD_DEF, };
+            return new int[]{TokenTypes.METHOD_DEF, TokenTypes.CTOR_DEF, };
         }
         //check every string
         else {
