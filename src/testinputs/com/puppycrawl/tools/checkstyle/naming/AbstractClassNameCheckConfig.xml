@@ -5,7 +5,8 @@
 <module name="Checker">
   <module name="TreeWalker">
     	<module name="com.puppycrawl.tools.checkstyle.checks.naming.AbstractClassNameCheck">
-      		<property name="checkModifier" value="true"/>
+      		<property name="checkName" value="true"/>
+				<property name="checkModifier" value="true"/>
     	</module>
   	</module>
 </module>
