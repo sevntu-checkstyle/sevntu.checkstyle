@@ -33,8 +33,8 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
 
 /**
  * <p>
- * Checks that the parts of a class(main, nested, member inner) declaration appear
- * in the rules order set by user using regular expressions.<br>
+ * Checks that the parts of a class(main, nested, member inner) declaration
+ * appear in the rules order set by user using regular expressions.<br>
  * The rule consists of: </br>
  *
  * <pre>

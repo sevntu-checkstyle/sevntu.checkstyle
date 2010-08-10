@@ -12,7 +12,7 @@
                 <description>%AbstractClassName.format</description>
             </property-metadata>
 	    <property-metadata name="checkModifier" datatype="Boolean" default-value="false">
-                <description>%AbstractClassName.allowAbstractNameWithAbstractModifier</description>
+                <description>%AbstractClassName.checkModifier</description>
             </property-metadata>
             <message-key key="illegal.abstract.class.name"/>
 	    <message-key key="no.abstract.class.modifier"/>
