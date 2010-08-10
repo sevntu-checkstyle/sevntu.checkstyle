@@ -147,9 +147,19 @@ public class LineLengthCheck extends Check
     @Override
     public void visitToken(DetailAST aAST)
     {
+        DetailAST endMeth = aAST.findFirstToken(TokenTypes.SLIST);
         if (aAST.getParent().getType() == TokenTypes.OBJBLOCK) {
             final int mNumberOfLine = aAST.getLineNo();
-            mLines[mNumberOfLine - 1] = null;
+            if (null == endMeth) {
+                mLines[mNumberOfLine - 1] = null;
+            }
+            else {
+                int mEndNumberOfLine = endMeth.getLineNo();
+                while (mEndNumberOfLine >= mNumberOfLine) {
+                    mLines[mEndNumberOfLine - 1] = null;
+                    mEndNumberOfLine--;
+                }
+            }
         }
     }
 
