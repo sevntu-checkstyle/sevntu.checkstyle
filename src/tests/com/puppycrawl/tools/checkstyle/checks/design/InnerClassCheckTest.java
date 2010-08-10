@@ -14,19 +14,20 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
 		final DefaultConfiguration checkConfig =
 				createCheckConfig(InnerClassCheck.class);
 		final String[] expected = {
-				"15:17: Fields and methods should be before inner classes.",
-				"25:17: Fields and methods should be before inner classes.",
-				"26:17: Fields and methods should be before inner classes.",
-				"39:25: Fields and methods should be before inner classes.",
-				"40:25: Fields and methods should be before inner classes.",
-				"44:9: Fields and methods should be before inner classes.",
-				"60:25: Fields and methods should be before inner classes.",
-				"61:25: Fields and methods should be before inner classes.",
-				"65:9: Fields and methods should be before inner classes.",
-				"69:9: Fields and methods should be before inner classes.",
+				"18:17: Fields and methods should be before inner classes.",
+				"28:17: Fields and methods should be before inner classes.",
+				"29:17: Fields and methods should be before inner classes.",
+				"42:25: Fields and methods should be before inner classes.",
+				"43:25: Fields and methods should be before inner classes.",
+				"47:9: Fields and methods should be before inner classes.",
+				"63:25: Fields and methods should be before inner classes.",
+				"64:25: Fields and methods should be before inner classes.",
+				"68:9: Fields and methods should be before inner classes.",
+				"72:9: Fields and methods should be before inner classes.",
+				"81:5: Fields and methods should be before inner classes.",
 		};
 		System.setProperty("testinputs.dir",
-        "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
 		verify(checkConfig, getPath("design" + File.separator + "InputInnerClassCheck.java"), expected);
 	}
 }
