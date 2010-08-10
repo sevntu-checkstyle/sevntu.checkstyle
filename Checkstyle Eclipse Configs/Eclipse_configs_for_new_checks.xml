@@ -12,6 +12,7 @@
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
     <module name="AbstractClassName">
+      <property name="checkName" value="false"/>
       <property name="checkModifier" value="true"/>
     </module>
     <module name="LineLength">
