@@ -11,10 +11,13 @@
             <property-metadata name="format" datatype="Regex" default-value="^Abstract.*$|^.*Factory$">
                 <description>%AbstractClassName.format</description>
             </property-metadata>
-	    <property-metadata name="checkModifier" datatype="Boolean" default-value="false">
+       		<property-metadata name="checkName" datatype="Boolean" default-value="true">
+                <description>%AbstractClassName.checkName</description>
+       		</property-metadata>
+	    		<property-metadata name="checkModifier" datatype="Boolean" default-value="false">
                 <description>%AbstractClassName.checkModifier</description>
             </property-metadata>
-            <message-key key="illegal.abstract.class.name"/>
+       <message-key key="illegal.abstract.class.name"/>
 	    <message-key key="no.abstract.class.modifier"/>
         </rule-metadata>
         

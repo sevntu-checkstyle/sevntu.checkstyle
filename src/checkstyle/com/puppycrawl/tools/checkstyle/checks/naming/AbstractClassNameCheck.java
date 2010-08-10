@@ -47,6 +47,9 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
     /** allow checking 'abstract' modifiers */
     private boolean mCheckAbstractModifier;
 
+    /** allow checking name by abstract modifier */
+    private boolean mCheckName = true;
+
     /** Creates new instance of the check. */
     public AbstractClassNameCheck()
     {
@@ -60,6 +63,15 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
     public void setCheckModifier(boolean aValue)
     {
         mCheckAbstractModifier = aValue;
+    }
+
+    /**
+     * Enable|Disable checking the class name if class has abstract modifier.
+     * @param aValue allow check class name.
+     */
+    public void setCheckName(boolean aValue)
+    {
+        mCheckName = aValue;
     }
 
     @Override
@@ -94,7 +106,8 @@ public final class AbstractClassNameCheck extends AbstractFormatCheck
     {
         final String className =
             aAST.findFirstToken(TokenTypes.IDENT).getText();
-        if (isAbstract(aAST)) {
+        if (mCheckName && isAbstract(aAST)) {
+            // if class has abstract modifier
             if (!isMatchingClassName(className)) {
                 log(aAST.getLineNo(), aAST.getColumnNo(),
                     "illegal.abstract.class.name", className, getFormat());
