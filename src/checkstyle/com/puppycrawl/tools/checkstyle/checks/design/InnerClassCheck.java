@@ -52,17 +52,19 @@ public class InnerClassCheck extends Check
             DetailAST nextSibling = aAST.getNextSibling();
             while (null != nextSibling) {
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
-                        || nextSibling.getType() == TokenTypes.METHOD_DEF) {
+                        || nextSibling.getType() == TokenTypes.METHOD_DEF)
+                {
                     log(nextSibling.getLineNo(), nextSibling.getColumnNo(),
-                    "arrangement.members.before.inner");
+                        "arrangement.members.before.inner");
                 }
                 nextSibling = nextSibling.getNextSibling();
             }
-        }          
+        }
     }
 
     @Override
-    public void leaveToken(DetailAST aAST) {
+    public void leaveToken(DetailAST aAST)
+    {
         /** Is this a root class */
         if (null == aAST.getParent()) {
             mRootClass = true;
