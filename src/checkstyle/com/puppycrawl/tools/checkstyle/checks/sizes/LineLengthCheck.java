@@ -92,10 +92,10 @@ public class LineLengthCheck extends Check
     private String[] mLines;
 
     /** allow checking field length */
-    private boolean mAllowFieldLengthIgnore;
+    private boolean mIgnoreField;
 
     /** allow checking method length */
-    private boolean mAllowMethodLengthIgnore;
+    private boolean mIgnoreMethod;
 
     /**
      * Enable|Disable checking field length.
@@ -103,7 +103,7 @@ public class LineLengthCheck extends Check
      */
     public void setIgnoreField(boolean aValue)
     {
-        mAllowFieldLengthIgnore = aValue;
+        mIgnoreField = aValue;
     }
 
     /**
@@ -112,7 +112,7 @@ public class LineLengthCheck extends Check
      */
     public void setIgnoreMethod(boolean aValue)
     {
-        mAllowMethodLengthIgnore = aValue;
+        mIgnoreMethod = aValue;
     }
 
     /**
@@ -127,15 +127,15 @@ public class LineLengthCheck extends Check
     public int[] getDefaultTokens()
     {
         //disable checking field and method length
-        if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) {
+        if (mIgnoreField && mIgnoreMethod) {
             return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
         }
         //disable checking field length
-        else if (mAllowFieldLengthIgnore) {
+        else if (mIgnoreField) {
             return new int[]{TokenTypes.VARIABLE_DEF, };
         }
         //disable checking method length
-        else if (mAllowMethodLengthIgnore) {
+        else if (mIgnoreMethod) {
             return new int[]{TokenTypes.METHOD_DEF, };
         }
         //check every string
