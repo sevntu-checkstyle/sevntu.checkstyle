@@ -50,7 +50,9 @@ public class InnerClassCheck extends Check
         }
         else {
             DetailAST nextSibling = aAST.getNextSibling();
-            while (null != nextSibling) {
+            while (null != nextSibling
+                    && nextSibling.getType() != TokenTypes.CLASS_DEF)
+            {
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
                         || nextSibling.getType() == TokenTypes.METHOD_DEF)
                 {

@@ -45,7 +45,6 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
             "151: Line is longer than 40 characters.",
             "152: Line is longer than 40 characters.",
             "192: Line is longer than 40 characters.",
-            "195: Line is longer than 40 characters.",
             "200: Line is longer than 40 characters.",
             "207: Line is longer than 40 characters.",
         };
