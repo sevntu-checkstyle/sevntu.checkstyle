@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
-public class InnerClassCheck extends Check
+public class InnerClassCheckOld extends Check
 {
     @Override
     public int[] getDefaultTokens()

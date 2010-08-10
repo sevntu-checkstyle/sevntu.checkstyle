@@ -1,5 +1,8 @@
 package com.puppycrawl.tools.checkstyle.design;
 
+import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+
 public class InputInnerClassCheck {
 	public int test1 = 100;
 
@@ -67,4 +70,17 @@ class Temp2 {
 	}
 
 	private int i = 0; //error
+}
+
+class Temp3 extends Check {
+    
+    class InnerCheck {
+        private int I = 0;
+    }
+    
+    @Override
+    public int[] getDefaultTokens()
+    {
+        return new int[]{TokenTypes.CLASS_DEF, };
+    }
 }
