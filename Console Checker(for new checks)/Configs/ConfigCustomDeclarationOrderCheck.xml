@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+  <module name="TreeWalker">
+    <module name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck">
+    	<property name="customDeclarationOrder" 
+    	value="Field(.*final.*public|.*public.*final) ###
+		Field(@SuppressWarnings(.*serial.*)) ### 
+		Field(protected) ###
+		Field(private) ###
+    	Ctor()###
+    	Method(@Deprecated) ###
+    	Method() ###
+    	Method(.*abstract.*public|.*public.*abstract|protected) ###
+    	InnerClass (public.*abstract) ###
+    	InnerClass (private)"/> 
+    	<property name = "ignoreRegExCase" value = "true"/>
+    </module>
+  </module>
+</module>

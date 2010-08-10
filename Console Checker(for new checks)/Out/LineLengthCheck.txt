@@ -1,0 +1,12 @@
+Unable to create Checker: cannot initialize module TreeWalker - Property 'ignoreMethod' in module com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck does not exist, please check the documentation
+com.puppycrawl.tools.checkstyle.api.CheckstyleException: cannot initialize module TreeWalker - Property 'ignoreMethod' in module com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck does not exist, please check the documentation
+	at com.puppycrawl.tools.checkstyle.Checker.setupChild(Checker.java:178)
+	at com.puppycrawl.tools.checkstyle.api.AutomaticBean.configure(AutomaticBean.java:207)
+	at com.puppycrawl.tools.checkstyle.Main.createChecker(Main.java:138)
+	at com.puppycrawl.tools.checkstyle.Main.main(Main.java:115)
+Caused by: com.puppycrawl.tools.checkstyle.api.CheckstyleException: Property 'ignoreMethod' in module com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck does not exist, please check the documentation
+	at com.puppycrawl.tools.checkstyle.api.AutomaticBean.configure(AutomaticBean.java:165)
+	at com.puppycrawl.tools.checkstyle.TreeWalker.setupChild(TreeWalker.java:168)
+	at com.puppycrawl.tools.checkstyle.api.AutomaticBean.configure(AutomaticBean.java:207)
+	at com.puppycrawl.tools.checkstyle.Checker.setupChild(Checker.java:157)
+	... 3 more
