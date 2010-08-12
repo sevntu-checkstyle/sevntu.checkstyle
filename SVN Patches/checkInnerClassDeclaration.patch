@@ -1,0 +1,212 @@
+Index: src/testinputs/com/puppycrawl/tools/checkstyle/design/InputInnerClassCheck.java
+===================================================================
+--- src/testinputs/com/puppycrawl/tools/checkstyle/design/InputInnerClassCheck.java	(revision 0)
++++ src/testinputs/com/puppycrawl/tools/checkstyle/design/InputInnerClassCheck.java	(revision 0)
+@@ -0,0 +1,82 @@
++package com.puppycrawl.tools.checkstyle.design;
++
++public class InputInnerClassCheck {
++	public int test1 = 100;
++
++	public void methodTestInner1() {
++		double test2 = 200;
++
++		class InnerInMethod1 {
++			void methodTest1() {
++				System.out.println("test1");
++			}
++		}
++
++		int test3 = 300; //error
++	}
++
++	public void methodTestInner2() {
++		int test5 = 500;
++
++		class InnerInMethod2 {
++			int test6 = 500;
++		}
++
++		int test6 = 600; //error
++		int test8 = 800; //error
++	}
++
++	class Inner1 {
++		int test4 = 400;
++
++		public void methodTestInner3() {
++			int test9 = 500;
++
++			class InnerInMethod3 {
++				int test10 = 500;
++			}
++
++			int test11 = 600; //error
++			int test12 = 800; //error
++		}
++	}
++
++	void methodTest2() { //error
++		System.out.println("test2");
++	}
++}
++
++class Temp2 {
++	class Inner1 {
++		int test4 = 400;
++
++		public void methodTestInner3() {
++			int test9 = 500;
++
++			class InnerInMethod3 {
++				int test10 = 500;
++			}
++
++			int test11 = 600; //error
++			int test12 = 800; //error
++		}
++	}
++
++	void methodTest2() { //error
++		System.out.println("test2");
++	}
++
++	private int i = 0; //error
++}
++
++class Temp3 {
++    
++    class InnerCheck {
++        private int I = 0;
++    }
++    
++    public int[] getDefaultTokens()
++    {
++        return new int[]{1, };
++    }
++}
+Index: src/tests/com/puppycrawl/tools/checkstyle/checks/design/InnerClassCheckTest.java
+===================================================================
+--- src/tests/com/puppycrawl/tools/checkstyle/checks/design/InnerClassCheckTest.java	(revision 0)
++++ src/tests/com/puppycrawl/tools/checkstyle/checks/design/InnerClassCheckTest.java	(revision 0)
+@@ -0,0 +1,31 @@
++package com.puppycrawl.tools.checkstyle.checks.design;
++
++import java.io.File;
++
++import org.junit.Test;
++
++import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
++import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
++
++public class InnerClassCheckTest extends BaseCheckTestSupport {
++
++	@Test
++	public void testMembersBeforeInner() throws Exception {
++		final DefaultConfiguration checkConfig =
++				createCheckConfig(InnerClassCheck.class);
++		final String[] expected = {
++				"15:17: Fields and methods should be before inner classes.",
++				"25:17: Fields and methods should be before inner classes.",
++				"26:17: Fields and methods should be before inner classes.",
++				"39:25: Fields and methods should be before inner classes.",
++				"40:25: Fields and methods should be before inner classes.",
++				"44:9: Fields and methods should be before inner classes.",
++				"60:25: Fields and methods should be before inner classes.",
++				"61:25: Fields and methods should be before inner classes.",
++				"65:9: Fields and methods should be before inner classes.",
++				"69:9: Fields and methods should be before inner classes.",
++				"78:5: Fields and methods should be before inner classes.",
++		};
++		verify(checkConfig, getPath("design" + File.separator + "InputInnerClassCheck.java"), expected);
++	}
++}
+Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/InnerClassCheck.java
+===================================================================
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/InnerClassCheck.java	(revision 0)
++++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/InnerClassCheck.java	(revision 0)
+@@ -0,0 +1,75 @@
++////////////////////////////////////////////////////////////////////////////////
++// checkstyle: Checks Java source code for adherence to a set of rules.
++// Copyright (C) 2001-2010  Oliver Burn
++//
++// This library is free software; you can redistribute it and/or
++// modify it under the terms of the GNU Lesser General Public
++// License as published by the Free Software Foundation; either
++// version 2.1 of the License, or (at your option) any later version.
++//
++// This library is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++// Lesser General Public License for more details.
++//
++// You should have received a copy of the GNU Lesser General Public
++// License along with this library; if not, write to the Free Software
++// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++////////////////////////////////////////////////////////////////////////////////
++package com.puppycrawl.tools.checkstyle.checks.design;
++
++import com.puppycrawl.tools.checkstyle.api.Check;
++import com.puppycrawl.tools.checkstyle.api.DetailAST;
++import com.puppycrawl.tools.checkstyle.api.TokenTypes;
++
++/**
++ * <p>
++ * Check nested (internal) classes to be declared at the bottom of the class
++ * after all methods (fields) declaration.
++ * </p>
++ *
++ * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
++ */
++public class InnerClassCheck extends Check
++{
++    @Override
++    public int[] getDefaultTokens()
++    {
++        return new int[]{TokenTypes.CLASS_DEF, };
++    }
++
++    /** Meet a root class. */
++    private boolean mRootClass = true;
++
++    @Override
++    public void visitToken(DetailAST aAST)
++    {
++        /** First root class */
++        if (mRootClass) {
++            mRootClass = false;
++        }
++        else {
++            DetailAST nextSibling = aAST.getNextSibling();
++            while (null != nextSibling
++                    && nextSibling.getType() != TokenTypes.CLASS_DEF)
++            {
++                if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
++                        || nextSibling.getType() == TokenTypes.METHOD_DEF)
++                {
++                    log(nextSibling.getLineNo(), nextSibling.getColumnNo(),
++                        "arrangement.members.before.inner");
++                }
++                nextSibling = nextSibling.getNextSibling();
++            }
++        }
++    }
++
++    @Override
++    public void leaveToken(DetailAST aAST)
++    {
++        /** Is this a root class */
++        if (null == aAST.getParent()) {
++            mRootClass = true;
++        }
++    }
++}
+Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/messages.properties
+===================================================================
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/messages.properties	(revision 2536)
++++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/messages.properties	(working copy)
+@@ -1,3 +1,4 @@
++arrangement.members.before.inner=Fields and methods should be before inner classes.
+ design.forExtension=Method ''{0}'' is not designed for extension - needs to be abstract, final or empty.
+ final.class=Class {0} should be declared as final.
+ interface.type=interfaces should describe a type and hence have methods.
