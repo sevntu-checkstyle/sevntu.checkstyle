@@ -65,6 +65,10 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  *      Field(public\sfinal)
  * </pre>
  * <p>
+ * If you set empty RegExp e.g. Field(), it means that class member doesn't
+ * have modifiers.
+ * </p>
+ * <p>
  * Use the separator '###' between the class declarations.
  * </p>
  * <p>
@@ -81,6 +85,11 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  */
 public class CustomDeclarationOrderCheck extends Check
 {
+
+    /** Default format for custom declaration check */
+    private static final String DEFAULT_DECLARATION = "Field(.*public.*)"
+            + "### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*)"
+            + "### Method(.*) ### InnerClass(.*)";
 
     /** List of order declaration customizing by user */
     private final ArrayList<FormatMatcher> mCustomOrderDeclaration =
@@ -105,11 +114,18 @@ public class CustomDeclarationOrderCheck extends Check
     /** allow check inner classes */
     private boolean mInnerClass;
 
-    /** Private class to encapsulate the state */
+    /** Private class to encapsulate the state. */
     private static class ClassStates
     {
         /** new state */
         private int mClassStates = INITIAL_STATE;
+    }
+
+
+    /** Constructor to set default format. */
+    public CustomDeclarationOrderCheck()
+    {
+        setCustomDeclarationOrder(DEFAULT_DECLARATION);
     }
 
     /**
@@ -120,6 +136,9 @@ public class CustomDeclarationOrderCheck extends Check
      */
     public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
     {
+        if (!mCustomOrderDeclaration.isEmpty()) {
+            mCustomOrderDeclaration.clear();
+        }
         for (String currentState
                 : aInputOrderDeclaration.split("\\s*###\\s*"))
         {
