@@ -58,12 +58,20 @@
                 <description>%LineLength.tabWidth</description>
 </property-metadata>
 
+		<property-metadata name="ignoreClass" datatype="Boolean" default-value="false">
+                <description>%LineLength.IgnoreClass</description>
+</property-metadata>
+
+	    <property-metadata name="ignoreConstructor" datatype="Boolean" default-value="false">
+                <description>%LineLength.IgnoreConstructor</description>
+</property-metadata>
+
 	    <property-metadata name="ignoreField" datatype="Boolean" default-value="false">
-                <description>%LineLength.allowFieldLengthIgnore</description>
+                <description>%LineLength.IgnoreField</description>
 </property-metadata>
 
 	    <property-metadata name="ignoreMethod" datatype="Boolean" default-value="false">
-                <description>%LineLength.allowMethodLengthIgnore</description>
+                <description>%LineLength.IgnoreMethod</description>
 </property-metadata>
 
 	    <message-key key="maxLineLen"/>
