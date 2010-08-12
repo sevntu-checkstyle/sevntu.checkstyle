@@ -25,14 +25,13 @@ import com.puppycrawl.tools.checkstyle.checks.AbstractFormatCheck;
 /**
  * <p>
  * Ensures that the names of abstract classes conforming to some
- * regular expression and  by some regular expression check up
- * the abstract modifiers.
+ * regular expression and check up the abstract modifier of class.
  * </p>
  * <p>
  * Rationale: Abstract classes are convenience base class
  * implementations of interfaces, not types as such. As such
  * they should be named to indicate this. Also if names of classes
- * started with 'Abstract' it's very convenient that they will
+ * starts with 'Abstract' it's very convenient that they will
  * have abstract modifier.
  * </p>
  *

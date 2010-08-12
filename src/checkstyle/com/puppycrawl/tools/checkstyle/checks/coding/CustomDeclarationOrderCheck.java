@@ -52,17 +52,29 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <li>"InnerClass" to denote the Inner Classes</li>
  * </ol>
  * </p>
- * RegExp can include modifiers(public, protected, private, abstract, static and
- * others) and annotations of a class member.
+ * RegExp can include modifiers(public, protected, private, abstract, static,
+ * final) and annotations of a class member. <br>
+ * <br>
+ * ATTENTION! </br>
+ *
+ * <pre>
+ * Use separator " ", ".", "\s" between declaration in the RegExp.
+ * Example:
+ *      Field(public final)
+ *      Field(public.*final)
+ *      Field(public\sfinal)
+ * </pre>
  * <p>
- * Use the separator '###' between the declarations
+ * Use the separator '###' between the class declarations.
  * </p>
  * <p>
  * For Example:
  * </p>
  * <p>
- * <code>Field(public) ### Ctor() ### Method(.*public.*final|@Ignore.*public.*)
- * ### InnerClass(abstract.*private)</code>
+ * <code>Field(public static final) ### Field(public.*) ### Field(protected.*)
+ * ### Field(private.*) ### Method(.*public.*final|@Ignore.*public.*)
+ * ### Method(public static final) ### Ctor(.*)
+ * ### InnerClass(public abstract)</code>
  * </p>
  *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
@@ -397,20 +409,27 @@ public class CustomDeclarationOrderCheck extends Check
     private String concatLogic(final DetailAST aAST)
     {
         DetailAST ast = aAST;
-
+        String separator = "";
         final StringBuffer modifiers = new StringBuffer();
+
+        if (ast.getParent().getType() == TokenTypes.MODIFIERS) {
+            // add separator between access modifiers and annotations
+            separator = " ";
+        }
         while (ast != null) {
             if (ast.getType() == TokenTypes.ANNOTATION
                     || ast.getType() == TokenTypes.EXPR)
             {
                 modifiers.append(concatLogic(ast.getFirstChild()));
+                modifiers.append(separator);
             }
             else {
                 modifiers.append(ast.getText());
+                modifiers.append(separator);
             }
             ast = ast.getNextSibling();
         }
-        return modifiers.toString();
+        return modifiers.toString().trim();
     }
 
     /**
@@ -422,13 +441,13 @@ public class CustomDeclarationOrderCheck extends Check
          * Save compile flag. It can be necessary to further change the logic of
          * check.
          */
-        private int mCompileFlags;
+        private final int mCompileFlags;
         /** The regexp to match against */
         private Pattern mRegExp;
         /** The Member of Class */
-        private String mClassMember;
+        private final String mClassMember;
         /** The input full one rule with original names */
-        private String mRule;
+        private final String mRule;
         /** The string format of the RegExp */
         private String mFormat;
 

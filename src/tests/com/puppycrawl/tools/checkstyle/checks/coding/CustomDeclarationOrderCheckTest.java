@@ -18,7 +18,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
                 "17:5: Field definition in wrong order. Expected 'Field(protected)' then 'Field(private)'.",
                 "19:5: Field definition in wrong order. Expected 'Field(@SuppressWarnings(.*serial.*))' then 'Field(private)'.",
                 "38:5: Constructor definition in wrong order. Expected 'Ctor()' then 'Method(.*abstract.*public|.*public.*abstract|protected)'.",
-                "49:9: Field definition in wrong order. Expected 'Field(.*final.*public|.*public.*final)' then 'Field(private)'.",
+                "49:9: Field definition in wrong order. Expected 'Field(.*final public|.*public final)' then 'Field(private)'.",
                 "69:9: Class definition in wrong order. Expected 'InnerClass (public.*abstract)' then 'InnerClass (private)'.",
                 "73:5: Method definition in wrong order. Expected 'Method(@Deprecated)' then 'InnerClass (private)'.",
                 "84:5: Method definition in wrong order. Expected 'Method(.*abstract.*public|.*public.*abstract|protected)' then 'InnerClass (private)'.",
@@ -26,7 +26,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         System.setProperty("testinputs.dir",
                 "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         checkConfig.addAttribute("customDeclarationOrder",
-                                  "Field(.*final.*public|.*public.*final) ###"
+                                  "Field(.*final public|.*public final) ###"
                                 + "Field(@SuppressWarnings(.*serial.*)) ###"
                                 + "Field(protected) ###"
                                 + "Field(private) ###"
