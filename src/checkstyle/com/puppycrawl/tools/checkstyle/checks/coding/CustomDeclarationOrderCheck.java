@@ -34,13 +34,16 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
 /**
  * <p>
  * Checks that the parts of a class(main, nested, member inner) declaration
- * appear in the rules order set by user using regular expressions.<br>
- * The rule consists of: </br>
+ * appear in the rules order set by user using regular expressions.
+ * <p>
+ * The check forms line which consists of class member annotations, modifiers,
+ * type and name from your code and compares it with your RegExp.
+ * </p>
+ * The rule consists of:
  *
  * <pre>
  * ClassMember(RegExp)
  * </pre>
- *
  * </p>
  * To set class order use the following notation of the class members (case
  * insensitive):
@@ -52,21 +55,35 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * <li>"InnerClass" to denote the Inner Classes</li>
  * </ol>
  * </p>
- * RegExp can include modifiers(public, protected, private, abstract, static,
- * final) and annotations of a class member. <br>
- * <br>
- * ATTENTION! </br>
- *
- * <pre>
- * Use separator " ", ".", "\s" between declaration in the RegExp.
- * Example:
- *      Field(public final)
- *      Field(public.*final)
- *      Field(public\sfinal)
- * </pre>
+ * RegExp can include:
  * <p>
- * If you set empty RegExp e.g. Field(), it means that class member doesn't
- * have modifiers.
+ * <ol>
+ * <li>Annotations</li>
+ * <li>Modifiers(public, protected, private, abstract, static,
+ * final)</li>
+ * <li>Type</li>
+ * <li>Name</li>
+ * </ol>
+ * </p>
+ * ATTENTION!
+ * <p>
+ * Use separator <code>' ', '.', '\s'</code> between declaration in the RegExp.
+ * </p>
+ * <pre>
+ * Example:
+ *      Field(public.*final.*)
+ *      Field(public final.*)
+ *      Field(public<code>\s*</code>final.*)
+ * </pre>
+ * NOTICE!
+ * <p>
+ * If you set empty RegExp e.g. <code>Field()</code>, it means that class member
+ * doesn't have modifiers(default modifier) and checking the type and name of
+ * member doesn't occur.
+ * </p>
+ * <p>
+ * Between the declaration of a array and generic can't be whitespaces.
+ * E.g.: <code>ArrayList&lt;String[]&gt; someName</code>
  * </p>
  * <p>
  * Use the separator '###' between the class declarations.
@@ -75,10 +92,11 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * For Example:
  * </p>
  * <p>
- * <code>Field(public static final) ### Field(public.*) ### Field(protected.*)
- * ### Field(private.*) ### Method(.*public.*final|@Ignore.*public.*)
- * ### Method(public static final) ### Ctor(.*)
- * ### InnerClass(public abstract)</code>
+ * <code>Field(private static final long serialVersionUID) ###
+ * Field(public static final.*) ### Field(.*private.*) ### Ctor(.*) ###
+ * Method(.*public.*final.*|@Ignore.*public.*) ###
+ * Method(public static.*(final|(new|edit|create).*).*) ###
+ * InnerClass(public abstract.*)</code>
  * </p>
  *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
@@ -178,7 +196,7 @@ public class CustomDeclarationOrderCheck extends Check
                     aCurrentState.indexOf('(') + 1,
                     aCurrentState.lastIndexOf(')'));
             if (regExp.isEmpty()) {
-                regExp = "$^"; // the empty regExp
+                regExp = "package"; // package level
             }
 
         }
@@ -400,7 +418,8 @@ public class CustomDeclarationOrderCheck extends Check
     }
 
     /**
-     * Use for concatenation modifiers and annotations in single line. <br>
+     * Use for concatenation modifiers, annotations, type and
+     * name of member in single line. <br>
      * Contains TokenTypes parameters for entry in child. </br>
      *
      * @param aAST current DetailAST state.
@@ -408,13 +427,21 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private String getUniteModifiersList(final DetailAST aAST)
     {
-        DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
-
         final StringBuffer modifiers = new StringBuffer();
-        if (ast != null && ast.getFirstChild() != null) {
-            ast = ast.getFirstChild();
-            modifiers.append(concatLogic(ast));
+        DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
+        if (null == ast.getFirstChild()) {
+            //if we met package level modifier
+            modifiers.append("package ");
         }
+        while (ast.getType() != TokenTypes.IDENT) {
+            if (ast != null && ast.getFirstChild() != null) {
+                modifiers.append(concatLogic(ast.getFirstChild()));
+                modifiers.append(" ");
+            }
+            ast = ast.getNextSibling();
+        }
+        // add IDENT(name)
+        modifiers.append(ast.getText());
 
         return modifiers.toString();
     }
@@ -436,16 +463,17 @@ public class CustomDeclarationOrderCheck extends Check
             separator = " ";
         }
         while (ast != null) {
-            if (ast.getType() == TokenTypes.ANNOTATION
-                    || ast.getType() == TokenTypes.EXPR)
-            {
+            if (ast.getFirstChild() != null) {
                 modifiers.append(concatLogic(ast.getFirstChild()));
-                modifiers.append(separator);
             }
             else {
+                if (ast.getType() == TokenTypes.RBRACK) {
+                    //if array
+                    modifiers.append("[");
+                }
                 modifiers.append(ast.getText());
-                modifiers.append(separator);
             }
+            modifiers.append(separator);
             ast = ast.getNextSibling();
         }
         return modifiers.toString().trim();
@@ -477,7 +505,6 @@ public class CustomDeclarationOrderCheck extends Check
          * @param aClassMember the member of class
          * @param aCompileFlags the Pattern flags to compile the regexp with.
          *            See {@link Pattern#compile(java.lang.String, int)}
-         * @throws ConversionException unable to parse aDefaultFormat.
          */
         public FormatMatcher(final String aInputRule,
                 final String aClassMember, final int aCompileFlags)

@@ -6,6 +6,9 @@ public class InputCustomDeclarationOrder {
 
     public static final int TEST = 0;
     public final int test = 1;
+    
+    private static final long serialVersionUID = 1L;
+    
     int test1 = 1;
 
     private static final String[] TEST_NAMES = new String[] { "Task 1",
@@ -17,7 +20,7 @@ public class InputCustomDeclarationOrder {
     protected double test3;
 
     @SuppressWarnings("serial")
-    private final ArrayList<String> test4 = new ArrayList<String>()
+    private final ArrayList<String[]> test4 = new ArrayList<String[]>()
     {
         private int innerTest1;
         public int innerTest2;
@@ -31,15 +34,23 @@ public class InputCustomDeclarationOrder {
         //constructor
     }
 
+    public static String newTest(String aTest) {
+        return null;
+    }
+
     protected String test() {
         return "test";
     }
 
-    InputCustomDeclarationOrder(int test) {
+    InputCustomDeclarationOrder(int aTest) {
+        //constructor
     }
 
-    public void setTest() {
+    public void createTest() {
     };
+
+    public static void editTest() {
+    }
 
     public abstract class AbstractTest extends
             InputCustomDeclarationOrder

@@ -16,11 +16,13 @@
       <property name="checkModifier" value="true"/>
     </module>
     <module name="LineLength">
+      <property name="ignoreClass" value="true"/>
+      <property name="ignoreConstructor" value="true"/>
       <property name="ignoreField" value="true"/>
       <property name="ignoreMethod" value="true"/>
     </module>
     <module name="CustomDeclarationOrder">
-      <property name="customDeclarationOrder" value="Field(.*public.*) ### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*) ### Method(.*)"/>
+      <property name="customDeclarationOrder" value="Field(.*public.*) ### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*) ### Method(.*) ### InnerClass(.*)"/>
       <property name="ignoreRegExCase" value="true"/>
     </module>
     <module name="InnerClass"/>

@@ -2,7 +2,7 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 ===================================================================
 --- src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarationOrder.java	(revision 0)
 +++ src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarationOrder.java	(revision 0)
-@@ -0,0 +1,99 @@
+@@ -0,0 +1,109 @@
 +package com.puppycrawl.tools.checkstyle.coding;
 +
 +import java.util.ArrayList;
@@ -11,6 +11,9 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 +
 +    public static final int TEST = 0;
 +    public final int test = 1;
++    
++    private static final long serialVersionUID = 1L;
++    
 +    int test1 = 1;
 +
 +    private static final String[] TEST_NAMES = new String[] { "Task 1",
@@ -22,7 +25,7 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 +    protected double test3;
 +
 +    @SuppressWarnings("serial")
-+    private final ArrayList<String> test4 = new ArrayList<String>()
++    private final ArrayList<String[]> test4 = new ArrayList<String[]>()
 +    {
 +        private int innerTest1;
 +        public int innerTest2;
@@ -36,15 +39,23 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 +        //constructor
 +    }
 +
++    public static String newTest(String aTest) {
++        return null;
++    }
++
 +    protected String test() {
 +        return "test";
 +    }
 +
-+    InputCustomDeclarationOrder(int test) {
++    InputCustomDeclarationOrder(int aTest) {
++        //constructor
 +    }
 +
-+    public void setTest() {
++    public void createTest() {
 +    };
++
++    public static void editTest() {
++    }
 +
 +    public abstract class AbstractTest extends
 +            InputCustomDeclarationOrder
@@ -101,12 +112,11 @@ Index: src/testinputs/com/puppycrawl/tools/checkstyle/coding/InputCustomDeclarat
 +    void test() {
 +    }
 +}
-+
 Index: src/tests/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheckTest.java
 ===================================================================
 --- src/tests/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheckTest.java	(revision 0)
 +++ src/tests/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheckTest.java	(revision 0)
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,47 @@
 +package com.puppycrawl.tools.checkstyle.checks.coding;
 +
 +import java.io.File;
@@ -124,26 +134,29 @@ Index: src/tests/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclaration
 +        final DefaultConfiguration checkConfig =
 +            createCheckConfig(CustomDeclarationOrderCheck.class);
 +        final String[] expected = {
-+                "17:5: Field definition in wrong order. Expected 'Field(protected)' then 'Field(private)'.",
-+                "19:5: Field definition in wrong order. Expected 'Field(@SuppressWarnings(.*serial.*))' then 'Field(private)'.",
-+                "38:5: Constructor definition in wrong order. Expected 'Ctor()' then 'Method(.*abstract.*public|.*public.*abstract|protected)'.",
-+                "49:9: Field definition in wrong order. Expected 'Field(.*final.*public|.*public.*final)' then 'Field(private)'.",
-+                "69:9: Class definition in wrong order. Expected 'InnerClass (public.*abstract)' then 'InnerClass (private)'.",
-+                "73:5: Method definition in wrong order. Expected 'Method(@Deprecated)' then 'InnerClass (private)'.",
-+                "84:5: Method definition in wrong order. Expected 'Method(.*abstract.*public|.*public.*abstract|protected)' then 'InnerClass (private)'.",
-+                "94:5: Field definition in wrong order. Expected 'Field(private)' then 'Ctor()'." };
-+
++                "10:5: Field definition in wrong order. Expected 'Field(private static final long serialVersionUID)' then 'Field(.*final public.*|.*public final.*)'.",
++                "20:5: Field definition in wrong order. Expected 'Field(protected.*)' then 'Field(private.*)'.",
++                "22:5: Field definition in wrong order. Expected 'Field(@SuppressWarnings(.*serial.*).*)' then 'Field(private.*)'.",
++                "45:5: Constructor definition in wrong order. Expected 'Ctor()' then 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)'.",
++                "52:5: Method definition in wrong order. Expected 'Method(public static.*(new|edit|create).*)' then 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)'.",
++                "60:9: Field definition in wrong order. Expected 'Field(.*final public.*|.*public final.*)' then 'Field(private.*)'.",
++                "80:9: Class definition in wrong order. Expected 'InnerClass (public.*abstract.*)' then 'InnerClass (private.*)'.",
++                "84:5: Method definition in wrong order. Expected 'Method(@Deprecated.*)' then 'InnerClass (private.*)'.",
++                "95:5: Method definition in wrong order. Expected 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)' then 'InnerClass (private.*)'.",
++                "105:5: Field definition in wrong order. Expected 'Field(private.*)' then 'Ctor()'." };
 +        checkConfig.addAttribute("customDeclarationOrder",
-+                                  "Field(.*final.*public|.*public.*final) ###"
-+                                + "Field(@SuppressWarnings(.*serial.*)) ###"
-+                                + "Field(protected) ###"
-+                                + "Field(private) ###"
++                                  "Field(private static final long serialVersionUID) ###"
++                                + "Field(.*final public.*|.*public final.*) ###"
++                                + "Field(@SuppressWarnings(.*serial.*).*) ###"
++                                + "Field(protected.*) ###"
++                                + "Field(private.*) ###"
 +                                + "Ctor()###"
-+                                + "Method(@Deprecated) ###"
++                                + "Method(@Deprecated.*) ###"
++                                + "Method(public static.*(new|edit|create).*) ###"
 +                                + "Method() ###"
-+                                + "Method(.*abstract.*public|.*public.*abstract|protected) ###"
-+                                + "InnerClass (public.*abstract) ###"
-+                                + "InnerClass (private)");
++                                + "Method(.*abstract.*public.*|.*public.*abstract.*|protected.*) ###"
++                                + "InnerClass (public.*abstract.*) ###"
++                                + "InnerClass (private.*)");
 +        checkConfig.addAttribute("ignoreRegExCase", "true");
 +        verify(checkConfig, getPath("coding" + File.separator
 +                + "InputCustomDeclarationOrder.java"), expected);
@@ -155,7 +168,7 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheck.java	(revision 0)
 +++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclarationOrderCheck.java	(revision 0)
-@@ -0,0 +1,500 @@
+@@ -0,0 +1,565 @@
 +////////////////////////////////////////////////////////////////////////////////
 +// checkstyle: Checks Java source code for adherence to a set of rules.
 +// Copyright (C) 2001-2010  Oliver Burn
@@ -191,14 +204,17 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +
 +/**
 + * <p>
-+ * Checks that the parts of a class declaration appear in the rules order set by
-+ * user using regular expressions.<br>
++ * Checks that the parts of a class(main, nested, member inner) declaration
++ * appear in the rules order set by user using regular expressions.
++ * <p>
++ * The check forms line which consists of class member annotations, modifiers,
++ * type and name from your code and compares it with your RegExp.
++ * </p>
 + * The rule consists of:
-+ * 
++ *
 + * <pre>
 + * ClassMember(RegExp)
 + * </pre>
-+ * 
 + * </p>
 + * To set class order use the following notation of the class members (case
 + * insensitive):
@@ -210,23 +226,59 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 + * <li>"InnerClass" to denote the Inner Classes</li>
 + * </ol>
 + * </p>
-+ * RegExp can include modifiers(public, protected, private, abstract, static and
-+ * others) and annotations of a class member.
++ * RegExp can include:
 + * <p>
-+ * Use the separator # # # between the declarations
++ * <ol>
++ * <li>Annotations</li>
++ * <li>Modifiers(public, protected, private, abstract, static,
++ * final)</li>
++ * <li>Type</li>
++ * <li>Name</li>
++ * </ol>
++ * </p>
++ * ATTENTION!
++ * <p>
++ * Use separator <code>' ', '.', '\s'</code> between declaration in the RegExp.
++ * </p>
++ * <pre>
++ * Example:
++ *      Field(public.*final.*)
++ *      Field(public final.*)
++ *      Field(public<code>\s*</code>final.*)
++ * </pre>
++ * NOTICE!
++ * <p>
++ * If you set empty RegExp e.g. <code>Field()</code>, it means that class member
++ * doesn't have modifiers(default modifier) and checking the type and name of
++ * member doesn't occur.
++ * </p>
++ * <p>
++ * Between the declaration of a array and generic can't be whitespaces.
++ * E.g.: <code>ArrayList&lt;String[]&gt; someName</code>
++ * </p>
++ * <p>
++ * Use the separator '###' between the class declarations.
 + * </p>
 + * <p>
 + * For Example:
 + * </p>
 + * <p>
-+ * <code>Field(public) ### Ctor() ### Method(.*public.*final|@Ignore.*public.*)
-+ * ### InnerClass(abstract.*private)</code>
++ * <code>Field(private static final long serialVersionUID) ###
++ * Field(public static final.*) ### Field(.*private.*) ### Ctor(.*) ###
++ * Method(.*public.*final.*|@Ignore.*public.*) ###
++ * Method(public static.*(final|(new|edit|create).*).*) ###
++ * InnerClass(public abstract.*)</code>
 + * </p>
-+ * 
++ *
 + * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
 + */
 +public class CustomDeclarationOrderCheck extends Check
 +{
++
++    /** Default format for custom declaration check */
++    private static final String DEFAULT_DECLARATION = "Field(.*public.*)"
++            + "### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*)"
++            + "### Method(.*) ### InnerClass(.*)";
 +
 +    /** List of order declaration customizing by user */
 +    private final ArrayList<FormatMatcher> mCustomOrderDeclaration =
@@ -251,11 +303,18 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +    /** allow check inner classes */
 +    private boolean mInnerClass;
 +
-+    /** Private class to encapsulate the state */
++    /** Private class to encapsulate the state. */
 +    private static class ClassStates
 +    {
 +        /** new state */
 +        private int mClassStates = INITIAL_STATE;
++    }
++
++
++    /** Constructor to set default format. */
++    public CustomDeclarationOrderCheck()
++    {
++        setCustomDeclarationOrder(DEFAULT_DECLARATION);
 +    }
 +
 +    /**
@@ -266,6 +325,9 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +     */
 +    public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
 +    {
++        if (!mCustomOrderDeclaration.isEmpty()) {
++            mCustomOrderDeclaration.clear();
++        }
 +        for (String currentState
 +                : aInputOrderDeclaration.split("\\s*###\\s*"))
 +        {
@@ -305,7 +367,7 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +                    aCurrentState.indexOf('(') + 1,
 +                    aCurrentState.lastIndexOf(')'));
 +            if (regExp.isEmpty()) {
-+                regExp = "$^"; // the empty regExp
++                regExp = "package"; // package level
 +            }
 +
 +        }
@@ -423,14 +485,15 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +            }
 +            else {
 +                if (mInnerClass) {
++                    //if we have condition to check Inner Classes order
 +                    checkOrderLogic(aAST);
 +                }
 +                mClassStates.push(new ClassStates());
 +            }
 +        }
 +        else {
-+            final int parentType = aAST.getParent().getType();
-+            if (parentType == TokenTypes.OBJBLOCK) {
++            final int parentParentType = aAST.getParent().getParent().getType();
++            if (parentParentType == TokenTypes.CLASS_DEF) {
 +                checkOrderLogic(aAST);
 +            }
 +        }
@@ -526,21 +589,30 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +    }
 +
 +    /**
-+     * Use for concatenation modifiers and annotations in single line. <br>
-+     * Contains TokenTypes parameters for entry in child.
++     * Use for concatenation modifiers, annotations, type and
++     * name of member in single line. <br>
++     * Contains TokenTypes parameters for entry in child. </br>
 +     *
 +     * @param aAST current DetailAST state.
 +     * @return the unit annotations and modifiers and list.
 +     */
 +    private String getUniteModifiersList(final DetailAST aAST)
 +    {
-+        DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
-+
 +        final StringBuffer modifiers = new StringBuffer();
-+        if (ast != null && ast.getFirstChild() != null) {
-+            ast = ast.getFirstChild();
-+            modifiers.append(concatLogic(ast));
++        DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
++        if (null == ast.getFirstChild()) {
++            //if we met package level modifier
++            modifiers.append("package ");
 +        }
++        while (ast.getType() != TokenTypes.IDENT) {
++            if (ast != null && ast.getFirstChild() != null) {
++                modifiers.append(concatLogic(ast.getFirstChild()));
++                modifiers.append(" ");
++            }
++            ast = ast.getNextSibling();
++        }
++        // add IDENT(name)
++        modifiers.append(ast.getText());
 +
 +        return modifiers.toString();
 +    }
@@ -554,20 +626,28 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +    private String concatLogic(final DetailAST aAST)
 +    {
 +        DetailAST ast = aAST;
-+
++        String separator = "";
 +        final StringBuffer modifiers = new StringBuffer();
++
++        if (ast.getParent().getType() == TokenTypes.MODIFIERS) {
++            // add separator between access modifiers and annotations
++            separator = " ";
++        }
 +        while (ast != null) {
-+            if (ast.getType() == TokenTypes.ANNOTATION
-+                    || ast.getType() == TokenTypes.EXPR)
-+            {
++            if (ast.getFirstChild() != null) {
 +                modifiers.append(concatLogic(ast.getFirstChild()));
 +            }
 +            else {
++                if (ast.getType() == TokenTypes.RBRACK) {
++                    //if array
++                    modifiers.append("[");
++                }
 +                modifiers.append(ast.getText());
 +            }
++            modifiers.append(separator);
 +            ast = ast.getNextSibling();
 +        }
-+        return modifiers.toString();
++        return modifiers.toString().trim();
 +    }
 +
 +    /**
@@ -579,13 +659,13 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +         * Save compile flag. It can be necessary to further change the logic of
 +         * check.
 +         */
-+        private int mCompileFlags;
++        private final int mCompileFlags;
 +        /** The regexp to match against */
 +        private Pattern mRegExp;
 +        /** The Member of Class */
-+        private String mClassMember;
++        private final String mClassMember;
 +        /** The input full one rule with original names */
-+        private String mRule;
++        private final String mRule;
 +        /** The string format of the RegExp */
 +        private String mFormat;
 +
@@ -596,7 +676,6 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +         * @param aClassMember the member of class
 +         * @param aCompileFlags the Pattern flags to compile the regexp with.
 +         *            See {@link Pattern#compile(java.lang.String, int)}
-+         * @throws ConversionException unable to parse aDefaultFormat.
 +         */
 +        public FormatMatcher(final String aInputRule,
 +                final String aClassMember, final int aCompileFlags)
@@ -655,7 +734,6 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/CustomDeclar
 +    }
 +
 +}
-+
 Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/messages.properties
 ===================================================================
 --- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/messages.properties	(revision 2535)

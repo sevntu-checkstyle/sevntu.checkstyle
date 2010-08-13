@@ -21,7 +21,7 @@
         <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclarationOrder" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
             <description>%CustomDeclarationOrder.desc</description>
-            <property-metadata name="customDeclarationOrder" datatype="String" default-value="Field(public) ### Field(protected) ### Field(private) ### CTOR() ### Method()### InnerClass()">
+            <property-metadata name="customDeclarationOrder" datatype="Regex" default-value="Field(public) ### Field(protected) ### Field(private) ### CTOR(.*) ### Method(.*)### InnerClass()">
                 <description>%CustomDeclarationOrder.customDeclarationOrder</description>
             </property-metadata>
             <property-metadata name="ignoreRegExCase" datatype="Boolean" default-value="false">

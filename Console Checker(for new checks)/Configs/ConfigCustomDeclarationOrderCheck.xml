@@ -7,20 +7,21 @@
 		<module
 			name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck">
 			<property name="customDeclarationOrder"
-				value="Field(public static final) ### 
-				Field(@Autowired public) ### 
-				Field(public.*) ### 
-				Field(public) ### 
-				Field(private final) ### 
-				Field(private.*) ### 
-				Field(private) ### 
-				Field(.*) ### 
+				value="Field(private static final long serialVersionUID) ###
+				Field(private final Log log) ###
+				Field(public static final) ###
+				Field(@Autowired public) ###
+				Field(public.*) ###
+				Field(public) ###
+				Field(private final) ###
+				Field(private.*) ###
+				Field(private) ###
+				Field(.*) ###
 				Method(public abstract|protected abstract) ###
-				Ctor(private) ### 
-				Method(public static) ### 
-				Method(@Autowired public) ### 
-				Ctor(public) ### 
-				Method(.*) ### 
+				Ctor(private) ### Method(@Autowired public) ###
+				Method(public static .*(new|edit|create).*) ###
+				Ctor(public) ###
+				Method(.*) ###
 				InnerClass(.*)" />
 			<property name="ignoreRegExCase" value="true" />
 		</module>
