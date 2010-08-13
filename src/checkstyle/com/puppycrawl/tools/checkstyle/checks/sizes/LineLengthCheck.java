@@ -81,6 +81,12 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * &lt;/module&gt;
  * </pre>
  *
+ * <pre>
+ * There are some exceptions for class, constructor, field and method
+ * declarations. To ignore to check such lines there are enable|disable options.
+ * By default they have "false" values.
+ * </pre>
+ *
  * @author Lars Kühne
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */

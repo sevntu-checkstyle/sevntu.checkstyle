@@ -1,6 +1,6 @@
 Index: src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java
 ===================================================================
---- src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java	(revision 2535)
+--- src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java	(revision 2536)
 +++ src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTest.java	(working copy)
 @@ -6,7 +6,7 @@
  
@@ -11,11 +11,11 @@ Index: src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTes
      public void testSimple()
          throws Exception
      {
-@@ -20,4 +20,36 @@
+@@ -20,4 +20,37 @@
          };
          verify(checkConfig, getPath("InputSimple.java"), expected);
      }
-+	
++
 +    @Test
 +    public void testSimpleIgnore()
 +        throws Exception
@@ -39,101 +39,222 @@ Index: src/tests/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheckTes
 +            "151: Line is longer than 40 characters.",
 +            "152: Line is longer than 40 characters.",
 +            "192: Line is longer than 40 characters.",
-+            "195: Line is longer than 40 characters.",
 +            "200: Line is longer than 40 characters.",
 +            "207: Line is longer than 40 characters.",
 +        };
-+        checkConfig.addAttribute("allowFieldLengthIgnore", "true");
-+        checkConfig.addAttribute("allowMethodLengthIgnore", "true");
++        checkConfig.addAttribute("ignoreClass", "true");
++        checkConfig.addAttribute("ignoreConstructor", "true");
++        checkConfig.addAttribute("ignoreField", "true");
++        checkConfig.addAttribute("ignoreMethod", "true");
 +        verify(checkConfig, getPath("InputSimple.java"), expected);
 +    }
  }
 Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java
 ===================================================================
---- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java	(revision 2535)
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java	(revision 2536)
 +++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthCheck.java	(working copy)
-@@ -21,6 +21,7 @@
+@@ -19,26 +19,30 @@
  
- import com.puppycrawl.tools.checkstyle.api.Check;
- import com.puppycrawl.tools.checkstyle.api.DetailAST;
-+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
- import com.puppycrawl.tools.checkstyle.api.Utils;
+ package com.puppycrawl.tools.checkstyle.checks.sizes;
+ 
+-import com.puppycrawl.tools.checkstyle.api.Check;
+-import com.puppycrawl.tools.checkstyle.api.DetailAST;
+-import com.puppycrawl.tools.checkstyle.api.Utils;
++import java.util.ArrayList;
  import java.util.regex.Pattern;
  import java.util.regex.PatternSyntaxException;
-@@ -72,7 +73,8 @@
++
+ import org.apache.commons.beanutils.ConversionException;
+ 
++import com.puppycrawl.tools.checkstyle.api.Check;
++import com.puppycrawl.tools.checkstyle.api.DetailAST;
++import com.puppycrawl.tools.checkstyle.api.TokenTypes;
++import com.puppycrawl.tools.checkstyle.api.Utils;
++
+ /**
+  * Checks for long lines.
+  *
+  * <p>
+- * Rationale: Long lines are hard to read in printouts or if developers
+- * have limited screen space for the source code, e.g. if the IDE displays
+- * additional information like project tree, class hierarchy, etc.
++ * Rationale: Long lines are hard to read in printouts or if developers have
++ * limited screen space for the source code, e.g. if the IDE displays additional
++ * information like project tree, class hierarchy, etc.
+  * </p>
+  *
+  * <p>
+- * Note: Support for the special handling of imports in CheckStyle Version 2
+- * has been dropped as it is a special case of regexp: The user can set
+- * the ignorePattern to "^import" and achieve the same effect.
++ * Note: Support for the special handling of imports in CheckStyle Version 2 has
++ * been dropped as it is a special case of regexp: The user can set the
++ * ignorePattern to "^import" and achieve the same effect.
+  * </p>
+  * <p>
+  * The default maximum allowable line length is 80 characters. To change the
+@@ -51,28 +55,40 @@
+  * <p>
+  * An example of how to configure the check is:
+  * </p>
++ *
+  * <pre>
+  * &lt;module name="LineLength"/&gt;
+  * </pre>
+- * <p> An example of how to configure the check to accept lines up to 120
+- * characters long is:
+- *</p>
++ * <p>
++ * An example of how to configure the check to accept lines up to 120 characters
++ * long is:
++ * </p>
++ *
+  * <pre>
+  * &lt;module name="LineLength"&gt;
+  *    &lt;property name="max" value="120"/&gt;
+  * &lt;/module&gt;
+  * </pre>
+- * <p> An example of how to configure the check to ignore lines that begin with
++ * <p>
++ * An example of how to configure the check to ignore lines that begin with
+  * &quot; * &quot;, followed by just one word, such as within a Javadoc comment,
+  * is:
+  * </p>
++ *
+  * <pre>
+  * &lt;module name="LineLength"&gt;
+  *    &lt;property name="ignorePattern" value="^ *\* *[^ ]+$"/&gt;
   * &lt;/module&gt;
   * </pre>
   *
 - * @author Lars Kühne
++ * <pre>
++ * There are some exceptions for class, constructor, field and method
++ * declarations. To ignore to check such lines there are enable|disable options.
++ * By default they have "false" values.
++ * </pre>
++ *
 + * @author Lars KÃ¼hne
 + * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
   */
  public class LineLengthCheck extends Check
  {
-@@ -85,7 +87,34 @@
+@@ -85,7 +101,62 @@
      /** the regexp when long lines are ignored */
      private Pattern mIgnorePattern;
  
 +    /** array of strings in source file */
 +    private String[] mLines;
 +
-+    /** allow checking field length */
-+    private boolean mAllowFieldLengthIgnore;
++    /** check field declaration length */
++    private boolean mIgnoreField;
 +
-+    /** allow checking method length */
-+    private boolean mAllowMethodLengthIgnore;
++    /** check method declaration length */
++    private boolean mIgnoreMethod;
++
++    /** check constructor declaration length */
++    private boolean mIgnoreConstructor;
++
++    /** check class declaration length */
++    private boolean mIgnoreClass;
 +
      /**
-+     * Enable|Disable checking field length.
-+     * @param aValue allow check field length.
++     * Enable|Disable checking field declaration length.
++     *
++     * @param aValue check field declaration length.
 +     */
-+    public void setAllowFieldLengthIgnore(boolean aValue)
++    public void setIgnoreField(boolean aValue)
 +    {
-+        mAllowFieldLengthIgnore = aValue;
++        mIgnoreField = aValue;
 +    }
 +
 +    /**
-+     * Enable|Disable checking method length.
-+     * @param aValue allow check method length.
++     * Enable|Disable checking method declaration length.
++     *
++     * @param aValue check method declaration length.
 +     */
-+    public void setAllowMethodLengthIgnore(boolean aValue)
++    public void setIgnoreMethod(boolean aValue)
 +    {
-+        mAllowMethodLengthIgnore = aValue;
++        mIgnoreMethod = aValue;
++    }
++
++    /**
++     * Enable|Disable checking constructor declaration length.
++     *
++     * @param aValue check constructor declaration length.
++     */
++    public void setIgnoreConstructor(boolean aValue)
++    {
++        mIgnoreConstructor = aValue;
++    }
++
++    /**
++     * Enable|Disable checking class declaration length.
++     *
++     * @param aValue check class declaration length.
++     */
++    public void setIgnoreClass(boolean aValue)
++    {
++        mIgnoreClass = aValue;
 +    }
 +
 +    /**
       * Creates a new <code>LineLengthCheck</code> instance.
       */
      public LineLengthCheck()
-@@ -96,16 +125,49 @@
+@@ -96,23 +167,77 @@
      @Override
      public int[] getDefaultTokens()
      {
 -        return new int[0];
-+        //disable checking field and method length
-+        if (mAllowFieldLengthIgnore && mAllowMethodLengthIgnore) {
-+            return new int[]{TokenTypes.VARIABLE_DEF, TokenTypes.METHOD_DEF, };
++        /* array of tokens */
++        final ArrayList<Integer> tokens = new ArrayList<Integer>();
++
++        /*disable checking field, method, constructor
++         * or class declaration length
++         */
++        if (mIgnoreClass) {
++            tokens.add(TokenTypes.CLASS_DEF);
 +        }
-+        //disable checking field length
-+        else if (mAllowFieldLengthIgnore) {
-+            return new int[]{TokenTypes.VARIABLE_DEF, };
++        if (mIgnoreConstructor) {
++            tokens.add(TokenTypes.CTOR_DEF);
 +        }
-+        //disable checking method length
-+        else if (mAllowMethodLengthIgnore) {
-+            return new int[]{TokenTypes.METHOD_DEF, };
++        if (mIgnoreField) {
++            tokens.add(TokenTypes.VARIABLE_DEF);
 +        }
-+        //check every string
-+        else {
-+            return new int[0];
++        if (mIgnoreMethod) {
++            tokens.add(TokenTypes.METHOD_DEF);
 +        }
++
++        /* array of return tokens */
++        final int[] returnTokens = new int[tokens.size()];
++
++        for (int index = 0; index < tokens.size(); index++) {
++            returnTokens[index] = tokens.get(index);
++        }
++
++        return returnTokens;
      }
  
      @Override
 +    public void visitToken(DetailAST aAST)
 +    {
-+        if (aAST.getParent().getType() == TokenTypes.OBJBLOCK) {
++        final DetailAST endOfIgnoreLine = aAST.findFirstToken(TokenTypes.SLIST);
++        if (null != aAST.getParent()
++                && aAST.getParent().getType() == TokenTypes.OBJBLOCK
++                || aAST.getType() == TokenTypes.CLASS_DEF)
++        {
 +            final int mNumberOfLine = aAST.getLineNo();
-+            mLines[mNumberOfLine - 1] = null;
++            if (null == endOfIgnoreLine) {
++                mLines[mNumberOfLine - 1] = null;
++            }
++            else {
++                int mEndNumberOfLine = endOfIgnoreLine.getLineNo();
++                while (mEndNumberOfLine >= mNumberOfLine) {
++                    mLines[mEndNumberOfLine - 1] = null;
++                    mEndNumberOfLine--;
++                }
++            }
 +        }
 +    }
 +
@@ -146,20 +267,43 @@ Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/sizes/LineLengthChe
 +    }
  
 -            final String line = lines[i];
+-            final int realLength = Utils.lengthExpandedTabs(
+-                line, line.length(), getTabWidth());
 +    @Override
 +    public void finishTree(DetailAST aRootAST)
 +    {
 +        for (int i = 0; i < mLines.length; i++) {
-+
+ 
 +            if (null == mLines[i]) {
 +                continue;
 +            }
-+
-+            final String line = mLines[i];
-             final int realLength = Utils.lengthExpandedTabs(
-                 line, line.length(), getTabWidth());
  
-@@ -141,5 +203,4 @@
+-            if ((realLength > mMax)
+-                && !mIgnorePattern.matcher(line).find())
+-            {
++            final String line = mLines[i];
++            final int realLength = Utils.lengthExpandedTabs(line,
++                    line.length(), getTabWidth());
++
++            if ((realLength > mMax) && !mIgnorePattern.matcher(line).find()) {
+                 log(i + 1, "maxLineLen", mMax);
+             }
+         }
+@@ -128,11 +253,11 @@
+ 
+     /**
+      * Set the ignore pattern.
++     *
+      * @param aFormat a <code>String</code> value
+      * @throws ConversionException unable to parse aFormat
+      */
+-    public void setIgnorePattern(String aFormat)
+-        throws ConversionException
++    public void setIgnorePattern(String aFormat) throws ConversionException
+     {
+         try {
+             mIgnorePattern = Utils.getPattern(aFormat);
+@@ -141,5 +266,4 @@
              throw new ConversionException("unable to parse " + aFormat, e);
          }
      }
