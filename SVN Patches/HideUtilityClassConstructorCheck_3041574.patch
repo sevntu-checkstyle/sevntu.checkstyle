@@ -1,0 +1,192 @@
+Index: src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_2.java
+===================================================================
+--- src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_2.java	(revision 0)
++++ src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_2.java	(revision 0)
+@@ -0,0 +1,8 @@
++package com.puppycrawl.tools.checkstyle.design;
++
++import java.io.Serializable;
++
++public class HideUtilityClassContructor3041574_2 implements Serializable {
++    private static final long serialVersionUID = 1L;
++
++}
+\ No newline at end of file
+Index: src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_3.java
+===================================================================
+--- src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_3.java	(revision 0)
++++ src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_3.java	(revision 0)
+@@ -0,0 +1,48 @@
++package com.puppycrawl.tools.checkstyle.design;
++
++import java.io.Serializable;
++
++public class HideUtilityClassContructor3041574_3 implements Serializable {
++    private static final long serialVersionUID = 1L;
++
++    public HideUtilityClassContructor3041574_3(int i) {
++        // no code
++    }
++
++    public String getValue() {
++        return "";
++    }
++    
++    // It is NOT Utility Inner class
++    @SuppressWarnings("unused")
++    public static class Event {
++        // Top level class have access to fields - no need in public getters
++        private String ind;
++        private String ind1;
++        
++        public Event(String value){
++            // do a lot of calculations
++        }
++        
++        // static because this method is utility
++        public static String getEmptyString() {
++            return "";
++        }
++    }
++    
++    // It is Utility Inner class
++    @SuppressWarnings("unused")
++    public static class Event1 {
++        private String ind;
++        private String ind1;
++        
++        private Event1(){
++            // do a lot of calculations
++        }
++        
++        // static because this method is utility
++        public static String getEmptyString() {
++            return "";
++        }
++    }
++}
+\ No newline at end of file
+Index: src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_1.java
+===================================================================
+--- src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_1.java	(revision 0)
++++ src/testinputs/com/puppycrawl/tools/checkstyle/design/HideUtilityClassContructor3041574_1.java	(revision 0)
+@@ -0,0 +1,8 @@
++package com.puppycrawl.tools.checkstyle.design;
++
++import java.io.Serializable;
++
++public abstract class HideUtilityClassContructor3041574_1 implements Serializable {
++    private static final long serialVersionUID = 1L;
++
++}
+\ No newline at end of file
+Index: src/tests/com/puppycrawl/tools/checkstyle/checks/design/HideUtilityClassConstructorCheckTest.java
+===================================================================
+--- src/tests/com/puppycrawl/tools/checkstyle/checks/design/HideUtilityClassConstructorCheckTest.java	(revision 2536)
++++ src/tests/com/puppycrawl/tools/checkstyle/checks/design/HideUtilityClassConstructorCheckTest.java	(working copy)
+@@ -51,4 +51,34 @@
+         verify(checkConfig, getPath("design" + File.separator + "InputRegression1762702.java"), expected);
+     }
+ 
++    @Test
++    public void testEmptyAbstractClass() throws Exception
++    {
++        final DefaultConfiguration checkConfig =
++            createCheckConfig(HideUtilityClassConstructorCheck.class);
++        final String[] expected = {
++        };
++        verify(checkConfig, getPath("design" + File.separator + "HideUtilityClassContructor3041574_1.java"), expected);
++    }
++
++    @Test
++    public void testEmptyClassWithOnlyPrivateFields() throws Exception
++    {
++        final DefaultConfiguration checkConfig =
++            createCheckConfig(HideUtilityClassConstructorCheck.class);
++        final String[] expected = {
++        };
++        verify(checkConfig, getPath("design" + File.separator + "HideUtilityClassContructor3041574_2.java"), expected);
++    }
++
++    @Test
++    public void testClassWithStaticInnerClass() throws Exception
++    {
++        final DefaultConfiguration checkConfig =
++            createCheckConfig(HideUtilityClassConstructorCheck.class);
++        final String[] expected = {
++        };
++        verify(checkConfig, getPath("design" + File.separator + "HideUtilityClassContructor3041574_3.java"), expected);
++    }
++
+ }
+Index: src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/HideUtilityClassConstructorCheck.java
+===================================================================
+--- src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/HideUtilityClassConstructorCheck.java	(revision 2536)
++++ src/checkstyle/com/puppycrawl/tools/checkstyle/checks/design/HideUtilityClassConstructorCheck.java	(working copy)
+@@ -44,10 +44,17 @@
+     @Override
+     public void visitToken(DetailAST aAST)
+     {
++        if (isAbstract(aAST)) {
++            // abstract class could not have private constructor
++            return;
++        }
++
+         final DetailAST objBlock = aAST.findFirstToken(TokenTypes.OBJBLOCK);
+         DetailAST child = objBlock.getFirstChild();
++        final boolean hasStaticModifier = isStatic(aAST);
+         boolean hasMethodOrField = false;
+         boolean hasNonStaticMethodOrField = false;
++        boolean hasNonPrivateStaticMethodOrField = false;
+         boolean hasDefaultCtor = true;
+         boolean hasPublicCtor = false;
+ 
+@@ -67,6 +74,9 @@
+                 if (!isStatic && !isPrivate) {
+                     hasNonStaticMethodOrField = true;
+                 }
++                if (isStatic && !isPrivate) {
++                    hasNonPrivateStaticMethodOrField = true;
++                }
+             }
+             if (type == TokenTypes.CTOR_DEF) {
+                 hasDefaultCtor = false;
+@@ -93,11 +103,35 @@
+         final boolean extendsJLO = // J.Lo even made it into in our sources :-)
+             aAST.findFirstToken(TokenTypes.EXTENDS_CLAUSE) == null;
+ 
+-        final boolean isUtilClass =
+-            extendsJLO && hasMethodOrField && !hasNonStaticMethodOrField;
++        final boolean isUtilClass = extendsJLO && hasMethodOrField
++            && !hasNonStaticMethodOrField && hasNonPrivateStaticMethodOrField;
+ 
+-        if (isUtilClass && hasAccessibleCtor) {
++        if (isUtilClass && (hasAccessibleCtor && !hasStaticModifier)) {
+             log(aAST.getLineNo(), aAST.getColumnNo(), "hide.utility.class");
+         }
+     }
++
++    /**
++     * @param aAST class definition for check.
++     * @return true if a given class declared as abstract.
++     */
++    private boolean isAbstract(DetailAST aAST)
++    {
++        final DetailAST abstractAST = aAST.findFirstToken(TokenTypes.MODIFIERS)
++            .findFirstToken(TokenTypes.ABSTRACT);
++
++        return abstractAST != null;
++    }
++
++    /**
++     * @param aAST class definition for check.
++     * @return true if a given class declared as static.
++     */
++    private boolean isStatic(DetailAST aAST)
++    {
++        final DetailAST staticAST = aAST.findFirstToken(TokenTypes.MODIFIERS)
++            .findFirstToken(TokenTypes.LITERAL_STATIC);
++
++        return staticAST != null;
++    }
+ }
