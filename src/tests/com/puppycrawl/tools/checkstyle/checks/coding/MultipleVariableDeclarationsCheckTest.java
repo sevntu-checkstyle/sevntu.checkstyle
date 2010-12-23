@@ -8,8 +8,7 @@ import org.junit.Test;
 public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 {
     @Test
-    public void testIt() throws Exception
-    {
+    public void testStandartSituation() throws Exception {
         DefaultConfiguration checkConfig =
             createCheckConfig(MultipleVariableDeclarationsCheck.class);
 
@@ -22,8 +21,75 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
             "15:5: Only one variable definition per line allowed.",
             "20:14: Each variable declaration must be in its own statement.",
         };
+        
+        checkConfig.addAttribute("ignoreCycles", "false");
+        checkConfig.addAttribute("ignoreMethods", "false");
         System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
         verify(checkConfig,getPath("InputMultipleVariableDeclarations.java"),expected);
          
     }
+    
+    @Test
+    public void testIgnoreCycles() throws Exception {
+        DefaultConfiguration checkConfig =
+            createCheckConfig(MultipleVariableDeclarationsCheck.class);
+
+        final String[] expected = {
+            "3:5: Each variable declaration must be in its own statement.",
+            "4:5: Only one variable definition per line allowed.",
+            "7:9: Each variable declaration must be in its own statement.",
+            "8:9: Only one variable definition per line allowed.",
+            "12:5: Only one variable definition per line allowed.",
+            "15:5: Only one variable definition per line allowed.",
+       //   "20:14: Each variable declaration must be in its own statement.",
+        };
+        
+        checkConfig.addAttribute("ignoreCycles", "true");
+        checkConfig.addAttribute("ignoreMethods","false");
+        System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        verify(checkConfig,getPath("InputMultipleVariableDeclarations.java"),expected);
+        }
+    
+    @Test
+    public void testIgnoreMethods() throws Exception {
+        DefaultConfiguration checkConfig =
+            createCheckConfig(MultipleVariableDeclarationsCheck.class);
+
+        final String[] expected = {
+            "3:5: Each variable declaration must be in its own statement.",
+            "4:5: Only one variable definition per line allowed.",
+         // "7:9: Each variable declaration must be in its own statement.",
+         // "8:9: Only one variable definition per line allowed.",
+            "12:5: Only one variable definition per line allowed.",
+            "15:5: Only one variable definition per line allowed.",
+            "20:14: Each variable declaration must be in its own statement.",
+        };
+        
+        checkConfig.addAttribute("ignoreCycles", "false");
+        checkConfig.addAttribute("ignoreMethods","true");
+        System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        verify(checkConfig,getPath("InputMultipleVariableDeclarations.java"),expected);
+        }
+    
+    @Test
+    public void testIgnoreMethodsAndIgnoreCycles() throws Exception {
+        DefaultConfiguration checkConfig =
+            createCheckConfig(MultipleVariableDeclarationsCheck.class);
+
+        final String[] expected = {
+            "3:5: Each variable declaration must be in its own statement.",
+            "4:5: Only one variable definition per line allowed.",
+         // "7:9: Each variable declaration must be in its own statement.",
+         // "8:9: Only one variable definition per line allowed.",
+            "12:5: Only one variable definition per line allowed.",
+            "15:5: Only one variable definition per line allowed.",
+         // "20:14: Each variable declaration must be in its own statement.",
+        };
+        
+        checkConfig.addAttribute("ignoreCycles", "true");
+        checkConfig.addAttribute("ignoreMethods","true");
+        System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        verify(checkConfig,getPath("InputMultipleVariableDeclarations.java"),expected);
+        }
+        
 }

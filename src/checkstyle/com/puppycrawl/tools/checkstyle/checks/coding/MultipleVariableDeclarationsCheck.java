@@ -46,10 +46,10 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 public class MultipleVariableDeclarationsCheck extends Check
 {
     /** check declaration in Methods */
-    private boolean ignoreVariables;
+    private boolean ignoreCycles;
     
     /** check declaration in cycles */
-    private boolean ignoreForInit;
+    private boolean ignoreMethods;
 
     
     /**
@@ -57,8 +57,8 @@ public class MultipleVariableDeclarationsCheck extends Check
      *
      * @param Value check declaration in Methods
      */  
-    public void setIgnoreCycles(boolean Value) {
-        ignoreVariables = Value;
+    public void setignoreCycles(boolean Value) {
+        ignoreCycles = Value;
     }
     
     /**
@@ -66,8 +66,8 @@ public class MultipleVariableDeclarationsCheck extends Check
      *
      * @param Value check declaration in Methods
      */
-    public void setIgnoreMethods(boolean Value) {
-        ignoreForInit = Value;
+    public void setignoreMethods(boolean Value) {
+        ignoreMethods = Value;
     }
     
     /** Creates new instance of the check. */
@@ -132,11 +132,11 @@ public class MultipleVariableDeclarationsCheck extends Check
             
             work(token);
             
-        } else if (!ignoreForInit & inFor) {
+        } else if (!ignoreCycles & inFor) {
             work(token);
         }
 
-        else if (!ignoreVariables & !inClass & !inFor) {
+        else if (!ignoreMethods & !inClass & !inFor) {
             work(token);
         }
 
