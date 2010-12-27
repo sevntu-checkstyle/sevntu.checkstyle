@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -26,52 +27,53 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 
 /**
  * <p>
- * Checks that each variable declaration is in its own statement
- * and on its own line.
+ * Checks that each variable declaration is in its own statement and on its own
+ * line.
  * </p>
  * <p>
- * Rationale: <a
- * href="http://java.sun.com/docs/codeconv/html/CodeConventions.doc5.html#2991">
- * the SUN Code conventions chapter 6.1</a> recommends that
- * declarations should be one per line.
+ * Rationale: <a href=
+ * "http://java.sun.com/docs/codeconv/html/CodeConventions.doc5.html#2991"> the
+ * SUN Code conventions chapter 6.1</a> recommends that declarations should be
+ * one per line.
  * </p>
  * <p>
  * An example of how to configure the check is:
  * </p>
  * <pre>
  * &lt;module name="MultipleVariableDeclarations"/&gt;
- * </pre>
+ * </pre> *
  * @author o_sukhodolsky
  */
+
 public class MultipleVariableDeclarationsCheck extends Check
 {
-    /** check declaration in Methods */
-    private boolean ignoreCycles;
-    
-    /** check declaration in cycles */
-    private boolean ignoreMethods;
 
-    
+    /** check declaration in Methods. */
+    private boolean mIgnoreCycles;
+
+    /** check declaration in cycles. */
+    private boolean mIgnoreMethods;
+
     /**
-     * Enable|Disable declaration checking in cycles 
-     *
-     * @param Value check declaration in Methods
-     */  
-    public void setignoreCycles(boolean Value) {
-        ignoreCycles = Value;
-    }
-    
-    /**
-     * Enable|Disable declaration checking in Methods 
-     *
-     * @param Value check declaration in Methods
+     * Enable|Disable declaration checking in cycles.
+     * @param aValue check declaration in Methods
      */
-    public void setignoreMethods(boolean Value) {
-        ignoreMethods = Value;
+    public void setignoreCycles(final boolean aValue)
+    {
+        mIgnoreCycles = aValue;
     }
-    
+
+    /**Enable|Disable declaration checking in Methods. *
+     * @param aValue check declaration in Methods
+     */
+    public void setignoreMethods(final boolean aValue)
+    {
+        mIgnoreMethods = aValue;
+    }
+
     /** Creates new instance of the check. */
-    public MultipleVariableDeclarationsCheck()  {
+    public MultipleVariableDeclarationsCheck()
+    {
     }
 
     @Override
@@ -79,14 +81,16 @@ public class MultipleVariableDeclarationsCheck extends Check
     {
         return new int[] {TokenTypes.VARIABLE_DEF};
     }
-    
-  
-    
-    public void work(DetailAST aAST){
-        
+
+    /** Searches for wrong declarations and checks the their type.
+    * @param aAST uses to get the parent or previous sibling token.
+    */
+    public void work(DetailAST aAST)
+    {
+
         DetailAST nextNode = aAST.getNextSibling();
-        final boolean isCommaSeparated =
-            ((nextNode != null) && (nextNode.getType() == TokenTypes.COMMA));
+        final boolean isCommaSeparated = ((nextNode != null) && (nextNode
+                .getType() == TokenTypes.COMMA));
 
         if (nextNode == null) {
             // no nextMethods statement - no check
@@ -94,13 +98,13 @@ public class MultipleVariableDeclarationsCheck extends Check
         }
 
         if ((nextNode.getType() == TokenTypes.COMMA)
-            || (nextNode.getType() == TokenTypes.SEMI))
+                || (nextNode.getType() == TokenTypes.SEMI))
         {
             nextNode = nextNode.getNextSibling();
         }
 
         if ((nextNode != null)
-            && (nextNode.getType() == TokenTypes.VARIABLE_DEF))
+                && (nextNode.getType() == TokenTypes.VARIABLE_DEF))
         {
             final DetailAST firstNode = CheckUtils.getFirstNode(aAST);
             if (isCommaSeparated) {
@@ -115,28 +119,27 @@ public class MultipleVariableDeclarationsCheck extends Check
                 log(firstNode, "multiple.variable.declarations");
             }
         }
-        
-        
+
     }
 
     @Override
     public void visitToken(DetailAST aAST)
     {
 
-        DetailAST token = aAST;
-        boolean inFor = (aAST.getParent().getType() == TokenTypes.FOR_INIT);
-
-        boolean inClass = (aAST.getParent().getParent().getType() == TokenTypes.CLASS_DEF);
+        final DetailAST token = aAST;
+        final boolean inFor = (aAST.getParent().getType()
+                == TokenTypes.FOR_INIT);
+        final boolean inClass = (aAST.getParent().getParent().getType()
+                == TokenTypes.CLASS_DEF);
 
         if (inClass) {
-            
             work(token);
-            
-        } else if (!ignoreCycles & inFor) {
+        }
+        else if (!mIgnoreCycles & inFor) {
             work(token);
         }
 
-        else if (!ignoreMethods & !inClass & !inFor) {
+        else if (!mIgnoreMethods & !inClass & !inFor) {
             work(token);
         }
 
@@ -154,8 +157,9 @@ public class MultipleVariableDeclarationsCheck extends Check
         while (child != null) {
             final DetailAST newNode = getLastNode(child);
             if ((newNode.getLineNo() > currentNode.getLineNo())
-                || ((newNode.getLineNo() == currentNode.getLineNo())
-                    && (newNode.getColumnNo() > currentNode.getColumnNo())))
+                    || ((newNode.getLineNo()
+                         == currentNode.getLineNo()) && (newNode
+                            .getColumnNo() > currentNode.getColumnNo())))
             {
                 currentNode = newNode;
             }
