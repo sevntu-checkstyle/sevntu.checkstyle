@@ -5,8 +5,8 @@
 <module name="Checker">
   <module name="TreeWalker">
     <module name="com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarationsCheck">
-    	<property name="mIgnoreCycles" value = "false"/> 
-    	<property name = "mIgnoreMethods" value = "false"></property>
+    	<property name="IgnoreCycles" value = "false"/> 
+    	<property name = "IgnoreMethods" value = "false"></property>
     </module>
   </module>
 </module>

@@ -58,7 +58,7 @@ public class MultipleVariableDeclarationsCheck extends Check
      * Enable|Disable declaration checking in cycles.
      * @param aValue check declaration in Methods
      */
-    public void setignoreCycles(final boolean aValue)
+    public void setIgnoreCycles(final boolean aValue)
     {
         mIgnoreCycles = aValue;
     }
@@ -66,7 +66,7 @@ public class MultipleVariableDeclarationsCheck extends Check
     /**Enable|Disable declaration checking in Methods. *
      * @param aValue check declaration in Methods
      */
-    public void setignoreMethods(final boolean aValue)
+    public void setIgnoreMethods(final boolean aValue)
     {
         mIgnoreMethods = aValue;
     }
