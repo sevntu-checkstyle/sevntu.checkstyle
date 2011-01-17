@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="%Design.group" priority="1000">
+
+        <rule-metadata name="%DesignForExtension.name" internal-name="DesignForExtension" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.DesignForExtensionCheck"/>
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.DesignForExtensionCheck"/>
+            <description>%DesignForExtension.desc</description>
+            <quickfix classname="net.sf.eclipsecs.ui.quickfixes.design.DesignForExtensionQuickfix"/>
+            <message-key key="design.forExtension"/>
+        </rule-metadata>
+
+        <rule-metadata name="%FinalClass.name" internal-name="FinalClass" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheck"/>
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.FinalClassCheck"/>
+            <description>%FinalClass.desc</description>
+            <quickfix classname="net.sf.eclipsecs.ui.quickfixes.design.FinalClassQuickfix"/>
+            <message-key key="final.class"/>
+        </rule-metadata>
+
+        <rule-metadata name="%InnerTypeLast.name" internal-name="InnerTypeLast" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.InnerTypeLastCheck"/>
+            <description>%InnerTypeLast.desc</description>
+            <message-key key="arrangement.members.before.inner"/>
+        </rule-metadata>
+
+        <rule-metadata name="%HideUtilityClassConstructor.name" internal-name="HideUtilityClassConstructor"
+            parent="TreeWalker">
+            <alternative-name
+                internal-name="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.HideUtilityClassConstructorCheck"/>
+            <description>%HideUtilityClassConstructor.desc</description>
+            <message-key key="hide.utility.class"/>
+        </rule-metadata>
+
+        <rule-metadata name="%InterfaceIsType.name" internal-name="InterfaceIsType" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.InterfaceIsTypeCheck"/>
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.InterfaceIsTypeCheck"/>
+            <description>%InterfaceIsType.desc</description>
+            <property-metadata name="allowMarkerInterfaces" datatype="Boolean" default-value="true">
+                <description>%InterfaceIsType.allowMarkerInterfaces</description>
+            </property-metadata>
+            <message-key key="interface.type"/>
+        </rule-metadata>
+
+        <rule-metadata name="%MutableException.name" internal-name="MutableException" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.MutableExceptionCheck"/>
+            <description>%MutableException.desc</description>
+            <property-metadata name="format" datatype="Regex" default-value="^.*Exception$|^.*Error$">
+                <description>%MutableException.format</description>
+            </property-metadata>
+            <message-key key="mutable.exception"/>
+        </rule-metadata>
+
+        <rule-metadata name="%ThrowsCount.name" internal-name="ThrowsCount" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.ThrowsCountCheck"/>
+            <description>%ThrowsCount.desc</description>
+            <property-metadata name="max" datatype="Integer" default-value="1">
+                <description>%ThrowsCount.max</description>
+            </property-metadata>
+            <message-key key="throws.count"/>
+        </rule-metadata>
+
+        <rule-metadata name="%VisibilityModifier.name" internal-name="VisibilityModifier" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.VisibilityModifierCheck"/>
+            <description>%VisibilityModifier.desc</description>
+            <property-metadata name="packageAllowed" datatype="Boolean" default-value="false">
+                <description>%VisibilityModifier.packageAllowed</description>
+            </property-metadata>
+            <property-metadata name="protectedAllowed" datatype="Boolean" default-value="false">
+                <description>%VisibilityModifier.protectedAllowed</description>
+            </property-metadata>
+            <property-metadata name="publicMemberPattern" datatype="Regex" default-value="^serialVersionUID">
+                <description>%VisibilityModifier.publicMemberPattern</description>
+            </property-metadata>
+            <message-key key="variable.notPrivate"/>
+        </rule-metadata>
+
+    </rule-group-metadata>
+</checkstyle-metadata>
