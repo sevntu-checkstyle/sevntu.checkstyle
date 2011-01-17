@@ -48,10 +48,10 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 public class MultipleVariableDeclarationsCheck extends Check
 {
 
-    /** check declaration in Methods. */
+    /** check declaration in cycles. */
     private boolean mIgnoreCycles;
 
-    /** check declaration in cycles. */
+    /** check declaration in methods. */
     private boolean mIgnoreMethods;
 
     /**

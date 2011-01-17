@@ -6,7 +6,11 @@
   <module name="TreeWalker">
     <module name="com.puppycrawl.tools.checkstyle.checks.coding.InputIllegalCatchCheck">
     	<property name="illegalClassNames" 
-    	value="java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException"/> 
+    	value="java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException"/>
+    	<property name="throwPermit"
+    	value="true"/>
+    	<property name="rethrowPermit"
+    	value="true"/>
     </module>
   </module>
 </module>
