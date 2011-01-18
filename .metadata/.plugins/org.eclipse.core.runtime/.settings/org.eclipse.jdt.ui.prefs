@@ -1,4 +1,4 @@
-#Tue Jan 18 11:29:34 EET 2011
+#Tue Jan 18 13:47:53 EET 2011
 useQuickDiffPrefPage=true
 proposalOrderMigrated=true
 tabWidthPropagated=true
@@ -13,3 +13,4 @@ spelling_locale_initialized=true
 eclipse.preferences.version=1
 content_assist_proposals_foreground=26,26,26
 fontPropagated=true
+content_assist_disabled_computers=org.eclipse.jdt.ui.javaAllProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000

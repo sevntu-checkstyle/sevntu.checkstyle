@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="38" version="2.0">
+<workbench progressCount="34" version="2.0">
 <workbenchAdvisor/>
-<window height="750" maximized="true" width="1024" x="0" y="25">
+<window height="748" maximized="true" width="1028" x="477" y="261">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -10,12 +10,12 @@
 <coolItem id="group.file" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="132" y="30"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="156" y="30"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="120" y="30"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="30"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="104" y="30"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="152" y="30"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="68" y="30"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="68" y="30"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="184" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
@@ -34,13 +34,14 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IllegalCatchCheck.java" partName="IllegalCatchCheck.java" path="/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java" title="IllegalCatchCheck.java" tooltip="sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IllegalCatchCheck.java" partName="IllegalCatchCheck.java" path="/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java" title="IllegalCatchCheck.java" tooltip="sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3236" selectionTopPixel="1105"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4346" selectionTopPixel="1554"/>
 </editor>
 <editor id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name="ConfigIllegalCatchCheckNew.xml" partName="ConfigIllegalCatchCheckNew.xml" path="/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding/ConfigIllegalCatchCheckNew.xml" title="ConfigIllegalCatchCheckNew.xml" tooltip="sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding/ConfigIllegalCatchCheckNew.xml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding/ConfigIllegalCatchCheckNew.xml"/>
@@ -49,17 +50,17 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheckTest.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2651" selectionTopPixel="884"/>
 </editor>
+<editor activePart="true" focus="true" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name="checkstyle-metadata.xml" partName="checkstyle-metadata.xml" path="/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml" title="checkstyle-metadata.xml" tooltip="sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+</editor>
 </editors>
 <views>
-<view id="ecobertura.ui.views.session.CoverageSessionView" partName="Coverage Session View">
-<viewState/>
-</view>
 <view id="org.eclipse.jdt.junit.ResultView" partName="JUnit">
 <viewState failuresOnly="false" layout="1" orientation="2" ratio="500" scroll="false" time="true"/>
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.resourceField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<columnWidths org.eclipse.ui.ide.locationField="73" org.eclipse.ui.ide.markerType="108" org.eclipse.ui.ide.pathField="143" org.eclipse.ui.ide.resourceField="108" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
+<columnWidths org.eclipse.ui.ide.locationField="73" org.eclipse.ui.ide.markerType="253" org.eclipse.ui.ide.pathField="143" org.eclipse.ui.ide.resourceField="108" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -67,9 +68,14 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
 </view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
-<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
@@ -116,7 +122,7 @@
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
@@ -130,7 +136,6 @@
 <alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
 <alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
-<alwaysOnActionSet id="ecobertura.ui.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
@@ -177,14 +182,14 @@
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
-<view id="ecobertura.ui.views.session.CoverageSessionView"/>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
 <info folder="true" part="left">
-<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
 <page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
@@ -205,27 +210,22 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.26477543" ratioLeft="336" ratioRight="933" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.85645163" ratioLeft="531" ratioRight="89" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottom" ratio="0.57096773" ratioLeft="354" ratioRight="266" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.egit.ui.RepositoriesView" label="LabelNotFound"/>
+<page content="ecobertura.ui.views.session.CoverageSessionView" label="LabelNotFound"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
-</presentation>
-</folder>
-</info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1ab3cda" ratio="0.5" ratioLeft="379" ratioRight="379" relationship="2" relative="bottom">
-<folder activePageID="ecobertura.ui.views.session.CoverageSessionView" appearance="2" expanded="2">
-<page content="ecobertura.ui.views.session.CoverageSessionView" label="Coverage Session View"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
@@ -254,85 +254,165 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheckTest.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding/ConfigIllegalCatchCheckNew.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.core.runtime.xml.source" path="/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding/ConfigIllegalCatchCheckNew.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.core.runtime.xml.source" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheckTest.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=sevntu.checkstyle/\/usr\/lib\/jvm\/java-6-sun-1.6.0.22\/jre\/lib\/rt.jar&lt;java.lang(Exception.class"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/BaseCheckTestSupport.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheckTest.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/sevntu.checkstyle/src/checkstyle/com/puppycrawl/tools/checkstyle/checks/coding/IllegalCatchCheck.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.core.runtime.xml.source" path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
 </editors>
-<item historyLabel="IllegalCatchCheck.java" index="0">
+<item historyLabel="IllegalCatchCheckTest.java" index="0">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="1">
+<position info="not_deleted" x="3236" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="0">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="2">
+<position info="not_deleted" x="4271" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="0">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="3">
+<position info="not_deleted" x="4410" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="0">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="4">
+<position info="not_deleted" x="32231" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="32957" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="32243" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="32942" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11004" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11216" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11058" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11197" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11216" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11098" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11272" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11312" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11426" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11312" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="5">
+<position info="not_deleted" x="11413" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="6">
 <position info="not_deleted" x="81" y="0"/>
 </item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="1673" y="0"/>
+<item historyLabel="IllegalCatchCheck.java" index="6">
+<position info="not_deleted" x="4346" y="0"/>
 </item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position/>
-</item>
-<item historyLabel="ConfigIllegalCatchCheckNew.xml" index="1">
-<position info="not_deleted" x="442" y="0"/>
-</item>
-<item historyLabel="ConfigIllegalCatchCheckNew.xml" index="2">
-<position info="not_deleted" x="495" y="0"/>
-</item>
-<item historyLabel="ConfigIllegalCatchCheckNew.xml" index="2">
-<position info="not_deleted" x="432" y="0"/>
-</item>
-<item historyLabel="ConfigIllegalCatchCheckNew.xml" index="2">
-<position info="not_deleted" x="495" y="0"/>
-</item>
-<item historyLabel="ConfigIllegalCatchCheckNew.xml" index="2">
-<position info="not_deleted" x="465" y="0"/>
-</item>
-<item historyLabel="IllegalCatchCheckTest.java" index="3">
-<position info="not_deleted" x="938" y="0"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3174" y="62"/>
-</item>
-<item historyLabel="Exception.class" index="4">
-<position info="not_deleted" x="479" y="9"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="4035" y="0"/>
-</item>
-<item historyLabel="BaseCheckTestSupport.java" index="5">
-<position info="not_deleted" x="4430" y="66"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="4035" y="0"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3155" y="8"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3264" y="14"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3155" y="8"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3155" y="8"/>
-</item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3848" y="0"/>
-</item>
-<item historyLabel="IllegalCatchCheckTest.java" index="3">
+<item historyLabel="IllegalCatchCheckTest.java" index="7">
 <position info="not_deleted" x="2651" y="0"/>
 </item>
-<item historyLabel="IllegalCatchCheck.java" index="0">
-<position info="not_deleted" x="3848" y="0"/>
+<item historyLabel="checkstyle-metadata.xml" index="8"/>
+<item historyLabel="IllegalCatchCheck.java" index="9">
+<position info="not_deleted" x="81" y="0"/>
 </item>
-<item active="true" historyLabel="IllegalCatchCheckTest.java" index="6">
+<item historyLabel="IllegalCatchCheck.java" index="9">
+<position info="not_deleted" x="4346" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="7">
 <position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="10"/>
+<item historyLabel="IllegalCatchCheck.java" index="11">
+<position info="not_deleted" x="81" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="11">
+<position info="not_deleted" x="4346" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="7">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="12"/>
+<item historyLabel="IllegalCatchCheck.java" index="13">
+<position info="not_deleted" x="81" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="13">
+<position info="not_deleted" x="4346" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="7">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="14"/>
+<item historyLabel="IllegalCatchCheck.java" index="15">
+<position info="not_deleted" x="81" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="15">
+<position info="not_deleted" x="4346" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="7">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="16"/>
+<item historyLabel="IllegalCatchCheck.java" index="17">
+<position info="not_deleted" x="81" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheck.java" index="17">
+<position info="not_deleted" x="4346" y="0"/>
+</item>
+<item historyLabel="IllegalCatchCheckTest.java" index="7">
+<position info="not_deleted" x="2651" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="18">
+<position info="not_deleted" x="221" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="18">
+<position info="not_deleted" x="194" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="18">
+<position info="not_deleted" x="40" y="0"/>
+</item>
+<item historyLabel="checkstyle-metadata.xml" index="18">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="checkstyle-metadata.xml" index="18">
+<position info="not_deleted" x="40" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -351,6 +431,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" name="checkstyle-metadata.xml" tooltip="sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml">
+<persistable path="/sevntu.checkstyle/Checkstyle  5.3 Eclipse Configs + MVDC + IE/plugins/net.sf.eclipsecs.checkstyle_5.3.0.201012121300/com/puppycrawl/tools/checkstyle/checks/coding/checkstyle-metadata.xml"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BaseCheckTestSupport.java" tooltip="sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/BaseCheckTestSupport.java">
 <persistable path="/sevntu.checkstyle/src/tests/com/puppycrawl/tools/checkstyle/BaseCheckTestSupport.java"/>
 </file>
