@@ -164,13 +164,13 @@
                 default-value="java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException">
                 <description>%IllegalCatch.illegalClassNames</description>
             </property-metadata>
-            <property-metadata name="throwPermit" datatype="Boolean"
+            <property-metadata name="allowThrow" datatype="Boolean"
                 default-value="false">
-                <description>%IllegalCatch.throwPermit</description>
+                <description>%IllegalCatch.allowThrow</description>
             </property-metadata>
-            <property-metadata name="rethrowPermit" datatype="Boolean"
+            <property-metadata name="allowRethrow" datatype="Boolean"
                 default-value="false">
-                <description>%IllegalCatch.rethrowPermit</description>
+                <description>%IllegalCatch.allowRethrow</description>
             </property-metadata>
             <message-key key="illegal.catch" />
         </rule-metadata>
