@@ -25,10 +25,9 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 
 /**
- * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
- * is almost never acceptable.
- * 
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com">Daniil Yaroslavtsev</a>
+ * описание чека =) Появится, когда я немного отдохну ) * 
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com">
+ * Daniil Yaroslavtsev</a>
  */
 public class AvoidHidingCauseExceptionCheck extends Check {
 
@@ -47,26 +46,28 @@ public class AvoidHidingCauseExceptionCheck extends Check {
 
     public void visitToken(DetailAST aDetailAST) {
         // retrieve an exception name from current "catch" block parameters definition
-        final String necessaryExcName = aDetailAST.findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild().getText();
+        final String necessaryExcName = aDetailAST
+                .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
+                .getText();
 
+        DetailAST throwAST = getChildTokenAST(aDetailAST,
+                TokenTypes.LITERAL_THROW, "throw");
         DetailAST foundExcNameAST = null;
-        DetailAST searchStart = aDetailAST;
-        DetailAST throwAST = getChildTokenAST(searchStart, TokenTypes.LITERAL_THROW, "throw");
-        
-        if(throwAST != null ){ 
-            // throw found?
-            DetailAST newAST = getChildTokenAST(throwAST, TokenTypes.LITERAL_NEW, "new");
-            if(newAST != null){ 
-                // new found?
-            }
-            foundExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT, necessaryExcName);
+        DetailAST newAST = null;
+
+        if (throwAST != null) { // throw found?            
+            newAST = getChildTokenAST(throwAST, TokenTypes.LITERAL_NEW, "new");
+            foundExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT,
+                    necessaryExcName);
         }
 
-        if(foundExcNameAST == null || !foundExcNameAST.getText().equals(necessaryExcName)){ 
+        if (throwAST != null
+                && (newAST != null && (foundExcNameAST == null || !necessaryExcName
+                        .equals(foundExcNameAST.getText())))) {
             // if found rethrow without saving a catched ecxeption
             log(throwAST, "avoid.hiding.cause.exception", necessaryExcName);
         }
-        
+
     }
 
     /**
@@ -76,7 +77,8 @@ public class AvoidHidingCauseExceptionCheck extends Check {
      * @return null if the "throw" keyword was not found or the LITERAL_THROW
      *         DetailAST otherwise
      */
-    public DetailAST getChildTokenAST(DetailAST aParentAST, int TokenType, String TokenText) {
+    public DetailAST getChildTokenAST(DetailAST aParentAST, int TokenType,
+            String TokenText) {
 
         final DetailAST asts[] = getChilds(aParentAST);
 
@@ -84,15 +86,17 @@ public class AvoidHidingCauseExceptionCheck extends Check {
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getNumberOfChildren() > 0) {
-                final DetailAST astResult = (getChildTokenAST(currentNode, TokenType, TokenText));
+                final DetailAST astResult = (getChildTokenAST(currentNode,
+                        TokenType, TokenText));
                 if (astResult != null) {
                     return astResult;
                 }
             }
 
-            if (currentNode.getType() == TokenType && currentNode.getText().equals(TokenText)) {
-                return currentNode;        
-            }            
+            if (currentNode.getType() == TokenType
+                    && currentNode.getText().equals(TokenText)) {
+                return currentNode;
+            }
 
             if (currentNode.getNextSibling() != null) {
                 currentNode = currentNode.getNextSibling();
@@ -100,7 +104,6 @@ public class AvoidHidingCauseExceptionCheck extends Check {
         }
         return null;
     }
-
 
     /**
      * Gets all the children one level below on the current top node.
