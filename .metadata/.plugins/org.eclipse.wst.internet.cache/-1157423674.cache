@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Add the following to any metadata file that is to be validated against this DTD:
+
+<!DOCTYPE checkstyle-metadata PUBLIC
+    "-//eclipse-cs//DTD Check Metadata 1.1//EN"
+    "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+-->
+
+<!-- 
+    Root element for every metadata definition.
+    -->
+<!ELEMENT checkstyle-metadata (rule-group-metadata+)>
+
+
+<!-- 
+    Used to specify a group of rules.
+
+    The 'name' attribute is used as display name and is translatable.
+    
+    The 'priority' influences the order in which groups appear in the configuration editor.
+    
+    The 'hidden' attribut can be used to hide an entire group.
+    -->
+<!ELEMENT rule-group-metadata (description?,rule-metadata*)>
+<!ATTLIST rule-group-metadata
+    name CDATA #REQUIRED
+    priority CDATA #REQUIRED
+    hidden (true|false) "false">
+
+<!--
+    Used to to provide a textual description for the element.
+    The content might be translatable.
+    -->
+<!ELEMENT description (#PCDATA)>
+
+
+<!-- 
+    'rule-metadata' elements are used to define the metadata for a check (or filter) module.
+    The 'name' attribute is used as display name and is translatable.
+
+    The 'internal-name' attribute defines the logical name of the module.
+    
+    The 'parent' element defines if the module is a file set check (Checker as parent)
+    or a regular 'TreeWalker' check.
+
+    The 'hasSeverity' attribute specifies if a module has a severity property that can be set.
+    Some modules (like filters) have no severity property.
+
+    The 'hidden' attribute is used to hide a module, so it cannot be seen or 
+    configured in the configuration editor. This is only used for some special modules
+    like FileContentsHolder. The attribut defaults to 'false'.
+
+    The 'deletable' attribute is used to specify if the module can be removed from the 
+    configuration via the configuration editor. This only makes sense for some 
+    special modules like Checker or TreeWalker, which must be present. Therefore
+    this attribute default to 'false'.
+
+    The 'singleton' module is used to specify if the module should occur only once in
+    a checkstyle configuration. This will be taken into account by the configuration editor.
+    -->
+<!ELEMENT rule-metadata (alternative-name+,description?,property-metadata*,quickfix*,message-key*)>
+<!ATTLIST rule-metadata
+    name CDATA #REQUIRED
+    internal-name NMTOKEN #REQUIRED
+    parent NMTOKEN #REQUIRED
+    hasSeverity (true|false) "true"
+    hidden (true|false) "false"
+    deletable (true|false) "true"
+    singleton (true|false) "false">
+
+
+<!-- 
+    Every 'rule-metadata' element must have at least one 'alternative-name' child 
+    element, which describes under which name the module might occur in a configuration
+    file as well. As you may know you can specify modules in a Checkstyle configuration
+    file using the logical module name or the fully qualified class name.
+    This means that this element is used to map the fully qualified module class name 
+    to this module.
+    You are able to provide multiple alternative names, which might be useful if
+    your package structure for your modules changed over time. In this case specify
+    the old qualified class names for your module as 'alternative-name' element.
+    The plugin is then able to load even Checkstyle configuration files where your old
+    module names are used.
+	-->
+<!ELEMENT alternative-name EMPTY>
+<!ATTLIST alternative-name
+	internal-name CDATA #REQUIRED>
+
+
+<!--
+    'property-metadata' elements are used to describe the properties of a checkstyle
+    module. Properties described this way can then be configured using the plugins
+    configuration editor.
+
+    The 'name' attributes specifies the name of the property.
+
+    The 'datatype' attribute determines which kind of data the property contains.
+
+    The 'default-value' attribute is used to specify the default value of the property.
+
+    The 'override-default-value' attribute can be used to specify a default value that
+    differs from the Checkstyle default. For instance this is used to provide different
+    defaults for the logLoadError and suppressLoadError properties of the AbstractTypeAware checks.
+
+    Properties of data type 'MultiCheck' and 'SingleSelect' can (better must) be provided
+    with an 'enumeration' child element which specifies the valid enumeration values for
+    this property.
+    -->
+<!ELEMENT property-metadata	(description?,enumeration?)>
+<!ATTLIST property-metadata
+    name NMTOKEN #REQUIRED
+    datatype (Boolean|Integer|String|Regex|SingleSelect|MultiCheck|File|Hidden) #REQUIRED
+    default-value CDATA #IMPLIED
+    override-default-value CDATA #IMPLIED>
+
+
+<!--
+	The 'enumeration' element is used to provide valid enumeration values for 'MultiCheck'
+	and 'SingleSelect' properties.
+	Either the enumeration values are defined using 'property-value-option' child elements
+	or by an option provider.
+	An option provider is a java class that implements the interface
+	'net.sf.eclipsecs.config.meta.IOptionProvider' and provides the 
+	enumeration values via implementation. This can be useful for providing large amounts
+	of enumeration values (for instance all checkstyle tokens) or reoccurring sequences of
+	enumeration values (for instance the java visibility values).
+	The option provider and 'property-value-option' elements can be mixed together to build
+	a single enumeration.
+	-->
+<!ELEMENT enumeration (property-value-option*)>
+<!ATTLIST enumeration
+    option-provider NMTOKEN #IMPLIED>
+
+
+<!--
+    Specifies a single enumeration value.
+    -->
+<!ELEMENT property-value-option EMPTY>
+<!ATTLIST property-value-option
+    value CDATA #REQUIRED>
+
+<!--
+    Defines a marker resolution (quickfix) for the module.
+    Quickfixes are required to implement the 
+    net.sf.eclipsecs.quickfixes.ICheckstyleMarkerResolution 
+    interface.
+    -->
+<!ELEMENT quickfix EMPTY>
+<!ATTLIST quickfix
+    classname NMTOKEN #REQUIRED>
+
+<!--
+    Defines the message keys used by this module.
+    -->
+<!ELEMENT message-key EMPTY>
+<!ATTLIST message-key 
+    key NMTOKEN #REQUIRED>
