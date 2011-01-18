@@ -32,8 +32,8 @@
     </module>
       <module name="IllegalCatch">
       <property name="illegalClassNames" value="java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException"/>
-      <property name="throwPermit" value="false"/>
-      <property name="rethrowPermit" value="false"/>
+      <property name="allowThrow" value="false"/>
+      <property name="allowRehrow" value="false"/>
     </module>
     <module name="InnerClass"/>
   </module>

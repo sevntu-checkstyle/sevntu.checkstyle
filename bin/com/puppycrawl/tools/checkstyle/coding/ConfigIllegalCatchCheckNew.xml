@@ -7,9 +7,9 @@
     <module name="com.puppycrawl.tools.checkstyle.checks.coding.InputIllegalCatchCheck">
     	<property name="illegalClassNames" 
     	value="java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException"/>
-    	<property name="throwPermit"
+    	<property name="allowThrow"
     	value="true"/>
-    	<property name="rethrowPermit"
+    	<property name="allowRethrow"
     	value="true"/>
     </module>
   </module>

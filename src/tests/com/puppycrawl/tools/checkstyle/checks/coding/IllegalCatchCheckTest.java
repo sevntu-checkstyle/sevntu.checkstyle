@@ -22,10 +22,10 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
             "34:9: Catching 'Throwable' is not allowed.",
         };
 
-        System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
         
-        checkConfig.addAttribute("throwPermit", "false");
-        checkConfig.addAttribute("rethrowPermit", "false");
+        checkConfig.addAttribute("allowThrow", "false");
+        checkConfig.addAttribute("allowRethrow", "false");
         
         //verify(checkConfig, getPath("coding" + File.separator + "InputIllegalCatchCheck.java"), expected);
         verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
@@ -46,10 +46,10 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
             "34:9: Catching 'Throwable' is not allowed.",
         };
 
-        System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
 
-        checkConfig.addAttribute("throwPermit", "true");
-        checkConfig.addAttribute("rethrowPermit", "false");
+        checkConfig.addAttribute("allowThrow", "true");
+        checkConfig.addAttribute("allowRethrow", "false");
         
         //verify(checkConfig, getPath("coding" + File.separator + "InputIllegalCatchCheck.java"), expected);
         verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
@@ -71,10 +71,10 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
 //          "34:9: Catching 'Throwable' is not allowed.",
         };
 
-        System.setProperty("testinputs.dir", "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
 
-        checkConfig.addAttribute("throwPermit", "false");
-        checkConfig.addAttribute("rethrowPermit", "true");
+        checkConfig.addAttribute("allowThrow", "false");
+        checkConfig.addAttribute("allowRethrow", "true");
 
         //verify(checkConfig, getPath("coding" + File.separator + "InputIllegalCatchCheck.java"), expected);
         verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);

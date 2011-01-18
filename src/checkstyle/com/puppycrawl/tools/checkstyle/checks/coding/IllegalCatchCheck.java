@@ -31,32 +31,32 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 public final class IllegalCatchCheck extends AbstractIllegalCheck
 {
 
-    /** disable warning for "catch" blocks containing
+    /** disable warnings for "catch" blocks containing
      * throwing an exception. */
-    private boolean mThrowPermit;
+    private boolean mAllowThrow;
 
-    /** disable warning for "catch" blocks containing
+    /** disable warnings for "catch" blocks containing
      * rethrowing an exception. */
-    private boolean mRethrowPermit;
+    private boolean mAllowRethrow;
 
     /**
-     * Enable(false) | Disable(true) warning for "catch" blocks containing
+     * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * throwing an exception.
      * @param aValue Disable warning for throwing
      */
-    public void setThrowPermit(final boolean aValue)
+    public void setAllowThrow(final boolean aValue)
     {
-        mThrowPermit = aValue;
+        mAllowThrow = aValue;
     }
 
     /**
-     * Enable(false) | Disable(true) warning for "catch" blocks containing
+     * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * rethrowing an exception.
-     * @param aValue Disable warning for rethrowing
+     * @param aValue Disable warnings for rethrowing
      */
-    public void setRethrowPermit(final boolean aValue)
+    public void setAllowRethrow(final boolean aValue)
     {
-        mRethrowPermit = aValue;
+        mAllowRethrow = aValue;
     }
 
     /** Creates new instance of the check. */
@@ -84,18 +84,25 @@ public final class IllegalCatchCheck extends AbstractIllegalCheck
     {
         final DetailAST paramDef = aDetailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
-
         final DetailAST throwAST = getThrowAST(aDetailAST);
-        final boolean noWarning = (throwAST != null
-             && throwAST.getFirstChild().getFirstChild() != null
-             && ((mThrowPermit && throwAST.getFirstChild().getType()
-                     == TokenTypes.EXPR
-            && throwAST.getFirstChild().getFirstChild().getType()
-                     == TokenTypes.IDENT)
-             | (mRethrowPermit && throwAST.getFirstChild().getType()
-                     == TokenTypes.EXPR
-            && throwAST.getFirstChild().getFirstChild().getType()
-                     == TokenTypes.LITERAL_NEW)));
+        
+        
+        DetailAST firstLvlChild=null;
+        if(throwAST != null) {
+            firstLvlChild=throwAST.getFirstChild();
+        }
+        
+        DetailAST secondLvlChild = null;
+        if(firstLvlChild != null) {
+            secondLvlChild = firstLvlChild.getFirstChild();
+        }
+        
+        // For warnings disable first lvl child must be an EXPR and 
+        // second lvl child must be IDENT or LITERAL_NEW with appropriate boolean flags.
+        final boolean noWarning = (throwAST != null && firstLvlChild != null && secondLvlChild != null
+             && firstLvlChild.getType() == TokenTypes.EXPR
+             && ((mAllowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
+             || (mAllowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW)));
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
         final FullIdent ident = CheckUtils.createFullType(excType);
