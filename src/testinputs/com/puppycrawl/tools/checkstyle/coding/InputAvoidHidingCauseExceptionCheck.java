@@ -7,7 +7,7 @@ public class InputAvoidHidingCauseExceptionCheck
     public void Simple()
     {
         RuntimeException r;
-        try {             
+        try {
         }
         catch (ClassCastException  e) {
             //your code

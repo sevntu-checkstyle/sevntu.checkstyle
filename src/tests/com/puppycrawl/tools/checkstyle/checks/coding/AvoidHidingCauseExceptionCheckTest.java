@@ -10,13 +10,13 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
     public final void testAll() throws Exception {
         DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
-        String[] expected = { 
-                "18:13: Avoid hiding cause exception 'e'.",
-                "23:13: Avoid hiding cause exception 'e'.",
-             // "38:13: Avoid hiding cause exception 'e'.",
-                "64:13: Avoid hiding cause exception 'e'.",
-                "74:13: Avoid hiding cause exception 'e'.",
-             // "23:13: Avoid hiding cause exception 'e'."
+        String[] expected = {
+                "18:13: Lost cause of exception 'e'.",
+                "23:13: Lost cause of exception 'e'.",
+             // "38:13: Lost cause of exception 'e'.",
+                "64:13: Lost cause of exception 'e'.",
+                "74:13: Lost cause of exception 'e'.",
+             // "23:13: Lost cause of exception 'e'."
                 };
 
         System.setProperty(

@@ -19,15 +19,14 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
-import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 
 /**
- * описание чека =) Появится, когда я немного отдохну ) * 
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com">
- * Daniil Yaroslavtsev</a>
+ * This check prevents exceptions rethrow if you lose the original exception
+ * object. *
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
+ *         Yaroslavtsev</a>
  */
 public class AvoidHidingCauseExceptionCheck extends Check {
 
@@ -36,46 +35,49 @@ public class AvoidHidingCauseExceptionCheck extends Check {
 
     }
 
+    @Override
     public int[] getDefaultTokens() {
         return new int[] { TokenTypes.LITERAL_CATCH };
     }
 
-    public int[] getRequiredTokens() {
-        return getDefaultTokens();
-    }
-
+    @Override
     public void visitToken(DetailAST aDetailAST) {
         // retrieve an exception name from current "catch" block parameters definition
-        final String necessaryExcName = aDetailAST
+        final String originExcName = aDetailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
                 .getText();
 
         DetailAST throwAST = getChildTokenAST(aDetailAST,
                 TokenTypes.LITERAL_THROW, "throw");
-        DetailAST foundExcNameAST = null;
-        DetailAST newAST = null;
+        DetailAST rethrowExcNameAST = null;
+        DetailAST aNewAST = null;
 
-        if (throwAST != null) { // throw found?            
-            newAST = getChildTokenAST(throwAST, TokenTypes.LITERAL_NEW, "new");
-            foundExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT,
-                    necessaryExcName);
+        // retrieve a DetailAST which contains the name of rethrown exception 
+        // or null if rethrow does not exist in current "catch" block
+        if (throwAST != null) {
+            aNewAST = getChildTokenAST(throwAST, TokenTypes.LITERAL_NEW, "new");
+            rethrowExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT,
+                    originExcName);
         }
 
         if (throwAST != null
-                && (newAST != null && (foundExcNameAST == null || !necessaryExcName
-                        .equals(foundExcNameAST.getText())))) {
-            // if found rethrow without saving a catched ecxeption
-            log(throwAST, "avoid.hiding.cause.exception", necessaryExcName);
+                && (aNewAST != null && (rethrowExcNameAST == null || !originExcName
+                        .equals(rethrowExcNameAST.getText())))) {
+            log(throwAST, "avoid.hiding.cause.exception", originExcName);
         }
 
     }
 
     /**
-     * Looking for the keyword "throw" among current (aParentAST) node childs.
+     * Looking for the certain token (TokenType) which has some appropriate text
+     * obtained by DetailAST.getText() method among current (aParentAST) node
+     * childs.
      * 
-     * @param aParentAST - the current parent node.
-     * @return null if the "throw" keyword was not found or the LITERAL_THROW
-     *         DetailAST otherwise
+     * @param aParentAST The current parent node.
+     * @param TokenType Allowable type of token, which you want to search.
+     * @param TokenText Specific text that matches the desired token.
+     * @return The DetailAST of desired this token if it was found or null
+     *         otherwise.
      */
     public DetailAST getChildTokenAST(DetailAST aParentAST, int TokenType,
             String TokenText) {
@@ -106,11 +108,10 @@ public class AvoidHidingCauseExceptionCheck extends Check {
     }
 
     /**
-     * Gets all the children one level below on the current top node.
-     * 
-     * @param aNode - current parent node.
-     * @return an array of childs one level below on the current parent node
-     *         aNode.
+     * Gets all the children one level below on the current top node. *     * 
+     * @param aNode Current parent node.
+     * @return New DetailAST[] array of childs one level below on the current
+     *         parent node (aNode).
      */
     public DetailAST[] getChilds(DetailAST aNode) {
         final DetailAST[] result = new DetailAST[aNode.getChildCount()];
