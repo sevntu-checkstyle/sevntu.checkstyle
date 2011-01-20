@@ -13,9 +13,9 @@ public class InputAvoidHidingCauseExceptionCheck
             //your code
         }
 
-        catch (IndexOutOfBoundsException e) { // !
+        catch (IndexOutOfBoundsException e) {
             //your code
-            throw new RuntimeException();
+            throw new RuntimeException();  // !
         }
         
         catch (IllegalStateException e) {
@@ -33,9 +33,9 @@ public class InputAvoidHidingCauseExceptionCheck
             throw e;
         }
         
-        catch (java.lang.Exception e) { // ???
+        catch (java.lang.Exception e) {
             //your code
-            throw r;
+            throw r;  // !
         } 
                
     }
@@ -56,12 +56,12 @@ public class InputAvoidHidingCauseExceptionCheck
                 }
         }
 
-        catch (IndexOutOfBoundsException e) { // !
+        catch (IndexOutOfBoundsException e) { 
             //your code
             if(x&x|!x){
                 while(!!!!!!!!x){
                     for(int ee=0;ee<10;ee++)
-            throw new RuntimeException();
+            throw new RuntimeException(); // !
                 }
             }
         }
@@ -87,11 +87,11 @@ public class InputAvoidHidingCauseExceptionCheck
         }            
         }
         
-        catch (java.lang.Exception e) { // ???
+        catch (java.lang.Exception e) { 
             int []err=new int [50];
             int []err2=new int [50];
             for(int m:err2){
-            throw r;
+            throw r; // !
             }
         }
        
