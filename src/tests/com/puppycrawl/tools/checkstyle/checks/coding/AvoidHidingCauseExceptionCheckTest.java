@@ -22,11 +22,31 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
 
         System.setProperty(
                 "testinputs.dir",
-                //"/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
-                "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+                "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+               // "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
         //verify(checkConfig, getPath("coding" + File.separator + "InputAvoidHidingCauseExceptionCheck.java"), expected);
         verify(checkConfig,
                 getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
     }
 
+    @Test
+    public final void testNested() throws Exception {
+        DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+
+        String[] expected = {
+                "16:13: Cause exception 'e' was lost.",
+                "23:17: Cause exception 'n' was lost.",
+                "34:21: Cause exception 'x' was lost.",               
+                "41:13: Cause exception 'e' was lost.", 
+                };
+
+        System.setProperty(
+                "testinputs.dir",
+                "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+               // "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        //verify(checkConfig, getPath("coding" + File.separator + "InputAvoidHidingCauseExceptionCheck.java"), expected);
+        verify(checkConfig,
+                getPath("InputAvoidHidingCauseExceptionCheck1.java"), expected);
+    }
+    
 }

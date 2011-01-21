@@ -36,7 +36,7 @@ public class InputAvoidHidingCauseExceptionCheck
         catch (java.lang.Exception e) {
             //your code
             throw r;  // !
-        } 
+        }
                
     }
     

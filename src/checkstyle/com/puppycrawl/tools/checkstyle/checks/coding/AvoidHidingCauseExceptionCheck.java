@@ -95,8 +95,9 @@ public class AvoidHidingCauseExceptionCheck extends Check
         }
 
         if (throwAST != null
-                && ((rethrowExcNameAST == null || !originExcName
-                        .equals(rethrowExcNameAST.getText()))))
+                && ( rethrowExcNameAST == null
+                     || rethrowExcNameAST.getParent().getType() == TokenTypes.DOT
+                     || !originExcName.equals(rethrowExcNameAST.getText())))
         {
             log(throwAST, "avoid.hiding.cause.exception", originExcName);
         }
@@ -116,28 +117,28 @@ public class AvoidHidingCauseExceptionCheck extends Check
             String aTokenText)
     {
 
-        final DetailAST asts[] = getChilds(aParentAST);
+        final DetailAST asts[] = getChildNodes(aParentAST);
 
-        for (DetailAST currentNode : asts) {
-
-            if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+        for (int i=asts.length-1;i>=0;i--) {
+            DetailAST currentNode = asts[i];            
+  System.out.println("currentNode: col:"+currentNode.getColumnNo()+" line"+currentNode.getLineNo()+" text:" +currentNode.getText());
+            
+              if (currentNode.getType() == aTokenType
+                      && currentNode.getText().equals(aTokenText))
+              {
+                  return currentNode;
+              }   
+  
+             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+                    && currentNode.getType() != TokenTypes.LITERAL_TRY
                     && currentNode.getNumberOfChildren() > 0)
             {
+               
                 final DetailAST astResult = (getChildTokenAST(currentNode,
                         aTokenType, aTokenText));
                 if (astResult != null) {
                     return astResult;
-                }
-            }
-
-            if (currentNode.getType() == aTokenType
-                    && currentNode.getText().equals(aTokenText))
-            {
-                return currentNode;
-            }
-
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
+                }                
             }
         }
         return null;
@@ -149,7 +150,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @return New DetailAST[] array of childs one level below on the current
      *         parent node (aNode).
      */
-    public DetailAST[] getChilds(DetailAST aNode)
+    public DetailAST[] getChildNodes(DetailAST aNode)
     {
         final DetailAST[] result = new DetailAST[aNode.getChildCount()];
 
