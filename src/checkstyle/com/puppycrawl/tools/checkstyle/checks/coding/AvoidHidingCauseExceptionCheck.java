@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
+import java.util.LinkedList;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -61,10 +63,11 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  */
 public class AvoidHidingCauseExceptionCheck extends Check
 {
+    LinkedList<DetailAST> aThrowList = new LinkedList<DetailAST>();
 
     /** Creates new instance of the check. */
     public AvoidHidingCauseExceptionCheck()
-    {
+    {        
     }
 
     @Override
@@ -74,32 +77,51 @@ public class AvoidHidingCauseExceptionCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aDetailAST)
-    {
+    public void visitToken(DetailAST aDetailAST) {
+
         // retrieve an exception name from current
         // "catch" block parameters definition
-        final String originExcName = aDetailAST
-                .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
-                .getText();
+        final String originExcName = aDetailAST.findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild().getText();
 
-        final DetailAST throwAST = getChildTokenAST(aDetailAST,
-                TokenTypes.LITERAL_THROW, "throw");
-        DetailAST rethrowExcNameAST = null;
+        // clean the throw list
+        if (!aThrowList.isEmpty())aThrowList.clear();
 
-        // retrieve a DetailAST which contains the name
-        // of rethrown exception or null if rethrow does not
-        // exist in current "catch" block
-        if (throwAST != null) {
-            rethrowExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT,
-                    originExcName);
-        }
+        for (DetailAST throwAST : makeThrowList(aDetailAST)) {
 
-        if (throwAST != null
-                && ( rethrowExcNameAST == null
-                     || rethrowExcNameAST.getParent().getType() == TokenTypes.DOT
-                     || !originExcName.equals(rethrowExcNameAST.getText())))
-        {
-            log(throwAST, "avoid.hiding.cause.exception", originExcName);
+            DetailAST rethrowExcNameAST = null;
+
+            // retrieve a DetailAST which contains the name
+            // of rethrown exception or null if rethrow does not
+            // exist in current "catch" block
+            if (throwAST.getType() == TokenTypes.LITERAL_THROW) 
+            {
+                rethrowExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT, originExcName);
+
+                if (rethrowExcNameAST != null) {
+
+                    DetailAST tempAST = rethrowExcNameAST;
+
+                    while (!tempAST.equals(throwAST)
+                            && !tempAST.equals(aDetailAST)) {
+                        tempAST = tempAST.getParent();
+                    }
+
+                    if (tempAST.equals(throwAST)) {
+
+                        if (rethrowExcNameAST.getParent().getType() != TokenTypes.DOT
+                            && !originExcName.equals(rethrowExcNameAST.getText())) {
+                            log(throwAST, "avoid.hiding.cause.exception",originExcName);
+                        }
+                    }
+                }
+                
+                else {
+                    log(throwAST, "avoid.hiding.cause.exception",originExcName);
+                    
+                }
+                
+                
+            }
         }
     }
 
@@ -120,14 +142,14 @@ public class AvoidHidingCauseExceptionCheck extends Check
         final DetailAST asts[] = getChildNodes(aParentAST);
 
         for (int i=asts.length-1;i>=0;i--) {
-            DetailAST currentNode = asts[i];            
+            DetailAST currentNode = asts[i];
   System.out.println("currentNode: col:"+currentNode.getColumnNo()+" line"+currentNode.getLineNo()+" text:" +currentNode.getText());
-            
+
               if (currentNode.getType() == aTokenType
                       && currentNode.getText().equals(aTokenText))
               {
                   return currentNode;
-              }   
+              }
   
              if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
@@ -144,8 +166,35 @@ public class AvoidHidingCauseExceptionCheck extends Check
         return null;
     }
 
+    public LinkedList<DetailAST> makeThrowList(DetailAST aParentAST) {
+
+        for (DetailAST currentNode:getChildNodes(aParentAST)) {
+            
+  System.out.println("Throw(s) searching. currentNode: col:"+currentNode.getColumnNo()+" line"+currentNode.getLineNo()+" text:" +currentNode.getText());
+
+              if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
+                  aThrowList.add(currentNode);
+              }
+  
+                 if ( currentNode.getType() != TokenTypes.PARAMETER_DEF
+                    && currentNode.getNumberOfChildren() > 0)
+                 {
+                    aThrowList.addAll(makeThrowList(currentNode));
+                 }
+
+                 else {
+                     if(currentNode.getNextSibling() != null)
+                        {
+                         currentNode = currentNode.getNextSibling();
+                       }
+                     }
+        }
+        return aThrowList;
+    }
+
     /**
      * Gets all the children one level below on the current top node.
+     * 
      * @param aNode Current parent node.
      * @return New DetailAST[] array of childs one level below on the current
      *         parent node (aNode).
