@@ -19,27 +19,29 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.LinkedList;
-
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.api.Check;
 
 /**
  * <p>
- * This check prevents exception throwing and re-throwing inside
- * try/catch blocks, if object is initially caused by the exception
- * will be lost after this action and the error will not propagate
- * up to a higher-level handler.
+ * This check prevents exception throwing and re-throwing inside try/catch
+ * blocks, if object is initially caused by the exception will be lost after
+ * this action and the error will not propagate up to a higher-level handler.
  * </p>
  * <p>
  * Rationale: When handling exceptions using try/catch blocks junior developers
- * may simply lose the original exception object and
- * information associated with it.
+ * may simply lose the original exception object and information associated with
+ * it.
  * </p>
- * <pre> Examples: </pre>
- * <ol><li> Cause exception was lost while exception throwing. </li>
-  *      <code>
-  *      <pre>
+ * 
+ * <pre>
+ * Examples:
+ * </pre>
+ * <ol>
+ * <li>Cause exception was lost while exception throwing.</li>
+ * <code>
+ *      <pre>
  *       public void foo() {
  *          RuntimeException r;
  *         catch (java.lang.Exception e) {
@@ -47,160 +49,242 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  *           throw r;
  *         }
  *       }</pre> </code>
- *    <li> Cause exception was lost while exception re-throwing. </li>
- *       <code> <pre>
+ * <li>Cause exception was lost while exception re-throwing.</li>
+ * <code> <pre>
  *      catch (IllegalStateException e) {
  *        //your code
  *        throw new RuntimeException();
  *      }
- *
+ * 
  *      catch (IllegalStateException e) {
  *        //your code
  *        throw new RuntimeException("Runtime Ecxeption!");
- *      } </pre> </code> </ol>
+ *      } </pre> </code>
+ * </ol>
+ * 
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class AvoidHidingCauseExceptionCheck extends Check
-{
+public class AvoidHidingCauseExceptionCheck extends Check {
+
+    /** List containing all throw keyword DetailASTs for current catch block.*/
     LinkedList<DetailAST> aThrowList = new LinkedList<DetailAST>();
 
+    /** A list containing the names of all the exceptions that override the original.*/
+    LinkedList<String> aConvertedExceptionsNames = new LinkedList<String>();
+
     /** Creates new instance of the check. */
-    public AvoidHidingCauseExceptionCheck()
-    {        
+    public AvoidHidingCauseExceptionCheck() {
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] {TokenTypes.LITERAL_CATCH};
+    public int[] getDefaultTokens() {
+        return new int[] { TokenTypes.LITERAL_CATCH };
     }
 
     @Override
     public void visitToken(DetailAST aDetailAST) {
 
-        // retrieve an exception name from current
-        // "catch" block parameters definition
-        final String originExcName = aDetailAST.findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild().getText();
+        final String originExcName = aDetailAST
+                .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
+                .getText();
 
-        // clean the throw list
-        if (!aThrowList.isEmpty())aThrowList.clear();
+        if (!aThrowList.isEmpty())
+            aThrowList.clear();
+        if (!aConvertedExceptionsNames.isEmpty())
+            aConvertedExceptionsNames.clear();
+        aConvertedExceptionsNames.add(originExcName); // изначально сверке с бросаемым именем Exception-а будет подлежать только имя Exception-а из parameters def 
 
-        for (DetailAST throwAST : makeThrowList(aDetailAST)) {
+        makeThrowList(aDetailAST); // составить список всех внутренних ключевых слов throw для текущего catch
+        makeExceptionsList(aDetailAST, aDetailAST, originExcName); // получить список всех имен Exception-ов, которые переопределяют оригинальный Exception в текущем блоке catch
 
-            DetailAST rethrowExcNameAST = null;
+        for (DetailAST throwAST : aThrowList) { // для каждого throw
 
-            // retrieve a DetailAST which contains the name
-            // of rethrown exception or null if rethrow does not
-            // exist in current "catch" block
-            if (throwAST.getType() == TokenTypes.LITERAL_THROW) 
-            {
-                rethrowExcNameAST = getChildTokenAST(throwAST, TokenTypes.IDENT, originExcName);
+            DetailAST rethrowExcNameAST = null; // cleanup
 
-                if (rethrowExcNameAST != null) {
+            if (throwAST.getType() == TokenTypes.LITERAL_THROW) {
 
-                    DetailAST tempAST = rethrowExcNameAST;
+                // Lets retrieve a DetailAST which contains the name
+                // of rethrown exception or null if rethrow does not
+                // exist in current "catch" block
+                rethrowExcNameAST = findThrowExcName(throwAST); // получаем имя Exception-a, кот. бросается текущим throw
 
-                    while (!tempAST.equals(throwAST)
-                            && !tempAST.equals(aDetailAST)) {
-                        tempAST = tempAST.getParent();
+                if (rethrowExcNameAST != null) { // если найдено имя бросаемого Exception-a
+
+                    if (rethrowExcNameAST.getParent().getType() == TokenTypes.DOT) {
+                        log(throwAST, "avoid.hiding.cause.exception",
+                                originExcName);
+                    } else {
+
+                        // если ни одно из имен в списке не подходит - ошибка
+                        if (!aConvertedExceptionsNames
+                                .contains(rethrowExcNameAST.getText()))
+                            log(throwAST, "avoid.hiding.cause.exception",
+                                    originExcName);
+
                     }
 
-                    if (tempAST.equals(throwAST)) {
+                }
 
-                        if (rethrowExcNameAST.getParent().getType() != TokenTypes.DOT
-                            && !originExcName.equals(rethrowExcNameAST.getText())) {
-                            log(throwAST, "avoid.hiding.cause.exception",originExcName);
-                        }
-                    }
+                else { // если по любым причинам не найдено имя исключения
+                    System.out.println("Не найдено имя исключения в: ");
+
                 }
-                
-                else {
-                    log(throwAST, "avoid.hiding.cause.exception",originExcName);
-                    
-                }
-                
-                
+
             }
         }
     }
 
     /**
-     * Looking for the certain token (TokenType) which has some appropriate text
-     * obtained by DetailAST.getText() method among current (aParentAST) node
-     * children.
-     * @param aParentAST The current parent node.
-     * @param aTokenType Allowable type of token, which you want to search.
-     * @param aTokenText Specific text that matches the desired token.
-     * @return The DetailAST of desired this token if it was found or null
-     *         otherwise.
+     * Returns a DetailAST contains name of throwing Exception for current throw keyword.
+     * @param aStartNode The DetailAST for current throw keyword.
+     * This is a start node for exception name searching.
+     * @return The DetailAST of desired token which contains thrown exception name
+     * if it was found or null otherwise.
      */
-    public DetailAST getChildTokenAST(DetailAST aParentAST, int aTokenType,
-            String aTokenText)
+    public DetailAST findThrowExcName(DetailAST aStartNode)
     {
 
-        final DetailAST asts[] = getChildNodes(aParentAST);
+        final DetailAST asts[] = getChildNodes(aStartNode);
 
-        for (int i=asts.length-1;i>=0;i--) {
+        for (int i = asts.length - 1; i >= 0; i--)
+        {
             DetailAST currentNode = asts[i];
-  System.out.println("currentNode: col:"+currentNode.getColumnNo()+" line"+currentNode.getLineNo()+" text:" +currentNode.getText());
+            System.out.println("currentNode: col:" + currentNode.getColumnNo()
+                    + " line" + currentNode.getLineNo() + " text:"
+                    + currentNode.getText());
 
-              if (currentNode.getType() == aTokenType
-                      && currentNode.getText().equals(aTokenText))
-              {
-                  return currentNode;
-              }
-  
-             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+            if (currentNode.getType() == TokenTypes.IDENT)
+            {
+                return currentNode;
+            }
+
+            if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
                     && currentNode.getNumberOfChildren() > 0)
             {
-               
-                final DetailAST astResult = (getChildTokenAST(currentNode,
-                        aTokenType, aTokenText));
-                if (astResult != null) {
+
+                final DetailAST astResult = (findThrowExcName(currentNode));
+                if (astResult != null)
+                {
                     return astResult;
-                }                
+                }
             }
         }
         return null;
     }
 
+    /**
+     * Searches for the LITERAL_THROW without entering into nested try/catch blocks.
+     * @param aStartNode DetailAST 
+     * @return List contains all "throw" keyword nodes (LITERAL_THROW)
+     * for certain parent node (aParentAST) except those that are in nested try/catch blocks.
+     */
     public LinkedList<DetailAST> makeThrowList(DetailAST aParentAST) {
 
-        for (DetailAST currentNode:getChildNodes(aParentAST)) {
-            
-  System.out.println("Throw(s) searching. currentNode: col:"+currentNode.getColumnNo()+" line"+currentNode.getLineNo()+" text:" +currentNode.getText());
+        for (DetailAST currentNode : getChildNodes(aParentAST)) {
 
-              if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
-                  aThrowList.add(currentNode);
-              }
-  
-                 if ( currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getNumberOfChildren() > 0)
-                 {
-                    aThrowList.addAll(makeThrowList(currentNode));
-                 }
+            System.out.println("Throw(s) searching. currentNode: col:"
+                    + currentNode.getColumnNo() + " line"
+                    + currentNode.getLineNo() + " text:"
+                    + currentNode.getText());
 
-                 else {
-                     if(currentNode.getNextSibling() != null)
-                        {
-                         currentNode = currentNode.getNextSibling();
-                       }
-                     }
+            if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
+                aThrowList.add(currentNode);
+            }
+
+            if (currentNode.getType() == TokenTypes.LITERAL_CATCH) {
+                return aThrowList;
+            }
+
+            if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+                    && currentNode.getType() != TokenTypes.LITERAL_THROW
+                    && currentNode.getType() != TokenTypes.LITERAL_TRY
+                    && currentNode.getNumberOfChildren() > 0) {
+                makeThrowList(currentNode);
+            }
+
         }
         return aThrowList;
     }
 
     /**
-     * Gets all the children one level below on the current top node.
-     * 
+     * Searches for all exceptions that override the original exception object of the current "catch" block.
+     * @param aCurrentCatchAST A LITERAL_CATCH node of the current "catch" block.
+     * @param aParentAST Current parent node to start search.
+     * @param aCurrentExcName The name of Exception handled by current "catch" block.
+     * @return Array contains exceptions that override the original exception object of the current "catch" block.
+     */
+    public LinkedList<String> makeExceptionsList(DetailAST aCurrentCatchAST,
+            DetailAST aParentAST, String aCurrentExcName) {
+
+        for (DetailAST currentNode : getChildNodes(aParentAST)) {
+
+            System.out.println("Exceptions(s) searching. currentNode: col:"
+                    + currentNode.getColumnNo() + " line"
+                    + currentNode.getLineNo() + " text:"
+                    + currentNode.getText());
+
+            if (currentNode.getType() == TokenTypes.IDENT
+                    && currentNode.getText().equals(aCurrentExcName)
+                    && currentNode.getParent() != null
+                    && currentNode.getParent().getType() != TokenTypes.DOT) { // для всех найденных имен Exception - ов в текущем блоке catch
+
+                DetailAST temp = currentNode;
+                // пока мы не дошли до самого начала блока catch или не встретили AST знак равенства, идем вверх по дереву к следующему предку
+                while (!temp.equals(aCurrentCatchAST)
+                        && temp.getType() != TokenTypes.ASSIGN) {
+                    temp = temp.getParent();
+                }
+
+                // если был найден знак равенства (присвоения), относящийся к нашему изначальному имени исключения
+                // и у него в ПОЛИЗ - потомках присутствует IDENT, не равный изначальному имени
+
+                if (temp.getType() == TokenTypes.ASSIGN) {
+                    DetailAST convertedExc = null;
+
+                    if (temp.getParent().getType() == TokenTypes.VARIABLE_DEF) {
+
+                        convertedExc = temp.getParent().findFirstToken(
+                                TokenTypes.IDENT);
+
+                    } else {
+
+                        convertedExc = temp.findFirstToken(TokenTypes.IDENT);
+
+                    }
+
+                    if (convertedExc != null
+                            && !convertedExc.getText().equals(aCurrentExcName)) {
+                        if (!aConvertedExceptionsNames.contains(convertedExc
+                                .getText())) {
+                            aConvertedExceptionsNames.add(convertedExc
+                                    .getText());
+                        }
+                    }
+
+                }
+
+            }
+
+            if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+                    && currentNode.getType() != TokenTypes.LITERAL_TRY
+                    && currentNode.getNumberOfChildren() > 0) {
+                makeExceptionsList(aCurrentCatchAST, currentNode,
+                        aCurrentExcName);
+            }
+
+        }
+        return aConvertedExceptionsNames;
+    }
+
+    /**
+     * Gets all the children one level below on the current top node. 
      * @param aNode Current parent node.
      * @return New DetailAST[] array of childs one level below on the current
      *         parent node (aNode).
      */
-    public DetailAST[] getChildNodes(DetailAST aNode)
-    {
+    public DetailAST[] getChildNodes(DetailAST aNode) {
         final DetailAST[] result = new DetailAST[aNode.getChildCount()];
 
         DetailAST currNode = aNode.getFirstChild();

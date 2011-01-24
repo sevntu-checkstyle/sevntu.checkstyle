@@ -25,8 +25,8 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
                 "/media/Data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
                // "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
         //verify(checkConfig, getPath("coding" + File.separator + "InputAvoidHidingCauseExceptionCheck.java"), expected);
-        //verify(checkConfig,
-       //         getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
+        verify(checkConfig,
+               getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
     }
 
     @Test
@@ -34,12 +34,18 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
         DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
         String[] expected = {
-//                  "16:13: Cause exception 'e' was lost.",
-//                  "23:17: Cause exception 'n' was lost.",
-//                  "34:21: Cause exception 'x' was lost.",               
-                  "51:13: Cause exception 'e' was lost.", 
-                  "59:17: Cause exception 'e' was lost.", 
-                  "61:13: Cause exception 'e' was lost.", 
+                     "16:13: Cause exception 'e' was lost.",
+                     "23:17: Cause exception 'n' was lost.",
+                     "36:21: Cause exception 'x' was lost.",   
+                     "42:13: Cause exception 'e' was lost.",   
+                     
+                     "55:13: Cause exception 'e' was lost.",
+                     "65:13: Cause exception 'e' was lost.",
+                     
+                    // "76:13: Cause exception 'e' was lost.", 
+                    // "88:13: Cause exception 'e' was lost.", 
+                     
+
                 };
 
         System.setProperty(

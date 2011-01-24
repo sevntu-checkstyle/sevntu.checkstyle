@@ -17,12 +17,12 @@ public class InputAvoidHidingCauseExceptionCheck
             //your code
             throw new RuntimeException();  // !
         }
-        
+
         catch (IllegalStateException e) {
             //your code
             throw new RuntimeException("Runtime Ecxeption!"); // !
         }
-        
+
         catch (java.lang.ArithmeticException e) {
             //your code
             throw new RuntimeException("Runtime Ecxeption!",e);
@@ -32,12 +32,12 @@ public class InputAvoidHidingCauseExceptionCheck
             //your code
             throw e;
         }
-        
+
         catch (java.lang.Exception e) {
             //your code
             throw r;  // !
         }
-               
+
     }
     
     public void Stronger()
@@ -46,15 +46,15 @@ public class InputAvoidHidingCauseExceptionCheck
         RuntimeException r;
         try {       
         }
-        catch (ClassCastException  e) {
-            if (x) {
-                while (x) {
-                    do {
-                    int k = Integer.numberOfLeadingZeros(100000);                        
-                    } while(x);
-                    }
-                }
-        }
+//        catch (ClassCastException  e) {
+//            if (x) {
+//                while (x) {
+//                    do {
+//                    int k = Integer.numberOfLeadingZeros(100000);                        
+//                    } while(x);
+//                    }
+//                }
+//        }
 
         catch (IndexOutOfBoundsException e) { 
             //your code
