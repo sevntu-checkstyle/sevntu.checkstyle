@@ -153,7 +153,7 @@ public class InputAvoidHidingCauseExceptionCheck
         }
 
 
-        catch (Exception e) {
+        catch (RuntimeException e) {
             RuntimeException sqlEx = new RuntimeException("failed to open DB connection to: " + e);
             try {
                 sqlEx.initCause(e);
@@ -163,7 +163,7 @@ public class InputAvoidHidingCauseExceptionCheck
             throw sqlEx; //
         }
 
-       catch (Throwable e) {
+       catch (Exception e) {
            RuntimeException ex = null;
            RuntimeException ex4 = null;
         if (e instanceof RuntimeException) {
@@ -174,9 +174,25 @@ public class InputAvoidHidingCauseExceptionCheck
         }
             throw ex4;
     }
+       
+        catch (Throwable e) { // nested try/catch + 
+            RuntimeException ex = null;
+            try {
+            } catch (RuntimeException e2) {
+                RuntimeException ex4 = null;
+                if (ex4 instanceof RuntimeException) {
+                    ex4 = (RuntimeException) e2;
+                    ex = (RuntimeException) e;
+                }
+                throw ex4; //
+            }
 
+            if (e instanceof RuntimeException) {
+                
+            }
+            throw ex; //
+        }
 
     }
-    
 
 }

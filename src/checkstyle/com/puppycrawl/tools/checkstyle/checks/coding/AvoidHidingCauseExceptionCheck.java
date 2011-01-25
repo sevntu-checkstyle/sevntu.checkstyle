@@ -67,6 +67,9 @@ public class AvoidHidingCauseExceptionCheck extends Check
     /** List containing all throw keyword DetailASTs for current catch block.*/
     private LinkedList<DetailAST> mThrowList = new LinkedList<DetailAST>();
 
+    /** DetailAST contains the name of current thrown exception.*/
+    private DetailAST mExceptionNameAST;
+    
     /** A list containing the names of all the exceptions
      * that override the original.*/
     private LinkedList<String> mOverridingExcNames =
@@ -104,20 +107,19 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
         for (DetailAST throwAST : mThrowList) {
 
-            DetailAST throwExcNameAST = null;
+            mExceptionNameAST = null;
 
             if (throwAST.getType() == TokenTypes.LITERAL_THROW) {
 
-                throwExcNameAST = findThrowExcName(throwAST);
+                mExceptionNameAST = findThrowExcName(throwAST);
 
-                if (throwExcNameAST != null) {
-
-                    if (throwExcNameAST.getParent().getType()
-                            == TokenTypes.DOT || !mOverridingExcNames
-                                    .contains(throwExcNameAST.getText())) {
-                        log(throwAST, "avoid.hiding.cause.exception",
-                                originExcName);
-                    }
+                if (mExceptionNameAST != null
+                        && mExceptionNameAST.getParent()
+                        .getType()== TokenTypes.DOT
+                        || !mOverridingExcNames.contains(mExceptionNameAST
+                                .getText())) {
+                    log(throwAST, "avoid.hiding.cause.exception",
+                            originExcName);
                 }
             }
         }
@@ -132,28 +134,21 @@ public class AvoidHidingCauseExceptionCheck extends Check
      */
     public DetailAST findThrowExcName(DetailAST aStartNode)
     {
-
-        final DetailAST asts[] = getChildNodes(aStartNode);
-
-        for (int i = asts.length - 1; i >= 0; i--) {
-            final DetailAST currentNode = asts[i];
+        for (DetailAST currentNode : getChildNodes(aStartNode)) {
 
             if (currentNode.getType() == TokenTypes.IDENT) {
-                return currentNode;
+                mExceptionNameAST=currentNode;
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
                     && currentNode.getNumberOfChildren() > 0)
             {
-
-                final DetailAST astResult = (findThrowExcName(currentNode));
-                if (astResult != null) {
-                    return astResult;
-                }
+                findThrowExcName(currentNode);
             }
+
         }
-        return null;
+        return mExceptionNameAST;
     }
 
     /**
@@ -163,8 +158,8 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @param aParentAST A start node for "throw" keywords <code>DetailASTs
      * </code> searching.
      * @return List contains all "throw" keyword nodes
-     * (<code>LITERAL_THROW</code>) for certain parent node <code>
-     * (aParentAST)</code> except those that are in nested try/catch blocks.
+     * (<code>LITERAL_THROW</code>) for certain parent node (<code>
+     * aParentAST</code>) except those that are in nested try/catch blocks.
      */
     public LinkedList<DetailAST> makeThrowList(DetailAST aParentAST)
     {
@@ -173,10 +168,6 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
                 mThrowList.add(currentNode);
-            }
-
-            if (currentNode.getType() == TokenTypes.LITERAL_CATCH) {
-                return mThrowList;
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
@@ -217,8 +208,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
                 DetailAST temp = currentNode;
 
                 while (!temp.equals(aCurrentCatchAST)
-                        && temp.getType() != TokenTypes.ASSIGN)
-                {
+                        && temp.getType() != TokenTypes.ASSIGN) {
                     temp = temp.getParent();
                 }
 
@@ -248,7 +238,6 @@ public class AvoidHidingCauseExceptionCheck extends Check
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getType() != TokenTypes.LITERAL_TRY
                     && currentNode.getNumberOfChildren() > 0)
             {
                 makeExceptionsList(aCurrentCatchAST, currentNode,
@@ -265,17 +254,17 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @return New DetailAST[] array of children one level below on the current
      *         parent node (aNode).
      */
-    public DetailAST[] getChildNodes(DetailAST aNode)
+    public LinkedList<DetailAST> getChildNodes(DetailAST aNode)
     {
-        final DetailAST[] result = new DetailAST[aNode.getChildCount()];
+        final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
 
         DetailAST currNode = aNode.getFirstChild();
 
-        for (int i = 0; i < aNode.getNumberOfChildren(); i++) {
-            result[i] = currNode;
+        while (currNode!=null) {
+            result.add(currNode);
             currNode = currNode.getNextSibling();
         }
-
+        
         return result;
     }
 
