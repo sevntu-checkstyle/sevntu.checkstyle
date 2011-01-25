@@ -119,12 +119,9 @@ public class AvoidHidingCauseExceptionCheck extends Check
             }
         }
 
-        if (!mThrowList.isEmpty()) {
             mThrowList.clear();
-        }
-        if (!mOverridingExcNames.isEmpty()) {
             mOverridingExcNames.clear();
-        }
+
     }
 
     /**
