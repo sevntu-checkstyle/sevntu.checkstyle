@@ -33,7 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  * Rationale: When handling exceptions using try/catch blocks junior developers
  * may simply lose the original exception object and information associated with
  * it.
- * </p> 
+ * </p>
  * Examples:
  * <br> <br>
  * <ol>
@@ -69,7 +69,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
     /** DetailAST contains the name of current thrown exception.*/
     private DetailAST mExceptionNameAST;
-    
+
     /** A list containing the names of all the exceptions
      * that override the original.*/
     private LinkedList<String> mOverridingExcNames =
@@ -94,12 +94,6 @@ public class AvoidHidingCauseExceptionCheck extends Check
                 .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
                 .getText();
 
-        if (!mThrowList.isEmpty()) {
-            mThrowList.clear();
-        }
-        if (!mOverridingExcNames.isEmpty()) {
-            mOverridingExcNames.clear();
-        }
         mOverridingExcNames.add(originExcName);
 
         makeThrowList(aDetailAST);
@@ -115,13 +109,21 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
                 if (mExceptionNameAST != null
                         && mExceptionNameAST.getParent()
-                        .getType()== TokenTypes.DOT
+                            .getType() == TokenTypes.DOT
                         || !mOverridingExcNames.contains(mExceptionNameAST
-                                .getText())) {
+                                .getText()))
+                {
                     log(throwAST, "avoid.hiding.cause.exception",
                             originExcName);
                 }
             }
+        }
+
+        if (!mThrowList.isEmpty()) {
+            mThrowList.clear();
+        }
+        if (!mOverridingExcNames.isEmpty()) {
+            mOverridingExcNames.clear();
         }
     }
 
@@ -137,7 +139,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
         for (DetailAST currentNode : getChildNodes(aStartNode)) {
 
             if (currentNode.getType() == TokenTypes.IDENT) {
-                mExceptionNameAST=currentNode;
+                mExceptionNameAST = currentNode;
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
@@ -208,7 +210,8 @@ public class AvoidHidingCauseExceptionCheck extends Check
                 DetailAST temp = currentNode;
 
                 while (!temp.equals(aCurrentCatchAST)
-                        && temp.getType() != TokenTypes.ASSIGN) {
+                        && temp.getType() != TokenTypes.ASSIGN)
+                {
                     temp = temp.getParent();
                 }
 
@@ -260,11 +263,11 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
         DetailAST currNode = aNode.getFirstChild();
 
-        while (currNode!=null) {
+        while (currNode != null) {
             result.add(currNode);
             currNode = currNode.getNextSibling();
         }
-        
+
         return result;
     }
 
