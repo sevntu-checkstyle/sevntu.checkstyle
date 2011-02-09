@@ -27,29 +27,32 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 
 /**
  * <p>
- * This check prevents ...
- * 
+ * This check prevents using of short-circuit operators ("|", "&", "|=", "&=") for variables
+ *  is calculated using  operators.
+     * operators.
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check {
+public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
+{
 
-    /** Creates new instance of the check. */
-    public AvoidNotShortCircuitOperatorsForBooleanCheck() {
+    private static final String BOOLEAN = "boolean";
+    private static final String INT = "int";
+    private String aKey = "avoid.not.short.circuit.operators.for.boolean";
+
+    @Override
+    public int[] getDefaultTokens()
+    {
+        return new int[] {
+            TokenTypes.BOR,
+            TokenTypes.BAND,
+            TokenTypes.BOR_ASSIGN,
+            TokenTypes.BAND_ASSIGN, };
     }
 
     @Override
-    public int[] getDefaultTokens() {
-        return new int[] { TokenTypes.BOR, TokenTypes.BAND,
-                TokenTypes.BOR_ASSIGN, TokenTypes.BAND_ASSIGN, };
-    }
-
-    @Override
-    public void visitToken(final DetailAST aDetailAST) {
-
-//        System.out.println("Current node:\"" + aDetailAST.getText()
-//                + "\". Line: " + aDetailAST.getLineNo() + ", column: "
-//                + aDetailAST.getColumnNo());
+    public void visitToken(final DetailAST aDetailAST)
+    {
 
         DetailAST currentNode = aDetailAST;
         while (currentNode != null
@@ -59,110 +62,138 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check {
                 && currentNode.getType() != TokenTypes.LITERAL_RETURN
                 && currentNode.getType() != TokenTypes.VARIABLE_DEF
                 && currentNode.getType() != TokenTypes.METHOD_DEF
-                && currentNode.getType() != TokenTypes.CLASS_DEF) {
+                && currentNode.getType() != TokenTypes.CLASS_DEF)
+        {
             currentNode = currentNode.getParent();
         }
 
-        int type = currentNode.getType();
-//        System.out.println("This node:\"" + currentNode.getText()+ "\". Line: " + currentNode.getLineNo() + ", column: "
-//                + currentNode.getColumnNo());
+        final int type = currentNode.getType();
 
         if (type != TokenTypes.METHOD_DEF
-                && type != TokenTypes.CLASS_DEF) {
-
-            if (type == TokenTypes.VARIABLE_DEF && isBoolean(currentNode)) {
-                log(aDetailAST,"avoid.not.short.circuit.operators.for.boolean",aDetailAST.getText());
-            } 
+                && type != TokenTypes.CLASS_DEF)
+        {
             
-            else if (type == TokenTypes.LITERAL_RETURN){ // "return" situation
+            if (type == TokenTypes.VARIABLE_DEF && isBooleanType(currentNode)) {
+                log(aDetailAST,
+                        aKey,
+                        aDetailAST.getText());
+            }
+
+            else if (type == TokenTypes.LITERAL_RETURN) { // "return" situation
 
                 while (currentNode != null
                         && currentNode.getType() != TokenTypes.METHOD_DEF
-                        && currentNode.getType() != TokenTypes.CLASS_DEF) {
+                        && currentNode.getType() != TokenTypes.CLASS_DEF)
+                {
                     currentNode = currentNode.getParent();
                 }
 
-                if(currentNode.getType() == TokenTypes.METHOD_DEF
-                        && isBoolean(currentNode)){
-                    log(aDetailAST,"avoid.not.short.circuit.operators.for.boolean",aDetailAST.getText());
+                if (currentNode.getType() == TokenTypes.METHOD_DEF
+                        && isBooleanType(currentNode))
+                {
+                    log(aDetailAST,
+                            aKey,
+                            aDetailAST.getText());
                 }
             }
 
             else if (type == TokenTypes.LITERAL_IF
                  || type == TokenTypes.LITERAL_WHILE
-                 || type == TokenTypes.FOR_CONDITION){ // "for/if/while" situation
+                 || type == TokenTypes.FOR_CONDITION)
+            {
 
-                if(isNotInteger(aDetailAST)){
-                log(aDetailAST,"avoid.not.short.circuit.operators.for.boolean",aDetailAST.getText());
+                if (calculatedUsingBooleanType(aDetailAST)) {
+                    log(aDetailAST,
+                            aKey,
+                            aDetailAST.getText());
                 }
-
             }
         }
     }
 
-    public boolean isBoolean(DetailAST aNode) {
-        return "boolean".equals(CheckUtils.createFullType(
+    /**
+     * Checks the type of current method or variable definition.
+     * @param aNode - current method or variable definition node.
+     * @return "true" if current method or variable has a Boolean type.
+     */
+    public boolean isBooleanType(DetailAST aNode)
+    {
+        return BOOLEAN.equals(CheckUtils.createFullType(
                 aNode.findFirstToken(TokenTypes.TYPE)).getText());
     }
 
-    public boolean isIntegerType(DetailAST aNode) {
-        return "int".equals(CheckUtils.createFullType(
+    /**
+     * Checks the type of current method or variable definition.
+     * @param aNode - current method or variable definition node.
+     * @return "true" if current method or variable has an Integer type.
+     */
+    public boolean isIntegerType(DetailAST aNode)
+    {
+        return INT.equals(CheckUtils.createFullType(
                 aNode.findFirstToken(TokenTypes.TYPE)).getText());
     }
-    
-    public boolean isNotInteger(DetailAST aNode) {
-        
-        LinkedList<String> childNames = new LinkedList<String>();
-        LinkedList<String> integerVariablesNames = new LinkedList<String>();
 
-        for(DetailAST child:getChilds(aNode)){
+    /**
+     * Checks the type of variables is calculated using "|", "&", "|=", "&="
+     * operators.
+     * @param aNode - current processed node (Supported token types: BOR, BAND,
+     *            BOR_ASSIGN, BAND_ASSIGN).
+     * @return "true" if current variables value is calculated using "|", "&",
+     *         "|=". "&=" operators but has a Boolean type and "false"
+     *         otherwise.
+     */
+    public boolean calculatedUsingBooleanType(DetailAST aNode)
+    {
+
+        final LinkedList<String> childNames = new LinkedList<String>();
+        final LinkedList<String> booleanVariablesNames =
+            new LinkedList<String>();
+
+        for (DetailAST child : getChildren(aNode)) {
             childNames.add(child.getText());
         }
 
         while (aNode != null
                 && aNode.getType() != TokenTypes.CTOR_DEF
                 && aNode.getType() != TokenTypes.METHOD_DEF
-                && aNode.getType() != TokenTypes.CLASS_DEF) {
+                && aNode.getType() != TokenTypes.CLASS_DEF)
+        {
             aNode = aNode.getParent();
         }
 
-        if (aNode.getType() != TokenTypes.CTOR_DEF
-                || aNode.getType() != TokenTypes.CLASS_DEF
-                || aNode.getType() != TokenTypes.METHOD_DEF) {
+        for (DetailAST currentNode : getChildren(aNode.getLastChild())) {
+            if (currentNode.getType() == TokenTypes.VARIABLE_DEF) {
 
-            for (DetailAST currentNode : getChilds(aNode.getLastChild())) {
-                if (currentNode.getType() == TokenTypes.VARIABLE_DEF){
-
-                    if (isIntegerType(currentNode)) {
-                        integerVariablesNames.add(currentNode.findFirstToken(TokenTypes.IDENT).getText());
-                    }
+                if (isBooleanType(currentNode)) {
+                    booleanVariablesNames.add(currentNode.findFirstToken(
+                            TokenTypes.IDENT).getText());
                 }
             }
-
-            for(String name:childNames){
-                if(integerVariablesNames.contains(name)){
-                    return false;
-                }
-
-            }
-
         }
 
-        return true;
+        boolean result = false;
+        for (String name : childNames) {
+            if (booleanVariablesNames.contains(name)) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
     /** Gets all the children one level below on the current top node.
      * @param aNode - current parent node.
-     * @return an array of childs one level below
+     * @return an array of children one level below
      * on the current parent node aNode. */
-    public DetailAST[] getChilds(DetailAST aNode)
+    public LinkedList<DetailAST> getChildren(DetailAST aNode)
     {
-        final DetailAST[] result = new DetailAST[aNode.getChildCount()];
+        final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
 
         DetailAST currNode = aNode.getFirstChild();
 
-        for (int i = 0; i < aNode.getNumberOfChildren(); i++) {
-            result[i] = currNode;
+        while (currNode != null) {
+            result.add(currNode);
             currNode = currNode.getNextSibling();
         }
 
