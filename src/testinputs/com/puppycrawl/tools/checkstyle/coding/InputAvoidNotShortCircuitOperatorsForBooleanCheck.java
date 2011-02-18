@@ -1,12 +1,13 @@
 package com.puppycrawl.tools.checkstyle.coding;
 
 public class InputAvoidNotShortCircuitOperatorsForBooleanCheck {
-boolean x,y,z;
+public static boolean x;
+public boolean y, z;
 boolean result=x|y||z; // !
 
     public void main(){
 
-          boolean res1=x|y||z; // !
+          boolean res1=x|y||z; //
           int res2 = 4|56;
           if(x|y||z){ //
             int kkk=5;
@@ -54,5 +55,68 @@ boolean result=x|y||z; // !
         }
         return false;
     }
-      
+    
+    boolean testAnotherSituations() {
+        
+        boolean a = !x
+                || x()
+                || y()
+                | (this.z // ! (because true/false is here)
+                || InputAvoidNotShortCircuitOperatorsForBooleanCheck.x)
+                && true || false;
+        
+        a = !x
+        || x()
+        || y()
+        | (this.z // ! (because a is already defined boolean variable)
+        || InputAvoidNotShortCircuitOperatorsForBooleanCheck.x);
+
+        boolean IsThere=false;
+
+        boolean r = !IsThere
+        || x()
+        || y()
+        | (this.z // ! (because IsThere is a boolean variable)
+        || InputAvoidNotShortCircuitOperatorsForBooleanCheck.x);
+
+        boolean new1 = !x
+        || x()
+        || y()
+        | (this.z // 
+        || InputAvoidNotShortCircuitOperatorsForBooleanCheck.x);
+
+        return a|a; // !
+
+    }
+    
+    public void check() {
+        
+        boolean f = x|true; // !
+        f = x|false; // !
+        f = x|y; // !
+        f |= this.z; // !
+
+        boolean m = x|z; //
+        boolean m1 = x|y; //
+        x |= this.z; //
+
+        boolean x=true;
+        y |= InputAvoidNotShortCircuitOperatorsForBooleanCheck.x; //
+
+        y |= getMessage(x);
+
+    }
+
+    public boolean x() {
+        int x;
+        return true; }
+
+    public boolean y() {
+        return true;
+    }
+
+    public boolean getMessage(boolean from) {
+        return true;
+    }
+
 }
