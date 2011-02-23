@@ -28,33 +28,61 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 /**
  * <p>
  * This check prevents using of short-circuit operators ("|", "&", "|=", "&=")
- * for boolean expressions.
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
+ * for boolean expressions. Expression is a Boolean, if it determines/overrides
+ * the value of a boolean variable, or if it contains at least one boolean
+ * operand. Treatments to external class variables and method calls are always
+ * not considered as boolean operands. Examples: <br>
+ * <br>
+ * <ol>
+ * <li>Using of short-circuit operators while determinig a Boolean variable</li>
+ * <code>
+ *      <pre>
+ *      boolean x = true;
+ *      boolean result=true | x || false; // warning here </pre> </code>
+ * <li>Using of short-circuit operators while overriding a Boolean variable.
+ * </li>
+ * <code>
+ *      <pre>
+ *       boolean x = true;
+ *       boolean result = false;
+ *       // any code
+ *       result &= true | x || false; // warning here </pre> </code>
+ * <li>Expression calculated with short-circuit operators contains at least one
+ * boolean operand.</li>
+ * <code> <pre>
+ *   public boolean isTrue() {
+ *       return this.z
+ *       | MyObject.is() // no warning here
+ *       || isModifier()
+ *       && isNotTrue();
+ *   }</pre> </code>
+ * </ol>
+ *@author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
 public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
 {
 
     /**
-     * Variable which contains a String "boolean".
+     * A "boolean" String.
      * */
-    private static final String BOOLEAN = "boolean";
+    private final String aBOOLEAN = "boolean";
 
     /**
      * A key to search the warning message text in "messages.properties" file.
      * */
-    private String mKey = "avoid.not.short.circuit.operators.for.boolean";
+    private final String mKey = "avoid.not.short.circuit.operators.for.boolean";
 
     /**
-     * A list that contains all names of operands, which are used in the current
-     * expression, if it calculates with using "|", "&", "|=", "&=" operators.
+     * A list contains all names of operands, which are used in the current
+     * expression, which calculates with using "|", "&", "|=", "&=" operators.
      * */
     private final LinkedList<String> mSupportedOperands =
         new LinkedList<String>();
 
     /**
-     * Variable, that indicates in current
-     * expression keywords "true" or "false".
+     * Variable, that indicates keywords "true" or "false" in current
+     * expression.
      * */
     private boolean mHasTrueOrFalseLiteral;
 
@@ -94,22 +122,23 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     }
 
     /**
-     * Checks the type of current method or variable definition.
+     * Checks whether the current method/variable definition type
+     * is "Boolean".
      * @param aNode - current method or variable definition node.
      * @return "true" if current method or variable has a Boolean type.
      */
     public final boolean isBooleanType(final DetailAST aNode)
     {
-        return BOOLEAN.equals(CheckUtils.createFullType(
+        return aBOOLEAN.equals(CheckUtils.createFullType(
                 aNode.findFirstToken(TokenTypes.TYPE)).getText());
     }
 
     /**
-     * Checks current expression is calculated using "|", "&", "|=", "&="
-     * operators.
+     * Checks that current expression is calculated using "|", "&", "|=", "&="
+     * operators contains at least one Boolean operand.
      * @param aNode - current EXPR node to check.
      * @return "true" if current expression is calculated using "|", "&",
-     * "|=". "&=" operators contains at least one Boolean variable or false
+     * "|=". "&=" operators contains at least one Boolean operand or false
      * otherwise.
      */
     public final boolean isBooleanExpression(final DetailAST aNode)
@@ -157,7 +186,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
 
     /** Searches for all supported operands names in current expression.
      * When checking, treatments to external class variables, method calls,
-     * etc are not considered as operands.
+     * etc are not considered as expression operands.
      * @param aEXPRParentAST - the current EXPR parent node.
      * @return List of supported operands contained in current expression.
      */
@@ -240,6 +269,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
         }
 
         return result;
-    }
+    }   
 
 }
