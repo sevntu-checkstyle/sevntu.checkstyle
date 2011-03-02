@@ -31,18 +31,13 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
             
                 };
 
-     //   System.setProperty(
-            //    "testinputs.dir",
-              //  "/media/B32C-8EF7/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
-             //   "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
-              //  "/home/developer/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
                 verify(checkConfig, getPath("coding" + File.separator + "InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
       //  verify(checkConfig,
         //        getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
 
     public String createMsg(String literal){
-        return "Not short-circuit Operator '" + literal + "' used.";      
+        return "Not short-circuit Operator '" + literal + "' used.";
     }
-    
+
 }

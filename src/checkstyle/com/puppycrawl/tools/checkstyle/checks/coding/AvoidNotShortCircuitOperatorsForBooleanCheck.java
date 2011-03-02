@@ -27,37 +27,62 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 
 /**
  * <p>
- * This check prevents using of short-circuit operators ("|", "&", "|=", "&=")
- * for boolean expressions. Expression is a Boolean, if it determines/overrides
- * the value of a boolean variable, or if it contains at least one boolean
- * operand. Treatments to external class variables and method calls are always
- * not considered as boolean operands. Examples: <br>
+ * This check limits using of not short-circuit operators
+ * ("|", "&", "|=", "&=") in boolean expressions.<br>
+ * <br>
+ * Reason: <br>
+ * &nbsp&nbsp&nbsp&nbsp&nbsp Short-circuit operators ("||", "&&") are more
+ * safer and can accelerate the evaluation of complex boolean expressions.
+ * Check identifies an expression as a boolean if it contains at least one
+ * boolean operand or if result of expression evaluation sets the value of a
+ * boolean variable.
+ * 
+ * <br><br>&nbsp&nbsp&nbsp&nbsp&nbsp Using boolean variables that do not belong
+ * to the current class and all calls to boolean methods are not handled by
+ * this check. <br><br> Examples: <br>
  * <br>
  * <ol>
- * <li>Using of short-circuit operators while determinig a Boolean variable</li>
- * <code>
- *      <pre>
- *      boolean x = true;
- *      boolean result=true | x || false; // warning here </pre> </code>
- * <li>Using of short-circuit operators while overriding a Boolean variable.
- * </li>
- * <code>
- *      <pre>
- *       boolean x = true;
- *       boolean result = false;
- *       // any code
- *       result &= true | x || false; // warning here </pre> </code>
- * <li>Expression calculated with short-circuit operators contains at least one
- * boolean operand.</li>
- * <code> <pre>
- *   public boolean isTrue() {
- *       return this.z
- *       | MyObject.is() // no warning here
- *       || isModifier()
- *       && isNotTrue();
- *   }</pre> </code>
+ * <li>Using of not short-circuit operators while determining a Boolean variable
+ * </li> <samp>
+ * 
+ * <pre>
+ * boolean x = true;
+ * boolean result = true | x || false; // a warning here
+ * </pre>
+ * 
+ * </samp>
+ * <li>Using of not short-circuit operators while overriding a Boolean variable.
+ * </li> <samp>
+ * 
+ * <pre>
+ * boolean x = true;
+ * boolean result = false;
+ * // any code
+ * result &amp;= true | x || false; // a warning here
+ * </pre>
+ * 
+ * </samp>
+ * <li>Expression calculated with not short-circuit operators contains at least
+ * one boolean operand.</li>
+ * <samp>
+ * 
+ * <pre>
+ * public boolean isTrue() {
+ *     return this.z | MyObject.is() // no warnings here
+ *             || isModifier() &amp;&amp; isNotTrue();
+ * }
+ * ...
+ * boolean r=true;
+ * public boolean isTrue() {
+ *     return this.z | true && r // a warning here
+ *             || isModifier() &amp;&amp; isNotTrue();
+ * }
+ * </pre>
+ * 
+ * </samp>
  * </ol>
- *@author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
+ * 
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
 public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
@@ -136,7 +161,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     /**
      * Checks that current expression is calculated using "|", "&", "|=", "&="
      * operators contains at least one Boolean operand.
-     * @param aNode - current EXPR node to check.
+     * @param aNode - current TokenTypes.EXPR node to check.
      * @return "true" if current expression is calculated using "|", "&",
      * "|=". "&=" operators contains at least one Boolean operand or false
      * otherwise.
@@ -187,7 +212,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     /** Searches for all supported operands names in current expression.
      * When checking, treatments to external class variables, method calls,
      * etc are not considered as expression operands.
-     * @param aEXPRParentAST - the current EXPR parent node.
+     * @param aEXPRParentAST - the current TokenTypes.EXPR parent node.
      * @return List of supported operands contained in current expression.
      */
     public final LinkedList<String> getSupportedOperandsNames(
@@ -220,7 +245,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     /**
      * Checks is the current expression has
      * keywords "true" or "false".
-     * @param aParentAST - the current EXPR parent node.
+     * @param aParentAST - the current TokenTypes.EXPR parent node.
      * @return true if the current processed expression contains
      * "true" or "false" keywords and false otherwise.
      */

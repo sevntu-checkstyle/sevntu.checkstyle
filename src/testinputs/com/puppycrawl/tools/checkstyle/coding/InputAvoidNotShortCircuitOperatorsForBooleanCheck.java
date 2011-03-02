@@ -90,7 +90,7 @@ boolean result=x|y||z; // !
     }
     
     public void check() {
-        
+
         boolean f = x|true; // !
         f = x|false; // !
         f = x|y; // !
@@ -99,11 +99,12 @@ boolean result=x|y||z; // !
         boolean m = x|z; //
         boolean m1 = x|y; //
         x |= this.z; //
-
+        while(x|y){} //
         boolean x=true;
         y |= InputAvoidNotShortCircuitOperatorsForBooleanCheck.x; //
 
         y |= getMessage(x);
+
 
     }
 
@@ -118,5 +119,11 @@ boolean result=x|y||z; // !
     public boolean getMessage(boolean from) {
         return true;
     }
-
+    
+    public void doSomethingElse() {
+        //int x;
+        while (x | y) {
+        }
+    }
+    
 }
