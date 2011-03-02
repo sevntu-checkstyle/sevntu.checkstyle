@@ -36,7 +36,6 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
  * Check identifies an expression as a boolean if it contains at least one
  * boolean operand or if result of expression evaluation sets the value of a
  * boolean variable.
- * 
  * <br><br>&nbsp&nbsp&nbsp&nbsp&nbsp Using boolean variables that do not belong
  * to the current class and all calls to boolean methods are not handled by
  * this check. <br><br> Examples: <br>
@@ -44,28 +43,23 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
  * <ol>
  * <li>Using of not short-circuit operators while determining a Boolean variable
  * </li> <samp>
- * 
  * <pre>
  * boolean x = true;
  * boolean result = true | x || false; // a warning here
  * </pre>
- * 
  * </samp>
  * <li>Using of not short-circuit operators while overriding a Boolean variable.
  * </li> <samp>
- * 
  * <pre>
  * boolean x = true;
  * boolean result = false;
  * // any code
  * result &amp;= true | x || false; // a warning here
  * </pre>
- * 
  * </samp>
  * <li>Expression calculated with not short-circuit operators contains at least
  * one boolean operand.</li>
  * <samp>
- * 
  * <pre>
  * public boolean isTrue() {
  *     return this.z | MyObject.is() // no warnings here
@@ -78,10 +72,8 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
  *             || isModifier() &amp;&amp; isNotTrue();
  * }
  * </pre>
- * 
  * </samp>
  * </ol>
- * 
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
@@ -91,7 +83,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     /**
      * A "boolean" String.
      * */
-    private final String aBOOLEAN = "boolean";
+    private final String mBOOLEAN = "boolean";
 
     /**
      * A key to search the warning message text in "messages.properties" file.
@@ -154,7 +146,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      */
     public final boolean isBooleanType(final DetailAST aNode)
     {
-        return aBOOLEAN.equals(CheckUtils.createFullType(
+        return mBOOLEAN.equals(CheckUtils.createFullType(
                 aNode.findFirstToken(TokenTypes.TYPE)).getText());
     }
 
@@ -294,6 +286,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
         }
 
         return result;
-    }   
+    }
 
 }
