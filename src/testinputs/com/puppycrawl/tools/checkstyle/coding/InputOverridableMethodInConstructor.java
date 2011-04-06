@@ -3,21 +3,26 @@ package com.puppycrawl.tools.checkstyle.coding;
 public class InputOverridableMethodInConstructor {
 
     public static void main(String[] args) {
-        
+
         abstract class Base {
             Base() {
                 overrideMe(); // a warning here
+                System.out.checkError();
+                this.toString();
             }
 
-           void overrideMe() {}
-           // public void overrideMe() {}
-           // protected void overrideMe() {}
-           // abstract void overrideMe();
-           // abstract public void overrideMe();
-           // abstract protected void overrideMe();
-           
+            int overrideMe() {
+                return 1;
+            }
+            // void overrideMe() {}
+            // public void overrideMe() {}
+            // protected void overrideMe() {}
+            // abstract void overrideMe();
+            // abstract public void overrideMe();
+            // abstract protected void overrideMe();
+
         }
-        
+
         class Child extends Base {
             final int x;
 
@@ -25,17 +30,13 @@ public class InputOverridableMethodInConstructor {
                 this.x = x;
             }
 
-            public void overrideMe() {
+            public int overrideMe() {
                 System.out.println(x);
+                return 6;
             }
         }
-        
+
         new Child(999); // prints "0"
     }
 
 }
-
-
-
-
-

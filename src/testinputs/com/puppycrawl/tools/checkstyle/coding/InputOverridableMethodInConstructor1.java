@@ -5,11 +5,15 @@ public class InputOverridableMethodInConstructor1 {
     public static void main(String[] args) {
 
         abstract class Base1 {
-            Base1() {
+             Base1() {
+                System.out.println("Base C-tor ");
                 overrideMe(); // no warnings here
+                this.toString();
             }
 
-            private void overrideMe() {}
+            private void overrideMe() {
+                System.out.println("Base overrideMe() ");
+            }
 
         }
 
@@ -21,11 +25,11 @@ public class InputOverridableMethodInConstructor1 {
             }
 
             public void overrideMe() {
-                System.out.println(x);
+                System.out.println("child`s overrideMe(): "+x);
             }
         }
 
-        new Child1(999); // prints "0"
+      new Child1(999); // will not print x =)
     }
 
 }

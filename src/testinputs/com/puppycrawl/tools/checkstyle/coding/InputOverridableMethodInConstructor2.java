@@ -7,7 +7,9 @@ public class InputOverridableMethodInConstructor2 {
         class Base2 {
             Base2() {
                 System.out.println("Base2 C-tor.");
-                overrideMe(); //
+                overrideMe(); // warning here!!
+                System.out.checkError();
+                this.toString();
             }
 
             void overrideMe() {
@@ -27,7 +29,7 @@ public class InputOverridableMethodInConstructor2 {
                 System.out.println("Child2 overrideMe(): "+x);
             }
         }
-        
+
         class Child2_2 extends Child2 {
             final int x;
 
