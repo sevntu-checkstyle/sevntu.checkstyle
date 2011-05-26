@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!--<parent>
+        <artifactId>com.github.sevntu.checkstyle</artifactId>
+        <groupId>sevntu-checks-parent</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>-->
+
+    
+    <groupId>com.github.sevntu.checkstyle</groupId>
+    <artifactId>sevntu-checks</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>eclipse-plugin</packaging>
+
+    <name>eclipse-cs Sevntu Checkstyle Plugin</name>
+
+    <properties>
+       	<tycho-version>0.10.0</tycho-version>
+        <!-- TODO copy testinputs -->
+        <testinputs.dir>testinputs/com/github/sevntu/checkstyle</testinputs.dir>
+        <!--<testsrcs.dir>${basedir}/src/tests/com/puppycrawl/tools/checkstyle</testsrcs.dir>-->
+        
+    </properties>
+
+
+    <dependencies>
+        <!-- eclipse-cs is not in any repository so you need to download sources and build it
+        mvn install in the project net.sf.eclipsecs.parent
+        At the time of writting this it is not compilable, but after deleting from, the parent pom references
+        to modules that cannot be build and building we will have all what we need in local repository.
+        Jar of our project will work after placing it in the eclipse plugins folder.
+        -->
+         <dependency>
+            <groupId>net.sf.eclipsecs</groupId>
+            <artifactId>net.sf.eclipsecs.ui</artifactId>
+            <!-- Parameterize the version and use the same for eclipse-cs and checkstyle-->
+            <version>5.3.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.eclipsecs</groupId>
+            <artifactId>net.sf.eclipsecs.core</artifactId>
+            <version>5.3.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Eclipse-cs plugin is build with maven, but not uses it for dependency-management. Cool ya! So
+        referencing it as dependency does not mean that you referenced checkstyle itself as a dependency.-->
+        <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>5.4-SNAPSHOT</version>
+ 	</dependency> 
+        <!-- Test scope dependencies-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- test-jar for checkstyle itself needs to be build from sources, as it is not in the repository:
+        mvn jar:test-jar install
+        -->
+        <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>5.4-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+	</dependency>
+        
+    </dependencies>
+
+    <build>
+	<sourceDirectory>src/</sourceDirectory>
+        <!-- TODO this is not working: There are no tests to run.-->
+        <testSourceDirectory>test/</testSourceDirectory>
+	<plugins>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <testSourceDirectory>test/</testSourceDirectory>
+                </configuration>
+            </plugin>-->
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.tycho</groupId>
+                <artifactId>tycho-maven-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.tycho</groupId>
+                <artifactId>maven-osgi-packaging-plugin</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <strictVersions>false</strictVersions>
+                    <archiveSite>true</archiveSite>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.tycho</groupId>
+                <artifactId>target-platform-configuration</artifactId>
+                <version>${tycho-version}</version>
+                <configuration>
+                    <resolver>p2</resolver>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <repositories>
+        <repository>
+            <id>helios</id>
+            <layout>p2</layout>
+            <url>http://download.eclipse.org/releases/helios</url>
+        </repository>
+        <!--<repository>
+            <id>m2eclipse</id>
+            <layout>p2</layout>
+            <url>http://m2eclipse.sonatype.org/sites/m2e</url>
+        </repository>-->
+    </repositories>
+   <pluginRepositories>
+        <pluginRepository>
+            <id>Codehaus</id>
+            <url>https://nexus.codehaus.org/content/repositories/releases/</url>
+        </pluginRepository>
+    </pluginRepositories>
+</project>

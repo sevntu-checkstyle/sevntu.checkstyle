@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sevntu eclipse-cs Extension Plugin
+Bundle-SymbolicName: com.github.sevntu.checks;singleton:=true
+Bundle-Version: 1.0.0
+Require-Bundle: net.sf.eclipsecs.checkstyle,
+ net.sf.eclipsecs.core,
+ net.sf.eclipsecs.ui
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Eclipse-LazyStart: true
+Eclipse-RegisterBuddy: net.sf.eclipsecs.core
+Bundle-Vendor: http://eclipse-cs.sf.net/
+

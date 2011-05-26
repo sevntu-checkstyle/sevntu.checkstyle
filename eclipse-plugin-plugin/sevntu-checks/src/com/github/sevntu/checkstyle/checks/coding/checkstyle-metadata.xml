@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="Sevntu checks" priority="1600">
+
+        <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclaration" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
+            <description>%CustomDeclarationOrder.desc</description>
+     	    <property-metadata name="customDeclarationOrder" datatype="String" default-value="Field(private static final long serialVersionUID) ### Field((private|protected) final Log ([\w]*L|l)og|private static final Log [\w]*LOG) ### Field(public static final) ### Field((private|protected) static final) ### Field(@Autowired.* public) ### Field(public.*) ### Field(public) ### Field(private final) ### Field(private.*) ### Field(private) ### Field(.*) ### Method(public static void main.*) ### Method((public|protected)?\w*abstract) ### Method(public static .*(new|edit|create|open|clone).*) ### Ctor(public) ### Ctor(private) ### Method(@Autowired.* public) ### Method(.*) ### InnerClass(.*)">
+               <description>Custom declaration order</description>
+            </property-metadata>
+        </rule-metadata>
+	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck"/>
+            <description>%ReturnNullInsteadOfBoolean.desc</description>
+        </rule-metadata>
+	<rule-metadata name="%IllegalCatchWithIgnore.name" internal-name="IllegalCatchWithIgnore" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchWithIgnoreCheck"/>
+            <description>%IllegalCatchWithIgnore.desc</description>
+	    <property-metadata name="allowThrow" datatype="Boolean" default-value="true">
+               <description>Allow catching when throwing some exception</description>
+            </property-metadata>
+	    <property-metadata name="allowRethrow" datatype="Boolean" default-value="false">
+               <description>Allow catching when rethrowing exception</description>
+            </property-metadata>
+        </rule-metadata>
+        <rule-metadata name="%MultipleVariableDeclarations.name" internal-name="MultipleVariableDeclarations" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsCheck"/>
+            <description>%MultipleVariableDeclarations.desc</description>
+	    <property-metadata name="ignoreCycles" datatype="Boolean" default-value="false">
+               <description>Ignore cycles</description>
+            </property-metadata>
+	    <property-metadata name="ignoreMethods" datatype="Boolean" default-value="false">
+               <description>Ignore methods</description>
+            </property-metadata>
+        </rule-metadata>
+    </rule-group-metadata>
+</checkstyle-metadata>
