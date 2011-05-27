@@ -3,9 +3,9 @@
 <artifacts size='1'>
   <artifact classifier='osgi.bundle' id='com.github.sevntu.checks' version='1.0.0'>
     <properties size='6'>
-      <property name='artifact.size' value='20308'/>
-      <property name='download.size' value='20308'/>
-      <property name='download.md5' value='e5f7053713ed71d88b62498c6f869539'/>
+      <property name='artifact.size' value='20762'/>
+      <property name='download.size' value='20762'/>
+      <property name='download.md5' value='9a1bc6dd3685028ca8bc08cd407b6b63'/>
       <property name='maven-groupId' value='com.github.sevntu.checkstyle'/>
       <property name='maven-artifactId' value='sevntu-checks'/>
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
