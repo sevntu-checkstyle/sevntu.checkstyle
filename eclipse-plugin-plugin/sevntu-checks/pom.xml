@@ -51,24 +51,7 @@
             <artifactId>checkstyle</artifactId>
             <version>5.4-SNAPSHOT</version>
  	</dependency> 
-        <!-- Test scope dependencies-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- test-jar for checkstyle itself needs to be build from sources, as it is not in the repository:
-        mvn jar:test-jar install
-        -->
-        <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>5.4-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-	</dependency>
-        
+    
     </dependencies>
 
     <build>
