@@ -65,12 +65,12 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     /**
      * A "boolean" String.
      * */
-    private final String mBOOLEAN = "boolean";
+    private static final String mBOOLEAN = "boolean";
 
     /**
      * A key to search the warning message text in "messages.properties" file.
      * */
-    private final String mKey = "avoid.not.short.circuit.operators.for.boolean";
+    private static final String mKey = "avoid.not.short.circuit.operators.for.boolean";
 
     /**
      * A list contains all names of operands, which are used in the current

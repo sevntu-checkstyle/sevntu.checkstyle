@@ -45,33 +45,25 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class AvoidHidingCauseExceptionCheck extends Check
-{
+public class AvoidHidingCauseExceptionCheck extends Check {
 
-    /** List containing all "throw" keyword DetailASTs
-     * for current catch block.*/
+    /** List containing all "throw" keyword DetailASTs for current catch block.*/
     private LinkedList<DetailAST> mThrowList = new LinkedList<DetailAST>();
-
     /** DetailAST contains the parameter name of current "throw" keyword .*/
     private DetailAST mExcNameAST;
-
     /** A list contains the names of all the exceptions variables
      * used to wrap the original exception.*/
     private LinkedList<String> mWrapExcNames = new LinkedList<String>();
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] {TokenTypes.LITERAL_CATCH};
+    public int[] getDefaultTokens() {
+        return new int[]{TokenTypes.LITERAL_CATCH};
     }
 
     @Override
-    public void visitToken(DetailAST aDetailAST)
-    {
+    public void visitToken(DetailAST aDetailAST) {
 
-        final String originExcName = aDetailAST
-                .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
-                .getText();
+        final String originExcName = aDetailAST.findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild().getText();
 
         mWrapExcNames.add(originExcName);
 
@@ -79,17 +71,11 @@ public class AvoidHidingCauseExceptionCheck extends Check
         makeExceptionsList(aDetailAST, aDetailAST, originExcName);
 
         for (DetailAST throwAST : mThrowList) {
-
             mExcNameAST = null;
-
             if (throwAST.getType() == TokenTypes.LITERAL_THROW) {
-
                 mExcNameAST = findThrownExcName(throwAST);
-
-                if (mExcNameAST != null
-                        && mExcNameAST.getParent().getType() == TokenTypes.DOT
-                        || !mWrapExcNames.contains(mExcNameAST.getText()))
-                {
+                if (mExcNameAST != null && mExcNameAST.getParent().getType() == TokenTypes.DOT
+                        || !mWrapExcNames.contains(mExcNameAST.getText())) {
                     log(throwAST, "avoid.hiding.cause.exception",
                             originExcName);
                 }
@@ -98,7 +84,6 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
         mThrowList.clear();
         mWrapExcNames.clear();
-
     }
 
     /**
@@ -108,8 +93,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @return A token (<code>DetailAST</code>) contains the
      * thrown exception name if it was found or null otherwise.
      */
-    public DetailAST findThrownExcName(DetailAST aStartNode)
-    {
+    public DetailAST findThrownExcName(DetailAST aStartNode) {
         for (DetailAST currentNode : getChildNodes(aStartNode)) {
 
             if (currentNode.getType() == TokenTypes.IDENT) {
@@ -118,8 +102,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
-                    && currentNode.getNumberOfChildren() > 0)
-            {
+                    && currentNode.getNumberOfChildren() > 0) {
                 findThrownExcName(currentNode);
             }
 
@@ -138,8 +121,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * (<code>aParentAST</code>) except those that are in nested
      * try/catch blocks.
      */
-    public LinkedList<DetailAST> makeThrowList(DetailAST aParentAST)
-    {
+    public LinkedList<DetailAST> makeThrowList(DetailAST aParentAST) {
 
         for (DetailAST currentNode : getChildNodes(aParentAST)) {
 
@@ -150,8 +132,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_THROW
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
-                    && currentNode.getNumberOfChildren() > 0)
-            {
+                    && currentNode.getNumberOfChildren() > 0) {
                 makeThrowList(currentNode);
             }
 
@@ -171,22 +152,19 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * original exception object of the current "catch" block.
      */
     public LinkedList<String> makeExceptionsList(DetailAST aCurrentCatchAST,
-            DetailAST aParentAST, String aCurrentExcName)
-    {
+            DetailAST aParentAST, String aCurrentExcName) {
 
         for (DetailAST currentNode : getChildNodes(aParentAST)) {
 
             if (currentNode.getType() == TokenTypes.IDENT
                     && currentNode.getText().equals(aCurrentExcName)
                     && currentNode.getParent() != null
-                    && currentNode.getParent().getType() != TokenTypes.DOT)
-            {
+                    && currentNode.getParent().getType() != TokenTypes.DOT) {
 
                 DetailAST temp = currentNode;
 
                 while (!temp.equals(aCurrentCatchAST)
-                        && temp.getType() != TokenTypes.ASSIGN)
-                {
+                        && temp.getType() != TokenTypes.ASSIGN) {
                     temp = temp.getParent();
                 }
 
@@ -195,19 +173,14 @@ public class AvoidHidingCauseExceptionCheck extends Check
                     if (temp.getParent().getType() == TokenTypes.VARIABLE_DEF) {
                         convertedExc = temp.getParent().findFirstToken(
                                 TokenTypes.IDENT);
-                    }
-                    else {
+                    } else {
                         convertedExc = temp.findFirstToken(TokenTypes.IDENT);
                     }
 
                     if (convertedExc != null
-                            && !convertedExc.getText().equals(aCurrentExcName))
-                    {
-                        if (!mWrapExcNames.contains(convertedExc
-                                .getText()))
-                        {
-                            mWrapExcNames.add(convertedExc
-                                    .getText());
+                            && !convertedExc.getText().equals(aCurrentExcName)) {
+                        if (!mWrapExcNames.contains(convertedExc.getText())) {
+                            mWrapExcNames.add(convertedExc.getText());
                         }
                     }
 
@@ -216,8 +189,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getNumberOfChildren() > 0)
-            {
+                    && currentNode.getNumberOfChildren() > 0) {
                 makeExceptionsList(aCurrentCatchAST, currentNode,
                         aCurrentExcName);
             }
@@ -232,8 +204,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @return List of children one level below on the current
      *         parent node (aNode).
      */
-    public LinkedList<DetailAST> getChildNodes(DetailAST aNode)
-    {
+    public LinkedList<DetailAST> getChildNodes(DetailAST aNode) {
         final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
 
         DetailAST currNode = aNode.getFirstChild();
@@ -245,5 +216,4 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
         return result;
     }
-
 }

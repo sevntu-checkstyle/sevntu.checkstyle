@@ -5,17 +5,31 @@
 <checkstyle-metadata>
     <rule-group-metadata name="Sevntu checks" priority="1600">
 
+        <rule-metadata name="%AvoidHidingCauseException.name" internal-name="AvoidHidingCauseException" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
+            <description>%AvoidHidingCauseException.desc</description>
+        </rule-metadata>
+        
+        <rule-metadata name="%AvoidNotShortCircuitOperatorsForBoolean.name" internal-name="AvoidNotShortCircuitOperatorsForBoolean" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
+            <description>%AvoidNotShortCircuitOperatorsForBoolean.desc</description>
+        </rule-metadata>
+ 
         <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclaration" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
             <description>%CustomDeclarationOrder.desc</description>
-     	    <property-metadata name="customDeclarationOrder" datatype="String" default-value="Field(private static final long serialVersionUID) ### Field((private|protected) final Log ([\w]*L|l)og|private static final Log [\w]*LOG) ### Field(public static final) ### Field((private|protected) static final) ### Field(@Autowired.* public) ### Field(public.*) ### Field(public) ### Field(private final) ### Field(private.*) ### Field(private) ### Field(.*) ### Method(public static void main.*) ### Method((public|protected)?\w*abstract) ### Method(public static .*(new|edit|create|open|clone).*) ### Ctor(public) ### Ctor(private) ### Method(@Autowired.* public) ### Method(.*) ### InnerClass(.*)">
+     	    <property-metadata name="customDeclarationOrder" datatype="String" default-value="Field(.*public.*)
+            ### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*)
+            ### Method(.*) ### InnerClass(.*)">
                <description>Custom declaration order</description>
             </property-metadata>
         </rule-metadata>
+        
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck"/>
             <description>%ReturnNullInsteadOfBoolean.desc</description>
         </rule-metadata>
+        
 	<rule-metadata name="%IllegalCatchWithIgnore.name" internal-name="IllegalCatchWithIgnore" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchWithIgnoreCheck"/>
             <description>%IllegalCatchWithIgnore.desc</description>
@@ -26,6 +40,7 @@
                <description>Allow catching when rethrowing exception</description>
             </property-metadata>
         </rule-metadata>
+        
         <rule-metadata name="%MultipleVariableDeclarations.name" internal-name="MultipleVariableDeclarations" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsCheck"/>
             <description>%MultipleVariableDeclarations.desc</description>
@@ -36,5 +51,6 @@
                <description>Ignore methods</description>
             </property-metadata>
         </rule-metadata>
+        
     </rule-group-metadata>
 </checkstyle-metadata>
