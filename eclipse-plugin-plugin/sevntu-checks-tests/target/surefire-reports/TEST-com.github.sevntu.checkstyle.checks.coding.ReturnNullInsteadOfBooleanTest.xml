@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.026" errors="0" skipped="0" tests="1" name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanTest">
+<testsuite failures="0" time="0.022" errors="0" skipped="0" tests="1" name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/i386"/>
@@ -19,7 +19,7 @@
     <property name="basedir" value="/home/isopov/NetBeansProjects/sevntu.checkstyle/eclipse-plugin-plugin/sevntu-checks-tests"/>
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-6-sun-1.6.0.24/jre/lib/endorsed"/>
     <property name="os.arch" value="i386"/>
-    <property name="surefire.real.class.path" value="/home/isopov/NetBeansProjects/sevntu.checkstyle/eclipse-plugin-plugin/sevntu-checks-tests/target/surefire/surefirebooter2488955696620413868.jar"/>
+    <property name="surefire.real.class.path" value="/home/isopov/NetBeansProjects/sevntu.checkstyle/eclipse-plugin-plugin/sevntu-checks-tests/target/surefire/surefirebooter1322223688667446436.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
@@ -58,5 +58,5 @@
     <property name="testinputs.dir" value="src/testinputs/com/github/sevntu/checkstyle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.025" classname="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanTest" name="testDefault"/>
+  <testcase time="0.022" classname="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanTest" name="testDefault"/>
 </testsuite>
