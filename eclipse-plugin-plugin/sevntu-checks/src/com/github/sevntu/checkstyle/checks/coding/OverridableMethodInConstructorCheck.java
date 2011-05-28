@@ -36,7 +36,7 @@ public class OverridableMethodInConstructorCheck extends Check {
 
     @Override
     public final void visitToken(final DetailAST aDetailAST) {
-        System.out.println(aDetailAST);
+//        System.out.println(aDetailAST);
 
         if (aDetailAST.getType() == TokenTypes.METHOD_CALL) { // for METHOD_CALL nodes
 
@@ -119,7 +119,7 @@ public class OverridableMethodInConstructorCheck extends Check {
                 if (curMethodName.equals(curOverridableMethodName)
                         && a.equals(b)) {
                     log(curMethod.methodNode, mKey, curMethodName);
-                    System.out.println("Error!");
+//                    System.out.println("Error!");
                 }
 
             }
