@@ -1,0 +1,16 @@
+h1. Information
+Extension to standard checkstyle checks that are compiled as plugin to Eclipse Checkstyle plugin.
+
+h2. Projects
+
+Checkstyle
+Checkstyle Eclipse plugin
+
+h2. Contributors
+Roman Ivanov
+Ivan Sopov
+Ruslan
+Danil
+Daniil
+Yuriy
+Dmitriy
