@@ -1,8 +1,8 @@
 h1. Information
 
-Extension to standard checkstyle checks that are compiled as plugin to Eclipse Checkstyle plugin.
+Extension to standard Checkstyle checks that are compiled as plugin to Eclipse Checkstyle plugin.
 
-h2. Projects
+h2. Related Projects
 
 Checkstyle
 Checkstyle Eclipse plugin
