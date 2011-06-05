@@ -58,8 +58,8 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        System.setProperty("testinputs.dir",
-        "/home/romani/java/workspaceJEE_Test/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/home/romani/java/workspaceJEE_Test/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         verify(checkConfig, getPath("design" + File.separator + "HideUtilityClassContructor3041574_1.java"), expected);
     }
 
@@ -70,8 +70,8 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        System.setProperty("testinputs.dir",
-        "/home/romani/java/workspaceJEE_Test/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/home/romani/java/workspaceJEE_Test/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         verify(checkConfig, getPath("design" + File.separator + "HideUtilityClassContructor3041574_2.java"), expected);
     }
 
@@ -82,8 +82,8 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        System.setProperty("testinputs.dir",
-        "/home/romani/java/workspaceJEE_Test/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/home/romani/java/workspaceJEE_Test/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         verify(checkConfig, getPath("design" + File.separator + "HideUtilityClassContructor3041574_3.java"), expected);
     }
 

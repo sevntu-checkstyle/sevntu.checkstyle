@@ -13,8 +13,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
 
         String[] expected = { "9:27: " + createMsg("overrideMe") };
 
-        System.setProperty("testinputs.dir",
-        "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
 
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor.java"), expected);
         //  verify(checkConfig,
@@ -28,8 +28,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         String[] expected = {
         };
 
-        System.setProperty("testinputs.dir",
-        "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
 
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor1.java"), expected);
         //  verify(checkConfig,
@@ -42,8 +42,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
 
         String[] expected = { "10:27: " + createMsg("overrideMe") };
 
-        System.setProperty("testinputs.dir",
-        "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
 
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor2.java"), expected);
         //  verify(checkConfig,
@@ -59,8 +59,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
                 "15:27: " + createMsg("overrideMe")
                 };
 
-        System.setProperty("testinputs.dir",
-        "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
 
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor3.java"), expected);
         //  verify(checkConfig,

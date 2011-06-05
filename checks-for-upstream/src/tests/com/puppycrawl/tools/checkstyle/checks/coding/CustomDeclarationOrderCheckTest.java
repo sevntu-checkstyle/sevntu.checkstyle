@@ -25,8 +25,8 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
                 "84:5: Method definition in wrong order. Expected 'Method(@Deprecated.*)' then 'InnerClass (private.*)'.",
                 "95:5: Method definition in wrong order. Expected 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)' then 'InnerClass (private.*)'.",
                 "105:5: Field definition in wrong order. Expected 'Field(private.*)' then 'Ctor()'." };
-        System.setProperty("testinputs.dir",
-                "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //        "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         checkConfig.addAttribute("customDeclarationOrder",
                                   "Field(private static final long serialVersionUID) ###"
                                 + "Field(.*final public.*|.*public final.*) ###"

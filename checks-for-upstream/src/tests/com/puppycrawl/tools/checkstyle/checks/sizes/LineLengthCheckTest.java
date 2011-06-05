@@ -18,7 +18,7 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
             "18: Line is longer than 80 characters.",
             "145: Line is longer than 80 characters.",
         };
-        System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
+        //System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
         verify(checkConfig, getPath("InputSimple.java"), expected);
     }
 
@@ -52,7 +52,7 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreConstructor", "true");
         checkConfig.addAttribute("ignoreField", "true");
         checkConfig.addAttribute("ignoreMethod", "true");
-        System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
+        //System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
         verify(checkConfig, getPath("InputSimple.java"), expected);
     }
 }

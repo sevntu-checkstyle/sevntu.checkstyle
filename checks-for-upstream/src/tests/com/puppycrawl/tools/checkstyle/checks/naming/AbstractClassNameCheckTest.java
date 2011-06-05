@@ -19,8 +19,8 @@ public class AbstractClassNameCheckTest extends BaseCheckTestSupport
             "9:1: Name 'FactoryWithBadName' must match pattern '^Abstract.*$|^.*Factory$'.",
             "13:5: Name 'NonAbstractInnerClass' must match pattern '^Abstract.*$|^.*Factory$'.",
         };
-        System.setProperty("testinputs.dir",
-        "/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
+        //System.setProperty("testinputs.dir",
+        //"/home/danil/workspace/my/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
         checkConfig.addAttribute("checkName", "true");
         checkConfig.addAttribute("checkModifier", "false");
         verify(checkConfig, getPath("naming" + File.separator + "InputAbstractClassName.java"), expected);

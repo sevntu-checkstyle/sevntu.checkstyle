@@ -22,13 +22,14 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
             "34:9: Catching 'Throwable' is not allowed.",
         };
 
-        System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        //sSystem.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
         
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "false");
         
         //verify(checkConfig, getPath("coding" + File.separator + "InputIllegalCatchCheck.java"), expected);
-        verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
+        verify(checkConfig,getPath("coding" + File.separator
+                + "InputIllegalCatchCheckNew.java"),expected);
     }
 
     @Test
@@ -46,13 +47,14 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
             "34:9: Catching 'Throwable' is not allowed.",
         };
 
-        System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        //System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
 
         checkConfig.addAttribute("allowThrow", "true");
         checkConfig.addAttribute("allowRethrow", "false");
         
         //verify(checkConfig, getPath("coding" + File.separator + "InputIllegalCatchCheck.java"), expected);
-        verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
+        verify(checkConfig,getPath("coding" + File.separator
+                + "InputIllegalCatchCheckNew.java"),expected);
     }
     
     @Test
@@ -71,13 +73,14 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
 //          "34:9: Catching 'Throwable' is not allowed.",
         };
 
-        System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        //System.setProperty("testinputs.dir", "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
 
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "true");
 
         //verify(checkConfig, getPath("coding" + File.separator + "InputIllegalCatchCheck.java"), expected);
-        verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
+        verify(checkConfig,getPath("coding" + File.separator
+                + "InputIllegalCatchCheckNew.java"),expected);
     }
 
 }

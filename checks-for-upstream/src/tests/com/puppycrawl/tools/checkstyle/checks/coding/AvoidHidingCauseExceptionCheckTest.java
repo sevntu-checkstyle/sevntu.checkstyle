@@ -26,13 +26,14 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
                 "142:13: " + message,
                 "152:13: " + message, };
 
-        System.setProperty(
-                "testinputs.dir",
+        //System.setProperty(
+        //        "testinputs.dir",
                // "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
-         "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
+        // "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
         //verify(checkConfig, getPath("coding" + File.separator + "InputAvoidHidingCauseExceptionCheck.java"), expected);
         verify(checkConfig,
-                getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
+                getPath("coding" + File.separator
+                        + "InputAvoidHidingCauseExceptionCheck.java"), expected);
     }
 
 }

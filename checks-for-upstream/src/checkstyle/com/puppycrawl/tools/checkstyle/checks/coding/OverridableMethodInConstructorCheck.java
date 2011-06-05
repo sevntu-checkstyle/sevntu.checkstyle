@@ -137,7 +137,7 @@ public class OverridableMethodInConstructorCheck extends Check {
                 if (curMethodName.equals(curOverridableMethodName)
                         && a.equals(b)) {
                     log(curMethod.methodNode, mKey, curMethodName);
-                    System.out.println("Error!");
+                    //System.out.println("Error!");
                 }
 
             }

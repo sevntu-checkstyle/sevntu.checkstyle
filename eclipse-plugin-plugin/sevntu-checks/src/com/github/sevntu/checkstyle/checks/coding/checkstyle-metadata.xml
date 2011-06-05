@@ -52,5 +52,44 @@
             </property-metadata>
         </rule-metadata>
         
+        <rule-metadata name="%MultipleStringLiterals.name" internal-name="MultipleStringLiterals" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheck" />
+            <description>%MultipleStringLiterals.desc</description>
+            <property-metadata name="allowedDuplicates" datatype="Integer" default-value="1">
+                <description>%MultipleStringLiterals.allowedDuplicates</description>
+            </property-metadata>
+            <property-metadata name="highlightAllDuplicates" datatype="Boolean" default-value="false">
+                <description>%MultipleStringLiterals.highlightAllDuplicates</description>
+            </property-metadata>
+            <property-metadata name="ignoreStringsRegexp" datatype="Regex" default-value="^&quot;&quot;$">
+                <description>%MultipleStringLiterals.ignoreStringsRegexp</description>
+            </property-metadata>
+            <property-metadata name="ignoreOccurrenceContext" datatype="MultiCheck" default-value="ANNOTATION">
+                <description>%MultipleStringLiterals.ignoreOccurrenceContext</description>
+                <enumeration option-provider="net.sf.eclipsecs.core.config.meta.AllTokensProvider" />
+            </property-metadata>
+            <message-key key="multiple.string.literal" />
+        </rule-metadata>
+        
+        <rule-metadata name="%UnnecessaryParentheses.name" internal-name="UnnecessaryParentheses" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.UnnecessaryParenthesesCheck" />
+            <description>%UnnecessaryParentheses.desc</description>
+            <property-metadata name="ignoreCalculationOfBooleanVariables" datatype="Boolean" default-value="false">
+                <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariables</description>
+            </property-metadata>
+            <property-metadata name="ignoreCalculationOfBooleanVariablesWithReturn" datatype="Boolean" default-value="false">
+                <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariablesWithReturn</description>
+            </property-metadata>
+            <property-metadata name="ignoreCalculationOfBooleanVariablesWithAssert" datatype="Boolean" default-value="false">
+                <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariablesWithAssert</description>
+            </property-metadata>
+            <message-key key="unnecessary.paren.assign" />
+            <message-key key="unnecessary.paren.expr" />
+            <message-key key="unnecessary.paren.ident" />
+            <message-key key="unnecessary.paren.literal" />
+            <message-key key="unnecessary.paren.return" />
+            <message-key key="unnecessary.paren.string" />
+        </rule-metadata>
+        
     </rule-group-metadata>
 </checkstyle-metadata>
