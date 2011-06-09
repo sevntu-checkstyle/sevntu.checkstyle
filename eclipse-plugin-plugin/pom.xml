@@ -10,7 +10,6 @@
 
     <modules>
 	<module>sevntu-checks</module>
-	<module>sevntu-checks-tests</module>
     </modules>	
 
 </project>
