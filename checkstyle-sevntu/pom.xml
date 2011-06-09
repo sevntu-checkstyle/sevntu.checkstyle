@@ -11,7 +11,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.puppycrawl.tools</groupId>
-  <artifactId>checkstyle.ext</artifactId>
+  <artifactId>checkstyle-sevntu</artifactId>
   <version>5.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>checkstyle</name>
