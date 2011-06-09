@@ -15,14 +15,19 @@
             <description>%AvoidNotShortCircuitOperatorsForBoolean.desc</description>
         </rule-metadata>
  
-        <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclaration" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
+        <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclarationOrder" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
             <description>%CustomDeclarationOrder.desc</description>
-     	    <property-metadata name="customDeclarationOrder" datatype="String" default-value="Field(.*public.*)
-            ### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*)
-            ### Method(.*) ### InnerClass(.*)">
-               <description>Custom declaration order</description>
+            <property-metadata name="customDeclarationOrder" datatype="Regex" default-value="Field(public) ### Field(protected) ### Field(private) ### CTOR(.*) ### Method(.*)### InnerClass()">
+                <description>%CustomDeclarationOrder.customDeclarationOrder</description>
             </property-metadata>
+            <property-metadata name="ignoreRegExCase" datatype="Boolean" default-value="false">
+                <description>%CustomDeclarationOrder.ignoreRegExCase</description>
+            </property-metadata>
+            <message-key key="custom.declaration.order.field"/>
+            <message-key key="custom.declaration.order.method"/>
+            <message-key key="custom.declaration.order.constructor"/>
+            <message-key key="custom.declaration.order.class"/>
         </rule-metadata>
         
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
@@ -39,6 +44,7 @@
 	    <property-metadata name="allowRethrow" datatype="Boolean" default-value="false">
                <description>Allow catching when rethrowing exception</description>
             </property-metadata>
+            <message-key key="illegal.catch"/>
         </rule-metadata>
         
         <rule-metadata name="%MultipleVariableDeclarations.name" internal-name="MultipleVariableDeclarations" parent="TreeWalker">
