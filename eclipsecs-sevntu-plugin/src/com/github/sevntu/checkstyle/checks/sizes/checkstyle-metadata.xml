@@ -3,7 +3,7 @@
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
-    <rule-group-metadata name="%Sizes.group" priority="500">
+    <rule-group-metadata name="SevNTU checks" priority="500">
 
         <rule-metadata name="%LineLength.name" internal-name="LineLength" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
