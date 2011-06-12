@@ -59,7 +59,7 @@
         </rule-metadata>
         
         <rule-metadata name="%MultipleStringLiterals.name" internal-name="MultipleStringLiterals" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheck" />
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsCheck" />
             <description>%MultipleStringLiterals.desc</description>
             <property-metadata name="allowedDuplicates" datatype="Integer" default-value="1">
                 <description>%MultipleStringLiterals.allowedDuplicates</description>
@@ -78,7 +78,7 @@
         </rule-metadata>
         
         <rule-metadata name="%UnnecessaryParentheses.name" internal-name="UnnecessaryParentheses" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.UnnecessaryParenthesesCheck" />
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesCheck" />
             <description>%UnnecessaryParentheses.desc</description>
             <property-metadata name="ignoreCalculationOfBooleanVariables" datatype="Boolean" default-value="false">
                 <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariables</description>
