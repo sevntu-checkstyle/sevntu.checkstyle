@@ -5,31 +5,30 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="500">
 
-        <rule-metadata name="%LineLength.name" internal-name="LineLength" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.LineLengthCheck"/>
-            <description>%LineLength.desc</description>
+        <rule-metadata name="%LineLengthExtended.name" internal-name="LineLengthExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck"/>
+            <description>%LineLengthExtended.desc</description>
 
 	    <property-metadata name="ignorePattern" datatype="Regex" default-value="^$">
-                <description>%LineLength.ignorePattern</description>
+                <description>%LineLengthExtended.ignorePattern</description>
             </property-metadata>
             <property-metadata name="max" datatype="Integer" default-value="80">
-                <description>%LineLength.max</description>
+                <description>%LineLengthExtended.max</description>
             </property-metadata>
             <property-metadata name="tabWidth" datatype="Integer" default-value="8">
-                <description>%LineLength.tabWidth</description>
+                <description>%LineLengthExtended.tabWidth</description>
             </property-metadata>
 		<property-metadata name="ignoreClass" datatype="Boolean" default-value="false">
-                <description>%LineLength.IgnoreClass</description>
+                <description>%LineLengthExtended.IgnoreClass</description>
 	    </property-metadata>
 	    <property-metadata name="ignoreConstructor" datatype="Boolean" default-value="false">
-                <description>%LineLength.IgnoreConstructor</description>
+                <description>%LineLengthExtended.IgnoreConstructor</description>
 	    </property-metadata>
 	    <property-metadata name="ignoreField" datatype="Boolean" default-value="false">
-                <description>%LineLength.IgnoreField</description>
+                <description>%LineLengthExtended.IgnoreField</description>
 	    </property-metadata>
 	    <property-metadata name="ignoreMethod" datatype="Boolean" default-value="false">
-                <description>%LineLength.IgnoreMethod</description>
+                <description>%LineLengthExtended.IgnoreMethod</description>
 	    </property-metadata>
 	    
             <message-key key="maxLineLen"/>

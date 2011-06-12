@@ -16,7 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-package com.puppycrawl.tools.checkstyle.checks.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  *
  * @author Daniel Grenner
  */
-public class MultipleStringLiteralsCheck extends Check
+public class MultipleStringLiteralsExtendedCheck extends Check
 {
     /**
      * The found strings and their positions.
@@ -77,7 +77,7 @@ public class MultipleStringLiteralsCheck extends Check
     /**
      * Construct an instance with default values.
      */
-    public MultipleStringLiteralsCheck()
+    public MultipleStringLiteralsExtendedCheck()
     {
         setIgnoreStringsRegexp("^\"\"$");
         mIgnoreOccurrenceContext.set(TokenTypes.ANNOTATION);

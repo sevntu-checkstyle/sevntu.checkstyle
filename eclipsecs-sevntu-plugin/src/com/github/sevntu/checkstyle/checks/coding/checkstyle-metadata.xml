@@ -35,21 +35,21 @@
             <description>%ReturnNullInsteadOfBoolean.desc</description>
         </rule-metadata>
         
-	<rule-metadata name="%IllegalCatchWithIgnore.name" internal-name="IllegalCatchWithIgnore" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchWithIgnoreCheck"/>
-            <description>%IllegalCatchWithIgnore.desc</description>
+	<rule-metadata name="%IllegalCatchExtended.name" internal-name="IllegalCatchExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck"/>
+            <description>%IllegalCatchExtended.desc</description>
 	    <property-metadata name="allowThrow" datatype="Boolean" default-value="true">
                <description>Allow catching when throwing some exception</description>
             </property-metadata>
 	    <property-metadata name="allowRethrow" datatype="Boolean" default-value="false">
-               <description>Allow catching when rethrowing exception</description>
+               <description>Allow catching when re-throwing exception</description>
             </property-metadata>
             <message-key key="illegal.catch"/>
         </rule-metadata>
         
-        <rule-metadata name="%MultipleVariableDeclarations.name" internal-name="MultipleVariableDeclarations" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsCheck"/>
-            <description>%MultipleVariableDeclarations.desc</description>
+        <rule-metadata name="%MultipleVariableDeclarationsExtended.name" internal-name="MultipleVariableDeclarationsExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck"/>
+            <description>%MultipleVariableDeclarationsExtended.desc</description>
 	    <property-metadata name="ignoreCycles" datatype="Boolean" default-value="false">
                <description>Ignore cycles</description>
             </property-metadata>
@@ -58,36 +58,36 @@
             </property-metadata>
         </rule-metadata>
         
-        <rule-metadata name="%MultipleStringLiterals.name" internal-name="MultipleStringLiterals" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsCheck" />
-            <description>%MultipleStringLiterals.desc</description>
+        <rule-metadata name="%MultipleStringLiteralsExtended.name" internal-name="MultipleStringLiteralsExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck" />
+            <description>%MultipleStringLiteralsExtended.desc</description>
             <property-metadata name="allowedDuplicates" datatype="Integer" default-value="1">
-                <description>%MultipleStringLiterals.allowedDuplicates</description>
+                <description>%MultipleStringLiteralsExtended.allowedDuplicates</description>
             </property-metadata>
             <property-metadata name="highlightAllDuplicates" datatype="Boolean" default-value="false">
-                <description>%MultipleStringLiterals.highlightAllDuplicates</description>
+                <description>%MultipleStringLiteralsExtended.highlightAllDuplicates</description>
             </property-metadata>
             <property-metadata name="ignoreStringsRegexp" datatype="Regex" default-value="^&quot;&quot;$">
-                <description>%MultipleStringLiterals.ignoreStringsRegexp</description>
+                <description>%MultipleStringLiteralsExtended.ignoreStringsRegexp</description>
             </property-metadata>
             <property-metadata name="ignoreOccurrenceContext" datatype="MultiCheck" default-value="ANNOTATION">
-                <description>%MultipleStringLiterals.ignoreOccurrenceContext</description>
+                <description>%MultipleStringLiteralsExtended.ignoreOccurrenceContext</description>
                 <enumeration option-provider="net.sf.eclipsecs.core.config.meta.AllTokensProvider" />
             </property-metadata>
             <message-key key="multiple.string.literal" />
         </rule-metadata>
         
-        <rule-metadata name="%UnnecessaryParentheses.name" internal-name="UnnecessaryParentheses" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesCheck" />
-            <description>%UnnecessaryParentheses.desc</description>
+        <rule-metadata name="%UnnecessaryParenthesesExtended.name" internal-name="UnnecessaryParenthesesExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck" />
+            <description>%UnnecessaryParenthesesExtended.desc</description>
             <property-metadata name="ignoreCalculationOfBooleanVariables" datatype="Boolean" default-value="false">
-                <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariables</description>
+                <description>%UnnecessaryParenthesesExtended.ignoreCalculationOfBooleanVariables</description>
             </property-metadata>
             <property-metadata name="ignoreCalculationOfBooleanVariablesWithReturn" datatype="Boolean" default-value="false">
-                <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariablesWithReturn</description>
+                <description>%UnnecessaryParenthesesExtended.ignoreCalculationOfBooleanVariablesWithReturn</description>
             </property-metadata>
             <property-metadata name="ignoreCalculationOfBooleanVariablesWithAssert" datatype="Boolean" default-value="false">
-                <description>%UnnecessaryParentheses.ignoreCalculationOfBooleanVariablesWithAssert</description>
+                <description>%UnnecessaryParenthesesExtended.ignoreCalculationOfBooleanVariablesWithAssert</description>
             </property-metadata>
             <message-key key="unnecessary.paren.assign" />
             <message-key key="unnecessary.paren.expr" />
