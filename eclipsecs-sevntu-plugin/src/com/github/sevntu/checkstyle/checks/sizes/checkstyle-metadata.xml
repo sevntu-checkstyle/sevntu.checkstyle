@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="%Sizes.group" priority="500">
+
+        <rule-metadata name="%LineLength.name" internal-name="LineLength" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.LineLengthCheck"/>
+            <description>%LineLength.desc</description>
+
+	    <property-metadata name="ignorePattern" datatype="Regex" default-value="^$">
+                <description>%LineLength.ignorePattern</description>
+            </property-metadata>
+            <property-metadata name="max" datatype="Integer" default-value="80">
+                <description>%LineLength.max</description>
+            </property-metadata>
+            <property-metadata name="tabWidth" datatype="Integer" default-value="8">
+                <description>%LineLength.tabWidth</description>
+            </property-metadata>
+		<property-metadata name="ignoreClass" datatype="Boolean" default-value="false">
+                <description>%LineLength.IgnoreClass</description>
+	    </property-metadata>
+	    <property-metadata name="ignoreConstructor" datatype="Boolean" default-value="false">
+                <description>%LineLength.IgnoreConstructor</description>
+	    </property-metadata>
+	    <property-metadata name="ignoreField" datatype="Boolean" default-value="false">
+                <description>%LineLength.IgnoreField</description>
+	    </property-metadata>
+	    <property-metadata name="ignoreMethod" datatype="Boolean" default-value="false">
+                <description>%LineLength.IgnoreMethod</description>
+	    </property-metadata>
+	    
+            <message-key key="maxLineLen"/>
+        </rule-metadata>
+
+    </rule-group-metadata>
+</checkstyle-metadata>
