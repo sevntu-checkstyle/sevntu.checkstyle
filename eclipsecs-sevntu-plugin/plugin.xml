@@ -4,11 +4,5 @@
     <extension
         id="checkstyle.CheckConfiguration"
         point="net.sf.eclipsecs.core.configurations">
-        <check-configuration
-            name="Sample Builtin Checks"
-            location="sample_checks.xml"
-            description="Sample Built-in configuration">
-            <property name="maxLineLength" value="50"/>
-        </check-configuration>
     </extension>
 </plugin>
