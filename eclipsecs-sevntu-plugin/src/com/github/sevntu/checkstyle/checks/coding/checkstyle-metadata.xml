@@ -76,7 +76,15 @@
             </property-metadata>
             <message-key key="multiple.string.literal" />
         </rule-metadata>
-        
+
+
+        <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
+            <description>%OverridableMethodInConstructor.desc</description>
+            <message-key key="overridable.method.in.constructor" />
+        </rule-metadata>
+
+
         <rule-metadata name="%UnnecessaryParenthesesExtended.name" internal-name="UnnecessaryParenthesesExtended" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck" />
             <description>%UnnecessaryParenthesesExtended.desc</description>
