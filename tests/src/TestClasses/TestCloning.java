@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class TestCloning {
 
-	
+
 	public static void main(String args[]) throws IOException,
 			ClassNotFoundException, CloneNotSupportedException {
 
@@ -21,7 +21,7 @@ public class TestCloning {
 
 		ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
 		System.out.println(((Object2)inStream.readObject()).value);
-		//System.out.println(Object2.readObject(inStream).value);
+
 	}
 
 
@@ -38,7 +38,7 @@ public class TestCloning {
 
 
 	private static class Object2 extends Object1 implements Serializable {
-		
+
 		String value;
 
 		public void doSmth() { // never used ???
@@ -47,8 +47,8 @@ public class TestCloning {
 		}
 
 		//@Override
-		public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {			
-			doSmth();			
+		public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {	
+			doSmth();
 		}
 
 	}
