@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="500">
+        <rule-metadata name="%AbstractClassNameExtended.name" internal-name="AbstractClassNameExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.AbstractClassNameExtendedCheck" />
+            <description>%AbstractClassNameExtended.desc</description>
+            <property-metadata name="format" datatype="Regex" default-value="^Abstract.*$|^.*Factory$">
+                <description>%AbstractClassNameExtended.format</description>
+            </property-metadata>
+      		<property-metadata name="checkName" datatype="Boolean" default-value="true">
+                <description>%AbstractClassNameExtended.checkName</description>
+       		</property-metadata>
+	    		<property-metadata name="checkModifier" datatype="Boolean" default-value="false">
+                <description>%AbstractClassNameExtended.checkModifier</description>
+            </property-metadata>
+            <message-key key="illegal.abstract.class.name" />
+            <message-key key="no.abstract.class.modifier" />
+        </rule-metadata>
+    </rule-group-metadata>
+</checkstyle-metadata>

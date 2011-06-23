@@ -12,5 +12,6 @@
     <package name="com.github.sevntu.checkstyle.checks">
         <package name="coding"/>
         <package name="sizes"/>
+        <package name="naming"/>
     </package>
 </checkstyle-packages>
