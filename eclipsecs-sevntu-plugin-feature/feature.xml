@@ -4,23 +4,30 @@
       label="EclipseCS SevNTU plugin feature"
       version="1.0.1">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
+      sources: https://github.com/sevntu-checkstyle/sevntu.checkstyle
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
+      Please visit site to view developer list
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      GNU Library or Lesser General Public License (LGPL) v3.0
+Eclipse Public License - Version 1.0
    </license>
+
+   <url>
+      <discovery label="Sources on GitHub" url="https://github.com/sevntu-checkstyle/sevntu.checkstyle"/>
+      <discovery label="SevNTU checks site" url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/"/>
+      <discovery label="Eclipse Update site" url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/"/>
+   </url>
 
    <plugin
          id="com.github.sevntu.checkstyle.checks"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.1"
          unpack="false"/>
 
 </feature>
