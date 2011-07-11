@@ -8,11 +8,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class TestCloning {
+public class TestSerializable {
 
 
-	public static void main(String args[]) throws IOException,
-			ClassNotFoundException, CloneNotSupportedException {
+	public static void main(String args[]) throws IOException, ClassNotFoundException {
 
 		File file = new File("tmp.bla");
 
@@ -41,7 +40,7 @@ public class TestCloning {
 
 		String value;
 
-		public void doSmth() { // never used ???
+		public void doSmth() {
 			value = "Foo!";
 			System.out.println("Foo!");
 		}
