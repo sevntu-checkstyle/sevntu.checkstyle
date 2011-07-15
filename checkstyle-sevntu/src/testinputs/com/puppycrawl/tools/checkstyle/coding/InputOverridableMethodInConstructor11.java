@@ -8,30 +8,27 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class TestSerializable {
+public class InputOverridableMethodInConstructor11 {
 
 
 	public static void main(String args[]) throws IOException, ClassNotFoundException {
-		try {
-			File file = new File("tmp.bla");
 
-			ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
-			outStream.writeObject(new Object2());
+		File file = new File("tmp.bla");
 
-			ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
-			System.out.println(((Object2) inStream.readObject()).value);
+		ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
+		outStream.writeObject(new Object2());
 
-			file.delete();
-
-		} catch (Exception e) {
-		}
+		ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
+		System.out.println(((Object2)inStream.readObject()).value);
+		
+		file.delete();
 	}
 
 
 	private static class Object1 implements Serializable {
 
 		public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-			 doSmth();
+			 doSmth(); // no warnings here
 		}
 
 		public void doSmth() {
@@ -46,12 +43,12 @@ public class TestSerializable {
 
 		public void doSmth() {
 			value = "Foo!";
-			System.out.println("Foo!");
+			System.out.println(value);
 		}
 
 		//@Override
-		public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {	
-			doSmth();
+		public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {
+			//doSmth();
 		}
 
 	}

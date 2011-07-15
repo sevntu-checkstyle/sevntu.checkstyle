@@ -18,10 +18,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
       "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
 
         verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor1.java"), expected);
-        //  verify(checkConfig,
-        //  getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
-//    
+	
     @Test
     public final void testWarning() throws Exception {
         DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
@@ -32,8 +30,6 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
         
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor2.java"), expected);
-        //  verify(checkConfig,
-        //  getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
     
     @Test
@@ -50,8 +46,6 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
 
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor3.java"), expected);
-        //  verify(checkConfig,
-        //  getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
     
     @Test
@@ -64,14 +58,11 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
 
         verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor4.java"), expected);
-
-        //  verify(checkConfig,
-        //  getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
 
     
     @Test
-    public final void testWarningInThirdDepth() throws Exception {
+    public final void testWarningsInThirdDepth() throws Exception {
         DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
 
         String[] expected = { "10:32: " + createMsg("overrideMe"),
@@ -81,13 +72,11 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
         
                 verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor5.java"), expected);
-        //  verify(checkConfig,
-        //  getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
-    
-    
+
+
     @Test
-    public final void testWarningInClone() throws Exception {
+    public final void testCloneNoWarningsSimple() throws Exception {
         DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
 
         String[] expected = {
@@ -96,15 +85,65 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         System.setProperty("testinputs.dir",
         "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
         
-                verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor4.java"), expected);
-        //  verify(checkConfig,
-        //  getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
+                verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor6.java"), expected);
     }
     
-       
+    @Test
+    public final void testCloneNoWarningsComplicated() throws Exception {
+        DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
+
+        String[] expected = {
+                };
+
+        System.setProperty("testinputs.dir",
+        "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
+        
+                verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor7.java"), expected);
+    }
+
+    @Test
+    public final void testCloneWarnings() throws Exception {
+        DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
+
+        String[] expected = {
+        		"20:37: Overridable method 'doSmth' called in \"clone()\" method.",
+        		"37:37: Overridable method 'doSmth' called in \"clone()\" method.",
+                };
+
+        System.setProperty("testinputs.dir",
+        "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
+        
+                verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor8.java"), expected);
+    }
+
+    @Test
+    public final void testSerializableNoWarnings() throws Exception {
+        DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
+
+        String[] expected = {
+                };
+
+        System.setProperty("testinputs.dir",
+        "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
+        
+                verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor10.java"), expected);
+    }
     
+    @Test
+    public final void testSerializableWarning() throws Exception {
+        DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
 
+        String[] expected = {
+        		"31:20: Overridable method 'doSmth' called in \"readObject()\" method.",
+                };
 
+        System.setProperty("testinputs.dir",
+        "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
+        
+                verify(checkConfig, getPath("coding" + File.separator + "InputOverridableMethodInConstructor11.java"), expected);
+    }
+    
+    
     public String createMsg(String methodName) {
         return "Overridable method '" + methodName + "' called in constructor.";
     }
