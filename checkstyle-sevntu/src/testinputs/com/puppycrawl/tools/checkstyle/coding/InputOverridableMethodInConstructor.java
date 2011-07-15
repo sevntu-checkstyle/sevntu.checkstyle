@@ -6,7 +6,7 @@ public class InputOverridableMethodInConstructor {
 
         abstract class Base {
             Base() {
-                overrideMe(); // a warning here
+                this.overrideMe(); // a warning here
                 System.out.checkError();
                 this.toString();
             }

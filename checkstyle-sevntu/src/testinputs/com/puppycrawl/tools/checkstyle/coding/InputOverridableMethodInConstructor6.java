@@ -2,7 +2,7 @@ package TestClasses;
 
 import java.io.IOException;
 
-public class TestCloneable {
+public class InputOverridableMethodInConstructor6 {
 
 	public static void main(String args[]) throws IOException,
 			ClassNotFoundException, CloneNotSupportedException {
@@ -14,16 +14,11 @@ public class TestCloneable {
 		public void doSmth() {
 			System.out.println("Bar!");
 		}
-		
-		public void doSmth2() {
-			System.out.println("Bar2!");
-		}
 
 		@Override
 		protected Object clone() throws CloneNotSupportedException {
 			Object clone = super.clone();
-			((Object1) clone).doSmth(); // !
-			//doSmth2(); // !
+			((Object1) clone).doSmth();
 			return clone;
 		}
 
@@ -37,11 +32,6 @@ public class TestCloneable {
 		}
 
 		@Override
-		public void doSmth2() {
-			System.out.println(value);
-		}
-		
-		@Override
 		protected Object clone() throws CloneNotSupportedException {
 			Object clone = super.clone();
 			((Object2) clone).value = "Foo!";
@@ -51,6 +41,3 @@ public class TestCloneable {
 	}
 
 }
-
-	
-

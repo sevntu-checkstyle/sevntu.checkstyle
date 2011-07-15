@@ -2,7 +2,7 @@ package TestClasses;
 
 import java.io.IOException;
 
-public class TestCloneable {
+public class TestCloneableSeconDepth {
 
 	public static void main(String args[]) throws IOException,
 			ClassNotFoundException, CloneNotSupportedException {
@@ -11,8 +11,9 @@ public class TestCloneable {
 
 	private static class Object1 implements Cloneable {
 
-		public void doSmth() {
+		private void doSmth() {
 			System.out.println("Bar!");
+			doSmth2();
 		}
 		
 		public void doSmth2() {
@@ -47,6 +48,10 @@ public class TestCloneable {
 			((Object2) clone).value = "Foo!";
 			((Object2) clone).doSmth();
 			return clone;
+		}
+		
+		public void a(int x, int y){
+			a(5,6);
 		}
 	}
 
