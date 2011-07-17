@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class TestSerializable {
+public class TestSerializableMagic {
 
 
 	public static void main(String args[]) throws IOException, ClassNotFoundException {
@@ -40,7 +40,7 @@ public class TestSerializable {
 	}
 
 
-	private static class Object2 extends Object1 implements Serializable {
+	private static class Object2 extends Object1 {
 
 		String value;
 

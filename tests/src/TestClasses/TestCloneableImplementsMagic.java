@@ -1,22 +1,22 @@
 package TestClasses;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 
-public class TestCloneable {
+import javax.xml.crypto.Data;
+
+public class TestCloneableImplementsMagic {
 
 	public static void main(String args[]) throws IOException,
 			ClassNotFoundException, CloneNotSupportedException {
-		(new Object2()).clone();
+		(new Object3()).clone();
 	}
 
-	private static class Object1 implements Cloneable {
+	private static class Object1 implements Cloneable, Data, FileFilter {
 
 		public void doSmth() {
 			System.out.println("Bar!");
-		}
-		
-		public void doSmth2() {
-			System.out.println("Bar2!");
 		}
 
 		@Override
@@ -27,30 +27,25 @@ public class TestCloneable {
 			return clone;
 		}
 
+		@Override
+		public boolean accept(File pathname) {
+			return false;
+		}
+
 	}
 
-	private static class Object2 extends Object1 {
+	private static class Object2 extends Object1 implements Data {
+	}
+
+
+	private static class Object3 {
 		private String value;
 
 		public void doSmth() {
 			System.out.println(value);
 		}
 
-		@Override
-		public void doSmth2() {
-			System.out.println(value);
-		}
-		
-		@Override
-		protected Object clone() throws CloneNotSupportedException {
-			Object clone = super.clone();
-			((Object2) clone).value = "Foo!";
-			((Object2) clone).doSmth();
-			return clone;
-		}
+
 	}
 
 }
-
-	
-
