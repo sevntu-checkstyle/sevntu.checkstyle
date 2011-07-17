@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class TestSerializableMagic {
+public class InputOverridableMethodInConstructor14 {
 
 
 	public static void main(String args[]) throws IOException, ClassNotFoundException {
@@ -31,7 +31,7 @@ public class TestSerializableMagic {
 	private static class Object1 implements Serializable {
 
 		public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-			 doSmth();
+			 doSmth(); // ! a warning here
 		}
 
 		public void doSmth() {
@@ -52,15 +52,15 @@ public class TestSerializableMagic {
 		final void doSmth2() {
 			value = "Foo!";
 			System.out.println("Foo!");
-			doSmth();
+            doSmth();
 		}
 		
 		//@Override
 		public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {	
-			doSmth(); // ! a warning here
-			this.doSmth(); // ! a warning here			
-			doSmth2(); // ! a warning here
-			this.doSmth2(); // ! a warning here
+            doSmth(); // ! a warning here
+            this.doSmth(); // ! a warning here			
+            doSmth2(); // ! a warning here
+            this.doSmth2(); // ! a warning here
 		}
 
 		private static class Object3 extends Object2 {
@@ -74,11 +74,11 @@ public class TestSerializableMagic {
 
 			//@Override
 			public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {	
-				doSmth(); // ! a warning here
-				this.doSmth(); // ! a warning here
-				
-				doSmth2(); // no warnings here (don`t check for method definitions in another inner classes)
-				this.doSmth2(); // no warnings here
+                doSmth(); // ! a warning here
+                this.doSmth(); // ! a warning here
+
+                doSmth2(); // no warnings here (don`t check for method definitions in another inner classes)
+                this.doSmth2(); // no warnings here
 			}
 		
 	}

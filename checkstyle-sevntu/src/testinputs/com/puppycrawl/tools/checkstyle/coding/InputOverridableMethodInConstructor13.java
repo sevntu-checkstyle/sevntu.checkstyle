@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.xml.crypto.Data;
 
-public class TestCloneableImplementsMagic {
+public class InputOverridableMethodInConstructor13 {
 
 	public static void main(String args[]) throws IOException,
 			ClassNotFoundException, CloneNotSupportedException {
