@@ -17,7 +17,11 @@ public class InputOverridableMethodInConstructor8 {
 		@Override
 		protected Object clone() throws CloneNotSupportedException {
 			Object clone = super.clone();
+<<<<<<< HEAD
             ((Object1) clone).doSmth(); // a warning here
+=======
+			((Object1) clone).doSmth(); // a warning here
+>>>>>>> 0f2bb80789b144152f5dd13fa0eb07137c73de0e
 			return clone;
 		}
 	}
@@ -31,10 +35,17 @@ public class InputOverridableMethodInConstructor8 {
 		}
 
 		@Override
+<<<<<<< HEAD
         protected Object clone() throws CloneNotSupportedException {
 			Object clone = super.clone();
 			((Object2) clone).value = "Foo!";
             ((Object2) clone).doSmth(); // a warning here
+=======
+		protected Object clone() throws CloneNotSupportedException {
+			Object clone = super.clone();
+			((Object2) clone).value = "Foo!";
+			((Object2) clone).doSmth(); // a warning here
+>>>>>>> 0f2bb80789b144152f5dd13fa0eb07137c73de0e
 			return clone;
 		}
 	}
