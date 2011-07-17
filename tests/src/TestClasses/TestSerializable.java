@@ -12,15 +12,19 @@ public class TestSerializable {
 
 
 	public static void main(String args[]) throws IOException, ClassNotFoundException {
+		try {
+			File file = new File("tmp.bla");
 
-		File file = new File("tmp.bla");
+			ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
+			outStream.writeObject(new Object2());
 
-		ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file));
-		outStream.writeObject(new Object2());
+			ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
+			System.out.println(((Object2) inStream.readObject()).value);
 
-		ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(file));
-		System.out.println(((Object2)inStream.readObject()).value);
+			file.delete();
 
+		} catch (Exception e) {
+		}
 	}
 
 

@@ -19,13 +19,12 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.LinkedList;
-
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.api.Check;
 
 /**<p> This check prevents calls of overridable methods from constructor body
- * and ...
+ * and ... 
  * .
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
@@ -38,236 +37,406 @@ public class OverridableMethodInConstructorCheck extends Check {
     private final String mKeyCtor = "overridable.method.in.constructor";
     private final String mKeyClone = "overridable.method.in.clone";
     private final String mKeyReadObject = "overridable.method.in.readobject";
-    
-    
-    @Override
-    public final int[] getDefaultTokens()
+
+    private DetailAST curMethodDef = null;
+	private DetailAST mTreeRootAST;
+
+    /** check declaration in cycles. */
+    private boolean mCheckCloneMethod = true;
+
+    /** check declaration in methods. */
+    private boolean mCheckReadObjectMethod = true;
+
+	/**
+	 * Enable|Disable searching calls of overridable methods in clone()
+	 * method from Cloneable interface.
+	 * @param aValue
+	 *            check calls of overridable methods in clone() method from
+	 *            Cloneable interface.
+	 */
+    public void setCheckCloneMethod(final boolean aValue)
     {
-        return new int[] {TokenTypes.CTOR_DEF, TokenTypes.METHOD_DEF};
+        mCheckCloneMethod = aValue;
     }
 
-    @Override
-    public final void visitToken(final DetailAST aDetailAST)
+	/**
+	 * Enable|Disable searching calls of overridable methods in readObject()
+	 * method from Serializable interface.
+	 * @param aValue
+	 *            check calls of overridable methods in readObject() method from
+	 *            Serializable interface.
+	 */
+    public void setCheckReadObjectMethod(final boolean aValue)
     {
-		// for all CTOR_DEF nodes
-		if (aDetailAST.getType() == TokenTypes.CTOR_DEF) {
+        mCheckReadObjectMethod = aValue;
+    }
+	
+	@Override
+	public final int[] getDefaultTokens() {
 
-			DetailAST methodCallAST = work(aDetailAST);
-
-			if (methodCallAST != null) {
-				String curMethodName = getCalledMethodName(methodCallAST);
-				log(methodCallAST, mKeyCtor, curMethodName);
-			}
-
-		}
-
-        else { // for all METHOD_DEF nodes
-       	
-    String methodName = aDetailAST.findFirstToken(TokenTypes.IDENT).getText();
-        	
-         if("clone".equals(methodName)){  	 
-      DetailAST implementsClause = getClass(aDetailAST).findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
-      for(DetailAST ident: getChildren(implementsClause)){
-    	 if(ident.getText().equals("Cloneable")){ // called in clone() from Cloneable i-face
-    		 
-    		   	 
-    		 
-    		 
-    	  }    	 
-      }             	 
-  }
-        	
-         else if("readObject".equals(methodName)){
-            
-        	 DetailAST implementsClause = getClass(aDetailAST).findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
-             for(DetailAST ident: getChildren(implementsClause)){    	 
-           	 if(ident.getText().equals("Serializable")){ // called in readObject() from Serializable i-face
-           		 
-
-           		 
-					}
-				}
-			}
+		if (!mCheckCloneMethod && !mCheckReadObjectMethod) {
+			return new int[] { TokenTypes.CTOR_DEF };
+		} else {
+			return new int[] { TokenTypes.CTOR_DEF, TokenTypes.METHOD_DEF };
 		}
 	}
 
-    
-    // try to find a first instance of overridable method call
-    // all levels below on the currrent parentNode.
-	public DetailAST work(final DetailAST ParentAST) {
-		
-		DetailAST result = null;
+	@Override
+	public final void beginTree(DetailAST aRootAST) {
+		mTreeRootAST = aRootAST;
+	}
 
-		LinkedList<DetailAST> methodCallsList = getMethodCalls(ParentAST,new LinkedList<DetailAST>());
+	@Override
+	public final void visitToken(final DetailAST aDetailAST) {
+
+		switch (aDetailAST.getType()) {
 		
+		case TokenTypes.CTOR_DEF: // for all CTOR_DEF nodes
+			verify(aDetailAST, mKeyCtor);
+			break;
+
+		case TokenTypes.METHOD_DEF: // for all METHOD_DEF nodes
+
+			String methodName = aDetailAST.findFirstToken(TokenTypes.IDENT).getText();
+
+			// if called in clone() from Cloneable i-face
+			if ("clone".equals(methodName) && mCheckCloneMethod &&realizesAnInterface(getClass(aDetailAST),"Cloneable")) {
+				verify(aDetailAST, mKeyClone);
+			}
+
+			// if called in readObject() from Serializable i-face
+			else if ("readObject".equals(methodName) && mCheckReadObjectMethod && realizesAnInterface(getClass(aDetailAST),"Serializable")) {
+				verify(aDetailAST, mKeyReadObject);
+			}
+
+			break;
+		}
+	}
+
+
+	public final void verify(final DetailAST aDetailAST, final String aKey) {
+
+		LinkedList<DetailAST> methodCallsToWarnList = getOverridables(aDetailAST);
+
+		for (DetailAST methodCallAST : methodCallsToWarnList) {		
+			String curMethodName = getMethodName(methodCallAST);
+			log(methodCallAST, aKey, curMethodName);
+		}
+	}
+
+
+	// try to find overridable method calls
+	// all levels below on the current parentNode.
+	public final LinkedList<DetailAST> getOverridables(final DetailAST aParentAST) {
+
+		LinkedList<DetailAST> result = new LinkedList<DetailAST>();		
+		LinkedList<DetailAST> methodCallsList = getMethodCallsList(aParentAST);
+
 		for (DetailAST curNode : methodCallsList) {
-			DetailAST overridable = findOverridable(curNode);
-			if (overridable != null) {
-				result = curNode;
+			if (isCallToOverridableMethod(curNode)) {
+				result.add(curNode);
+			}
+		}		
+		return result;
+	}
+
+
+	// gets a DetailAST for the first method_call, which calls an overridable method
+	public final boolean isCallToOverridableMethod(final DetailAST aMethodCallAST) {
+
+		String methodName = getMethodName(aMethodCallAST);
+
+		if (methodName != null) {
+			// TODO: I must find all methods named 'methodname' in the same class, not one instance
+
+			DetailAST methodDef = getMethodDef(aMethodCallAST);		
+
+			if (methodDef != null) {
+
+				if (isPrivateOrFinal(methodDef)) {
+					LinkedList<DetailAST> methodCallsList = getMethodCallsList(methodDef);					
+					for (DetailAST curNode : methodCallsList) {
+						if(isCallToOverridableMethod(curNode)) {
+							return true;
+						}
+					}
+
+				} else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+
+	public final LinkedList<DetailAST> getMethodCallsList(final DetailAST aParentAST){
+		return getMethodCalls(aParentAST, new LinkedList<DetailAST>());
+	}
+
+	public final LinkedList<DetailAST> getMethodCalls(final DetailAST ParentAST, LinkedList<DetailAST> curResultList) {		
+
+		for (DetailAST curNode : getChildren(ParentAST)) {
+
+			if (curNode.getNumberOfChildren() > 0) {
+
+				if (curNode.getType() == TokenTypes.METHOD_CALL) {
+
+					if (!isCallingItself(curNode)) {
+						curResultList.add(curNode);
+					}
+
+				} else {
+					getMethodCalls(curNode, curResultList);
+				}
+			}
+		}
+		return curResultList;
+	}
+
+
+	public final String getMethodName(final DetailAST aMethodCallAST){
+		
+		String result = null;
+		
+		DetailAST ident = aMethodCallAST.findFirstToken(TokenTypes.IDENT);
+				
+		if(ident !=null) { // explicit call to a method ?
+			result = ident.getText();
+		}
+
+		else { // blablabla.methodCall() ?
+
+			DetailAST childAST = aMethodCallAST.getFirstChild();
+			
+			if(childAST != null && childAST.getType() == TokenTypes.DOT){
+				
+
+				DetailAST firstChild = childAST.getFirstChild();
+				DetailAST lastChild = childAST.getLastChild();
+								
+				if(firstChild.getType() == TokenTypes.LITERAL_THIS || firstChild.getType() == TokenTypes.LPAREN) { // this.methodCall() ??				
+					result = lastChild.getText();					
+				}
+				
+				else if(firstChild.getType() == TokenTypes.IDENT && lastChild.getType() == TokenTypes.IDENT) { // thisClass.methodCall() ??
+					String curClassName = getClass(aMethodCallAST).findFirstToken(TokenTypes.IDENT).getText();
+					if(firstChild.getText().equals(curClassName)){
+						result = lastChild.getText();
+					}							
+				}				
+			}
+		}
+		
+		return result;
+	}
+
+	
+	public final DetailAST getMethodDef(final DetailAST aMethodCallAST){
+		curMethodDef = null;
+		String methodName = getMethodName(aMethodCallAST);
+		if(methodName!=null){
+			getMethodDef(getClass(aMethodCallAST), methodName);
+		}
+		return curMethodDef;
+	}
+
+
+    private final void getMethodDef(final DetailAST aParentAST, final String aMethodName)
+    {
+
+        for (DetailAST curNode : getChildren(aParentAST)) {
+
+            if (curNode.getNumberOfChildren() > 0)
+            {
+            	if (curNode.getType() == TokenTypes.METHOD_DEF) {
+                	String curMethodName = curNode.findFirstToken(TokenTypes.IDENT).getText();
+                	if(aMethodName.equals(curMethodName)) {
+                		curMethodDef = curNode;
+                		break;
+                	}
+                }
+
+            	int type = curNode.getType();
+
+            	if(type!=TokenTypes.CTOR_DEF && type!=TokenTypes.MODIFIERS
+            			&& type!=TokenTypes.METHOD_DEF) {
+            		getMethodDef(curNode, aMethodName);
+            	}
+            }
+        }
+    }
+
+
+	public final boolean isPrivateOrFinal(final DetailAST aMethodDefAST) {
+		
+		boolean result = false;		
+		final DetailAST modifiers = aMethodDefAST.findFirstToken(TokenTypes.MODIFIERS);
+		
+		if (modifiers != null && modifiers.getChildCount() != 0) {
+			for (DetailAST curNode : getChildren(modifiers)) {
+				if (curNode.getType() == TokenTypes.LITERAL_PRIVATE
+						|| curNode.getType() == TokenTypes.FINAL) {
+					result = true;
+				}
+			}
+		}		
+		return result;
+	}
+
+
+	/**
+	 * Returns a parent CLASS_DEF DetailAST node for aMethodNode METHOD_CALL
+	 * node. 
+	 * @return a DetailAST node for the class that owns aMethodNode node.
+	 * @param aMethodNode - a current method DetailAST.
+	 * */
+    public final DetailAST getClass(final DetailAST aMethodNode)
+    {
+        DetailAST result = null;
+        DetailAST curNode = aMethodNode;
+        
+        while (curNode != null
+                && curNode.getType() != TokenTypes.CLASS_DEF)
+        {
+            curNode = curNode.getParent();
+        }
+
+        if (curNode != null && curNode.getType() == TokenTypes.CLASS_DEF)
+        {
+            result = curNode;
+        }
+
+        return result;
+    }
+
+
+
+	public final boolean realizesAnInterface(final DetailAST aClassDefNode,	final String anInterfaceName) {
+		
+		boolean result = false;		
+		LinkedList<DetailAST> classWithBaseClasses = getClassWithBaseClasses(aClassDefNode);
+		
+		for (DetailAST classAST : classWithBaseClasses) {
+			if (implementsAnInterface(classAST, anInterfaceName)) {
+				result = true;
 				break;
 			}
 		}
 		return result;
 	}
 
-	
-	
-	public LinkedList<DetailAST> getMethodCalls(final DetailAST ParentAST, LinkedList<DetailAST> currentResultList) {		
-		
-		for (DetailAST currentNode : getChildren(ParentAST)) {
 
-			if (currentNode.getNumberOfChildren() > 0) {
+	private final boolean implementsAnInterface(final DetailAST aClassDefNode, final String anInterfaceName) {
 
-				if (currentNode.getType() == TokenTypes.METHOD_CALL) {
-					currentResultList.add(currentNode);
-				} else {
-					getMethodCalls(currentNode,currentResultList);
+		boolean result = false;
+		DetailAST implementsClause = aClassDefNode.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
+
+		if (implementsClause != null) {
+			for (DetailAST ident : getChildren(implementsClause)) {
+				if (ident.getText().equals(anInterfaceName)) {
+					result = true;
+					break;
 				}
 			}
 		}
-		return currentResultList;
+		return result;
 	}
-    
-    
-	// выдает первый найденный method_call, который
-	// вызывает переопределяемый метод.
-	public DetailAST findOverridable(final DetailAST methodCallAST) {
 
-		
-		String methodName = getCalledMethodName(methodCallAST);
 
-		if (methodName != null) {
-			// find all methods named 'methodname' in the same class
-			DetailAST methodDef = getMethodDefinition(getClass(methodCallAST),methodName);
+	public final LinkedList<DetailAST> getClassWithBaseClasses(final DetailAST aClassDefNode)
+    {
+    	LinkedList<DetailAST> result = new LinkedList<DetailAST>();
+    	    	    	
+    	DetailAST curClass = aClassDefNode;
+    	while(curClass!=null){
+    		result.add(curClass);
+    		String baseClassName = getBaseClassName(curClass);
+    		if(baseClassName!=null){
+    			curClass = getBaseClass(mTreeRootAST, baseClassName);
+    		}
+    		else {
+    			break;
+    		}
+    	}
 
-			if (methodDef != null) {
+    	return result;
+    }
 
-				if (hasPrivateOrFinalModifier(methodDef)) {
 
-					LinkedList<DetailAST> methodCallsList = getMethodCalls(methodDef,new LinkedList<DetailAST>());
-					
-					for (DetailAST curNode : methodCallsList) {
-						return findOverridable(curNode);
-					}
+	private DetailAST getBaseClass(DetailAST aRoot, String aClassName) {
 
-				} else {
-					return methodCallAST;
+		DetailAST curNode = aRoot;
+
+		while (curNode != null) {
+			DetailAST toVisit = curNode.getFirstChild();
+			while ((curNode != null) && (toVisit == null)) {
+				toVisit = curNode.getNextSibling();
+				if (toVisit == null) {
+					curNode = curNode.getParent();
 				}
+			}
+			curNode = toVisit;
+
+			if (curNode.getType() == TokenTypes.CLASS_DEF
+					&& curNode.findFirstToken(TokenTypes.IDENT).getText()
+							.equals(aClassName)) {
+				return curNode;
 			}
 		}
 		return null;
 	}
 
 
-	public String getCalledMethodName(final DetailAST methodCallAST){
-		String result = null;
-		
-		DetailAST ident = methodCallAST.findFirstToken(TokenTypes.IDENT);
-				
-		if(ident !=null){ // explicit call to a method ?
-			result = ident.getText();
-		} 
-		
-		else { // this + .methodCall() ?
-			
-			DetailAST childAST = methodCallAST.getFirstChild();
-			
-			if(childAST != null && childAST.getType() == TokenTypes.DOT){
-				
-				DetailAST literalThis = childAST.findFirstToken(TokenTypes.LITERAL_THIS);
-				DetailAST ident2 = childAST.findFirstToken(TokenTypes.IDENT);
-				
-				if(literalThis!= null && ident2 !=null) {
-					result = ident2.getText();					
-				}			
-			}
-		}
-		
-		return result;
-	}
-
-
-    public DetailAST getMethodDefinition(final DetailAST ParentAST, String methodName)
+    public final String getBaseClassName(final DetailAST aClassDefNode)
     {
+    	String result = null;
+    	DetailAST extendsClause = aClassDefNode.findFirstToken(TokenTypes.EXTENDS_CLAUSE);
 
-        for (DetailAST currentNode : getChildren(ParentAST)) {
+    	if(extendsClause!=null) {
+    		DetailAST dot = extendsClause.findFirstToken(TokenTypes.DOT);
 
-            if (currentNode.getNumberOfChildren() > 0)
-            {
-            	if (currentNode.getType() == TokenTypes.METHOD_DEF) {
-                	String curMethodName = currentNode.findFirstToken(TokenTypes.IDENT).getText();
-                	if(methodName.equals(curMethodName)) {
-                		return currentNode;
-                	}                	
-                }
+    		if(dot!=null){
+    			result = dot.findFirstToken(TokenTypes.IDENT).getText();
+    		} else {
+    			result = extendsClause.findFirstToken(TokenTypes.IDENT).getText();
+    		}
+    	}
 
-            	int type = currentNode.getType();
-            	if(type!=TokenTypes.CTOR_DEF && type!=TokenTypes.MODIFIERS
-            			&& type!=TokenTypes.METHOD_DEF) {
-            		return getMethodDefinition(currentNode, methodName);
-            	}
-            }
-        }
-     return null;
-    }
+    	return result;
+    } 
 
 
-	public boolean hasPrivateOrFinalModifier(final DetailAST methodDefAST) {
-
-		boolean hasPrivateOrFinalModifier = false;
-
-		final DetailAST modifiers = methodDefAST.findFirstToken(TokenTypes.MODIFIERS);
-
-		if (modifiers != null && modifiers.getChildCount() != 0) {
-			for (DetailAST curNode : getChildren(modifiers)) {
-				if (curNode.getType() == TokenTypes.LITERAL_PRIVATE
-						|| curNode.getType() == TokenTypes.FINAL) {
-					hasPrivateOrFinalModifier = true;
-				}
-			}
+	public final boolean isCallingItself(final DetailAST aMethodCallNode) {
+		
+		DetailAST methodDef = getMethodDef(aMethodCallNode);
+		final DetailAST b = getParentMethodDef(aMethodCallNode);
+		
+		if (methodDef == null || b == null) {
+			return false;
+		} else {
+			return methodDef == b;
 		}
-
-		return hasPrivateOrFinalModifier;
 	}
-    
-//	public LinkedList<DetailAST> getParametersList(final DetailAST methodDefAST) {
-//		final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
-//		DetailAST params = methodDefAST.findFirstToken(TokenTypes.PARAMETERS);
-//		
-//		if(params.getChildCount() > 0) {			
-//			for(DetailAST tmp: getChildren(params)) {
-//				if(tmp.getType() == TokenTypes.PARAMETER_DEF) {
-//					// пишем в список тип каждого параметра метода
-//					result.add(tmp.findFirstToken(TokenTypes.TYPE).getFirstChild()); 
-//				}
-//			}
-//		}	
-//		return result;
-//	}
-       
 
-    /**
-     * Method that returns a root CLASS_DEF DetailAST for the class that owns
-     * a method for aMethodNode METHOD_CALL node.
-     * @return a DetailAST node for the class that owns
-     * aMethodNode node.
-     * @param aMethodNode - a current method DetailAST.
-     * */
-    public final DetailAST getClass(final DetailAST aMethodNode)
+
+    public final DetailAST getParentMethodDef(final DetailAST aMethodCallNode)
     {
         DetailAST result = null;
-        DetailAST currentNode = aMethodNode;
-
-        while (currentNode != null
-                && currentNode.getType() != TokenTypes.CLASS_DEF)
+        DetailAST curNode = aMethodCallNode;
+        
+        while (curNode != null
+                && curNode.getType() != TokenTypes.CLASS_DEF
+                && curNode.getType() != TokenTypes.METHOD_DEF
+                )
         {
-            currentNode = currentNode.getParent();
+            curNode = curNode.getParent();
         }
 
-        if (currentNode != null
-                && currentNode.getType() == TokenTypes.CLASS_DEF)
+        if (curNode != null && curNode.getType() == TokenTypes.METHOD_DEF)
         {
-            result = currentNode;
+            result = curNode;
         }
 
         return result;
@@ -283,14 +452,11 @@ public class OverridableMethodInConstructorCheck extends Check {
     public final LinkedList<DetailAST> getChildren(final DetailAST aNode)
     {
         final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
-
-        DetailAST currNode = aNode.getFirstChild();
-
-        while (currNode != null) {
-            result.add(currNode);
-            currNode = currNode.getNextSibling();
-        }
-        
+        DetailAST curNode = aNode.getFirstChild();
+        while (curNode != null) {
+            result.add(curNode);
+            curNode = curNode.getNextSibling();
+        }        
         return result;
     }
 

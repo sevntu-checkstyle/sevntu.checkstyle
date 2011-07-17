@@ -1,5 +1,3 @@
-package TestClasses;
-
 import java.io.IOException;
 
 public class InputOverridableMethodInConstructor6 {
@@ -11,33 +9,21 @@ public class InputOverridableMethodInConstructor6 {
 
 	private static class Object1 implements Cloneable {
 
-		public void doSmth() {
+		// final
+		private void doSmth() {
 			System.out.println("Bar!");
 		}
-
+		
 		@Override
 		protected Object clone() throws CloneNotSupportedException {
 			Object clone = super.clone();
-			((Object1) clone).doSmth();
+			((Object1) clone).doSmth(); // no warnings here
 			return clone;
 		}
 
-	}
-
-	private static class Object2 extends Object1 {
-		private String value;
-
-		public void doSmth() {
-			System.out.println(value);
-		}
-
-		@Override
-		protected Object clone() throws CloneNotSupportedException {
-			Object clone = super.clone();
-			((Object2) clone).value = "Foo!";
-			((Object2) clone).doSmth();
-			return clone;
-		}
 	}
 
 }
+
+	
+

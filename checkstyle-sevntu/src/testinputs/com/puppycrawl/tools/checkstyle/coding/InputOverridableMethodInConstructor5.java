@@ -8,7 +8,7 @@ public class InputOverridableMethodInConstructor5 {
             Base() {
                 System.out.println();
             	this.overrideMe(); // a warning here
-            	overrideMe();
+            	overrideMe(); // a second warning here
                 System.out.checkError();
                 this.toString();
             }
