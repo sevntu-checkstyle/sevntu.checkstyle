@@ -45,6 +45,35 @@ public class HelloWorld {
 		System.out.println("Hello, World !!!");// TODO Auto-generated method s
 	}//void main
 	
+	public void testTryCatch()
+	{
+		try {
+			int y=0;
+			int u=8;
+			int e=u-y;
+			return;
+		} 
+		catch (Exception e) {
+			System.out.println(e);
+			return;
+		}
+		finally
+		{
+			return;
+		}
+	}
+	
+	public void testTryCatch2()
+	{
+		try {
+		} 
+		catch (Exception e) {
+		}
+		finally
+		{
+		}
+	}
+	
 	public void testNoBraces(){
 		int i=0;
 		while(true) if(i++ == 10) return;

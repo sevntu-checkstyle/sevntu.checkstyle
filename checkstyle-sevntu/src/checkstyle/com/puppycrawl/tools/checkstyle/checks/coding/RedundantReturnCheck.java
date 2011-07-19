@@ -16,53 +16,157 @@ public class RedundantReturnCheck extends Check
 	//default value - true
 	private boolean ignoreEmptyConstructors=true;	
 	
-	//setter for ignoreEmptyConstructors
-	public void setFlag(String aFlag){
-		ignoreEmptyConstructors=aFlag.equalsIgnoreCase("true");
-	}//setter
+	public void setIgnoreEmptyConstructors(String aIgnoreEmptyConstructors)
+	{
+		ignoreEmptyConstructors = "true".equalsIgnoreCase(aIgnoreEmptyConstructors);
+	}
 	
 	@Override
-	public int[] getDefaultTokens  () 
+	public int[] getDefaultTokens() 
 	{		
-		return new int []{
+		return new int []
+		{
 				TokenTypes.CTOR_DEF,
 				TokenTypes.METHOD_DEF
 		};	
-	}//getDefaultTokens 
+	}
 	
 	@Override
-	public void visitToken (DetailAST curNode){
-		switch	(curNode.getType()){
+	public void visitToken(DetailAST aAST)
+	{
+		final DetailAST methodObjectBlock=aAST.getLastChild();
+		final DetailAST methodReturnType=aAST.getFirstChild().getNextSibling();
+		
+		switch	(aAST.getType())
+		{
 			case TokenTypes.CTOR_DEF:
-				//get the objectBlock and check the pre-last token
-				submit(curNode.getLastChild());
+				checkForRedundantReturn(methodObjectBlock);
 				break;
+				
 			case TokenTypes.METHOD_DEF:
-				//check for method type, define the void methods
-				if (curNode.getFirstChild().getNextSibling().findFirstToken(TokenTypes.LITERAL_VOID)!=null){
-					submit(curNode.getLastChild());
+				if (methodReturnType.findFirstToken(TokenTypes.LITERAL_VOID)!=null)
+				{
+					checkForRedundantReturn(methodObjectBlock);
 				}
 				break;
-				default: 
-					throw new IllegalStateException(curNode.getText());
+				
+			default: 
+				throw new IllegalStateException(aAST.getText());
 		}
-	}//visitToken
+	}
 	
 	//return is redundant if he is on the end of objectBlock and
 	//	the objectBlock of the method divided into several tokens
-	public void submit(DetailAST curNode){
-		DetailAST tempNode=curNode.getLastChild();
-		if ((curNode.getChildCount()>2)&&(tempNode.getPreviousSibling().getType()==TokenTypes.LITERAL_RETURN)){
+	public void checkForRedundantReturn(DetailAST aAST)
+	{
+		
+		final DetailAST tempNode=aAST.getLastChild();
+		final int methodChildCount=aAST.getChildCount();
+		final int placeForRedundantReturn=tempNode.getPreviousSibling().getType();
+		
+		if (methodChildCount>2)
+		{
+			handlePlacesForRedundantReturn(placeForRedundantReturn, aAST);
+		}
+		else
+		{
+			//allowing the return in empty methods and constructors
+			if (!ignoreEmptyConstructors)
+			{
+				handlePlacesForRedundantReturn(placeForRedundantReturn, aAST);
+			}
+		}
+		
+		if (placeForRedundantReturn == TokenTypes.LITERAL_TRY)
+		{
+			checkForRedundantReturnInTryCatch(aAST);
+		}
+	}
+	
+	public void handlePlacesForRedundantReturn(int aPlaceForRedundantReturn,DetailAST aAST)
+	{
+		final DetailAST tempNode=aAST.getLastChild();
+		
+		if (aPlaceForRedundantReturn==TokenTypes.LITERAL_RETURN)
+		{
 			log(tempNode.getPreviousSibling().getLineNo(),"redundant.return","");
 			return;
 		}
-		//allowing the return in empty methods and constructors
-		if ((!ignoreEmptyConstructors)&&(tempNode.getPreviousSibling().getType()==TokenTypes.LITERAL_RETURN)){
-			log(tempNode.getPreviousSibling().getLineNo(),"redundant.return","");
-		}		
-	}//submit
 	
-}//class RedundantReturn
+		if (aPlaceForRedundantReturn==TokenTypes.LITERAL_TRY)
+		{
+			checkForRedundantReturnInTryCatch(aAST);
+		}
+		
+	}
+	
+	public void checkForRedundantReturnInTryCatch(DetailAST aAST)
+	{
+		DetailAST tempNode = aAST.getFirstChild();
+		final DetailAST objectBlockTRY=tempNode.getFirstChild();
+		final DetailAST objectBlockCatch=tempNode.findFirstToken(TokenTypes.LITERAL_CATCH);
+		final DetailAST objectBlockFinally=tempNode.findFirstToken(TokenTypes.LITERAL_FINALLY);		
+		
+		if (objectBlockTRY != null)
+		{	
+			tempNode =  objectBlockTRY.getLastChild().getPreviousSibling();
+			
+			if (tempNode != null)
+			{			
+				if (verifyTryCatchFinallyBlocks(objectBlockTRY.getChildCount(), tempNode.getType()))
+				{
+					log(objectBlockTRY.getLastChild().getPreviousSibling().getLineNo(),"redundant.return","");
+				}
+			}
+		}
+		
+		if (objectBlockCatch!=null)
+		{
+			tempNode =objectBlockCatch.getLastChild().getLastChild().getPreviousSibling();
+			
+			if (tempNode !=null)
+			{
+				if (verifyTryCatchFinallyBlocks(objectBlockCatch.getChildCount(), tempNode.getType()))
+				{
+					log(objectBlockCatch.getLastChild().getLastChild().getPreviousSibling().getLineNo(),"redundant.return","");
+				}
+			}
+		}
+		
+		if (objectBlockFinally!=null)
+		{
+			tempNode = objectBlockFinally.getLastChild().getLastChild().getPreviousSibling();
+
+			if (tempNode != null)
+			{			
+				if (verifyTryCatchFinallyBlocks(objectBlockFinally.getChildCount(), tempNode.getType()))
+				{
+					log(objectBlockFinally.getLastChild().getLastChild().getPreviousSibling().getLineNo(),"redundant.return","");
+				}
+			}
+		}
+	}
+	
+	
+	public boolean verifyTryCatchFinallyBlocks (int count,int placeForRedundantReturn)
+	{
+		
+		if ( (count > 2) && (placeForRedundantReturn == TokenTypes.LITERAL_RETURN) )
+		{
+			return true;
+		}
+		
+		if ( (!ignoreEmptyConstructors) && (placeForRedundantReturn == TokenTypes.LITERAL_RETURN))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+}
  
 
 
