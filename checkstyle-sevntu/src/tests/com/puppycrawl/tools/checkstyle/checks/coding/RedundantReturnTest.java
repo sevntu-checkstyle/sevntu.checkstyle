@@ -10,7 +10,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class RedundantReturnTest extends BaseCheckTestSupport {
 	@Test
 
-	public void testDefault() throws Exception {
+	public void testInputWithIgnoreEmptyConstructorsFalse() throws Exception {
 		final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
 		checkConfig.addAttribute("ignoreEmptyConstructors", "false");
 

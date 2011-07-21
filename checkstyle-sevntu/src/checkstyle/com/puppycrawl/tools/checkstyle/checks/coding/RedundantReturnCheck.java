@@ -22,7 +22,7 @@ public class RedundantReturnCheck extends Check {
 	ignoreEmptyConstructors = "true"
 		.equalsIgnoreCase(aIgnoreEmptyConstructors);
     }
-
+    
     @Override
     public int[] getDefaultTokens() {
 	return new int[] { TokenTypes.CTOR_DEF, TokenTypes.METHOD_DEF };
@@ -30,23 +30,21 @@ public class RedundantReturnCheck extends Check {
 
     @Override
     public void visitToken(DetailAST aConstructorOrMethod) {
+
 	final DetailAST methodObjectBlock = aConstructorOrMethod.getLastChild();
-	final DetailAST methodReturnType = aConstructorOrMethod.getFirstChild()
-		.getNextSibling();
+	
+	final DetailAST methodReturnType = aConstructorOrMethod.
+		findFirstToken(TokenTypes.TYPE);
+//	final DetailAST methodReturnType = aConstructorOrMethod.getFirstChild()
+//		.getNextSibling();
 
-	switch (aConstructorOrMethod.getType()) {
-	case TokenTypes.CTOR_DEF:
+	if (aConstructorOrMethod.getType() == TokenTypes.CTOR_DEF){
 	    checkForRedundantReturn(methodObjectBlock);
-	    break;
-
-	case TokenTypes.METHOD_DEF:
+	}
+	else {
 	    if (methodReturnType.findFirstToken(TokenTypes.LITERAL_VOID) != null) {
 		checkForRedundantReturn(methodObjectBlock);
 	    }
-	    break;
-
-	default:
-	    throw new IllegalStateException(aConstructorOrMethod.getText());
 	}
     }
 
@@ -54,88 +52,140 @@ public class RedundantReturnCheck extends Check {
      * return is redundant if he is on the end of objectBlock and the
      * objectBlock of the method divided into several tokens
      */
-    public void checkForRedundantReturn(DetailAST aConstructorOrMethodObjectBlock) {
+    public void checkForRedundantReturn(
+	    DetailAST aConstructorOrMethodObjectBlock) {
 
-	final DetailAST rCurlyOfObjectBlock = aConstructorOrMethodObjectBlock.getLastChild();
-	final int methodChildCount = aConstructorOrMethodObjectBlock.getChildCount();
-	final int placeForRedundantReturn = rCurlyOfObjectBlock.getPreviousSibling()
-		.getType();
+	final DetailAST rCurlyOfObjectBlock = aConstructorOrMethodObjectBlock
+		.getLastChild();
+
+	final int methodChildCount = aConstructorOrMethodObjectBlock
+		.getChildCount();
+
+	final int placeForRedundantReturn = rCurlyOfObjectBlock
+		.getPreviousSibling().getType();
 
 	if (methodChildCount > 2) {
-	    handlePlacesForRedundantReturn(placeForRedundantReturn, aConstructorOrMethodObjectBlock, rCurlyOfObjectBlock);
+	    handlePlacesForRedundantReturn(placeForRedundantReturn,
+		    aConstructorOrMethodObjectBlock, rCurlyOfObjectBlock);
 	} else {
 	    if (!ignoreEmptyConstructors) {
-		handlePlacesForRedundantReturn(placeForRedundantReturn, aConstructorOrMethodObjectBlock, rCurlyOfObjectBlock);
+		handlePlacesForRedundantReturn(placeForRedundantReturn,
+			aConstructorOrMethodObjectBlock, rCurlyOfObjectBlock);
 	    }
-		if (placeForRedundantReturn == TokenTypes.LITERAL_TRY) {
-		    submitRedundantReturnInTryCatch(aConstructorOrMethodObjectBlock);
-		}
+	    if (placeForRedundantReturn == TokenTypes.LITERAL_TRY) {
+		submitRedundantReturnInTryCatch(aConstructorOrMethodObjectBlock);
+	    }
 	}
 
     }
-
 
     public void handlePlacesForRedundantReturn(int aPlaceForRedundantReturn,
-	    DetailAST aConstructorOrMethodObjectBlock, DetailAST rCurlyOfObjectBlock) {
+	    DetailAST aConstructorOrMethodObjectBlock,
+	    DetailAST rCurlyOfObjectBlock) {
 
 	if (aPlaceForRedundantReturn == TokenTypes.LITERAL_RETURN) {
-	    log(rCurlyOfObjectBlock.getPreviousSibling().getLineNo(), "redundant.return",
-		    "");
-	    return;
+	    log(rCurlyOfObjectBlock.getPreviousSibling().getLineNo(),
+		    "redundant.return", "");
 	}
-
-	if (aPlaceForRedundantReturn == TokenTypes.LITERAL_TRY) {
-	    submitRedundantReturnInTryCatch(aConstructorOrMethodObjectBlock);
+	else {
+	    if (aPlaceForRedundantReturn == TokenTypes.LITERAL_TRY) {
+		submitRedundantReturnInTryCatch(aConstructorOrMethodObjectBlock);
+	    }
 	}
-
     }
 
-    public void submitRedundantReturnInTryCatch(DetailAST aConstructorOrMethodObjectBlock) {
+    public void submitRedundantReturnInTryCatch(
+	    DetailAST aConstructorOrMethodObjectBlock) {
+
+	final DetailAST nodeTry = aConstructorOrMethodObjectBlock
+		.getFirstChild();
 	
-	final DetailAST nodeTry = aConstructorOrMethodObjectBlock.getFirstChild();
 	final DetailAST objectBlockTRY = nodeTry.getFirstChild();
+	
 	final DetailAST objectBlockCatch = nodeTry
 		.findFirstToken(TokenTypes.LITERAL_CATCH);
+	
 	final DetailAST objectBlockFinally = nodeTry
 		.findFirstToken(TokenTypes.LITERAL_FINALLY);
-	DetailAST placeForRedundantReturn;
 
+	handleObjectBlockTry(objectBlockTRY);
+
+	handleObjectBlockCatch(objectBlockCatch);
+	
+	handleObjectBlockFinally(objectBlockFinally);
+	
+    }
+    
+    
+    /**
+     * submit a mistake if the try block have redundant return
+     */   
+    public void handleObjectBlockTry(DetailAST objectBlockTRY){
+	
+	final DetailAST placeForRedundantReturn;
+	
 	if (objectBlockTRY != null) {
-	    placeForRedundantReturn = objectBlockTRY.getLastChild().getPreviousSibling();
+	    placeForRedundantReturn = objectBlockTRY.getLastChild()
+		    .getPreviousSibling();
 
 	    if (placeForRedundantReturn != null) {
 		if (verifyTryCatchFinallyBlocks(objectBlockTRY.getChildCount(),
 			placeForRedundantReturn.getType())) {
-		    log(placeForRedundantReturn.getLineNo(), "redundant.return", "");
-		}
-	    }
-	}
-
-	if (objectBlockCatch != null) {
-	    placeForRedundantReturn = objectBlockCatch.getLastChild().getLastChild()
-		    .getPreviousSibling();
-
-	    if (placeForRedundantReturn != null) {
-		if (verifyTryCatchFinallyBlocks(
-			objectBlockCatch.getChildCount(), placeForRedundantReturn.getType())) {
-		    		log(placeForRedundantReturn.getLineNo(),"redundant.return", "");
-		}
-	    }
-	}
-
-	if (objectBlockFinally != null) {
-	    placeForRedundantReturn = objectBlockFinally.getLastChild().getLastChild()
-		    .getPreviousSibling();
-
-	    if (placeForRedundantReturn != null) {
-		if (verifyTryCatchFinallyBlocks(
-			objectBlockFinally.getChildCount(), placeForRedundantReturn.getType())) {
-		    log(placeForRedundantReturn.getLineNo(),"redundant.return", "");
+		    log(placeForRedundantReturn.getLineNo(),
+			    "redundant.return", "");
 		}
 	    }
 	}
     }
+    
+    
+    /**
+     * submit a mistake if the catch block have redundant return
+     */   
+    public void handleObjectBlockCatch(DetailAST objectBlockCatch){
+	
+	final DetailAST placeForRedundantReturn;
+	
+	if (objectBlockCatch != null) {
+	    placeForRedundantReturn = objectBlockCatch.getLastChild()
+		    .getLastChild().getPreviousSibling();
 
+	    if (placeForRedundantReturn != null) {
+		if (verifyTryCatchFinallyBlocks(
+			objectBlockCatch.getChildCount(),
+			placeForRedundantReturn.getType())) {
+		    log(placeForRedundantReturn.getLineNo(),
+			    "redundant.return", "");
+		}
+	    }
+	}
+    }
+    
+    /**
+     * submit a mistake if the finally block have redundant return
+     */    
+    public void handleObjectBlockFinally(DetailAST objectBlockFinally){
+	
+   	final DetailAST placeForRedundantReturn;
+   	
+   	if (objectBlockFinally != null) {
+	    placeForRedundantReturn = objectBlockFinally.getLastChild()
+		    .getLastChild().getPreviousSibling();
+
+	    if (placeForRedundantReturn != null) {
+		if (verifyTryCatchFinallyBlocks(
+			objectBlockFinally.getChildCount(),
+			placeForRedundantReturn.getType())) {
+		    log(placeForRedundantReturn.getLineNo(),
+			    "redundant.return", "");
+		}
+	    }
+	}
+     }
+
+    /**
+     *     verify the try or catch or finally blocks on the content of RedundantReturn
+     */
     public boolean verifyTryCatchFinallyBlocks(int count,
 	    int placeForRedundantReturn) {
 
