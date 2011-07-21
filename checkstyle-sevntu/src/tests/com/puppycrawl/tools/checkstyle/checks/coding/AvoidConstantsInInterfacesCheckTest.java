@@ -11,11 +11,11 @@ public class AvoidConstantsInInterfacesCheckTest extends BaseCheckTestSupport {
 	public void testDefault() throws Exception {
 		final DefaultConfiguration checkConfig = createCheckConfig(AvoidConstantsInInterfacesCheck.class);
 		final String[] expected = {
-				"7: Please avoid to declare constants in the interface",
-				"13: Please avoid to declare constants in the interface",
-				"14: Please avoid to declare constants in the interface",
-				"22: Please avoid to declare constants in the interface",
-				"29: Please avoid to declare constants in the interface",};
+				"7: Please avoid to declare constant(s) in the interface",
+				"13: Please avoid to declare constant(s) in the interface",
+				"14: Please avoid to declare constant(s) in the interface",
+				"22: Please avoid to declare constant(s) in the interface",
+				"29: Please avoid to declare constant(s) in the interface",};
 		verify(checkConfig, getPath("coding" + File.separator
 				+ "InputAvoidConstantsInInterfacesCheck.java"), expected);
 

@@ -1,6 +1,8 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.*;
+import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class AvoidConstantsInInterfacesCheck extends Check {
 
@@ -10,12 +12,11 @@ public class AvoidConstantsInInterfacesCheck extends Check {
 	}
 
 	@Override
-	public void visitToken(DetailAST ast) {
-		DetailAST modifiers = ast.findFirstToken(TokenTypes.OBJBLOCK);
-		int decCount = modifiers.getChildCount(TokenTypes.VARIABLE_DEF);
-		if (decCount > 0) {
-			log(ast.getLineNo(),
-					"avoid.declare.constants");
+	public void visitToken(DetailAST aInterface) {
+		DetailAST body = aInterface.findFirstToken(TokenTypes.OBJBLOCK);
+		int varCount = body.getChildCount(TokenTypes.VARIABLE_DEF);
+		if (varCount > 0) {
+			log(aInterface.getLineNo(), "avoid.declare.constants");
 
 		}
 	}
