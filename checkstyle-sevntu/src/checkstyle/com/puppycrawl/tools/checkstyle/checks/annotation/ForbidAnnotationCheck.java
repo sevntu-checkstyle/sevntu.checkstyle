@@ -9,11 +9,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a> 
  */
 /**
- * It would be nice to have a ability to forbid specific annotation of
- * variable,methods,class,package and other. If you want to forbid use 'XXX'
- * annotation with methods and class, you mast write: <module
- * name="ForbidAnnotation"> <property name="annotation" value="XXX"/> <property
- * name="target" value="METHOD_DEF,CLASS_DEF"/> </module>
+ * Forbid specific annotation of variable,methods,class,package and other. 
+ * If you want to forbid use 'XXX' annotation with methods and class, you mast write: 
+ * <module name="ForbidAnnotation"> 
+ * <property name="annotation" value="XXX"/> 
+ * <property name="target" value="METHOD_DEF,CLASS_DEF"/> </module>
  */
 
 public class ForbidAnnotationCheck extends Check {
