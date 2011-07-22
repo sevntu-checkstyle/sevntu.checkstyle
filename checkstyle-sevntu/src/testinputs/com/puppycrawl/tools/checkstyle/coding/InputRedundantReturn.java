@@ -90,4 +90,21 @@ public class HelloWorld {
 		}	
 	}//myTestClass
 	
+	public void testTryCatch3()
+	{
+		try {
+			int y=0;
+			int u=8;
+			int e=u-y;
+		} 
+		catch (IllegalArgumentException e) {
+			System.out.println(e);
+			return;
+		}
+		catch (IllegalStateException ex) {
+		    	System.out.println(ex);
+		    	return;
+		}
+	}
+	
 }

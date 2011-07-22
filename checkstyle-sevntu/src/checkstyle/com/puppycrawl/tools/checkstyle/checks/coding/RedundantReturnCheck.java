@@ -5,201 +5,201 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * highlight the redundant returns in constructors and void methods, 'return' in
+ * Highlight the redundant returns in constructors and void methods, 'return' in
  * empty void method and constructors may be allowed
  * 
  * @author <a href="mailto:fishh1991@gmail.com">Troshin Sergey</a>
  */
 public class RedundantReturnCheck extends Check {
 
-    /**
-     * true, if 'return' in empty constructors and void methods is allowed
-     * default value - true
-     */
-    private boolean ignoreEmptyConstructors = true;
+    /** True, if 'return' in empty constructors and void methods is forbid. */
+    private boolean mAvoidEmptyBlocks = true;
 
-    public void setIgnoreEmptyConstructors(String aIgnoreEmptyConstructors) {
-	ignoreEmptyConstructors = "true"
-		.equalsIgnoreCase(aIgnoreEmptyConstructors);
+    public void setAvoidEmptyBlocks(boolean aAvoidEmptyBlocks) {
+	mAvoidEmptyBlocks = aAvoidEmptyBlocks;
     }
-    
+
     @Override
     public int[] getDefaultTokens() {
-	return new int[] { TokenTypes.CTOR_DEF, TokenTypes.METHOD_DEF };
+	return new int[] { 
+		TokenTypes.CTOR_DEF, 
+		TokenTypes.METHOD_DEF 
+		};
     }
 
     @Override
-    public void visitToken(DetailAST aConstructorOrMethod) {
+    public void visitToken(DetailAST aAst) {
 
-	final DetailAST methodObjectBlock = aConstructorOrMethod.getLastChild();
-	
-	final DetailAST methodReturnType = aConstructorOrMethod.
-		findFirstToken(TokenTypes.TYPE);
-//	final DetailAST methodReturnType = aConstructorOrMethod.getFirstChild()
-//		.getNextSibling();
+	final DetailAST methodObjectBlock = aAst.getLastChild();
 
-	if (aConstructorOrMethod.getType() == TokenTypes.CTOR_DEF){
+	final String exception = " Unexpected TokenType -  ";
+
+	switch (aAst.getType()) {
+	case TokenTypes.CTOR_DEF:
 	    checkForRedundantReturn(methodObjectBlock);
-	}
-	else {
-	    if (methodReturnType.findFirstToken(TokenTypes.LITERAL_VOID) != null) {
+	    break;
+
+	case TokenTypes.METHOD_DEF:
+	    if (aAst.findFirstToken(TokenTypes.TYPE).findFirstToken(
+		    TokenTypes.LITERAL_VOID) != null) {
+
 		checkForRedundantReturn(methodObjectBlock);
 	    }
+	    break;
+
+	default:
+	    throw new IllegalStateException(exception + aAst.getText());
 	}
     }
 
     /**
-     * return is redundant if he is on the end of objectBlock and the
-     * objectBlock of the method divided into several tokens
+     * Return is redundant if he is on the end of objectBlock and the
+     * objectBlock of the method divided into several tokens.
+     * 
+     * @param aAst  - a method or constructor object block
      */
-    public void checkForRedundantReturn(
-	    DetailAST aConstructorOrMethodObjectBlock) {
+    public void checkForRedundantReturn(DetailAST aAst) {
 
-	final DetailAST rCurlyOfObjectBlock = aConstructorOrMethodObjectBlock
-		.getLastChild();
-
-	final int methodChildCount = aConstructorOrMethodObjectBlock
-		.getChildCount();
-
-	final int placeForRedundantReturn = rCurlyOfObjectBlock
+	final int placeForRedundantReturn = aAst.getLastChild()
 		.getPreviousSibling().getType();
 
-	if (methodChildCount > 2) {
-	    handlePlacesForRedundantReturn(placeForRedundantReturn,
-		    aConstructorOrMethodObjectBlock, rCurlyOfObjectBlock);
+	final int methodWithSingleChild = 2;
+
+	if (aAst.getChildCount() > methodWithSingleChild) {
+	    
+	    handlePlacesForRedundantReturn(placeForRedundantReturn, aAst,
+		    aAst.getLastChild());
 	} else {
-	    if (!ignoreEmptyConstructors) {
-		handlePlacesForRedundantReturn(placeForRedundantReturn,
-			aConstructorOrMethodObjectBlock, rCurlyOfObjectBlock);
+
+	    if (mAvoidEmptyBlocks) {
+		handlePlacesForRedundantReturn(placeForRedundantReturn, aAst,
+			aAst.getLastChild());
 	    }
+
 	    if (placeForRedundantReturn == TokenTypes.LITERAL_TRY) {
-		submitRedundantReturnInTryCatch(aConstructorOrMethodObjectBlock);
-	    }
-	}
-
-    }
-
-    public void handlePlacesForRedundantReturn(int aPlaceForRedundantReturn,
-	    DetailAST aConstructorOrMethodObjectBlock,
-	    DetailAST rCurlyOfObjectBlock) {
-
-	if (aPlaceForRedundantReturn == TokenTypes.LITERAL_RETURN) {
-	    log(rCurlyOfObjectBlock.getPreviousSibling().getLineNo(),
-		    "redundant.return", "");
-	}
-	else {
-	    if (aPlaceForRedundantReturn == TokenTypes.LITERAL_TRY) {
-		submitRedundantReturnInTryCatch(aConstructorOrMethodObjectBlock);
+		submitRedundantReturnInTryCatch(aAst);
 	    }
 	}
     }
 
-    public void submitRedundantReturnInTryCatch(
-	    DetailAST aConstructorOrMethodObjectBlock) {
-
-	final DetailAST nodeTry = aConstructorOrMethodObjectBlock
-		.getFirstChild();
-	
-	final DetailAST objectBlockTRY = nodeTry.getFirstChild();
-	
-	final DetailAST objectBlockCatch = nodeTry
-		.findFirstToken(TokenTypes.LITERAL_CATCH);
-	
-	final DetailAST objectBlockFinally = nodeTry
-		.findFirstToken(TokenTypes.LITERAL_FINALLY);
-
-	handleObjectBlockTry(objectBlockTRY);
-
-	handleObjectBlockCatch(objectBlockCatch);
-	
-	handleObjectBlockFinally(objectBlockFinally);
-	
-    }
-    
-    
     /**
-     * submit a mistake if the try block have redundant return
-     */   
-    public void handleObjectBlockTry(DetailAST objectBlockTRY){
+     * @param aType - Type of token, where redundant return is expected.
+     * @param aAst - A method or constructor object block.
+     * @param aLastChild - A last child of method or constructor object block.
+     */
+    public void handlePlacesForRedundantReturn(int aType, DetailAST aAst,
+	    DetailAST aLastChild) {
+
+	if (aType == TokenTypes.LITERAL_RETURN) {
+	    log(aLastChild.getPreviousSibling().getLineNo(),
+		    "redundant.return", "");
+	} else {
+	    if (aType == TokenTypes.LITERAL_TRY) {
+		submitRedundantReturnInTryCatch(aAst);
+	    }
+	}
+    }
+
+    /**
+     * Check the try, catch, finally object blocks on redundant return content.
+     * 
+     * @param aAst - A method or constructor object block.
+     */
+    public void submitRedundantReturnInTryCatch(DetailAST aAst) {
+
+	final DetailAST nodeTry = aAst.getFirstChild();
 	
-	final DetailAST placeForRedundantReturn;
+	DetailAST objectBlockTry = nodeTry.getFirstChild();
 	
-	if (objectBlockTRY != null) {
-	    placeForRedundantReturn = objectBlockTRY.getLastChild()
+	handleObjectBlockTry(objectBlockTry);
+	
+	final int catchBlocksCount = nodeTry.getChildCount(TokenTypes.LITERAL_CATCH);	
+	
+	for (int i = 0; i < catchBlocksCount; i++) {
+	    objectBlockTry =  objectBlockTry.getNextSibling();
+	    handleObjectBlockCatch(objectBlockTry);
+	}
+		
+	handleObjectBlockFinally(objectBlockTry.getNextSibling());
+    }
+
+    /**
+     * Submit a mistake if the try block have redundant return.
+     * 
+     * @param aAst - object block of operator try.
+     */
+    public void handleObjectBlockTry(DetailAST aAst) {
+
+	if (aAst != null) {
+
+	    final DetailAST placeForRedundantReturn = aAst.getLastChild()
 		    .getPreviousSibling();
 
 	    if (placeForRedundantReturn != null) {
-		if (verifyTryCatchFinallyBlocks(objectBlockTRY.getChildCount(),
-			placeForRedundantReturn.getType())) {
+
+		if (verifyBlocks(placeForRedundantReturn.getType())) {
+
 		    log(placeForRedundantReturn.getLineNo(),
 			    "redundant.return", "");
 		}
 	    }
 	}
     }
-    
-    
-    /**
-     * submit a mistake if the catch block have redundant return
-     */   
-    public void handleObjectBlockCatch(DetailAST objectBlockCatch){
-	
-	final DetailAST placeForRedundantReturn;
-	
-	if (objectBlockCatch != null) {
-	    placeForRedundantReturn = objectBlockCatch.getLastChild()
-		    .getLastChild().getPreviousSibling();
-
-	    if (placeForRedundantReturn != null) {
-		if (verifyTryCatchFinallyBlocks(
-			objectBlockCatch.getChildCount(),
-			placeForRedundantReturn.getType())) {
-		    log(placeForRedundantReturn.getLineNo(),
-			    "redundant.return", "");
-		}
-	    }
-	}
-    }
-    
-    /**
-     * submit a mistake if the finally block have redundant return
-     */    
-    public void handleObjectBlockFinally(DetailAST objectBlockFinally){
-	
-   	final DetailAST placeForRedundantReturn;
-   	
-   	if (objectBlockFinally != null) {
-	    placeForRedundantReturn = objectBlockFinally.getLastChild()
-		    .getLastChild().getPreviousSibling();
-
-	    if (placeForRedundantReturn != null) {
-		if (verifyTryCatchFinallyBlocks(
-			objectBlockFinally.getChildCount(),
-			placeForRedundantReturn.getType())) {
-		    log(placeForRedundantReturn.getLineNo(),
-			    "redundant.return", "");
-		}
-	    }
-	}
-     }
 
     /**
-     *     verify the try or catch or finally blocks on the content of RedundantReturn
+     * Submit a mistake if the catch block have redundant return.
+     * 
+     * @param aAst - object block of operator catch.
      */
-    public boolean verifyTryCatchFinallyBlocks(int count,
-	    int placeForRedundantReturn) {
+    public void handleObjectBlockCatch(DetailAST aAst) {
 
-	if ((count > 2)
-		&& (placeForRedundantReturn == TokenTypes.LITERAL_RETURN)) {
-	    return true;
-	}
+	if (aAst != null) {
 
-	if ((!ignoreEmptyConstructors)
-		&& (placeForRedundantReturn == TokenTypes.LITERAL_RETURN)) {
-	    return true;
-	} else {
-	    return false;
+	    final DetailAST placeForRedundantReturn = aAst.getLastChild()
+		    .getLastChild().getPreviousSibling();
+
+	    if (placeForRedundantReturn != null) {
+
+		if (verifyBlocks(placeForRedundantReturn.getType())) {
+
+		    log(placeForRedundantReturn.getLineNo(),
+			    "redundant.return", "");
+		}
+	    }
 	}
     }
 
+    /**
+     * Submit a mistake if the finally block have redundant return.
+     * 
+     * @param aAst - object block of operator finally.
+     */
+    public void handleObjectBlockFinally(DetailAST aAst) {
+
+	if (aAst != null) {
+
+	    final DetailAST placeForRedundantReturn = aAst.getLastChild()
+		    .getLastChild().getPreviousSibling();
+
+	    if (placeForRedundantReturn != null) {
+
+		if (verifyBlocks(placeForRedundantReturn.getType())) {
+
+		    log(placeForRedundantReturn.getLineNo(),
+			    "redundant.return", "");
+		}
+	    }
+	}
+    }
+
+    /**
+     * Verify the try or catch or finally blocks on the content of
+     * RedundantReturn.
+     * 
+     * @param aType - Type of token, where redundant return is expected.
+     * @return - true if checked block contains a redundant return.
+     */
+    public boolean verifyBlocks(int aType) {
+	return aType == TokenTypes.LITERAL_RETURN;
+    }
 }
