@@ -12,7 +12,7 @@ public class InputOverridableMethodInConstructor9 {
 		private void doSmth() {
 			System.out.println("Bar!");
 			doSmth();
-			doSmth2(); // call to overridable method
+			doSmth2(); // leads to call of overridable method
 		}
 		
 		public void doSmth2() {

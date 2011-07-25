@@ -42,14 +42,14 @@ public class InputOverridableMethodInConstructor10 {
 
 		String value;
 
-//		private void doSmth() {
-//			value = "Foo!";
-//			System.out.println("Foo!");
-//		}
+		private void doSmth() {
+			value = "Foo!";
+			System.out.println("Foo!");
+		}
 
 		//@Override
 		public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {
-			//doSmth();
+			doSmth();
 		}
 
 	}

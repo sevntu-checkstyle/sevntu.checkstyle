@@ -1,86 +1,27 @@
-/**
- * Use Hibernate metadata to ignore cascade on entities.
- * cascade on embeddable objects or collection of embeddable objects are accepted
- *
- * Also use Hibernate's native isInitialized method call.
- * 
- * @author Emmanuel Bernard
- */
-public class HibernateTraversableResolver implements TraversableResolver {
-	private Set<String> associations;
+public class InputOverridableMethodInConstructor22 {
 
-	public HibernateTraversableResolver(
-			EntityPersister persister,
-			ConcurrentHashMap<EntityPersister, Set<String>> associationsPerEntityPersister, 
-			SessionFactoryImplementor factory) {
-		this.associations = associationsPerEntityPersister.get( persister );
-		if (this.associations == null) {
-			this.associations = new HashSet<String>();
-			addAssociationsToTheSetForAllProperties( persister.getPropertyNames(), persister.getPropertyTypes(), "", factory );
-			associationsPerEntityPersister.put( persister, associations );
-		}
+	InputOverridableMethodInConstructor22() {
+        doSMTH(); // a warning here!
 	}
 
-	private void addAssociationsToTheSetForAllProperties(String[] names, Type[] types, String prefix, SessionFactoryImplementor factory) {
-		final int length = names.length;
-		for( int index = 0 ; index < length; index++ ) {
-			addAssociationsToTheSetForOneProperty( names[index], types[index], prefix, factory );
-		}
+	private void doSMTH() {
+		doSMTH2();
 	}
 
-	private void addAssociationsToTheSetForOneProperty(String name, Type type, String prefix, SessionFactoryImplementor factory) {
-
-		if ( type.isCollectionType() ) {
-			CollectionType collType = (CollectionType) type;
-			Type assocType = collType.getElementType( factory );
-			addAssociationsToTheSetForOneProperty(name, assocType, prefix, factory);
-		}
-		//ToOne association
-		else if ( type.isEntityType() || type.isAnyType() ) {
-			associations.add( prefix + name );
-		} else if ( type.isComponentType() ) {
-			CompositeType componentType = (CompositeType) type;
-			addAssociationsToTheSetForAllProperties(
-					componentType.getPropertyNames(),
-					componentType.getSubtypes(),
-					(prefix.equals( "" ) ? name : prefix + name) + ".",
-					factory);
-		}
+	private void doSMTH2() {
+		doSMTH3();
 	}
 
-	private String getStringBasedPath(Path.Node traversableProperty, Path pathToTraversableObject) {
-		StringBuilder path = new StringBuilder( );
-		for ( Path.Node node : pathToTraversableObject ) {
-			if (node.getName() != null) {
-				path.append( node.getName() ).append( "." );
-			}
-		}
-		if ( traversableProperty.getName() == null ) {
-			throw new AssertionFailure(
-					"TraversableResolver being passed a traversableProperty with null name. pathToTraversableObject: "
-							+ path.toString() );
-		}
-		path.append( traversableProperty.getName() );
-
-		return path.toString();
+	private void doSMTH3() {
+		doSMTH4();
+		doPublic();
 	}
-
-	public boolean isReachable(Object traversableObject,
-							   Path.Node traversableProperty,
-							   Class<?> rootBeanType,
-							   Path pathToTraversableObject,
-							   ElementType elementType) {
-		//lazy, don't load
-		return Hibernate.isInitialized( traversableObject )
-				&& Hibernate.isPropertyInitialized( traversableObject, traversableProperty.getName() );
+	
+	private void doSMTH4() {
+		doSMTH();
 	}
-
-	public boolean isCascadable(Object traversableObject,
-						  Path.Node traversableProperty,
-						  Class<?> rootBeanType,
-						  Path pathToTraversableObject,
-						  ElementType elementType) {
-		String path = getStringBasedPath( traversableProperty, pathToTraversableObject );
-		return ! associations.contains(path);
+	
+	public void doPublic() {
 	}
+	
 }
