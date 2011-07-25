@@ -12,11 +12,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class RedundantReturnCheck extends Check {
 
-    /** True, if 'return' in empty constructors and void methods is forbid. */
-    private boolean mAvoidEmptyBlocks = true;
+    // True, if 'return' in empty constructors and void methods is forbid. 
+    private boolean mAvoidEmptyMethodsAndConstructors = true;
 
     public void setAvoidEmptyBlocks(boolean aAvoidEmptyBlocks) {
-	mAvoidEmptyBlocks = aAvoidEmptyBlocks;
+	mAvoidEmptyMethodsAndConstructors = aAvoidEmptyBlocks;
     }
 
     @Override
@@ -32,8 +32,6 @@ public class RedundantReturnCheck extends Check {
 
 	final DetailAST methodObjectBlock = aAst.getLastChild();
 
-	final String exception = " Unexpected TokenType -  ";
-
 	switch (aAst.getType()) {
 	case TokenTypes.CTOR_DEF:
 	    checkForRedundantReturn(methodObjectBlock);
@@ -48,6 +46,7 @@ public class RedundantReturnCheck extends Check {
 	    break;
 
 	default:
+	    final String exception = " Unexpected TokenType -  ";
 	    throw new IllegalStateException(exception + aAst.getText());
 	}
     }
@@ -71,7 +70,7 @@ public class RedundantReturnCheck extends Check {
 		    aAst.getLastChild());
 	} else {
 
-	    if (mAvoidEmptyBlocks) {
+	    if (mAvoidEmptyMethodsAndConstructors) {
 		handlePlacesForRedundantReturn(placeForRedundantReturn, aAst,
 			aAst.getLastChild());
 	    }
@@ -91,8 +90,7 @@ public class RedundantReturnCheck extends Check {
 	    DetailAST aLastChild) {
 
 	if (aType == TokenTypes.LITERAL_RETURN) {
-	    log(aLastChild.getPreviousSibling().getLineNo(),
-		    "redundant.return", "");
+	    loger(aLastChild.getPreviousSibling().getLineNo());
 	} else {
 	    if (aType == TokenTypes.LITERAL_TRY) {
 		submitRedundantReturnInTryCatch(aAst);
@@ -109,18 +107,18 @@ public class RedundantReturnCheck extends Check {
 
 	final DetailAST nodeTry = aAst.getFirstChild();
 	
-	DetailAST objectBlockTry = nodeTry.getFirstChild();
+	DetailAST astBlockTry = nodeTry.getFirstChild();
 	
-	handleObjectBlockTry(objectBlockTry);
+	handleAstBlockTry(astBlockTry);
 	
 	final int catchBlocksCount = nodeTry.getChildCount(TokenTypes.LITERAL_CATCH);	
 	
 	for (int i = 0; i < catchBlocksCount; i++) {
-	    objectBlockTry =  objectBlockTry.getNextSibling();
-	    handleObjectBlockCatch(objectBlockTry);
+	    astBlockTry =  astBlockTry.getNextSibling();
+	    handleObjectBlockCatch(astBlockTry);
 	}
 		
-	handleObjectBlockFinally(objectBlockTry.getNextSibling());
+	handleObjectBlockFinally(astBlockTry.getNextSibling());
     }
 
     /**
@@ -128,7 +126,7 @@ public class RedundantReturnCheck extends Check {
      * 
      * @param aAst - object block of operator try.
      */
-    public void handleObjectBlockTry(DetailAST aAst) {
+    public void handleAstBlockTry(DetailAST aAst) {
 
 	if (aAst != null) {
 
@@ -139,8 +137,7 @@ public class RedundantReturnCheck extends Check {
 
 		if (verifyBlocks(placeForRedundantReturn.getType())) {
 
-		    log(placeForRedundantReturn.getLineNo(),
-			    "redundant.return", "");
+		    loger(placeForRedundantReturn.getLineNo());
 		}
 	    }
 	}
@@ -162,8 +159,7 @@ public class RedundantReturnCheck extends Check {
 
 		if (verifyBlocks(placeForRedundantReturn.getType())) {
 
-		    log(placeForRedundantReturn.getLineNo(),
-			    "redundant.return", "");
+		    loger(placeForRedundantReturn.getLineNo());
 		}
 	    }
 	}
@@ -185,11 +181,15 @@ public class RedundantReturnCheck extends Check {
 
 		if (verifyBlocks(placeForRedundantReturn.getType())) {
 
-		    log(placeForRedundantReturn.getLineNo(),
-			    "redundant.return", "");
+		    loger(placeForRedundantReturn.getLineNo());
 		}
 	    }
 	}
+    }
+    
+
+    private void loger(int lineNumber){
+	log(lineNumber,"redundant.return", "");
     }
 
     /**
@@ -199,7 +199,7 @@ public class RedundantReturnCheck extends Check {
      * @param aType - Type of token, where redundant return is expected.
      * @return - true if checked block contains a redundant return.
      */
-    public boolean verifyBlocks(int aType) {
+    private boolean verifyBlocks(int aType) {
 	return aType == TokenTypes.LITERAL_RETURN;
     }
 }
