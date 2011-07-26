@@ -1,5 +1,7 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
+import java.math.BigInteger;
+
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -15,7 +17,7 @@ public class RedundantReturnCheck extends Check {
     // True, if 'return' in empty constructors and void methods is forbid. 
     private boolean mAvoidEmptyMethodsAndConstructors = true;
 
-    public void setAvoidEmptyBlocks(boolean aAvoidEmptyBlocks) {
+    public void setAvoidEmptyMethodsAndConstructors(boolean aAvoidEmptyBlocks) {
 	mAvoidEmptyMethodsAndConstructors = aAvoidEmptyBlocks;
     }
 
@@ -57,7 +59,7 @@ public class RedundantReturnCheck extends Check {
      * 
      * @param aAst  - a method or constructor object block
      */
-    public void checkForRedundantReturn(DetailAST aAst) {
+    private void checkForRedundantReturn(DetailAST aAst) {
 
 	final int placeForRedundantReturn = aAst.getLastChild()
 		.getPreviousSibling().getType();
@@ -86,11 +88,11 @@ public class RedundantReturnCheck extends Check {
      * @param aAst - A method or constructor object block.
      * @param aLastChild - A last child of method or constructor object block.
      */
-    public void handlePlacesForRedundantReturn(int aType, DetailAST aAst,
+    private void handlePlacesForRedundantReturn(int aType, DetailAST aAst,
 	    DetailAST aLastChild) {
 
 	if (aType == TokenTypes.LITERAL_RETURN) {
-	    loger(aLastChild.getPreviousSibling().getLineNo());
+	    log(aLastChild.getPreviousSibling().getLineNo());
 	} else {
 	    if (aType == TokenTypes.LITERAL_TRY) {
 		submitRedundantReturnInTryCatch(aAst);
@@ -103,22 +105,24 @@ public class RedundantReturnCheck extends Check {
      * 
      * @param aAst - A method or constructor object block.
      */
-    public void submitRedundantReturnInTryCatch(DetailAST aAst) {
+    private void submitRedundantReturnInTryCatch(DetailAST aAst) {
 
 	final DetailAST nodeTry = aAst.getFirstChild();
 	
 	DetailAST astBlockTry = nodeTry.getFirstChild();
 	
-	handleAstBlockTry(astBlockTry);
+	final boolean isblockTry = true;
+	
+	handleBlocksTryCatchFinally(astBlockTry, isblockTry);
 	
 	final int catchBlocksCount = nodeTry.getChildCount(TokenTypes.LITERAL_CATCH);	
 	
 	for (int i = 0; i < catchBlocksCount; i++) {
 	    astBlockTry =  astBlockTry.getNextSibling();
-	    handleObjectBlockCatch(astBlockTry);
+	    handleBlocksTryCatchFinally(astBlockTry, !isblockTry);
 	}
 		
-	handleObjectBlockFinally(astBlockTry.getNextSibling());
+	handleBlocksTryCatchFinally(astBlockTry.getNextSibling(), !isblockTry);
     }
 
     /**
@@ -126,70 +130,35 @@ public class RedundantReturnCheck extends Check {
      * 
      * @param aAst - object block of operator try.
      */
-    public void handleAstBlockTry(DetailAST aAst) {
+    private void handleBlocksTryCatchFinally(DetailAST aAst, boolean blockTry) {
 
 	if (aAst != null) {
-
-	    final DetailAST placeForRedundantReturn = aAst.getLastChild()
-		    .getPreviousSibling();
+	    
+	    final DetailAST placeForRedundantReturn;
+	    
+	    if (blockTry){
+		
+		placeForRedundantReturn = aAst.getLastChild()
+			.getPreviousSibling();
+	    } else {
+		
+		placeForRedundantReturn = aAst.getLastChild()
+			    .getLastChild().getPreviousSibling();
+	    }
 
 	    if (placeForRedundantReturn != null) {
 
 		if (verifyBlocks(placeForRedundantReturn.getType())) {
 
-		    loger(placeForRedundantReturn.getLineNo());
+		    log(placeForRedundantReturn.getLineNo());
 		}
 	    }
 	}
     }
 
-    /**
-     * Submit a mistake if the catch block have redundant return.
-     * 
-     * @param aAst - object block of operator catch.
-     */
-    public void handleObjectBlockCatch(DetailAST aAst) {
 
-	if (aAst != null) {
-
-	    final DetailAST placeForRedundantReturn = aAst.getLastChild()
-		    .getLastChild().getPreviousSibling();
-
-	    if (placeForRedundantReturn != null) {
-
-		if (verifyBlocks(placeForRedundantReturn.getType())) {
-
-		    loger(placeForRedundantReturn.getLineNo());
-		}
-	    }
-	}
-    }
-
-    /**
-     * Submit a mistake if the finally block have redundant return.
-     * 
-     * @param aAst - object block of operator finally.
-     */
-    public void handleObjectBlockFinally(DetailAST aAst) {
-
-	if (aAst != null) {
-
-	    final DetailAST placeForRedundantReturn = aAst.getLastChild()
-		    .getLastChild().getPreviousSibling();
-
-	    if (placeForRedundantReturn != null) {
-
-		if (verifyBlocks(placeForRedundantReturn.getType())) {
-
-		    loger(placeForRedundantReturn.getLineNo());
-		}
-	    }
-	}
-    }
-    
-
-    private void loger(int lineNumber){
-	log(lineNumber,"redundant.return", "");
+    private void log(int lineNumber){
+	log(lineNumber,"redundant.return");
     }
 
     /**
