@@ -10,7 +10,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * Forbid specific annotation of variable,methods,class,package and other. If
- * you want to forbid use '@XXX' annotation with methods and class, you must
+ * you want to forbid use of '@XXX' annotation with methods and class, you must
  * write:
  * 
  * <pre>
@@ -24,7 +24,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ForbidAnnotationCheck extends Check {
 	private Set<String> annotationNames = new HashSet<String>();
-	private int[] annotationTargets;
+	private int[] annotationTargets = new int[0];
 
 	public void setAnnotationNames(final String[] aNames) {
 		if (aNames != null) {
@@ -41,13 +41,6 @@ public class ForbidAnnotationCheck extends Check {
 				annotationTargets[i] = TokenTypes.getTokenId(aTargets[i]);
 			}
 			Arrays.sort(annotationTargets);
-		}
-	}
-
-	@Override
-	public void beginTree(DetailAST aRootAST) {
-		if (annotationTargets == null) {
-			annotationTargets = new int[0];
 		}
 	}
 
