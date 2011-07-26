@@ -126,7 +126,8 @@ public class RedundantReturnCheck extends Check {
     }
 
     /**
-     * Submit a mistake if the try block have redundant return.
+     * Submit a mistake if the try or catch or finally blocks
+     * have redundant return.
      * 
      * @param aAst - object block of operator try.
      */
