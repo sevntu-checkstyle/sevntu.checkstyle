@@ -55,5 +55,5 @@ public class ForbiAnnotationInput {
 		   @int3(numericValue = 3)  
 		   THREE;  
 		   }  
-
+	  @SuppressWarnings("unused") int i = 0;
 }
