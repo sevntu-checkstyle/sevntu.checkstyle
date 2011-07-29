@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2011  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.io.File;
@@ -8,15 +26,17 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
+public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
+{
 
-    final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
-    final String mCtorKey = "constructor";
-    final String mCloneKey = "'clone()' method";
-    final String mReadObjectKey = "'readObject()' method";
+    private final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
+    private final String mCtorKey = "constructor";
+    private final String mCloneKey = "'clone()' method";
+    private final String mReadObjectKey = "'readObject()' method";
 
     @Before
-    public void setTestinputsDir() {
+    public void setTestinputsDir()
+    {
         System.setProperty(
                 "testinputs.dir",
                 "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
@@ -26,7 +46,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testNoWarnings() throws Exception {
+    public final void testNoWarnings() throws Exception
+    {
 
         String[] expected = {};
 
@@ -35,46 +56,51 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testWarning() throws Exception {
+    public final void testWarning() throws Exception
+    {
 
-        String[] expected = { "10:27: " + createMsg("overrideMe", mCtorKey) };
+        String[] expected = {"10:27: " + createMsg("overrideMe", mCtorKey) };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor2.java"), expected);
     }
 
     @Test
-    public final void test2WarningsIn2Ctors() throws Exception {
-        String[] expected = { "10:27: " + createMsg("overrideMe", mCtorKey),
-                "15:27: " + createMsg("overrideMe", mCtorKey) };
+    public final void test2WarningsIn2Ctors() throws Exception
+    {
+        String[] expected = {"10:27: " + createMsg("overrideMe", mCtorKey),
+            "15:27: " + createMsg("overrideMe", mCtorKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor3.java"), expected);
     }
 
     @Test
-    public final void testWarningInSecondDepth() throws Exception {
+    public final void testWarningInSecondDepth() throws Exception
+    {
 
-        String[] expected = { "10:32: "
-                + createLeadsMsg("overrideMe", mCtorKey) };
+        String[] expected = {"10:32: "
+                + createLeadsMsg("overrideMe", mCtorKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor4.java"), expected);
     }
 
     @Test
-    public final void testWarningsInThirdDepth() throws Exception {
+    public final void testWarningsInThirdDepth() throws Exception
+    {
 
         String[] expected = {
-                "10:32: " + createLeadsMsg("overrideMe", mCtorKey),
-                "11:27: " + createLeadsMsg("overrideMe", mCtorKey), };
+            "10:32: " + createLeadsMsg("overrideMe", mCtorKey),
+            "11:27: " + createLeadsMsg("overrideMe", mCtorKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor5.java"), expected);
     }
 
     @Test
-    public final void testCloneNoWarningsSimple() throws Exception {
+    public final void testCloneNoWarningsSimple() throws Exception
+    {
 
         String[] expected = {};
 
@@ -83,7 +109,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testCloneNoWarnings() throws Exception {
+    public final void testCloneNoWarnings() throws Exception
+    {
 
         String[] expected = {};
 
@@ -92,39 +119,43 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testCloneWarnings() throws Exception {
+    public final void testCloneWarnings() throws Exception
+    {
 
-        String[] expected = { "20:37: " + createMsg("doSmth", mCloneKey),
-                "37:37: " + createMsg("doSmth", mCloneKey), };
+        String[] expected = {"20:37: " + createMsg("doSmth", mCloneKey),
+            "37:37: " + createMsg("doSmth", mCloneKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor8.java"), expected);
     }
 
     @Test
-    public final void testCloneSecondDepth() throws Exception {
+    public final void testCloneSecondDepth() throws Exception
+    {
 
-        String[] expected = { "25:37: " + createLeadsMsg("doSmth", mCloneKey),
-                "26:20: " + createMsg("doSmth2", mCloneKey), };
+        String[] expected = {"25:37: " + createLeadsMsg("doSmth", mCloneKey),
+            "26:20: " + createMsg("doSmth2", mCloneKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor9.java"), expected);
     }
 
     @Test
-    public final void testCloneThirdDepthImplementation() throws Exception {
+    public final void testCloneThirdDepthImplementation() throws Exception
+    {
 
-        String[] expected = { "25:37: " + createMsg("doSmth", mCloneKey),
-                "26:19: " + createMsg("accept", mCloneKey),
-                "27:24: " + createMsg("accept", mCloneKey),
-                "62:37: " + createMsg("doSmth", mCloneKey), };
+        String[] expected = {"25:37: " + createMsg("doSmth", mCloneKey),
+            "26:19: " + createMsg("accept", mCloneKey),
+            "27:24: " + createMsg("accept", mCloneKey),
+            "62:37: " + createMsg("doSmth", mCloneKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor13.java"), expected);
     }
 
     @Test
-    public final void testSerializableNoWarnings() throws Exception {
+    public final void testSerializableNoWarnings() throws Exception
+    {
 
         String[] expected = {};
 
@@ -133,22 +164,24 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testSerializableWarning() throws Exception {
+    public final void testSerializableWarning() throws Exception
+    {
 
-        String[] expected = { "31:20: " + createMsg("doSmth", mReadObjectKey), };
+        String[] expected = {"31:20: " + createMsg("doSmth", mReadObjectKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor11.java"), expected);
     }
 
     @Test
-    public final void testSerializable3WarningsInThirdDepth() throws Exception {
+    public final void testSerializable3WarningsInThirdDepth() throws Exception
+    {
 
         String[] expected = {
-                "30:20: " + createLeadsMsg("doSmth", mReadObjectKey),
-                "31:25: " + createLeadsMsg("doSmth", mReadObjectKey),
-                "32:28: " + createLeadsMsg("doSmth", mReadObjectKey),
-                "33:29: " + createMsg("doSmth3", mReadObjectKey), };
+            "30:20: " + createLeadsMsg("doSmth", mReadObjectKey),
+            "31:25: " + createLeadsMsg("doSmth", mReadObjectKey),
+            "32:28: " + createLeadsMsg("doSmth", mReadObjectKey),
+            "33:29: " + createMsg("doSmth3", mReadObjectKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor12.java"), expected);
@@ -156,24 +189,26 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
 
     @Test
     public final void testSerializableThirdDepthImplementation()
-            throws Exception {
+        throws Exception
+    {
 
-        String[] expected = { "34:20: " + createMsg("doSmth", mReadObjectKey),
-                "60:19: " + createMsg("doSmth", mReadObjectKey),
-                "61:24: " + createMsg("doSmth", mReadObjectKey),
-                "62:20: " + createLeadsMsg("doSmth2", mReadObjectKey),
-                "63:25: " + createLeadsMsg("doSmth2", mReadObjectKey),
-                "77:23: " + createMsg("doSmth", mReadObjectKey),
-                "78:28: " + createMsg("doSmth", mReadObjectKey),
-                "80:24: " + createLeadsMsg("doSmth2", mReadObjectKey),
-                "81:29: " + createLeadsMsg("doSmth2", mReadObjectKey), };
+        String[] expected = {"34:20: " + createMsg("doSmth", mReadObjectKey),
+            "60:19: " + createMsg("doSmth", mReadObjectKey),
+            "61:24: " + createMsg("doSmth", mReadObjectKey),
+            "62:20: " + createLeadsMsg("doSmth2", mReadObjectKey),
+            "63:25: " + createLeadsMsg("doSmth2", mReadObjectKey),
+            "77:23: " + createMsg("doSmth", mReadObjectKey),
+            "78:28: " + createMsg("doSmth", mReadObjectKey),
+            "80:24: " + createLeadsMsg("doSmth2", mReadObjectKey),
+            "81:29: " + createLeadsMsg("doSmth2", mReadObjectKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor14.java"), expected);
     }
 
     @Test
-    public final void testCtorOverloadedMethods() throws Exception {
+    public final void testCtorOverloadedMethods() throws Exception
+    {
 
         String[] expected = {};
 
@@ -182,7 +217,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void test2EqualMethodNamesWithNoWarning() throws Exception {
+    public final void test2EqualMethodNamesWithNoWarning() throws Exception
+    {
 
         String[] expected = {};
 
@@ -191,7 +227,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void test2EqualMethodNamesWithoutWarning2() throws Exception {
+    public final void test2EqualMethodNamesWithoutWarning2() throws Exception
+    {
 
         String[] expected = {};
 
@@ -200,7 +237,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testCallMethodIsNotInBuildPath2() throws Exception {
+    public final void testCallMethodIsNotInBuildPath2() throws Exception
+    {
 
         String[] expected = {};
 
@@ -209,7 +247,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testCallMethodIsNotInBuildPath() throws Exception {
+    public final void testCallMethodIsNotInBuildPath() throws Exception
+    {
 
         String[] expected = {};
 
@@ -218,7 +257,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testReadObjectInInterface() throws Exception {
+    public final void testReadObjectInInterface() throws Exception
+    {
 
         String[] expected = {};
 
@@ -227,7 +267,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testStackOverFlowError() throws Exception {
+    public final void testStackOverFlowError() throws Exception
+    {
 
         String[] expected = {};
 
@@ -236,16 +277,18 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testStackOverFlowErrorWithWarning() throws Exception {
+    public final void testStackOverFlowErrorWithWarning() throws Exception
+    {
 
-        String[] expected = { "4:15: " + createLeadsMsg("doSMTH", mCtorKey), };
+        String[] expected = {"4:15: " + createLeadsMsg("doSMTH", mCtorKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor22.java"), expected);
     }
 
     @Test
-    public final void testStackOverFlowErrorWithoutWarning() throws Exception {
+    public final void testStackOverFlowErrorWithoutWarning() throws Exception
+    {
 
         String[] expected = {};
 
@@ -254,16 +297,18 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     }
 
     @Test
-    public final void testAbstractMethodCall() throws Exception {
+    public final void testAbstractMethodCall() throws Exception
+    {
 
-        String[] expected = { "18:22: " + createMsg("buildGetter", mCtorKey), };
+        String[] expected = {"18:22: " + createMsg("buildGetter", mCtorKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor24.java"), expected);
     }
 
     @Test
-    public final void testFinalClass() throws Exception {
+    public final void testFinalClass() throws Exception
+    {
 
         String[] expected = {};
 
@@ -271,12 +316,14 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
                 + "InputOverridableMethodInConstructor25.java"), expected);
     }
 
-    public String createMsg(String methodName, String where) {
+    public String createMsg(String methodName, String where)
+    {
         return "Overridable method '" + methodName + "' is called in " + where
                 + " body.";
     }
 
-    private String createLeadsMsg(String methodName, String where) {
+    private String createLeadsMsg(String methodName, String where)
+    {
         return "Calling the method '" + methodName + "' in " + where
                 + " body leads to the call(s) of the overridable method(s).";
     }
