@@ -28,7 +28,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	static {
 		int a = -1;
 		int b = 2;
-		b++;
+		b++; // DECLARATION SHOULD BE HERE
 		int c = --b;
 		a = b; // DECLARATION SHOULD BE HERE
 	}
@@ -44,9 +44,9 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		new InputVariableDeclarationUsageDistanceCheck(2);
 		InputVariableDeclarationUsageDistanceCheck(temp); // DECLARATION SHOULD BE HERE
 		boolean result = false;
-		String str = ""; // DECLARATION SHOULD BE HERE
-		if (test1 > 1) {
-			str = "123"; // DECLARATION SHOULD BE HERE
+		String str = "";
+		if (test1 > 1) { // DECLARATION SHOULD BE HERE
+			str = "123";
 			result = true;
 		}
 		return result;
@@ -78,8 +78,8 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	
 	public void testMethod4(int arg) {
 		int d;
-		for (int i = 0; i < 10; i++) {
-			d++; // DECLARATION SHOULD BE HERE
+		for (int i = 0; i < 10; i++) { // DECLARATION SHOULD BE HERE
+			d++;
 			if (i > 5) {
 				d += arg;
 			}
@@ -102,7 +102,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		int index = 0;
 		int block = 0;
 		
-		if (blockNumWithSimilarVar <= 1) {
+		if (blockNumWithSimilarVar <= 1) { // DECLARATION SHOULD BE HERE
 			do {
 				dist++;
 				if (block > 4) {
@@ -122,7 +122,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	
 	public boolean testMethod7(int a) {
 		boolean res;
-		switch(a) {
+		switch(a) { // DECLARATION SHOULD BE HERE
 		case 1:
 			res = true;
 			break;

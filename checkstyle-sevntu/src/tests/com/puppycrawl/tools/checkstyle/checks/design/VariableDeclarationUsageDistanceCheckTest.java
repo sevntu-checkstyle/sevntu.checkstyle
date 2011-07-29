@@ -14,14 +14,30 @@ public class VariableDeclarationUsageDistanceCheckTest extends BaseCheckTestSupp
 //		checkConfig.addAttribute("distance", "0");
 //		checkConfig.addAttribute("ignoreVariablePattern", "temp");
 		final String[] expected = {
-				"12: Declaration of variable 'a' should be here.",
-				"25: Declaration of variable 'str' should be here.",
-				"36: Declaration of variable 'a' should be here.",
-				"37: Declaration of variable 'count' should be here.",
-				"48: Declaration of variable 'count' should be here.",
+				"11: Declaration of variable 'b' should be here.",
+				"11: Declaration of variable 'd' should be here.",
+				"17: Declaration of variable 'a' should be here.",
+				"17: Declaration of variable 'c' should be here.",
+				"19: Declaration of variable 'b' should be here.",
+				"31: Declaration of variable 'b' should be here.",
+				"33: Declaration of variable 'a' should be here.",
+				"39: Declaration of variable 'temp' should be here.",
+				"45: Declaration of variable 'temp' should be here.",
+				"48: Declaration of variable 'result' should be here.",
+				"48: Declaration of variable 'str' should be here.",
+				"60: Declaration of variable 'a' should be here.",
+				"60: Declaration of variable 'b' should be here.",
+				"65: Declaration of variable 'count' should be here.",
+				"73: Declaration of variable 'a' should be here.",
+				"73: Declaration of variable 'b' should be here.",
+				"76: Declaration of variable 'count' should be here.",
+				"81: Declaration of variable 'd' should be here.",
+				"105: Declaration of variable 'block' should be here.",
+				"105: Declaration of variable 'blockNumWithSimilarVar' should be here.",
+				"105: Declaration of variable 'dist' should be here.",
+				"105: Declaration of variable 'index' should be here.",
+				"125: Declaration of variable 'res' should be here.",
 		};
-//		System.setProperty("testinputs.dir",
-//				"/home/ruslan/git/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle/design");
 		verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
 	}
 }
