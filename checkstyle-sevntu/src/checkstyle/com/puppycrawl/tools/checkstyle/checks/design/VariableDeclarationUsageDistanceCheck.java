@@ -16,7 +16,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 	private List<DetailAST> variableDefAndExprList;
 
 	private List<DetailAST> variableDefList;
-	
+
 	private List<Integer> variableDefAndExprLineList;
 
 	private int distance = 0;
@@ -59,8 +59,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		case TokenTypes.LITERAL_FOR:
 		case TokenTypes.LITERAL_WHILE:
 		case TokenTypes.LITERAL_SWITCH:
-				variableDefAndExprList.add(aAST);
-				variableDefAndExprLineList.add(aAST.getLineNo());
+			variableDefAndExprList.add(aAST);
+			variableDefAndExprLineList.add(aAST.getLineNo());
 			break;
 		default:
 			if (parentType == TokenTypes.OBJBLOCK) {
@@ -111,7 +111,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 						}
 					}
 				}
-				
+
 				if (!blocksOfVariableMeet.containsValue(true)) {
 					continue;
 				}
@@ -146,7 +146,11 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 						block = blocks.get(index);
 					}
 				}
-				System.out.println(variableDefAndExprLineList.get(varDefIndex + dist));
+				if (!checkDistance(dist)) {
+					log(variableDefAndExprLineList.get(varDefIndex + dist), "variable.declaration.usage.distance",
+							variableIdent.getText());
+//					System.out.println(variableIdent.getText() + ":" + variableDefAndExprLineList.get(varDefIndex + dist));
+				}
 			}
 		}
 	}
@@ -178,7 +182,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		}
 		return varNesting;
 	}
-	
+
 	private boolean checkExprAndVariable(DetailAST exprOrVar) {
 		boolean isPassedCheck = true;
 		DetailAST parent = exprOrVar.getParent();
@@ -192,5 +196,13 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			parent = parent.getParent();
 		}
 		return isPassedCheck;
+	}
+
+	private boolean checkDistance(int distance) {
+		boolean isPassed = true;
+		if (distance > getDistance()) {
+			isPassed = false;
+		}
+		return isPassed;
 	}
 }
