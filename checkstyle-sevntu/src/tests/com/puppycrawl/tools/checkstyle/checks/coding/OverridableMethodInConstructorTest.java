@@ -12,14 +12,17 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
 
     final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
     final String mCtorKey = "constructor";
-    final String mCloneKey = "\"clone()\" method";
-    final String mReadObjectKey = "\"readObject()\" method";
+    final String mCloneKey = "'clone()' method";
+    final String mReadObjectKey = "'readObject()' method";
 
     @Before
     public void setTestinputsDir() {
         System.setProperty(
                 "testinputs.dir",
                 "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
+
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
     }
 
     @Test
@@ -132,8 +135,7 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
     @Test
     public final void testSerializableWarning() throws Exception {
 
-        String[] expected = {"31:20: " + createMsg("doSmth", mReadObjectKey), };
-
+        String[] expected = { "31:20: " + createMsg("doSmth", mReadObjectKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor11.java"), expected);
@@ -259,15 +261,24 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor24.java"), expected);
     }
-  
-	public String createMsg(String methodName, String where) {
-		return "Overridable method '" + methodName + "' is called in " + where
-				+ " body.";
-	}
 
-	private String createLeadsMsg(String methodName, String where) {
-		return "Calling the method '" + methodName + "' in " + where
-				+ " body leads to the call(s) of the overridable method(s).";
-	}
+    @Test
+    public final void testFinalClass() throws Exception {
+
+        String[] expected = {};
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputOverridableMethodInConstructor25.java"), expected);
+    }
+
+    public String createMsg(String methodName, String where) {
+        return "Overridable method '" + methodName + "' is called in " + where
+                + " body.";
+    }
+
+    private String createLeadsMsg(String methodName, String where) {
+        return "Calling the method '" + methodName + "' in " + where
+                + " body leads to the call(s) of the overridable method(s).";
+    }
 
 }
