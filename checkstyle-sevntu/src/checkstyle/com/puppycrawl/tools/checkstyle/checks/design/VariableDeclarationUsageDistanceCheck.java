@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import antlr.collections.ASTEnumeration;
 
@@ -19,16 +21,24 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	private List<Integer> variableDefAndExprLineList;
 
-	private int distance = 0;
+	private int distance;
 
 	private String regExp;
 
 	public int getDistance() {
 		return distance;
 	}
+	
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 
 	public String getRegExp() {
 		return regExp;
+	}
+	
+	public void setRegExp(String regExp) {
+		this.regExp = regExp;
 	}
 
 	@Override
@@ -80,6 +90,10 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			for (int i = 0; i < variableDefList.size(); i++) {
 				DetailAST varDef = variableDefList.get(i);
 				DetailAST variableIdent = varDef.findFirstToken(TokenTypes.IDENT);
+				
+				if (isVariableMatchesPattern(variableIdent.getText())) {
+					continue;
+				}
 
 				boolean variableFirstMeet = false;
 				Map<Integer, Boolean> blocksOfVariableMeet = new HashMap<Integer, Boolean>();
@@ -149,7 +163,6 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				if (!checkDistance(dist)) {
 					log(variableDefAndExprLineList.get(varDefIndex + dist), "variable.declaration.usage.distance",
 							variableIdent.getText());
-//					System.out.println(variableIdent.getText() + ":" + variableDefAndExprLineList.get(varDefIndex + dist));
 				}
 			}
 		}
@@ -204,5 +217,11 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			isPassed = false;
 		}
 		return isPassed;
+	}
+	
+	private boolean isVariableMatchesPattern(String variable) {
+		Pattern pattern = Pattern.compile(getRegExp());
+		Matcher matcher = pattern.matcher(variable);
+		return matcher.matches();
 	}
 }
