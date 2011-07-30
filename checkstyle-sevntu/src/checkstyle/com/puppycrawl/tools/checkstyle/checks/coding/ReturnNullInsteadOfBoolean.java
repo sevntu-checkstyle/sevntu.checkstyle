@@ -7,57 +7,47 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * It is a bad practice to use <code>Boolean</code> type for ternary logic.
- * It is intended to be used for binary logic.
+ * It is a bad practice to use <code>Boolean</code> type for ternary logic. It
+ * is intended to be used for binary logic.
  * </p>
+ * 
  * @author Ivan Sopov
  */
-public class ReturnNullInsteadOfBoolean extends Check
-{
+public class ReturnNullInsteadOfBoolean extends Check {
 
     /** Stack of states of the need in exploring the methods. */
     private final FastStack<Boolean> mMethodStack = FastStack.newInstance();
     /** Should we explore current method or not. */
-    private Boolean mExploreMethod;
+    private boolean mExploreMethod = false;
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[]{
-            TokenTypes.METHOD_DEF,
-            TokenTypes.LITERAL_RETURN,
-        };
+    public int[] getDefaultTokens() {
+        return new int[] { TokenTypes.METHOD_DEF, TokenTypes.LITERAL_RETURN, };
     }
 
     @Override
-    public int[] getRequiredTokens()
-    {
-        return new int[]{
-            TokenTypes.METHOD_DEF,
-        };
+    public int[] getRequiredTokens() {
+        return new int[] { TokenTypes.METHOD_DEF, };
     }
 
     @Override
-    public void beginTree(DetailAST aRootAST)
-    {
-        mExploreMethod = null;
+    public void beginTree(DetailAST aRootAST) {
         mMethodStack.clear();
     }
 
     @Override
-    public void visitToken(DetailAST aAST)
-    {
+    public void visitToken(DetailAST aAST) {
         switch (aAST.getType()) {
         case TokenTypes.METHOD_DEF:
             mMethodStack.push(mExploreMethod);
-            final DetailAST returnTypeAST =
-                aAST.findFirstToken(TokenTypes.TYPE).getFirstChild();
+            final DetailAST returnTypeAST = aAST
+                    .findFirstToken(TokenTypes.TYPE).getFirstChild();
             mExploreMethod = "Boolean".equals(returnTypeAST.getText());
             break;
         case TokenTypes.LITERAL_RETURN:
             if (mExploreMethod) {
-                final DetailAST exprToken =
-                    aAST.findFirstToken(TokenTypes.EXPR).getFirstChild();
+                final DetailAST exprToken = aAST
+                        .findFirstToken(TokenTypes.EXPR).getFirstChild();
                 if ("null".equals(exprToken.getText())) {
                     log(aAST, "return.null.Boolean", (Object[]) null);
                 }
@@ -69,8 +59,7 @@ public class ReturnNullInsteadOfBoolean extends Check
     }
 
     @Override
-    public void leaveToken(DetailAST aAST)
-    {
+    public void leaveToken(DetailAST aAST) {
         switch (aAST.getType()) {
         case TokenTypes.METHOD_DEF:
             mExploreMethod = mMethodStack.pop();

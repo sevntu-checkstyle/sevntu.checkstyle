@@ -25,6 +25,10 @@ public class InputReturnNullInsteadOfBoolean{
     	};
     }
     
+    public InputReturnNullInsteadOfBoolean(){
+        return; //here was NPE once apon a time
+    }
+    
     public Object test4(){
     	TestInterface testI = new TestInterface(){
     		public Boolean testMethod(){
