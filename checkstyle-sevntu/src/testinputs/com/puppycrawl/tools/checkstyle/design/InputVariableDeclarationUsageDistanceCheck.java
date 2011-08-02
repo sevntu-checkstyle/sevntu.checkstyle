@@ -3,7 +3,7 @@ package com.puppycrawl.tools.checkstyle.design;
 public class InputVariableDeclarationUsageDistanceCheck {
 
 	private int test1;
-	
+
 	static {
 		int b;
 		int d;
@@ -11,6 +11,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 			d = ++b; // DECLARATION SHOULD BE HERE
 		}
 	}
+	
 	static {
 		int c;
 		int a = 3;
@@ -84,17 +85,22 @@ public class InputVariableDeclarationUsageDistanceCheck {
 				d += arg;
 			}
 		}
+		
+		String ar[] = {"1", "2"};
+		for (String st : ar) {
+			System.out.println(st);
+		}
 	}
 	
-//	public void testMethod5() {
-//		int arg = 7;
-//		boolean b = true;
-//		boolean bb = false;
-//		if (b)
-//			if (!bb) // DECLARATION SHOULD BE HERE
-//				b = false;
-//		testMethod4(arg); // DECLARATION SHOULD BE HERE
-//	}
+	public void testMethod5() {
+		int arg = 7;
+		boolean b = true;
+		boolean bb = false;
+		if (b) // DECLARATION SHOULD BE HERE
+			if (!bb) // DECLARATION SHOULD BE HERE
+				b = false;
+		testMethod4(arg); // DECLARATION SHOULD BE HERE
+	}
 	
 	public void testMethod6() {
 		int blockNumWithSimilarVar = 3;
@@ -130,5 +136,73 @@ public class InputVariableDeclarationUsageDistanceCheck {
 			res = false;
 		}
 		return res;	
+	}
+
+	public void testMethod8() {
+		int b;
+		int c;
+		int m;
+		int n;
+		{
+			c++;
+			b++;
+		}
+		{
+			n++;
+			m++;
+			b++;
+		}
+	}
+	
+	public void testMethod9() {
+		boolean result = false;
+		boolean b1 = true;
+		boolean b2 = false;
+		if (b1) {
+			if (!b2) {
+				result = true;
+		    }
+		    result = true;
+		}
+	}
+	
+	public boolean testMethod10() {
+		boolean result;
+		try {
+			result = true;
+		} catch (IOException e) {
+			result = false;
+		} finally {
+			result = false;
+		}
+		return result;
+	}
+	
+	public void testMethod11() {
+		int a = 0;
+		int b = 10;
+		boolean result;
+		try {
+			b--;
+		} catch (IOException e) {
+			result = false;
+		} finally {
+			a++;
+		}
+	}
+
+	public void testMethod12() {
+		boolean result = false;
+		boolean b3 = true;
+		boolean b1 = true;
+		boolean b2 = false;
+		if (b1) {
+			if (b3) {
+				if (!b2) {
+					result = true;
+				}
+				result = true;
+			}
+		}
 	}
 }
