@@ -5,10 +5,16 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="1600">
 
+        <rule-metadata name="%AvoidConstantsInInterfaces.name" internal-name="AvoidConstantsInInterfaces" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantsInInterfacesCheck"/>
+            <description>%AvoidConstantsInInterfaces.desc</description>
+        </rule-metadata>
+        
         <rule-metadata name="%AvoidHidingCauseException.name" internal-name="AvoidHidingCauseException" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
             <description>%AvoidHidingCauseException.desc</description>
         </rule-metadata>
+        
         
         <rule-metadata name="%AvoidNotShortCircuitOperatorsForBoolean.name" internal-name="AvoidNotShortCircuitOperatorsForBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
