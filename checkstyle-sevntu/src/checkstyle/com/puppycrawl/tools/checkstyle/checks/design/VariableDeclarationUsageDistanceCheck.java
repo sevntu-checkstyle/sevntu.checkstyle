@@ -98,8 +98,14 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				break;
 			default:
 				if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
-					if (nextSibling.getLastChild().getType() == TokenTypes.IDENT && isIgnoreSimpleDeclaration()) {
-						break;
+					if (isIgnoreSimpleDeclaration()) {
+						DetailAST assignAST = nextSibling.findFirstToken(TokenTypes.ASSIGN);
+						if (assignAST == null) {
+							break;
+						}
+						if (assignAST != null && isVariableSimpleDeclaration(assignAST, assignAST.getPreviousSibling())) {
+							break;
+						}
 					}
 				}
 				if (nextSibling.getFirstChild() != null) {
@@ -140,6 +146,26 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			}
 		}
 		return dist;
+	}
+	
+	private boolean isVariableSimpleDeclaration(DetailAST ast, DetailAST variable) {
+		boolean varSimpleDeclaration = true;
+		DetailAST astChild = ast.getFirstChild();
+		while (astChild != null) {
+			if (!varSimpleDeclaration) {
+				break;
+			}
+			if (astChild.getFirstChild() != null) {
+				varSimpleDeclaration = isVariableSimpleDeclaration(astChild, variable);
+			}
+			if (astChild.getType() == TokenTypes.IDENT) {
+				if (astChild.getText() != variable.getText()) {
+					varSimpleDeclaration = false;
+				}
+			}
+			astChild = astChild.getNextSibling();
+		}
+		return varSimpleDeclaration;
 	}
 	
 	private boolean isASTContainsElement(DetailAST ast, DetailAST element) {

@@ -205,4 +205,11 @@ public class InputVariableDeclarationUsageDistanceCheck {
 			}
 		}
 	}
+	
+	public void testMethod13() {
+		int i = 9;
+		int j = 6;
+		int g = i + 8; // DECLARATION SHOULD BE HERE
+		int k = j + 10; // DECLARATION SHOULD BE HERE
+	}
 }
