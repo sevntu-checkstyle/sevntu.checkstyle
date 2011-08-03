@@ -50,6 +50,8 @@ public class VariableDeclarationUsageDistanceCheckTest extends BaseCheckTestSupp
 				"200: Declaration of variable 'b3' should be here.",
 				"201: Declaration of variable 'b2' should be here.",
 				"201: Declaration of variable 'result' should be here.",
+				"212: Declaration of variable 'i' should be here.",
+				"213: Declaration of variable 'j' should be here.",
 		};
 		verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
 	}
@@ -104,6 +106,8 @@ public class VariableDeclarationUsageDistanceCheckTest extends BaseCheckTestSupp
 				"200: Declaration of variable 'b3' should be here.",
 				"201: Declaration of variable 'b2' should be here.",
 				"201: Declaration of variable 'result' should be here.",
+				"212: Declaration of variable 'i' should be here.",
+				"213: Declaration of variable 'j' should be here.",
 		};
 		verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
 	}
@@ -115,36 +119,28 @@ public class VariableDeclarationUsageDistanceCheckTest extends BaseCheckTestSupp
 		checkConfig.addAttribute("ignoreVariables", "");
 		checkConfig.addAttribute("ignoreSimpleDeclaration", "true");
 		final String[] expected = {
-				"19: Declaration of variable 'a' should be here.",
-				"19: Declaration of variable 'c' should be here.",
 				"34: Declaration of variable 'a' should be here.",
 				"40: Declaration of variable 'temp' should be here.",
 				"46: Declaration of variable 'temp' should be here.",
-				"49: Declaration of variable 'result' should be here.",
 				"50: Declaration of variable 'str' should be here.",
-				"61: Declaration of variable 'a' should be here.",
 				"66: Declaration of variable 'count' should be here.",
-				"74: Declaration of variable 'a' should be here.",
 				"77: Declaration of variable 'count' should be here.",
 				"83: Declaration of variable 'd' should be here.",
-				"99: Declaration of variable 'b' should be here.",
 				"100: Declaration of variable 'bb' should be here.",
 				"102: Declaration of variable 'arg' should be here.",
 				"111: Declaration of variable 'block' should be here.",
-				"111: Declaration of variable 'blockNumWithSimilarVar' should be here.",
 				"111: Declaration of variable 'dist' should be here.",
 				"111: Declaration of variable 'index' should be here.",
 				"151: Declaration of variable 'n' should be here.",
 				"152: Declaration of variable 'm' should be here.",
-				"161: Declaration of variable 'b1' should be here.",
 				"162: Declaration of variable 'b2' should be here.",
 				"162: Declaration of variable 'result' should be here.",
 				"188: Declaration of variable 'result' should be here.",
 				"190: Declaration of variable 'a' should be here.",
-				"199: Declaration of variable 'b1' should be here.",
 				"200: Declaration of variable 'b3' should be here.",
 				"201: Declaration of variable 'b2' should be here.",
 				"201: Declaration of variable 'result' should be here.",
+				"213: Declaration of variable 'j' should be here.",
 		};
 		verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
 	}
