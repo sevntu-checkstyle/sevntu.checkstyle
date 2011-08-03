@@ -15,8 +15,8 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	static {
 		int c;
 		int a = 3;
-		int b = 2; // DECLARATION SHOULD BE HERE
-		{
+		int b = 2;
+		{ // DECLARATION SHOULD BE HERE
 			a = a + b; // DECLARATION SHOULD BE HERE
 			c = b;
 		}
@@ -47,7 +47,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		boolean result = false;
 		String str = "";
 		if (test1 > 1) { // DECLARATION SHOULD BE HERE
-			str = "123";
+			str = "123"; // DECLARATION SHOULD BE HERE
 			result = true;
 		}
 		return result;
@@ -79,15 +79,15 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	
 	public void testMethod4(int arg) {
 		int d;
-		for (int i = 0; i < 10; i++) { // DECLARATION SHOULD BE HERE
-			d++;
+		for (int i = 0; i < 10; i++) {
+			d++; // DECLARATION SHOULD BE HERE
 			if (i > 5) {
 				d += arg;
 			}
 		}
 		
 		String ar[] = {"1", "2"};
-		for (String st : ar) {
+		for (String st : ar) { // DECLARATION SHOULD BE HERE
 			System.out.println(st);
 		}
 	}
@@ -143,13 +143,13 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		int c;
 		int m;
 		int n;
-		{
-			c++;
+		{ // DECLARATION SHOULD BE HERE
+			c++; // DECLARATION SHOULD BE HERE
 			b++;
 		}
 		{
-			n++;
-			m++;
+			n++; // DECLARATION SHOULD BE HERE
+			m++; // DECLARATION SHOULD BE HERE
 			b++;
 		}
 	}
@@ -158,8 +158,8 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		boolean result = false;
 		boolean b1 = true;
 		boolean b2 = false;
-		if (b1) {
-			if (!b2) {
+		if (b1) { // DECLARATION SHOULD BE HERE
+			if (!b2) { // DECLARATION SHOULD BE HERE
 				result = true;
 		    }
 		    result = true;
@@ -168,7 +168,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	
 	public boolean testMethod10() {
 		boolean result;
-		try {
+		try { // DECLARATION SHOULD BE HERE
 			result = true;
 		} catch (IOException e) {
 			result = false;
@@ -183,11 +183,11 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		int b = 10;
 		boolean result;
 		try {
-			b--;
+			b--; // DECLARATION SHOULD BE HERE
 		} catch (IOException e) {
-			result = false;
+			result = false; // DECLARATION SHOULD BE HERE
 		} finally {
-			a++;
+			a++; // DECLARATION SHOULD BE HERE
 		}
 	}
 
@@ -196,9 +196,9 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		boolean b3 = true;
 		boolean b1 = true;
 		boolean b2 = false;
-		if (b1) {
-			if (b3) {
-				if (!b2) {
+		if (b1) { // DECLARATION SHOULD BE HERE
+			if (b3) { // DECLARATION SHOULD BE HERE
+				if (!b2) { // DECLARATION SHOULD BE HERE
 					result = true;
 				}
 				result = true;
