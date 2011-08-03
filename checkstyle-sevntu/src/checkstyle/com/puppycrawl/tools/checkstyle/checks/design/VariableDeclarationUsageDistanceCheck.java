@@ -67,8 +67,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				if (variableMeet) {
 					dist++;
 					if (!isDistanceAllowed(dist) && dist > 0) {
-						// TODO: log error line
-						System.out.println("dist = " + dist + "; error = " + errorLine);
+						log(errorLine, "variable.declaration.usage.distance", variable.getText());
+//						System.out.println("var = " + variable.getText() + "; dist = " + dist + "; error = " + errorLine);
 					}
 				}
 			}
@@ -79,25 +79,32 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		int dist = 0;
 		boolean errorLineWasFound = false;
 		boolean variableFirstMeet = false;
-		boolean isExpInBracket = false;
 		DetailAST nextSibling = ast;
+		int variableNumInForBlock = 0;
+		boolean forBlockMeet = false;
 		List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
 		while (nextSibling != null && nextSibling.getType() != TokenTypes.RCURLY) {
 			switch (nextSibling.getType()) {
-			case TokenTypes.VARIABLE_DEF:
-				if (nextSibling.getLastChild().getType() == TokenTypes.IDENT && isIgnoreSimpleDeclaration()) {
-					break;
-				}
-			case TokenTypes.LPAREN:
-				isExpInBracket = true;
+			case TokenTypes.CASE_GROUP:
 				break;
-			case TokenTypes.RPAREN:
-				isExpInBracket = false;
+			case TokenTypes.FOR_INIT:
+			case TokenTypes.FOR_CONDITION:
+			case TokenTypes.FOR_ITERATOR:
+			case TokenTypes.FOR_EACH_CLAUSE:
+				forBlockMeet = true;
+				if (isASTContainsElement(nextSibling, variable)) {
+					variableNumInForBlock++;
+				}
 				break;
 			default:
+				if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
+					if (nextSibling.getLastChild().getType() == TokenTypes.IDENT && isIgnoreSimpleDeclaration()) {
+						break;
+					}
+				}
 				if (nextSibling.getFirstChild() != null) {
 					if (isASTContainsElement(nextSibling, variable)) {
-						exprWithVariableList.add(nextSibling);
+							exprWithVariableList.add(nextSibling);
 						if (!errorLineWasFound) {
 							errorLine = nextSibling.getLineNo();
 							errorLineWasFound = true;
@@ -105,13 +112,17 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 						variableMeet = true;
 						variableFirstMeet = true;
 					} else {
-						if (!variableFirstMeet && !isExpInBracket) {
+						if (!variableFirstMeet) {
 							dist++;
 						}
 					}
 				}
 			}
 			nextSibling = nextSibling.getNextSibling();
+		}
+		
+		if (forBlockMeet && variableNumInForBlock == 0) {
+			dist++;
 		}
 
 		if (exprWithVariableList.size() != 0) {
@@ -130,7 +141,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		}
 		return dist;
 	}
-
+	
 	private boolean isASTContainsElement(DetailAST ast, DetailAST element) {
 		boolean isASTContainsElement = false;
 		ASTEnumeration astList = ast.findAllPartial(element);
