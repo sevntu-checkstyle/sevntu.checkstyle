@@ -229,4 +229,15 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		t.commit(); // DECLARATION SHOULD BE HERE
 		s.close();
 	}
+	
+	public void testMethod15() {
+		final int runnable = 0;
+		int i = 0;
+		int j;
+        EventQueue.invokeLater(new Runnable() {
+        	public void run() {
+        		runnable++; // DECLARATION SHOULD BE HERE
+        	}
+        });
+	}
 }
