@@ -212,4 +212,21 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		int g = i + 8; // DECLARATION SHOULD BE HERE
 		int k = j + 10; // DECLARATION SHOULD BE HERE
 	}
+	
+	public void testMethod14() {
+		Session s = openSession();
+		Transaction t = s.beginTransaction();
+		A a = new A();
+		E d1 = new E();
+		C1 c = new C1();
+		E d2 = new E();
+		a.setForward(d1); // DECLARATION SHOULD BE HERE
+		d1.setReverse(a);
+		c.setForward(d2); // DECLARATION SHOULD BE HERE
+		d2.setReverse(c);
+		Serializable aid = s.save(a);
+		Serializable d2id = s.save(d2);
+		t.commit(); // DECLARATION SHOULD BE HERE
+		s.close();
+	}
 }
