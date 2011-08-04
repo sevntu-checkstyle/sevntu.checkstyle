@@ -64,9 +64,6 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 	/** RegExp pattern to ignore distance calculation for variables listed in this pattern. */
 	private Pattern mIgnoreVariablePattern = Pattern.compile("");
 
-	/** Line index where variable is used first. */
-	private int mLineIndexWithVariableUsage;
-
 	/** Identifies if variable was used after its declaration. */
 	private boolean mVariableFound;
 
@@ -103,7 +100,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				if (mVariableFound) {
 					dist++;
 					if (dist > mAllowedDistance && dist > 0) {
-						log(mLineIndexWithVariableUsage, "variable.declaration.usage.distance", variable.getText());
+						log(variable.getLineNo(), "variable.declaration.usage.distance", dist, mAllowedDistance);
+//						System.out.println("var = " + variable.getText() + "; dist = " + dist + "; error = " + variable.getLineNo());
 					}
 				}
 			}
@@ -118,7 +116,6 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 	 */
 	private int calculateDistance(DetailAST aAST, DetailAST aVariable) {
 		int dist = 0;
-		boolean errorLineWasFound = false;
 		boolean variableFirstFound = false;
 		DetailAST nextSibling = aAST;
 		int variableNumInForBlock = 0;
@@ -141,10 +138,6 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				if (nextSibling.getFirstChild() != null) {
 					if (isASTContainsElement(nextSibling, aVariable)) {
 						exprWithVariableList.add(nextSibling);
-						if (!errorLineWasFound) {
-							mLineIndexWithVariableUsage = nextSibling.getLineNo();
-							errorLineWasFound = true;
-						}
 						mVariableFound = true;
 						variableFirstFound = true;
 					} else {
