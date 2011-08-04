@@ -13,41 +13,20 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class VariableDeclarationUsageDistanceCheck extends Check {
 
-	private int allowedDistance;
+	private int allowedDistance = 1;
 
-	private String ignoreVariables;
+	private Pattern ignoreVariablePattern = Pattern.compile("");
 
-	private boolean ignoreSimpleDeclaration;
+	private int lineIndexWithVariableUsage;
 
-	private int errorLine;
-
-	private boolean variableMeet;
-
-	public int getAllowedDistance() {
-		return allowedDistance;
-	}
+	private boolean variableFound;
 
 	public void setAllowedDistance(int allowedDistance) {
 		this.allowedDistance = allowedDistance;
 	}
 
-	public String getIgnoreVariables() {
-		if (ignoreVariables == null) {
-			ignoreVariables = "";
-		}
-		return ignoreVariables;
-	}
-
-	public void setIgnoreVariables(String ignoreVariables) {
-		this.ignoreVariables = ignoreVariables;
-	}
-
-	public boolean isIgnoreSimpleDeclaration() {
-		return ignoreSimpleDeclaration;
-	}
-
-	public void setIgnoreSimpleDeclaration(boolean ignoreSimpleDeclaration) {
-		this.ignoreSimpleDeclaration = ignoreSimpleDeclaration;
+	public void setIgnoreVariablePattern(String ignorePattern) {
+		ignoreVariablePattern = Pattern.compile(ignorePattern);
 	}
 
 	@Override
@@ -57,18 +36,19 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	@Override
 	public void visitToken(DetailAST aAST) {
-		variableMeet = false;
+		variableFound = false;
 		int parentType = aAST.getParent().getType();
 		DetailAST nextSibling = aAST.getNextSibling();
 		if (parentType != TokenTypes.OBJBLOCK && nextSibling != null && nextSibling.getType() == TokenTypes.SEMI) {
 			DetailAST variable = aAST.findFirstToken(TokenTypes.IDENT);
 			if (!isVariableMatchesPattern(variable.getText())) {
 				int dist = calculateDistance(nextSibling, variable);
-				if (variableMeet) {
+				if (variableFound) {
 					dist++;
-					if (!isDistanceAllowed(dist) && dist > 0) {
-						log(errorLine, "variable.declaration.usage.distance", variable.getText());
-//						System.out.println("var = " + variable.getText() + "; dist = " + dist + "; error = " + errorLine);
+					if (dist > allowedDistance && dist > 0) {
+						log(lineIndexWithVariableUsage, "variable.declaration.usage.distance", variable.getText());
+//						System.out.println("var = " + variable.getText() + "; dist = " + dist + "; error = "
+//								+ lineIndexWithVariableUsage);
 					}
 				}
 			}
@@ -78,7 +58,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 	private int calculateDistance(DetailAST ast, DetailAST variable) {
 		int dist = 0;
 		boolean errorLineWasFound = false;
-		boolean variableFirstMeet = false;
+		boolean variableFirstFound = false;
 		DetailAST nextSibling = ast;
 		int variableNumInForBlock = 0;
 		boolean forBlockMeet = false;
@@ -97,28 +77,17 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				}
 				break;
 			default:
-				if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
-					if (isIgnoreSimpleDeclaration()) {
-						DetailAST assignAST = nextSibling.findFirstToken(TokenTypes.ASSIGN);
-						if (assignAST == null) {
-							break;
-						}
-						if (assignAST != null && isVariableSimpleDeclaration(assignAST, assignAST.getPreviousSibling())) {
-							break;
-						}
-					}
-				}
 				if (nextSibling.getFirstChild() != null) {
 					if (isASTContainsElement(nextSibling, variable)) {
-							exprWithVariableList.add(nextSibling);
+						exprWithVariableList.add(nextSibling);
 						if (!errorLineWasFound) {
-							errorLine = nextSibling.getLineNo();
+							lineIndexWithVariableUsage = nextSibling.getLineNo();
 							errorLineWasFound = true;
 						}
-						variableMeet = true;
-						variableFirstMeet = true;
+						variableFound = true;
+						variableFirstFound = true;
 					} else {
-						if (!variableFirstMeet) {
+						if (!variableFirstFound) {
 							dist++;
 						}
 					}
@@ -126,7 +95,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			}
 			nextSibling = nextSibling.getNextSibling();
 		}
-		
+
 		if (forBlockMeet && variableNumInForBlock == 0) {
 			dist++;
 		}
@@ -141,33 +110,13 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 				}
 			}
 		} else {
-			if (!variableFirstMeet) {
+			if (!variableFirstFound) {
 				dist = 0;
 			}
 		}
 		return dist;
 	}
-	
-	private boolean isVariableSimpleDeclaration(DetailAST ast, DetailAST variable) {
-		boolean varSimpleDeclaration = true;
-		DetailAST astChild = ast.getFirstChild();
-		while (astChild != null) {
-			if (!varSimpleDeclaration) {
-				break;
-			}
-			if (astChild.getFirstChild() != null) {
-				varSimpleDeclaration = isVariableSimpleDeclaration(astChild, variable);
-			}
-			if (astChild.getType() == TokenTypes.IDENT) {
-				if (astChild.getText() != variable.getText()) {
-					varSimpleDeclaration = false;
-				}
-			}
-			astChild = astChild.getNextSibling();
-		}
-		return varSimpleDeclaration;
-	}
-	
+
 	private boolean isASTContainsElement(DetailAST ast, DetailAST element) {
 		boolean isASTContainsElement = false;
 		ASTEnumeration astList = ast.findAllPartial(element);
@@ -185,17 +134,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		return isASTContainsElement;
 	}
 
-	private boolean isDistanceAllowed(int distance) {
-		boolean isPassed = true;
-		if (distance > getAllowedDistance()) {
-			isPassed = false;
-		}
-		return isPassed;
-	}
-
 	private boolean isVariableMatchesPattern(String variable) {
-		Pattern pattern = Pattern.compile(getIgnoreVariables());
-		Matcher matcher = pattern.matcher(variable);
+		Matcher matcher = ignoreVariablePattern.matcher(variable);
 		return matcher.matches();
 	}
 }
