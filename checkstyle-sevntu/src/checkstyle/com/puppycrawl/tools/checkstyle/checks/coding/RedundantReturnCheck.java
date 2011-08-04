@@ -121,8 +121,8 @@ public class RedundantReturnCheck extends Check {
 	
 	if (astBlockTry.getNextSibling() != null){
 	    
-	handleBlocksTryCatchFinally(astBlockTry.getNextSibling().getLastChild()
-		.getLastChild().getPreviousSibling());
+	    handleBlocksTryCatchFinally(astBlockTry.getNextSibling().getLastChild()
+		    .getLastChild().getPreviousSibling());
     
 	}
     }
@@ -131,16 +131,18 @@ public class RedundantReturnCheck extends Check {
      * Submit a mistake if the try or catch or finally blocks have redundant
      * return.
      * 
-     * @param returnExpected
+     * @param aAstReturn
      *            - a place where the redundantReturn is expected.
      */
-    private void handleBlocksTryCatchFinally(DetailAST returnExpected) {
+    private void handleBlocksTryCatchFinally(DetailAST aAstReturn) {
 
-	    if (returnExpected != null)
+	    if (aAstReturn != null) {
 
-		if (returnExpected.getType() == TokenTypes.LITERAL_RETURN)
+		if (aAstReturn.getType() == TokenTypes.LITERAL_RETURN) {
 
-		    log(returnExpected.getLineNo());
+		    log(aAstReturn.getLineNo());
+		}
+	    }
     }
 
  
