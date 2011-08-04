@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2010  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.design;
 
 import java.util.ArrayList;
@@ -11,22 +29,61 @@ import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
+/**
+ * <p>
+ * Checks distance between declaration of variable and its first usage.
+ * </p>
+ * <p>
+ * Example1:
+ * </p>
+ * <pre>
+ *      <code>int count;
+ *      a = a + b;
+ *      b = a + a;
+ *      count = b; // DECLARATION OF VARIABLE 'count' SHOULD BE HERE (distance = 3)</code>
+ * </pre>
+ * Example2:
+ * <pre>
+ *     <code>int count;
+ *     {
+ *         a = a + b;
+ *         count = b; // DECLARATION OF VARIABLE 'count' SHOULD BE HERE (distance = 2)
+ *     }</code>
+ * </pre>
+ * <p>
+ * There is an additional option to ignore distance calculation for variables listed in RegExp.
+ * </p>
+ *
+ * @author <a href="mailto:rd.ryly@gmail.com">Ruslan Diachenko</a>
+ */
 public class VariableDeclarationUsageDistanceCheck extends Check {
 
-	private int allowedDistance = 1;
+	/**	Allowed distance between declaration of variable and its first usage. */
+	private int mAllowedDistance = 1;
 
-	private Pattern ignoreVariablePattern = Pattern.compile("");
+	/** RegExp pattern to ignore distance calculation for variables listed in this pattern. */
+	private Pattern mIgnoreVariablePattern = Pattern.compile("");
 
-	private int lineIndexWithVariableUsage;
+	/** Line index where variable is used first. */
+	private int mLineIndexWithVariableUsage;
 
-	private boolean variableFound;
+	/** Identifies if variable was used after its declaration. */
+	private boolean mVariableFound;
 
-	public void setAllowedDistance(int allowedDistance) {
-		this.allowedDistance = allowedDistance;
+	/**
+	 * Sets an allowed distance between declaration of variable and its first usage.
+	 * @param aAllowedDistance Allowed distance between declaration of variable and its first usage.
+	 */
+	public void setAllowedDistance(int aAllowedDistance) {
+		this.mAllowedDistance = aAllowedDistance;
 	}
 
-	public void setIgnoreVariablePattern(String ignorePattern) {
-		ignoreVariablePattern = Pattern.compile(ignorePattern);
+	/**
+	 * Sets RegExp pattern to ignore distance calculation for variables listed in this pattern.
+	 * @param aIgnorePattern Pattern contains ignored variables.
+	 */
+	public void setIgnoreVariablePattern(String aIgnorePattern) {
+		mIgnoreVariablePattern = Pattern.compile(aIgnorePattern);
 	}
 
 	@Override
@@ -36,30 +93,34 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	@Override
 	public void visitToken(DetailAST aAST) {
-		variableFound = false;
+		mVariableFound = false;
 		int parentType = aAST.getParent().getType();
 		DetailAST nextSibling = aAST.getNextSibling();
 		if (parentType != TokenTypes.OBJBLOCK && nextSibling != null && nextSibling.getType() == TokenTypes.SEMI) {
 			DetailAST variable = aAST.findFirstToken(TokenTypes.IDENT);
 			if (!isVariableMatchesPattern(variable.getText())) {
 				int dist = calculateDistance(nextSibling, variable);
-				if (variableFound) {
+				if (mVariableFound) {
 					dist++;
-					if (dist > allowedDistance && dist > 0) {
-						log(lineIndexWithVariableUsage, "variable.declaration.usage.distance", variable.getText());
-//						System.out.println("var = " + variable.getText() + "; dist = " + dist + "; error = "
-//								+ lineIndexWithVariableUsage);
+					if (dist > mAllowedDistance && dist > 0) {
+						log(mLineIndexWithVariableUsage, "variable.declaration.usage.distance", variable.getText());
 					}
 				}
 			}
 		}
 	}
 
-	private int calculateDistance(DetailAST ast, DetailAST variable) {
+	/**
+	 * Calculates distance between declaration of variable and its first usage.
+	 * @param aAST Regular node of AST which is checked for content of checking variable.
+	 * @param aVariable Variable which distance is calculated for.
+	 * @return Distance between declaration of variable and its first usage.
+	 */
+	private int calculateDistance(DetailAST aAST, DetailAST aVariable) {
 		int dist = 0;
 		boolean errorLineWasFound = false;
 		boolean variableFirstFound = false;
-		DetailAST nextSibling = ast;
+		DetailAST nextSibling = aAST;
 		int variableNumInForBlock = 0;
 		boolean forBlockMeet = false;
 		List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
@@ -72,19 +133,19 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			case TokenTypes.FOR_ITERATOR:
 			case TokenTypes.FOR_EACH_CLAUSE:
 				forBlockMeet = true;
-				if (isASTContainsElement(nextSibling, variable)) {
+				if (isASTContainsElement(nextSibling, aVariable)) {
 					variableNumInForBlock++;
 				}
 				break;
 			default:
 				if (nextSibling.getFirstChild() != null) {
-					if (isASTContainsElement(nextSibling, variable)) {
+					if (isASTContainsElement(nextSibling, aVariable)) {
 						exprWithVariableList.add(nextSibling);
 						if (!errorLineWasFound) {
-							lineIndexWithVariableUsage = nextSibling.getLineNo();
+							mLineIndexWithVariableUsage = nextSibling.getLineNo();
 							errorLineWasFound = true;
 						}
-						variableFound = true;
+						mVariableFound = true;
 						variableFirstFound = true;
 					} else {
 						if (!variableFirstFound) {
@@ -106,7 +167,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			if (exprWithVariableList.size() == 1) {
 				if (blockWithVariable.getType() != TokenTypes.VARIABLE_DEF
 						&& blockWithVariable.getType() != TokenTypes.EXPR) {
-					dist += calculateDistance(blockWithVariable.getFirstChild(), variable);
+					dist += calculateDistance(blockWithVariable.getFirstChild(), aVariable);
 				}
 			}
 		} else {
@@ -117,14 +178,20 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		return dist;
 	}
 
-	private boolean isASTContainsElement(DetailAST ast, DetailAST element) {
+	/**
+	 * Checks if AST node contains given element.
+	 * @param aAST Node of AST.
+	 * @param aElement AST element which is checked for content in AST node.
+	 * @return true if AST element was found in AST node, otherwise - false.
+	 */
+	private boolean isASTContainsElement(DetailAST aAST, DetailAST aElement) {
 		boolean isASTContainsElement = false;
-		ASTEnumeration astList = ast.findAllPartial(element);
+		ASTEnumeration astList = aAST.findAllPartial(aElement);
 		while (astList.hasMoreNodes()) {
 			DetailAST astElement = (DetailAST) astList.nextNode();
 			DetailAST astElementParent = astElement.getParent();
 			while (astElementParent != null) {
-				if (astElementParent.equals(ast) && astElementParent.getLineNo() == ast.getLineNo()) {
+				if (astElementParent.equals(aAST) && astElementParent.getLineNo() == aAST.getLineNo()) {
 					isASTContainsElement = true;
 					break;
 				}
@@ -134,8 +201,13 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		return isASTContainsElement;
 	}
 
-	private boolean isVariableMatchesPattern(String variable) {
-		Matcher matcher = ignoreVariablePattern.matcher(variable);
+	/**
+	 * Checks if entrance variable is contained in ignored pattern.
+	 * @param aVariable Variable which is checked for content in ignored pattern.
+	 * @return true if variable was found, otherwise - false.
+	 */
+	private boolean isVariableMatchesPattern(String aVariable) {
+		Matcher matcher = mIgnoreVariablePattern.matcher(aVariable);
 		return matcher.matches();
 	}
 }
