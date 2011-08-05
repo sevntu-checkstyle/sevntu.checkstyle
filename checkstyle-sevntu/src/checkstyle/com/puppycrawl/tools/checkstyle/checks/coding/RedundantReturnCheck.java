@@ -56,25 +56,30 @@ public class RedundantReturnCheck extends Check {
      *            - a method or constructor object block
      */
     private void checkForRedundantReturn(DetailAST aMethodObjectBlock) {
+    	
+    final int methodChildCount = aMethodObjectBlock.getChildCount();
+    	
+    if (!(methodChildCount == 1)) {
+    	
+    	final int placeForRedundantReturn = aMethodObjectBlock.getLastChild()
+    			.getPreviousSibling().getType();
 
-	final int placeForRedundantReturn = aMethodObjectBlock.getLastChild()
-		.getPreviousSibling().getType();
+    	final int methodWithSingleChild = 2;
 
-	final int methodWithSingleChild = 2;
+    	if (methodChildCount > methodWithSingleChild) {
 
-	if (aMethodObjectBlock.getChildCount() > methodWithSingleChild) {
+    		handlePlacesForRedundantReturn(placeForRedundantReturn, aMethodObjectBlock);
+    	} else {
 
-	    handlePlacesForRedundantReturn(placeForRedundantReturn, aMethodObjectBlock);
-	} else {
+    		if (mAvoidEmptyMethodsAndConstructors) {
+    			handlePlacesForRedundantReturn(placeForRedundantReturn, aMethodObjectBlock);
+    		}
 
-	    if (mAvoidEmptyMethodsAndConstructors) {
-		handlePlacesForRedundantReturn(placeForRedundantReturn, aMethodObjectBlock);
-	    }
-
-	    if (placeForRedundantReturn == TokenTypes.LITERAL_TRY) {
-		submitRedundantReturnInTryCatch(aMethodObjectBlock.getFirstChild());
-	    }
-	}
+    		if (placeForRedundantReturn == TokenTypes.LITERAL_TRY) {
+    			submitRedundantReturnInTryCatch(aMethodObjectBlock.getFirstChild());
+    		}
+    	}
+    }
     }
 
     /**

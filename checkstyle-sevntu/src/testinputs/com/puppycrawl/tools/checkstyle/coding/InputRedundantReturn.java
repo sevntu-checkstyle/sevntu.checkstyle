@@ -107,4 +107,9 @@ public class HelloWorld {
 		}
 	}
 	
+	public HelloWorld(){}//c-tor
+	
+	public HelloWorld(){
+		//no code
+	}//c-tor
 }
