@@ -84,7 +84,7 @@ public class HelloWorld {
 	}//testNoBraces2
 	
 	private class MyTestClass{
-	
+		public MyTestClass(){}
 		public void testMethod(){
 			return;
 		}	
@@ -106,10 +106,4 @@ public class HelloWorld {
 		    	return;
 		}
 	}
-	
-	public HelloWorld(){}//c-tor
-	
-	public HelloWorld(){
-		//no code
-	}//c-tor
 }

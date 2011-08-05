@@ -59,7 +59,7 @@ public class RedundantReturnCheck extends Check {
     	
     final int methodChildCount = aMethodObjectBlock.getChildCount();
     	
-    if (!(methodChildCount == 1)) {
+    if (methodChildCount != 1) {
     	
     	final int placeForRedundantReturn = aMethodObjectBlock.getLastChild()
     			.getPreviousSibling().getType();
