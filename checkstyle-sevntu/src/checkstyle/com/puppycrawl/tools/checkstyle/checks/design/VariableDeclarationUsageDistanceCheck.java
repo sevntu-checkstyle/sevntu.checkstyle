@@ -33,16 +33,17 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Checks distance between declaration of variable and its first usage.
  * </p>
- * <p>
- * Example1:
- * </p>
+ * Example #1:
+ * 
  * <pre>
  *      <code>int count;
  *      a = a + b;
  *      b = a + a;
  *      count = b; // DECLARATION OF VARIABLE 'count' SHOULD BE HERE (distance = 3)</code>
  * </pre>
- * Example2:
+ * 
+ * Example #2:
+ * 
  * <pre>
  *     <code>int count;
  *     {
@@ -53,22 +54,62 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * There is an additional option to ignore distance calculation for variables listed in RegExp.
  * </p>
- *
+ * NOTICE!
+ * 
+ * <pre>
+ * Case #1:
+ * 
+ * <code>{
+ * int c;
+ * int a = 3;
+ * int b = 2;
+ *     {
+ *     a = a + b;
+ *     c = b;
+ *     }
+ * }</code>
+ * 
+ * Distance for variable 'a' = 1;
+ * Distance for variable 'b' = 1;
+ * Distance for variable 'c' = 2.
+ * </pre>
+ * 
+ * As distance by default is 1 the Check doesn't raise warning for variables 'a' and 'b' to move them into the block.
+ * 
+ * <pre>
+ * Case #2:
+ * 
+ * <code>int sum = 0;
+ * for (int i = 0; i < 20; i++) {
+ *     a++;
+ *     b--;
+ *     sum++;
+ *     if (sum > 10) {
+ *         res = true;
+ *     }
+ * }</code>
+ * 
+ * Distance for variable 'sum' = 3.
+ * </pre>
+ * <p>
+ * As distance more then default one, the Check raises warning for variable 'sum' to move it into the 'for(...)' block.
+ * But there is situation when variable 'sum' hasn't to be 0 within each iteration. So, to avoid such warnings you can
+ * use Suppression Filter, provided by Checkstyle, for the whole class.
+ * </p>
+ * 
  * @author <a href="mailto:rd.ryly@gmail.com">Ruslan Diachenko</a>
  */
 public class VariableDeclarationUsageDistanceCheck extends Check {
-
-	/**	Allowed distance between declaration of variable and its first usage. */
+	// Allowed distance between declaration of variable and its first usage.
 	private int mAllowedDistance = 1;
 
-	/** RegExp pattern to ignore distance calculation for variables listed in this pattern. */
+	// RegExp pattern to ignore distance calculation for variables listed in
+	// this pattern.
 	private Pattern mIgnoreVariablePattern = Pattern.compile("");
-
-	/** Identifies if variable was used after its declaration. */
-	private boolean mVariableFound;
 
 	/**
 	 * Sets an allowed distance between declaration of variable and its first usage.
+	 * 
 	 * @param aAllowedDistance Allowed distance between declaration of variable and its first usage.
 	 */
 	public void setAllowedDistance(int aAllowedDistance) {
@@ -77,6 +118,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	/**
 	 * Sets RegExp pattern to ignore distance calculation for variables listed in this pattern.
+	 * 
 	 * @param aIgnorePattern Pattern contains ignored variables.
 	 */
 	public void setIgnoreVariablePattern(String aIgnorePattern) {
@@ -90,18 +132,21 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	@Override
 	public void visitToken(DetailAST aAST) {
-		mVariableFound = false;
 		int parentType = aAST.getParent().getType();
 		DetailAST nextSibling = aAST.getNextSibling();
-		if (parentType != TokenTypes.OBJBLOCK && nextSibling != null && nextSibling.getType() == TokenTypes.SEMI) {
+		if (parentType != TokenTypes.OBJBLOCK && nextSibling != null
+				&& nextSibling.getType() == TokenTypes.SEMI) {
 			DetailAST variable = aAST.findFirstToken(TokenTypes.IDENT);
-			if (!isVariableMatchesPattern(variable.getText())) {
-				int dist = calculateDistance(nextSibling, variable);
-				if (mVariableFound) {
+			if (mAllowedDistance > 0) {
+				if (!isVariableMatchesPattern(variable.getText())) {
+					int dist = calculateDistance(nextSibling, variable);
 					dist++;
-					if (dist > mAllowedDistance && dist > 0) {
-						log(variable.getLineNo(), "variable.declaration.usage.distance", dist, mAllowedDistance);
-//						System.out.println("var = " + variable.getText() + "; dist = " + dist + "; error = " + variable.getLineNo());
+					if (dist > mAllowedDistance) {
+						log(variable.getLineNo(),
+								"variable.declaration.usage.distance",
+								variable.getText(), dist, mAllowedDistance);
+						// System.out.println(variable.getLineNo() + ": var = "
+						// + variable.getText() + "; dist = " + dist);
 					}
 				}
 			}
@@ -110,6 +155,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	/**
 	 * Calculates distance between declaration of variable and its first usage.
+	 * 
 	 * @param aAST Regular node of AST which is checked for content of checking variable.
 	 * @param aVariable Variable which distance is calculated for.
 	 * @return Distance between declaration of variable and its first usage.
@@ -118,27 +164,75 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 		int dist = 0;
 		boolean variableFirstFound = false;
 		DetailAST nextSibling = aAST;
-		int variableNumInForBlock = 0;
-		boolean forBlockMeet = false;
 		List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
-		while (nextSibling != null && nextSibling.getType() != TokenTypes.RCURLY) {
+		while (nextSibling != null
+				&& nextSibling.getType() != TokenTypes.RCURLY) {
 			switch (nextSibling.getType()) {
 			case TokenTypes.CASE_GROUP:
-				break;
 			case TokenTypes.FOR_INIT:
 			case TokenTypes.FOR_CONDITION:
 			case TokenTypes.FOR_ITERATOR:
 			case TokenTypes.FOR_EACH_CLAUSE:
-				forBlockMeet = true;
+			case TokenTypes.PARAMETER_DEF:
+				break;
+			case TokenTypes.LITERAL_IF:
 				if (isASTContainsElement(nextSibling, aVariable)) {
-					variableNumInForBlock++;
+					DetailAST tokenCatainsVariable = getTokenContainsVariable(
+							nextSibling, TokenTypes.SLIST, aVariable);
+					if (tokenCatainsVariable != null) {
+						exprWithVariableList.add(tokenCatainsVariable);
+					}
+
+					tokenCatainsVariable = getTokenContainsVariable(
+							nextSibling, TokenTypes.LITERAL_ELSE, aVariable);
+					if (tokenCatainsVariable != null) {
+						exprWithVariableList.add(tokenCatainsVariable);
+					}
+
+					variableFirstFound = true;
+				} else {
+					if (!variableFirstFound) {
+						dist++;
+					}
+				}
+				break;
+			case TokenTypes.VARIABLE_DEF:
+				if (isASTContainsElement(nextSibling, aVariable)) {
+					exprWithVariableList.add(nextSibling);
+					variableFirstFound = true;
+				}
+				break;
+			case TokenTypes.LITERAL_TRY:
+				if (isASTContainsElement(nextSibling, aVariable)) {
+					DetailAST tokenCatainsVariable = getTokenContainsVariable(
+							nextSibling, TokenTypes.SLIST, aVariable);
+					if (tokenCatainsVariable != null) {
+						exprWithVariableList.add(tokenCatainsVariable);
+					}
+
+					tokenCatainsVariable = getTokenContainsVariable(
+							nextSibling, TokenTypes.LITERAL_CATCH, aVariable);
+					if (tokenCatainsVariable != null) {
+						exprWithVariableList.add(tokenCatainsVariable);
+					}
+
+					tokenCatainsVariable = getTokenContainsVariable(
+							nextSibling, TokenTypes.LITERAL_FINALLY, aVariable);
+					if (tokenCatainsVariable != null) {
+						exprWithVariableList.add(tokenCatainsVariable);
+					}
+
+					variableFirstFound = true;
+				} else {
+					if (!variableFirstFound) {
+						dist++;
+					}
 				}
 				break;
 			default:
 				if (nextSibling.getFirstChild() != null) {
 					if (isASTContainsElement(nextSibling, aVariable)) {
 						exprWithVariableList.add(nextSibling);
-						mVariableFound = true;
 						variableFirstFound = true;
 					} else {
 						if (!variableFirstFound) {
@@ -150,17 +244,14 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			nextSibling = nextSibling.getNextSibling();
 		}
 
-		if (forBlockMeet && variableNumInForBlock == 0) {
-			dist++;
-		}
-
 		if (exprWithVariableList.size() != 0) {
 			DetailAST blockWithVariable = exprWithVariableList.get(0);
 
 			if (exprWithVariableList.size() == 1) {
 				if (blockWithVariable.getType() != TokenTypes.VARIABLE_DEF
 						&& blockWithVariable.getType() != TokenTypes.EXPR) {
-					dist += calculateDistance(blockWithVariable.getFirstChild(), aVariable);
+					dist += calculateDistance(
+							blockWithVariable.getFirstChild(), aVariable);
 				}
 			}
 		} else {
@@ -172,7 +263,31 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 	}
 
 	/**
+	 * Finds AST specified token and returns it if this token contains aVariable.
+	 * 
+	 * @param aAST AST which may contains specified token.
+	 * @param token AST token which is looked for.
+	 * @param aVariable Variable which is checked for content in AST token.
+	 * @return Token which contains aVariable, otherwise - null.
+	 */
+	private DetailAST getTokenContainsVariable(DetailAST aAST, int token,
+			DetailAST aVariable) {
+		DetailAST tokenContainsVariable = null;
+		if (isASTContainsElement(aAST, aVariable)) {
+			DetailAST tokenContent = aAST.findFirstToken(token);
+			if (tokenContent != null && tokenContent.getParent().equals(aAST)
+					&& tokenContent.getParent().getLineNo() == aAST.getLineNo()) {
+				if (isASTContainsElement(tokenContent, aVariable)) {
+					tokenContainsVariable = tokenContent;
+				}
+			}
+		}
+		return tokenContainsVariable;
+	}
+
+	/**
 	 * Checks if AST node contains given element.
+	 * 
 	 * @param aAST Node of AST.
 	 * @param aElement AST element which is checked for content in AST node.
 	 * @return true if AST element was found in AST node, otherwise - false.
@@ -184,7 +299,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 			DetailAST astElement = (DetailAST) astList.nextNode();
 			DetailAST astElementParent = astElement.getParent();
 			while (astElementParent != null) {
-				if (astElementParent.equals(aAST) && astElementParent.getLineNo() == aAST.getLineNo()) {
+				if (astElementParent.equals(aAST)
+						&& astElementParent.getLineNo() == aAST.getLineNo()) {
 					isASTContainsElement = true;
 					break;
 				}
@@ -196,6 +312,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check {
 
 	/**
 	 * Checks if entrance variable is contained in ignored pattern.
+	 * 
 	 * @param aVariable Variable which is checked for content in ignored pattern.
 	 * @return true if variable was found, otherwise - false.
 	 */
