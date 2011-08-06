@@ -28,39 +28,33 @@ import com.puppycrawl.tools.checkstyle.api.Check;
 /**
  * <p>
  * This check prevents any calls to overridable methods that are take place in:
- * <ol>
- * <li>
+ * <ol><li>
  * Any constructor body (verification is always done by default and not
  * configurable).
  * <li>
  * Any method which works same as a constructor: clone() method from Cloneable
  * interface and readObject() method from Serializable interface (you can
- * individually switch on/of these methods verification by changing
+ * individually switch on/off these methods verification by changing
  * CheckCloneMethod and CheckReadObjectMethod properties).</li>
- * </ol>
- * <p>
+ * </ol><p>
  * Rationale:
  * <ol>
- * <li>
- * <q>Constructors must not invoke overridable methods, directly or indirectly.
- * If you violate this rule, program failure will result. The superclass
- * constructor runs before the subclass constructor, so the overriding method in
- * the subclass will be invoked before the subclass constructor has run. If the
- * overriding method depends on any initialization performed by the subclass
- * constructor, the method will not behave as expected.</q>
- *
+ * <li><q>Constructors must not invoke overridable methods, directly or
+ * indirectly. If you violate this rule, program failure will result. The
+ * superclass constructor runs before the subclass constructor, so the
+ * overriding method in the subclass will be invoked before the subclass
+ * constructor has run. If the overriding method depends on any
+ * initialization performed by the subclass constructor, the method will
+ * not behave as expected.</q>
  * <li><q>If you do decide to implement Cloneable or Serializable in a class
  * designed for inheritance, you should be aware that because the clone and
  * readObject methods behave a lot like constructors, a similar restriction
  * applies: neither clone nor readObject may invoke an overridable method,
  * directly or indirectly.</q>
- * </ol>
- * </p>
- * <br>
+ * </ol></p>
  * <p align="right">[Joshua Bloch - Effective Java 2nd Edition,
  * Chapter 4, Item 17]</p>
- * <br>
- * Here's an example to illustrate: <code> <pre>
+ * <br> Here's an example to illustrate: <code> <pre>
  * public class Example {
  *    public static void main(String[] args) {
  *        abstract class Base {
@@ -82,10 +76,9 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  * initializing the final int x, and the method gets the wrong value. This will
  * almost certainly lead to bugs and errors.
  * </p>
- * <br>
  * <p>
- * <i><b>Note:</b> This check doesn`t handle the situation when there is
- * a call to an overloaded method(s).</i> <br><br>Here`s an example:
+ * <i><b>Notes:</b><br><br>This check doesn`t handle the situation when there
+ * is a call to an overloaded method(s).</i><br>Here`s an example:
  *
  * <code> <pre> public class Test {
  *
@@ -116,6 +109,14 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  *   }
  * } </pre> </code>
  *
+ *<p><br>
+ * <i>Some specific method call types that aren`t supported by check:</i>
+ * </p>
+ * <li>BaseClass.InnerClass.this.methodName();</li>
+ * <li>InnerClass.this.methodName();</li>
+ * <li>and so on, using a similar hierarchy</li>
+ * </p>
+ *<br>
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
@@ -166,14 +167,14 @@ public class OverridableMethodInConstructorCheck extends Check
 
     /**
      * A boolean check box that enables the searching of calls to overridable
-     * methods from body of any clone() method is implemented from Cloneable
+     * methods from the body of any clone() method is implemented from Cloneable
      * interface.
      * */
     private boolean mCheckCloneMethod;
 
     /**
      * A boolean check box that enables the searching of calls to overridable
-     * methods from body of any readObject() method is implemented from
+     * methods from the body of any readObject() method is implemented from
      * Serializable interface.
      */
     private boolean mCheckReadObjectMethod;
@@ -214,7 +215,7 @@ public class OverridableMethodInConstructorCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[] {TokenTypes.CTOR_DEF, TokenTypes.METHOD_DEF };
+        return new int[] {TokenTypes.CTOR_DEF, TokenTypes.METHOD_DEF};
     }
 
     @Override
@@ -311,7 +312,12 @@ public class OverridableMethodInConstructorCheck extends Check
 
         for (DetailAST curNode : methodCallsList) {
             mVisitedMethodCalls.clear();
-            if (isOverridableMethodCall(curNode)) {
+            final DetailAST methodDef = getMethodDef(curNode);
+            if (methodDef != null
+                    && getMethodParamsCount(curNode)
+                        == getMethodParamsCount(methodDef)
+                    && isOverridableMethodCall(curNode))
+            {
                 result.add(curNode);
             }
         }
@@ -526,6 +532,39 @@ public class OverridableMethodInConstructorCheck extends Check
     }
 
     /**
+     * Gets the count of parameters for current method definitioin or
+     * method call.
+     * @param aMethodDefOrCallAST METHOD_DEF or METHOD_CALL
+     *     DetailAST node
+     * @return the count of parameters for current method.
+     */
+    private int getMethodParamsCount(DetailAST aMethodDefOrCallAST)
+    {
+
+        int result = 0;
+        DetailAST paramsParentAST = null;
+
+        if (aMethodDefOrCallAST.getType() == TokenTypes.METHOD_CALL) {
+            paramsParentAST = aMethodDefOrCallAST
+                    .findFirstToken(TokenTypes.ELIST);
+        }
+        else if (aMethodDefOrCallAST.getType() == TokenTypes.METHOD_DEF) {
+            paramsParentAST = aMethodDefOrCallAST
+                    .findFirstToken(TokenTypes.PARAMETERS);
+        }
+
+        if (paramsParentAST != null && paramsParentAST.getChildCount() != 0) {
+            for (DetailAST curNode : getChildren(paramsParentAST)) {
+                if (curNode.getType() == TokenTypes.COMMA) {
+                    result++;
+                }
+            }
+            result++;
+        }
+        return result;
+    }
+
+    /**
      * Checks that method or class is related to the current METHOD_DEF or
      * CLASS_DEF DetailAST node has a specified modifier (private, final etc).
      *
@@ -569,20 +608,18 @@ public class OverridableMethodInConstructorCheck extends Check
     private DetailAST getClassDef(final DetailAST aMethodNode)
     {
 
-        DetailAST result = null;
         DetailAST curNode = aMethodNode;
 
         while (curNode != null && curNode.getType() != TokenTypes.CLASS_DEF) {
             curNode = curNode.getParent();
         }
-        result = curNode;
 
-        return result;
+        return curNode;
     }
 
     /**
      * Checks that class realizes "anInterfaceName" interface (checks that class
-     * implements this interface or that it extends at least one class which
+     * implements this interface or has at least one parent class which
      * implements this interface).
      *
      * @param aClassDefNode
