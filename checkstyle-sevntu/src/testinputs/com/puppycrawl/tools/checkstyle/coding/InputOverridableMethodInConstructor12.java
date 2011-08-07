@@ -30,7 +30,7 @@ public class InputOverridableMethodInConstructor12 {
              doSmth(); // ! a warning here
              this.doSmth(); // ! a warning here
              Object1.doSmth(); // ! a warning here
-             Object2.doSmth3(); // ! a warning heree (check will look inside another inner classes, too =)
+             Object2.doSmth3(); // ! a warning here (check will look inside another inner classes, too =)
         }
 
         private static void doSmth() {

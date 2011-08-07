@@ -79,9 +79,16 @@
 
 
         <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
             <description>%OverridableMethodInConstructor.desc</description>
-            <message-key key="overridable.method.in.constructor" />
+            <property-metadata name="checkCloneMethod" datatype="Boolean" default-value="false">
+                <description>%OverridableMethodInConstructor.checkCloneMethod</description>
+            </property-metadata>
+            <property-metadata name="checkReadObjectMethod" datatype="Boolean" default-value="false">
+                <description>%OverridableMethodInConstructor.checkReadObjectMethod</description>
+            </property-metadata>
+            <message-key key="overridable.method" />
+            <message-key key="overridable.method.leads" />
         </rule-metadata>
 
 
