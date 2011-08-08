@@ -32,6 +32,7 @@ public class VariableDeclarationUsageDistanceCheckTest extends BaseCheckTestSupp
 				"261: Distance between variable 'model' declaration and its first usage is 2, but allowed 1.",
 				"287: Distance between variable 'sw' declaration and its first usage is 2, but allowed 1.",
 				"300: Distance between variable 'wh' declaration and its first usage is 2, but allowed 1.",
+				"329: Distance between variable 'logLevel' declaration and its first usage is 2, but allowed 1.",
 		};
 		verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"),
 				expected);
@@ -69,6 +70,7 @@ public class VariableDeclarationUsageDistanceCheckTest extends BaseCheckTestSupp
 				"261: Distance between variable 'model' declaration and its first usage is 2, but allowed 1.",
 				"287: Distance between variable 'sw' declaration and its first usage is 2, but allowed 1.",
 				"300: Distance between variable 'wh' declaration and its first usage is 2, but allowed 1.",
+				"329: Distance between variable 'logLevel' declaration and its first usage is 2, but allowed 1.",
 		};
 		verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
 	}

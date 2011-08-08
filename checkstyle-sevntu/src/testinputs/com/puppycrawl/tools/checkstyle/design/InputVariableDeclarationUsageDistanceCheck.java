@@ -323,4 +323,18 @@ public class InputVariableDeclarationUsageDistanceCheck {
 			i--;
 		}
 	}
+	
+	protected JMenuItem createSubMenuItem(LogLevel level) {
+	    final JMenuItem result = new JMenuItem(level.toString());
+	    final LogLevel logLevel = level;
+	    result.setMnemonic(level.toString().charAt(0));
+	    result.addActionListener(new ActionListener() {
+	      public void actionPerformed(ActionEvent e) {
+	        showLogLevelColorChangeDialog(result, logLevel); // DECLARATION OF VARIABLE 'logLevel' SHOULD BE HERE (distance = 2)
+	      }
+	    });
+
+	    return result;
+
+	  }
 }
