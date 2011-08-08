@@ -224,7 +224,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		a.setForward(d1);
 		d1.setReverse(a);
 		c.setForward(d2); // DECLARATION OF VARIABLE 'c' SHOULD BE HERE (distance = 3)
-						  // DECLARATION OF VARIABLE 'd2' SHOULD BE HERE (distance = 3)
+							// DECLARATION OF VARIABLE 'd2' SHOULD BE HERE (distance = 3)
 		d2.setReverse(c);
 		Serializable aid = s.save(a);
 		Serializable d2id = s.save(d2);
@@ -263,8 +263,64 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		a++;
 		for (int index = 0; index < paths.length; ++index) {
 			selected[index] = model.getNodeIndex(paths[index].getLastPathComponent()); // DECLARATION OF VARIABLE 'selected' SHOULD BE HERE (distance = 2)
-																					   // DECLARATION OF VARIABLE 'model' SHOULD BE HERE (distance = 2)
+																						// DECLARATION OF VARIABLE 'model' SHOULD BE HERE (distance = 2)
 		}
 		return selected;
+	}
+
+	public void testMethod15() {
+		String confDebug = subst(element.getAttribute(CONFIG_DEBUG_ATTR));
+		if (!confDebug.equals("") && !confDebug.equals("null")) {
+			LogLog.warn("The \"" + CONFIG_DEBUG_ATTR + "\" attribute is deprecated.");
+			LogLog.warn("Use the \"" + INTERNAL_DEBUG_ATTR + "\" attribute instead.");
+			LogLog.setInternalDebugging(OptionConverter.toBoolean(confDebug, true));
+		}
+
+		int i = 0;
+		int k = 7;
+		boolean b = false;
+		for (; i < k; i++) {
+			b = true;
+			k++;
+		}
+
+		int sw;
+		switch (i) {
+		case 0:
+			k++;
+			sw = 0; // DECLARATION OF VARIABLE 'sw' SHOULD BE HERE (distance = 2)
+			break;
+		case 1:
+			b = false;
+			break;
+		default:
+			b = true;
+		}
+
+		int wh;
+		b = true;
+		do {
+			k--;
+			i++;
+		} while (wh > 0); // DECLARATION OF VARIABLE 'wh' SHOULD BE HERE (distance = 2)
+
+		if (wh > 0) {
+			k++;
+		} else if (!b) {
+			i++;
+		} else {
+			i--;
+		}
+	}
+
+	public void testMethod16() {
+		int wh = 1;
+		if (i > 0) {
+			k++;
+		} else if (wh > 0) {
+			i++;
+		} else {
+			i--;
+		}
 	}
 }
