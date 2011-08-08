@@ -80,7 +80,7 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
     {
 
         String[] expected = {"10:32: "
-                + createLeadsMsg("overrideMe", mCtorKey), };
+                + createLeadsMsg("overrideMe", mCtorKey, "overrideMe2"), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor4.java"), expected);
@@ -91,8 +91,8 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
     {
 
         String[] expected = {
-            "10:32: " + createLeadsMsg("overrideMe", mCtorKey),
-            "11:27: " + createLeadsMsg("overrideMe", mCtorKey), };
+            "10:32: " + createLeadsMsg("overrideMe", mCtorKey, "overrideMe3"),
+            "11:27: " + createLeadsMsg("overrideMe", mCtorKey, "overrideMe3"), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor5.java"), expected);
@@ -133,7 +133,7 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
     public final void testCloneSecondDepth() throws Exception
     {
 
-        String[] expected = {"25:37: " + createLeadsMsg("doSmth", mCloneKey),
+        String[] expected = {"25:37: " + createLeadsMsg("doSmth", mCloneKey, "doSmth2"),
             "26:20: " + createMsg("doSmth2", mCloneKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -178,9 +178,9 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
     {
 
         String[] expected = {
-            "30:20: " + createLeadsMsg("doSmth", mReadObjectKey),
-            "31:25: " + createLeadsMsg("doSmth", mReadObjectKey),
-            "32:28: " + createLeadsMsg("doSmth", mReadObjectKey),
+            "30:20: " + createLeadsMsg("doSmth", mReadObjectKey, "doSmth3"),
+            "31:25: " + createLeadsMsg("doSmth", mReadObjectKey, "doSmth3"),
+            "32:28: " + createLeadsMsg("doSmth", mReadObjectKey, "doSmth3"),
             "33:29: " + createMsg("doSmth3", mReadObjectKey), };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -195,12 +195,12 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
         String[] expected = {"34:20: " + createMsg("doSmth", mReadObjectKey),
             "60:19: " + createMsg("doSmth", mReadObjectKey),
             "61:24: " + createMsg("doSmth", mReadObjectKey),
-            "62:20: " + createLeadsMsg("doSmth2", mReadObjectKey),
-            "63:25: " + createLeadsMsg("doSmth2", mReadObjectKey),
+            "62:20: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
+            "63:25: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
             "77:23: " + createMsg("doSmth", mReadObjectKey),
             "78:28: " + createMsg("doSmth", mReadObjectKey),
-            "80:24: " + createLeadsMsg("doSmth2", mReadObjectKey),
-            "81:29: " + createLeadsMsg("doSmth2", mReadObjectKey), };
+            "80:24: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
+            "81:29: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor14.java"), expected);
@@ -280,7 +280,7 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
     public final void testStackOverFlowErrorWithWarning() throws Exception
     {
 
-        String[] expected = {"4:15: " + createLeadsMsg("doSMTH", mCtorKey), };
+        String[] expected = {"4:15: " + createLeadsMsg("doSMTH", mCtorKey, "doPublic"), };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor22.java"), expected);
@@ -322,10 +322,10 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
                 + " body.";
     }
 
-    private String createLeadsMsg(String methodName, String where)
+    private String createLeadsMsg(String methodName, String where, String overridableName)
     {
         return "Calling the method '" + methodName + "' in " + where
-                + " body leads to the call(s) of the overridable method(s).";
+                + " body leads to the call of the overridable method '"+overridableName+"'.";
     }
 
 }

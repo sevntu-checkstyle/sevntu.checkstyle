@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.LinkedList;
@@ -178,6 +179,10 @@ public class OverridableMethodInConstructorCheck extends Check
      * Serializable interface.
      */
     private boolean mCheckReadObjectMethod;
+    /**
+     * Bla.
+     */
+    private String mCurOverridableMetName;
 
     /**
      * Method definitions counter for class is currently being processed.
@@ -277,18 +282,19 @@ public class OverridableMethodInConstructorCheck extends Check
     private void logWarnings(final DetailAST aDetailAST, final String aKey)
     {
 
-        final List<DetailAST> methodCallsToWarnList =
+        final List<OverridableMetCall> methodCallsToWarnList =
             getOverridables(aDetailAST);
 
-        for (DetailAST methodCallAST : methodCallsToWarnList) {
+        for (OverridableMetCall om : methodCallsToWarnList) {
             String msgKey = mKey;
-            final DetailAST methodDef = getMethodDef(methodCallAST);
+            final DetailAST methodDef = getMethodDef(om.mMetCallAST);
             if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
                     || hasModifier(methodDef, TokenTypes.FINAL))
             {
                 msgKey += ".leads";
             }
-            log(methodCallAST, msgKey, getMethodName(methodCallAST), aKey);
+            log(om.mMetCallAST, msgKey, getMethodName(om.mMetCallAST),
+                    aKey, om.mOverridableMetName);
         }
     }
 
@@ -304,21 +310,24 @@ public class OverridableMethodInConstructorCheck extends Check
      * @return A list of overridable methods calls for current method or
      *         constructor body.
      */
-    private List<DetailAST> getOverridables(final DetailAST aParentAST)
+    private List<OverridableMetCall> getOverridables(final DetailAST aParentAST)
     {
 
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<OverridableMetCall> result =
+            new LinkedList<OverridableMetCall>();
         final List<DetailAST> methodCallsList = getMethodCallsList(aParentAST);
 
         for (DetailAST curNode : methodCallsList) {
             mVisitedMethodCalls.clear();
             final DetailAST methodDef = getMethodDef(curNode);
+            // mCurOverridableMetName = "";
             if (methodDef != null
                     && getMethodParamsCount(curNode)
                         == getMethodParamsCount(methodDef)
                     && isOverridableMethodCall(curNode))
             {
-                result.add(curNode);
+                result.add(new OverridableMetCall(curNode,
+                        mCurOverridableMetName));
             }
         }
         return result;
@@ -361,6 +370,7 @@ public class OverridableMethodInConstructorCheck extends Check
                     }
                 }
                 else {
+                    mCurOverridableMetName = methodName;
                     result = true;
                 }
             }
@@ -795,6 +805,40 @@ public class OverridableMethodInConstructorCheck extends Check
             curNode = curNode.getNextSibling();
         }
         return result;
+    }
+
+    /**
+     * Class that incapsulates the DetailAST node related to the method call
+     * that leads to call of the overridable method and the name of
+     * overridable method.
+     */
+    private class OverridableMetCall
+    {
+        /**
+         * DetailAST node is related to the method call that leads to
+         *           call of the overridable method.
+         */
+        private DetailAST mMetCallAST;
+        /**
+         * The name of an overridable method.
+         */
+        private String mOverridableMetName;
+
+        /**
+         * Creates an instance of OverridableMetCall and initializes fields.
+         * @param aMethodCallAST
+         *            DetailAST node related to the method call that leads
+         *            to call of the overridable method.
+         * @param aOverridableMetName
+         *            The name of an overridable method.
+         */
+        public OverridableMetCall(DetailAST aMethodCallAST,
+                String aOverridableMetName)
+        {
+            super();
+            this.mMetCallAST = aMethodCallAST;
+            this.mOverridableMetName = aOverridableMetName;
+        }
     }
 
 }
