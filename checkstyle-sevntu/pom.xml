@@ -48,7 +48,7 @@
     <dependency>
 		<groupId>com.puppycrawl.tools</groupId>
 		<artifactId>checkstyle</artifactId>
-		<version>5.4-SNAPSHOT</version>
+		<version>5.5-SNAPSHOT</version>
     </dependency>
     
      <!-- test scope stuff -->
