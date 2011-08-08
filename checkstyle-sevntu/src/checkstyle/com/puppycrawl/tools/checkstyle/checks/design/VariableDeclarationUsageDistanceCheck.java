@@ -185,7 +185,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
         int dist = 0;
         boolean variableFirstFound = false;
         DetailAST nextSibling = aAST;
-
+        
         while (nextSibling != null
                 && nextSibling.getType() != TokenTypes.RCURLY) {
             if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
@@ -198,17 +198,12 @@ public class VariableDeclarationUsageDistanceCheck extends Check
             else {
                 if (nextSibling.getFirstChild() != null) {
                     if (isASTContainsElement(nextSibling, aVariable)) {
-                        DetailAST astSlistIdent = nextSibling;
-                        if (astSlistIdent.getType() != TokenTypes.SLIST) {
-                            astSlistIdent = nextSibling
-                                    .findFirstToken(TokenTypes.SLIST);
-                        }
-                        if (astSlistIdent == null) { // If another scope then break
+                        if (nextSibling.getType() == TokenTypes.SLIST
+                                || nextSibling.branchContains(TokenTypes.SLIST)) {
+                            variableFirstFound = false;
+                        } else {
                             dist++;
                             variableFirstFound = true;
-                        }
-                        else {
-                            variableFirstFound = false;
                         }
                         break;
                     }
