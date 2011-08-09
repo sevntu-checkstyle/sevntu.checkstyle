@@ -2,7 +2,7 @@ package com.puppycrawl.tools.checkstyle.design;
 
 public class InputVariableDeclarationUsageDistanceCheck {
 
-	private int test1;
+	private static final int test1;
 
 	static {
 		int b;
@@ -337,4 +337,43 @@ public class InputVariableDeclarationUsageDistanceCheck {
 	    return result;
 
 	  }
+	
+	public static Color darker(Color color, double fraction) {
+        int red = (int) Math.round(color.getRed() * (1.0 - fraction));
+        int green = (int) Math.round(color.getGreen() * (1.0 - fraction));
+        int blue = (int) Math.round(color.getBlue() * (1.0 - fraction));
+
+        if (red < 0) {
+            red = 0;
+        } else if (red > 255) {
+            red = 255;
+        }
+        if (green < 0) { // DECLARATION OF VARIABLE 'green' SHOULD BE HERE (distance = 2)
+            green = 0;
+        } else if (green > 255) {
+            green = 255;
+        }
+        if (blue < 0) { // DECLARATION OF VARIABLE 'blue' SHOULD BE HERE (distance = 3)
+            // blue = 0;
+        }
+
+        int alpha = color.getAlpha();
+
+        return new Color(red, green, blue, alpha);
+    }
+	
+	public void testFinal() {
+		AuthUpdateTask authUpdateTask = null;
+		final long intervalMs = 30 * 60000L; // 30 min
+
+        authUpdateTask = new AuthUpdateTask(authCheckUrl, authInfo, new IAuthListener() {
+            @Override
+            public void authTokenChanged(String cookie, String token) {
+                fireAuthTokenChanged(cookie, token);
+            }
+        });
+
+        Timer authUpdateTimer = new Timer("Auth Guard", true);
+        authUpdateTimer.schedule(authUpdateTask, intervalMs / 2, intervalMs); // DECLARATION OF VARIABLE 'intervalMs' SHOULD BE HERE (distance = 2)
+	}
 }
