@@ -52,8 +52,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     }</code>
  * </pre>
  * <p>
- * There is an additional option to ignore distance calculation for variables
- * listed in RegExp.
+ * There is an additional option to ignore distance calculation for variables listed in RegExp.
  * </p>
  * ATTENTION!! (Not supported cases)
  * 
@@ -75,8 +74,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Distance for variable 'c' = 2.
  * </pre>
  * 
- * As distance by default is 1 the Check doesn't raise warning for variables 'a'
- * and 'b' to move them into the block.
+ * As distance by default is 1 the Check doesn't raise warning for variables 'a' and 'b' to move them into the block.
  * 
  * <pre>
  * Case #2:
@@ -94,430 +92,455 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Distance for variable 'sum' = 3.
  * </pre>
  * <p>
- * As distance more then default one, the Check raises warning for variable
- * 'sum' to move it into the 'for(...)' block. But there is situation when
- * variable 'sum' hasn't to be 0 within each iteration. So, to avoid such
- * warnings you can use Suppression Filter, provided by Checkstyle, for the
- * whole class.
+ * As distance more then default one, the Check raises warning for variable 'sum' to move it into the 'for(...)' block.
+ * But there is situation when variable 'sum' hasn't to be 0 within each iteration. So, to avoid such warnings you can
+ * use Suppression Filter, provided by Checkstyle, for the whole class.
  * </p>
  * 
  * @author <a href="mailto:rd.ryly@gmail.com">Ruslan Diachenko</a>
  */
 public class VariableDeclarationUsageDistanceCheck extends Check
 {
-    // Allowed distance between declaration of variable and its first usage.
-    private int mAllowedDistance = 1;
+	// Allowed distance between declaration of variable and its first usage.
+	private int mAllowedDistance = 1;
 
-    // RegExp pattern to ignore distance calculation for variables listed in
-    // this pattern.
-    private Pattern mIgnoreVariablePattern = Pattern.compile("");
+	// RegExp pattern to ignore distance calculation for variables listed in
+	// this pattern.
+	private Pattern mIgnoreVariablePattern = Pattern.compile("");
 
-    private boolean validateBetweenScopes;
+	private boolean validateBetweenScopes;
 
-    /**
-     * Sets an allowed distance between declaration of variable and its first
-     * usage.
-     * 
-     * @param aAllowedDistance Allowed distance between declaration of variable
-     *            and its first usage.
-     */
-    public void setAllowedDistance(int aAllowedDistance)
-    {
-        this.mAllowedDistance = aAllowedDistance;
-    }
+	private boolean ignoreFinal = true;
 
-    /**
-     * Sets RegExp pattern to ignore distance calculation for variables listed
-     * in this pattern.
-     * 
-     * @param aIgnorePattern Pattern contains ignored variables.
-     */
-    public void setIgnoreVariablePattern(String aIgnorePattern)
-    {
-        mIgnoreVariablePattern = Pattern.compile(aIgnorePattern);
-    }
+	/**
+	 * Sets an allowed distance between declaration of variable and its first usage.
+	 * 
+	 * @param aAllowedDistance Allowed distance between declaration of variable and its first usage.
+	 */
+	public void setAllowedDistance(int aAllowedDistance)
+	{
+		this.mAllowedDistance = aAllowedDistance;
+	}
 
-    public void setValidateBetweenScopes(boolean validateBetweenScopes)
-    {
-        this.validateBetweenScopes = validateBetweenScopes;
-    }
+	/**
+	 * Sets RegExp pattern to ignore distance calculation for variables listed in this pattern.
+	 * 
+	 * @param aIgnorePattern Pattern contains ignored variables.
+	 */
+	public void setIgnoreVariablePattern(String aIgnorePattern)
+	{
+		mIgnoreVariablePattern = Pattern.compile(aIgnorePattern);
+	}
 
-    @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.VARIABLE_DEF, };
-    }
+	public void setValidateBetweenScopes(boolean validateBetweenScopes)
+	{
+		this.validateBetweenScopes = validateBetweenScopes;
+	}
 
-    @Override
-    public void visitToken(DetailAST aAST)
-    {
-        int parentType = aAST.getParent().getType();
-        DetailAST nextSibling = aAST.getNextSibling();
-        if (parentType != TokenTypes.OBJBLOCK && nextSibling != null
-                && nextSibling.getType() == TokenTypes.SEMI) {
-            DetailAST variable = aAST.findFirstToken(TokenTypes.IDENT);
-            if (mAllowedDistance > 0) {
-                if (!isVariableMatchesPattern(variable.getText())) {
-                    int dist = 0;
-                    if (validateBetweenScopes) {
-                        dist = calculateDistanceBetweenScopes(nextSibling,
-                                variable);
-                        dist++;
-                    }
-                    else {
-                        dist = calculateDistanceInSingleScope(nextSibling,
-                                variable);
-                    }
-                    if (dist > mAllowedDistance) {
-                        log(variable.getLineNo(),
-                                "variable.declaration.usage.distance",
-                                variable.getText(), dist, mAllowedDistance);
+	public void setIgnoreFinal(boolean ignoreFinal) {
+		this.ignoreFinal = ignoreFinal;
+	}
+
+	@Override
+	public int[] getDefaultTokens()
+	{
+		return new int[] { TokenTypes.VARIABLE_DEF, };
+	}
+
+	@Override
+	public void visitToken(DetailAST aAST)
+	{
+		int parentType = aAST.getParent().getType();
+		DetailAST nextSibling = aAST.getNextSibling();
+		if (parentType != TokenTypes.OBJBLOCK && nextSibling != null
+				&& nextSibling.getType() == TokenTypes.SEMI) {
+			DetailAST modifiers = aAST.getFirstChild();
+			if (ignoreFinal && modifiers.branchContains(TokenTypes.FINAL)) {
+				// No code!
+			} else {
+				DetailAST variable = aAST.findFirstToken(TokenTypes.IDENT);
+				if (mAllowedDistance > 0) {
+					if (!isVariableMatchesPattern(variable.getText())) {
+						int dist = 0;
+						if (validateBetweenScopes) {
+							dist = calculateDistanceBetweenScopes(nextSibling,
+									variable);
+							dist++;
+						}
+						else {
+							dist = calculateDistanceInSingleScope(nextSibling,
+									variable);
+						}
+						if (dist > mAllowedDistance) {
+							log(variable.getLineNo(),
+									"variable.declaration.usage.distance",
+									variable.getText(), dist, mAllowedDistance);
 //						System.out.println(variable.getLineNo() + ": var = "
 //								+ variable.getText() + "; dist = " + dist);
-                    }
-                }
-            }
-        }
-    }
+						}
+					}
+				}
+			}
+		}
+	}
 
-    private int calculateDistanceInSingleScope(DetailAST aAST, DetailAST aVariable)
-    {
-        int dist = 0;
-        boolean variableFirstFound = false;
-        DetailAST nextSibling = aAST;
-        
-        while (nextSibling != null
-                && nextSibling.getType() != TokenTypes.RCURLY) {
-            if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
-                if (isASTContainsElement(nextSibling, aVariable)) {
-                    dist++;
-                    variableFirstFound = true;
-                    break;
-                }
-            }
-            else {
-                if (nextSibling.getFirstChild() != null) {
-                    if (isASTContainsElement(nextSibling, aVariable)) {
-                        if (nextSibling.getType() == TokenTypes.SLIST
-                                || nextSibling.branchContains(TokenTypes.SLIST)) {
-                            variableFirstFound = false;
-                        } else {
-                            dist++;
-                            variableFirstFound = true;
-                        }
-                        break;
-                    }
-                    else {
-                        dist++;
-                    }
-                }
-            }
-            nextSibling = nextSibling.getNextSibling();
-        }
+	private int calculateDistanceInSingleScope(DetailAST aAST, DetailAST aVariable)
+	{
+		int dist = 0;
+		boolean variableFirstFound = false;
+		DetailAST nextSibling = aAST;
 
-        if (!variableFirstFound) {
-            dist = 0;
-        }
+		while (nextSibling != null
+				&& nextSibling.getType() != TokenTypes.RCURLY) {
+			if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
+				if (isASTContainsElement(nextSibling, aVariable)) {
+					dist++;
+					variableFirstFound = true;
+					break;
+				}
+			}
+			else {
+				if (nextSibling.getFirstChild() != null) {
+					if (isASTContainsElement(nextSibling, aVariable)) {
+						switch (nextSibling.getType()) {
+						case TokenTypes.SLIST:
+							variableFirstFound = false;
+							break;
+						case TokenTypes.LITERAL_FOR:
+						case TokenTypes.LITERAL_WHILE:
+						case TokenTypes.LITERAL_DO:
+						case TokenTypes.LITERAL_IF:
+						case TokenTypes.LITERAL_SWITCH:
+							if (isVariableInOperatorDeclaration(nextSibling,
+									aVariable)) {
+								dist++;
+								variableFirstFound = true;
+							}
+							else {
+								variableFirstFound = false;
+							}
+							break;
+						default:
+							if (nextSibling.branchContains(TokenTypes.SLIST)) {
+								variableFirstFound = false;
+							}
+							else {
+								dist++;
+								variableFirstFound = true;
+							}
+						}
+						break;
+					}
+					else {
+						dist++;
+					}
+				}
+			}
+			nextSibling = nextSibling.getNextSibling();
+		}
 
-        return dist;
-    }
+		if (!variableFirstFound) {
+			dist = 0;
+		}
 
-    /**
-     * Calculates distance between declaration of variable and its first usage.
-     * 
-     * @param aAST Regular node of AST which is checked for content of checking
-     *            variable.
-     * @param aVariable Variable which distance is calculated for.
-     * @return Distance between declaration of variable and its first usage.
-     */
-    private int calculateDistanceBetweenScopes(DetailAST aAST, DetailAST aVariable)
-    {
-        int dist = 0;
-        boolean variableFirstFound = false;
-        DetailAST nextSibling = aAST;
-        List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
+		return dist;
+	}
 
-        while (nextSibling != null
-                && nextSibling.getType() != TokenTypes.RCURLY) {
-            if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
-                if (isASTContainsElement(nextSibling, aVariable)) {
-                    exprWithVariableList.add(nextSibling);
-                    variableFirstFound = true;
-                }
-            }
-            else {
-                if (nextSibling.getFirstChild() != null) {
-                    if (isASTContainsElement(nextSibling, aVariable)) {
-                        exprWithVariableList.add(nextSibling);
-                        variableFirstFound = true;
-                    }
-                    else {
-                        if (!variableFirstFound) {
-                            dist++;
-                        }
-                    }
-                }
-            }
-            nextSibling = nextSibling.getNextSibling();
-        }
+	/**
+	 * Calculates distance between declaration of variable and its first usage.
+	 * 
+	 * @param aAST Regular node of AST which is checked for content of checking variable.
+	 * @param aVariable Variable which distance is calculated for.
+	 * @return Distance between declaration of variable and its first usage.
+	 */
+	private int calculateDistanceBetweenScopes(DetailAST aAST, DetailAST aVariable)
+	{
+		int dist = 0;
+		boolean variableFirstFound = false;
+		DetailAST nextSibling = aAST;
+		List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
 
-        if (exprWithVariableList.size() == 1) {
-            DetailAST blockWithVariable = exprWithVariableList.get(0);
-            DetailAST childInBlock;
+		while (nextSibling != null
+				&& nextSibling.getType() != TokenTypes.RCURLY) {
+			if (nextSibling.getType() == TokenTypes.VARIABLE_DEF) {
+				if (isASTContainsElement(nextSibling, aVariable)) {
+					exprWithVariableList.add(nextSibling);
+					variableFirstFound = true;
+				}
+			}
+			else {
+				if (nextSibling.getFirstChild() != null) {
+					if (isASTContainsElement(nextSibling, aVariable)) {
+						exprWithVariableList.add(nextSibling);
+						variableFirstFound = true;
+					}
+					else {
+						if (!variableFirstFound) {
+							dist++;
+						}
+					}
+				}
+			}
+			nextSibling = nextSibling.getNextSibling();
+		}
 
-            switch (blockWithVariable.getType()) {
-            case TokenTypes.VARIABLE_DEF:
-            case TokenTypes.EXPR:
-                break;
+		if (exprWithVariableList.size() == 1) {
+			DetailAST blockWithVariable = exprWithVariableList.get(0);
+			DetailAST childInBlock;
 
-            case TokenTypes.LITERAL_FOR:
-            case TokenTypes.LITERAL_WHILE:
-                if (!isVariableInOperatorDeclaration(blockWithVariable,
-                        aVariable)) {
-                    childInBlock = blockWithVariable.getFirstChild();
-                    while (childInBlock != null
-                            && childInBlock.getType() != TokenTypes.RPAREN) {
-                        childInBlock = childInBlock.getNextSibling();
-                    }
-                    if (childInBlock != null) {
-                        childInBlock = childInBlock.getNextSibling();
-                        int childInBlockType = childInBlock.getType();
-                        if (childInBlockType == TokenTypes.SLIST) {
-                            dist += calculateDistanceBetweenScopes(
-                                    childInBlock.getFirstChild(),
-                                    aVariable);
-                        }
-                        else {
-                            if (childInBlockType != TokenTypes.VARIABLE_DEF
-                                    && childInBlockType != TokenTypes.EXPR) {
-                                dist += calculateDistanceBetweenScopes(
-                                        childInBlock,
-                                        aVariable);
-                            }
-                        }
-                    }
-                }
-                break;
+			switch (blockWithVariable.getType()) {
+			case TokenTypes.VARIABLE_DEF:
+			case TokenTypes.EXPR:
+				break;
 
-            case TokenTypes.LITERAL_DO:
-                if (!isVariableInOperatorDeclaration(blockWithVariable,
-                        aVariable)) {
-                    childInBlock = blockWithVariable.getFirstChild();
-                    int childInBlockType = childInBlock.getType();
-                    if (childInBlockType == TokenTypes.SLIST) {
-                        dist += calculateDistanceBetweenScopes(
-                                childInBlock.getFirstChild(),
-                                aVariable);
-                    }
-                    else {
-                        if (childInBlockType != TokenTypes.VARIABLE_DEF
-                                && childInBlockType != TokenTypes.EXPR) {
-                            dist += calculateDistanceBetweenScopes(
-                                    childInBlock,
-                                    aVariable);
-                        }
-                    }
-                }
-                break;
+			case TokenTypes.LITERAL_FOR:
+			case TokenTypes.LITERAL_WHILE:
+				if (!isVariableInOperatorDeclaration(blockWithVariable,
+						aVariable)) {
+					childInBlock = blockWithVariable.getFirstChild();
+					while (childInBlock != null
+							&& childInBlock.getType() != TokenTypes.RPAREN) {
+						childInBlock = childInBlock.getNextSibling();
+					}
+					if (childInBlock != null) {
+						childInBlock = childInBlock.getNextSibling();
+						int childInBlockType = childInBlock.getType();
+						if (childInBlockType == TokenTypes.SLIST) {
+							dist += calculateDistanceBetweenScopes(
+									childInBlock.getFirstChild(),
+									aVariable);
+						}
+						else {
+							if (childInBlockType != TokenTypes.VARIABLE_DEF
+									&& childInBlockType != TokenTypes.EXPR) {
+								dist += calculateDistanceBetweenScopes(
+										childInBlock,
+										aVariable);
+							}
+						}
+					}
+				}
+				break;
 
-            case TokenTypes.LITERAL_IF:
-                if (!isVariableInOperatorDeclaration(blockWithVariable,
-                        aVariable)) {
-                    childInBlock = blockWithVariable.getLastChild();
-                    exprWithVariableList = new ArrayList<DetailAST>();
+			case TokenTypes.LITERAL_DO:
+				if (!isVariableInOperatorDeclaration(blockWithVariable,
+						aVariable)) {
+					childInBlock = blockWithVariable.getFirstChild();
+					int childInBlockType = childInBlock.getType();
+					if (childInBlockType == TokenTypes.SLIST) {
+						dist += calculateDistanceBetweenScopes(
+								childInBlock.getFirstChild(),
+								aVariable);
+					}
+					else {
+						if (childInBlockType != TokenTypes.VARIABLE_DEF
+								&& childInBlockType != TokenTypes.EXPR) {
+							dist += calculateDistanceBetweenScopes(
+									childInBlock,
+									aVariable);
+						}
+					}
+				}
+				break;
 
-                    while (childInBlock != null
-                            && childInBlock.getType() == TokenTypes.LITERAL_ELSE) {
-                        DetailAST previousChild = childInBlock
-                                .getPreviousSibling();
-                        if (isASTContainsElement(previousChild, aVariable)) {
-                            exprWithVariableList.add(previousChild);
-                        }
-                        childInBlock = childInBlock.getFirstChild();
+			case TokenTypes.LITERAL_IF:
+				if (!isVariableInOperatorDeclaration(blockWithVariable,
+						aVariable)) {
+					childInBlock = blockWithVariable.getLastChild();
+					exprWithVariableList = new ArrayList<DetailAST>();
 
-                        if (childInBlock.getType() == TokenTypes.LITERAL_IF) {
-                            childInBlock = childInBlock.getLastChild();
-                        }
-                        else {
-                            if (isASTContainsElement(childInBlock, aVariable)) {
-                                exprWithVariableList.add(childInBlock);
-                                childInBlock = null;
-                            }
-                        }
-                    }
+					while (childInBlock != null
+							&& childInBlock.getType() == TokenTypes.LITERAL_ELSE) {
+						DetailAST previousChild = childInBlock
+								.getPreviousSibling();
+						if (isASTContainsElement(previousChild, aVariable)) {
+							exprWithVariableList.add(previousChild);
+						}
+						childInBlock = childInBlock.getFirstChild();
 
-                    if (childInBlock != null) {
-                        if (isASTContainsElement(childInBlock, aVariable)) {
-                            exprWithVariableList.add(childInBlock);
-                        }
-                    }
+						if (childInBlock.getType() == TokenTypes.LITERAL_IF) {
+							childInBlock = childInBlock.getLastChild();
+						}
+						else {
+							if (isASTContainsElement(childInBlock, aVariable)) {
+								exprWithVariableList.add(childInBlock);
+								childInBlock = null;
+							}
+						}
+					}
 
-                    if (exprWithVariableList.size() == 1) {
-                        dist += calculateDistanceBetweenScopes(
-                                exprWithVariableList.get(0),
-                                aVariable);
-                    }
-                }
-                break;
+					if (childInBlock != null) {
+						if (isASTContainsElement(childInBlock, aVariable)) {
+							exprWithVariableList.add(childInBlock);
+						}
+					}
 
-            case TokenTypes.LITERAL_SWITCH:
-                if (!isVariableInOperatorDeclaration(blockWithVariable,
-                        aVariable)) {
-                    childInBlock = blockWithVariable
-                            .findFirstToken(TokenTypes.CASE_GROUP);
-                    exprWithVariableList = new ArrayList<DetailAST>();
+					if (exprWithVariableList.size() == 1) {
+						dist += calculateDistanceBetweenScopes(
+								exprWithVariableList.get(0),
+								aVariable);
+					}
+				}
+				break;
 
-                    while (childInBlock != null
-                            && childInBlock.getType() == TokenTypes.CASE_GROUP) {
-                        DetailAST nextSiblingChild = childInBlock
-                                .getLastChild();
-                        if (isASTContainsElement(nextSiblingChild, aVariable)) {
-                            exprWithVariableList.add(nextSiblingChild);
-                        }
-                        childInBlock = childInBlock.getNextSibling();
-                    }
+			case TokenTypes.LITERAL_SWITCH:
+				if (!isVariableInOperatorDeclaration(blockWithVariable,
+						aVariable)) {
+					childInBlock = blockWithVariable
+							.findFirstToken(TokenTypes.CASE_GROUP);
+					exprWithVariableList = new ArrayList<DetailAST>();
 
-                    if (exprWithVariableList.size() == 1) {
-                        dist += calculateDistanceBetweenScopes(
-                                exprWithVariableList.get(0),
-                                aVariable);
-                    }
-                }
-                break;
+					while (childInBlock != null
+							&& childInBlock.getType() == TokenTypes.CASE_GROUP) {
+						DetailAST nextSiblingChild = childInBlock
+								.getLastChild();
+						if (isASTContainsElement(nextSiblingChild, aVariable)) {
+							exprWithVariableList.add(nextSiblingChild);
+						}
+						childInBlock = childInBlock.getNextSibling();
+					}
 
-            case TokenTypes.LITERAL_TRY:
-                childInBlock = blockWithVariable.getFirstChild();
-                exprWithVariableList = new ArrayList<DetailAST>();
+					if (exprWithVariableList.size() == 1) {
+						dist += calculateDistanceBetweenScopes(
+								exprWithVariableList.get(0),
+								aVariable);
+					}
+				}
+				break;
 
-                if (isASTContainsElement(childInBlock, aVariable)) {
-                    exprWithVariableList.add(childInBlock);
-                }
+			case TokenTypes.LITERAL_TRY:
+				childInBlock = blockWithVariable.getFirstChild();
+				exprWithVariableList = new ArrayList<DetailAST>();
 
-                childInBlock = childInBlock.getNextSibling();
-                while (childInBlock != null
-                        && childInBlock.getType() == TokenTypes.LITERAL_CATCH) {
-                    DetailAST nextSiblingChild = childInBlock.getLastChild();
-                    if (isASTContainsElement(nextSiblingChild, aVariable)) {
-                        exprWithVariableList.add(nextSiblingChild);
-                    }
-                    childInBlock = childInBlock.getNextSibling();
-                }
+				if (isASTContainsElement(childInBlock, aVariable)) {
+					exprWithVariableList.add(childInBlock);
+				}
 
-                if (childInBlock != null) {
-                    DetailAST nextSiblingChild = childInBlock.getLastChild();
-                    if (isASTContainsElement(nextSiblingChild, aVariable)) {
-                        exprWithVariableList.add(nextSiblingChild);
-                    }
-                }
+				childInBlock = childInBlock.getNextSibling();
+				while (childInBlock != null
+						&& childInBlock.getType() == TokenTypes.LITERAL_CATCH) {
+					DetailAST nextSiblingChild = childInBlock.getLastChild();
+					if (isASTContainsElement(nextSiblingChild, aVariable)) {
+						exprWithVariableList.add(nextSiblingChild);
+					}
+					childInBlock = childInBlock.getNextSibling();
+				}
 
-                if (exprWithVariableList.size() == 1) {
-                    dist += calculateDistanceBetweenScopes(
-                            exprWithVariableList.get(0).getFirstChild(),
-                            aVariable);
-                }
-                break;
+				if (childInBlock != null) {
+					DetailAST nextSiblingChild = childInBlock.getLastChild();
+					if (isASTContainsElement(nextSiblingChild, aVariable)) {
+						exprWithVariableList.add(nextSiblingChild);
+					}
+				}
 
-            default:
-                dist += calculateDistanceBetweenScopes(
-                        blockWithVariable.getFirstChild(),
-                        aVariable);
-            }
-        }
-        else {
-            if (!variableFirstFound) {
-                dist = 0;
-            }
-        }
+				if (exprWithVariableList.size() == 1) {
+					dist += calculateDistanceBetweenScopes(
+							exprWithVariableList.get(0).getFirstChild(),
+							aVariable);
+				}
+				break;
 
-        return dist;
-    }
+			default:
+				dist += calculateDistanceBetweenScopes(
+						blockWithVariable.getFirstChild(),
+						aVariable);
+			}
+		}
+		else {
+			if (!variableFirstFound) {
+				dist = 0;
+			}
+		}
 
-    private boolean isVariableInOperatorDeclaration(DetailAST aASTSibling, DetailAST aVariable)
-    {
-        boolean isVarInOperatorDeclr = false;
-        DetailAST nextSibling = aASTSibling.getFirstChild();
+		return dist;
+	}
 
-        while (nextSibling != null
-                && nextSibling.getType() != TokenTypes.LPAREN) {
-            nextSibling = nextSibling.getNextSibling();
-        }
+	private boolean isVariableInOperatorDeclaration(DetailAST aASTSibling, DetailAST aVariable)
+	{
+		boolean isVarInOperatorDeclr = false;
+		DetailAST nextSibling = aASTSibling.getFirstChild();
 
-        if (nextSibling != null) {
-            nextSibling = nextSibling.getNextSibling(); // Get EXPR between braces
-            if (isASTContainsElement(nextSibling, aVariable)) {
-                isVarInOperatorDeclr = true;
-            }
-            else {
-                switch (aASTSibling.getType()) {
-                case TokenTypes.LITERAL_IF:
-                    nextSibling = aASTSibling.getLastChild();
-                    if (nextSibling.getType() == TokenTypes.LITERAL_ELSE) {
-                        nextSibling = nextSibling.getFirstChild(); // Get IF followed by ELSE
-                        if (nextSibling.getType() == TokenTypes.LITERAL_IF) {
-                            isVarInOperatorDeclr |= isVariableInOperatorDeclaration(
-                                    nextSibling, aVariable);
-                        }
-                    }
-                    break;
+		while (nextSibling != null
+				&& nextSibling.getType() != TokenTypes.LPAREN) {
+			nextSibling = nextSibling.getNextSibling();
+		}
 
-                case TokenTypes.LITERAL_SWITCH:
-                    nextSibling = aASTSibling
-                            .findFirstToken(TokenTypes.CASE_GROUP);
-                    while (nextSibling != null
-                            && nextSibling.getType() == TokenTypes.CASE_GROUP) {
-                        DetailAST nextSiblingChild = nextSibling
-                                .getFirstChild();
-                        if (isASTContainsElement(nextSiblingChild, aVariable)) {
-                            isVarInOperatorDeclr = true;
-                            break;
-                        }
-                        nextSibling = nextSibling.getNextSibling();
-                    }
-                    break;
+		if (nextSibling != null) {
+			nextSibling = nextSibling.getNextSibling(); // Get EXPR between braces
+			if (isASTContainsElement(nextSibling, aVariable)) {
+				isVarInOperatorDeclr = true;
+			}
+			else {
+				switch (aASTSibling.getType()) {
+				case TokenTypes.LITERAL_IF:
+					nextSibling = aASTSibling.getLastChild();
+					if (nextSibling.getType() == TokenTypes.LITERAL_ELSE) {
+						nextSibling = nextSibling.getFirstChild(); // Get IF followed by ELSE
+						if (nextSibling.getType() == TokenTypes.LITERAL_IF) {
+							isVarInOperatorDeclr |= isVariableInOperatorDeclaration(
+									nextSibling, aVariable);
+						}
+					}
+					break;
 
-                default:
-                }
-            }
-        }
+				case TokenTypes.LITERAL_SWITCH:
+					nextSibling = aASTSibling
+							.findFirstToken(TokenTypes.CASE_GROUP);
+					while (nextSibling != null
+							&& nextSibling.getType() == TokenTypes.CASE_GROUP) {
+						DetailAST nextSiblingChild = nextSibling
+								.getFirstChild();
+						if (isASTContainsElement(nextSiblingChild, aVariable)) {
+							isVarInOperatorDeclr = true;
+							break;
+						}
+						nextSibling = nextSibling.getNextSibling();
+					}
+					break;
 
-        return isVarInOperatorDeclr;
-    }
+				default:
+				}
+			}
+		}
 
-    /**
-     * Checks if AST node contains given element.
-     * @param aAST Node of AST.
-     * @param aElement AST element which is checked for content in AST node.
-     * @return true if AST element was found in AST node, otherwise - false.
-     */
-    private boolean isASTContainsElement(DetailAST aAST, DetailAST aElement)
-    {
-        boolean isASTContainsElement = false;
-        ASTEnumeration astList = aAST.findAllPartial(aElement);
-        while (astList.hasMoreNodes()) {
-            DetailAST astElement = (DetailAST) astList.nextNode();
-            DetailAST astElementParent = astElement.getParent();
-            while (astElementParent != null) {
-                if (astElementParent.equals(aAST)
-                        && astElementParent.getLineNo() == aAST.getLineNo()) {
-                    isASTContainsElement = true;
-                    break;
-                }
-                astElementParent = astElementParent.getParent();
-            }
-        }
-        return isASTContainsElement;
-    }
+		return isVarInOperatorDeclr;
+	}
 
-    /**
-     * Checks if entrance variable is contained in ignored pattern.
-     * 
-     * @param aVariable Variable which is checked for content in ignored
-     *            pattern.
-     * @return true if variable was found, otherwise - false.
-     */
-    private boolean isVariableMatchesPattern(String aVariable)
-    {
-        Matcher matcher = mIgnoreVariablePattern.matcher(aVariable);
-        return matcher.matches();
-    }
+	/**
+	 * Checks if AST node contains given element.
+	 * 
+	 * @param aAST Node of AST.
+	 * @param aElement AST element which is checked for content in AST node.
+	 * @return true if AST element was found in AST node, otherwise - false.
+	 */
+	private boolean isASTContainsElement(DetailAST aAST, DetailAST aElement)
+	{
+		boolean isASTContainsElement = false;
+		ASTEnumeration astList = aAST.findAllPartial(aElement);
+		while (astList.hasMoreNodes()) {
+			DetailAST astElement = (DetailAST) astList.nextNode();
+			DetailAST astElementParent = astElement.getParent();
+			while (astElementParent != null) {
+				if (astElementParent.equals(aAST)
+						&& astElementParent.getLineNo() == aAST.getLineNo()) {
+					isASTContainsElement = true;
+					break;
+				}
+				astElementParent = astElementParent.getParent();
+			}
+		}
+		return isASTContainsElement;
+	}
+
+	/**
+	 * Checks if entrance variable is contained in ignored pattern.
+	 * 
+	 * @param aVariable Variable which is checked for content in ignored pattern.
+	 * @return true if variable was found, otherwise - false.
+	 */
+	private boolean isVariableMatchesPattern(String aVariable)
+	{
+		Matcher matcher = mIgnoreVariablePattern.matcher(aVariable);
+		return matcher.matches();
+	}
 }
