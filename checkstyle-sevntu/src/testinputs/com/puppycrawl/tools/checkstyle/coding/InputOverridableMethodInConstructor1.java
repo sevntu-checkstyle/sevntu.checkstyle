@@ -8,7 +8,6 @@ public class InputOverridableMethodInConstructor1 {
              Base1() {
                 System.out.println("Base C-tor ");
                 overrideMe(); // no warnings here
-                this.toString();
             }
 
             private void overrideMe() {
