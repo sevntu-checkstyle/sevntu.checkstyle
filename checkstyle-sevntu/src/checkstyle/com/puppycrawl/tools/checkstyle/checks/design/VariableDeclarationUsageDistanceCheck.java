@@ -187,20 +187,19 @@ public class VariableDeclarationUsageDistanceCheck extends Check
         if ((mIgnoreFinal && modifiers.branchContains(TokenTypes.FINAL))
                 || parentType == TokenTypes.OBJBLOCK)
         {
-            ;// No code!
+            ;// no code
         }
         else {
-            final DetailAST currentAST = aAST.getNextSibling();
             final DetailAST variable =
                     aAST.findFirstToken(TokenTypes.IDENT);
 
             if (!isVariableMatchesIgnorePattern(variable.getText())) {
+                final DetailAST currentAST = aAST.getNextSibling();
                 int dist = 0;
 
                 if (mValidateBetweenScopes) {
                     dist = calculateDistanceBetweenScopes(currentAST,
                             variable);
-                    dist++;
                 }
                 else {
                     dist = calculateDistanceInSingleScope(currentAST,
@@ -232,55 +231,49 @@ public class VariableDeclarationUsageDistanceCheck extends Check
         boolean firstUsageFound = false;
         DetailAST currentAST = aAST;
 
-        while (currentAST != null
+        while (!firstUsageFound && currentAST != null
                 && currentAST.getType() != TokenTypes.RCURLY)
         {
-            if (currentAST.getType() == TokenTypes.VARIABLE_DEF) {
-                firstUsageFound = isASTContainsElement(currentAST, aVariable);
-
-                if (firstUsageFound) {
-                    dist++;
-                    break;
-                }
-            }
-            else if (currentAST.getFirstChild() != null) {
+            if (currentAST.getFirstChild() != null) {
 
                 if (isASTContainsElement(currentAST, aVariable)) {
 
                     switch (currentAST.getType()) {
+                    case TokenTypes.VARIABLE_DEF:
+                        dist++;
+                        break;
                     case TokenTypes.SLIST:
-                        firstUsageFound = false;
+                        dist = 0;
                         break;
                     case TokenTypes.LITERAL_FOR:
                     case TokenTypes.LITERAL_WHILE:
                     case TokenTypes.LITERAL_DO:
                     case TokenTypes.LITERAL_IF:
                     case TokenTypes.LITERAL_SWITCH:
-                        firstUsageFound = isVariableInOperatorDeclaration(
-                                currentAST,
-                                aVariable);
-                        if (firstUsageFound) {
+                        if (isVariableInOperatorDeclaration(currentAST,
+                                aVariable))
+                        {
                             dist++;
                         }
                         break;
                     default:
                         if (currentAST.branchContains(TokenTypes.SLIST)) {
-                            firstUsageFound = false;
+                            dist = 0;
                         }
                         else {
                             dist++;
-                            firstUsageFound = true;
                         }
                     }
-                    break;
+                    firstUsageFound = true;
                 }
-                else {
+                else if (currentAST.getType() != TokenTypes.VARIABLE_DEF) {
                     dist++;
                 }
             }
             currentAST = currentAST.getNextSibling();
         }
 
+        // If variable wasn't used after its declaration, distance is 0.
         if (!firstUsageFound) {
             dist = 0;
         }
@@ -302,9 +295,9 @@ public class VariableDeclarationUsageDistanceCheck extends Check
             DetailAST aAST, DetailAST aVariable)
     {
         int dist = 0;
-        boolean firstUsageFound = false;
         DetailAST currentAST = aAST;
-        final List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
+        final List<DetailAST> expressionsWithVariable =
+                new ArrayList<DetailAST>();
 
         while (currentAST != null
                 && currentAST.getType() != TokenTypes.RCURLY)
@@ -312,11 +305,12 @@ public class VariableDeclarationUsageDistanceCheck extends Check
             if (currentAST.getFirstChild() != null) {
 
                 if (isASTContainsElement(currentAST, aVariable)) {
-                    exprWithVariableList.add(currentAST);
-                    firstUsageFound = true;
+                    expressionsWithVariable.add(currentAST);
                 }
-                else if (currentAST.getType() != TokenTypes.VARIABLE_DEF
-                        && !firstUsageFound)
+                // If expression doesn't contain variable and this variable
+                // hasn't been met yet, than distance + 1.
+                else if (expressionsWithVariable.size() == 0
+                        && currentAST.getType() != TokenTypes.VARIABLE_DEF)
                 {
                     dist++;
                 }
@@ -324,70 +318,57 @@ public class VariableDeclarationUsageDistanceCheck extends Check
             currentAST = currentAST.getNextSibling();
         }
 
-        if (exprWithVariableList.size() == 1) {
-            final DetailAST blockWithVariableUsage = exprWithVariableList
+        if (expressionsWithVariable.size() == 1) {
+            final DetailAST blockWithVariableUsage = expressionsWithVariable
                     .get(0);
-            DetailAST variableUsageNode;
+            DetailAST exprWithVariableUsage = null;
 
             switch (blockWithVariableUsage.getType()) {
             case TokenTypes.VARIABLE_DEF:
             case TokenTypes.EXPR:
+                dist++;
                 break;
 
             case TokenTypes.LITERAL_FOR:
             case TokenTypes.LITERAL_WHILE:
-                variableUsageNode = findVariableUsageNodeInsideForWhileBlocks(
+                exprWithVariableUsage = getFirstNodeInsideForWhileBlocks(
                         blockWithVariableUsage, aVariable);
-                if (variableUsageNode != null) {
-                    dist += calculateDistanceBetweenScopes(
-                            variableUsageNode, aVariable);
-                }
                 break;
 
             case TokenTypes.LITERAL_DO:
-                variableUsageNode = findVariableUsageNodeInsideDoWhileBlock(
+                exprWithVariableUsage = getFirstNodeInsideDoWhileBlock(
                         blockWithVariableUsage, aVariable);
-                if (variableUsageNode != null) {
-                    dist += calculateDistanceBetweenScopes(
-                            variableUsageNode, aVariable);
-                }
                 break;
 
             case TokenTypes.LITERAL_IF:
-                variableUsageNode = findVariableUsageNodeInsideIfBlock(
+                exprWithVariableUsage = getFirstNodeInsideIfBlock(
                         blockWithVariableUsage, aVariable);
-                if (variableUsageNode != null) {
-                    dist += calculateDistanceBetweenScopes(
-                            variableUsageNode, aVariable);
-                }
                 break;
 
             case TokenTypes.LITERAL_SWITCH:
-                variableUsageNode = findVariableUsageNodeInsideSwitchBlock(
+                exprWithVariableUsage = getFirstNodeInsideSwitchBlock(
                         blockWithVariableUsage, aVariable);
-                if (variableUsageNode != null) {
-                    dist += calculateDistanceBetweenScopes(
-                            variableUsageNode, aVariable);
-                }
                 break;
 
             case TokenTypes.LITERAL_TRY:
-                variableUsageNode =
-                        findVariableUsageNodeInsideTryCatchFinallyBlocks(
+                exprWithVariableUsage =
+                        getFirstNodeInsideTryCatchFinallyBlocks(
                                 blockWithVariableUsage, aVariable);
-                if (variableUsageNode != null) {
-                    dist += calculateDistanceBetweenScopes(
-                            variableUsageNode, aVariable);
-                }
                 break;
 
             default:
+                exprWithVariableUsage = blockWithVariableUsage.getFirstChild();
+            }
+
+            if (exprWithVariableUsage != null) {
                 dist += calculateDistanceBetweenScopes(
-                        blockWithVariableUsage.getFirstChild(),
-                        aVariable);
+                        exprWithVariableUsage, aVariable);
             }
         }
-        else if (!firstUsageFound) {
+        else if (expressionsWithVariable.size() > 1) {
+            dist++;
+        }
+        else {
             dist = 0;
         }
 
@@ -395,222 +376,237 @@ public class VariableDeclarationUsageDistanceCheck extends Check
     }
 
     /**
-     * Finds AST node inside FOR or WHILE blocks contained variable usage.
+     * Gets first AST node inside FOR or WHILE blocks if variable usage is met
+     * only inside the block (not in its declaration!).
      * @param aBlock
      *        AST node represents FOR or WHILE block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If AST node, contained variable usage, was found inside block,
-     *         return this node, otherwise - null.
+     * @return If variable usage is met only inside the block
+     *         (not in its declaration!) than return the first AST node
+     *         of this block, otherwise - null.
      */
-    private DetailAST findVariableUsageNodeInsideForWhileBlocks(
+    private DetailAST getFirstNodeInsideForWhileBlocks(
             DetailAST aBlock, DetailAST aVariable)
     {
-        DetailAST variableUsageNode = null;
+        DetailAST firstNodeInsideBlock = null;
 
         if (!isVariableInOperatorDeclaration(aBlock, aVariable)) {
-            variableUsageNode = aBlock.getFirstChild();
+            // Looking for RPAREN ( ')' ) token to mark the end of operator
+            // declaration.
+            DetailAST currentNode = aBlock.findFirstToken(TokenTypes.RPAREN);
 
-            while (variableUsageNode != null
-                    && variableUsageNode.getType() != TokenTypes.RPAREN)
-            {
-                variableUsageNode = variableUsageNode.getNextSibling();
-            }
-            if (variableUsageNode != null) {
-                variableUsageNode = variableUsageNode.getNextSibling();
-                final int variableUsageNodeType = variableUsageNode.getType();
+            if (currentNode != null) {
+                currentNode = currentNode.getNextSibling();
+                final int currentNodeType = currentNode.getType();
 
-                if (variableUsageNodeType == TokenTypes.SLIST) {
-                    variableUsageNode = variableUsageNode.getFirstChild();
+                if (currentNodeType == TokenTypes.SLIST) {
+                    firstNodeInsideBlock = currentNode.getFirstChild();
                 }
-                else if (variableUsageNodeType == TokenTypes.VARIABLE_DEF
-                        || variableUsageNodeType == TokenTypes.EXPR)
+                else if (currentNodeType == TokenTypes.VARIABLE_DEF
+                        || currentNodeType == TokenTypes.EXPR)
                 {
-                    variableUsageNode = null;
+                    ; // no code
+                }
+                else {
+                    firstNodeInsideBlock = currentNode;
                 }
             }
         }
 
-        return variableUsageNode;
+        return firstNodeInsideBlock;
     }
 
     /**
-     * Finds AST node inside DO-WHILE block contained variable usage.
+     * Gets first AST node inside DO-WHILE block if variable usage is met
+     * only inside the block (not in its declaration!).
      * @param aBlock
      *        AST node represents DO-WHILE block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If AST node, contained variable usage, was found inside block,
-     *         return this node, otherwise - null.
+     * @return If variable usage is met only inside the block
+     *         (not in its declaration!) than return the first AST node
+     *         of this block, otherwise - null.
      */
-    private DetailAST findVariableUsageNodeInsideDoWhileBlock(
+    private DetailAST getFirstNodeInsideDoWhileBlock(
             DetailAST aBlock, DetailAST aVariable)
     {
-        DetailAST variableUsageNode = null;
+        DetailAST firstNodeInsideBlock = null;
 
         if (!isVariableInOperatorDeclaration(aBlock, aVariable)) {
-            variableUsageNode = aBlock.getFirstChild();
-            final int variableUsageNodeType = variableUsageNode.getType();
+            final DetailAST currentNode = aBlock.getFirstChild();
+            final int currentNodeType = currentNode.getType();
 
-            if (variableUsageNodeType == TokenTypes.SLIST) {
-                variableUsageNode = variableUsageNode.getFirstChild();
+            if (currentNodeType == TokenTypes.SLIST) {
+                firstNodeInsideBlock = currentNode.getFirstChild();
             }
-            else if (variableUsageNodeType == TokenTypes.VARIABLE_DEF
-                    || variableUsageNodeType == TokenTypes.EXPR)
+            else if (currentNodeType == TokenTypes.VARIABLE_DEF
+                    || currentNodeType == TokenTypes.EXPR)
             {
-                variableUsageNode = null;
+                ; // no code
+            }
+            else {
+                firstNodeInsideBlock = currentNode;
             }
         }
 
-        return variableUsageNode;
+        return firstNodeInsideBlock;
     }
 
     /**
-     * Finds AST node inside IF block contained variable usage.
+     * Gets first AST node inside IF block if variable usage is met
+     * only inside the block (not in its declaration!).
      * @param aBlock
      *        AST node represents IF block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If AST node, contained variable usage, was found inside block,
-     *         return this node, otherwise - null.
+     * @return If variable usage is met only inside the block
+     *         (not in its declaration!) than return the first AST node
+     *         of this block, otherwise - null.
      */
-    private DetailAST findVariableUsageNodeInsideIfBlock(
+    private DetailAST getFirstNodeInsideIfBlock(
             DetailAST aBlock, DetailAST aVariable)
     {
-        DetailAST variableUsageNode = null;
+        DetailAST firstNodeInsideBlock = null;
 
         if (!isVariableInOperatorDeclaration(aBlock, aVariable)) {
-            variableUsageNode = aBlock.getLastChild();
-            final List<DetailAST> exprWithVariableList =
+            DetailAST currentNode = aBlock.getLastChild();
+            final List<DetailAST> expressionsWithVariable =
                     new ArrayList<DetailAST>();
 
-            while (variableUsageNode != null
-                    && variableUsageNode.getType()
-                        == TokenTypes.LITERAL_ELSE)
+            while (currentNode != null
+                    && currentNode.getType() == TokenTypes.LITERAL_ELSE)
             {
                 final DetailAST previousNode =
-                        variableUsageNode.getPreviousSibling();
+                        currentNode.getPreviousSibling();
 
+                // Checking variable usage inside IF block.
                 if (isASTContainsElement(previousNode, aVariable)) {
-                    exprWithVariableList.add(previousNode);
+                    expressionsWithVariable.add(previousNode);
                 }
-                variableUsageNode = variableUsageNode.getFirstChild();
 
-                if (variableUsageNode.getType() == TokenTypes.LITERAL_IF) {
-                    variableUsageNode = variableUsageNode.getLastChild();
+                // Looking into ELSE block, get its first child and analyze it.
+                currentNode = currentNode.getFirstChild();
+
+                if (currentNode.getType() == TokenTypes.LITERAL_IF) {
+                    currentNode = currentNode.getLastChild();
                 }
-                else if (isASTContainsElement(variableUsageNode, aVariable)) {
-                    exprWithVariableList.add(variableUsageNode);
-                    variableUsageNode = null;
+                else if (isASTContainsElement(currentNode, aVariable)) {
+                    expressionsWithVariable.add(currentNode);
+                    currentNode = null;
                 }
             }
 
-            if (variableUsageNode != null
-                    && isASTContainsElement(variableUsageNode, aVariable))
+            // If IF block doesn't include ELSE than analyze variable usage
+            // only inside IF block.
+            if (currentNode != null
+                    && isASTContainsElement(currentNode, aVariable))
             {
-                exprWithVariableList.add(variableUsageNode);
+                expressionsWithVariable.add(currentNode);
             }
 
-            if (exprWithVariableList.size() == 1) {
-                variableUsageNode = exprWithVariableList.get(0);
-            }
-            else {
-                variableUsageNode = null;
+            if (expressionsWithVariable.size() == 1) {
+                firstNodeInsideBlock = expressionsWithVariable.get(0);
             }
         }
 
-        return variableUsageNode;
+        return firstNodeInsideBlock;
     }
 
     /**
-     * Finds AST node inside SWITCH block contained variable usage.
+     * Gets first AST node inside SWITCH block if variable usage is met
+     * only inside the block (not in its declaration!).
      * @param aBlock
      *        AST node represents SWITCH block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If AST node, contained variable usage, was found inside block,
-     *         return this node, otherwise - null.
+     * @return If variable usage is met only inside the block
+     *         (not in its declaration!) than return the first AST node
+     *         of this block, otherwise - null.
      */
-    private DetailAST findVariableUsageNodeInsideSwitchBlock(
+    private DetailAST getFirstNodeInsideSwitchBlock(
             DetailAST aBlock, DetailAST aVariable)
     {
-        DetailAST variableUsageNode = null;
+        DetailAST firstNodeInsideBlock = null;
 
         if (!isVariableInOperatorDeclaration(aBlock, aVariable)) {
-            variableUsageNode = aBlock
+            DetailAST currentNode = aBlock
                     .findFirstToken(TokenTypes.CASE_GROUP);
-            final List<DetailAST> exprWithVariableList =
+            final List<DetailAST> expressionsWithVariable =
                     new ArrayList<DetailAST>();
 
-            while (variableUsageNode != null
-                    && variableUsageNode.getType() == TokenTypes.CASE_GROUP)
+            // Checking variable usage inside all CASE blocks.
+            while (currentNode != null
+                    && currentNode.getType() == TokenTypes.CASE_GROUP)
             {
-                final DetailAST lastNode = variableUsageNode.getLastChild();
+                final DetailAST lastNodeInCaseGroup =
+                        currentNode.getLastChild();
 
-                if (isASTContainsElement(lastNode, aVariable)) {
-                    exprWithVariableList.add(lastNode);
+                if (isASTContainsElement(lastNodeInCaseGroup, aVariable)) {
+                    expressionsWithVariable.add(lastNodeInCaseGroup);
                 }
-                variableUsageNode = variableUsageNode.getNextSibling();
+                currentNode = currentNode.getNextSibling();
             }
 
-            if (exprWithVariableList.size() == 1) {
-                variableUsageNode = exprWithVariableList.get(0);
-            }
-            else {
-                variableUsageNode = null;
+            if (expressionsWithVariable.size() == 1) {
+                firstNodeInsideBlock = expressionsWithVariable.get(0);
             }
         }
 
-        return variableUsageNode;
+        return firstNodeInsideBlock;
     }
 
     /**
-     * Finds AST node inside TRY-CATCH-FINALLY blocks contained variable usage.
+     * Gets first AST node inside TRY-CATCH-FINALLY blocks if variable usage is
+     * met only inside the block (not in its declaration!).
      * @param aBlock
-     *        AST node represents TRY-CATCH-FINALLY blocks.
+     *        AST node represents TRY-CATCH-FINALLY block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If AST node, contained variable usage, was found inside block,
-     *         return this node, otherwise - null.
+     * @return If variable usage is met only inside the block
+     *         (not in its declaration!) than return the first AST node
+     *         of this block, otherwise - null.
      */
-    private DetailAST findVariableUsageNodeInsideTryCatchFinallyBlocks(
+    private DetailAST getFirstNodeInsideTryCatchFinallyBlocks(
             DetailAST aBlock, DetailAST aVariable)
     {
+        DetailAST currentNode = aBlock.getFirstChild();
+        final List<DetailAST> expressionsWithVariable =
+                new ArrayList<DetailAST>();
+
+        // Checking variable usage inside TRY block.
+        if (isASTContainsElement(currentNode, aVariable)) {
+            expressionsWithVariable.add(currentNode);
+        }
+
+        // Switch on CATCH block.
+        currentNode = currentNode.getNextSibling();
+
+        // Checking variable usage inside all CATCH blocks.
+        while (currentNode != null
+                && currentNode.getType() == TokenTypes.LITERAL_CATCH)
+        {
+            final DetailAST catchBlock = currentNode.getLastChild();
+
+            if (isASTContainsElement(catchBlock, aVariable)) {
+                expressionsWithVariable.add(catchBlock);
+            }
+            currentNode = currentNode.getNextSibling();
+        }
+
+        // Checking variable usage inside FINALLY block.
+        if (currentNode != null) {
+            final DetailAST finalBlock = currentNode.getLastChild();
+
+            if (isASTContainsElement(finalBlock, aVariable)) {
+                expressionsWithVariable.add(finalBlock);
+            }
+        }
+
         DetailAST variableUsageNode = null;
 
-        variableUsageNode = aBlock.getFirstChild();
-        final List<DetailAST> exprWithVariableList = new ArrayList<DetailAST>();
-
-        if (isASTContainsElement(variableUsageNode, aVariable)) {
-            exprWithVariableList.add(variableUsageNode);
-        }
-
-        variableUsageNode = variableUsageNode.getNextSibling();
-
-        while (variableUsageNode != null
-                && variableUsageNode.getType() == TokenTypes.LITERAL_CATCH)
-        {
-            final DetailAST currentNode = variableUsageNode.getLastChild();
-
-            if (isASTContainsElement(currentNode, aVariable)) {
-                exprWithVariableList.add(currentNode);
-            }
-            variableUsageNode = variableUsageNode.getNextSibling();
-        }
-
-        if (variableUsageNode != null) {
-            final DetailAST currentNode = variableUsageNode.getLastChild();
-
-            if (isASTContainsElement(currentNode, aVariable)) {
-                exprWithVariableList.add(currentNode);
-            }
-        }
-
-        if (exprWithVariableList.size() == 1) {
-            variableUsageNode = exprWithVariableList.get(0).getFirstChild();
-        }
-        else {
-            variableUsageNode = null;
+        if (expressionsWithVariable.size() == 1) {
+            variableUsageNode = expressionsWithVariable.get(0).getFirstChild();
         }
 
         return variableUsageNode;
@@ -623,7 +619,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
      * if (b) {...}
      * </pre>
      * Variable 'b' is in declaration of operator IF.
-     * @param aASTSibling
+     * @param aOperator
      *        AST node which represents operator.
      * @param aVariable
      *        Variable which is checked for content in operator.
@@ -631,60 +627,64 @@ public class VariableDeclarationUsageDistanceCheck extends Check
      *         - false.
      */
     private boolean isVariableInOperatorDeclaration(
-            DetailAST aASTSibling, DetailAST aVariable)
+            DetailAST aOperator, DetailAST aVariable)
     {
         boolean isVarInOperatorDeclr = false;
-        DetailAST currentAST = aASTSibling.getFirstChild();
+        final DetailAST openingBracket =
+                aOperator.findFirstToken(TokenTypes.LPAREN);
 
-        while (currentAST != null
-                && currentAST.getType() != TokenTypes.LPAREN)
-        {
-            currentAST = currentAST.getNextSibling();
-        }
+        if (openingBracket != null) {
+            final DetailAST exprBetweenBrackets = openingBracket
+                    .getNextSibling(); // Get EXPR between brackets
 
-        if (currentAST != null) {
-            currentAST = currentAST
-                    .getNextSibling(); // Get EXPR between braces
-
-            if (isASTContainsElement(currentAST, aVariable)) {
+            if (isASTContainsElement(exprBetweenBrackets, aVariable)) {
                 isVarInOperatorDeclr = true;
             }
+            // Variable may be met in ELSE declaration or in CASE declaration.
+            // So, check variable usage in these declarations.
             else {
-                switch (aASTSibling.getType()) {
+                switch (aOperator.getType()) {
                 case TokenTypes.LITERAL_IF:
-                    currentAST = aASTSibling.getLastChild();
+                    final DetailAST elseBlock = aOperator.getLastChild();
 
-                    if (currentAST.getType() == TokenTypes.LITERAL_ELSE) {
-                        currentAST = currentAST
+                    if (elseBlock.getType() == TokenTypes.LITERAL_ELSE) {
+                        final DetailAST firstNodeInsideElseBlock = elseBlock
                                 .getFirstChild(); // Get IF followed by ELSE
 
-                        if (currentAST.getType() == TokenTypes.LITERAL_IF) {
+                        if (firstNodeInsideElseBlock.getType()
+                                == TokenTypes.LITERAL_IF)
+                        {
                             isVarInOperatorDeclr |=
                                     isVariableInOperatorDeclaration(
-                                            currentAST, aVariable);
+                                            firstNodeInsideElseBlock,
+                                            aVariable);
                         }
                     }
                     break;
 
                 case TokenTypes.LITERAL_SWITCH:
-                    currentAST = aASTSibling
+                    DetailAST currentCaseBlock = aOperator
                             .findFirstToken(TokenTypes.CASE_GROUP);
-                    while (currentAST != null
-                            && currentAST.getType() == TokenTypes.CASE_GROUP)
-                    {
-                        final DetailAST currentASTChild = currentAST
-                                .getFirstChild();
 
-                        if (isASTContainsElement(currentASTChild, aVariable)) {
+                    while (currentCaseBlock != null
+                            && currentCaseBlock.getType()
+                            == TokenTypes.CASE_GROUP)
+                    {
+                        final DetailAST firstNodeInsideCaseBlock =
+                                currentCaseBlock.getFirstChild();
+
+                        if (isASTContainsElement(firstNodeInsideCaseBlock,
+                                aVariable))
+                        {
                             isVarInOperatorDeclr = true;
                             break;
                         }
-                        currentAST = currentAST.getNextSibling();
+                        currentCaseBlock = currentCaseBlock.getNextSibling();
                     }
                     break;
 
                 default:
-                    ;// No code!
+                    ;// no code
                 }
             }
         }
@@ -720,6 +720,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
                 astElementParent = astElementParent.getParent();
             }
         }
+
         return isASTContainsElement;
     }
 
