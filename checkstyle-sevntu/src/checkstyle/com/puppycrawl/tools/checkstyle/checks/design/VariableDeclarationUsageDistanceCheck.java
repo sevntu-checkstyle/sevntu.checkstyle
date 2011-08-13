@@ -321,7 +321,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
         // If variable usage exists in different scopes, then distance =
         // distance until variable first usage.
         // If variable usage exists in a single scope, then look into
-        // this scope and count distance until variable usage. 
+        // this scope and count distance until variable usage.
         // If there's no any variable usage, then distance = 0.
         if (variableUsageExpressions.size() == 1) {
             final DetailAST blockWithVariableUsage = variableUsageExpressions
@@ -377,8 +377,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check
     }
 
     /**
-     * Gets first AST node inside FOR, WHILE or DO-WHILE blocks if variable usage is met
-     * only inside the block (not in its declaration!).
+     * Gets first AST node inside FOR, WHILE or DO-WHILE blocks if variable
+     * usage is met only inside the block (not in its declaration!).
      * @param aBlock
      *        AST node represents FOR, WHILE or DO-WHILE block.
      * @param aVariable
@@ -394,7 +394,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
         if (!isVariableInOperatorExpr(aBlock, aVariable)) {
             DetailAST currentNode = null;
-            
+
             // Find currentNode for DO-WHILE block.
             if (aBlock.getType() == TokenTypes.LITERAL_DO) {
                 currentNode = aBlock.getFirstChild();
@@ -408,7 +408,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
                     currentNode = currentNode.getNextSibling();
                 }
             }
-            
+
             if (currentNode != null) {
                 final int currentNodeType = currentNode.getType();
 
@@ -483,7 +483,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
             // If variable usage exists in several related blocks, then
             // firstNodeInsideBlock = null, otherwise if variable usage exists
-            // only inside one block, then get node from 
+            // only inside one block, then get node from
             // variableUsageExpressions.
             if (variableUsageExpressions.size() == 1) {
                 firstNodeInsideBlock = variableUsageExpressions.get(0);
@@ -530,7 +530,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
             // If variable usage exists in several related blocks, then
             // firstNodeInsideBlock = null, otherwise if variable usage exists
-            // only inside one block, then get node from 
+            // only inside one block, then get node from
             // variableUsageExpressions.
             if (variableUsageExpressions.size() == 1) {
                 firstNodeInsideBlock = variableUsageExpressions.get(0);
@@ -591,7 +591,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
         // If variable usage exists in several related blocks, then
         // firstNodeInsideBlock = null, otherwise if variable usage exists
-        // only inside one block, then get node from 
+        // only inside one block, then get node from
         // variableUsageExpressions.
         if (variableUsageExpressions.size() == 1) {
             variableUsageNode = variableUsageExpressions.get(0).getFirstChild();
