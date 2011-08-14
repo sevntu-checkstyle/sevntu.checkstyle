@@ -5,16 +5,10 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="1600">
 
-        <rule-metadata name="%AvoidConstantsInInterfaces.name" internal-name="AvoidConstantsInInterfaces" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantsInInterfacesCheck"/>
-            <description>%AvoidConstantsInInterfaces.desc</description>
-        </rule-metadata>
-        
         <rule-metadata name="%AvoidHidingCauseException.name" internal-name="AvoidHidingCauseException" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
             <description>%AvoidHidingCauseException.desc</description>
         </rule-metadata>
-        
         
         <rule-metadata name="%AvoidNotShortCircuitOperatorsForBoolean.name" internal-name="AvoidNotShortCircuitOperatorsForBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
@@ -82,22 +76,7 @@
             </property-metadata>
             <message-key key="multiple.string.literal" />
         </rule-metadata>
-
-
-        <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
-            <description>%OverridableMethodInConstructor.desc</description>
-            <property-metadata name="checkCloneMethod" datatype="Boolean" default-value="false">
-                <description>%OverridableMethodInConstructor.checkCloneMethod</description>
-            </property-metadata>
-            <property-metadata name="checkReadObjectMethod" datatype="Boolean" default-value="false">
-                <description>%OverridableMethodInConstructor.checkReadObjectMethod</description>
-            </property-metadata>
-            <message-key key="overridable.method" />
-            <message-key key="overridable.method.leads" />
-        </rule-metadata>
-
-
+        
         <rule-metadata name="%UnnecessaryParenthesesExtended.name" internal-name="UnnecessaryParenthesesExtended" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck" />
             <description>%UnnecessaryParenthesesExtended.desc</description>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="1600">
+
+        <rule-metadata name="%VariableDeclarationUsageDistance.name" internal-name="VariableDeclarationUsageDistance" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
+            <description>%VariableDeclarationUsageDistance.desc</description>
+            <property-metadata name="allowedDistance" datatype="Integer" default-value="3">
+                <description>%VariableDeclarationUsageDistance.allowedDistance</description>
+            </property-metadata>
+            <property-metadata name="ignoreVariablePattern" datatype="Regex" default-value="">
+                <description>%VariableDeclarationUsageDistance.ignoreVariablePattern</description>
+            </property-metadata>
+            <property-metadata name="validateBetweenScopes" datatype="Boolean" default-value="false">
+                <description>%VariableDeclarationUsageDistance.validateBetweenScopes</description>
+            </property-metadata>
+            <property-metadata name="ignoreFinal" datatype="Boolean" default-value="true">
+                <description>%VariableDeclarationUsageDistance.ignoreFinal</description>
+            </property-metadata>
+        </rule-metadata>
+        
+    </rule-group-metadata>
+</checkstyle-metadata>

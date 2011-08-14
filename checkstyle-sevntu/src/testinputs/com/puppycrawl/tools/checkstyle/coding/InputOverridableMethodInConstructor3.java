@@ -7,12 +7,12 @@ public class InputOverridableMethodInConstructor3 {
         class Base3 {
             private Base3() {
                 System.out.println("Base3 first C-tor.");
-                overrideMe(); // warning
+                overrideMe(); // warning?
             }
 
             private Base3(int x) {
                 System.out.println("Base3 second C-tor.");
-                overrideMe(); // warning
+                overrideMe(); // warning?
             }
 
             public void overrideMe() {
