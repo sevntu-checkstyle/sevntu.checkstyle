@@ -318,11 +318,8 @@ public class VariableDeclarationUsageDistanceCheck extends Check
             currentAST = currentAST.getNextSibling();
         }
 
-        // If variable usage exists in different scopes, then distance =
-        // distance until variable first usage.
         // If variable usage exists in a single scope, then look into
         // this scope and count distance until variable usage.
-        // If there's no any variable usage, then distance = 0.
         if (variableUsageExpressions.size() == 1) {
             final DetailAST blockWithVariableUsage = variableUsageExpressions
                     .get(0);
@@ -366,9 +363,12 @@ public class VariableDeclarationUsageDistanceCheck extends Check
                         exprWithVariableUsage, aVariable);
             }
         }
+        // If variable usage exists in different scopes, then distance =
+        // distance until variable first usage.
         else if (variableUsageExpressions.size() > 1) {
             dist++;
         }
+        // If there's no any variable usage, then distance = 0.
         else {
             dist = 0;
         }
