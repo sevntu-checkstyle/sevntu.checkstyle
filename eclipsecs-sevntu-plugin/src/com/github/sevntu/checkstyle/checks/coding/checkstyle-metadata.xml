@@ -117,6 +117,15 @@
             <message-key key="unnecessary.paren.return" />
             <message-key key="unnecessary.paren.string" />
         </rule-metadata>
-        
+
+        <rule-metadata name="%RedundantReturnCheck.name" internal-name="RedundantReturn" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck" />
+            <description>%RedundantReturnCheck.desc</description>
+            <property-metadata name="allowReturnInEmptyMethodsAndConstructors" datatype="Boolean" default-value="false">
+                <description>%RedundantReturnCheck.allowReturnInEmptyMethodsAndConstructors</description>
+            </property-metadata>
+            <message-key key="redundant.return" />
+        </rule-metadata>
+                
     </rule-group-metadata>
 </checkstyle-metadata>
