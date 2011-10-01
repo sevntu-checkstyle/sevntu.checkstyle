@@ -179,8 +179,9 @@ public class OverridableMethodInConstructorCheck extends Check
      * Serializable interface.
      */
     private boolean mCheckReadObjectMethod;
+
     /**
-     * Bla.
+     * The name of current overridable method is being processed.
      */
     private String mCurOverridableMetName;
 
@@ -320,7 +321,6 @@ public class OverridableMethodInConstructorCheck extends Check
         for (DetailAST curNode : methodCallsList) {
             mVisitedMethodCalls.clear();
             final DetailAST methodDef = getMethodDef(curNode);
-            // mCurOverridableMetName = "";
             if (methodDef != null
                     && getMethodParamsCount(curNode)
                         == getMethodParamsCount(methodDef)

@@ -58,7 +58,7 @@ public class MultipleStringLiteralsCheck extends Check
     /**
      * Highlight all duplicates in a file if set true
      */
-    private boolean mHighlightAllDuplicates = true;
+    private boolean mHighlightAllDuplicates = false;
 
     /**
      * Sets the maximum allowed duplicates of a string.
