@@ -488,7 +488,7 @@ public class CustomDeclarationOrderCheck extends Check
          * Save compile flag. It can be necessary to further change the logic of
          * check.
          */
-        private final int mCompileFlags;
+        //private final int mCompileFlags;
         /** The regexp to match against */
         private Pattern mRegExp;
         /** The Member of Class */
@@ -510,7 +510,7 @@ public class CustomDeclarationOrderCheck extends Check
                 final String aClassMember, final int aCompileFlags)
         {
             mClassMember = aClassMember;
-            mCompileFlags = aCompileFlags;
+            //mCompileFlags = aCompileFlags;
             mRule = aInputRule;
 
         }

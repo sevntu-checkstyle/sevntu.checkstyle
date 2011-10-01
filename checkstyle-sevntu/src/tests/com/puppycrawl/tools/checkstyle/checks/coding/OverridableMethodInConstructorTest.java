@@ -37,10 +37,6 @@ public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
     @Before
     public void setTestinputsDir()
     {
-        System.setProperty(
-                "testinputs.dir",
-                "/media/data/Work/Git repository clone = Eclipse workspace/sevntu.checkstyle/checkstyle-sevntu/src/testinputs/com/puppycrawl/tools/checkstyle");
-
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
     }
