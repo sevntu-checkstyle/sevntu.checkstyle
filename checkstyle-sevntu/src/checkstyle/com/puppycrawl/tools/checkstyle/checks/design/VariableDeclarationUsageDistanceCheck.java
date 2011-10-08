@@ -623,15 +623,22 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
         if (openingBracket != null) {
             // Get EXPR between brackets
-            final DetailAST exprBetweenBrackets = openingBracket
+            DetailAST exprBetweenBrackets = openingBracket
                     .getNextSibling();
 
-            if (isChild(exprBetweenBrackets, aVariable)) {
-                isVarInOperatorDeclr = true;
+            // Look if variable is in operator expression
+            while (exprBetweenBrackets.getType() != TokenTypes.RPAREN) {
+
+                if (isChild(exprBetweenBrackets, aVariable)) {
+                    isVarInOperatorDeclr = true;
+                    break;
+                }
+                exprBetweenBrackets = exprBetweenBrackets.getNextSibling();
             }
+
             // Variable may be met in ELSE declaration or in CASE declaration.
             // So, check variable usage in these declarations.
-            else {
+            if (!isVarInOperatorDeclr) {
                 switch (aOperator.getType()) {
                 case TokenTypes.LITERAL_IF:
                     final DetailAST elseBlock = aOperator.getLastChild();
