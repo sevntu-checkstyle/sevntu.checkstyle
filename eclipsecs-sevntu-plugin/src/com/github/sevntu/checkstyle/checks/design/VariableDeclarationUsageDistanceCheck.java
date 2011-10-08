@@ -34,6 +34,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Checks distance between declaration of variable and its first usage.
  * </p>
  * Example #1:
+ *
  * <pre>
  *      <code>int count;
  *      a = a + b;
@@ -41,7 +42,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *      count = b; // DECLARATION OF VARIABLE 'count'
  *                 // SHOULD BE HERE (distance = 3)</code>
  * </pre>
+ *
  * Example #2:
+ *
  * <pre>
  *     <code>int count;
  *     {
@@ -50,7 +53,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *                    // SHOULD BE HERE (distance = 2)
  *     }</code>
  * </pre>
+ *
  * There are several additional options to configure check:
+ *
  * <pre>
  * 1. allowedDistance - allows to set distance between declaration
  * of variable and its first usage.
@@ -60,7 +65,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * of variable and its first usage in different scopes.
  * 4. ignoreFinal - allows to ignore variables with 'final' modifier.
  * </pre>
+ *
  * ATTENTION!! (Not supported cases)
+ *
  * <pre>
  * Case #1:
  * <code>{
@@ -77,8 +84,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Distance for variable 'b' = 1;
  * Distance for variable 'c' = 2.
  * </pre>
+ *
  * As distance by default is 1 the Check doesn't raise warning for variables 'a'
  * and 'b' to move them into the block.
+ *
  * <pre>
  * Case #2:
  * <code>int sum = 0;
@@ -383,9 +392,9 @@ public class VariableDeclarationUsageDistanceCheck extends Check
      *        AST node represents FOR, WHILE or DO-WHILE block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If variable usage is met only inside the block
-     *         (not in its declaration!) than return the first AST node
-     *         of this block, otherwise - null.
+     * @return If variable usage is met only inside the block (not in its
+     *         declaration!) than return the first AST node of this block,
+     *         otherwise - null.
      */
     private DetailAST getFirstNodeInsideForWhileDoWhileBlocks(
             DetailAST aBlock, DetailAST aVariable)
@@ -430,15 +439,15 @@ public class VariableDeclarationUsageDistanceCheck extends Check
     }
 
     /**
-     * Gets first AST node inside IF block if variable usage is met
-     * only inside the block (not in its declaration!).
+     * Gets first AST node inside IF block if variable usage is met only inside
+     * the block (not in its declaration!).
      * @param aBlock
      *        AST node represents IF block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If variable usage is met only inside the block
-     *         (not in its declaration!) than return the first AST node
-     *         of this block, otherwise - null.
+     * @return If variable usage is met only inside the block (not in its
+     *         declaration!) than return the first AST node of this block,
+     *         otherwise - null.
      */
     private DetailAST getFirstNodeInsideIfBlock(
             DetailAST aBlock, DetailAST aVariable)
@@ -494,15 +503,15 @@ public class VariableDeclarationUsageDistanceCheck extends Check
     }
 
     /**
-     * Gets first AST node inside SWITCH block if variable usage is met
-     * only inside the block (not in its declaration!).
+     * Gets first AST node inside SWITCH block if variable usage is met only
+     * inside the block (not in its declaration!).
      * @param aBlock
      *        AST node represents SWITCH block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If variable usage is met only inside the block
-     *         (not in its declaration!) than return the first AST node
-     *         of this block, otherwise - null.
+     * @return If variable usage is met only inside the block (not in its
+     *         declaration!) than return the first AST node of this block,
+     *         otherwise - null.
      */
     private DetailAST getFirstNodeInsideSwitchBlock(
             DetailAST aBlock, DetailAST aVariable)
@@ -547,9 +556,9 @@ public class VariableDeclarationUsageDistanceCheck extends Check
      *        AST node represents TRY-CATCH-FINALLY block.
      * @param aVariable
      *        Variable which is checked for content in block.
-     * @return If variable usage is met only inside the block
-     *         (not in its declaration!) than return the first AST node
-     *         of this block, otherwise - null.
+     * @return If variable usage is met only inside the block (not in its
+     *         declaration!) than return the first AST node of this block,
+     *         otherwise - null.
      */
     private DetailAST getFirstNodeInsideTryCatchFinallyBlocks(
             DetailAST aBlock, DetailAST aVariable)
@@ -602,10 +611,12 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
     /**
      * Checks if variable is in operator declaration. For instance:
+     *
      * <pre>
      * boolean b = true;
      * if (b) {...}
      * </pre>
+     *
      * Variable 'b' is in declaration of operator IF.
      * @param aOperator
      *        AST node which represents operator.
@@ -623,15 +634,22 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
         if (openingBracket != null) {
             // Get EXPR between brackets
-            final DetailAST exprBetweenBrackets = openingBracket
+            DetailAST exprBetweenBrackets = openingBracket
                     .getNextSibling();
 
-            if (isChild(exprBetweenBrackets, aVariable)) {
-                isVarInOperatorDeclr = true;
+            // Look if variable is in operator expression
+            while (exprBetweenBrackets.getType() != TokenTypes.RPAREN) {
+
+                if (isChild(exprBetweenBrackets, aVariable)) {
+                    isVarInOperatorDeclr = true;
+                    break;
+                }
+                exprBetweenBrackets = exprBetweenBrackets.getNextSibling();
             }
+
             // Variable may be met in ELSE declaration or in CASE declaration.
             // So, check variable usage in these declarations.
-            else {
+            if (!isVarInOperatorDeclr) {
                 switch (aOperator.getType()) {
                 case TokenTypes.LITERAL_IF:
                     final DetailAST elseBlock = aOperator.getLastChild();
@@ -658,7 +676,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
 
                     while (currentCaseBlock != null
                             && currentCaseBlock.getType()
-                            == TokenTypes.CASE_GROUP)
+                                == TokenTypes.CASE_GROUP)
                     {
                         final DetailAST firstNodeInsideCaseBlock =
                                 currentCaseBlock.getFirstChild();
