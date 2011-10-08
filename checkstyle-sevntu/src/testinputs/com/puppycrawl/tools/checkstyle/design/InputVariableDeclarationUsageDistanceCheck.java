@@ -376,4 +376,17 @@ public class InputVariableDeclarationUsageDistanceCheck {
         Timer authUpdateTimer = new Timer("Auth Guard", true);
         authUpdateTimer.schedule(authUpdateTask, intervalMs / 2, intervalMs); // DECLARATION OF VARIABLE 'intervalMs' SHOULD BE HERE (distance = 2)
 	}
+	
+	public void testForCycle() {
+		int filterCount = 0;
+		for (int i = 0; i < 10; i++, filterCount++) {
+			int abc = 0;
+			System.out.println(abc);
+
+			for (int j = 0; j < 10; j++) {
+				abc = filterCount;
+				System.out.println(abc);
+			}
+		}
+	}
 }
