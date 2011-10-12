@@ -25,10 +25,11 @@ import java.util.Set;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.checks.naming.TypeNameCheck;
 
 /**
  * <p>
- * Check name of the type to varidate abbreviations in capital letters, a verify of
+ * Check name of the type to validate abbreviations in capital letters, a verify of
  * variables and methods names are optional.  
  * </p>
  * @author <a href="mailto:fishh1991@gmail.com">Troshin Sergey</a>
@@ -49,7 +50,7 @@ public class AbbreviationAsWordInTypeNameCheck extends TypeNameCheck {
     private boolean checkVariablesAndMethodsNames = false;
 
     /**
-     * A structure that contains names that must be skiped for 
+     * A structure that contains names that must be skipped for 
      * checking.
      */
     private Set<String> permittedWords = new HashSet<String>();

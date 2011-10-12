@@ -11,7 +11,7 @@ public class RedundantReturnTest extends BaseCheckTestSupport {
     @Test
     public void testInputWithIgnoreEmptyConstructorsTrue() throws Exception {
 	final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
-	checkConfig.addAttribute("avoidEmptyMethodsAndConstructors", "true");
+	checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors", "false");
 
 	final String[] expected = { "12: Redundant return.",
 		"19: Redundant return.", "24: Redundant return.",
@@ -28,7 +28,7 @@ public class RedundantReturnTest extends BaseCheckTestSupport {
     @Test
     public void testInputWithIgnoreEmptyConstructorsFalse() throws Exception {
 	final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
-	checkConfig.addAttribute("avoidEmptyMethodsAndConstructors", "false");
+	checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors", "true");
 
 	final String[] expected = { "19: Redundant return.",
 		"34: Redundant return.", "41: Redundant return.",

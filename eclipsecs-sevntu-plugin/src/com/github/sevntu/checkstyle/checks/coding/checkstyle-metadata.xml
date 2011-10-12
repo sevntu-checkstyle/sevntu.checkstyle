@@ -39,7 +39,7 @@
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean"/>
             <description>%ReturnNullInsteadOfBoolean.desc</description>
-        </rule-metadata>
+    </rule-metadata>
         
     <rule-metadata name="%ReturnBooleanFromTernary.name" internal-name="ReturnBooleanFromTernary" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary"/>
@@ -130,6 +130,17 @@
                 <description>%RedundantReturnCheck.allowReturnInEmptyMethodsAndConstructors</description>
             </property-metadata>
             <message-key key="redundant.return" />
+        </rule-metadata>
+      
+      
+        <rule-metadata name="%SimpleAccesorNameNotationCheck.name" internal-name="SimpleAccesorNameNotation" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.SimpleAccesorNameNotationCheck" />
+            <description>%SimpleAccesorNameNotationCheck.desc</description>
+            <property-metadata name="prefix" datatype="String" default-value="">
+                <description>%SimpleAccesorNameNotationCheck.prefix</description>
+            </property-metadata>
+            <message-key key="incorrect.getter.name" />
+            <message-key key="incorrect.setter.name" />
         </rule-metadata>
                 
     </rule-group-metadata>

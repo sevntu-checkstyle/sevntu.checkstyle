@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="500">
+
+        <rule-metadata name="%ForbidAnnotation.name" internal-name="ForbidAnnotation" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck"/>
+            <description>%ForbidAnnotation.desc</description>
+
+		    <property-metadata name="annotationNames" datatype="Boolean" default-value="false">
+	                <description>%ForbidAnnotation.annotationNames</description>
+		    </property-metadata>
+		    <property-metadata name="annotationTargets" datatype="MultiCheck" default-value="">
+	                <description>%ForbidAnnotation.annotationTargets</description>
+	                <enumeration>
+	                    <property-value-option value="CLASS_DEF"/>
+	                    <property-value-option value="INTERFACE_DEF"/>
+	                    <property-value-option value="ENUM_DEF"/>
+	                    <property-value-option value="ANNOTATION_DEF"/>
+	                    <property-value-option value="ANNOTATION_FIELD_DEF"/>
+	                    <property-value-option value="ENUM_CONSTANT_DEF"/>
+	                    <property-value-option value="PARAMETER_DEF"/>
+	                    <property-value-option value="VARIABLE_DEF"/>
+	                    <property-value-option value="METHOD_DEF"/>
+	                    <property-value-option value="CTOR_DEF"/>
+	                </enumeration>	                
+		    </property-metadata>
+		    <message-key key="annotation.incorrect.target" />   
+        </rule-metadata>
+
+    </rule-group-metadata>
+</checkstyle-metadata>

@@ -19,5 +19,19 @@
             <message-key key="illegal.abstract.class.name" />
             <message-key key="no.abstract.class.modifier" />
         </rule-metadata>
+        <rule-metadata name="%AbbreviationAsWordInTypeName.name" internal-name="AbbreviationAsWordInTypeName" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInTypeNameCheck" />
+            <description>%AbbreviationAsWordInTypeName.desc</description>
+            <property-metadata name="allowedCapitalCounts" datatype="Integer" default-value="3">
+                <description>%AbbreviationAsWordInTypeName.allowedCapitalCounts</description>
+            </property-metadata>
+      		<property-metadata name="checkVariablesAndMethodsNames" datatype="Boolean" default-value="true">
+                <description>%AbbreviationAsWordInTypeName.checkVariablesAndMethodsNames</description>
+       		</property-metadata>
+	    		<property-metadata name="checkModifier" datatype="Regex" default-value="">
+                <description>%AbbreviationAsWordInTypeName.permittedWords</description>
+            </property-metadata>
+            <message-key key="abbreviation.as.word.in.type.name.check" />
+        </rule-metadata>
     </rule-group-metadata>
 </checkstyle-metadata>

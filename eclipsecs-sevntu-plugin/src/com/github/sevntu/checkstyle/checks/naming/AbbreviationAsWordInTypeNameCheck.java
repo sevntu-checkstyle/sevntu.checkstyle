@@ -39,7 +39,7 @@ public class AbbreviationAsWordInTypeNameCheck extends TypeNameCheck {
 	/**
 	 * Variable indicates on the permitted amount of capital
 	 * letters in abbreviations in the classes, interfaces,
-	 * variables and methods namescom.puppycrawl.tools.checkstyle.checks
+	 * variables and methods names
 	 */
     private int allowedCapitalCounts = 3;
     
