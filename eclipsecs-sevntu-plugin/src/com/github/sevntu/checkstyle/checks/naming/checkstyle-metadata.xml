@@ -28,7 +28,7 @@
       		<property-metadata name="checkVariablesAndMethodsNames" datatype="Boolean" default-value="true">
                 <description>%AbbreviationAsWordInTypeName.checkVariablesAndMethodsNames</description>
        		</property-metadata>
-	    		<property-metadata name="checkModifier" datatype="Regex" default-value="">
+	    		<property-metadata name="permittedWords" datatype="Regex" default-value="">
                 <description>%AbbreviationAsWordInTypeName.permittedWords</description>
             </property-metadata>
             <message-key key="abbreviation.as.word.in.type.name.check" />

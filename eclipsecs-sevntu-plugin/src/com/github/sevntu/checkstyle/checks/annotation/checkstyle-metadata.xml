@@ -9,7 +9,7 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck"/>
             <description>%ForbidAnnotation.desc</description>
 
-		    <property-metadata name="annotationNames" datatype="Boolean" default-value="false">
+		    <property-metadata name="annotationNames" datatype="String" default-value="">
 	                <description>%ForbidAnnotation.annotationNames</description>
 		    </property-metadata>
 		    <property-metadata name="annotationTargets" datatype="MultiCheck" default-value="">
