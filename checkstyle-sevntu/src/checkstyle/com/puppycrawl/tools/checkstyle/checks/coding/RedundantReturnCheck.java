@@ -1,3 +1,4 @@
+/*!! DOES NOT WORK PROPERLY !!*/
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;

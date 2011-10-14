@@ -13,25 +13,42 @@
       		<property-metadata name="checkName" datatype="Boolean" default-value="true">
                 <description>%AbstractClassNameExtended.checkName</description>
        		</property-metadata>
-	    		<property-metadata name="checkModifier" datatype="Boolean" default-value="false">
+	    	<property-metadata name="checkModifier" datatype="Boolean" default-value="false">
                 <description>%AbstractClassNameExtended.checkModifier</description>
             </property-metadata>
             <message-key key="illegal.abstract.class.name" />
             <message-key key="no.abstract.class.modifier" />
         </rule-metadata>
-        <rule-metadata name="%AbbreviationAsWordInTypeName.name" internal-name="AbbreviationAsWordInTypeName" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInTypeNameCheck" />
-            <description>%AbbreviationAsWordInTypeName.desc</description>
-            <property-metadata name="allowedCapitalCounts" datatype="Integer" default-value="3">
-                <description>%AbbreviationAsWordInTypeName.allowedCapitalCounts</description>
+        <rule-metadata name="%AbbreviationAsWordInName.name" internal-name="AbbreviationAsWordInName" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck" />
+            <description>%AbbreviationAsWordInName.desc</description>
+            <property-metadata name="allowedAbbreviationLength" datatype="Integer" default-value="3">
+                <description>%AbbreviationAsWordInName.allowedAbbreviationLength</description>
             </property-metadata>
-      		<property-metadata name="checkVariablesAndMethodsNames" datatype="Boolean" default-value="true">
-                <description>%AbbreviationAsWordInTypeName.checkVariablesAndMethodsNames</description>
+            <property-metadata name="allowedAbbreviations" datatype="String" default-value="XMl,URL">
+                <description>%AbbreviationAsWordInName.allowedAbbreviations</description>
+            </property-metadata>
+      		<property-metadata name="targets" datatype="MultiCheck" default-value="CLASS_DEF">
+                <description>%AbbreviationAsWordInName.targets</description>
+					<enumeration>
+	                    <property-value-option value="CLASS_DEF"/>
+	                    <property-value-option value="INTERFACE_DEF"/>
+	                    <property-value-option value="ENUM_DEF"/>
+	                    <property-value-option value="ANNOTATION_DEF"/>
+	                    <property-value-option value="ANNOTATION_FIELD_DEF"/>
+	                    <property-value-option value="ENUM_CONSTANT_DEF"/>
+	                    <property-value-option value="PARAMETER_DEF"/>
+	                    <property-value-option value="VARIABLE_DEF"/>
+	                    <property-value-option value="METHOD_DEF"/>
+	                </enumeration>	
        		</property-metadata>
-	    		<property-metadata name="permittedWords" datatype="Regex" default-value="">
-                <description>%AbbreviationAsWordInTypeName.permittedWords</description>
+	    	<property-metadata name="ignoreFinal" datatype="Boolean" default-value="true">
+                <description>%AbbreviationAsWordInName.ignoreFinal</description>
             </property-metadata>
-            <message-key key="abbreviation.as.word.in.type.name.check" />
+	    	<property-metadata name="ignoreStatic" datatype="Boolean" default-value="true">
+                <description>%AbbreviationAsWordInName.ignoreStatic</description>
+            </property-metadata>
+            <message-key key="abbreviationAsWord" />
         </rule-metadata>
     </rule-group-metadata>
 </checkstyle-metadata>

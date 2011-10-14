@@ -123,6 +123,7 @@
             <message-key key="unnecessary.paren.string" />
         </rule-metadata>
 
+<!-- DOES NOT WORK PROPERLY
         <rule-metadata name="%RedundantReturnCheck.name" internal-name="RedundantReturn" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck" />
             <description>%RedundantReturnCheck.desc</description>
@@ -142,6 +143,6 @@
             <message-key key="incorrect.getter.name" />
             <message-key key="incorrect.setter.name" />
         </rule-metadata>
-                
+-->                
     </rule-group-metadata>
 </checkstyle-metadata>
