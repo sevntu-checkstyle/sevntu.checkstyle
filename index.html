@@ -34,15 +34,17 @@
 </head>
 
 <body>
-  <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" 
+	src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
 
     <div class="download">
       <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+        <img border="0" width="45" src="http://github.com/images/modules/download/zip.png"></a>
       <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+        <img border="0" width="45" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
     <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>    </h1>
@@ -120,6 +122,47 @@ Checks names for fields, methods , ....... . Few ignore options. Done by Roman I
 (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>).
 <br/>
     </div>
+
+<h3>Release 1.0.2:</h3>
+<div >
+AvoidNotShortCircuitOperatorsForBooleanCheck - check to force user not to use ShortCircuit operators ("|", "&" for boolean calculations)
+. Done by Daniil Yaroslavtsev.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3197134&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+MultipleStringLiteralsExtendedCheck - extension of the standart check, newoption was added to highlight all duplicated. Done by Yury Balahonov.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3184230&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+MultipleVariableDeclarationsExtendedCheck - stndard check + option to ignore while/for. Done by Daniil Yaroslavtsev.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3146159&group_id=29721&atid=397080">patch</a>
+
+<br/>
+<br/>
+UnnecessaryParenthesesExtendedCheck - standart check + option to ignore some arguable cases. Dmitriy Antonenko.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3211385&group_id=29721&atid=397080">patch</a>
+</div>
+
+<h3>Release 1.0.1:</h3>
+<div >
+CustomDeclarationOrderCheck - check to adjust class structure to make it more predictable. 
+Done by Danil Lopatin. <a href="http://habrahabr.ru/blogs/java/111739/">acticle in russian</a>
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3044455&group_id=29721&atid=397080">patch and example of config</a>
+<br/>
+<br/>
+InnerClassCheck - force user to place inner classes at the bottom ofthe class. Done by Ruslan Dyachenko.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3027391&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+AbstractClassNameExtendedCheck - extension to check if you named class AbstractXXXXXX then force user to keep it "abstract". Done by Danil Lopatin.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3043752&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+LineLengthExtendedCheck - extension of standard check with a lot of ignore option. Done by Ruslan Dyachenko.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3044164&group_id=29721&atid=397080">patch<a>
+</div>
+
+
     <h2>Download</h2>
     <p>
       You can download this project in either
