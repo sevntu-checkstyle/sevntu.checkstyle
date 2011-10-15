@@ -45,22 +45,81 @@
         <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
-    <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>
-      <span class="small">by <a href="http://github.com/sevntu-checkstyle">sevntu-checkstyle</a></span></h1>
+    <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>    </h1>
+      <span class="small">by students from Sevastopol National Technical University, Ukraine.
+      <br/>
+	Supported and mentored by developers from Revere Data LLC (http://reveredata.com)
+      </span>
+
 
     <div class="description">
-      Checkstyle checkers 
+      Extension for EclipseCS plugin.
+      Incubator for Checkstyle checks that are not present in main stream of checkstyle. 
     </div>
 
     <h2>Contact</h2>
-<p> by github mail
+<p> please use github mail
 <br/>      </p>
 
 
-    <h2>Update site</h2>
+    <h2>Update site for Eclipse (EclipseCS plugin is required)</h2>
      <p>
          http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/
      </p>
+    <h2> New and noteworthy</h2>
+<h3>Release 1.0.4:</h3>
+<div >
+
+<b>ForbidAnnotationCheck</b> -&nbsp;Forbid specific annotation for field/method, e.g. forbid @Autowire 
+annotation for private field. Done by&nbsp;Victor Hidoyatov.&nbsp;
+<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=3165196&amp;group_id=29721&amp;atid=397081">issue</a>
+<br/>
+<br/>
+<b>AvoidConstantsInInterfacesCheck</b> - avoid declaration of constants in interfaces. Done by&nbsp;Vladimir Svikhunov.
+&nbsp;<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3298876&amp;group_id=29721&amp;atid=397081">issue</a>.
+<br/>
+<br/>
+<b>AvoidHidingCauseExceptionCheck</b> -&nbsp;hiding Cause exception in throwing new exception. Done by Daniil Yaroslavtsev.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156070&amp;group_id=29721&amp;atid=397081">issue</a>.
+<br/>
+<br/>
+<b>AvoidNotShortCircuitOperatorsForBooleanCheck</b> -&nbsp;Forbid to use "|", "|=", "&amp;" for boolean/Boolean variables, 
+and force to use "||", .... , explanation link. Example: "boolean b |= returnBoolean()". 
+Done by Daniil Yaroslavtsev.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156065&amp;group_id=29721&amp;atid=397081" >issue</a>.
+<br/>
+<br/>
+<b>IllegalCatchCheck</b> -&nbsp;Options to ignore 1) exact re-throw after logging 
+2) creation and throw of other Exception base on current exception. Done by Daniil Yroslavtsev.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156067&amp;group_id=29721&amp;atid=397081" >issue</a>.
+<br/>
+<br/>
+<b>OverridableMethodInConstructorCheck</b> -&nbsp;Do not use protected/public method in C-tor. 
+Use only private and final.&nbsp;Check all call hierarchy from c-tor to avoid: c-tor -&gt; private -&gt; public/protected. 
+Done by Daniil Yaroslavtsev. (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3103877&amp;group_id=29721&amp;atid=397081">issue</a>.
+<br/>
+<br/>
+<b>ReturnBooleanFromTernary</b> -&nbsp;It is a bad practice to return boolean values from ternary operations. 
+Just use the value inside branch instead. Done by Ivan Sopov.
+<br/>
+<br/>
+<b>ReturnNullInsteadOfBoolean</b> - Arguably it is the matter of style to use Boolean for ternary logic or enum. 
+And since all the information is in the single file and even in the single method, 
+I think that checkstyle is capable of doing this. Done by Ivan Sopov. 
+(<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3189246&amp;group_id=29721&amp;atid=397081">issue</a>)
+<br/>
+<br/>
+<b>VariableDeclarationUsageDistanceCheck</b> - check distance between declaration of variable 
+and its first usage of it. Options: Allowed distance (in rows); Ignore variable names (regexp). 
+Done by Ruslan Diachenko.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>
+<br/>
+<br/>
+<b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader. 
+Checks names for fields, methods , ....... . Few ignore options. Done by Roman Ivanov. 
+(<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>).
+<br/>
+    </div>
     <h2>Download</h2>
     <p>
       You can download this project in either
