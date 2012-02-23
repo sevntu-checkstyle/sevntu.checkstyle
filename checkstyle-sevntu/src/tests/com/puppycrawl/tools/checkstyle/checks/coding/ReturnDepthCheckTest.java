@@ -20,7 +20,8 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
         int maxAllowed = 1;
 
         checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
-
+        checkConfig.addAttribute("linesLimit", "0"); 
+        
         String[] expected = {
                 // "29:13: " + createMsg("twoReturnsInMethod", "method", 2, maxAllowed),
                 "48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
@@ -39,7 +40,8 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
         int maxAllowed = 2;
 
         checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
-
+        checkConfig.addAttribute("linesLimit", "0"); 
+        
         String[] expected = {
                 //"29:13: " + createMsg("twoReturnsInMethod", "method", 1, maxAllowed),
                 //"48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
@@ -58,7 +60,8 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
         int maxAllowed = 0;
 
         checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
-
+        checkConfig.addAttribute("linesLimit", "0");        
+        
         String[] expected = {
                 "29:13: " + createMsg("twoReturnsInMethod", "method", 1, maxAllowed),
                 "48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
@@ -69,6 +72,68 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
                 + "InputReturnDepthCheckMethods.java"), expected);
     }
 
+    @Test
+    public void testReturnDepthLimitWithLinesLimit()
+            throws Exception
+    {
+
+        int maxAllowed = 1;
+
+        checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
+        checkConfig.addAttribute("linesLimit", "20"); 
+        
+        String[] expected = {
+                // "29:13: " + createMsg("twoReturnsInMethod", "method", 2, maxAllowed),
+                // "48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
+                "62:17: " + createMsg("fourReturnsInMethod", "method", 2, maxAllowed),
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputReturnDepthCheckMethods.java"), expected);
+    }
+
+    @Test
+    public void testReturnDepthLimitWithLinesLimit2()
+            throws Exception
+    {
+
+        int maxAllowed = 2;
+
+        checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
+        checkConfig.addAttribute("linesLimit", "20"); 
+        
+        String[] expected = {
+                //"29:13: " + createMsg("twoReturnsInMethod", "method", 1, maxAllowed),
+                //"48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
+                //"62:17: " + createMsg("fourReturnsInMethod", "method", 2, maxAllowed),
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputReturnDepthCheckMethods.java"), expected);
+    }
+
+    @Test
+    public void testReturnDepthLimitWithLinesLimit3()
+            throws Exception
+    {
+
+        int maxAllowed = 0;
+
+        checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
+        checkConfig.addAttribute("linesLimit", "20");        
+        
+        String[] expected = {
+                //"29:13: " + createMsg("twoReturnsInMethod", "method", 1, maxAllowed),
+                //"48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
+                "62:17: " + createMsg("fourReturnsInMethod", "method", 2, maxAllowed),
+                };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputReturnDepthCheckMethods.java"), expected);
+    }
+    
+    
+    
     private String
             createMsg(String methodName, String methodType, int is, int max)
     {

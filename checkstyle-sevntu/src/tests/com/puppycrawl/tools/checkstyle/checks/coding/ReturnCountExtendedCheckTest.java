@@ -14,7 +14,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
 
     @Test
     public void testMethodsMaxReturnLiteralsIsOne() throws Exception
-    {        
+    {
         
         checkConfig.addAttribute("max", "1");  
         checkConfig.addAttribute("linesLimit", "0");  

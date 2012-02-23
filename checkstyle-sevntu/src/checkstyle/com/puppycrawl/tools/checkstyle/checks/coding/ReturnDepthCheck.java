@@ -22,9 +22,9 @@ public class ReturnDepthCheck extends Check
 
     /**
      * Option to ignore methods/ctors that have return statement(s) with depth
-     * lesser than N levels(scopes): 2 by default.
+     * lesser than N levels(scopes): 0 by default.
      */
-    private int mReturnDepthLimit;
+    private int mReturnDepthLimit = 0;
 
     /**
      * Current found maximum "return" statement depth for current method/ctor is
@@ -32,6 +32,13 @@ public class ReturnDepthCheck extends Check
      */
     private int mCurMethodMaxReturnDepth;
 
+    /**
+     * Limit the number of lines of which method/ctor body may consist to skip
+     * this check. If method/ctor has the lines number greater than this limit,
+     * it will be processed. 20 by default.
+     */
+    private int mLinesLimit = 20;
+    
     /**
      * The last found "return" literal DetailAST node for given method/ctor
      * body.
@@ -64,6 +71,26 @@ public class ReturnDepthCheck extends Check
         mReturnDepthLimit = aReturnDepthLimit;
     }
 
+    /**
+     * Getter for "lines limit" property.
+     * @return maximum allowed number of return statements.
+     * @see ReturnCountExtendedCheck#mLinesLimit
+     */
+    public int getLinesLimit()
+    {
+        return mLinesLimit;
+    }
+
+    /**
+     * Setter for "lines limit" property.
+     * @param aLinesLimit new lines limit value.
+     * @see ReturnCountExtendedCheck#mLinesLimit
+     */
+    public void setLinesLimit(int aLinesLimit)
+    {
+        mLinesLimit = aLinesLimit;
+    }
+    
     @Override
     public int[] getDefaultTokens()
     {
@@ -72,7 +99,13 @@ public class ReturnDepthCheck extends Check
 
     @Override
     public void visitToken(final DetailAST aMethodDefNode)
-    {
+    {     
+        final int curMethodLinesCount = getLinesCount(aMethodDefNode);
+
+        if (curMethodLinesCount < mLinesLimit) {
+            return;
+        }
+        
         mCurMethodMaxReturnDepth = 0;
         mCurMethodDefNode = aMethodDefNode;
 
@@ -81,7 +114,6 @@ public class ReturnDepthCheck extends Check
             log(mCurReturnLiteralAST, mKey, mCurMethodMaxReturnDepth,
                     mReturnDepthLimit);
         }
-
     }
 
     /**
@@ -101,7 +133,9 @@ public class ReturnDepthCheck extends Check
                     }
                 }
                 else {
-                    workOnMethod(curNode);
+                    if (curNode.getType() != TokenTypes.METHOD_DEF) {
+                        workOnMethod(curNode);
+                    }
                 }
             }
         }
@@ -137,6 +171,36 @@ public class ReturnDepthCheck extends Check
         return curReturnDepth;
     }
 
+    /**
+     * Gets the lines count for given method/ctor body.
+     * @param aMethodDefNode
+     *        - a DetailAST node that points to the current method`s definition.
+     * @return - 0 if method hasn`t open and close;<br>
+     *         - 0 if method/ctor 'open' and 'close" braces are in the same line
+     *         braces;<br>
+     *         - Method/ctor body linelenght otherwise.
+     */
+    private int getLinesCount(DetailAST aMethodDefNode)
+    {
+        int result = 0;
+        final DetailAST openingBrace = aMethodDefNode
+                .findFirstToken(TokenTypes.SLIST);
+        if (openingBrace != null) {
+            final DetailAST closingBrace = openingBrace
+                    .findFirstToken(TokenTypes.RCURLY);
+            final int closingBraceLineNo = closingBrace.getLineNo();
+            final int openingBraceLineNo = openingBrace.getLineNo();
+
+            if (closingBraceLineNo == openingBraceLineNo) {
+                result = 0;
+            }
+            else {
+                result = closingBraceLineNo - openingBraceLineNo - 1;
+            }
+        }
+        return result;
+    }
+    
     /**
      * Gets all the children one level below on the current DetailAST parent
      * node.

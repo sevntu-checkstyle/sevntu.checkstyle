@@ -42,14 +42,14 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
      */
-    private int mMaxReturnCount;
+    private int mMaxReturnCount = 1;
 
     /**
      * Limit the number of lines of which method/ctor body may consist to skip
      * this check. If method/ctor has the lines number greater than this limit,
-     * it will be processed. 30 by default.
+     * it will be processed. 20 by default.
      */
-    private int mLinesLimit;
+    private int mLinesLimit = 20;
 
     /**
      * The "return" literals count for current method/ctor is currently being
@@ -173,17 +173,19 @@ public class ReturnCountExtendedCheck extends Check
     private void getReturnCount(DetailAST aMethodDefNode)
     {
         for (DetailAST curNode : getChildren(aMethodDefNode)) {
-            if (curNode.getNumberOfChildren() > 0) {
-                if (curNode.getType() == TokenTypes.LITERAL_RETURN) {
-                    this.mCurReturnCount++;
-                    this.mCurReturnLiteral = curNode;
-                }
-                else {
+            if (curNode.getNumberOfChildren() > 0
+                    && curNode.getType() == TokenTypes.LITERAL_RETURN) {
+                this.mCurReturnCount++;
+                this.mCurReturnLiteral = curNode;
+            }
+            else {
+                if (curNode.getType() != TokenTypes.METHOD_DEF) {
                     getReturnCount(curNode);
                 }
             }
         }
     }
+    
 
     /**
      * Gets all the children one level below on the current DetailAST parent
