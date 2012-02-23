@@ -15,7 +15,6 @@
             <description>%AvoidHidingCauseException.desc</description>
         </rule-metadata>
         
-        
         <rule-metadata name="%AvoidNotShortCircuitOperatorsForBoolean.name" internal-name="AvoidNotShortCircuitOperatorsForBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
             <description>%AvoidNotShortCircuitOperatorsForBoolean.desc</description>
@@ -102,6 +101,27 @@
             <message-key key="overridable.method.leads" />
         </rule-metadata>
 
+
+        <rule-metadata name="%ReturnCountExtended.name" internal-name="ReturnCountExtended" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountExtendedCheck"/>
+            <description>%ReturnCountExtended.desc</description>            
+            <property-metadata name="max" datatype="Integer" default-value="1">
+                <description>%ReturnCountExtended.max</description>
+            </property-metadata>            
+            <property-metadata name="linesLimit" datatype="Integer" default-value="30">
+                <description>%ReturnCountExtended.linesLimit</description>
+            </property-metadata>            
+            <message-key key="return.count.extended"/>
+        </rule-metadata>
+        
+        <rule-metadata name="%ReturnDepth.name" internal-name="ReturnDepth" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnDepthCheck"/>
+            <description>%ReturnDepth.desc</description>            
+            <property-metadata name="returnDepthLimit" datatype="Integer" default-value="1">
+                <description>%ReturnDepth.returnDepthLimit</description>
+            </property-metadata>
+            <message-key key="return.depth"/>
+        </rule-metadata>
 
         <rule-metadata name="%UnnecessaryParenthesesExtended.name" internal-name="UnnecessaryParenthesesExtended" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck" />

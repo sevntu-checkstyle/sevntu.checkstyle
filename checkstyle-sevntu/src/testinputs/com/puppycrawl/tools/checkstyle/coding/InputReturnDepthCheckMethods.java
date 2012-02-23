@@ -1,4 +1,4 @@
-public class InputOneReturnInMethodCheck
+public class InputReturnCountExtendedCheckMethods
 {
 
     int a = 0;
@@ -78,4 +78,12 @@ public class InputOneReturnInMethodCheck
         }
     }
 
+//    public void f(){
+//        if(true){
+//            for(int i=0; i< 5; i++){
+//                
+//            }
+//        }
+//    }
+    
 }
