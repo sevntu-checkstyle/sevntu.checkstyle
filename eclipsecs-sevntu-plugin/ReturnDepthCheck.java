@@ -51,7 +51,7 @@ public class ReturnDepthCheck extends Check
      */
     public int getReturnDepthLimit()
     {
-        return mReturnDepthLimit;
+        return this.mReturnDepthLimit;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ReturnDepthCheck extends Check
      */
     public void setReturnDepthLimit(int aReturnDepthLimit)
     {
-        mReturnDepthLimit = aReturnDepthLimit;
+        this.mReturnDepthLimit = aReturnDepthLimit;
     }
 
     @Override

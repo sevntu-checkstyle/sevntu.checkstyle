@@ -107,17 +107,17 @@
             <description>%ReturnCountExtended.desc</description>            
             <property-metadata name="max" datatype="Integer" default-value="1">
                 <description>%ReturnCountExtended.max</description>
-            </property-metadata>            
+            </property-metadata>
             <property-metadata name="linesLimit" datatype="Integer" default-value="30">
                 <description>%ReturnCountExtended.linesLimit</description>
-            </property-metadata>            
+            </property-metadata>
             <message-key key="return.count.extended"/>
         </rule-metadata>
         
         <rule-metadata name="%ReturnDepth.name" internal-name="ReturnDepth" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnDepthCheck"/>
-            <description>%ReturnDepth.desc</description>            
-            <property-metadata name="returnDepthLimit" datatype="Integer" default-value="1">
+            <description>%ReturnDepth.desc</description>
+            <property-metadata name="returnDepthLimit" datatype="Integer" default-value="0">
                 <description>%ReturnDepth.returnDepthLimit</description>
             </property-metadata>
             <message-key key="return.depth"/>

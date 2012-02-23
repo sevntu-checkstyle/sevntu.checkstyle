@@ -34,32 +34,22 @@ public class ReturnCountExtendedCheck extends Check
 {
 
     /**
-     * The default "Maximum return count" property value.
-     */
-    private static final int DEFAULT_MAX_RETURN_COUNT = 1;
-
-    /**
-     * The default "lines limit" property value.
-     */
-    private static final int DEFAULT_LINES_LIMIT = 30;
-
-    /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
     private final String mKey = "return.count.extended";
 
     /**
-     * Maximum allowed "return" literals count per method/ctor.
+     * Maximum allowed "return" literals count per method/ctor (1 by default).
      */
-    private int mMaxReturnCount = DEFAULT_MAX_RETURN_COUNT;
+    private int mMaxReturnCount;
 
     /**
      * Limit the number of lines of which method/ctor body may consist to skip
      * this check. If method/ctor has the lines number greater than this limit,
      * it will be processed. 30 by default.
      */
-    private int mLinesLimit =  DEFAULT_LINES_LIMIT;
+    private int mLinesLimit;
 
     /**
      * The "return" literals count for current method/ctor is currently being
@@ -90,7 +80,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     public void setLinesLimit(int aLinesLimit)
     {
-        this.mLinesLimit = aLinesLimit;
+        mLinesLimit = aLinesLimit;
     }
 
     /**
@@ -110,7 +100,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     public void setMax(int aMax)
     {
-        this.mMaxReturnCount = aMax;
+        mMaxReturnCount = aMax;
     }
 
     @Override

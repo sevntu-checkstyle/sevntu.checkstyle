@@ -22,15 +22,9 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
 
         String[] expected = {
-                "29:13: "
-                        + createMsg("twoReturnsInMethod", "method", 2,
-                                maxAllowed),
-                "48:17: "
-                        + createMsg("threeReturnsInMethod", "method", 3,
-                                maxAllowed),
-                "62:17: "
-                        + createMsg("fourReturnsInMethod", "method", 3,
-                                maxAllowed),
+                // "29:13: " + createMsg("twoReturnsInMethod", "method", 2, maxAllowed),
+                "48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
+                "62:17: " + createMsg("fourReturnsInMethod", "method", 2, maxAllowed),
         };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -47,13 +41,9 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
 
         String[] expected = {
-                //"29:13: " + createMsg("twoReturnsInMethod", "method", 2, maxAllowed),
-                "48:17: "
-                        + createMsg("threeReturnsInMethod", "method", 3,
-                                maxAllowed),
-                "62:17: "
-                        + createMsg("fourReturnsInMethod", "method", 3,
-                                maxAllowed),
+                //"29:13: " + createMsg("twoReturnsInMethod", "method", 1, maxAllowed),
+                //"48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
+                //"62:17: " + createMsg("fourReturnsInMethod", "method", 2, maxAllowed),
         };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -65,11 +55,14 @@ public class ReturnDepthCheckTest extends BaseCheckTestSupport
             throws Exception
     {
 
-        int maxAllowed = 3;
+        int maxAllowed = 0;
 
         checkConfig.addAttribute("returnDepthLimit", maxAllowed + "");
 
         String[] expected = {
+                "29:13: " + createMsg("twoReturnsInMethod", "method", 1, maxAllowed),
+                "48:17: " + createMsg("threeReturnsInMethod", "method", 2, maxAllowed),
+                "62:17: " + createMsg("fourReturnsInMethod", "method", 2, maxAllowed),
                 };
 
         verify(checkConfig, getPath("coding" + File.separator

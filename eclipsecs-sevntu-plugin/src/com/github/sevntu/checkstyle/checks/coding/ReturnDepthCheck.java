@@ -24,7 +24,7 @@ public class ReturnDepthCheck extends Check
      * Option to ignore methods/ctors that have return statement(s) with depth
      * lesser than N levels(scopes): 2 by default.
      */
-    private int mReturnDepthLimit = 2;
+    private int mReturnDepthLimit;
 
     /**
      * Current found maximum "return" statement depth for current method/ctor is
@@ -51,7 +51,7 @@ public class ReturnDepthCheck extends Check
      */
     public int getReturnDepthLimit()
     {
-        return this.mReturnDepthLimit;
+        return mReturnDepthLimit;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ReturnDepthCheck extends Check
      */
     public void setReturnDepthLimit(int aReturnDepthLimit)
     {
-        this.mReturnDepthLimit = aReturnDepthLimit;
+        mReturnDepthLimit = aReturnDepthLimit;
     }
 
     @Override
@@ -76,8 +76,7 @@ public class ReturnDepthCheck extends Check
         mCurMethodMaxReturnDepth = 0;
         mCurMethodDefNode = aMethodDefNode;
 
-        calculate(aMethodDefNode);
-
+        workOnMethod(aMethodDefNode);
         if (mCurMethodMaxReturnDepth > mReturnDepthLimit) {
             log(mCurReturnLiteralAST, mKey, mCurMethodMaxReturnDepth,
                     mReturnDepthLimit);
@@ -89,7 +88,7 @@ public class ReturnDepthCheck extends Check
      * @param aMethodDefNode
      *        - a DetailAST node that points to the current method`s definition.
      */
-    private void calculate(DetailAST aMethodDefNode)
+    private void workOnMethod(DetailAST aMethodDefNode)
     {
         for (DetailAST curNode : getChildren(aMethodDefNode)) {
             if (curNode.getNumberOfChildren() > 0) {
@@ -102,7 +101,7 @@ public class ReturnDepthCheck extends Check
                     }
                 }
                 else {
-                    calculate(curNode);
+                    workOnMethod(curNode);
                 }
             }
         }
@@ -126,17 +125,15 @@ public class ReturnDepthCheck extends Check
 
         while (!curNode.equals(aMethodDefNode)) {
             curNode = curNode.getParent();
-            //System.out.println(curNode);
             final int type = curNode.getType();
             if (type == TokenTypes.LITERAL_IF
+                    || type == TokenTypes.LITERAL_SWITCH
                     || type == TokenTypes.LITERAL_FOR
                     || type == TokenTypes.LITERAL_WHILE)
             {
                 curReturnDepth++;
             }
         }
-        curReturnDepth++;
-        // System.out.println(aNode + "return depth: "+curReturnDepth);
         return curReturnDepth;
     }
 

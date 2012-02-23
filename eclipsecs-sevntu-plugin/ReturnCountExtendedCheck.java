@@ -80,7 +80,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     public void setLinesLimit(int aLinesLimit)
     {
-        mLinesLimit = aLinesLimit;
+        this.mLinesLimit = aLinesLimit;
     }
 
     /**
@@ -100,7 +100,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     public void setMax(int aMax)
     {
-        mMaxReturnCount = aMax;
+        this.mMaxReturnCount = aMax;
     }
 
     @Override
