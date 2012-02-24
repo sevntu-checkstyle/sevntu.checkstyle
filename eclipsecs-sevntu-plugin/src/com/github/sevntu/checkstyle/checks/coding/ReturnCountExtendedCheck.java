@@ -34,6 +34,16 @@ public class ReturnCountExtendedCheck extends Check
 {
 
     /**
+     * Default "lines limit" property value.
+     */
+    private static final int DEFAULT_LINES_LIMIT = 20;
+
+    /**
+     * Default "return depth limit" property value.
+     */
+    private static final int DEFAULT_RETURN_DEPTH_LIMIT = 4;
+
+    /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
@@ -44,7 +54,7 @@ public class ReturnCountExtendedCheck extends Check
      * file.
      */
     private final String mKeyCtor = "return.count.extended.ctor";
-    
+
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
      */
@@ -55,19 +65,20 @@ public class ReturnCountExtendedCheck extends Check
      * this check. If method/ctor has the lines number greater than this limit,
      * it will be processed. 20 by default.
      */
-    private int mLinesLimit = 20;
+    private int mLinesLimit = DEFAULT_LINES_LIMIT;
 
     /**
      * Option to ignore methods/ctors that have return statement(s) with depth
-     * lesser than N levels(scopes): 0 by default.
+     * lesser than N levels(scopes): 4 by default.
      */
-    private int mReturnDepthLimit = 0;
-    
+    private int mReturnDepthLimit = DEFAULT_RETURN_DEPTH_LIMIT;
+
     /**
-     * Option to ignore empty return statements in void methods and ctors. 'False' by default.
+     * Option to ignore empty return statements in void methods and ctors.
+     * 'False' by default.
      */
-    private boolean mIgnoreEmptyReturns = false;
-    
+    private boolean mIgnoreEmptyReturns;
+
     /**
      * The "return" literals count for current method/ctor is currently being
      * processed.
@@ -105,7 +116,7 @@ public class ReturnCountExtendedCheck extends Check
     {
         mMaxReturnCount = aMax;
     }
-    
+
     /**
      * Getter for "lines limit" property.
      * @return "lines limit" property value.
@@ -125,7 +136,7 @@ public class ReturnCountExtendedCheck extends Check
     {
         mLinesLimit = aLinesLimit;
     }
-   
+
     /**
      * Getter for "max return depth" property.
      * @return "max return depth" property value.
@@ -155,7 +166,7 @@ public class ReturnCountExtendedCheck extends Check
     {
         return mIgnoreEmptyReturns;
     }
-    
+
     /**
      * Setter for "allow empty returns" property.
      * @param aIgnoreEmptyReturns the new "allow empty returns" property value.
@@ -165,7 +176,7 @@ public class ReturnCountExtendedCheck extends Check
     {
         mIgnoreEmptyReturns = aIgnoreEmptyReturns;
     }
-    
+
     @Override
     public int[] getDefaultTokens()
     {
@@ -177,8 +188,7 @@ public class ReturnCountExtendedCheck extends Check
     {
         mCurReturnCount = 0;
         mCurMethodDefNode = aMethodDefNode;
-        
-        
+
         final int curMethodLinesCount = getLinesCount(aMethodDefNode);
 
         if (curMethodLinesCount < mLinesLimit) {
@@ -217,7 +227,7 @@ public class ReturnCountExtendedCheck extends Check
         }
         return result;
     }
-    
+
     /**
      * Gets the lines count for given method/ctor body.
      * @param aMethodDefNode
@@ -257,11 +267,13 @@ public class ReturnCountExtendedCheck extends Check
     private void getReturnCount(DetailAST aMethodDefNode)
     {
         for (DetailAST curNode : getChildren(aMethodDefNode)) {
-            if (curNode.getType() == TokenTypes.LITERAL_RETURN &&
-                    isReturnDepthBad(curNode)) {
+            if (curNode.getType() == TokenTypes.LITERAL_RETURN
+                    && isReturnDepthBad(curNode))
+            {
                 if (mIgnoreEmptyReturns && isReturnStatementEmpty(curNode)) {
                     // no code
-                } else {
+                }
+                else {
                     mCurReturnCount++;
                     mCurReturnLiteral = curNode;
                 }
@@ -273,28 +285,37 @@ public class ReturnCountExtendedCheck extends Check
             }
         }
     }
-    
+
     /**
-     * 
+     * Checks that current processed "return" statement depth level is less than
+     * desired depth limit.
      * @param aReturnNode
-     * @return
+     *        - the DetailAST node is pointing to the current "return" statement
+     *        is being processed.
+     * @return true if current processed "return" statement depth level is less
+     *         than given return depth limit.
+     * @see ReturnCountExtendedCheck#mReturnDepthLimit
      */
     private boolean isReturnDepthBad(DetailAST aReturnNode)
-    {        
-        return mReturnDepthLimit > getDepth(mCurMethodDefNode, aReturnNode);
+    {
+        return getDepth(mCurMethodDefNode, aReturnNode) < mReturnDepthLimit;
     }
 
     /**
-     * 
+     * Checks that current processed "return" statement is "empty" (checks that current processed "return"
+     *         statement is located in void method or ctor).
      * @param aReturnNode
-     * @return
+     *        - the DetailAST node is pointing to the current "return" statement
+     *        is being processed.
+     * @return true if current processed "return" statement is empty.
      */
     private boolean isReturnStatementEmpty(DetailAST aReturnNode)
     {
         boolean result = false;
-        DetailAST returnChildNode = aReturnNode.getFirstChild();
+        final DetailAST returnChildNode = aReturnNode.getFirstChild();
         if (returnChildNode != null
-                && returnChildNode.getType() == TokenTypes.SEMI) {
+                && returnChildNode.getType() == TokenTypes.SEMI)
+        {
             result = true;
         }
         return result;
@@ -315,7 +336,7 @@ public class ReturnCountExtendedCheck extends Check
         int result = 0;
 
         DetailAST curNode = aReturnStmtNode;
-       
+
         while (!curNode.equals(aMethodDefNode)) {
             curNode = curNode.getParent();
             final int type = curNode.getType();
@@ -324,16 +345,14 @@ public class ReturnCountExtendedCheck extends Check
                     || type == TokenTypes.LITERAL_FOR
                     || type == TokenTypes.LITERAL_DO
                     || type == TokenTypes.LITERAL_WHILE
-                    || type == TokenTypes.LITERAL_TRY
-                    )
+                    || type == TokenTypes.LITERAL_TRY)
             {
                 result++;
             }
-        }        
-        // System.out.println("Method: "+getMethodName(aMethodDefNode)+" = "+result);
+        }
         return result;
     }
-    
+
     /**
      * Gets all the children one level below on the current DetailAST parent
      * node.
