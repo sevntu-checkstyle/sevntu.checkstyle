@@ -3,7 +3,7 @@ public class InputReturnDepthCheck
 
     public int a = 0;
 
-    // one "return"
+    // 6 "returns", max depth is 2
     public InputReturnDepthCheck()
     {
         int a = this.hashCode();
@@ -28,106 +28,29 @@ public class InputReturnDepthCheck
             return a;
         }
     }
+
     
-    // one "return"
-    public InputReturnDepthCheck(float x)
+    public InputReturnDepthCheck(int x) {      
+        if(true){
+            return; // will be ignored until ignoreEmptyReturns options checked  
+        } else {
+            return; // will be ignored until ignoreEmptyReturns options checked  
+        }        
+    }
+ 
+    //exclusive test for "try-catch block processing"
+    public int nm()
     {
-        int a = this.hashCode();
-        if (a != 0) {
-            switch (a) {
-            case 1:
-                return a;
-                break;
-            case 2:
-                return a;
-                break;
-            case 3:
-                return a;
-                break;
-            case 4:
-                return a;
-                break;
-            case 5:
-                return a;
-                break;
+        if (true) {
+            try {
+                return 5; // depth is 2
             }
-            return a;
+            catch (Exception e) {
+                if (true)
+                    return 5; // depth is 3
+            }
         }
+        return mCurReturnCount; // depth is 0
     }
-
-    // one "return"
-    public InputReturnDepthCheck(int x) {
-        for (int i = 0; i < x; i++) {
-            System.out.println();
-            int a = 1;
-            if (a != 2 && true) {
-                if (true | false) {
-                    if (a - a != 0) {
-                        a += 1;
-                    }
-                }
-            }
-        }
-        return a + a * a;
-    }
-
-    // two "returns"
-    public InputReturnDepthCheck(int x, String s) {
-        System.out.println();
-        int a = x + s.length();
-        if (a != 4) {
-            return 1;
-        }
-        else {
-            System.out.println(a);
-            return 2;
-        }
-    }
-
-    // three "returns"
-    public InputReturnDepthCheck(String z, double y) {
-        System.out.println();
-        int a = z;
-        y+=0.6;
-        if (a != 4)
-        {
-            return 1;
-        }
-        else
-        {
-            if (a - 1 != 2) {
-                this.a = 0;
-                return 6;
-            }
-            else {
-                System.out.println();
-                return 2;
-            }
-        }
-    }
-
-    // four "returns"
-    public InputReturnDepthCheck(String z, int x, double y) {
-        System.out.println();
-        int a = x;
-        if (a != 4)  {
-            if (a != 6) {
-                return 1;
-            }
-            else {
-                a++;
-            }
-            return x;
-        }
-        else {
-            if (a - 1 != 2) {
-                this.a = 0;
-                return 6;
-            }
-            else {
-                System.out.println();
-                return 2;
-            }
-        }
-    }
+    
 }

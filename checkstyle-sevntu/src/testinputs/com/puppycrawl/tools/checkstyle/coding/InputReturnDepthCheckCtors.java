@@ -5,7 +5,7 @@ public class InputOneReturnInMethodCheckCtors
     
     // one "return"
     public InputReturnCountExtendedCheckCtors() {
-        return a;
+        return;
     }
 
     // one "return"

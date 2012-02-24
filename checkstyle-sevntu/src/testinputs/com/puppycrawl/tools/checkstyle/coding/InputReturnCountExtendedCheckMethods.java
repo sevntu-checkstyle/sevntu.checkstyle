@@ -78,4 +78,26 @@ public class InputReturnCountExtendedCheckMethods
         }
     }
 
+    // exclusive test method with the "return" depth = 3 
+    public int r() {
+       do {
+           if(true) {
+               if(true)return 5;
+           }
+       } while(true);
+    }
+    
+    //exclusive test for "try-catch block processing"
+    public int nm()
+    {
+        if (true) {
+            try {
+            }
+            catch (Exception e) {
+                if (true)
+                    return 5;
+            }
+        }
+    }
+
 }

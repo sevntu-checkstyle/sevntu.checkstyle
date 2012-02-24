@@ -111,19 +111,13 @@
             <property-metadata name="linesLimit" datatype="Integer" default-value="20">
                 <description>%ReturnCountExtended.linesLimit</description>
             </property-metadata>
+            <property-metadata name="returnDepthLimit" datatype="Integer" default-value="4">
+                <description>%ReturnCountExtended.returnDepthLimit</description>
+            </property-metadata>
+            <property-metadata name="ignoreEmptyReturns" datatype="Boolean" default-value="false">
+                <description>%ReturnCountExtended.ignoreEmptyReturns</description>
+            </property-metadata>
             <message-key key="return.count.extended"/>
-        </rule-metadata>
-
-        <rule-metadata name="%ReturnDepth.name" internal-name="ReturnDepth" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnDepthCheck"/>
-            <description>%ReturnDepth.desc</description>
-            <property-metadata name="returnDepthLimit" datatype="Integer" default-value="0">
-                <description>%ReturnDepth.returnDepthLimit</description>
-            </property-metadata>
-            <property-metadata name="linesLimit" datatype="Integer" default-value="20">
-                <description>%ReturnDepth.linesLimit</description>
-            </property-metadata>
-            <message-key key="return.depth"/>
         </rule-metadata>
 
         <rule-metadata name="%UnnecessaryParenthesesExtended.name" internal-name="UnnecessaryParenthesesExtended" parent="TreeWalker">
