@@ -105,8 +105,8 @@
         <rule-metadata name="%ReturnCountExtended.name" internal-name="ReturnCountExtended" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountExtendedCheck"/>
             <description>%ReturnCountExtended.desc</description>            
-            <property-metadata name="max" datatype="Integer" default-value="1">
-                <description>%ReturnCountExtended.max</description>
+            <property-metadata name="maxReturnCount" datatype="Integer" default-value="1">
+                <description>%ReturnCountExtended.maxReturnCount</description>
             </property-metadata>
             <property-metadata name="linesLimit" datatype="Integer" default-value="20">
                 <description>%ReturnCountExtended.linesLimit</description>
@@ -116,6 +116,9 @@
             </property-metadata>
             <property-metadata name="ignoreEmptyReturns" datatype="Boolean" default-value="false">
                 <description>%ReturnCountExtended.ignoreEmptyReturns</description>
+            </property-metadata>
+            <property-metadata name="rowsToIgnoreCount" datatype="Integer" default-value="5">
+                <description>%ReturnCountExtended.rowsToIgnoreCount</description>
             </property-metadata>
             <message-key key="return.count.extended"/>
         </rule-metadata>

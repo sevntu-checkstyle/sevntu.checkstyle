@@ -27,6 +27,33 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
+ * One return per method is a good practice as its ease understanding of method
+ * logic. <br>
+ * Strict structured programmers believe that every method should have only one
+ * return statement in the end. <br>
+ * <br>
+ * Reasoning is that:
+ * <dl>
+ * <li>It is easier to understand control flow when you know exactly where the
+ * method returns.
+ * <li>Methods with 2-3 or many "return" statements are much more difficult to
+ * understand, debug and refactor.
+ * </dl>
+ * Using this check you can find methods that have more "return" statement count
+ * than value is given by "MaxReturnCount" property. <br>
+ * <br>
+ * Setting up another options will make check to ignore:
+ * <ol>
+ * <li>Methods which linelength less than given value ("linesLimit" property).
+ * <li>"return" statements which depth is greater or equal to the given value
+ * ("returnDepthLimit" property). There are few supported <br>
+ * coding blocks when depth counting: "if-else", "for", "while"/"do-while" and
+ * "switch".
+ * <li>"Empty" return statements = return statements in void methods and ctors
+ * that have not any expression ("ignoreEmptyReturns" property).
+ * </ol>
+ * So, this is much improved version of the existing
+ * {@link ReturnCountCheck}.<br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
@@ -34,15 +61,30 @@ public class ReturnCountExtendedCheck extends Check
 {
 
     /**
-     * Default "lines limit" property value.
+     * Default maximum allowed "return" literals count per method/ctor.
+     */
+    private static final int MAX_DEFAULT_RETURN_COUNT = 1;
+
+    /**
+     * Default number of lines of which method/ctor body may consist to be
+     * skipped by check.
      */
     private static final int DEFAULT_LINES_LIMIT = 20;
 
     /**
-     * Default "return depth limit" property value.
+     * Default minimum "return" statement depth when current "return statement"
+     * will be skipped by check.
      */
     private static final int DEFAULT_RETURN_DEPTH_LIMIT = 4;
 
+    /**
+     * Number which defines, how many lines of code on the top of current
+     * processed method/ctor will be ignored by check. (It is equal to max
+     * allowed distance (in rows) from the line with current method`s opening
+     * brace to "return" statement which will be ignored by check).
+     */
+    private static final int DEFAULT_RETURN_ROW_DISTANCE_LIMIT = 5;
+    
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -58,36 +100,40 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
      */
-    private int mMaxReturnCount = 1;
+    private int mMaxReturnCount = MAX_DEFAULT_RETURN_COUNT;
 
     /**
-     * Limit the number of lines of which method/ctor body may consist to skip
-     * this check. If method/ctor has the lines number greater than this limit,
-     * it will be processed. 20 by default.
+     * Limit the number of lines of which method/ctor body may consist to be
+     * skipped by check. If method/ctor has the lines number greater than this
+     * limit, it will be processed. 20 by default.
      */
     private int mLinesLimit = DEFAULT_LINES_LIMIT;
 
     /**
+     * Minimum "return" statement depth to be skipped by check.
      * Option to ignore methods/ctors that have return statement(s) with depth
      * lesser than N levels(scopes): 4 by default.
      */
     private int mReturnDepthLimit = DEFAULT_RETURN_DEPTH_LIMIT;
 
     /**
-     * Option to ignore empty return statements in void methods and ctors.
+     * Option to ignore "empty" return statements in void methods and ctors.
      * 'False' by default.
      */
     private boolean mIgnoreEmptyReturns;
 
     /**
-     * The "return" literals count for current method/ctor is currently being
-     * processed.
+     * Number which defines, how many lines of code on the top of current
+     * processed method/ctor will be ignored by check. (It is equal to max
+     * allowed distance (in rows) from the line with current method`s opening
+     * brace to "return" statement which will be ignored by check). 5 by
+     * default.
      */
-    private int mCurReturnCount;
+    private int mRowsToIgnoreCount = DEFAULT_RETURN_ROW_DISTANCE_LIMIT;
 
     /**
-     * The "return" literal DetailAST node for given method/ctor body which does
-     * not conform to the verification.
+     * The current "return" literal DetailAST node for given method/ctor body
+     * which does not conform to the verification.
      */
     private DetailAST mCurReturnLiteral;
 
@@ -98,28 +144,30 @@ public class ReturnCountExtendedCheck extends Check
     private DetailAST mCurMethodDefNode;
 
     /**
-     * Getter for "max" property.
-     * @return maximum allowed number of return statements.
+     * Gets maximum allowed "return" literals count per method/ctor.
+     * @return the current "maxReturnCount" property value is used by this
+     *         check.
      * @see ReturnCountExtendedCheck#mMaxReturnCount
      */
-    public int getMax()
+    public int getMaxReturnCount()
     {
         return mMaxReturnCount;
     }
 
     /**
-     * Setter for "max" property.
-     * @param aMax - new "max return count" value.
+     * Sets maximum allowed "return" literals count per method/ctor.
+     * @param aMaxReturnCount - the new maximum allowed "return" literals value.
      * @see ReturnCountExtendedCheck#mMaxReturnCount
      */
-    public void setMax(int aMax)
+    public void setMaxReturnCount(int aMaxReturnCount)
     {
-        mMaxReturnCount = aMax;
+        mMaxReturnCount = aMaxReturnCount;
     }
 
     /**
-     * Getter for "lines limit" property.
-     * @return "lines limit" property value.
+     * Gets the number of lines of which method/ctor body may consist to be
+     * skipped by check.
+     * @return the current "linesLimit" property value is used by this check.
      * @see ReturnCountExtendedCheck#mLinesLimit
      */
     public int getLinesLimit()
@@ -128,8 +176,10 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Setter for "lines limit" property.
-     * @param aLinesLimit - new "lines limit" property value.
+     * Sets the number of lines of which method/ctor body may consist to be
+     * skipped by check.
+     * @param aLinesLimit - the new value of maximum method/ctor body linelentgh
+     * to be skipped.
      * @see ReturnCountExtendedCheck#mLinesLimit
      */
     public void setLinesLimit(int aLinesLimit)
@@ -138,8 +188,10 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Getter for "max return depth" property.
-     * @return "max return depth" property value.
+     * Gets the minimum "return" statement depth with that it will be skipped by
+     * check.
+     * @return the current "maxReturnDepth" property value is used by this
+     *         check.
      * @see ReturnDepthCheck#mReturnDepthLimit
      */
     public int getReturnDepthLimit()
@@ -148,8 +200,10 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Setter for "Max return depth" property.
-     * @param aReturnDepthLimit - new "max return depth" property value.
+     * Sets the minimum "return" statement depth with that it will be skipped by
+     * check.
+     * @param aReturnDepthLimit
+     *        - the new
      * @see ReturnDepthCheck#mReturnDepthLimit
      */
     public void setReturnDepthLimit(int aReturnDepthLimit)
@@ -158,8 +212,9 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Getter for "allow empty returns" property.
-     * @return "allow empty returns" property value.
+     * Gets the "ignoring empty return statements in void methods and ctors"
+     * option state.
+     * @return the current "allowEmptyReturns" property value.
      * @see ReturnCountExtendedCheck#mIgnoreEmptyReturns
      */
     public boolean getIgnoreEmptyReturns()
@@ -168,14 +223,40 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Setter for "allow empty returns" property.
-     * @param aIgnoreEmptyReturns the new "allow empty returns" property value.
+     * Sets the "ignoring empty return statements in void methods and ctors"
+     * option state.
+     * @param aIgnoreEmptyReturns
+     *        the new "allowEmptyReturns" property value.
      * @see ReturnCountExtendedCheck#mIgnoreEmptyReturns
      */
     public void setIgnoreEmptyReturns(boolean aIgnoreEmptyReturns)
     {
         mIgnoreEmptyReturns = aIgnoreEmptyReturns;
     }
+
+    /**
+     * Gets the count of code lines on the top of current
+     * processed method/ctor that will be ignored by check.
+     * @return the current "rowsToIgnoreCount" property value.
+     * @see ReturnCountExtendedCheck#mRowsToIgnoreCount
+     */
+    public int getRowsToIgnoreCount()
+    {
+        return mRowsToIgnoreCount;
+    }
+
+    /**
+     * Sets the count of code lines on the top of current
+     * processed method/ctor that will be ignored by check.
+     * @param aRowsToIgnoreCount
+     *        the new "rowsToIgnoreCount" property value.
+     * @see ReturnCountExtendedCheck#mRowsToIgnoreCount
+     */
+    public void setRowsToIgnoreCount(int aRowsToIgnoreCount)
+    {
+        mRowsToIgnoreCount = aRowsToIgnoreCount;
+    }
+
 
     @Override
     public int[] getDefaultTokens()
@@ -186,114 +267,101 @@ public class ReturnCountExtendedCheck extends Check
     @Override
     public void visitToken(final DetailAST aMethodDefNode)
     {
-        mCurReturnCount = 0;
         mCurMethodDefNode = aMethodDefNode;
 
-        final int curMethodLinesCount = getLinesCount(aMethodDefNode);
-
-        if (curMethodLinesCount < mLinesLimit) {
-            return;
-        }
-
-        getReturnCount(aMethodDefNode);
-
-        if (mCurReturnCount > mMaxReturnCount) {
-
-            final String mKey = (aMethodDefNode.getType()
-                    == TokenTypes.METHOD_DEF) ? mKeyMethod : mKeyCtor;
-
-            log(mCurReturnLiteral.getLineNo(), mKey,
-                    getMethodName(aMethodDefNode), mCurReturnCount,
-                    mMaxReturnCount);
-
-        }
-    }
-
-    /**
-     * Gets the name of given method by DetailAST node is pointing to it`s
-     * definition.
-     * @param aMethodDefNode
-     *        - a DetailAST node that points to the current method`s definition.
-     * @return the method name.
-     */
-    private String getMethodName(DetailAST aMethodDefNode)
-    {
-        String result = null;
-        for (DetailAST curNode : getChildren(aMethodDefNode)) {
-            if (curNode.getType() == TokenTypes.IDENT) {
-                result = curNode.getText();
-                break;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Gets the lines count for given method/ctor body.
-     * @param aMethodDefNode
-     *        - a DetailAST node that points to the current method`s definition.
-     * @return - 0 if method hasn`t open and close;<br>
-     *         - 0 if method/ctor 'open' and 'close" braces are in the same line
-     *         braces;<br>
-     *         - Method/ctor body linelenght otherwise.
-     */
-    private int getLinesCount(DetailAST aMethodDefNode)
-    {
-        int result = 0;
         final DetailAST openingBrace = aMethodDefNode
                 .findFirstToken(TokenTypes.SLIST);
-        if (openingBrace != null) {
-            final DetailAST closingBrace = openingBrace
-                    .findFirstToken(TokenTypes.RCURLY);
-            final int closingBraceLineNo = closingBrace.getLineNo();
-            final int openingBraceLineNo = openingBrace.getLineNo();
 
-            if (closingBraceLineNo == openingBraceLineNo) {
-                result = 0;
-            }
-            else {
-                result = closingBraceLineNo - openingBraceLineNo - 1;
+        if (openingBrace != null) {
+            final DetailAST closingBrace = openingBrace.getLastChild();
+
+            final int curMethodLinesCount = getLinesCount(openingBrace,
+                    closingBrace);
+
+            if (curMethodLinesCount >= mLinesLimit) {
+
+                final int mCurReturnCount = getReturnCount(openingBrace);
+
+                if (mCurReturnCount > mMaxReturnCount) {
+                    final String mKey = (aMethodDefNode.getType()
+                            == TokenTypes.METHOD_DEF) ? mKeyMethod : mKeyCtor;
+
+                    log(mCurReturnLiteral.getLineNo(), mKey,
+                            getMethodName(aMethodDefNode), mCurReturnCount,
+                            mMaxReturnCount);
+                }
             }
         }
-        return result;
     }
 
     /**
-     * Gets the "return" literals count for given method`s body and saves the
-     * last "return" literal DetailAST node for given method/ctor body.
-     * @param aMethodDefNode
-     *        - a DetailAST node that points to the current method`s definition.
+     * Gets the "return" statements count for given method/ctor and saves the
+     * last "return" statement DetailAST node for given method/ctor body. Uses
+     * an iterative algorithm.
+     * @param aMethodOpeningBrace
+     *        a DetailAST node that points to the current method`s opening
+     *        brace.
+     * @return "return" literals count for given method.
      */
-    private void getReturnCount(DetailAST aMethodDefNode)
+    private int getReturnCount(final DetailAST aMethodOpeningBrace)
     {
-        for (DetailAST curNode : getChildren(aMethodDefNode)) {
-            if (curNode.getType() == TokenTypes.LITERAL_RETURN
-                    && isReturnDepthBad(curNode))
+        int result = 0;
+
+        DetailAST curNode = aMethodOpeningBrace;
+
+        while (curNode != null) {
+
+            // before new node visiting
+            if (curNode.getType() == TokenTypes.RCURLY
+                    && curNode.getParent() == aMethodOpeningBrace)
             {
-                if (mIgnoreEmptyReturns && isReturnStatementEmpty(curNode)) {
-                    // no code
-                }
-                else {
-                    mCurReturnCount++;
+                break; // stop at closing brace
+            }
+            else {
+                if (curNode.getType() == TokenTypes.LITERAL_RETURN
+                        && isReturnDepthBad(curNode)
+                        && !(mIgnoreEmptyReturns
+                        && isReturnStatementEmpty(curNode))
+                        && getReturnPositionRowNumber(aMethodOpeningBrace,
+                                curNode) > mRowsToIgnoreCount)
+                {
+                    result++;
                     mCurReturnLiteral = curNode;
                 }
             }
-            else {
-                if (curNode.getType() != TokenTypes.METHOD_DEF) {
-                    getReturnCount(curNode);
+
+            // after new node visiting
+            DetailAST toVisit = curNode.getFirstChild();
+
+            final int type = curNode.getType();
+            // skip nested methods (UI listeners, Runnable.run(), etc.)
+            if (type == TokenTypes.METHOD_DEF
+                  || type == TokenTypes.CLASS_DEF) // skip anonimous classes
+            {
+                toVisit = curNode.getNextSibling();
+            }
+
+            while ((curNode != null) && (toVisit == null)) {
+                // leave the visited Node
+                toVisit = curNode.getNextSibling();
+                if (toVisit == null) {
+                    curNode = curNode.getParent();
                 }
             }
+            curNode = toVisit;
         }
+        return result;
     }
 
     /**
      * Checks that current processed "return" statement depth level is less than
-     * desired depth limit.
+     * specified depth limit.
      * @param aReturnNode
-     *        - the DetailAST node is pointing to the current "return" statement
+     *        the DetailAST node is pointing to the current "return" statement
      *        is being processed.
      * @return true if current processed "return" statement depth level is less
-     *         than given return depth limit.
+     *         than specified "return" statement depth limit and false
+     *         otherwise.
      * @see ReturnCountExtendedCheck#mReturnDepthLimit
      */
     private boolean isReturnDepthBad(DetailAST aReturnNode)
@@ -302,14 +370,15 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Checks that current processed "return" statement is "empty" (checks that current processed "return"
-     *         statement is located in void method or ctor).
+     * Checks that current processed "return" statement is "empty" (checks that
+     * current processed "return" statement is located in void method or ctor
+     * and has not any expression).
      * @param aReturnNode
-     *        - the DetailAST node is pointing to the current "return" statement
+     *        the DetailAST node is pointing to the current "return" statement.
      *        is being processed.
      * @return true if current processed "return" statement is empty.
      */
-    private boolean isReturnStatementEmpty(DetailAST aReturnNode)
+    private static boolean isReturnStatementEmpty(DetailAST aReturnNode)
     {
         boolean result = false;
         final DetailAST returnChildNode = aReturnNode.getFirstChild();
@@ -322,16 +391,17 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Gets the depth level of given "return" statement from it`s DetailAST
-     * node. So far, this method considers only if-else, for and while
-     * constructions.
+     * Gets the depth level of given "return" statement. There are few supported
+     * coding blocks when depth counting: "if-else", "for", "while"/"do-while"
+     * and "switch".
      * @param aMethodDefNode
-     *        - a DetailAST node that points to the current method`s definition.
+     *        a DetailAST node that points to the current method`s definition.
      * @param aReturnStmtNode
-     *        - given "return" statement node.
+     *        given "return" statement node.
      * @return the depth of given
      */
-    private int getDepth(DetailAST aMethodDefNode, DetailAST aReturnStmtNode)
+    private static int getDepth(DetailAST aMethodDefNode,
+            DetailAST aReturnStmtNode)
     {
         int result = 0;
 
@@ -354,14 +424,83 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
+     * Gets the name of given method by DetailAST node is pointing to it`s
+     * definition.
+     * @param aMethodDefNode
+     *        a DetailAST node that points to the current method`s definition.
+     * @return the method name.
+     */
+    private static String getMethodName(DetailAST aMethodDefNode)
+    {
+        String result = null;
+        for (DetailAST curNode : getChildren(aMethodDefNode)) {
+            if (curNode.getType() == TokenTypes.IDENT) {
+                result = curNode.getText();
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Gets the linelength of given method/ctor body. Line which contains method
+     * opening or method closing brace will not be counted.
+     * @param aMethodOpeningBrace
+     *        a DetailAST node that points to the current method`s opening
+     *        brace.
+     * @param aMethodClosingBrace
+     *        a DetailAST node that points to the current method`s opening
+     *        brace.
+     * @return - 0 if method/ctor 'open' and 'close" braces are in the same line
+     *         braces;<br>
+     *         - Method/ctor body linelenght otherwise.
+     */
+    private static int getLinesCount(DetailAST aMethodOpeningBrace,
+            DetailAST aMethodClosingBrace)
+    {
+        final int closingBraceLineNo = aMethodClosingBrace.getLineNo();
+        final int openingBraceLineNo = aMethodOpeningBrace.getLineNo();
+        if (closingBraceLineNo == openingBraceLineNo) {
+            return 0;
+        }
+        else {
+            return closingBraceLineNo - openingBraceLineNo - 1;
+        }
+    }
+
+    /**
+     * Gets the line number for given "return" statement in current processed
+     * method/ctor.
+     * @param aMethodOpeningBrace
+     *        opening brace for the current method/ctor is being processed by
+     *        check.
+     * @param aReturnStmtNode
+     *        - DetailAST node is pointing to the current processed "return"
+     *        statement.
+     * @return Distance (in rows) from the line with current method`s opening
+     *         brace to the given "return" statement.
+     */
+    private static int getReturnPositionRowNumber(DetailAST aMethodOpeningBrace,
+            DetailAST aReturnStmtNode)
+    {
+        final int openingBraceLineNo = aMethodOpeningBrace.getLineNo();
+        final int returnStmtLineNo = aReturnStmtNode.getLineNo();
+        if (returnStmtLineNo == openingBraceLineNo) {
+            return 0;
+        }
+        else {
+            return returnStmtLineNo - openingBraceLineNo;
+        }
+    }
+
+    /**
      * Gets all the children one level below on the current DetailAST parent
      * node.
      * @param aNode
      *        Current parent node.
-     * @return An array of children one level below on the current parent node
-     *         aNode.
+     * @return The list of children one level below on the current parent node.
      */
-    private List<DetailAST> getChildren(final DetailAST aNode)
+    private static List<DetailAST> getChildren(final DetailAST aNode)
     {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         DetailAST curNode = aNode.getFirstChild();

@@ -59,7 +59,7 @@ public class InputReturnCountExtendedCheckCtors
         }
     }
 
-    // four "returns"
+    // four "returns" (one "return is empty!")
     public InputReturnCountExtendedCheckCtors(String z, int x, double y) {
         System.out.println();
         int a = x;
@@ -70,7 +70,7 @@ public class InputReturnCountExtendedCheckCtors
             else {
                 a++;
             }
-            return x;
+            return;
         }
         else {
             if (a - 1 != 2) {
