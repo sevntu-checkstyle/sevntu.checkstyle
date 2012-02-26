@@ -51,9 +51,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * "switch".
  * <li>"Empty" return statements = return statements in void methods and ctors
  * that have not any expression ("ignoreEmptyReturns" property).
+ * <li>return statements, which are located in the top lines of method/ctor (you
+ * can specify the count of top method/ctor lines that will be ignored using
+ * "rowsToIgnoreCount" property).
  * </ol>
- * So, this is much improved version of the existing
- * {@link ReturnCountCheck}.<br>
+ * So, this is much improved version of the existing {@link ReturnCountCheck}.
+ * <br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
@@ -84,7 +87,7 @@ public class ReturnCountExtendedCheck extends Check
      * brace to "return" statement which will be ignored by check).
      */
     private static final int DEFAULT_RETURN_ROW_DISTANCE_LIMIT = 5;
-    
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -130,18 +133,6 @@ public class ReturnCountExtendedCheck extends Check
      * default.
      */
     private int mRowsToIgnoreCount = DEFAULT_RETURN_ROW_DISTANCE_LIMIT;
-
-    /**
-     * The current "return" literal DetailAST node for given method/ctor body
-     * which does not conform to the verification.
-     */
-    private DetailAST mCurReturnLiteral;
-
-    /**
-     * DetailAST node is pointing to current method definition is being
-     * processed.
-     */
-    private DetailAST mCurMethodDefNode;
 
     /**
      * Gets maximum allowed "return" literals count per method/ctor.
@@ -267,8 +258,6 @@ public class ReturnCountExtendedCheck extends Check
     @Override
     public void visitToken(final DetailAST aMethodDefNode)
     {
-        mCurMethodDefNode = aMethodDefNode;
-
         final DetailAST openingBrace = aMethodDefNode
                 .findFirstToken(TokenTypes.SLIST);
 
@@ -280,13 +269,14 @@ public class ReturnCountExtendedCheck extends Check
 
             if (curMethodLinesCount >= mLinesLimit) {
 
-                final int mCurReturnCount = getReturnCount(openingBrace);
+                final int mCurReturnCount = getReturnCount(aMethodDefNode,
+                        openingBrace);
 
                 if (mCurReturnCount > mMaxReturnCount) {
                     final String mKey = (aMethodDefNode.getType()
                             == TokenTypes.METHOD_DEF) ? mKeyMethod : mKeyCtor;
 
-                    log(mCurReturnLiteral.getLineNo(), mKey,
+                    log(aMethodDefNode.getLineNo(), mKey,
                             getMethodName(aMethodDefNode), mCurReturnCount,
                             mMaxReturnCount);
                 }
@@ -301,9 +291,13 @@ public class ReturnCountExtendedCheck extends Check
      * @param aMethodOpeningBrace
      *        a DetailAST node that points to the current method`s opening
      *        brace.
+     * @param aMethodDefNode
+     *        DetailAST node is pointing to current method definition is being
+     *        processed.
      * @return "return" literals count for given method.
      */
-    private int getReturnCount(final DetailAST aMethodOpeningBrace)
+    private int getReturnCount(final DetailAST aMethodDefNode,
+            final DetailAST aMethodOpeningBrace)
     {
         int result = 0;
 
@@ -311,7 +305,7 @@ public class ReturnCountExtendedCheck extends Check
 
         while (curNode != null) {
 
-            // before new node visiting
+            // before node visiting
             if (curNode.getType() == TokenTypes.RCURLY
                     && curNode.getParent() == aMethodOpeningBrace)
             {
@@ -319,36 +313,35 @@ public class ReturnCountExtendedCheck extends Check
             }
             else {
                 if (curNode.getType() == TokenTypes.LITERAL_RETURN
-                        && isReturnDepthBad(curNode)
+                        && isReturnDepthBad(aMethodDefNode, curNode)
                         && !(mIgnoreEmptyReturns
                         && isReturnStatementEmpty(curNode))
                         && getReturnPositionRowNumber(aMethodOpeningBrace,
                                 curNode) > mRowsToIgnoreCount)
                 {
                     result++;
-                    mCurReturnLiteral = curNode;
                 }
             }
 
-            // after new node visiting
-            DetailAST toVisit = curNode.getFirstChild();
+            // before node leaving
+            DetailAST nextNode = curNode.getFirstChild();
 
             final int type = curNode.getType();
             // skip nested methods (UI listeners, Runnable.run(), etc.)
             if (type == TokenTypes.METHOD_DEF
                   || type == TokenTypes.CLASS_DEF) // skip anonimous classes
             {
-                toVisit = curNode.getNextSibling();
+                nextNode = curNode.getNextSibling();
             }
 
-            while ((curNode != null) && (toVisit == null)) {
+            while ((curNode != null) && (nextNode == null)) {
                 // leave the visited Node
-                toVisit = curNode.getNextSibling();
-                if (toVisit == null) {
+                nextNode = curNode.getNextSibling();
+                if (nextNode == null) {
                     curNode = curNode.getParent();
                 }
             }
-            curNode = toVisit;
+            curNode = nextNode;
         }
         return result;
     }
@@ -359,14 +352,18 @@ public class ReturnCountExtendedCheck extends Check
      * @param aReturnNode
      *        the DetailAST node is pointing to the current "return" statement
      *        is being processed.
+     * @param aMethodDefNode
+     *        DetailAST node is pointing to current method definition is being
+     *        processed.
      * @return true if current processed "return" statement depth level is less
      *         than specified "return" statement depth limit and false
      *         otherwise.
      * @see ReturnCountExtendedCheck#mReturnDepthLimit
      */
-    private boolean isReturnDepthBad(DetailAST aReturnNode)
+    private boolean isReturnDepthBad(final DetailAST aMethodDefNode,
+            final DetailAST aReturnNode)
     {
-        return getDepth(mCurMethodDefNode, aReturnNode) < mReturnDepthLimit;
+        return getDepth(aMethodDefNode, aReturnNode) < mReturnDepthLimit;
     }
 
     /**
@@ -380,14 +377,9 @@ public class ReturnCountExtendedCheck extends Check
      */
     private static boolean isReturnStatementEmpty(DetailAST aReturnNode)
     {
-        boolean result = false;
         final DetailAST returnChildNode = aReturnNode.getFirstChild();
-        if (returnChildNode != null
-                && returnChildNode.getType() == TokenTypes.SEMI)
-        {
-            result = true;
-        }
-        return result;
+        return returnChildNode != null
+                && returnChildNode.getType() == TokenTypes.SEMI;
     }
 
     /**
