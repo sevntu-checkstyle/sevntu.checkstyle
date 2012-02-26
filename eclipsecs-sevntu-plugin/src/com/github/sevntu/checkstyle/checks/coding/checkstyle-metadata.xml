@@ -33,8 +33,20 @@
             <message-key key="custom.declaration.order.method"/>
             <message-key key="custom.declaration.order.constructor"/>
             <message-key key="custom.declaration.order.class"/>
-        </rule-metadata>
+        </rule-metadata>        
         
+       <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidCertainImportsrCheck"/>
+            <description>%ForbidCertainImports.desc</description>
+            <property-metadata name="packageNameRegexp" datatype="Regex" default-value="">
+                <description>%ForbidCertainImports.packageNameRegexp</description>
+            </property-metadata>
+            <property-metadata name="forbiddenPackageNameRegexp" datatype="Regex" default-value="">
+                <description>%ForbidCertainImports.forbiddenPackageNameRegexp</description>
+            </property-metadata>
+            <message-key key="forbid.certain.imports"/>
+        </rule-metadata>
+                
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean"/>
             <description>%ReturnNullInsteadOfBoolean.desc</description>

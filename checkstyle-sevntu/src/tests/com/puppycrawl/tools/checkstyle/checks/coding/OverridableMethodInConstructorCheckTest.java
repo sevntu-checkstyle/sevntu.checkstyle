@@ -26,7 +26,7 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
+public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSupport
 {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);

@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class RedundantReturnTest extends BaseCheckTestSupport {
+public class RedundantReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testInputWithIgnoreEmptyConstructorsTrue() throws Exception {
 	final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
