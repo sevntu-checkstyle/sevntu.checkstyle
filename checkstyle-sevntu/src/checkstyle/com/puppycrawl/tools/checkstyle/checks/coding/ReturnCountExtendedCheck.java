@@ -276,7 +276,11 @@ public class ReturnCountExtendedCheck extends Check
                     final String mKey = (aMethodDefNode.getType()
                             == TokenTypes.METHOD_DEF) ? mKeyMethod : mKeyCtor;
 
-                    log(aMethodDefNode.getLineNo(), mKey,
+
+                    final DetailAST methodNameToken = aMethodDefNode
+                            .findFirstToken(TokenTypes.IDENT);
+
+                    log(methodNameToken, mKey,
                             getMethodName(aMethodDefNode), mCurReturnCount,
                             mMaxReturnCount);
                 }

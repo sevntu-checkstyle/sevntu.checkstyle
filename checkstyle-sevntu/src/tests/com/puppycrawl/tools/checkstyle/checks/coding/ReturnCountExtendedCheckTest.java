@@ -23,9 +23,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-            "25: " + createMsg("twoReturnsInMethod","method", 2, 1),
-            "37: " + createMsg("threeReturnsInMethod", "method", 3, 1),
-            "57: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+            "25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
+            "37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
+            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
             };
 
             verify(checkConfig, getPath("coding" + File.separator
@@ -43,9 +43,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-            "28: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
-            "41: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
-            "63: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 4, 1),
+            "28:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
+            "41:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
+            "63:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 4, 1),
             };
 
             verify(checkConfig, getPath("coding" + File.separator
@@ -63,9 +63,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-           // "25: " + createMsg("twoReturnsInMethod","method", 2, 1),
-            "37: " + createMsg("threeReturnsInMethod", "method", 3, 1),
-            "57: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+           // "25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
+            "37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
+            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
             };
 
             verify(checkConfig, getPath("coding" + File.separator
@@ -83,9 +83,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-           // "25: " + createMsg("twoReturnsInMethod","method", 2, 1),
-           // "37: " + createMsg("threeReturnsInMethod", "method", 3, 1),
-            "57: " + createMsg("fourReturnsInMethod", "method", 4, 1), 
+           // "25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
+           // "37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
+            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1), 
             };
 
             verify(checkConfig, getPath("coding" + File.separator
@@ -103,9 +103,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-            "6: " + createMsg("oneReturnInMethod","method", 1, 0),
-            "10: " + createMsg("oneReturnInMethod2","method", 1, 0),
-            //"25: " + createMsg("twoReturnsInMethod","method", 2, 0),
+            "6:16: " + createMsg("oneReturnInMethod","method", 1, 0),
+            "10:16: " + createMsg("oneReturnInMethod2","method", 1, 0),
+            //"25:5: " + createMsg("twoReturnsInMethod","method", 2, 0),
             //"42: " + createMsg("threeReturnsInMethod", "method", 1, 0),
             //"67: " + createMsg("fourReturnsInMethod", "method", 1, 0), 
             };
@@ -124,9 +124,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-            "28: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
-            "41: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
-            "63: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
+            "28:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
+            "41:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
+            "63:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
             };
 
             verify(checkConfig, getPath("coding" + File.separator
@@ -143,7 +143,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("rowsToIgnoreCount", "0");
 
     String[] expected = {
-            "99: " + createMsg("handleEvent", "method", 3, 1), 
+            "100:24: " + createMsg("handleEvent", "method", 3, 1), 
             };
 
             verify(checkConfig, getPath("coding" + File.separator
