@@ -21,10 +21,10 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     private final DefaultConfiguration checkConfig = createCheckConfig(ForbidCertainImportsCheck.class);
 
     @Test
-    public void testSimple() throws Exception
+    public void testNormalWork() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
-        checkConfig.addAttribute("forbiddenPackageNameRegexp", ".+\\.api\\..+");
+        checkConfig.addAttribute("forbiddenImportRegexp", ".+\\.api\\..+");
 
         String[] expected = {
                 "4: "+ getMessage(),
@@ -41,7 +41,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     public void testEmptyImportsAndDefaultPackage() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
-        checkConfig.addAttribute("forbiddenPackageNameRegexp", ".+\\.api\\..+");
+        checkConfig.addAttribute("forbiddenImportRegexp", ".+\\.api\\..+");
 
         String[] expected = {            
         };
@@ -54,7 +54,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     public void testEmptyImportsAndDefaultPackageWithoutParams() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", "");
-        checkConfig.addAttribute("forbiddenPackageNameRegexp", "");
+        checkConfig.addAttribute("forbiddenImportRegexp", "");
 
         String[] expected = {
         };
@@ -63,8 +63,22 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
                 + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
+    @Test
+    public void testEmptyImportsAndDefaultPackageWithoutParams2() throws Exception
+    {
+        
+//        checkConfig.addAttribute("packageNameRegexp", "");
+//        checkConfig.addAttribute("forbiddenImportRegexp", "");
+
+        String[] expected = {
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+    }
+    
     private String getMessage() {
-        return "Use of this import is forbidden in this package.";
+        return "Using this import is not allowed in this package.";
     }
     
     

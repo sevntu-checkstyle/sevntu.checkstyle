@@ -41,8 +41,8 @@
             <property-metadata name="packageNameRegexp" datatype="Regex" default-value="">
                 <description>%ForbidCertainImports.packageNameRegexp</description>
             </property-metadata>
-            <property-metadata name="forbiddenPackageNameRegexp" datatype="Regex" default-value="">
-                <description>%ForbidCertainImports.forbiddenPackageNameRegexp</description>
+            <property-metadata name="forbiddenImportRegexp" datatype="Regex" default-value="">
+                <description>%ForbidCertainImports.forbiddenImportRegexp</description>
             </property-metadata>
             <message-key key="forbid.certain.imports"/>
         </rule-metadata>

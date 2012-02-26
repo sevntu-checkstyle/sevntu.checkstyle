@@ -24,14 +24,14 @@ public class ForbidCertainImportsCheck extends Check
 {
 
     /**
-     * 
+     * option
      */
     private Pattern mPackageNameRegexp;
 
     /**
-     * 
+     * option
      */
-    private Pattern mForbiddenPackageNameRegexp;
+    private Pattern mForbiddenImportRegexp;
 
     /**
      * 
@@ -57,26 +57,29 @@ public class ForbidCertainImportsCheck extends Check
      */
     public void setPackageNameRegexp(String aPackageNameRegexp)
     {
-        this.mPackageNameRegexp = Pattern.compile(aPackageNameRegexp);
+        if (aPackageNameRegexp != null && !("".equals(aPackageNameRegexp))) {
+            mPackageNameRegexp = Pattern.compile(aPackageNameRegexp);
+        }
     }
 
     /**
      * @return the forbiddenPackageName
      */
-    public String getForbiddenPackageNameRegexp()
+    public String getForbiddenImportRegexp()
     {
-        return mForbiddenPackageNameRegexp.toString();
+        return mForbiddenImportRegexp.toString();
     }
 
     /**
      * @param aForbiddenPackageNameRegexp
      *        the forbidden Package name to set
      */
-    public void
-            setForbiddenPackageNameRegexp(String aForbiddenPackageNameRegexp)
+    public void setForbiddenImportRegexp(String
+            aForbiddenPackageNameRegexp)
     {
-        mForbiddenPackageNameRegexp = Pattern
-                .compile(aForbiddenPackageNameRegexp);
+        if (aForbiddenPackageNameRegexp != null && !("".equals(aForbiddenPackageNameRegexp))) {
+            mForbiddenImportRegexp = Pattern.compile(aForbiddenPackageNameRegexp);
+        }
     }
 
     @Override
@@ -87,18 +90,19 @@ public class ForbidCertainImportsCheck extends Check
 
     @Override
     public void visitToken(DetailAST aAst)
-    {
+    {       
         switch (aAst.getType()) {
         case TokenTypes.PACKAGE_DEF:
-            String packageText = getText(aAst);
-            packageMatches = mPackageNameRegexp.matcher(packageText).matches();
+            if (mPackageNameRegexp != null) {
+                String packageText = getText(aAst);
+                packageMatches = mPackageNameRegexp.matcher(packageText).matches();
+            }
             break;
 
         case TokenTypes.IMPORT:
-            if (packageMatches) {
+            if (packageMatches && mForbiddenImportRegexp != null) {
                 String importText = getText(aAst);
-                boolean importMatches = mForbiddenPackageNameRegexp.matcher(
-                        importText).matches();
+                boolean importMatches = mForbiddenImportRegexp.matcher(importText).matches();
                 if (importMatches) {
                     log(aAst.getLineNo(), mKey);
                 }
