@@ -23,14 +23,16 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     @Test
     public void testNormalWork() throws Exception
     {
+        String importPattern = ".+\\.api\\..+";
+        
         checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
-        checkConfig.addAttribute("forbiddenImportRegexp", ".+\\.api\\..+");
+        checkConfig.addAttribute("forbiddenImportRegexp", importPattern);
 
         String[] expected = {
-                "4: "+ getMessage(),
-                "10: "+ getMessage(),
-                "11: "+ getMessage(),
-                "12: "+ getMessage(),                
+                "4: "+ getMessage(importPattern),
+                "10: "+ getMessage(importPattern),
+                "11: "+ getMessage(importPattern),
+                "12: "+ getMessage(importPattern),                
         };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -77,9 +79,9 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
                 + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
     
-    private String getMessage() {
-        return "Using this import is not allowed in this package.";
+    private String getMessage(String pattern) {
+        return "This import should not match '"+pattern+"' pattern.";
     }
-    
+
     
 }

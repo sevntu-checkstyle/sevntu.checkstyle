@@ -123,7 +123,7 @@ public class ForbidCertainImportsCheck extends Check
                 String importText = getText(aAst);
                 boolean importMatches = mForbiddenImportRegexp.matcher(importText).matches();
                 if (importMatches) {
-                    log(aAst.getLineNo(), mKey);
+                    log(aAst.getLineNo(), mKey, getForbiddenImportRegexp());
                 }
             }
             break;
