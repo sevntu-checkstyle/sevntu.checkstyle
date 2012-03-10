@@ -66,27 +66,25 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Default maximum allowed "return" literals count per method/ctor.
      */
-    private static final int MAX_DEFAULT_RETURN_COUNT = 1;
+    private static final int DEFAULT_MAX_RETURN_COUNT = 1;
 
     /**
      * Default number of lines of which method/ctor body may consist to be
      * skipped by check.
      */
-    private static final int DEFAULT_LINES_LIMIT = 20;
+    private static final int DEFAULT_IGNORE_METHOD_LINES_COUNT = 20;
 
     /**
      * Default minimum "return" statement depth when current "return statement"
      * will be skipped by check.
      */
-    private static final int DEFAULT_RETURN_DEPTH_LIMIT = 4;
+    private static final int DEFAULT_MIN_IGNORE_RETURN_DEPTH = 4;
 
     /**
      * Number which defines, how many lines of code on the top of current
-     * processed method/ctor will be ignored by check. (It is equal to max
-     * allowed distance (in rows) from the line with current method`s opening
-     * brace to "return" statement which will be ignored by check).
+     * processed method/ctor will be ignored by check.
      */
-    private static final int DEFAULT_RETURN_ROW_DISTANCE_LIMIT = 5;
+    private static final int DEFAULT_TOP_LINES_TO_IGNORE_COUNT = 5;
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
@@ -103,25 +101,24 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
      */
-    private int mMaxReturnCount = MAX_DEFAULT_RETURN_COUNT;
+    private int mMaxReturnCount = DEFAULT_MAX_RETURN_COUNT;
 
     /**
      * Limit the number of lines of which method/ctor body may consist to be
      * skipped by check. If method/ctor has the lines number greater than this
      * limit, it will be processed. 20 by default.
      */
-    private int mLinesLimit = DEFAULT_LINES_LIMIT;
+    private int mIgnoreMethodLinesCount = DEFAULT_IGNORE_METHOD_LINES_COUNT;
 
     /**
      * Minimum "return" statement depth to be skipped by check.
      * Option to ignore methods/ctors that have return statement(s) with depth
      * lesser than N levels(scopes): 4 by default.
      */
-    private int mReturnDepthLimit = DEFAULT_RETURN_DEPTH_LIMIT;
+    private int mMinIgnoreReturnDepth = DEFAULT_MIN_IGNORE_RETURN_DEPTH;
 
     /**
      * Option to ignore "empty" return statements in void methods and ctors.
-     * 'False' by default.
      */
     private boolean mIgnoreEmptyReturns;
 
@@ -132,7 +129,7 @@ public class ReturnCountExtendedCheck extends Check
      * brace to "return" statement which will be ignored by check). 5 by
      * default.
      */
-    private int mRowsToIgnoreCount = DEFAULT_RETURN_ROW_DISTANCE_LIMIT;
+    private int mTopLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
     /**
      * Gets maximum allowed "return" literals count per method/ctor.
@@ -159,23 +156,23 @@ public class ReturnCountExtendedCheck extends Check
      * Gets the number of lines of which method/ctor body may consist to be
      * skipped by check.
      * @return the current "linesLimit" property value is used by this check.
-     * @see ReturnCountExtendedCheck#mLinesLimit
+     * @see ReturnCountExtendedCheck#mIgnoreMethodLinesCount
      */
-    public int getLinesLimit()
+    public int getIgnoreMethodLinesCount()
     {
-        return mLinesLimit;
+        return mIgnoreMethodLinesCount;
     }
 
     /**
      * Sets the number of lines of which method/ctor body may consist to be
      * skipped by check.
-     * @param aLinesLimit - the new value of maximum method/ctor body linelentgh
+     * @param aIgnoreMethodLinesCount - the new value of maximum method/ctor body linelentgh
      * to be skipped.
-     * @see ReturnCountExtendedCheck#mLinesLimit
+     * @see ReturnCountExtendedCheck#mIgnoreMethodLinesCount
      */
-    public void setLinesLimit(int aLinesLimit)
+    public void setIgnoreMethodLinesCount(int aIgnoreMethodLinesCount)
     {
-        mLinesLimit = aLinesLimit;
+        mIgnoreMethodLinesCount = aIgnoreMethodLinesCount;
     }
 
     /**
@@ -183,23 +180,23 @@ public class ReturnCountExtendedCheck extends Check
      * check.
      * @return the current "maxReturnDepth" property value is used by this
      *         check.
-     * @see ReturnDepthCheck#mReturnDepthLimit
+     * @see ReturnDepthCheck#mMinIgnoreReturnDepth
      */
-    public int getReturnDepthLimit()
+    public int getMinIgnoreReturnDepth()
     {
-        return mReturnDepthLimit;
+        return mMinIgnoreReturnDepth;
     }
 
     /**
-     * Sets the minimum "return" statement depth with that it will be skipped by
+     * Sets the minimum "return" statement depth with that will be skipped by
      * check.
-     * @param aReturnDepthLimit
+     * @param aIgnoreReturnDepth
      *        - the new
-     * @see ReturnDepthCheck#mReturnDepthLimit
+     * @see ReturnDepthCheck#mMinIgnoreReturnDepth
      */
-    public void setReturnDepthLimit(int aReturnDepthLimit)
+    public void setMinIgnoreReturnDepth(int aMinIgnoreReturnDepth)
     {
-        mReturnDepthLimit = aReturnDepthLimit;
+        mMinIgnoreReturnDepth = aMinIgnoreReturnDepth;
     }
 
     /**
@@ -229,23 +226,23 @@ public class ReturnCountExtendedCheck extends Check
      * Gets the count of code lines on the top of current
      * processed method/ctor that will be ignored by check.
      * @return the current "rowsToIgnoreCount" property value.
-     * @see ReturnCountExtendedCheck#mRowsToIgnoreCount
+     * @see ReturnCountExtendedCheck#mTopLinesToIgnoreCount
      */
-    public int getRowsToIgnoreCount()
+    public int getTopLinesToIgnoreCount()
     {
-        return mRowsToIgnoreCount;
+        return mTopLinesToIgnoreCount;
     }
 
     /**
      * Sets the count of code lines on the top of current
      * processed method/ctor that will be ignored by check.
-     * @param aRowsToIgnoreCount
+     * @param aTopLinesToIgnoreCount
      *        the new "rowsToIgnoreCount" property value.
-     * @see ReturnCountExtendedCheck#mRowsToIgnoreCount
+     * @see ReturnCountExtendedCheck#mTopLinesToIgnoreCount
      */
-    public void setRowsToIgnoreCount(int aRowsToIgnoreCount)
+    public void setTopLinesToIgnoreCount(int aTopLinesToIgnoreCount)
     {
-        mRowsToIgnoreCount = aRowsToIgnoreCount;
+        mTopLinesToIgnoreCount = aTopLinesToIgnoreCount;
     }
 
 
@@ -267,7 +264,7 @@ public class ReturnCountExtendedCheck extends Check
             final int curMethodLinesCount = getLinesCount(openingBrace,
                     closingBrace);
 
-            if (curMethodLinesCount >= mLinesLimit) {
+            if (curMethodLinesCount >= mIgnoreMethodLinesCount) {
 
                 final int mCurReturnCount = getReturnCount(aMethodDefNode,
                         openingBrace);
@@ -321,7 +318,7 @@ public class ReturnCountExtendedCheck extends Check
                         && !(mIgnoreEmptyReturns
                         && isReturnStatementEmpty(curNode))
                         && getReturnPositionRowNumber(aMethodOpeningBrace,
-                                curNode) > mRowsToIgnoreCount)
+                                curNode) > mTopLinesToIgnoreCount)
                 {
                     result++;
                 }
@@ -362,12 +359,12 @@ public class ReturnCountExtendedCheck extends Check
      * @return true if current processed "return" statement depth level is less
      *         than specified "return" statement depth limit and false
      *         otherwise.
-     * @see ReturnCountExtendedCheck#mReturnDepthLimit
+     * @see ReturnCountExtendedCheck#mMinIgnoreReturnDepth
      */
     private boolean isReturnDepthBad(final DetailAST aMethodDefNode,
             final DetailAST aReturnNode)
     {
-        return getDepth(aMethodDefNode, aReturnNode) < mReturnDepthLimit;
+        return getDepth(aMethodDefNode, aReturnNode) < mMinIgnoreReturnDepth;
     }
 
     /**

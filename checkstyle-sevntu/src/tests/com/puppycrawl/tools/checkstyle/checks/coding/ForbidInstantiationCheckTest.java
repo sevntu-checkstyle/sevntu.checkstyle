@@ -16,23 +16,39 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
     private final DefaultConfiguration checkConfig = createCheckConfig(ForbidInstantiationCheck.class);
 
     @Test
-    public void testNormalWork() throws Exception
+    public void testNullPointerException() throws Exception
     {
         
-        checkConfig.addAttribute("forbidExceptionClasses", "NullPointerException , InputForbidInstantiationCheck");
+        checkConfig.addAttribute("forbiddenClasses", "java.lang.NullPointerException");
 
         String[] expected = {
-                "6:35: " + getMessage("NullPointerException"),
-                "8:9: " + getMessage("InputForbidInstantiationCheck")
+                 "8:35: " + getMessage("NullPointerException"),
+                 "11:36: " + getMessage("NullPointerException"),
         };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputForbidInstantiationCheck.java"), expected);
     }
 
+    @Test
+    public void testNormalWork() throws Exception
+    {
+        
+        checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
+
+        String[] expected = {
+                 "13:21: " + getMessage("File"),
+                 "14:20: " + getMessage("String"),
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputForbidInstantiationCheck.java"), expected);
+    }
+    
     private String getMessage(String className)
     {
         return "Instantiation of '" + className + "' is not allowed.";
     }
-    
+
+
 }

@@ -17,10 +17,10 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     {
 
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("linesLimit", "0"); // swithed off
-        checkConfig.addAttribute("returnDepthLimit", "5");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // swithed off
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
             "25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
@@ -37,10 +37,10 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     {
 
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("linesLimit", "0");
-        checkConfig.addAttribute("returnDepthLimit", "5");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
             "28:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
@@ -53,14 +53,14 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testLinesLimit() throws Exception
+    public void testignoreMethodLinesCount() throws Exception
     {
 
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("linesLimit", "10");
-        checkConfig.addAttribute("returnDepthLimit", "5");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "10");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
            // "25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
@@ -73,14 +73,14 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testLinesLimit2() throws Exception
+    public void testignoreMethodLinesCount2() throws Exception
     {              
         
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("linesLimit", "20");
-        checkConfig.addAttribute("returnDepthLimit", "5");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "20");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
            // "25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
@@ -93,14 +93,14 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testReturnDepthLimit() throws Exception
+    public void testminIgnoreReturnDepth() throws Exception
     {              
         
         checkConfig.addAttribute("maxReturnCount", "0");  
-        checkConfig.addAttribute("linesLimit", "0");
-        checkConfig.addAttribute("returnDepthLimit", "1");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "1");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
             "6:16: " + createMsg("oneReturnInMethod","method", 1, 0),
@@ -118,10 +118,10 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     public void testIgnoreEmptyReturns() throws Exception
     {              
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("linesLimit", "0");
-        checkConfig.addAttribute("returnDepthLimit", "5");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "true");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
             "28:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
@@ -137,10 +137,10 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     public void testMethodsInMethods() throws Exception
     {              
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("linesLimit", "0");
-        checkConfig.addAttribute("returnDepthLimit", "5");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("rowsToIgnoreCount", "0");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
     String[] expected = {
             "100:24: " + createMsg("handleEvent", "method", 3, 1), 

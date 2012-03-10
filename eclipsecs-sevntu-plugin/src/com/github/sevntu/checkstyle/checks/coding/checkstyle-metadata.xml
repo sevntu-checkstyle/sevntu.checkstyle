@@ -50,8 +50,8 @@
         <rule-metadata name="%ForbidInstantiation.name" internal-name="ForbidInstantiation" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidInstantiationCheck"/>
             <description>%ForbidInstantiation.desc</description>
-            <property-metadata name="forbiddenClassNames" datatype="String" default-value="">
-                <description>%ForbidInstantiation.forbiddenClassNames</description>
+            <property-metadata name="forbiddenClasses" datatype="String" default-value="">
+                <description>%ForbidInstantiation.forbiddenClasses</description>
             </property-metadata>
             <message-key key="forbid.instantiation"/>
         </rule-metadata>
@@ -129,16 +129,16 @@
             <property-metadata name="maxReturnCount" datatype="Integer" default-value="1">
                 <description>%ReturnCountExtended.maxReturnCount</description>
             </property-metadata>
-            <property-metadata name="linesLimit" datatype="Integer" default-value="20">
+            <property-metadata name="ignoreMethodLinesCount" datatype="Integer" default-value="20">
                 <description>%ReturnCountExtended.linesLimit</description>
             </property-metadata>
-            <property-metadata name="returnDepthLimit" datatype="Integer" default-value="4">
+            <property-metadata name="minIgnoreReturnDepth" datatype="Integer" default-value="4">
                 <description>%ReturnCountExtended.returnDepthLimit</description>
             </property-metadata>
             <property-metadata name="ignoreEmptyReturns" datatype="Boolean" default-value="false">
                 <description>%ReturnCountExtended.ignoreEmptyReturns</description>
             </property-metadata>
-            <property-metadata name="rowsToIgnoreCount" datatype="Integer" default-value="5">
+            <property-metadata name="topLinesToIgnoreCount" datatype="Integer" default-value="5">
                 <description>%ReturnCountExtended.rowsToIgnoreCount</description>
             </property-metadata>
             <message-key key="return.count.extended"/>
