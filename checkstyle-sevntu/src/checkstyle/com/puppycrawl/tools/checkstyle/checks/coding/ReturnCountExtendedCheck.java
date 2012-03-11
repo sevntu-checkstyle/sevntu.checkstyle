@@ -27,11 +27,15 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * Checks that method/ctor "return" literal count is not greater than the given value ("maxReturnCount" property).<br><br>
- * 
- * Rationale:<br><br>
+ * Checks that method/ctor "return" literal count is not greater than the given
+ * value ("maxReturnCount" property).<br>
+ * <br>
+ * Rationale:<br>
+ * <br>
  * One return per method is a good practice as its ease understanding of method
- * logic. <br><br>Reasoning is that:
+ * logic. <br>
+ * <br>
+ * Reasoning is that:
  * <dl>
  * <li>It is easier to understand control flow when you know exactly where the
  * method returns.
@@ -52,12 +56,26 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * "rowsToIgnoreCount" property).
  * </ol>
  * So, this is much improved version of the existing {@link ReturnCountCheck}.
- * <br><br>
+ * <br> <br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
 public class ReturnCountExtendedCheck extends Check
 {
+
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    private static final String WARNING_MSG_KEY_METHOD =
+            "return.count.extended.method";
+
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    private static final String WARNING_MSG_KEY_CTOR =
+            "return.count.extended.ctor";
 
     /**
      * Default maximum allowed "return" literals count per method/ctor.
@@ -82,17 +100,6 @@ public class ReturnCountExtendedCheck extends Check
      */
     private static final int DEFAULT_TOP_LINES_TO_IGNORE_COUNT = 5;
 
-    /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
-     */
-    private final String mKeyMethod = "return.count.extended.method";
-
-    /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
-     */
-    private final String mKeyCtor = "return.count.extended.ctor";
 
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
@@ -112,8 +119,9 @@ public class ReturnCountExtendedCheck extends Check
 
     /**
      * Option to ignore "empty" return statements in void methods and ctors.
+     * "true" by default.
      */
-    private boolean mIgnoreEmptyReturns;
+    private boolean mIgnoreEmptyReturns = true;
 
     /**
      * Number which defines, how many lines of code on the top of each
@@ -153,9 +161,10 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Sets the maximum number of lines of which method/ctor body may consist to be
-     * skipped by check.
-     * @param aIgnoreMethodLinesCount - the new value of "ignoreMethodLinesCount" property.
+     * Sets the maximum number of lines of which method/ctor body may consist to
+     * be skipped by check.
+     * @param aIgnoreMethodLinesCount
+     *        - the new value of "ignoreMethodLinesCount" property.
      * @see ReturnCountExtendedCheck#mIgnoreMethodLinesCount
      */
     public void setIgnoreMethodLinesCount(int aIgnoreMethodLinesCount)
@@ -177,7 +186,7 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Sets the minimum "return" statement depth with that will be skipped by
      * check.
-     * @param aIgnoreReturnDepth
+     * @param aMinIgnoreReturnDepth
      *        - the new "minIgnoreReturnDepth" property value.
      * @see ReturnDepthCheck#mMinIgnoreReturnDepth
      */
@@ -262,7 +271,8 @@ public class ReturnCountExtendedCheck extends Check
 
                 if (mCurReturnCount > mMaxReturnCount) {
                     final String mKey = (aMethodDefNode.getType()
-                            == TokenTypes.METHOD_DEF) ? mKeyMethod : mKeyCtor;
+                            == TokenTypes.METHOD_DEF)
+                            ? WARNING_MSG_KEY_METHOD : WARNING_MSG_KEY_CTOR;
 
                     final DetailAST methodNameToken = aMethodDefNode
                             .findFirstToken(TokenTypes.IDENT);
@@ -304,9 +314,9 @@ public class ReturnCountExtendedCheck extends Check
             }
             else {
                 if (curNode.getType() == TokenTypes.LITERAL_RETURN
-                        && getDepth(aMethodDefNode, curNode) < mMinIgnoreReturnDepth
-                        && !(mIgnoreEmptyReturns
-                        && isReturnStatementEmpty(curNode))
+                        && getDepth(aMethodDefNode
+                                , curNode) < mMinIgnoreReturnDepth
+                        && shouldEmptyReturnStatementBeCounted(curNode)
                         && getLinesCount(aMethodOpeningBrace,
                                 curNode) > mTopLinesToIgnoreCount)
                 {
@@ -338,19 +348,20 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Checks that current processed "return" statement is "empty" (checks that
-     * current processed "return" statement is located in void method or ctor
-     * and has not any expression).
+     * Checks that the current processed "return" statement is "empty" (checks
+     * that current processed "return" statement is located in void method or
+     * ctor hasn`t any expression). switches
      * @param aReturnNode
      *        the DetailAST node is pointing to the current "return" statement.
      *        is being processed.
-     * @return true if current processed "return" statement is empty.
+     * @return true if current processed "return" statement is empty or if
+     *         mIgnoreEmptyReturns option has "false" value.
      */
-    private static boolean isReturnStatementEmpty(DetailAST aReturnNode)
+    private boolean shouldEmptyReturnStatementBeCounted(DetailAST aReturnNode)
     {
         final DetailAST returnChildNode = aReturnNode.getFirstChild();
-        return returnChildNode != null
-                && returnChildNode.getType() == TokenTypes.SEMI;
+        return !(mIgnoreEmptyReturns && returnChildNode != null
+                && returnChildNode.getType() == TokenTypes.SEMI);
     }
 
     /**
@@ -406,13 +417,16 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Gets the line count between the two DetailASTs which are related to the given
-     * "begin" and "end" tokens.
-     * @param aBeginAst the "begin" token AST node.
-     * @param aEndAST the "end" token AST node.
+     * Gets the line count between the two DetailASTs which are related to the
+     * given "begin" and "end" tokens.
+     * @param aBeginAst
+     *        the "begin" token AST node.
+     * @param aEndAST
+     *        the "end" token AST node.
      * @return the line count between "begin" and "end" tokens.
      */
-    private static int getLinesCount(DetailAST aBeginAst, DetailAST aEndAST) {
+    private static int getLinesCount(DetailAST aBeginAst, DetailAST aEndAST)
+    {
         return aEndAST.getLineNo() - aBeginAst.getLineNo();
     }
 

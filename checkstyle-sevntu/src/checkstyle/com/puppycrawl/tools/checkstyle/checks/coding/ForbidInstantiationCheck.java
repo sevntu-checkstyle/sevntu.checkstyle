@@ -1,9 +1,28 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2011  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
+import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -27,16 +46,16 @@ public class ForbidInstantiationCheck extends Check
 {
 
     /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    private static final String WARNING_MSG_KEY = "forbid.instantiation";
+
+    /**
      * Set which contains classNames for objects that are forbidden to
      * instantiate.
      */
     private Set<String> mForbiddenClasses = new HashSet<String>();
-
-    /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
-     */
-    private String mKey = "forbid.instantiation";
 
     /**
      * List which contains String representation of imports for class is
@@ -69,7 +88,7 @@ public class ForbidInstantiationCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[] { TokenTypes.IMPORT, TokenTypes.LITERAL_NEW };
+        return new int[] {TokenTypes.IMPORT, TokenTypes.LITERAL_NEW };
     }
 
     @Override
@@ -94,20 +113,20 @@ public class ForbidInstantiationCheck extends Check
                     if (forbiddenClass.startsWith("java.lang.")
                             && forbiddenClass.endsWith(instanceClassName))
                     { // java.lang.*
-                        log(aAst, mKey, instanceClassName);
+                        log(aAst, WARNING_MSG_KEY, instanceClassName);
                     }
                     else if (instanceClass.contains(".")) { // className is full
 
                         if (instanceClass.equals(forbiddenClass)) {
                             // the full path is forbidden
-                            log(aAst, mKey, instanceClassName);
+                            log(aAst, WARNING_MSG_KEY, instanceClassName);
                         }
                     }
                     else if (addedUsingForbiddenImport(instanceClass,
                             forbiddenClass))
                     {
                         // className is short and exists in imports
-                        log(aAst, mKey, instanceClass);
+                        log(aAst, WARNING_MSG_KEY, instanceClass);
                     }
                 }
             }
@@ -115,8 +134,8 @@ public class ForbidInstantiationCheck extends Check
 
         default:
             throw new IllegalArgumentException(
-                    "ForbidInstantiationCheck: the processing got the " +
-                            "wrong input token: "
+                    "ForbidInstantiationCheck: the processing got the "
+                            + "wrong input token: "
                             + aAst.toString() + ", token type = "
                             + aAst.getType()
                             + ".");

@@ -135,7 +135,7 @@
             <property-metadata name="minIgnoreReturnDepth" datatype="Integer" default-value="4">
                 <description>%ReturnCountExtended.returnDepthLimit</description>
             </property-metadata>
-            <property-metadata name="ignoreEmptyReturns" datatype="Boolean" default-value="false">
+            <property-metadata name="ignoreEmptyReturns" datatype="Boolean" default-value="true">
                 <description>%ReturnCountExtended.ignoreEmptyReturns</description>
             </property-metadata>
             <property-metadata name="topLinesToIgnoreCount" datatype="Integer" default-value="5">
