@@ -8,23 +8,23 @@ import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * Forbids usage Certain Imports usage in class. <br>
- * Idea was taken from similar check in Sonar project. <br>
+ * Forbids certain imports usage in class. <br>
+ * Idea was taken from the similar check in Sonar project. <br>
  * <br>
  * Parameters:
  * <ol>
- * <li>Package name regexp;</li>
- * <li>Forbidden package name in imports regexp.</li>
+ * <li>Package regexp;</li>
+ * <li>Forbidden imports regexp.</li>
  * </ol>
- * Check retrieves package and imports text for any *.java file in string
- * representation without "package"/"import" words or semicolons. So you can be
- * sure to write regular expressions for package/imports text filtering. <br>
+ * Check operates with packages/imports text in string
+ * representation without "package"/"import" words and semicolons. You can be
+ * sure to write any regular expressions for package/imports text filtering. <br>
  * <br>
  * Example of usage: Forbid to use "*.ui.*" packages in "*.dao.*" packages: <br>
  * <br>
  * <dl>
  * <li>Package name regexp = ".+.ui..+"</li>
- * <li>Forbidden import regexp = ".+.dao..+"</li>
+ * <li>Forbidden imports regexp = ".+.dao..+"</li>
  * </dl>
  * <br>
  * By means of few instances of this check will be possible to check any number

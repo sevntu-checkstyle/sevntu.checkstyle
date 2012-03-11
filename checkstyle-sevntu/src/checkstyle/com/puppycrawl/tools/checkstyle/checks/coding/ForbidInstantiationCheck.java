@@ -1,7 +1,7 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,14 +11,14 @@ import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * Forbids throwing certain types of objects by their full classname. <br>
+ * Forbids instantiation of certain object types by their full classname. <br>
  * <p>
  * For example:<br>
  * "java.lang.NullPointerException" will forbid the NPE instantiation.
  * </p>
  * <p>
- * ClassName should be full: "java.lang.NullPointerException" instead of
- * "NullpointerException".
+ * Note: className should to be full: use "java.lang.NullPointerException"
+ * instead of "NullpointerException".
  * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
@@ -42,7 +42,7 @@ public class ForbidInstantiationCheck extends Check
      * List which contains String representation of imports for class is
      * currently being processed.
      */
-    private List<String> mImportsList = new ArrayList<String>();
+    private List<String> mImportsList = new LinkedList<String>();
 
     /**
      * Sets a classNames&Paths for objects that are forbidden to instantiate.
@@ -69,7 +69,7 @@ public class ForbidInstantiationCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[] {TokenTypes.IMPORT, TokenTypes.LITERAL_NEW };
+        return new int[] { TokenTypes.IMPORT, TokenTypes.LITERAL_NEW };
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ForbidInstantiationCheck extends Check
 
                     if (forbiddenClass.startsWith("java.lang.")
                             && forbiddenClass.endsWith(instanceClassName))
-                    { // java.lang
+                    { // java.lang.*
                         log(aAst, mKey, instanceClassName);
                     }
                     else if (instanceClass.contains(".")) { // className is full
@@ -115,19 +115,24 @@ public class ForbidInstantiationCheck extends Check
 
         default:
             throw new IllegalArgumentException(
-                    "Not a IMPORT or LITERAL_NEW node.");
+                    "ForbidInstantiationCheck: the processing got the " +
+                            "wrong input token: "
+                            + aAst.toString() + ", token type = "
+                            + aAst.getType()
+                            + ".");
         }
 
     }
 
     /**
-     * Checks that given className is visible because of the forbidden import.
+     * Checks that the class with given className is visible because of the
+     * forbidden import.
      * @param aClassName
      *        - the name of the class to check.
      * @param aForbiddenClassNameAndPath
      *        - full name&path of the given forbidden class.
-     * @return true if the given className is imported with the forbidden import
-     *         and false otherwise.
+     * @return true if the class with given className is imported with the
+     *         forbidden import and false otherwise.
      */
     private boolean addedUsingForbiddenImport(final String aClassName,
             String aForbiddenClassNameAndPath)
