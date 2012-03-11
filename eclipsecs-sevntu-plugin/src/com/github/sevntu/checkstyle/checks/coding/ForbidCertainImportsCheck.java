@@ -155,7 +155,11 @@ public class ForbidCertainImportsCheck extends Check
             break;
         default:
             throw new IllegalArgumentException(
-                    "Not a PACKAGE_DEF / IMPORT or LITERAL_NEW node.");
+                    "ForbidCertainImportsCheck: the processing got the " +
+                            "wrong input token: "
+                            + aAst.toString() + ", token type = "
+                            + aAst.getType()
+                            + ".");
         }
     }
 
