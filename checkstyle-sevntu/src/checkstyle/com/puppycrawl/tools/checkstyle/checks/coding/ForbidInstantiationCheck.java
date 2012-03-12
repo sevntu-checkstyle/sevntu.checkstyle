@@ -137,7 +137,7 @@ public class ForbidInstantiationCheck extends Check
                     "ForbidInstantiationCheck: the processing got the "
                             + "wrong input token: "
                             + aAst.toString() + ", token type = "
-                            + aAst.getType()
+                            + TokenTypes.getTokenName(aAst.getType())
                             + ".");
         }
 
@@ -185,7 +185,7 @@ public class ForbidInstantiationCheck extends Check
      *        - the full (dotted) classPath
      * @return the name of the class is specified by the current full name&path.
      */
-    private String getClassName(final String aClassNameAndPath)
+    private static String getClassName(final String aClassNameAndPath)
     {
         return aClassNameAndPath.replaceAll(".+\\.", "");
     }

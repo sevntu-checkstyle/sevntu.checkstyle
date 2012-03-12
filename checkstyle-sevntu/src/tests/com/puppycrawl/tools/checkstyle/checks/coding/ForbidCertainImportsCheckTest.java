@@ -23,17 +23,18 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     @Test
     public void testNormalWork() throws Exception
     {
-        String importPattern = ".+\\.api\\..+";
+        String importRegexp = ".+\\.api\\..+";        
+        String nameRegexp = ".+\\.old\\..+";
         
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
-        checkConfig.addAttribute("forbiddenImportRegexp", importPattern);
+        checkConfig.addAttribute("packageNameRegexp", nameRegexp);
+        checkConfig.addAttribute("forbiddenImportRegexp", importRegexp);
 
         String[] expected = {
 //                "4: "+ getMessage(importPattern),
 //                "10: "+ getMessage(importPattern),
 //                "11: "+ getMessage(importPattern),
 //                "12: "+ getMessage(importPattern),  
-                  "25: "+ getMessage(importPattern), 
+                  "25: "+ getMessage(importRegexp), 
         };
 
         verify(checkConfig, getPath("coding" + File.separator

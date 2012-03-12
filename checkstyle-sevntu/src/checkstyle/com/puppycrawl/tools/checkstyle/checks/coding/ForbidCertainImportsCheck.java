@@ -82,7 +82,7 @@ public class ForbidCertainImportsCheck extends Check
 
     /**
      * Gets the regexp is currently used for the package text checking.
-     * @return The Pattern object is used to store the regexp for the package
+     * @return the regexp is used for the package
      *         text checking.
      */
     public String getPackageNameRegexp()
@@ -179,7 +179,7 @@ public class ForbidCertainImportsCheck extends Check
                     "ForbidCertainImportsCheck: the processing got the "
                             + "wrong input token: "
                             + aAst.toString() + ", token type = "
-                            + aAst.getType()
+                            + TokenTypes.getTokenName(aAst.getType())
                             + ".");
         }
     }
