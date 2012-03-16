@@ -1,6 +1,5 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
-
 import java.io.File;
 
 import org.junit.Test;
@@ -127,6 +126,26 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
                 + "InputAvoidModifiersForTypesCheck.java"), expected);
     }
     
+    @Test
+    public void testAnyFile() throws Exception
+    {
+        String finalRegexp = null;
+        String staticRegexp = null;
+        String transientRegexp = null;
+        String volatileRegexp = null;
+
+        checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
+        checkConfig.addAttribute("forbiddenClassesRegexpStatic", staticRegexp);
+        checkConfig.addAttribute("forbiddenClassesRegexpTransient", transientRegexp);
+        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
+
+        String[] expected = {
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputAvoidModifiersForTypesCheck2.java"), expected);
+    }
+
     private String getMessage(String className, String modifierType)
     {
         return "'" + className + "' instance should not have '" + modifierType

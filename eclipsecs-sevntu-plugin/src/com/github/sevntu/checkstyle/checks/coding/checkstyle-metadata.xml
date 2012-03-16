@@ -20,6 +20,24 @@
             <description>%AvoidNotShortCircuitOperatorsForBoolean.desc</description>
         </rule-metadata>
  
+        <rule-metadata name="%AvoidModifiersForTypes.name" internal-name="AvoidModifiersForTypes" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.AvoidModifiersForTypesCheck"/>
+            <description>%AvoidModifiersForTypes.desc</description>
+            <property-metadata name="forbiddenClassesRegexpFinal" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpFinal</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpStatic" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpStatic</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpTransient" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpTransient</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpVolatile" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpVolatile</description>
+            </property-metadata>
+            <message-key key="avoid.modifiers.for.types"/>
+        </rule-metadata>
+ 
         <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclarationOrder" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
             <description>%CustomDeclarationOrder.desc</description>

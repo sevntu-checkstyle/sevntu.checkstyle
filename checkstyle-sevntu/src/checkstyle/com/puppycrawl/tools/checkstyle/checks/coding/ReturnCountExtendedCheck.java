@@ -348,9 +348,8 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Checks that the current processed "return" statement is "empty" (checks
-     * that current processed "return" statement is located in void method or
-     * ctor hasn`t any expression). switches
+     * Checks that the current processed "return" statement is "empty" and
+     * should to be counted.
      * @param aReturnNode
      *        the DetailAST node is pointing to the current "return" statement.
      *        is being processed.

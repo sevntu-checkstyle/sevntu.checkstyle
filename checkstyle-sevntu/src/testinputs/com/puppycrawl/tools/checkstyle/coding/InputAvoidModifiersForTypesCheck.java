@@ -17,7 +17,8 @@ public class InputAvoidModifiersForTypesCheck
     {
         InputAvoidModifiersForTypesCheck b = new InputAvoidModifiersForTypesCheck();
         final InputAvoidModifiersForTypesCheck c = new InputAvoidModifiersForTypesCheck();
-        final int [] a = new int [10]; // primitive type array        
+        final int [] a = new int [10]; // primitive type array    
+        int []xxx = new int [6];
     }
 
 }

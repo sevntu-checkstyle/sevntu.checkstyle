@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.checks.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.LinkedList;
 import java.util.List;
