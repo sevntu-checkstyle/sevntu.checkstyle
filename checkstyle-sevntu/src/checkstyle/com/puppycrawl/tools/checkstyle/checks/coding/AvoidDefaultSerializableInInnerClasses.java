@@ -41,8 +41,10 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	}
 
 	/**
-	 * Metthod add to list all classes nodes, that implement Serializable
-	 * interface
+	 * <p>
+	 * Method add to list all classes nodes, that implement Serializable
+	 * interface;
+	 * </p>
 	 * 
 	 * @param objBlock
 	 *            - OBJBLOCK node of top class
@@ -71,6 +73,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * <p>
 	 * Return true, if inner class contain overrided method readObject() or
 	 * writeObject();
+	 * </p>
 	 * 
 	 * @param methNode
 	 *            the start node for method definition.
@@ -95,8 +98,10 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	}
 
 	/**
+	 * <p>
 	 * Return true, if methods readObject() and writeObject() have correct
 	 * modifiers, type and parameters;
+	 * </p>
 	 * 
 	 * @param methodNode
 	 *            - current method node;
@@ -127,6 +132,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	/**
 	 * <p>
 	 * Return true, if inner class implement Serializable interface;
+	 * </p>
 	 * 
 	 * @param methNode
 	 *            the start node for interface definition.
@@ -155,8 +161,10 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	}
 
 	/**
+	 * <p>
 	 * Method return the list of DetailAST nodes, that are sibling for "node"
 	 * and have node's type;
+	 * </p>
 	 * 
 	 * @param node
 	 * @return list of DetailAST nodes;
