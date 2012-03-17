@@ -32,15 +32,15 @@ public class CauseParameterInExceptionCheck extends Check
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
-     * should be checked.
+     * should be checked. Default value = ".+Exception".
      */
-    private Pattern mClassNamesRegexp = Pattern.compile("");
+    private Pattern mClassNamesRegexp = Pattern.compile(".+Exception");
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
-     * should be ignored by check. Default value = ".+Exception".
+     * should be ignored by check.
      */
-    private Pattern mIgnoredClassNamesRegexp = Pattern.compile(".+Exception");
+    private Pattern mIgnoredClassNamesRegexp = Pattern.compile("");
 
     /**
      * List of ExceptionClass objects are related to Exception classes is
