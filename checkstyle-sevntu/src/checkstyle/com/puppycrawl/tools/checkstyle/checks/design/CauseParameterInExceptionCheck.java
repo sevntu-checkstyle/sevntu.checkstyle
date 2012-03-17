@@ -1,9 +1,5 @@
-/**
- * 
- */
 package com.puppycrawl.tools.checkstyle.checks.design;
 
-import java.util.LinkedList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -149,7 +145,7 @@ public class CauseParameterInExceptionCheck extends Check
 
     /**
      * Gets the ExceptionClass object is related to the parent class for given
-     * CTOR_DEF node. Guaranteed to not be null on Java SE 7 or lesser spec.
+     * CTOR_DEF node. Guaranteed to not be null on Java SE 7 spec or lesser.
      * @param aCtorDefNode
      *        - The CTOR_DEF DetailAST node.
      * @return The Exception class which contains the given constructor.
@@ -158,6 +154,7 @@ public class CauseParameterInExceptionCheck extends Check
     {
         ExceptionClass result = null;
         final DetailAST classDef = getClassDef(aCtorDefNode);
+
         for (ExceptionClass exceptionClass : mExceptionClasses) {
             if (classDef == exceptionClass.getClassDefNode()) {
                 result = exceptionClass;
@@ -172,12 +169,11 @@ public class CauseParameterInExceptionCheck extends Check
      * exception cause as a parameter.
      * @param aExceptionClass
      *        ExceptionClass Object is related to the current processed
-     *        exception
-     * @return true if given Exception class contains ctor with exception cause
-     *         as a parameter and false otherwise.
+     *        exception.
+     * @return true if given Exception class contains the constructor with
+     *         exception cause as a parameter and false otherwise.
      */
-    private static boolean hasCtorWithCauseAsParameter(
-            ExceptionClass aExceptionClass)
+    private static boolean hasCtorWithCauseAsParameter(ExceptionClass aExceptionClass)
     {
         boolean result = false;
         for (DetailAST ctorNode : aExceptionClass.getContructorDefList()) {
@@ -202,9 +198,10 @@ public class CauseParameterInExceptionCheck extends Check
         boolean result = false;
         final DetailAST parameters =
                 aCtorDefNode.findFirstToken(TokenTypes.PARAMETERS);
-        for (String parameterType : getParameterTypesClassNames(parameters)) {
+        for (String parameterType : getParameterTypes(parameters)) {
             if ("Throwable".equals(parameterType)
-                    || "Exception".equals(parameterType)) {
+                    || "Exception".equals(parameterType))
+            {
                 result = true;
                 break;
             }
@@ -217,8 +214,7 @@ public class CauseParameterInExceptionCheck extends Check
      * @param aParametersAST - A PARAMETERS DetailAST.
      * @return the list of classNames for given constructor parameters types.
      */
-    private static List<String> getParameterTypesClassNames(
-            DetailAST aParametersAST)
+    private static List<String> getParameterTypes(DetailAST aParametersAST)
     {
         final List<String> result = new LinkedList<String>();
         for (DetailAST parametersChild : getChildren(aParametersAST)) {
@@ -234,9 +230,11 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     /**
-     * 
+     * Gets the name of given class or constructor.
      * @param aClassOrCtorDefNode
-     * @return
+     *        the a CLASS_DEF or CTOR_DEF node
+     * @return the name of class or constructor is related to CLASS_DEF or
+     *         CTOR_DEF node.
      */
     private static String getName(final DetailAST aClassOrCtorDefNode)
     {
@@ -247,8 +245,7 @@ public class CauseParameterInExceptionCheck extends Check
 
     /**
      * Gets a parent CLASS_DEF DetailAST node for given DetailAST
-     * node.
-     *
+     * node.     *
      * @param aNode
      *            A DetailAST node.
      * @return The parent CLASS_DEF node for the class that owns a Token
@@ -281,45 +278,65 @@ public class CauseParameterInExceptionCheck extends Check
         return result;
     }
 
-
+    /**
+     * Class that represents an Exception class. Contains class and related
+     * ctors definitions as DetailASTs objects.
+     */
     private class ExceptionClass
     {
-        private DetailAST classDefNode;
-        private List<DetailAST> contructorDefList;
+        /**
+         * A DetailAST node that represents the Exception class definition.
+         */
+        private DetailAST mClassDefNode;
 
         /**
-         * 
-         * @param classDefAST
+         * List of DetailAST nodes that represents constructors definitions for
+         * an Exception class.
          */
-        public ExceptionClass(DetailAST classDefAST)
+        private List<DetailAST> mContructorDefList;
+
+        /**
+         * ExceptionClass ctor.
+         * @param aClassDefAST
+         *        CLASS_DEF DetailAST node for Exception class to be
+         *        constructed.
+         */
+        public ExceptionClass(DetailAST aClassDefAST)
         {
-            this.classDefNode = classDefAST;
-            contructorDefList = new LinkedList<DetailAST>();
+            this.mClassDefNode = aClassDefAST;
+            mContructorDefList = new LinkedList<DetailAST>();
+        }
+
+
+        /**
+         * Adds the constructor to the ctors list.
+         * @param aCtorDefNode
+         *        the CTOR_DEF DetailAST node which points to a constructor
+         *        definition.
+         */
+        public void addConstructorDefNode(DetailAST aCtorDefNode)
+        {
+            mContructorDefList.add(aCtorDefNode);
         }
 
         /**
-         * 
-         * @param ctorDefNode
-         */
-        public void addConstructorDefNode(DetailAST ctorDefNode)
-        {
-            contructorDefList.add(ctorDefNode);
-        }
-
-        /**
-         * @return the classDef
+         * Gets the CLASS_DEF DetailAST node for current Exception class
+         * instance.
+         * @return the CLASS_DEF DetailAST node.
          */
         public DetailAST getClassDefNode()
         {
-            return classDefNode;
+            return mClassDefNode;
         }
 
         /**
+         * Gets the list of contructor definitions DetailASTs for current
+         * Exception class instance.
          * @return the contructorDefList
          */
         public List<DetailAST> getContructorDefList()
         {
-            return contructorDefList;
+            return mContructorDefList;
         }
     }
 }
