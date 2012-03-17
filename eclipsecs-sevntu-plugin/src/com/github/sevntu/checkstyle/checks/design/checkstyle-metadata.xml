@@ -22,5 +22,16 @@
             </property-metadata>
         </rule-metadata>
         
+        <rule-metadata name="%CauseParameterInException.name" internal-name=" CauseParameterInException" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
+            <description>%CauseParameterInException.desc</description>
+            <property-metadata name="classNamesRegexp" datatype="Regex" default-value=".+Exception">
+                <description>%CauseParameterInException.classNamesRegexp</description>
+            </property-metadata>
+            <property-metadata name="ignoredClassNamesRegexp" datatype="Regex" default-value="">
+                <description>%CauseParameterInException.ignoredClassNamesRegexp</description>
+            </property-metadata>
+        </rule-metadata>        
+        
     </rule-group-metadata>
 </checkstyle-metadata>

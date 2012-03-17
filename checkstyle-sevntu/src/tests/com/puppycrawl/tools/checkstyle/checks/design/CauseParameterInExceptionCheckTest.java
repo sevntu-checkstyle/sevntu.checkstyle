@@ -30,6 +30,51 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
                 + "InputCauseParameterInException.java"), expected);
     }
     
+    @Test
+    public void testNormalWork2() throws Exception
+    {
+        checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
+        checkConfig.addAttribute("ignoredClassNamesRegexp", null);        
+
+        String[] expected = {
+                "3:1: " + getMessage("InputCauseParameterInException2"),
+                "22:5: " + getMessage("MyException2"),                
+        };
+
+        verify(checkConfig, getPath("design" + File.separator
+                + "InputCauseParameterInException2.java"), expected);
+    }
+    
+    @Test
+    public void testIgnorePattern() throws Exception
+    {
+        checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
+        checkConfig.addAttribute("ignoredClassNamesRegexp", "Input.+");        
+
+        String[] expected = {
+                //"3:1: " + getMessage("InputCauseParameterInException2"),
+                "22:5: " + getMessage("MyException2"),                
+        };
+
+        verify(checkConfig, getPath("design" + File.separator
+                + "InputCauseParameterInException2.java"), expected);
+    }
+    
+    @Test
+    public void testIgnorePattern2() throws Exception
+    {
+        checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
+        checkConfig.addAttribute("ignoredClassNamesRegexp", "My.+");
+
+        String[] expected = {
+                "3:1: " + getMessage("InputCauseParameterInException2"),
+                //"22:5: " + getMessage("MyException"),                
+        };
+
+        verify(checkConfig, getPath("design" + File.separator
+                + "InputCauseParameterInException2.java"), expected);
+    }
+    
     private String getMessage(String className)
     {
         return "'"
