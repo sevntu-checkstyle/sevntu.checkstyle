@@ -1,5 +1,7 @@
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
+import java.util.LinkedList;
+
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -15,50 +17,93 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
+	private LinkedList<DetailAST> listOfClasses = new LinkedList<DetailAST>();
+
 	@Override
 	public int[] getDefaultTokens()
 	{
-		return new int[] { TokenTypes.IMPLEMENTS_CLAUSE };
+		return new int[] { TokenTypes.OBJBLOCK };
 	}
 
 	@Override
 	public void visitToken(DetailAST aDetailAST)
 	{
-		DetailAST current = aDetailAST.findFirstToken(TokenTypes.OBJBLOCK);
+		fillSerializableClassList(aDetailAST);
+		if (listOfClasses.size() > 0)
+			for (DetailAST current : listOfClasses)
+				if (!scanMethod(current))
+				{
+					DetailAST implementsBlock = current
+							.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
+					log(implementsBlock.getLineNo(),
+							"avoid.default.serializable.in.inner.classes");
+				}
+	}
+
+	/**
+	 * all okay
+	 * 
+	 * @param root
+	 */
+	private void fillSerializableClassList(DetailAST root)
+	{
+		DetailAST current = root.getFirstChild();
 		while (current != null)
 		{
-			if (!isSerializable(current
-					.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE)))
-				continue;
-			if (scanMeth(current.findFirstToken(TokenTypes.METHOD_DEF)))
-				continue;
-			else
-				log(current.getLineNo(),
-						" Avoid.default.serializable.in.inner.classes",
-						current.getText());
+			if ("CLASS_DEF".equals(current.getText()))
+			{
+				if (isSerializable(current))
+					listOfClasses.add(current);
+				fillSerializableClassList(current
+						.findFirstToken(TokenTypes.OBJBLOCK));
+			}
+			if ("METHOD_DEF".equals(current.getText())
+					|| "CTOR_DEF".equals(current.getText()))
+				fillSerializableClassList(current
+						.findFirstToken(TokenTypes.SLIST));
+			current = current.getNextSibling();
 		}
 	}
 
 	/**
 	 * <p>
-	 * Return true, if inner class contain override method readObject() or
+	 * Return true, if inner class contain overrided method readObject() or
 	 * writeObject();
 	 * 
 	 * @param methNode
 	 *            the start node for method definition.
-	 * @return The boolean value.
+	 * @return The boolean value. True, if method was overrided. problem. null
+	 *         pointer if class don't have any method
 	 */
-	private boolean scanMeth(DetailAST methNode)
+	private boolean scanMethod(DetailAST classNode)
 	{
-		while (methNode != null)
-			if (methNode.findFirstToken(TokenTypes.IDENT).getText()
-					.equals("readObject")
-					|| methNode.findFirstToken(TokenTypes.IDENT).getText()
-							.equals("writeObject"))
-				return true;
-			else
-				methNode = methNode.findFirstToken(TokenTypes.METHOD_DEF);
-		return false;
+		boolean result = false;
+		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK);
+		if ((methodNode = methodNode.findFirstToken(TokenTypes.METHOD_DEF)) != null)
+			for (DetailAST node : getList(methodNode))
+			{
+				if ("readObject".equals(node.findFirstToken(TokenTypes.IDENT)
+						.getText()))
+					result = isNotOverloaded(node, "ObjectInputStream");
+				if ("writeObject".equals(node.findFirstToken(TokenTypes.IDENT)
+						.getText()))
+					result = isNotOverloaded(node, "ObjectOutputStream");
+			}
+		return result;
+	}
+
+	// не перегружены ли методы сериализации
+	private boolean isNotOverloaded(DetailAST methodNode, String argType)
+	{
+		DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
+		boolean result = false;
+		if (parameters.getChildCount(TokenTypes.PARAMETER_DEF) == 1)
+		{
+			parameters = parameters.findFirstToken(TokenTypes.PARAMETER_DEF)
+					.findFirstToken(TokenTypes.TYPE).getFirstChild();
+			result = argType.equals(parameters.getText());
+		}
+		return result;
 	}
 
 	/**
@@ -69,15 +114,39 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            the start node for interface definition.
 	 * @return The boolean value.
 	 */
-	private boolean isSerializable(DetailAST impNode)
+	private boolean isSerializable(DetailAST classDefNode)
 	{
-		impNode = impNode.getFirstChild();
-		while (impNode != null)
+		DetailAST implementationsDef = classDefNode
+				.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
+		boolean result = false;
+		if (implementationsDef != null)
 		{
-			if (impNode.getText().equals("Serializable"))
-				return true;
-			impNode = impNode.getNextSibling();
+			implementationsDef = implementationsDef.getFirstChild();
+
+			while (implementationsDef != null)
+			{
+				if ("Serializable".equals(implementationsDef.getText()))
+				{
+					result = true;
+					break;
+				}
+				implementationsDef = implementationsDef.getNextSibling();
+			}
 		}
-		return false;
+		return result;
+	}
+
+	private LinkedList<DetailAST> getList(DetailAST node)
+	{
+		LinkedList<DetailAST> listOfNodes = new LinkedList<DetailAST>();
+		DetailAST current = node;
+		while (current != null)
+		{
+			if (node.getText().equals(current.getText()))
+				listOfNodes.add(current);
+			current = current.getNextSibling();
+		}
+		return listOfNodes;
+
 	}
 }
