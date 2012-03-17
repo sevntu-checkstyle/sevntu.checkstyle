@@ -41,13 +41,15 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	}
 
 	/**
-	 * all okay
+	 * Metthod add to list all classes nodes, that implement Serializable
+	 * interface
 	 * 
-	 * @param root
+	 * @param objBlock
+	 *            - OBJBLOCK node of top class
 	 */
-	private void fillSerializableClassList(DetailAST root)
+	private void fillSerializableClassList(DetailAST objBlock)
 	{
-		DetailAST current = root.getFirstChild();
+		DetailAST current = objBlock.getFirstChild();
 		while (current != null)
 		{
 			if ("CLASS_DEF".equals(current.getText()))
@@ -84,26 +86,42 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 			{
 				if ("readObject".equals(node.findFirstToken(TokenTypes.IDENT)
 						.getText()))
-					result = isNotOverloaded(node, "ObjectInputStream");
+					result = isCorrect(node, "ObjectInputStream");
 				if ("writeObject".equals(node.findFirstToken(TokenTypes.IDENT)
 						.getText()))
-					result = isNotOverloaded(node, "ObjectOutputStream");
+					result = isCorrect(node, "ObjectOutputStream");
 			}
 		return result;
 	}
 
-	// не перегружены ли методы сериализации
-	private boolean isNotOverloaded(DetailAST methodNode, String argType)
+	/**
+	 * Return true, if methods readObject() and writeObject() have correct
+	 * modifiers, type and parameters;
+	 * 
+	 * @param methodNode
+	 *            - current method node;
+	 * @param argType
+	 *            - type of arguments for readObject or writObject;
+	 * @return boolean value;
+	 */
+	private boolean isCorrect(DetailAST methodNode, String argType)
 	{
 		DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
-		boolean result = false;
-		if (parameters.getChildCount(TokenTypes.PARAMETER_DEF) == 1)
+		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
+		DetailAST type = methodNode.findFirstToken(TokenTypes.TYPE);
+		boolean param = false;
+		boolean isPrivate = false;
+		boolean isVoid = false;
+		if (parameters.getChildCount(TokenTypes.PARAMETER_DEF) == 1
+				&& modifiers.getChildCount() == 1)
 		{
+			isPrivate = "private".equals(modifiers.getFirstChild().getText());
+			isVoid = "void".equals(type.getFirstChild().getText());
 			parameters = parameters.findFirstToken(TokenTypes.PARAMETER_DEF)
 					.findFirstToken(TokenTypes.TYPE).getFirstChild();
-			result = argType.equals(parameters.getText());
+			param = argType.equals(parameters.getText());
 		}
-		return result;
+		return param & isPrivate & isVoid;
 	}
 
 	/**
@@ -136,6 +154,13 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		return result;
 	}
 
+	/**
+	 * Method return the list of DetailAST nodes, that are sibling for "node"
+	 * and have node's type;
+	 * 
+	 * @param node
+	 * @return list of DetailAST nodes;
+	 */
 	private LinkedList<DetailAST> getList(DetailAST node)
 	{
 		LinkedList<DetailAST> listOfNodes = new LinkedList<DetailAST>();
