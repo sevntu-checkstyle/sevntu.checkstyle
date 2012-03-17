@@ -31,11 +31,11 @@ public class InputCauseParameterInException extends ParentException
         
         public MyException(String str, int integer)
         {
-        }  
+        }
         
-//        public MyException(String str, Throwable ex)
-//        {
-//        }
+        public MyException(String str, Exception ex) // Exception | Throwable only!
+        {
+        }
         
     }   
     
