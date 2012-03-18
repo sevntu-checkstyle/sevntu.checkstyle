@@ -46,7 +46,7 @@ public class CauseParameterInExceptionCheck extends Check
      * List of ExceptionClass objects are related to Exception classes is
      * currently found in processed file.
      */
-    private LinkedList<ExceptionClass> mExceptionClasses;
+    private List<ExceptionClass> mExceptionClasses;
 
     /**
      * Gets the regexp is currently used for the names of classes, that should
@@ -108,7 +108,7 @@ public class CauseParameterInExceptionCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int []{TokenTypes.CLASS_DEF, TokenTypes.CTOR_DEF };
+        return new int []{TokenTypes.CLASS_DEF, TokenTypes.CTOR_DEF};
     }
 
     @Override
@@ -119,7 +119,8 @@ public class CauseParameterInExceptionCheck extends Check
             final ExceptionClass exceptionClass = new ExceptionClass(aAst);
             final String exceptionClassName = exceptionClass.getClassName();
             if (mClassNamesRegexp.matcher(exceptionClassName).matches()
-                    && !mIgnoredClassNamesRegexp.matcher(exceptionClassName).matches()) {
+                    && !mIgnoredClassNamesRegexp.matcher(exceptionClassName).matches())
+            {
                 mExceptionClasses.add(exceptionClass);
             }
             break;
@@ -130,12 +131,13 @@ public class CauseParameterInExceptionCheck extends Check
             }
             break;
         default:
-            throw new IllegalArgumentException(
-                    "CauseParameterInExceptionCheck: the processing got the "
-                            + "wrong input token: "
-                            + aAst.toString() + ", token type = "
-                            + TokenTypes.getTokenName(aAst.getType())
-                            + ".");
+            final String className = this.getClass().getSimpleName();
+            final String tokenType = TokenTypes.getTokenName(aAst.getType());
+            final String tokenDescription = aAst.toString();
+            final String message =
+                    String.format("%s got the wrong input token: %s (%s)",
+                            className, tokenType, tokenDescription);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -163,7 +165,7 @@ public class CauseParameterInExceptionCheck extends Check
         ExceptionClass result = null;
         final DetailAST classDef = getClassDef(aCtorDefNode);
 
-        for (ExceptionClass exceptionClass : mExceptionClasses) {
+        for (ExceptionClass exceptionClass : mExceptionClasses) {            
             if (classDef == exceptionClass.getClassDefNode()) {
                 result = exceptionClass;
                 break;
@@ -290,17 +292,17 @@ public class CauseParameterInExceptionCheck extends Check
      * Class that represents an Exception class. Contains class and related
      * ctors definitions as DetailASTs objects.
      */
-    private class ExceptionClass
+    private final class ExceptionClass
     {
         /**
          * ClassName for current Exception class instance.
          */
-        private String className;
- 
+        private final String className;
+
         /**
          * A DetailAST node that represents the Exception class definition.
          */
-        private DetailAST mClassDefNode;
+        private final DetailAST mClassDefNode;
 
         /**
          * List of DetailAST nodes that represents constructors definitions for
