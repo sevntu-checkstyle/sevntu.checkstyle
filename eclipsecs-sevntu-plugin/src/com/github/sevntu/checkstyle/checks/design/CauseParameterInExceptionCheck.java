@@ -43,10 +43,10 @@ public class CauseParameterInExceptionCheck extends Check
     private Pattern mIgnoredClassNamesRegexp = Pattern.compile("");
 
     /**
-     * List of ExceptionClass objects are related to Exception classes is
-     * currently found in processed file.
+     * List of DetailAST objects which are related to Exception classes that
+     * need to be warned.
      */
-    private List<ExceptionClass> mExceptionClasses;
+    private List<DetailAST> mExceptionClassesToWarn = new LinkedList<DetailAST>();
 
     /**
      * Gets the regexp is currently used for the names of classes, that should
@@ -97,18 +97,10 @@ public class CauseParameterInExceptionCheck extends Check
         mIgnoredClassNamesRegexp = Pattern.compile(regexp);
     }
 
-    /**
-     * Creates the new CauseParameterInExceptionCheck instance.
-     */
-    public CauseParameterInExceptionCheck()
-    {
-        mExceptionClasses = new LinkedList<ExceptionClass>();
-    }
-
     @Override
     public int[] getDefaultTokens()
     {
-        return new int []{TokenTypes.CLASS_DEF, TokenTypes.CTOR_DEF};
+        return new int []{TokenTypes.CLASS_DEF, TokenTypes.CTOR_DEF, };
     }
 
     @Override
@@ -116,18 +108,17 @@ public class CauseParameterInExceptionCheck extends Check
     {
         switch (aAst.getType()) {
         case TokenTypes.CLASS_DEF:
-            final ExceptionClass exceptionClass = new ExceptionClass(aAst);
-            final String exceptionClassName = exceptionClass.getClassName();
+            final String exceptionClassName = getName(aAst);       
             if (mClassNamesRegexp.matcher(exceptionClassName).matches()
                     && !mIgnoredClassNamesRegexp.matcher(exceptionClassName).matches())
             {
-                mExceptionClasses.add(exceptionClass);
+                mExceptionClassesToWarn.add(aAst);
             }
             break;
         case TokenTypes.CTOR_DEF:
-            final ExceptionClass currentExceptionClass = getExceptionClass(aAst);
-            if (currentExceptionClass != null) {
-                currentExceptionClass.addConstructorDefNode(aAst);
+            final DetailAST exceptionClass = getClassDef(aAst);
+            if(mExceptionClassesToWarn.contains(exceptionClass) && hasCauseAsParameter(aAst)) { // if current class is not ignored
+                mExceptionClassesToWarn.remove(exceptionClass);
             }
             break;
         default:
@@ -144,55 +135,10 @@ public class CauseParameterInExceptionCheck extends Check
     @Override
     public void finishTree(DetailAST aTreeRootAST)
     {
-        for (ExceptionClass exceptionClass : mExceptionClasses) {
-            final DetailAST classDefNode = exceptionClass.getClassDefNode();
-            if (!hasCtorWithCauseAsParameter(exceptionClass)) {
+        for (DetailAST classDefNode : mExceptionClassesToWarn) {
                 log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
-            }
         }
-    }
-
-    /**
-     * Gets the ExceptionClass object is related to the parent class for given
-     * CTOR_DEF node.
-     * @param aCtorDefNode
-     *        - The CTOR_DEF DetailAST node.
-     * @return The Exception class which contains the given constructor or null
-     *         if current Exception class was ignored by check.
-     */
-    private ExceptionClass getExceptionClass(DetailAST aCtorDefNode)
-    {
-        ExceptionClass result = null;
-        final DetailAST classDef = getClassDef(aCtorDefNode);
-
-        for (ExceptionClass exceptionClass : mExceptionClasses) {            
-            if (classDef == exceptionClass.getClassDefNode()) {
-                result = exceptionClass;
-                break;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Checks that given Exception class contains at least one constructor with
-     * exception cause as a parameter.
-     * @param aExceptionClass
-     *        ExceptionClass Object is related to the current processed
-     *        exception.
-     * @return true if given Exception class contains the constructor with
-     *         exception cause as a parameter and false otherwise.
-     */
-    private static boolean hasCtorWithCauseAsParameter(ExceptionClass aExceptionClass)
-    {
-        boolean result = false;
-        for (DetailAST ctorNode : aExceptionClass.getContructorDefList()) {
-            if (hasCauseAsParameter(ctorNode)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
+        mExceptionClassesToWarn.clear();
     }
 
     /**
@@ -254,13 +200,13 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     /**
-     * Gets a parent CLASS_DEF DetailAST node for given DetailAST
-     * node.     *
+     * Gets a parent CLASS_DEF DetailAST node for given DetailAST node.
      * @param aNode
-     *            A DetailAST node.
-     * @return The parent CLASS_DEF node for the class that owns a Token
-     *         is related to the given DetailAST node.
-     * */
+     *        A DetailAST node.
+     * @return The parent CLASS_DEF node for the class that owns a token is
+     *         related to the given DetailAST node or null if given token is not
+     *         located in any class.
+     */
     private static DetailAST getClassDef(final DetailAST aNode)
     {
         DetailAST curNode = aNode;
@@ -288,80 +234,4 @@ public class CauseParameterInExceptionCheck extends Check
         return result;
     }
 
-    /**
-     * Class that represents an Exception class. Contains class and related
-     * ctors definitions as DetailASTs objects.
-     */
-    private final class ExceptionClass
-    {
-        /**
-         * ClassName for current Exception class instance.
-         */
-        private final String className;
-
-        /**
-         * A DetailAST node that represents the Exception class definition.
-         */
-        private final DetailAST mClassDefNode;
-
-        /**
-         * List of DetailAST nodes that represents constructors definitions for
-         * an Exception class.
-         */
-        private List<DetailAST> mContructorDefList;
-
-        /**
-         * ExceptionClass ctor.
-         * @param aClassDefAST
-         *        CLASS_DEF DetailAST node for Exception class to be
-         *        constructed.
-         */
-        public ExceptionClass(DetailAST aClassDefAST)
-        {
-            this.className = getName(aClassDefAST);
-            this.mClassDefNode = aClassDefAST;
-            mContructorDefList = new LinkedList<DetailAST>();
-        }
-
-
-        /**
-         * Adds the constructor to the ctors list.
-         * @param aCtorDefNode
-         *        the CTOR_DEF DetailAST node which points to a constructor
-         *        definition.
-         */
-        public void addConstructorDefNode(DetailAST aCtorDefNode)
-        {
-            mContructorDefList.add(aCtorDefNode);
-        }
-
-        /**
-         * Gets the CLASS_DEF DetailAST node for current Exception class
-         * instance.
-         * @return the CLASS_DEF DetailAST node.
-         */
-        public DetailAST getClassDefNode()
-        {
-            return mClassDefNode;
-        }
-
-        /**
-         * Gets the list of contructor definitions DetailASTs for current
-         * Exception class instance.
-         * @return the contructorDefList
-         */
-        public List<DetailAST> getContructorDefList()
-        {
-            return mContructorDefList;
-        }
-
-        /**
-         * Gets the Exception className.
-         * @return the Exception className.
-         */
-        public String getClassName()
-        {
-            return className;
-        }
-    }
 }

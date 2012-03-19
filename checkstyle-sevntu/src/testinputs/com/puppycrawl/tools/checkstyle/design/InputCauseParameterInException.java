@@ -8,17 +8,6 @@ public class InputCauseParameterInException extends ParentException
         super(str, null);
     }
 
-    public InputCauseParameterInException(String str, int integer)
-    {
-        super(str, null);
-    }
-
-//    public InputCauseParameterInException(String str, Throwable ex)
-//    {
-//        super(str, ex);
-//    }
-
-    
     class MyException {
         
         public MyException()
@@ -36,7 +25,19 @@ public class InputCauseParameterInException extends ParentException
         public MyException(String str, Exception ex) // Exception | Throwable only!
         {
         }
-        
-    }   
+
+    }
+
+    public InputCauseParameterInException(String str, int integer)
+    {
+        super(str, null);
+    }
+
+//    public InputCauseParameterInException(String str, Throwable ex)
+//    {
+//        super(str, ex);
+//    }
+
+    
     
 }

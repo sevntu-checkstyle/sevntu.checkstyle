@@ -133,12 +133,13 @@ public class ForbidInstantiationCheck extends Check
             break;
 
         default:
-            throw new IllegalArgumentException(
-                    "ForbidInstantiationCheck: the processing got the "
-                            + "wrong input token: "
-                            + aAst.toString() + ", token type = "
-                            + TokenTypes.getTokenName(aAst.getType())
-                            + ".");
+            final String className = this.getClass().getSimpleName();
+            final String tokenType = TokenTypes.getTokenName(aAst.getType());
+            final String tokenDescription = aAst.toString();
+            final String message =
+                    String.format("%s got the wrong input token: %s (%s)",
+                            className, tokenType, tokenDescription);
+            throw new IllegalArgumentException(message);
         }
 
     }
