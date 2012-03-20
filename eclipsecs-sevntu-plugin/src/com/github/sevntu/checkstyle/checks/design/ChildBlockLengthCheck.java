@@ -8,8 +8,8 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * This check detects the child blocks, which length is more then 80% of parent block
- * length. <br>
+ * This check detects the child blocks, which length is more then 80% of parent
+ * block length. <br>
  * <p>
  * Supported keywords are used to detect blocks: <br>
  * "if", "else", "for", "switch", "do", "while", "try", "catch".
@@ -20,7 +20,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Length of child block that is more then 80% of parent block is usually hard
  * to read in case child block is long(few display screens). Such child blocks
- * should be refactored or moved to separate method.</p>
+ * should be refactored or moved to separate method.
+ * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
@@ -65,16 +66,19 @@ public class ChildBlockLengthCheck extends Check
     {
         mAllowedBlockTypes = new int[aAllowedBlockTypes.length];
         for (int i = 0; i < aAllowedBlockTypes.length; i++) {
-            mAllowedBlockTypes[i] = TokenTypes.getTokenId(aAllowedBlockTypes[i]);
+            mAllowedBlockTypes[i] = TokenTypes
+                    .getTokenId(aAllowedBlockTypes[i]);
         }
     }
 
     /**
-     * Sets the maximum percentage ratio between the child block and the parent
+     * Sets the maximum percentage ratio between child and parent
      * block. (sets "maxChildBlockPercentage" option value)
-     * @param aMaxChildBlockPercentage the new "maxChildBlockPercentage" option value.
+     * @param aMaxChildBlockPercentage
+     *        the new "maxChildBlockPercentage" option value.
      */
-    public void setMaxChildBlockPercentage(int aMaxChildBlockPercentage) {
+    public void setMaxChildBlockPercentage(int aMaxChildBlockPercentage)
+    {
         this.mMaxChildBlockPercentage = aMaxChildBlockPercentage;
     }
 
@@ -95,21 +99,22 @@ public class ChildBlockLengthCheck extends Check
             final int parentBlockLinesCount = getLinesCount(aBlockOpeningBrace,
                     aBlockClosingBrace);
 
-            final List<DetailAST> childBlocks = getChildBlocks(aBlockOpeningBrace,
-                    aBlockClosingBrace);
+            final List<DetailAST> childBlocks = getChildBlocks(
+                    aBlockOpeningBrace, aBlockClosingBrace);
 
-            final List<DetailAST> wrongChildBlocks = getWrongChildBlocks(childBlocks,
-                    parentBlockLinesCount);
+            final List<DetailAST> wrongChildBlocks = getWrongChildBlocks(
+                    childBlocks, parentBlockLinesCount);
 
-            if(wrongChildBlocks.size() == 0) {
-                for(DetailAST childBlock: childBlocks) {
+            if (wrongChildBlocks.size() == 0) {
+                for (DetailAST childBlock: childBlocks) {
                     visitToken(childBlock);
                 }
             }
             else {
                 for (DetailAST wrongChildBlock : wrongChildBlocks) {
                     final double allowedChildBlockSize =
-                            (double) (parentBlockLinesCount * mMaxChildBlockPercentage) / 100.0;
+                            (double) (parentBlockLinesCount
+                                    * mMaxChildBlockPercentage) / 100.0;
                     log(wrongChildBlock, WARNING_MSG_KEY,
                             (int) (allowedChildBlockSize));
                 }

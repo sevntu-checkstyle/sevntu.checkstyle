@@ -21,6 +21,8 @@ package com.github.sevntu.checkstyle.checks.naming;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -43,10 +45,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
 	 */
 	private int[] mTargets = new int[0];
 
-	/**
-	 * Variable indicates on the allowed amount of capital letters in
-	 * abbreviations in the classes, interfaces, variables and methods names
-	 */
+	/** Variable indicates on the allowed amount of capital letters in abbreviations in the classes, interfaces, variables and methods names. */
 	private int mAllowedAbbreviationLength = 3;
 
 	/**
@@ -96,7 +95,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
 	}
 
 	/**
-	 * Allowed abbreviation length in names
+	 * Allowed abbreviation length in names.
 	 * 
 	 * @param aAllowedAbbreviationLength
 	 *            amount of allowed capital letters in abbreviation.
@@ -139,8 +138,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
 						"abbreviationAsWord",
 						mAllowedAbbreviationLength);
 			}
-        }
-		
+        }		
 	}
 
 	private boolean isIgnoreSituation(DetailAST aAst) {
@@ -148,10 +146,33 @@ public class AbbreviationAsWordInNameCheck extends Check {
 
 		return aAst.getType() == TokenTypes.VARIABLE_DEF
 				&& ((mIgnoreFinal && modifiers.branchContains(TokenTypes.FINAL))
-						|| (mIgnoreStatic && modifiers.branchContains(TokenTypes.LITERAL_STATIC)));
+						|| (mIgnoreStatic && modifiers.branchContains(TokenTypes.LITERAL_STATIC)))
+				|| (aAst.getType() == TokenTypes.METHOD_DEF && hasOverrideAnnotation(modifiers));
 	}
 
-	private String getDisallowedAbbreviation(String string) {
+    /**
+     * Checks that the method has "@Override" annotation.
+     * @param aMethodModifiersAST
+     *        A DetailAST nod is related to the given method modifiers
+     *        (MODIFIERS type).
+     * @return true if method has "@Override" annotation.
+     */
+    private static boolean hasOverrideAnnotation(DetailAST aMethodModifiersAST)
+    {
+        boolean result = false;
+        for (DetailAST child : getChildren(aMethodModifiersAST)) {
+            if (child.getType() == TokenTypes.ANNOTATION) {
+                String annotationText = child.findFirstToken(TokenTypes.IDENT).getText();
+                if ("Override".equals(annotationText)) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private String getDisallowedAbbreviation(String string) {
 		int beginIndex = 0;
 		boolean abbrStarted = false;
 		String result = null;
@@ -197,4 +218,22 @@ public class AbbreviationAsWordInNameCheck extends Check {
 		return result;
 	}
 	
+    /**
+     * Gets all the children which are one level below on the current DetailAST
+     * parent node.
+     * @param aNode
+     *        Current parent node.
+     * @return The list of children one level below on the current parent node.
+     */
+    private static List<DetailAST> getChildren(final DetailAST aNode)
+    {
+        final List<DetailAST> result = new LinkedList<DetailAST>();
+        DetailAST curNode = aNode.getFirstChild();
+        while (curNode != null) {
+            result.add(curNode);
+            curNode = curNode.getNextSibling();
+        }
+        return result;
+    }
+    
 }
