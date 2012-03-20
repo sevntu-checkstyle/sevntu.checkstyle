@@ -11,18 +11,27 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * Checks that any Exception class which matches the defined className regexp
  * have at least one constructor with Exception cause as a parameter. <br>
+ * <p>
+ * Rationale: <br>
  * <br>
+ * "A special form of exception translation called exception chaining is
+ * appropri- ate in cases where the lower-level exception might be helpful to
+ * someone debug- ging the problem that caused the higher-level exception. The
+ * lower-level exception (the cause) is passed to the higher-level.."
+ * <p align=right>
+ * <i>[Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 61]</i>
+ * </p>
+ * <p>
  * Parameters:
- * <dl>
- * <li>Exception classNames regexp. ("classNamesRegexp" option)</li>
- * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).
- * </li> <br> </dl>
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * </p>
+ * <ol>
+ * <li>Exception classNames regexp. ("classNamesRegexp" option).</li>
+ * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).</li>
+ * </dl><br>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheck extends Check
 {
-
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.

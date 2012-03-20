@@ -122,9 +122,9 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 				String.format(message, 32, expectedCapitalCount),
 				String.format(message, 37, expectedCapitalCount),
 				String.format(message, 38, expectedCapitalCount),
-				String.format(message, 59, expectedCapitalCount),
-				String.format(message, 60, expectedCapitalCount),
-				String.format(message, 61, expectedCapitalCount),
+//				String.format(message, 59, expectedCapitalCount),
+//				String.format(message, 60, expectedCapitalCount),
+//				String.format(message, 61, expectedCapitalCount),
 			};
 
 		verify(checkConfig, getPath("naming" + File.separator

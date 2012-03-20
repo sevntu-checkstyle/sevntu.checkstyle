@@ -11,18 +11,27 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * Checks that any Exception class which matches the defined className regexp
  * have at least one constructor with Exception cause as a parameter. <br>
+ * <p>
+ * Rationale: <br>
  * <br>
+ * "A special form of exception translation called exception chaining is
+ * appropri- ate in cases where the lower-level exception might be helpful to
+ * someone debug- ging the problem that caused the higher-level exception. The
+ * lower-level exception (the cause) is passed to the higher-level.."
+ * <p align=right>
+ * <i>[Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 61]</i>
+ * </p>
+ * <p>
  * Parameters:
- * <dl>
- * <li>Exception classNames regexp. ("classNamesRegexp" option)</li>
- * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).
- * </li> <br> </dl>
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * </p>
+ * <ol>
+ * <li>Exception classNames regexp. ("classNamesRegexp" option).</li>
+ * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).</li>
+ * </dl><br>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheck extends Check
 {
-
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -105,7 +114,7 @@ public class CauseParameterInExceptionCheck extends Check
 
     @Override
     public void visitToken(DetailAST aAst)
-    {
+    {        
         switch (aAst.getType()) {
         case TokenTypes.CLASS_DEF:
             final String exceptionClassName = getName(aAst);       
@@ -142,7 +151,8 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     /**
-     * Checks that given constructor contains exception cause as a parameter.
+     * Checks that the given constructor contains exception cause as a
+     * parameter.
      * @param aCtorDefNode
      *        The CTOR_DEF DetailAST node is related to the constructor
      *        definition.
@@ -200,9 +210,9 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     /**
-     * Gets a parent CLASS_DEF DetailAST node for given DetailAST node.
+     * Gets the parent CLASS_DEF DetailAST node for given DetailAST node.
      * @param aNode
-     *        A DetailAST node.
+     *        The DetailAST node.
      * @return The parent CLASS_DEF node for the class that owns a token is
      *         related to the given DetailAST node or null if given token is not
      *         located in any class.
