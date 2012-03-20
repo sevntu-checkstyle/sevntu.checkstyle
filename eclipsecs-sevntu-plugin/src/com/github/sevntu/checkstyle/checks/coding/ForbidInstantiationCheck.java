@@ -72,6 +72,7 @@ public class ForbidInstantiationCheck extends Check
      */
     public void setForbiddenClasses(final String[] aClassNames)
     {
+        mForbiddenClasses.clear();
         if (aClassNames != null) {
             for (String name : aClassNames) {
                 mForbiddenClasses.add(name);

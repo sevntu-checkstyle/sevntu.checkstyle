@@ -42,6 +42,12 @@ public class ChildBlockLengthCheck extends Check
     private static final int DEFAULT_MAX_CHILD_BLOCK_PERCENTAGE = 80;
 
     /**
+     * Default number of lines of which block body may consist to be
+     * skipped by check.
+     */
+    private static final int DEFAULT_IGNORE_BLOCK_LINESCOUNT = 50;
+    
+    /**
      * Array contains all allowed block types to be checked. Supported block
      * types: LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO,
      * LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH.
@@ -54,6 +60,12 @@ public class ChildBlockLengthCheck extends Check
      */
     private int mMaxChildBlockPercentage = DEFAULT_MAX_CHILD_BLOCK_PERCENTAGE;
 
+    /**
+     * Maximum number of lines of which block body may consist to
+     * be skipped by check.
+     */
+    private int mIgnoreBlockLinesCount = DEFAULT_IGNORE_BLOCK_LINESCOUNT;
+    
     /**
      * Sets allowed types of blocks to be checked. Supported block types:
      * LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE,
@@ -82,6 +94,11 @@ public class ChildBlockLengthCheck extends Check
         this.mMaxChildBlockPercentage = aMaxChildBlockPercentage;
     }
 
+    public void setIgnoreBlockLinesCount(int mIgnoreBlockLinesCount)
+    {
+        this.mIgnoreBlockLinesCount = mIgnoreBlockLinesCount;
+    }
+    
     @Override
     public int[] getDefaultTokens()
     {
@@ -99,24 +116,27 @@ public class ChildBlockLengthCheck extends Check
             final int parentBlockLinesCount = getLinesCount(aBlockOpeningBrace,
                     aBlockClosingBrace);
 
-            final List<DetailAST> childBlocks = getChildBlocks(
-                    aBlockOpeningBrace, aBlockClosingBrace);
+            if (parentBlockLinesCount > mIgnoreBlockLinesCount) {
 
-            final List<DetailAST> wrongChildBlocks = getWrongChildBlocks(
-                    childBlocks, parentBlockLinesCount);
+                final List<DetailAST> childBlocks = getChildBlocks(
+                        aBlockOpeningBrace, aBlockClosingBrace);
 
-            if (wrongChildBlocks.size() == 0) {
-                for (DetailAST childBlock: childBlocks) {
-                    visitToken(childBlock);
+                final List<DetailAST> wrongChildBlocks = getWrongChildBlocks(
+                        childBlocks, parentBlockLinesCount);
+
+                if (wrongChildBlocks.size() == 0) {
+                    for (DetailAST childBlock : childBlocks) {
+                        visitToken(childBlock);
+                    }
                 }
-            }
-            else {
-                for (DetailAST wrongChildBlock : wrongChildBlocks) {
-                    final double allowedChildBlockSize =
-                            (double) (parentBlockLinesCount
-                                    * mMaxChildBlockPercentage) / 100.0;
-                    log(wrongChildBlock, WARNING_MSG_KEY,
-                            (int) (allowedChildBlockSize));
+                else {
+                    for (DetailAST wrongChildBlock : wrongChildBlocks) {
+                        final double allowedChildBlockSize =
+                                (double) (parentBlockLinesCount
+                                * mMaxChildBlockPercentage) / 100.0;
+                        log(wrongChildBlock, WARNING_MSG_KEY,
+                                (int) (allowedChildBlockSize));
+                    }
                 }
             }
         }
@@ -234,7 +254,7 @@ public class ChildBlockLengthCheck extends Check
      *        the DetailAST node is related to the given parent block.
      * @return the DetailAST node is related to the given block opening brace
      */
-    private DetailAST getOpeningBrace(final DetailAST aParentBlockNode)
+    private static DetailAST getOpeningBrace(final DetailAST aParentBlockNode)
     {
         return (aParentBlockNode.getType() == TokenTypes.LITERAL_SWITCH) ?
                 aParentBlockNode.findFirstToken(TokenTypes.LCURLY)
@@ -247,7 +267,7 @@ public class ChildBlockLengthCheck extends Check
      *        the DetailAST node is related to the given parent block.
      * @return the DetailAST node is related to the given block closing brace
      */
-    private DetailAST getClosingBrace(DetailAST aParentBlockNode)
+    private static DetailAST getClosingBrace(DetailAST aParentBlockNode)
     {
         int aParentBlockType = aParentBlockNode.getType();
         return (aParentBlockType == TokenTypes.LITERAL_SWITCH) ?
@@ -272,6 +292,5 @@ public class ChildBlockLengthCheck extends Check
         }
         return result;
     }
-
 
 }

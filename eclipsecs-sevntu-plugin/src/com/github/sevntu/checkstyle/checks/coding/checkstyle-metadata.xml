@@ -78,7 +78,7 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean"/>
             <description>%ReturnNullInsteadOfBoolean.desc</description>
     </rule-metadata>
-        
+
     <rule-metadata name="%ReturnBooleanFromTernary.name" internal-name="ReturnBooleanFromTernary" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary"/>
             <description>%ReturnBooleanFromTernary.desc</description>

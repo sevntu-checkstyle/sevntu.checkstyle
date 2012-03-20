@@ -19,7 +19,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
     public void testNormalWork() throws Exception
     {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", null);        
+        checkConfig.addAttribute("ignoredClassNamesRegexp", null);   
+        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
                 "3:1: " + getMessage("InputCauseParameterInException"),
@@ -35,7 +36,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
     {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);        
-
+        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        
         String[] expected = {
                 "3:1: " + getMessage("InputCauseParameterInException2"),
                 "22:5: " + getMessage("MyException2"),                
@@ -49,7 +51,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
     public void testIgnorePattern() throws Exception
     {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", "Input.+");        
+        checkConfig.addAttribute("ignoredClassNamesRegexp", "Input.+");  
+        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");     
 
         String[] expected = {
                 //"3:1: " + getMessage("InputCauseParameterInException2"),
@@ -65,6 +68,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
     {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "My.+");
+        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
                 "3:1: " + getMessage("InputCauseParameterInException2"),

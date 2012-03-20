@@ -16,3 +16,24 @@ abstract class NonAAAAbstractClassName1 {
 	    // blah-blah
 	}
 }
+
+class Class1 {
+    
+    private void oveRRRRRrriddenMethod(){
+        int a = 0;
+        // blah-blah
+    }
+    
+}
+
+class Class2 extends Class1 {
+    
+    @Override
+    @SuppressWarnings
+    @Before
+    private void oveRRRRRrriddenMethod(){
+        int a = 0;
+        // blah-blah
+    }
+    
+}

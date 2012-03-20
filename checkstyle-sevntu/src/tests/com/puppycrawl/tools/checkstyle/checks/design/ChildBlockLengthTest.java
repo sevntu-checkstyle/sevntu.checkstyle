@@ -20,9 +20,9 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     {
         checkConfig.addAttribute("maxChildBlockPercentage","100");
         checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
-        		"LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
-
-        String[] expected = {         
+        		"LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
+        
+        String[] expected = {
         };
 
         verify(checkConfig, getPath("design" + File.separator
@@ -50,7 +50,8 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("maxChildBlockPercentage","20");
         checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
-
+        checkConfig.addAttribute("ignoreBlockLinesCount","0");
+        
         String[] expected = {
                 "15:15: " + getMessage("5"),  // 5.2%      
         };
@@ -65,7 +66,8 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("maxChildBlockPercentage","19");
         checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
-
+        checkConfig.addAttribute("ignoreBlockLinesCount","0");
+        
         String[] expected = {
                 "15:15: " + getMessage("4"),
                 "31:15: " + getMessage("4"),         
@@ -81,7 +83,8 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("maxChildBlockPercentage","70");
         checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
-
+        checkConfig.addAttribute("ignoreBlockLinesCount","0");
+        
         String[] expected = {  
                 "41:7: " + getMessage("6"),  
                 "42:9: " + getMessage("4"), 
@@ -91,6 +94,24 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
                 + "InputChildBlockLengthCheckDoubleNested.java"), expected);
     }
 
+    @Test
+    public void testIgnoreBlockLinesCountOption() throws Exception
+    {
+        checkConfig.addAttribute("maxChildBlockPercentage","19");
+        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+                "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");             
+        checkConfig.addAttribute("ignoreBlockLinesCount","26");
+
+        String[] expected = {
+//                "15:15: " + getMessage("4"),
+//                "31:15: " + getMessage("4"),
+        };
+
+        verify(checkConfig, getPath("design" + File.separator
+                + "InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+    }
+    
+    
     @Test
     public void testBadChildBlocksThatAreDoubleNested2() throws Exception
     {

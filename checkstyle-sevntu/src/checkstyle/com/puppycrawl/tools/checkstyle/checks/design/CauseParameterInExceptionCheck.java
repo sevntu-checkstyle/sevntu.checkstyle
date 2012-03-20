@@ -1,7 +1,9 @@
 package com.puppycrawl.tools.checkstyle.checks.design;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -15,8 +17,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Rationale: <br>
  * <br>
  * "A special form of exception translation called exception chaining is
- * appropri- ate in cases where the lower-level exception might be helpful to
- * someone debug- ging the problem that caused the higher-level exception. The
+ * appropriate in cases where the lower-level exception might be helpful to
+ * someone debugging the problem that caused the higher-level exception. The
  * lower-level exception (the cause) is passed to the higher-level.."
  * <p align=right>
  * <i>[Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 61]</i>
@@ -51,6 +53,12 @@ public class CauseParameterInExceptionCheck extends Check
      */
     private Pattern mIgnoredClassNamesRegexp = Pattern.compile("");
 
+    /**
+     * List contains the names of classes which would be considered as Exception
+     * cause. Default value = "Throwable, Exception".
+     */
+    private Set<String> mAllowedCauseTypes = new HashSet<String>();
+    
     /**
      * List of DetailAST objects which are related to Exception classes that
      * need to be warned.
@@ -106,6 +114,23 @@ public class CauseParameterInExceptionCheck extends Check
         mIgnoredClassNamesRegexp = Pattern.compile(regexp);
     }
 
+    /**
+     * Sets the names of classes which would be considered as Exception cause.
+     * @param aClassNames
+     *        - the list of classNames separated by a comma. ClassName should be
+     *        short, such as "NullpointerException", do not use full name -
+     *        java.lang.NullpointerException;
+     */
+    public void setAllowedCauseTypes(final String[] aAllowedCauseTypes)
+    {
+        mAllowedCauseTypes.clear();
+        if (aAllowedCauseTypes != null) {
+            for (String name : aAllowedCauseTypes) {
+                mAllowedCauseTypes.add(name);
+            }
+        }
+    }
+    
     @Override
     public int[] getDefaultTokens()
     {
@@ -147,7 +172,7 @@ public class CauseParameterInExceptionCheck extends Check
         for (DetailAST classDefNode : mExceptionClassesToWarn) {
                 log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
         }
-        mExceptionClassesToWarn.clear();
+        mExceptionClassesToWarn.clear();        
     }
 
     /**
@@ -159,14 +184,13 @@ public class CauseParameterInExceptionCheck extends Check
      * @return true if the given ctor contains exception cause as a parameter
      *         and false otherwise.
      */
-    private static boolean hasCauseAsParameter(DetailAST aCtorDefNode)
+    private boolean hasCauseAsParameter(DetailAST aCtorDefNode)
     {
         boolean result = false;
         final DetailAST parameters =
                 aCtorDefNode.findFirstToken(TokenTypes.PARAMETERS);
         for (String parameterType : getParameterTypes(parameters)) {
-            if ("Throwable".equals(parameterType)
-                    || "Exception".equals(parameterType))
+            if (mAllowedCauseTypes.contains(parameterType))
             {
                 result = true;
                 break;

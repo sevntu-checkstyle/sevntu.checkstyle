@@ -59,7 +59,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
     /** Allows to ignore variables with 'static' modifier. */
     private boolean mIgnoreStatic = true;
 
-    /** Allows to ignore methods with "@Override" annotation. */
+    /** Allows to ignore methods with '@Override' annotation. */
     private boolean mIgnoreOverriddenMethods = true;
     
     /**
@@ -177,7 +177,8 @@ public class AbbreviationAsWordInNameCheck extends Check {
         boolean result = false;
         for (DetailAST child : getChildren(aMethodModifiersAST)) {
             if (child.getType() == TokenTypes.ANNOTATION) {
-                String annotationText = child.findFirstToken(TokenTypes.IDENT).getText();
+                final String annotationText =
+                        child.findFirstToken(TokenTypes.IDENT).getText();
                 if ("Override".equals(annotationText)) {
                     result = true;
                     break;

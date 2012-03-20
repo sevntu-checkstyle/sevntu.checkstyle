@@ -139,7 +139,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		verify(checkConfig, getPath("naming" + File.separator
 				+ "InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
-	
+
 	   @Test
 	    public void testTypeNamesForThreePermitedCapitalLettersWithOverridenMethod() throws Exception {
 
@@ -155,10 +155,13 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	        checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 
         final String[] expected = {
+                String.format(message, 22, expectedCapitalCount),
                 };
 
 	        verify(checkConfig, getPath("naming" + File.separator
 	                + "InputAbbreviationAsWordInTypeNameCheckOverridableMethod.java"), expected);
 	    }
+	   
+	 
 	
 }

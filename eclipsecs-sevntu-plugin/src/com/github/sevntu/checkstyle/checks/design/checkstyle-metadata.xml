@@ -31,6 +31,9 @@
             <property-metadata name="ignoredClassNamesRegexp" datatype="Regex" default-value="">
                 <description>%CauseParameterInException.ignoredClassNamesRegexp</description>
             </property-metadata>
+            <property-metadata name="allowedCauseTypes" datatype="String" default-value="Throwable, Exception">
+                <description>%CauseParameterInException.allowedCauseTypes</description>
+            </property-metadata>    
         </rule-metadata>        
         
                 <rule-metadata name="%ChildBlockLength.name" internal-name="ChildBlockLength" parent="TreeWalker">
@@ -47,13 +50,16 @@
 	                    <property-value-option value="LITERAL_SWITCH"/>
 	                    <property-value-option value="LITERAL_TRY"/>
 	                    <property-value-option value="LITERAL_CATCH"/>
-	                </enumeration>            
+	                </enumeration>
 		    </property-metadata>
-		    <property-metadata name="maxPercentage" datatype="Integer" default-value="90">
+		    <property-metadata name="maxChildBlockPercentage" datatype="Integer" default-value="90">
 	                <description>%ChildBlockLength.maxPercentage</description>
+		    </property-metadata>
+		    <property-metadata name="ignoreBlockLinesCount" datatype="Integer" default-value="50">
+	                <description>%ChildBlockLength.ignoreBlockLinesCount</description>
 		    </property-metadata>
 		    <message-key key="child.block.length" />   
         </rule-metadata>
-        
+
     </rule-group-metadata>
 </checkstyle-metadata>
