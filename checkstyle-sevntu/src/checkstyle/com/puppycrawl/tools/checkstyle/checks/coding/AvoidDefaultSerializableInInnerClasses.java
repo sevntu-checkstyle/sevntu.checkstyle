@@ -11,13 +11,13 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * This check prevents the default implementation Serializable interface in
  * inner classes (Serializable interface are default if methods readObject() or
  * writeObject() are not override in class).
+ * For more information read "Effective Java (2nd edition)" chapter 11, item 74, page 294.
  * </p>
  * 
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
-	private LinkedList<DetailAST> listOfClasses = new LinkedList<DetailAST>();
 
 	@Override
 	public int[] getDefaultTokens()
@@ -28,16 +28,21 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	@Override
 	public void visitToken(DetailAST aDetailAST)
 	{
-		fillSerializableClassList(aDetailAST);
+		LinkedList<DetailAST> listOfClasses = new LinkedList<DetailAST>();
+		listOfClasses = fillSerializableClassList(aDetailAST, listOfClasses);
 		if (listOfClasses.size() > 0)
+		{
 			for (DetailAST current : listOfClasses)
-				if (!scanMethod(current))
+			{
+				if (!isContainsOverridedMethod(current))
 				{
 					DetailAST implementsBlock = current
 							.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
 					log(implementsBlock.getLineNo(),
 							"avoid.default.serializable.in.inner.classes");
 				}
+			}
+		}
 	}
 
 	/**
@@ -46,10 +51,10 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * interface;
 	 * </p>
 	 * 
-	 * @param objBlock
-	 *            - OBJBLOCK node of top class
+	 * @param objBlock - OBJBLOCK node of top class
 	 */
-	private void fillSerializableClassList(DetailAST objBlock)
+	private LinkedList<DetailAST> fillSerializableClassList(DetailAST objBlock,
+			LinkedList<DetailAST> listOfClasses)
 	{
 		DetailAST current = objBlock.getFirstChild();
 		while (current != null)
@@ -57,16 +62,22 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 			if ("CLASS_DEF".equals(current.getText()))
 			{
 				if (isSerializable(current))
+				{
 					listOfClasses.add(current);
-				fillSerializableClassList(current
-						.findFirstToken(TokenTypes.OBJBLOCK));
+				}
+				listOfClasses = fillSerializableClassList(
+						current.findFirstToken(TokenTypes.OBJBLOCK),
+						listOfClasses);
 			}
 			if ("METHOD_DEF".equals(current.getText())
 					|| "CTOR_DEF".equals(current.getText()))
-				fillSerializableClassList(current
-						.findFirstToken(TokenTypes.SLIST));
+			{
+				listOfClasses = fillSerializableClassList(
+						current.findFirstToken(TokenTypes.SLIST), listOfClasses);
+			}
 			current = current.getNextSibling();
 		}
+		return listOfClasses;
 	}
 
 	/**
@@ -75,25 +86,26 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * writeObject();
 	 * </p>
 	 * 
-	 * @param methNode
-	 *            the start node for method definition.
+	 * @param methNode the start node for method definition.
 	 * @return The boolean value. True, if method was overrided. problem. null
 	 *         pointer if class don't have any method
 	 */
-	private boolean scanMethod(DetailAST classNode)
+	private boolean isContainsOverridedMethod(DetailAST classNode)
 	{
 		boolean result = false;
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK);
 		if ((methodNode = methodNode.findFirstToken(TokenTypes.METHOD_DEF)) != null)
-			for (DetailAST node : getList(methodNode))
+		{
+			for (DetailAST node : getMethodList(methodNode))
 			{
 				if ("readObject".equals(node.findFirstToken(TokenTypes.IDENT)
 						.getText()))
-					result = isCorrect(node, "ObjectInputStream");
+					result = isReallyOverloaded(node, "ObjectInputStream");
 				if ("writeObject".equals(node.findFirstToken(TokenTypes.IDENT)
 						.getText()))
-					result = isCorrect(node, "ObjectOutputStream");
+					result = isReallyOverloaded(node, "ObjectOutputStream");
 			}
+		}
 		return result;
 	}
 
@@ -103,13 +115,11 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * modifiers, type and parameters;
 	 * </p>
 	 * 
-	 * @param methodNode
-	 *            - current method node;
-	 * @param argType
-	 *            - type of arguments for readObject or writObject;
+	 * @param methodNode - current method node;
+	 * @param argType - type of arguments for readObject or writObject;
 	 * @return boolean value;
 	 */
-	private boolean isCorrect(DetailAST methodNode, String argType)
+	private boolean isReallyOverloaded(DetailAST methodNode, String argType)
 	{
 		DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
 		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
@@ -134,8 +144,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * Return true, if inner class implement Serializable interface;
 	 * </p>
 	 * 
-	 * @param methNode
-	 *            the start node for interface definition.
+	 * @param methNode the start node for interface definition.
 	 * @return The boolean value.
 	 */
 	private boolean isSerializable(DetailAST classDefNode)
@@ -169,14 +178,16 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * @param node
 	 * @return list of DetailAST nodes;
 	 */
-	private LinkedList<DetailAST> getList(DetailAST node)
+	private LinkedList<DetailAST> getMethodList(DetailAST node)
 	{
 		LinkedList<DetailAST> listOfNodes = new LinkedList<DetailAST>();
 		DetailAST current = node;
 		while (current != null)
 		{
 			if (node.getText().equals(current.getText()))
+			{
 				listOfNodes.add(current);
+			}
 			current = current.getNextSibling();
 		}
 		return listOfNodes;
