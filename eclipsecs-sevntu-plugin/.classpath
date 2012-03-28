@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/sabaka/checkstyle/target/checkstyle-5.6-SNAPSHOT-all.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

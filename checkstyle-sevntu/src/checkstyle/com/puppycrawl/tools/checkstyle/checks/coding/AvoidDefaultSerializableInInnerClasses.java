@@ -92,7 +92,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 */
 	private boolean isContainsOverridedMethod(DetailAST classNode)
 	{
-		boolean result = false;
+		boolean canRead = false, canWrite = false;
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK);
 		if ((methodNode = methodNode.findFirstToken(TokenTypes.METHOD_DEF)) != null)
 		{
@@ -100,13 +100,13 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 			{
 				if ("readObject".equals(node.findFirstToken(TokenTypes.IDENT)
 						.getText()))
-					result = isReallyOverloaded(node, "ObjectInputStream");
+					canRead = isReallyOverrided(node, "ObjectInputStream");
 				if ("writeObject".equals(node.findFirstToken(TokenTypes.IDENT)
 						.getText()))
-					result = isReallyOverloaded(node, "ObjectOutputStream");
+					canWrite = isReallyOverrided(node, "ObjectOutputStream");
 			}
 		}
-		return result;
+		return canRead & canWrite;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * @param argType - type of arguments for readObject or writObject;
 	 * @return boolean value;
 	 */
-	private boolean isReallyOverloaded(DetailAST methodNode, String argType)
+	private boolean isReallyOverrided(DetailAST methodNode, String argType)
 	{
 		DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
 		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);

@@ -42,14 +42,14 @@ public class InputAvoidDefaultSerializableInInnerClasses
 		}
 	}
 
-	private class NotError2 implements Serializable
+	private class Error2x implements Serializable	//error2x
 	{
 		private void readObject(ObjectInputStream s)
 		{
 		}
 	}
 
-	private class NotError3 implements Serializable
+	private class Error3x implements Serializable	//error3x
 	{
 		private void writeObject(ObjectOutputStream s)
 		{
