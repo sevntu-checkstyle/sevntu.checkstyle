@@ -19,8 +19,10 @@
 
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -44,6 +46,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </dl>
  * Setting up the check options will make it to ignore:
  * <ol>
+ * <li>Methods by name ("ignoreMethodsNames" property).</li>
  * <li>Methods which linelength less than given value ("linesLimit" property).
  * <li>"return" statements which depth is greater or equal to the given value
  * ("returnDepthLimit" property). There are few supported <br>
@@ -100,6 +103,10 @@ public class ReturnCountExtendedCheck extends Check
      */
     private static final int DEFAULT_TOP_LINES_TO_IGNORE_COUNT = 5;
 
+    /**
+     * List contains the names of methods which would be ignored by check.
+     */
+    private Set<String> mIgnoreMethodsNames = new HashSet<String>();
 
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
@@ -129,6 +136,20 @@ public class ReturnCountExtendedCheck extends Check
      */
     private int mTopLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
+    /**
+     * Sets the names of methods which would be ignored by check.
+     * @param aIgnoreMethodNames
+     *        list of the names of methods which would be ignored by check
+     */
+    public void setIgnoreMethodsNames(String [] aIgnoreMethodNames) {
+        mIgnoreMethodsNames.clear();
+        if (aIgnoreMethodNames != null) {
+            for (String name : aIgnoreMethodNames) {
+                mIgnoreMethodsNames.add(name);
+            }
+        }
+    }
+    
     /**
      * Gets maximum allowed "return" literals count per method/ctor.
      * @return the current "maxReturnCount" property value.
@@ -241,6 +262,10 @@ public class ReturnCountExtendedCheck extends Check
         mTopLinesToIgnoreCount = aTopLinesToIgnoreCount;
     }
 
+    public ReturnCountExtendedCheck()
+    {
+        mIgnoreMethodsNames.add("equals");
+    }
 
     @Override
     public int[] getDefaultTokens()
@@ -254,7 +279,7 @@ public class ReturnCountExtendedCheck extends Check
         final DetailAST openingBrace = aMethodDefNode
                 .findFirstToken(TokenTypes.SLIST);
 
-        if (openingBrace != null) {
+        if (openingBrace != null && !mIgnoreMethodsNames.contains(getMethodName(aMethodDefNode))) {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
             int curMethodLinesCount = getLinesCount(openingBrace,

@@ -29,6 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <ol>
  * <li>Exception classNames regexp. ("classNamesRegexp" option).</li>
  * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).</li>
+ * <li>The names of classes which would be considered as Exception cause ("allowedCauseTypes" option).</li>
  * </dl><br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
@@ -58,12 +59,18 @@ public class CauseParameterInExceptionCheck extends Check
      * cause. Default value = "Throwable, Exception".
      */
     private Set<String> mAllowedCauseTypes = new HashSet<String>();
-    
+
     /**
      * List of DetailAST objects which are related to Exception classes that
      * need to be warned.
      */
     private List<DetailAST> mExceptionClassesToWarn = new LinkedList<DetailAST>();
+
+    public CauseParameterInExceptionCheck()
+    {
+        mAllowedCauseTypes.add("Exception");
+        mAllowedCauseTypes.add("Throwable");
+    }
 
     /**
      * Gets the regexp is currently used for the names of classes, that should
@@ -130,7 +137,7 @@ public class CauseParameterInExceptionCheck extends Check
             }
         }
     }
-    
+
     @Override
     public int[] getDefaultTokens()
     {
@@ -142,7 +149,8 @@ public class CauseParameterInExceptionCheck extends Check
     {        
         switch (aAst.getType()) {
         case TokenTypes.CLASS_DEF:
-            final String exceptionClassName = getName(aAst);       
+            final String exceptionClassName = getName(aAst);     
+            System.out.println(exceptionClassName);
             if (mClassNamesRegexp.matcher(exceptionClassName).matches()
                     && !mIgnoredClassNamesRegexp.matcher(exceptionClassName).matches())
             {
@@ -151,6 +159,7 @@ public class CauseParameterInExceptionCheck extends Check
             break;
         case TokenTypes.CTOR_DEF:
             final DetailAST exceptionClass = getClassDef(aAst);
+            //System.out.println(exceptionClass);
             if(mExceptionClassesToWarn.contains(exceptionClass) && hasCauseAsParameter(aAst)) { // if current class is not ignored
                 mExceptionClassesToWarn.remove(exceptionClass);
             }
@@ -169,6 +178,7 @@ public class CauseParameterInExceptionCheck extends Check
     @Override
     public void finishTree(DetailAST aTreeRootAST)
     {
+        System.out.println(mExceptionClassesToWarn);
         for (DetailAST classDefNode : mExceptionClassesToWarn) {
                 log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
         }
@@ -196,6 +206,7 @@ public class CauseParameterInExceptionCheck extends Check
                 break;
             }
         }
+        System.out.println(aCtorDefNode + "has cause as parameter "+result);
         return result;
     }
 

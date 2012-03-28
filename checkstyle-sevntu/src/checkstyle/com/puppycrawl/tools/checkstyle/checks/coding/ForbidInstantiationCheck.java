@@ -63,6 +63,11 @@ public class ForbidInstantiationCheck extends Check
      */
     private List<String> mImportsList = new LinkedList<String>();
 
+    public ForbidInstantiationCheck()
+    {
+        mForbiddenClasses.add("java.lang.NullPointerException");
+    }
+
     /**
      * Sets a classNames&Paths for objects that are forbidden to instantiate.
      * @param aClassNames
@@ -72,6 +77,7 @@ public class ForbidInstantiationCheck extends Check
      */
     public void setForbiddenClasses(final String[] aClassNames)
     {
+        mForbiddenClasses.clear();
         if (aClassNames != null) {
             for (String name : aClassNames) {
                 mForbiddenClasses.add(name);

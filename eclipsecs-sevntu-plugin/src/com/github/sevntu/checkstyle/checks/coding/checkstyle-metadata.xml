@@ -26,7 +26,7 @@
             <property-metadata name="forbiddenClassesRegexpFinal" datatype="Regex" default-value="">
                 <description>%AvoidModifiersForTypes.forbiddenClassesRegexpFinal</description>
             </property-metadata>
-            <property-metadata name="forbiddenClassesRegexpStatic" datatype="Regex" default-value="">
+            <property-metadata name="forbiddenClassesRegexpStatic" datatype="Regex" default-value="ULC.+">
                 <description>%AvoidModifiersForTypes.forbiddenClassesRegexpStatic</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpTransient" datatype="Regex" default-value="">
@@ -68,7 +68,7 @@
         <rule-metadata name="%ForbidInstantiation.name" internal-name="ForbidInstantiation" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidInstantiationCheck"/>
             <description>%ForbidInstantiation.desc</description>
-            <property-metadata name="forbiddenClasses" datatype="String" default-value="">
+            <property-metadata name="forbiddenClasses" datatype="String" default-value="java.lang.NullPointerException">
                 <description>%ForbidInstantiation.forbiddenClasses</description>
             </property-metadata>
             <message-key key="forbid.instantiation"/>
@@ -140,10 +140,12 @@
             <message-key key="overridable.method.leads" />
         </rule-metadata>
 
-
         <rule-metadata name="%ReturnCountExtended.name" internal-name="ReturnCountExtended" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountExtendedCheck"/>
-            <description>%ReturnCountExtended.desc</description>            
+            <description>%ReturnCountExtended.desc</description>   
+            <property-metadata name="ignoreMethodsNames" datatype="String" default-value="equals">
+                <description>%ReturnCountExtended.ignoreMethodsNames</description>
+            </property-metadata>
             <property-metadata name="maxReturnCount" datatype="Integer" default-value="1">
                 <description>%ReturnCountExtended.maxReturnCount</description>
             </property-metadata>

@@ -9,19 +9,19 @@ public class InputCauseParameterInException extends ParentException
     }
 
     class MyException {
-        
+
         public MyException()
         {
         }
-        
+
         public MyException(String str)
         {
         }
-        
+
         public MyException(String str, int integer)
         {
         }
-        
+
         public MyException(String str, Exception ex) // Exception | Throwable only!
         {
         }

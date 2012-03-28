@@ -150,6 +150,27 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
                     + "InputReturnCountExtendedCheckMethodsInMethods.java"), expected);
     }
     
+    @Test
+    public void testIgnoreMethodsNamesProperty() throws Exception
+    {
+
+        checkConfig.addAttribute("maxReturnCount", "1");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // swithed off
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
+        checkConfig.addAttribute("ignoreEmptyReturns", "false");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addAttribute("ignoreMethodsNames", "threeReturnsInMethod, twoReturnsInMethod");
+
+    String[] expected = {
+            //"25:16: " + createMsg("twoReturnsInMethod","method", 2, 1),
+            //"37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
+            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+            };
+
+            verify(checkConfig, getPath("coding" + File.separator
+                    + "InputReturnCountExtendedCheckMethods.java"), expected);
+    }
+    
     private String createMsg(String methodName, String methodType, int is, int max)
     {
         return "Return count for '"+methodName+"' "+methodType+" is "+is+" (max allowed is "+max+").";

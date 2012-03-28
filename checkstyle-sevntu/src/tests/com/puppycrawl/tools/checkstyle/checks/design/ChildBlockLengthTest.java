@@ -19,7 +19,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testNPEonAllBlockTypes() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","100");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
         		"LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
         
         String[] expected = {
@@ -34,7 +34,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testNestedConditions() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","100");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
 
         String[] expected = {       
@@ -48,7 +48,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testManyBadChildBlocks() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","20");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
         checkConfig.addAttribute("ignoreBlockLinesCount","0");
         
@@ -64,7 +64,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testManyBadChildBlocks2() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","19");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
         checkConfig.addAttribute("ignoreBlockLinesCount","0");
         
@@ -81,7 +81,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testBadChildBlocksThatAreDoubleNested() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","70");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
         checkConfig.addAttribute("ignoreBlockLinesCount","0");
         
@@ -98,7 +98,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testIgnoreBlockLinesCountOption() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","19");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");             
         checkConfig.addAttribute("ignoreBlockLinesCount","26");
 
@@ -116,7 +116,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
     public void testBadChildBlocksThatAreDoubleNested2() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage","70");
-        checkConfig.addAttribute("allowedBlockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, " +
                 "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");        
 
         String[] expected = {  

@@ -52,7 +52,7 @@ public class ChildBlockLengthCheck extends Check
      * types: LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO,
      * LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH.
      */
-    private int [] mAllowedBlockTypes;
+    private int [] mBlockTypes;
 
     /**
      * Maximum percentage ratio between the child block and the parent block.
@@ -70,16 +70,16 @@ public class ChildBlockLengthCheck extends Check
      * Sets allowed types of blocks to be checked. Supported block types:
      * LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE,
      * LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH.
-     * @param aAllowedBlockTypes
+     * @param aBlockTypes
      *        - DetailAST tokenTypes that are related to the types which are
      *        allowed by user in check preferences.
      **/
-    public void setAllowedBlockTypes(final String[] aAllowedBlockTypes)
+    public void setBlockTypes(final String[] aBlockTypes)
     {
-        mAllowedBlockTypes = new int[aAllowedBlockTypes.length];
-        for (int i = 0; i < aAllowedBlockTypes.length; i++) {
-            mAllowedBlockTypes[i] = TokenTypes
-                    .getTokenId(aAllowedBlockTypes[i]);
+        mBlockTypes = new int[aBlockTypes.length];
+        for (int i = 0; i < aBlockTypes.length; i++) {
+            mBlockTypes[i] = TokenTypes
+                    .getTokenId(aBlockTypes[i]);
         }
     }
 
@@ -102,7 +102,7 @@ public class ChildBlockLengthCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return mAllowedBlockTypes;
+        return mBlockTypes;
     }
 
     @Override
@@ -200,7 +200,7 @@ public class ChildBlockLengthCheck extends Check
     private boolean isAllowedChildBlockType(int aBlockType)
     {
         boolean result = false;
-        for (int type : mAllowedBlockTypes) {
+        for (int type : mBlockTypes) {
             if (type == aBlockType) {
                 result = true;
                 break;

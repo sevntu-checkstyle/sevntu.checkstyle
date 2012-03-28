@@ -157,7 +157,7 @@ public class ForbidCertainImportsCheck extends Check
                 final boolean importMatches = mForbiddenImportsRegexp.matcher(
                         importText).matches();
                 if (importMatches) {
-                    log(aAst);
+                    log(aAst, importText);
                 }
             }
             break;
@@ -170,7 +170,7 @@ public class ForbidCertainImportsCheck extends Check
                 final boolean importMatches = mForbiddenImportsRegexp.matcher(
                         importText).matches();
                 if (importMatches) {
-                    log(aAst);
+                    log(aAst, importText);
                 }
             }
             break;
@@ -190,10 +190,10 @@ public class ForbidCertainImportsCheck extends Check
      * @param aNodeToWarn
      *        A DetailAST node is pointing to the current warn location.
      */
-    private void log(DetailAST aNodeToWarn)
+    private void log(DetailAST aNodeToWarn, String aImportText)
     {
         log(aNodeToWarn.getLineNo(), WARNING_MSG_KEY,
-                getForbiddenImportRegexp());
+                getForbiddenImportRegexp(), aImportText);
     }
 
     /**

@@ -38,7 +38,7 @@ public class AvoidModifiersForTypesCheck extends Check
      * Pattern object is used to store the regexp for the names of classes, that
      * could not have 'static' modifier.
      */
-    private Pattern mForbiddenClassesRegexpStatic = Pattern.compile("");
+    private Pattern mForbiddenClassesRegexpStatic = Pattern.compile("ULC.+");
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
