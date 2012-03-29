@@ -26,13 +26,13 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class OverridableMethodInConstructorTest extends BaseCheckTestSupport
+public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSupport
 {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
-    private final String mCtorKey = "constructor";
-    private final String mCloneKey = "'clone()' method";
-    private final String mReadObjectKey = "'readObject()' method";
+    private static final String mCtorKey = "constructor";
+    private static final String mCloneKey = "'clone()' method";
+    private static final String mReadObjectKey = "'readObject()' method";
 
     @Before
     public void setTestinputsDir()
