@@ -46,7 +46,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </dl>
  * Setting up the check options will make it to ignore:
  * <ol>
- * <li>Methods by name ("ignoreMethodsNames" property).</li>
+ * <li>Methods by name ("ignoreMethodsNames" property). Note, that the
+ * "ignoreMethodsNames" property type is NOT regexp: using this property you
+ * can list the names of ignored methods separated by comma.</li>
  * <li>Methods which linelength less than given value ("linesLimit" property).
  * <li>"return" statements which depth is greater or equal to the given value
  * ("returnDepthLimit" property). There are few supported <br>
@@ -58,8 +60,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * can specify the count of top method/ctor lines that will be ignored using
  * "rowsToIgnoreCount" property).
  * </ol>
- * So, this is much improved version of the existing {@link ReturnCountCheck}.
- * <br> <br>
+ * So, this is much improved version of the existing {@link ReturnCountCheck}. <br>
+ * <br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
