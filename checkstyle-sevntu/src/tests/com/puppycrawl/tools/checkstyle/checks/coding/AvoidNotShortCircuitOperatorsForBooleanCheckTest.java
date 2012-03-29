@@ -7,10 +7,10 @@ import org.junit.Test;
 
 public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport {
 
+    private final DefaultConfiguration checkConfig = createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
 
     @Test
     public final void testAll() throws Exception {
-        DefaultConfiguration checkConfig = createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
 
         String[] expected = {
             "6:17: "+createMsg("|"),

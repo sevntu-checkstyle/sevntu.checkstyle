@@ -22,5 +22,44 @@
             </property-metadata>
         </rule-metadata>
         
+        <rule-metadata name="%CauseParameterInException.name" internal-name=" CauseParameterInException" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
+            <description>%CauseParameterInException.desc</description>
+            <property-metadata name="classNamesRegexp" datatype="Regex" default-value=".+Exception">
+                <description>%CauseParameterInException.classNamesRegexp</description>
+            </property-metadata>
+            <property-metadata name="ignoredClassNamesRegexp" datatype="Regex" default-value="">
+                <description>%CauseParameterInException.ignoredClassNamesRegexp</description>
+            </property-metadata>
+            <property-metadata name="allowedCauseTypes" datatype="String" default-value="Throwable, Exception">
+                <description>%CauseParameterInException.allowedCauseTypes</description>
+            </property-metadata>    
+        </rule-metadata>        
+        
+                <rule-metadata name="%ChildBlockLength.name" internal-name="ChildBlockLength" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck"/>
+            <description>%ChildBlockLength.desc</description>
+		    <property-metadata name="blockTypes" datatype="MultiCheck" default-value="LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH">
+	                <description>%ChildBlockLength.allowedBlockTypes</description>
+	                <enumeration>
+	                    <property-value-option value="LITERAL_IF"/>
+	                    <property-value-option value="LITERAL_ELSE"/>
+	                    <property-value-option value="LITERAL_WHILE"/>
+	                    <property-value-option value="LITERAL_DO"/>
+	                    <property-value-option value="LITERAL_FOR"/>
+	                    <property-value-option value="LITERAL_SWITCH"/>
+	                    <property-value-option value="LITERAL_TRY"/>
+	                    <property-value-option value="LITERAL_CATCH"/>
+	                </enumeration>
+		    </property-metadata>
+		    <property-metadata name="maxChildBlockPercentage" datatype="Integer" default-value="90">
+	                <description>%ChildBlockLength.maxPercentage</description>
+		    </property-metadata>
+		    <property-metadata name="ignoreBlockLinesCount" datatype="Integer" default-value="50">
+	                <description>%ChildBlockLength.ignoreBlockLinesCount</description>
+		    </property-metadata>
+		    <message-key key="child.block.length" />   
+        </rule-metadata>
+
     </rule-group-metadata>
 </checkstyle-metadata>
