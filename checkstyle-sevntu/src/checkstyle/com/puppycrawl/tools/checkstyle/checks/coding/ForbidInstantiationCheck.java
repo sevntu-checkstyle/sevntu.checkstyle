@@ -16,7 +16,6 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.Set;
@@ -63,6 +62,9 @@ public class ForbidInstantiationCheck extends Check
      */
     private List<String> mImportsList = new LinkedList<String>();
 
+    /**
+     * Creates the check instance.
+     */
     public ForbidInstantiationCheck()
     {
         mForbiddenClasses.add("java.lang.NullPointerException");
@@ -220,9 +222,6 @@ public class ForbidInstantiationCheck extends Check
                         .createFullIdentBelow(parentDotAST);
                 final DetailAST nameAST = parentDotAST.getLastChild();
                 result = dottedPathIdent.getText() + "." + nameAST.getText();
-            }
-            else {
-                // no code
             }
         }
         else { // if subtree doesn`t contain dots.

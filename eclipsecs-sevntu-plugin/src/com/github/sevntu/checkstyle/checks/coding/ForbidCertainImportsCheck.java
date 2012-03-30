@@ -16,7 +16,6 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.regex.Pattern;
@@ -185,10 +184,13 @@ public class ForbidCertainImportsCheck extends Check
         }
     }
 
+
     /**
      * Logs a warning message for given warn location.
      * @param aNodeToWarn
      *        A DetailAST node is pointing to the current warn location.
+     * @param aImportText
+     *        the text representation of import path to be warned.
      */
     private void log(DetailAST aNodeToWarn, String aImportText)
     {
@@ -219,9 +221,6 @@ public class ForbidCertainImportsCheck extends Check
                         .createFullIdentBelow(parentDotAST);
                 final DetailAST nameAST = parentDotAST.getLastChild();
                 result = dottedPathIdent.getText() + "." + nameAST.getText();
-            }
-            else {
-                // no code
             }
         }
         else { // if package/import text doesn`t contain dots.
