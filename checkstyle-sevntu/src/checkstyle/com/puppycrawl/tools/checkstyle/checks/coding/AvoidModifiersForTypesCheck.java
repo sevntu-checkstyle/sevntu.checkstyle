@@ -76,17 +76,6 @@ public class AvoidModifiersForTypesCheck extends Check
     private Pattern mForbiddenClassesRegexpVolatile = Pattern.compile("");
 
     /**
-     * Gets the regexp is currently used for the names of classes, that could
-     * not have 'static' modifier.
-     * @return String contains regexp is currently used for the names of
-     *         classes, that could not have 'static' modifier.
-     */
-    public String getForbiddenClassesRegexpStatic()
-    {
-        return mForbiddenClassesRegexpStatic.toString();
-    }
-
-    /**
      * Sets the regexp for the names of classes, that could not have 'static'
      * modifier.
      * @param aForbiddenClassesRegexpStatic
@@ -99,17 +88,6 @@ public class AvoidModifiersForTypesCheck extends Check
         final String regexp = aForbiddenClassesRegexpStatic == null ? ""
                 : aForbiddenClassesRegexpStatic;
         mForbiddenClassesRegexpStatic = Pattern.compile(regexp);
-    }
-
-    /**
-     * Gets the regexp is currently used for the names of classes, that could
-     * not have 'final' modifier.
-     * @return String contains regexp is currently used for the names of
-     *         classes, that could not have 'final' modifier.
-     */
-    public String getForbiddenClassesRegexpFinal()
-    {
-        return mForbiddenClassesRegexpFinal.toString();
     }
 
     /**
@@ -128,17 +106,6 @@ public class AvoidModifiersForTypesCheck extends Check
     }
 
     /**
-     * Gets the regexp is currently used for the names of classes, that could
-     * not have 'transient' modifier.
-     * @return String contains regexp is currently used for the names of
-     *         classes, that could not have 'transient' modifier.
-     */
-    public String getForbiddenClassesRegexpTransient()
-    {
-        return mForbiddenClassesRegexpTransient.toString();
-    }
-
-    /**
      * Sets the regexp for the names of classes, that could not have 'transient'
      * modifier.
      * @param aForbiddenClassesRegexpTransient
@@ -151,17 +118,6 @@ public class AvoidModifiersForTypesCheck extends Check
         final String regexp = aForbiddenClassesRegexpTransient == null ? ""
                 : aForbiddenClassesRegexpTransient;
         mForbiddenClassesRegexpTransient = Pattern.compile(regexp);
-    }
-
-    /**
-     * Gets the regexp is currently used for the names of classes, that could
-     * not have 'volatile' modifier.
-     * @return String contains regexp is currently used for the names of
-     *         classes, that could not have 'volatile' modifier.
-     */
-    public String getForbiddenClassesRegexpVolatile()
-    {
-        return mForbiddenClassesRegexpVolatile.toString();
     }
 
     /**

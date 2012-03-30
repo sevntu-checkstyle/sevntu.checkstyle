@@ -78,17 +78,6 @@ public class ForbidCertainImportsCheck extends Check
      */
     private boolean mPackageMatches;
 
-
-    /**
-     * Gets the regexp is currently used for the package text checking.
-     * @return the regexp is used for the package
-     *         text checking.
-     */
-    public String getPackageNameRegexp()
-    {
-        return mPackageNamesRegexp.toString();
-    }
-
     /**
      * Sets the regexp is currently using for the package text checking.
      * @param aPackageNameRegexp
