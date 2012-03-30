@@ -1,9 +1,9 @@
 package project;
 
 //import File;
-import java.io.File;
+import java.io.*;
 
-public class InputForbidInstantiationCheck
+public class InputForbidInstantiationCheckWithAsterisk
 {        
     public void method() {
         NullPointerException ex = new NullPointerException("message"); // !

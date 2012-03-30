@@ -40,8 +40,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "java.lang.NullPointerException");
 
         String[] expected = {
-            "8:35: " + getMessage("NullPointerException"),
-            "11:36: " + getMessage("NullPointerException"),
+            "9:35: " + getMessage("NullPointerException"),
+            "12:36: " + getMessage("NullPointerException"),
         };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -56,12 +56,60 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
 
         String[] expected = {
             "13:21: " + getMessage("File"),
-            "14:20: " + getMessage("String"),
+            "14:21: " + getMessage("File"),
+            "15:20: " + getMessage("String"),
         };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputForbidInstantiationCheck.java"), expected);
     }
+
+    @Test
+    public void testNormalWork2() throws Exception
+    {
+
+        checkConfig.addAttribute("forbiddenClasses", "File");
+
+        String[] expected = {
+            "13:21: " + getMessage("File"),
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputForbidInstantiationCheckWithoutDots.java"), expected);
+    }
+
+    @Test
+    public void testNormalWork3() throws Exception
+    {
+
+        checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
+
+        String[] expected = {
+            "14:21: " + getMessage("File"),
+            "15:20: " + getMessage("String"),
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputForbidInstantiationCheckWithoutDots.java"), expected);
+    }
+
+
+    @Test
+    public void testAsteriskInInput() throws Exception
+    {
+
+        checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
+
+        String[] expected = {
+            "13:21: " + getMessage("File"),
+            "14:21: " + getMessage("File"),
+            "15:20: " + getMessage("String"),
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputForbidInstantiationCheckWithAsterisk.java"), expected);
+    }
+
 
     private String getMessage(String className)
     {
