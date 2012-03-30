@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2011  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.coding;
 
 import java.util.LinkedList;
@@ -26,7 +44,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class AvoidModifiersForTypesCheck extends Check
 {
 
-    private static final String WARNING_MSG_KEY = "avoid.modifiers.for.types";    
+    /**
+     * The key is pointing to the message text String in
+     * "messages.properties file".
+     */
+    private static final String WARNING_MSG_KEY =
+            "avoid.modifiers.for.types";
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
@@ -66,13 +89,14 @@ public class AvoidModifiersForTypesCheck extends Check
     /**
      * Sets the regexp for the names of classes, that could not have 'static'
      * modifier.
-     * @param aPackageNameRegexp
+     * @param aForbiddenClassesRegexpStatic
      *        String contains the regex to set for the names of classes, that
      *        could not have 'static' modifier.
      */
-    public void setForbiddenClassesRegexpStatic(String aForbiddenClassesRegexpStatic)
-    {        
-        String regexp = aForbiddenClassesRegexpStatic == null ? ""
+    public void setForbiddenClassesRegexpStatic(
+            String aForbiddenClassesRegexpStatic)
+    {
+        final String regexp = aForbiddenClassesRegexpStatic == null ? ""
                 : aForbiddenClassesRegexpStatic;
         mForbiddenClassesRegexpStatic = Pattern.compile(regexp);
     }
@@ -91,13 +115,14 @@ public class AvoidModifiersForTypesCheck extends Check
     /**
      * Sets the regexp for the names of classes, that could not have 'final'
      * modifier.
-     * @param aPackageNameRegexp
+     * @param aForbiddenClassesRegexpFinal
      *        String contains the regex to set for the names of classes, that
      *        could not have 'final' modifier.
      */
-    public void setForbiddenClassesRegexpFinal(String aForbiddenClassesRegexpFinal)
+    public void setForbiddenClassesRegexpFinal(
+            String aForbiddenClassesRegexpFinal)
     {
-        String regexp = aForbiddenClassesRegexpFinal == null ? ""
+        final String regexp = aForbiddenClassesRegexpFinal == null ? ""
                 : aForbiddenClassesRegexpFinal;
         mForbiddenClassesRegexpFinal = Pattern.compile(regexp);
     }
@@ -116,13 +141,14 @@ public class AvoidModifiersForTypesCheck extends Check
     /**
      * Sets the regexp for the names of classes, that could not have 'transient'
      * modifier.
-     * @param aPackageNameRegexp
+     * @param aForbiddenClassesRegexpTransient
      *        String contains the regex to set for the names of classes, that
      *        could not have 'transient' modifier.
      */
-    public void setForbiddenClassesRegexpTransient(String aForbiddenClassesRegexpTransient)
+    public void setForbiddenClassesRegexpTransient(
+            String aForbiddenClassesRegexpTransient)
     {
-        String regexp = aForbiddenClassesRegexpTransient == null ? ""
+        final String regexp = aForbiddenClassesRegexpTransient == null ? ""
                 : aForbiddenClassesRegexpTransient;
         mForbiddenClassesRegexpTransient = Pattern.compile(regexp);
     }
@@ -141,13 +167,14 @@ public class AvoidModifiersForTypesCheck extends Check
     /**
      * Sets the regexp for the names of classes, that could not have 'volatile'
      * modifier.
-     * @param aPackageNameRegexp
+     * @param aForbiddenClassesRegexpVolatile
      *        String contains the regex to set for the names of classes, that
      *        could not have 'volatile' modifier.
      */
-    public void setForbiddenClassesRegexpVolatile(String aForbiddenClassesRegexpVolatile)
+    public void setForbiddenClassesRegexpVolatile(
+            String aForbiddenClassesRegexpVolatile)
     {
-        String regexp = aForbiddenClassesRegexpVolatile == null ? ""
+        final String regexp = aForbiddenClassesRegexpVolatile == null ? ""
                 : aForbiddenClassesRegexpVolatile;
         mForbiddenClassesRegexpVolatile = Pattern.compile(regexp);
     }
@@ -155,9 +182,10 @@ public class AvoidModifiersForTypesCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[] { TokenTypes.VARIABLE_DEF };
+        return new int[] {TokenTypes.VARIABLE_DEF };
     }
 
+    @Override
     public void visitToken(DetailAST aAst)
     {
         final String classNameAndPath = getClassNameAndPath(aAst);
@@ -170,25 +198,29 @@ public class AvoidModifiersForTypesCheck extends Check
                 switch (modifierType) {
                 case TokenTypes.LITERAL_STATIC:
                     if (mForbiddenClassesRegexpStatic.matcher(className)
-                            .matches()) {
+                            .matches())
+                    {
                         log(aAst, WARNING_MSG_KEY, className, "static");
                     }
                     break;
                 case TokenTypes.FINAL:
                     if (mForbiddenClassesRegexpFinal.matcher(className)
-                            .matches()) {
+                            .matches())
+                    {
                         log(aAst, WARNING_MSG_KEY, className, "final");
                     }
                     break;
                 case TokenTypes.LITERAL_TRANSIENT:
                     if (mForbiddenClassesRegexpTransient.matcher(className)
-                            .matches()) {
+                            .matches())
+                    {
                         log(aAst, WARNING_MSG_KEY, className, "transient");
                     }
                     break;
                 case TokenTypes.LITERAL_VOLATILE:
                     if (mForbiddenClassesRegexpVolatile.matcher(className)
-                            .matches()) {
+                            .matches())
+                    {
                         log(aAst, WARNING_MSG_KEY, className, "volatile");
                     }
                     break;
@@ -200,17 +232,18 @@ public class AvoidModifiersForTypesCheck extends Check
         }
     }
 
-
     /**
      * Gets the full className of the defined variable.
-     * @param variableDefNode
+     * @param aVariableDefNode
+     *        A DetailAST node is related to variable definition (VARIABLE_DEF
+     *        node type).
      * @return String contains the className of the defined variable or null if
      *         the current processed object is an array of primitive types
      */
-    private static String getClassNameAndPath(DetailAST variableDefNode)
+    private static String getClassNameAndPath(DetailAST aVariableDefNode)
     {
         String result = null;
-        final DetailAST type = variableDefNode.findFirstToken(TokenTypes.TYPE);
+        final DetailAST type = aVariableDefNode.findFirstToken(TokenTypes.TYPE);
         final DetailAST textWithoutDots = type.findFirstToken(TokenTypes.IDENT);
 
         if (textWithoutDots == null) {
@@ -221,9 +254,6 @@ public class AvoidModifiersForTypesCheck extends Check
                         .createFullIdentBelow(parentDotAST);
                 final DetailAST nameAST = parentDotAST.getLastChild();
                 result = dottedPathIdent.getText() + "." + nameAST.getText();
-            }
-            else {
-                // no code
             }
         }
         else { // if subtree doesn`t contain dots.
@@ -247,26 +277,29 @@ public class AvoidModifiersForTypesCheck extends Check
     }
 
     /**
-     * Gets the modifiers of the defined variable (final,static,transient or
+     * Gets the modifiers of the defined variable (final, static, transient or
      * volatile).
      * @param aVariableDefAst
-     * @return
+     *        A DeatilAST node is related to the variable definition
+     *        (VARIABLE_DEF type)
+     * @return List of token types is related to the given variable modifiers.
      */
     private static List<Integer> getModifiers(DetailAST aVariableDefAst)
     {
-        List<Integer> modifiersList = new LinkedList<Integer>();
-        DetailAST modifiersAST = aVariableDefAst.findFirstToken(TokenTypes.MODIFIERS);
+        final List<Integer> modifiersList = new LinkedList<Integer>();
+        final DetailAST modifiersAST = aVariableDefAst
+                .findFirstToken(TokenTypes.MODIFIERS);
         for (DetailAST modifier : getChildren(modifiersAST)) {
             modifiersList.add(modifier.getType());
         }
         return modifiersList;
     }
-    
+
     /**
      * Gets all the children which are one level below on the current DetailAST
      * parent node.
      * @param aNode
-     *        Current parent node.
+     *        The parent node.
      * @return The list of children one level below on the current parent node.
      */
     private static List<DetailAST> getChildren(final DetailAST aNode)
@@ -279,5 +312,5 @@ public class AvoidModifiersForTypesCheck extends Check
         }
         return result;
     }
-    
+
 }

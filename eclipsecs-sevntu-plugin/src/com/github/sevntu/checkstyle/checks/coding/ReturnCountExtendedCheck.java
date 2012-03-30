@@ -16,7 +16,6 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.HashSet;
@@ -47,8 +46,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Setting up the check options will make it to ignore:
  * <ol>
  * <li>Methods by name ("ignoreMethodsNames" property). Note, that the
- * "ignoreMethodsNames" property type is NOT regexp: using this property you
- * can list the names of ignored methods separated by comma.</li>
+ * "ignoreMethodsNames" property type is NOT regexp: using this property you can
+ * list the names of ignored methods separated by comma.</li>
  * <li>Methods which linelength less than given value ("linesLimit" property).
  * <li>"return" statements which depth is greater or equal to the given value
  * ("returnDepthLimit" property). There are few supported <br>
@@ -60,7 +59,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * can specify the count of top method/ctor lines that will be ignored using
  * "rowsToIgnoreCount" property).
  * </ol>
- * So, this is much improved version of the existing {@link ReturnCountCheck}. <br>
+ * So, this is much improved version of the existing {@link ReturnCountCheck}.
+ * <br>
  * <br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
@@ -143,7 +143,8 @@ public class ReturnCountExtendedCheck extends Check
      * @param aIgnoreMethodNames
      *        list of the names of methods which would be ignored by check
      */
-    public void setIgnoreMethodsNames(String [] aIgnoreMethodNames) {
+    public void setIgnoreMethodsNames(String [] aIgnoreMethodNames)
+    {
         mIgnoreMethodsNames.clear();
         if (aIgnoreMethodNames != null) {
             for (String name : aIgnoreMethodNames) {
@@ -151,7 +152,7 @@ public class ReturnCountExtendedCheck extends Check
             }
         }
     }
-    
+
     /**
      * Gets maximum allowed "return" literals count per method/ctor.
      * @return the current "maxReturnCount" property value.
@@ -264,6 +265,9 @@ public class ReturnCountExtendedCheck extends Check
         mTopLinesToIgnoreCount = aTopLinesToIgnoreCount;
     }
 
+    /**
+     * Creates the new check instance.
+     */
     public ReturnCountExtendedCheck()
     {
         mIgnoreMethodsNames.add("equals");
@@ -281,7 +285,9 @@ public class ReturnCountExtendedCheck extends Check
         final DetailAST openingBrace = aMethodDefNode
                 .findFirstToken(TokenTypes.SLIST);
 
-        if (openingBrace != null && !mIgnoreMethodsNames.contains(getMethodName(aMethodDefNode))) {
+        if (openingBrace != null
+                && !mIgnoreMethodsNames.contains(getMethodName(aMethodDefNode)))
+        {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
             int curMethodLinesCount = getLinesCount(openingBrace,

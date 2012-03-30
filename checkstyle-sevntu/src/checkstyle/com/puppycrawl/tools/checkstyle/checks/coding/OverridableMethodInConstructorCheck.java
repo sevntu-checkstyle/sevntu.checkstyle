@@ -103,7 +103,7 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  *               this.x = x;
  *           }
  *           void overrideMe(String str) {
- *               System.out.println("Child`s overrideMe(): "+x);
+ *               System.out.println("Child`s overrideMe(): " + x);
  *           }
  *       }
  *     new Child(999);

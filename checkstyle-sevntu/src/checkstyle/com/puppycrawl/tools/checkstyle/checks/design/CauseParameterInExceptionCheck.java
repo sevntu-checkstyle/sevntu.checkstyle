@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2011  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.design;
 
 import java.util.HashSet;
@@ -12,26 +30,21 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * Checks that any Exception class which matches the defined className regexp
- * have at least one constructor with Exception cause as a parameter. <br>
- * <p>
- * Rationale: <br>
- * <br>
+ * have at least one constructor with Exception cause as a parameter. <br><p>
+ * Rationale: <br><br>
  * "A special form of exception translation called exception chaining is
  * appropriate in cases where the lower-level exception might be helpful to
  * someone debugging the problem that caused the higher-level exception. The
  * lower-level exception (the cause) is passed to the higher-level.."
  * <p align=right>
  * <i>[Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 61]</i>
- * </p>
- * <p>
- * Parameters:
- * </p>
- * <ol>
+ * </p><p> Parameters: </p><ol>
  * <li>Exception classNames regexp. ("classNamesRegexp" option).</li>
- * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).</li>
- * <li>The names of classes which would be considered as Exception cause ("allowedCauseTypes" option).</li>
- * </dl><br>
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
+ * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).
+ * </li><li>The names of classes which would be considered as Exception cause
+ * ("allowedCauseTypes" option).</li></ol><br>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
+ *         Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheck extends Check
 {
@@ -64,8 +77,12 @@ public class CauseParameterInExceptionCheck extends Check
      * List of DetailAST objects which are related to Exception classes that
      * need to be warned.
      */
-    private List<DetailAST> mExceptionClassesToWarn = new LinkedList<DetailAST>();
+    private List<DetailAST> mExceptionClassesToWarn =
+            new LinkedList<DetailAST>();
 
+    /**
+     * Creates the new check instance.
+     */
     public CauseParameterInExceptionCheck()
     {
         mAllowedCauseTypes.add("Exception");
@@ -123,7 +140,7 @@ public class CauseParameterInExceptionCheck extends Check
 
     /**
      * Sets the names of classes which would be considered as Exception cause.
-     * @param aClassNames
+     * @param aAllowedCauseTypes
      *        - the list of classNames separated by a comma. ClassName should be
      *        short, such as "NullpointerException", do not use full name -
      *        java.lang.NullpointerException;
@@ -146,21 +163,23 @@ public class CauseParameterInExceptionCheck extends Check
 
     @Override
     public void visitToken(DetailAST aAst)
-    {        
+    {
         switch (aAst.getType()) {
         case TokenTypes.CLASS_DEF:
-            final String exceptionClassName = getName(aAst);     
+            final String exceptionClassName = getName(aAst);
             System.out.println(exceptionClassName);
             if (mClassNamesRegexp.matcher(exceptionClassName).matches()
-                    && !mIgnoredClassNamesRegexp.matcher(exceptionClassName).matches())
+                    && !mIgnoredClassNamesRegexp.matcher(exceptionClassName)
+                            .matches())
             {
                 mExceptionClassesToWarn.add(aAst);
             }
             break;
         case TokenTypes.CTOR_DEF:
             final DetailAST exceptionClass = getClassDef(aAst);
-            //System.out.println(exceptionClass);
-            if(mExceptionClassesToWarn.contains(exceptionClass) && hasCauseAsParameter(aAst)) { // if current class is not ignored
+            if (mExceptionClassesToWarn.contains(exceptionClass)
+                    && hasCauseAsParameter(aAst))
+            { // if current class is not ignored
                 mExceptionClassesToWarn.remove(exceptionClass);
             }
             break;
@@ -180,9 +199,9 @@ public class CauseParameterInExceptionCheck extends Check
     {
         System.out.println(mExceptionClassesToWarn);
         for (DetailAST classDefNode : mExceptionClassesToWarn) {
-                log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
+            log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
         }
-        mExceptionClassesToWarn.clear();        
+        mExceptionClassesToWarn.clear();
     }
 
     /**
@@ -200,13 +219,11 @@ public class CauseParameterInExceptionCheck extends Check
         final DetailAST parameters =
                 aCtorDefNode.findFirstToken(TokenTypes.PARAMETERS);
         for (String parameterType : getParameterTypes(parameters)) {
-            if (mAllowedCauseTypes.contains(parameterType))
-            {
+            if (mAllowedCauseTypes.contains(parameterType)) {
                 result = true;
                 break;
             }
         }
-        System.out.println(aCtorDefNode + "has cause as parameter "+result);
         return result;
     }
 

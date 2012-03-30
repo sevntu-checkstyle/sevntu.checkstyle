@@ -31,22 +31,32 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * Check name of the targeted item to validate abbreviations(capital letters) length in it.
- * Options:
- *         Allowed Abbreviation Length - allowed abbreviation length(length of capital characters).
- *         Allowed Abbreviations - list of abbreviations separated by comma, without spaces.
+ * Check name of the targeted item to validate abbreviations(capital letters)
+ * length in it. Options: Allowed Abbreviation Length - allowed abbreviation
+ * length(length of capital characters). Allowed Abbreviations - list of
+ * abbreviations separated by comma, without spaces.
  * </p>
- * @author Roman Ivanov
+ * @author Roman Ivanov, Daniil Yaroslvtsev
  */
-public class AbbreviationAsWordInNameCheck extends Check {
+public class AbbreviationAsWordInNameCheck extends Check
+{
+
+    /**
+     * The default value of "allowedAbbreviationLength" option.
+     */
+    private static final int DEFAULT_ALLOWED_ABBREVIATIONS_LENGTH = 3;
 
     /**
      * mAnnotationTargets is array of type forbidden annotation's target.
      */
     private int[] mTargets = new int[0];
 
-    /** Variable indicates on the allowed amount of capital letters in abbreviations in the classes, interfaces, variables and methods names. */
-    private int mAllowedAbbreviationLength = 3;
+    /**
+     * Variable indicates on the allowed amount of capital letters in
+     * abbreviations in the classes, interfaces, variables and methods names.
+     */
+    private int mAllowedAbbreviationLength =
+            DEFAULT_ALLOWED_ABBREVIATIONS_LENGTH;
 
     /**
      * Set of allowed abbreviation to ignore in check
@@ -61,7 +71,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
 
     /** Allows to ignore methods with '@Override' annotation. */
     private boolean mIgnoreOverriddenMethods = true;
-    
+
     /**
      * Sets ignore option for variables with 'final' modifier.
      * @param aIgnoreFinal
@@ -74,14 +84,14 @@ public class AbbreviationAsWordInNameCheck extends Check {
 
     /**
      * Sets ignore option for variables with 'static' modifier.
-     * @param aIgnoreFinal
+     * @param aIgnoreStatic
      *        Defines if ignore variables with 'static' modifier or not.
      */
     public void setIgnoreStatic(boolean aIgnoreStatic)
     {
         this.mIgnoreStatic = aIgnoreStatic;
     }
-    
+
     /**
      * Sets ignore option for methods with "@Override" annotation.
      * @param aIgnoreOverriddenMethods
@@ -91,14 +101,13 @@ public class AbbreviationAsWordInNameCheck extends Check {
     {
         this.mIgnoreOverriddenMethods = aIgnoreOverriddenMethods;
     }
-    
+
     /**
      * Targets for a Check.
-     * 
-     * @param aTargets
-     *            - array of type's names
+     * @param aTargets - array of type's names
      */
-    public void setTargets(String[] aTargets) {
+    public void setTargets(String[] aTargets)
+    {
         if (aTargets != null) {
             mTargets = new int[aTargets.length];
             for (int i = 0; i < aTargets.length; i++) {
@@ -109,60 +118,70 @@ public class AbbreviationAsWordInNameCheck extends Check {
 
     /**
      * Allowed abbreviation length in names.
-     * 
      * @param aAllowedAbbreviationLength
      *            amount of allowed capital letters in abbreviation.
      */
-    public void setAllowedAbbreviationLength(int aAllowedAbbreviationLength) {
+    public void setAllowedAbbreviationLength(int aAllowedAbbreviationLength)
+    {
         mAllowedAbbreviationLength = aAllowedAbbreviationLength;
     }
 
     /**
      * Set a list of abbreviations that must be skipped for checking.
      * Abbreviations should be separated by comma, no spaces is allowed.
-     * 
-     * @param aAllowedAbbr
-     *            an string of abbreviations that must be skipped from checking, each
-     *            abbreviation separated by comma.
+     * @param aAllowedAbbreviations
+     *        an string of abbreviations that must be skipped from checking,
+     *        each abbreviation separated by comma.
      */
-    public void setAllowedAbbreviations(String aAllowedAbbreviations) {
+    public void setAllowedAbbreviations(String aAllowedAbbreviations)
+    {
         if (aAllowedAbbreviations != null) {
-            mAllowedAbbreviations = new HashSet<String>(Arrays.asList(aAllowedAbbreviations.split(",")));
+            mAllowedAbbreviations = new HashSet<String>(
+                    Arrays.asList(aAllowedAbbreviations.split(",")));
         }
     }
 
     @Override
-    public int[] getDefaultTokens() {
+    public int[] getDefaultTokens()
+    {
         return mTargets;
     }
 
     @Override
-    public void visitToken(DetailAST aAst) {
+    public void visitToken(DetailAST aAst)
+    {
 
         if (!isIgnoreSituation(aAst)) {
-            
-            final DetailAST nameAst = aAst.findFirstToken(TokenTypes.IDENT);
 
+            final DetailAST nameAst = aAst.findFirstToken(TokenTypes.IDENT);
             final String typeName = nameAst.getText();
 
-            String abbr = getDisallowedAbbreviation(typeName);
+            final String abbr = getDisallowedAbbreviation(typeName);
             if (abbr != null) {
                 log(nameAst.getLineNo(),
                         "abbreviationAsWord",
                         mAllowedAbbreviationLength);
             }
-        }        
+        }
     }
 
+    /**
+     * Checks if it is an ignore situation.
+     * @param aAst input DetailAST node.
+     * @return true if it is an ignore situation found for given input DetailAST
+     *         node.
+     */
     private boolean isIgnoreSituation(DetailAST aAst)
     {
         final DetailAST modifiers = aAst.getFirstChild();
 
         return aAst.getType() == TokenTypes.VARIABLE_DEF
                 && ((mIgnoreFinal && modifiers.branchContains(TokenTypes.FINAL))
-                || (mIgnoreStatic && modifiers.branchContains(TokenTypes.LITERAL_STATIC)))
+                || (mIgnoreStatic && modifiers
+                        .branchContains(TokenTypes.LITERAL_STATIC)))
                 || (mIgnoreOverriddenMethods && aAst.getType()
-                            == TokenTypes.METHOD_DEF && hasOverrideAnnotation(modifiers));
+                      == TokenTypes.METHOD_DEF
+                            && hasOverrideAnnotation(modifiers));
     }
 
     /**
@@ -188,44 +207,53 @@ public class AbbreviationAsWordInNameCheck extends Check {
         return result;
     }
 
-    private String getDisallowedAbbreviation(String string) {
+    /**
+     * Gets the disallowed abbreviation contained in given String.
+     * @param aString
+     *        the given String.
+     * @return the disallowed abbreviation contained in given String as a
+     *         separate String.
+     */
+    private String getDisallowedAbbreviation(String aString)
+    {
         int beginIndex = 0;
         boolean abbrStarted = false;
         String result = null;
-        
-        for(int index = 0 ; index < string.length(); index ++) {
-            char symbol = string.charAt(index);
-            
+
+        for (int index = 0; index < aString.length(); index++) {
+            final char symbol = aString.charAt(index);
+
             if (Character.isUpperCase(symbol)) {
                 if (!abbrStarted) {
                     abbrStarted = true;
                     beginIndex = index;
                 }
-            } else {
+            }
+            else {
                 if (abbrStarted) {
                     abbrStarted = false;
-                    
-                    // -1 as a first capital is usually beginning of next word 
-                    int endIndex = index - 1;
-                    int abbrLength = endIndex - beginIndex;
+
+                    // -1 as a first capital is usually beginning of next word
+                    final int endIndex = index - 1;
+                    final int abbrLength = endIndex - beginIndex;
                     if (abbrLength > mAllowedAbbreviationLength) {
-                        result = string.substring(beginIndex, endIndex);
+                        result = aString.substring(beginIndex, endIndex);
                         if (!mAllowedAbbreviations.contains(result)) {
                             break;
-                        } else {
+                        }
+                        else {
                             result = null;
                         }
                     }
-                    
                     beginIndex = -1;
                 }
             }
         }
         if (abbrStarted) {
-            int endIndex = string.length();
-            int abbrLength = endIndex - beginIndex;
+            final int endIndex = aString.length();
+            final int abbrLength = endIndex - beginIndex;
             if (abbrLength > mAllowedAbbreviationLength) {
-                result = string.substring(beginIndex, endIndex);
+                result = aString.substring(beginIndex, endIndex);
                 if (mAllowedAbbreviations.contains(result)) {
                     result = null;
                 }
@@ -233,7 +261,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
         }
         return result;
     }
-    
+
     /**
      * Gets all the children which are one level below on the current DetailAST
      * parent node.
