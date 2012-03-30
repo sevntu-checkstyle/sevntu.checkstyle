@@ -90,17 +90,6 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     /**
-     * Gets the regexp is currently used for the names of classes, that should
-     * be checked.
-     * @return String contains regexp is currently used for the names of
-     *         classes, that should be checked.
-     */
-    public String getClassNamesRegexp()
-    {
-        return mClassNamesRegexp.toString();
-    }
-
-    /**
      * Sets the regexp for the names of classes, that should be checked.
      * @param aClassNamesRegexp
      *        String contains the regex to set for the names of classes, that
@@ -111,17 +100,6 @@ public class CauseParameterInExceptionCheck extends Check
         final String regexp = aClassNamesRegexp == null ? ""
                 : aClassNamesRegexp;
         mClassNamesRegexp = Pattern.compile(regexp);
-    }
-
-    /**
-     * Gets the regexp is currently used for the names of classes, that should
-     * be ignored by check.
-     * @return String contains regexp is currently used for the names of
-     *         classes, that should be ignored by check.
-     */
-    public String getIgnoredClassNamesRegexp()
-    {
-        return mIgnoredClassNamesRegexp.toString();
     }
 
     /**
@@ -167,7 +145,6 @@ public class CauseParameterInExceptionCheck extends Check
         switch (aAst.getType()) {
         case TokenTypes.CLASS_DEF:
             final String exceptionClassName = getName(aAst);
-            System.out.println(exceptionClassName);
             if (mClassNamesRegexp.matcher(exceptionClassName).matches()
                     && !mIgnoredClassNamesRegexp.matcher(exceptionClassName)
                             .matches())
@@ -197,7 +174,6 @@ public class CauseParameterInExceptionCheck extends Check
     @Override
     public void finishTree(DetailAST aTreeRootAST)
     {
-        System.out.println(mExceptionClassesToWarn);
         for (DetailAST classDefNode : mExceptionClassesToWarn) {
             log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
         }
