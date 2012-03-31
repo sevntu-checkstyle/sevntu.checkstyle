@@ -154,16 +154,6 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Gets maximum allowed "return" literals count per method/ctor.
-     * @return the current "maxReturnCount" property value.
-     * @see ReturnCountExtendedCheck#mMaxReturnCount
-     */
-    public int getMaxReturnCount()
-    {
-        return mMaxReturnCount;
-    }
-
-    /**
      * Sets maximum allowed "return" literals count per method/ctor.
      * @param aMaxReturnCount - the new "maxReturnCount" property value.
      * @see ReturnCountExtendedCheck#mMaxReturnCount
@@ -171,17 +161,6 @@ public class ReturnCountExtendedCheck extends Check
     public void setMaxReturnCount(int aMaxReturnCount)
     {
         mMaxReturnCount = aMaxReturnCount;
-    }
-
-    /**
-     * Gets the number of lines of which method/ctor body may consist to be
-     * skipped by check.
-     * @return the current "ignoreMethodLinesCount" property value.
-     * @see ReturnCountExtendedCheck#mIgnoreMethodLinesCount
-     */
-    public int getIgnoreMethodLinesCount()
-    {
-        return mIgnoreMethodLinesCount;
     }
 
     /**
@@ -197,17 +176,6 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Gets the minimum "return" statement depth with that it will be skipped by
-     * check.
-     * @return the current "minIgnoreReturnDepth" property value.
-     * @see ReturnDepthCheck#mMinIgnoreReturnDepth
-     */
-    public int getMinIgnoreReturnDepth()
-    {
-        return mMinIgnoreReturnDepth;
-    }
-
-    /**
      * Sets the minimum "return" statement depth with that will be skipped by
      * check.
      * @param aMinIgnoreReturnDepth
@@ -220,17 +188,6 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     /**
-     * Gets the "ignoring empty return statements in void methods and ctors"
-     * option state.
-     * @return the current "allowEmptyReturns" property value.
-     * @see ReturnCountExtendedCheck#mIgnoreEmptyReturns
-     */
-    public boolean getIgnoreEmptyReturns()
-    {
-        return mIgnoreEmptyReturns;
-    }
-
-    /**
      * Sets the "ignoring empty return statements in void methods and ctors"
      * option state.
      * @param aIgnoreEmptyReturns
@@ -240,17 +197,6 @@ public class ReturnCountExtendedCheck extends Check
     public void setIgnoreEmptyReturns(boolean aIgnoreEmptyReturns)
     {
         mIgnoreEmptyReturns = aIgnoreEmptyReturns;
-    }
-
-    /**
-     * Gets the number of code lines on the top of each processed method/ctor
-     * that will be ignored by check.
-     * @return the current "rowsToIgnoreCount" property value.
-     * @see ReturnCountExtendedCheck#mTopLinesToIgnoreCount
-     */
-    public int getTopLinesToIgnoreCount()
-    {
-        return mTopLinesToIgnoreCount;
     }
 
     /**

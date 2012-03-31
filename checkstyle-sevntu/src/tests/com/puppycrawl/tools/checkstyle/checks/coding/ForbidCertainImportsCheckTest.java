@@ -45,8 +45,12 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenImportRegexp", importRegexp);
 
         String[] expected = {
-            "25: " + getMessage(importRegexp,
-                                "com.puppycrawl.tools.checkstyle.api.Check"),
+            "3: " + getMessage(importRegexp,
+                    "com.puppycrawl.tools.checkstyle.api.Check"),
+            "9: " + getMessage(importRegexp,
+                    "com.puppycrawl.tools.checkstyle.api.Check"),
+            "21: " + getMessage(importRegexp,
+                    "com.puppycrawl.tools.checkstyle.api.Check"),
         };
 
         verify(checkConfig, getPath("coding" + File.separator
@@ -68,6 +72,19 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
 
     @Test
     public void testEmptyImportsAndDefaultPackageWithoutParams() throws Exception
+    {
+        checkConfig.addAttribute("packageNameRegexp", "");
+        checkConfig.addAttribute("forbiddenImportRegexp", "");
+
+        String[] expected = {
+        };
+
+        verify(checkConfig, getPath("coding" + File.separator
+                + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+    }
+
+    @Test
+    public void testImports() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", "");
         checkConfig.addAttribute("forbiddenImportRegexp", "");
