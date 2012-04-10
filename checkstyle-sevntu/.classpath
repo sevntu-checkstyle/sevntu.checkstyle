@@ -11,5 +11,6 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/sabaka/Documents/checkstyle-5.3-all.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

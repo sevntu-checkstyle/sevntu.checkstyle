@@ -22,62 +22,22 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	@Override
 	public int[] getDefaultTokens()
 	{
-		return new int[] { TokenTypes.OBJBLOCK };
+		return new int[] { TokenTypes.CLASS_DEF };
 	}
 
 	@Override
 	public void visitToken(DetailAST aDetailAST)
 	{
-		LinkedList<DetailAST> listOfClasses = new LinkedList<DetailAST>();
-		listOfClasses = fillSerializableClassList(aDetailAST, listOfClasses);
-		if (listOfClasses.size() > 0)
+		if(isSerializable(aDetailAST))
 		{
-			for (DetailAST current : listOfClasses)
+			if (!isContainsReadAndWriteObjectMethods(aDetailAST))
 			{
-				if (!isContainsOverridedMethod(current))
-				{
-					DetailAST implementsBlock = current
-							.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
-					log(implementsBlock.getLineNo(),
-							"avoid.default.serializable.in.inner.classes");
-				}
+				DetailAST implementsBlock = aDetailAST
+						.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
+				log(implementsBlock.getLineNo(),
+						"avoid.default.serializable.in.inner.classes");
 			}
 		}
-	}
-
-	/**
-	 * <p>
-	 * Method add to list all classes nodes, that implement Serializable
-	 * interface;
-	 * </p>
-	 * 
-	 * @param objBlock - OBJBLOCK node of top class
-	 */
-	private LinkedList<DetailAST> fillSerializableClassList(DetailAST objBlock,
-			LinkedList<DetailAST> listOfClasses)
-	{
-		DetailAST current = objBlock.getFirstChild();
-		while (current != null)
-		{
-			if ("CLASS_DEF".equals(current.getText()))
-			{
-				if (isSerializable(current))
-				{
-					listOfClasses.add(current);
-				}
-				listOfClasses = fillSerializableClassList(
-						current.findFirstToken(TokenTypes.OBJBLOCK),
-						listOfClasses);
-			}
-			if ("METHOD_DEF".equals(current.getText())
-					|| "CTOR_DEF".equals(current.getText()))
-			{
-				listOfClasses = fillSerializableClassList(
-						current.findFirstToken(TokenTypes.SLIST), listOfClasses);
-			}
-			current = current.getNextSibling();
-		}
-		return listOfClasses;
 	}
 
 	/**
@@ -87,10 +47,9 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * </p>
 	 * 
 	 * @param methNode the start node for method definition.
-	 * @return The boolean value. True, if method was overrided. problem. null
-	 *         pointer if class don't have any method
+	 * @return The boolean value. True, if method was overrided.
 	 */
-	private boolean isContainsOverridedMethod(DetailAST classNode)
+	private boolean isContainsReadAndWriteObjectMethods(DetailAST classNode)
 	{
 		boolean canRead = false, canWrite = false;
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK);
