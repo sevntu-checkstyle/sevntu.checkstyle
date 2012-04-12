@@ -24,20 +24,22 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	{
 		return new int[] { TokenTypes.CLASS_DEF };
 	}
-
+	boolean isNonTopLevel;
 	@Override
 	public void visitToken(DetailAST aDetailAST)
 	{
-		if(isSerializable(aDetailAST))
+		if(isSerializable(aDetailAST) && 
+				!isContainsReadAndWriteObjectMethods(aDetailAST) && 
+				isNonTopLevel)
 		{
-			if (!isContainsReadAndWriteObjectMethods(aDetailAST))
-			{
+			
 				DetailAST implementsBlock = aDetailAST
 						.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
 				log(implementsBlock.getLineNo(),
 						"avoid.default.serializable.in.inner.classes");
-			}
+			
 		}
+		isNonTopLevel = true;
 	}
 
 	/**

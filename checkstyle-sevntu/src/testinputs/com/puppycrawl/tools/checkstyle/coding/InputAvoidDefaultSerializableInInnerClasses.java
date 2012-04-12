@@ -2,7 +2,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class InputAvoidDefaultSerializableInInnerClasses
+public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 {
 	private int field1;
 	private String field2 = new String();
