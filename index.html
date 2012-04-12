@@ -70,7 +70,49 @@
      <p>
          http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/
      </p>
-    <h2> New and noteworthy</h2>
+
+<h2> New and noteworthy</h2>
+    <h3>Release 1.0.5 (14/April/2012):</h3>
+<div >
+    <b>ChildBlockLengthCheck</b> -&nbsp;Length of child block that is more then 90% of parent block is hard to read 
+		  in case child block is long(few display screens). Done by Daniil Yroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3197024&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>AvoidModifiersForTypesCheck</b> -&nbsp;Disallow some set of modifiers (Only 4 types according to Java Spec:static,final, transient, volatile) 
+		  for specified types, caused by static for ULCComponents. Done by Daniil Yroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3156495&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>CauseParameterInExceptionCheck</b> -&nbsp;Exception Design Best Practices : Cause now needed as one the parameter in any custom Exception constructor.
+		  Done by Daniil Yroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3413157&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>ForbidsCertainImportsCheck</b> -&nbsp;Forbids certain imports usage. Is similar to the useful check in Sonar project.
+		   Done by Daniil Yroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3413148&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>ForbidInstantiationCheck</b> -&nbsp;Forbids instantiation of certain object types by their full classname. 
+		    For example: "java.lang.NullPointerException" will forbid the NPE instantiation.
+		    Done by Daniil Yroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3182213&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>ReturnCountExtendedCheck</b> -&nbsp;Checks that method/ctor "return" literal count is not greater than 
+		    the given value ("maxReturnCount" property). has many useful ignore options.
+		    Done by Daniil Yroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/index.php?func=detail&aid=3413511&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader. 
+		    Issue for ignoring methods with annotation @Override was fixed. Done by Daniil Yroslavtsev.&nbsp;
+<a href="http://sourceforge.net/tracker/index.php?func=detail&aid=3300836&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    </div>
+
 <h3>Release 1.0.4 (11/October/2011):</h3>
 <div >
 
