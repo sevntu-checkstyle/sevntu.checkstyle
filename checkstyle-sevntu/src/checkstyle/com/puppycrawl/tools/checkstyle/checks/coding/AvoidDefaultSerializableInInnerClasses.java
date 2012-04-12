@@ -102,11 +102,11 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 
 	/**
 	 * <p>
-	 * Return true, if inner class implement Serializable interface;
+	 * Return true, if class implement Serializable interface;
 	 * </p>
 	 * 
-	 * @param methNode the start node for interface definition.
-	 * @return The boolean value.
+	 * @param classDefNode the start node for class definition.
+	 * @return The boolean value. True, if class implements Serializable interface.
 	 */
 	private boolean isSerializable(DetailAST classDefNode)
 	{
@@ -145,7 +145,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		DetailAST current = node;
 		while (current != null)
 		{
-			if (node.getText().equals(current.getText()))
+			if ("METHOD_DEF".equals(current.getText()))
 			{
 				listOfNodes.add(current);
 			}
