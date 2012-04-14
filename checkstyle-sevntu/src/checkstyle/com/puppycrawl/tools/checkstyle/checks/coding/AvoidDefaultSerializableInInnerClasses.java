@@ -26,10 +26,10 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	@Override
 	public void visitToken(DetailAST aDetailAST)
 	{
-		boolean isItNotTopLevelClass = !(aDetailAST.getParent() == null);
+		boolean topLevelClass = (aDetailAST.getParent() == null);
 		if (isSerializable(aDetailAST)
-				&& !isItContainsReadAndWriteObjectMethods(aDetailAST)
-				&& isItNotTopLevelClass)
+				&& !hasSerialazableMethods(aDetailAST)
+				&& !topLevelClass)
 		{
 			
 			DetailAST implementsBlock = aDetailAST
@@ -42,7 +42,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	
 	/**
 	 * <p>
-	 * Return true, if inner class contain overrided method readObject() or
+	 * Return true, if inner class contain overrided method readObject() and
 	 * writeObject();
 	 * </p>
 	 * 
@@ -50,9 +50,9 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            the start node for method definition.
 	 * @return The boolean value. True, if method was overrided.
 	 */
-	private boolean isItContainsReadAndWriteObjectMethods(DetailAST classNode)
+	private boolean hasSerialazableMethods(DetailAST classNode)
 	{
-		boolean canRead = false, canWrite = false;
+		boolean hasRead = false, hasWrite = false;
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK)
 				.findFirstToken(TokenTypes.METHOD_DEF);
 		
@@ -63,19 +63,23 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 				if ("readObject".equals(methodNode.findFirstToken(
 						TokenTypes.IDENT).getText()))
 				{
-					canRead = isItReallyOverrided(methodNode, "ObjectInputStream");
+					hasRead = isISerializableMethod(methodNode, "ObjectInputStream");
 				}
 				if ("writeObject".equals(methodNode.findFirstToken(
 						TokenTypes.IDENT).getText()))
 				{
-					canWrite = isItReallyOverrided(methodNode,
+					hasWrite = isISerializableMethod(methodNode,
 							"ObjectOutputStream");
 				}
+			}
+			if(hasRead && hasWrite)
+			{
+				break;
 			}
 			methodNode = methodNode.getNextSibling();
 		}
 		
-		return canRead & canWrite;
+		return hasRead && hasWrite;
 	}
 	
 	/**
@@ -90,7 +94,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            - type of arguments for readObject or writObject;
 	 * @return boolean value;
 	 */
-	private boolean isItReallyOverrided(DetailAST methodNode, String argType)
+	private boolean isISerializableMethod(DetailAST methodNode, String argType)
 	{
 		DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
 		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
@@ -107,7 +111,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 					.findFirstToken(TokenTypes.TYPE).getFirstChild();
 			param = argType.equals(parameters.getText());
 		}
-		return param & isPrivate & isVoid;
+		return param && isPrivate && isVoid;
 	}
 	
 	/**
