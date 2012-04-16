@@ -18,8 +18,8 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
 
 		final String[] expected = {
 				"33: Inner class are implement default Serializable interface.",
-				"45: Inner class are implement default Serializable interface.",
-				"52: Inner class are implement default Serializable interface.",
+			//	"45: Inner class are implement default Serializable interface.",
+			//	"52: Inner class are implement default Serializable interface.",
 				"59: Inner class are implement default Serializable interface.",
 				"67: Inner class are implement default Serializable interface.",
 				"74: Inner class are implement default Serializable interface.",

@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.checks.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -72,14 +72,14 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 							"ObjectOutputStream");
 				}
 			}
-			if(hasRead || hasWrite)
+			if(hasRead && hasWrite)
 			{
 				break;
 			}
 			methodNode = methodNode.getNextSibling();
 		}
 		
-		return hasRead || hasWrite;
+		return hasRead && hasWrite;
 	}
 	
 	/**
