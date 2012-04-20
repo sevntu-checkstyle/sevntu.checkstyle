@@ -20,7 +20,8 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-<!--		<buildCommand>
+<!--		For some weird reason I failed to compile(1.0.5) with eclipse-maven integration
+		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
