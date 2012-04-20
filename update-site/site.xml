@@ -4,4 +4,5 @@
    <feature url="features/com.github.sevntu.checkstyle.checks.feature_1.0.1.jar" id="com.github.sevntu.checkstyle.checks.feature" version="1.0.1"/>
    <feature url="features/com.github.sevntu.checkstyle.checks.feature_1.0.2.jar" id="com.github.sevntu.checkstyle.checks.feature" version="1.0.2"/>
    <feature url="features/com.github.sevntu.checkstyle.checks.feature_1.0.4.jar" id="com.github.sevntu.checkstyle.checks.feature" version="1.0.4"/>
+   <feature url="features/com.github.sevntu.checkstyle.checks.feature_1.0.5.jar" id="com.github.sevntu.checkstyle.checks.feature" version="1.0.5"/>
 </site>
