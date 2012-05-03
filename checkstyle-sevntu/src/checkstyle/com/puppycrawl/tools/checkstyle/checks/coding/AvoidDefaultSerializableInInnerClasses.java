@@ -16,8 +16,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
-	private static boolean DEFAULT_ALLOW = false;
-	private boolean allowPartlyImplement = DEFAULT_ALLOW;
+	private boolean allowPartlyImplement;
 	@Override
 	public int[] getDefaultTokens()
 	{
