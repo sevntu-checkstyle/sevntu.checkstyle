@@ -16,7 +16,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
-	
+	private static boolean DEFAULT_ALLOW = false;
+	private boolean allowPartlyImplement = DEFAULT_ALLOW;
 	@Override
 	public int[] getDefaultTokens()
 	{
@@ -28,6 +29,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	{
 		boolean topLevelClass = (aDetailAST.getParent() == null);
 		if (isSerializable(aDetailAST)
+				&& !isStatic(aDetailAST)
 				&& !hasSerialazableMethods(aDetailAST)
 				&& !topLevelClass)
 		{
@@ -39,7 +41,42 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 			
 		}
 	}
-	
+	/**
+	 * <p>
+	 * Set allow partly implement serializable interface.
+	 * </p>
+	 * @param allow
+	 */
+	public void setAllowPartlyImplement(boolean allow)
+	{
+		this.allowPartlyImplement = allow;
+	}
+	/**
+	 * <p>
+	 * Return true if it is nested class.
+	 * </p>
+	 * @param aDetailAST
+	 * @return
+	 */
+	private boolean isStatic(DetailAST classNode)
+	{
+		boolean result = false;
+		DetailAST modifiers = classNode.findFirstToken(TokenTypes.MODIFIERS);
+		if(modifiers != null)
+		{
+			modifiers = modifiers.getFirstChild();
+			while(modifiers != null)
+			{
+				if("static".equals(modifiers.getText()))
+				{
+					result = true;
+					break;
+				}
+				modifiers = modifiers.getNextSibling();
+			}
+		}
+		return result;
+	}
 	/**
 	 * <p>
 	 * Return true, if inner class contain overrided method readObject() and
@@ -52,7 +89,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 */
 	private boolean hasSerialazableMethods(DetailAST classNode)
 	{
-		boolean hasRead = false, hasWrite = false;
+		boolean hasRead = false, hasWrite = false, result = false;
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK)
 				.findFirstToken(TokenTypes.METHOD_DEF);
 		
@@ -63,29 +100,40 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 				if ("readObject".equals(methodNode.findFirstToken(
 						TokenTypes.IDENT).getText()))
 				{
-					hasRead = isISerializableMethod(methodNode, "ObjectInputStream");
+					hasRead = isSerializableMethod(methodNode);
 				}
 				if ("writeObject".equals(methodNode.findFirstToken(
 						TokenTypes.IDENT).getText()))
 				{
-					hasWrite = isISerializableMethod(methodNode,
-							"ObjectOutputStream");
+					hasWrite = isSerializableMethod(methodNode);
 				}
 			}
-			if(hasRead || hasWrite)
+			if(allowPartlyImplement)
 			{
-				break;
+				if(hasRead || hasWrite)
+				{
+					result = hasRead || hasWrite;
+					break;
+				}
+			}
+			else
+			{
+				if(hasRead && hasWrite)
+				{
+					result = hasRead && hasWrite;
+					break;
+				}
 			}
 			methodNode = methodNode.getNextSibling();
 		}
 		
-		return hasRead || hasWrite;
+		return result;
 	}
 	
 	/**
 	 * <p>
 	 * Return true, if methods readObject() and writeObject() have correct
-	 * modifiers, type and parameters;
+	 * modifiers;
 	 * </p>
 	 * 
 	 * @param methodNode
@@ -94,24 +142,16 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            - type of arguments for readObject or writObject;
 	 * @return boolean value;
 	 */
-	private boolean isISerializableMethod(DetailAST methodNode, String argType)
+	private boolean isSerializableMethod(DetailAST methodNode)
 	{
-		DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
 		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
-		DetailAST type = methodNode.findFirstToken(TokenTypes.TYPE);
-		boolean param = false;
 		boolean isPrivate = false;
-		boolean isVoid = false;
-		if (parameters.getChildCount(TokenTypes.PARAMETER_DEF) == 1
-				&& modifiers.getChildCount() == 1)
+		if (modifiers.getChildCount() == 1)
 		{
 			isPrivate = "private".equals(modifiers.getFirstChild().getText());
-			isVoid = "void".equals(type.getFirstChild().getText());
-			parameters = parameters.findFirstToken(TokenTypes.PARAMETER_DEF)
-					.findFirstToken(TokenTypes.TYPE).getFirstChild();
-			param = argType.equals(parameters.getText());
+			
 		}
-		return param && isPrivate && isVoid;
+		return isPrivate;
 	}
 	
 	/**

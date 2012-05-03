@@ -148,12 +148,8 @@ public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 		;
 	}
 
-	static class Error10 implements Serializable // error10
+	static class NoError implements Serializable // Noerror
 	{
-		public void writeObject(ObjectOutputStream s)
-		{
-
-		}
 
 		public void readObject(ObjectInputStream s)
 		{
