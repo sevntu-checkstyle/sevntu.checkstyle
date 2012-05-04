@@ -27,9 +27,21 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
 				"104: Inner class are implement default Serializable interface.",
 				"121: Inner class are implement default Serializable interface.",
 				"134: Inner class are implement default Serializable interface.",
-				"145: Inner class are implement default Serializable interface."
-				//"151: Inner class are implement default Serializable interface." 
-				};
+				"145: Inner class are implement default Serializable interface.",
+				"159: Inner class are implement default Serializable interface.",
+				"166: Inner class are implement default Serializable interface.",
+				"173: Inner class are implement default Serializable interface."};
+		
+		final String[] expected2 = {
+				"33: Inner class are implement default Serializable interface.",
+				"59: Inner class are implement default Serializable interface.",
+				"67: Inner class are implement default Serializable interface.",
+				"74: Inner class are implement default Serializable interface.",
+				"97: Inner class are implement default Serializable interface.",
+				"104: Inner class are implement default Serializable interface.",
+				"121: Inner class are implement default Serializable interface.",
+				"134: Inner class are implement default Serializable interface.",
+				"145: Inner class are implement default Serializable interface."};
 		verify(checkConfig, getPath("coding" + File.separator
 				+ "InputAvoidDefaultSerializableInInnerClasses.java"), expected);
 	}

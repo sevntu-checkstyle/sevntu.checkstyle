@@ -42,14 +42,14 @@ public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 		}
 	}
 
-	private class Error2x implements Serializable	//error2x
+	private class Error2x implements Serializable	//no error for partly allow
 	{
 		private void readObject(ObjectInputStream s)
 		{
 		}
 	}
 
-	private class Error3x implements Serializable	//error3x
+	private class Error3x implements Serializable	///no error for partly allow
 	{
 		private void writeObject(ObjectOutputStream s)
 		{
@@ -152,6 +152,27 @@ public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 	{
 
 		public void readObject(ObjectInputStream s)
+		{
+
+		}
+	}
+	private class NoErrorForPartly1 implements Serializable
+	{
+		private void readObject(ObjectInputStream s)
+		{
+
+		}
+	}
+	private class NoErrorForPartly2 implements Serializable
+	{
+		private int readObject(ObjectInputStream s)
+		{
+
+		}
+	}
+	private class NoErrorForPartly3 implements Serializable
+	{
+		private void writeObject(ObjectOutputStream s)
 		{
 
 		}
