@@ -8,65 +8,68 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * This check prevents the default implementation Serializable interface in
  * inner classes (Serializable interface are default if methods readObject() or
- * writeObject() are not override in class). For more information read
+ * writeObject() are not override in class). Check has option, that allow
+ * implementation only one method, if it true, but if it false - class must
+ * implement both methods. For more information read
  * "Effective Java (2nd edition)" chapter 11, item 74, page 294.
  * </p>
  * 
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class AvoidDefaultSerializableInInnerClasses extends Check
+public class AvoidDefaultSerializableInInnerClasses extends Check 
 {
-	private boolean allowPartlyImplement;
-	@Override
-	public int[] getDefaultTokens()
+	
+	private boolean allowPartlyImplementation;
+
+	/**
+	 * <p>
+	 * Set allow partly implementation serializable interface.
+	 * </p>
+	 * 
+	 * @param allow
+	 */
+	public void setAllowPartlyImplementation(boolean allow) 
 	{
+		this.allowPartlyImplementation = allow;
+	}
+
+	@Override
+	public int[] getDefaultTokens() {
 		return new int[] { TokenTypes.CLASS_DEF };
 	}
-	
+
 	@Override
-	public void visitToken(DetailAST aDetailAST)
+	public void visitToken(DetailAST aDetailAST) 
 	{
 		boolean topLevelClass = (aDetailAST.getParent() == null);
-		if (isSerializable(aDetailAST)
-				&& !isStatic(aDetailAST)
-				&& !hasSerialazableMethods(aDetailAST)
-				&& !topLevelClass)
+		if (isSerializable(aDetailAST) && !isStatic(aDetailAST)
+				&& !hasSerialazableMethods(aDetailAST) && !topLevelClass) 
 		{
-			
 			DetailAST implementsBlock = aDetailAST
 					.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
 			log(implementsBlock.getLineNo(),
 					"avoid.default.serializable.in.inner.classes");
-			
 		}
 	}
-	/**
-	 * <p>
-	 * Set allow partly implement serializable interface.
-	 * </p>
-	 * @param allow
-	 */
-	public void setAllowPartlyImplement(boolean allow)
-	{
-		this.allowPartlyImplement = allow;
-	}
+
 	/**
 	 * <p>
 	 * Return true if it is nested class.
 	 * </p>
+	 * 
 	 * @param aDetailAST
 	 * @return
 	 */
-	private boolean isStatic(DetailAST classNode)
+	private boolean isStatic(DetailAST classNode) 
 	{
 		boolean result = false;
 		DetailAST modifiers = classNode.findFirstToken(TokenTypes.MODIFIERS);
-		if(modifiers != null)
+		if (modifiers != null) 
 		{
 			modifiers = modifiers.getFirstChild();
-			while(modifiers != null)
+			while (modifiers != null) 
 			{
-				if("static".equals(modifiers.getText()))
+				if ("static".equals(modifiers.getText())) 
 				{
 					result = true;
 					break;
@@ -76,6 +79,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		}
 		return result;
 	}
+
 	/**
 	 * <p>
 	 * Return true, if inner class contain overrided method readObject() and
@@ -88,47 +92,40 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 */
 	private boolean hasSerialazableMethods(DetailAST classNode)
 	{
-		boolean hasRead = false, hasWrite = false, result = false;
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK)
 				.findFirstToken(TokenTypes.METHOD_DEF);
-		
-		while (methodNode != null)
+		boolean hasRead = false, hasWrite = false, result = false;
+		while (methodNode != null) 
 		{
-			if (TokenTypes.METHOD_DEF == methodNode.getType())
+			if (TokenTypes.METHOD_DEF == methodNode.getType()) 
 			{
-				if ("readObject".equals(methodNode.findFirstToken(
-						TokenTypes.IDENT).getText()))
+				String methodName = methodNode.findFirstToken(TokenTypes.IDENT)
+						.getText();
+				if ("readObject".equals(methodName)) 
 				{
-					hasRead = isSerializableMethod(methodNode);
+					hasRead = isPrivateMethod(methodNode);
 				}
-				if ("writeObject".equals(methodNode.findFirstToken(
-						TokenTypes.IDENT).getText()))
+				if ("writeObject".equals(methodName)) 
 				{
-					hasWrite = isSerializableMethod(methodNode);
+					hasWrite = isPrivateMethod(methodNode);
 				}
 			}
-			if(allowPartlyImplement)
+			if (allowPartlyImplementation)
 			{
-				if(hasRead || hasWrite)
-				{
-					result = hasRead || hasWrite;
-					break;
-				}
+				result = hasRead || hasWrite;
+			} else 
+			{
+				result = hasRead && hasWrite;
 			}
-			else
+			if (result) 
 			{
-				if(hasRead && hasWrite)
-				{
-					result = hasRead && hasWrite;
-					break;
-				}
+				break;
 			}
 			methodNode = methodNode.getNextSibling();
 		}
-		
 		return result;
 	}
-	
+
 	/**
 	 * <p>
 	 * Return true, if methods readObject() and writeObject() have correct
@@ -141,29 +138,28 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            - type of arguments for readObject or writObject;
 	 * @return boolean value;
 	 */
-	private boolean isSerializableMethod(DetailAST methodNode)
+	private boolean isPrivateMethod(DetailAST methodNode) 
 	{
 		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
 		boolean isPrivate = false;
-		if (modifiers.getChildCount() == 1)
+		if (modifiers.getChildCount() == 1) 
 		{
 			isPrivate = "private".equals(modifiers.getFirstChild().getText());
-			
+
 		}
 		return isPrivate;
 	}
-	
+
 	/**
 	 * <p>
 	 * Return true, if class implement Serializable interface;
 	 * </p>
 	 * 
 	 * @param classDefNode
-	 * 				- the start node for class definition.
-	 * @return boolean value. True, if class implements Serializable
-	 *         interface.
+	 *            - the start node for class definition.
+	 * @return boolean value. True, if class implements Serializable interface.
 	 */
-	private boolean isSerializable(DetailAST classDefNode)
+	private boolean isSerializable(DetailAST classDefNode) 
 	{
 		DetailAST implementationsDef = classDefNode
 				.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
@@ -171,8 +167,8 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		if (implementationsDef != null)
 		{
 			implementationsDef = implementationsDef.getFirstChild();
-			
-			while (implementationsDef != null)
+
+			while (implementationsDef != null) 
 			{
 				if ("Serializable".equals(implementationsDef.getText()))
 				{
@@ -184,5 +180,5 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		}
 		return result;
 	}
-	
+
 }
