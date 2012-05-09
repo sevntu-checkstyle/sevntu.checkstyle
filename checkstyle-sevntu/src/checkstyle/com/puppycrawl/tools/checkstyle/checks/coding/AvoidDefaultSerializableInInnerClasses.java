@@ -19,7 +19,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class AvoidDefaultSerializableInInnerClasses extends Check 
 {
 	
-	private boolean allowPartlyImplementation;
+	private boolean allowPartialImplementation;
 
 	/**
 	 * <p>
@@ -28,9 +28,9 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * 
 	 * @param allow
 	 */
-	public void setAllowPartlyImplementation(boolean allow) 
+	public void setallowPartialImplementation(boolean allow) 
 	{
-		this.allowPartlyImplementation = allow;
+		this.allowPartialImplementation = allow;
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 					hasWrite = isPrivateMethod(methodNode);
 				}
 			}
-			if (allowPartlyImplementation)
+			if (allowPartialImplementation)
 			{
 				result = hasRead || hasWrite;
 			} else 
