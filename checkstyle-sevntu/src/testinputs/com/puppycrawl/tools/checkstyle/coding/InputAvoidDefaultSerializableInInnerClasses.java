@@ -165,7 +165,7 @@ public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 	}
 	private class NoErrorForPartly2 implements Serializable
 	{
-		private int readObject(ObjectInputStream s)
+		private final int readObject(ObjectInputStream s)
 		{
 
 		}

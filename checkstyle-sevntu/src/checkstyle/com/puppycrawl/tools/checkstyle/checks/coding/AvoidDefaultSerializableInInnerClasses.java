@@ -42,8 +42,8 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	public void visitToken(DetailAST aDetailAST) 
 	{
 		boolean topLevelClass = (aDetailAST.getParent() == null);
-		if (isSerializable(aDetailAST) && !isStatic(aDetailAST)
-				&& !hasSerialazableMethods(aDetailAST) && !topLevelClass) 
+		if (!topLevelClass && isSerializable(aDetailAST) && !isStatic(aDetailAST)
+				&& !hasSerialazableMethods(aDetailAST)) 
 		{
 			DetailAST implementsBlock = aDetailAST
 					.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
@@ -55,25 +55,22 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	/**
 	 * <p>
 	 * Return true if it is nested class.
+	 * Terminology is here : http://download.oracle.com/javase/tutorial/java/javaOO/nested.html
 	 * </p>
 	 * 
 	 * @param aDetailAST
 	 * @return
 	 */
-	private boolean isStatic(DetailAST classNode) 
+	private static boolean isStatic(DetailAST classNode) 
 	{
 		boolean result = false;
 		DetailAST modifiers = classNode.findFirstToken(TokenTypes.MODIFIERS);
 		if (modifiers != null) 
 		{
 			modifiers = modifiers.getFirstChild();
-			while (modifiers != null) 
+			while (!result && modifiers != null) 
 			{
-				if ("static".equals(modifiers.getText())) 
-				{
-					result = true;
-					break;
-				}
+				result = "static".equals(modifiers.getText());
 				modifiers = modifiers.getNextSibling();
 			}
 		}
@@ -95,7 +92,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK)
 				.findFirstToken(TokenTypes.METHOD_DEF);
 		boolean hasRead = false, hasWrite = false, result = false;
-		while (methodNode != null) 
+		while (!result && methodNode != null) 
 		{
 			if (TokenTypes.METHOD_DEF == methodNode.getType()) 
 			{
@@ -117,10 +114,6 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 			{
 				result = hasRead && hasWrite;
 			}
-			if (result) 
-			{
-				break;
-			}
 			methodNode = methodNode.getNextSibling();
 		}
 		return result;
@@ -138,14 +131,15 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            - type of arguments for readObject or writObject;
 	 * @return boolean value;
 	 */
-	private boolean isPrivateMethod(DetailAST methodNode) 
+	private static boolean isPrivateMethod(DetailAST methodNode) 
 	{
 		DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
+		modifiers = modifiers.getFirstChild();
 		boolean isPrivate = false;
-		if (modifiers.getChildCount() == 1) 
+		while(!isPrivate && modifiers != null) 
 		{
-			isPrivate = "private".equals(modifiers.getFirstChild().getText());
-
+			isPrivate = "private".equals(modifiers.getText());
+			modifiers = modifiers.getNextSibling();
 		}
 		return isPrivate;
 	}
@@ -159,7 +153,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 *            - the start node for class definition.
 	 * @return boolean value. True, if class implements Serializable interface.
 	 */
-	private boolean isSerializable(DetailAST classDefNode) 
+	private static boolean isSerializable(DetailAST classDefNode) 
 	{
 		DetailAST implementationsDef = classDefNode
 				.findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
@@ -168,13 +162,9 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 		{
 			implementationsDef = implementationsDef.getFirstChild();
 
-			while (implementationsDef != null) 
+			while (!result && implementationsDef != null) 
 			{
-				if ("Serializable".equals(implementationsDef.getText()))
-				{
-					result = true;
-					break;
-				}
+				result = "Serializable".equals(implementationsDef.getText());
 				implementationsDef = implementationsDef.getNextSibling();
 			}
 		}
