@@ -28,7 +28,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 	 * 
 	 * @param allow
 	 */
-	public void setallowPartialImplementation(boolean allow) 
+	public void setAllowPartialImplementation(boolean allow) 
 	{
 		this.allowPartialImplementation = allow;
 	}
