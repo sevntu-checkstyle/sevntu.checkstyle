@@ -1,6 +1,5 @@
 array.trailing.comma=Array should contain trailing comma.
 assignment.inner.avoid=Inner assignments should be avoided.
-avoid.default.serializable.in.inner.classes=Inner class should not implement default Serializable interface.
 avoid.declare.constants=Please avoid to declare constant(s) in the interface.
 avoid.finalizer.method=Avoid using finalizer method.
 avoid.clone.method=Avoid using clone method.
