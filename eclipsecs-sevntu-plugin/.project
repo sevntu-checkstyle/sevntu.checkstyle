@@ -20,20 +20,19 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-<!--		For some weird reason I failed to compile(1.0.5) with eclipse-maven integration
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
--->		<buildCommand>
-			<name>org.maven.ide.eclipse.maven2Builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
-	  <!--		<nature>org.eclipse.m2e.core.maven2Nature</nature> -->
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
