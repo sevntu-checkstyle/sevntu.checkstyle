@@ -14,6 +14,14 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
             <description>%AvoidHidingCauseException.desc</description>
         </rule-metadata>
+	
+	  <rule-metadata name="%AvoidDefaultSerializableInInnerClasses.name" internal-name="AvoidDefaultSerializableInInnerClasses" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses"/>
+            <description>%AvoidDefaultSerializableInInnerClasses.desc</description>
+            <property-metadata name="allowPartialImplementation" datatype="Boolean" default-value="false">
+                <description>%AvoidDefaultSerializableInInnerClasses.allowPartialImplementation</description>
+            </property-metadata>
+        </rule-metadata>
         
         <rule-metadata name="%AvoidNotShortCircuitOperatorsForBoolean.name" internal-name="AvoidNotShortCircuitOperatorsForBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
