@@ -34,33 +34,181 @@
 </head>
 
 <body>
-  <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" 
+	src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
 
     <div class="download">
       <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+        <img border="0" width="45" src="http://github.com/images/modules/download/zip.png"></a>
       <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+        <img border="0" width="45" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
-    <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>
-      <span class="small">by <a href="http://github.com/sevntu-checkstyle">sevntu-checkstyle</a></span></h1>
+    <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>    </h1>
+      <span class="small">by students from <a href="http://sevntu.com.ua/">Sevastopol National Technical University (SevNTU)</a>, Ukraine.
+      <br/>
+	Supported and mentored by developers from <a href="http://reveredata.com">Revere Data LLC</a>.
+      <br/>
+	Licence is GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
+      </span>
+
 
     <div class="description">
-      Checkstyle checkers 
+      Extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>,
+      Incubator for Checkstyle checks that are not present in main stream of Checkstyle project.
+      If you have a check and need place to be build-in, let us know.
     </div>
 
     <h2>Contact</h2>
-<p> by github mail
+<p> please use github mail
 <br/>      </p>
 
-
-    <h2>Update site</h2>
+    <h2>Update site for Eclipse (EclipseCS plugin is required)</h2>
      <p>
          http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/
      </p>
+<h2> New and noteworthy</h2>
+
+
+    <h3>Release 1.0.5 (14/April/2012):</h3>
+<div >
+    <b>ChildBlockLengthCheck</b> -&nbsp;Length of child block that is more then 90% of parent block is hard to read 
+		  in case child block is long(few display screens). Done by Daniil Yaroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3197024&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>AvoidModifiersForTypesCheck</b> -&nbsp;Disallow some set of modifiers (Only 4 types according to Java Spec:static,final, transient, volatile) 
+		  for specified types, caused by static for ULCComponents. Done by Daniil Yaroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3156495&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>CauseParameterInExceptionCheck</b> -&nbsp;Exception Design Best Practices : Cause now needed as one the parameter in any custom Exception constructor.
+		  Done by Daniil Yaroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3413157&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>ForbidsCertainImportsCheck</b> -&nbsp;Forbids certain imports usage. Is similar to the useful check in Sonar project.
+		   Done by Daniil Yaroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3413148&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>ForbidInstantiationCheck</b> -&nbsp;Forbids instantiation of certain object types by their full classname. 
+		    For example: "java.lang.NullPointerException" will forbid the NPE instantiation.
+		    Done by Daniil Yaroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/?func=detail&aid=3182213&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>ReturnCountExtendedCheck</b> -&nbsp;Checks that method/ctor "return" literal count is not greater than 
+		    the given value ("maxReturnCount" property). has many useful ignore options.
+		    Done by Daniil Yaroslavtsev.&nbsp;
+<a href="https://sourceforge.net/tracker/index.php?func=detail&aid=3413511&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader. 
+		    Issue for ignoring methods with annotation @Override was fixed. Done by Daniil Yaroslavtsev.&nbsp;
+<a href="http://sourceforge.net/tracker/index.php?func=detail&aid=3300836&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    </div>
+
+
+<h3>Release 1.0.4 (11/October/2011):</h3>
+<div >
+
+<b>ForbidAnnotationCheck</b> -&nbsp;Forbid specific annotation for field/method, e.g. forbid @Autowired
+annotation for private field. Done by&nbsp;Victor Hidoyatov.&nbsp;
+<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=3165196&amp;group_id=29721&amp;atid=397081">issue</a>
+<br/>
+<br/>
+<b>AvoidConstantsInInterfacesCheck</b> - avoid declaration of constants in interfaces. Done by&nbsp;Vladimir Svikhunov.
+&nbsp;<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3298876&amp;group_id=29721&amp;atid=397081">issue</a>.
+<br/>
+<br/>
+<b>AvoidHidingCauseExceptionCheck</b> -&nbsp;hiding Cause exception in throwing new exception. Done by Daniil Yaroslavtsev.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156070&amp;group_id=29721&amp;atid=397081">issue</a>.
+<br/>
+<br/>
+<b>AvoidNotShortCircuitOperatorsForBooleanCheck</b> -&nbsp;Forbid to use "|", "|=", "&amp;" for boolean/Boolean variables, 
+and force to use "||", .... , explanation link. Example: "boolean b |= returnBoolean()". 
+Done by Daniil Yaroslavtsev.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156065&amp;group_id=29721&amp;atid=397081" >issue</a>.
+<br/>
+<br/>
+<b>IllegalCatchCheck</b> -&nbsp;Options to ignore 1) exact re-throw after logging 
+2) creation and throw of other Exception base on current exception. Done by Daniil Yaroslavtsev.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156067&amp;group_id=29721&amp;atid=397081" >issue</a>.
+<br/>
+<br/>
+<b>OverridableMethodInConstructorCheck</b> -&nbsp;Do not use protected/public method in C-tor. 
+Use only private and final.&nbsp;Check all call hierarchy from c-tor to avoid: c-tor -&gt; private -&gt; public/protected. 
+Done by Daniil Yaroslavtsev. (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3103877&amp;group_id=29721&amp;atid=397081">issue</a>.
+<br/>
+<br/>
+<b>ReturnBooleanFromTernary</b> -&nbsp;It is a bad practice to return boolean values from ternary operations. 
+Just use the value inside branch instead. Done by Ivan Sopov.
+<br/>
+<br/>
+<b>ReturnNullInsteadOfBoolean</b> - Arguably it is the matter of style to use Boolean for ternary logic or enum. 
+And since all the information is in the single file and even in the single method, 
+I think that checkstyle is capable of doing this. Done by Ivan Sopov. 
+(<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3189246&amp;group_id=29721&amp;atid=397081">issue</a>)
+<br/>
+<br/>
+<b>VariableDeclarationUsageDistanceCheck</b> - check distance between declaration of variable 
+and its first usage of it. Options: Allowed distance (in rows); Ignore variable names (regexp). 
+Done by Ruslan Diachenko.&nbsp;
+<a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>
+<br/>
+<br/>
+<b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader. 
+Checks names for fields, methods , ....... . Few ignore options. Done by Roman Ivanov. 
+(<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>).
+<br/>
+    </div>
+
+<h3>Release 1.0.2 (15/March/2011):</h3>
+<div >
+AvoidNotShortCircuitOperatorsForBooleanCheck - check to force user not to use ShortCircuit operators ("|", "&" for boolean calculations)
+. Done by Daniil Yaroslavtsev.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3197134&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+MultipleStringLiteralsExtendedCheck - extension of the standart check, newoption was added to highlight all duplicated. Done by Yury Balahonov.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3184230&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+MultipleVariableDeclarationsExtendedCheck - stndard check + option to ignore while/for. Done by Daniil Yaroslavtsev.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3146159&group_id=29721&atid=397080">patch</a>
+
+<br/>
+<br/>
+UnnecessaryParenthesesExtendedCheck - standart check + option to ignore some arguable cases. Dmitriy Antonenko.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3211385&group_id=29721&atid=397080">patch</a>
+</div>
+
+<h3>Release 1.0.1 (21/September/2010):</h3>
+<div >
+CustomDeclarationOrderCheck - check to adjust class structure to make it more predictable. 
+Done by Danil Lopatin. <a href="http://habrahabr.ru/blogs/java/111739/">acticle in russian</a>
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3044455&group_id=29721&atid=397080">patch and example of config</a>
+<br/>
+<br/>
+InnerClassCheck - force user to place inner classes at the bottom ofthe class. Done by Ruslan Dyachenko.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3027391&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+AbstractClassNameExtendedCheck - extension to check if you named class AbstractXXXXXX then force user to keep it "abstract". Done by Danil Lopatin.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3043752&group_id=29721&atid=397080">patch</a>
+<br/>
+<br/>
+LineLengthExtendedCheck - extension of standard check with a lot of ignore option. Done by Ruslan Dyachenko.
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3044164&group_id=29721&atid=397080">patch<a>
+</div>
+
+
     <h2>Download</h2>
     <p>
       You can download this project in either
