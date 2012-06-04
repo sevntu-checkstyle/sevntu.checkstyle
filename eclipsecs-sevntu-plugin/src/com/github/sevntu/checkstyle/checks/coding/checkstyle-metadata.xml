@@ -14,7 +14,7 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses"/>
             <description>%AvoidDefaultSerializableInInnerClasses.desc</description>
             <property-metadata name="allowPartialImplementation" datatype="Boolean" default-value="false">
-		<description>%AvoidDefaultSerializableInInnerClasses.allowPartialImplementation</description>
+				<description>Allow partial implementation for serializable interface</description>
             </property-metadata>
         </rule-metadata>
 	
