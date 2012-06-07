@@ -24,142 +24,149 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 
 /**
- * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
- * is almost never acceptable.
- * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
+ * Check for illegal catch for some Exception types with option to ignore
+ * catches in some cases: when re-throwing existing exception or when throwing
+ * some new exception.
+ * 
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
+ *         Yaroslavtsev</a>
  */
-public final class IllegalCatchCheck extends AbstractIllegalCheck
-{
+public final class IllegalCatchCheck extends AbstractIllegalCheck {
 
-    /** disable warnings for "catch" blocks containing
-     * throwing an exception. */
-    private boolean mAllowThrow;
+	/**
+	 * disable warnings for "catch" blocks containing throwing an exception.
+	 */
+	private boolean mAllowThrow = true;
 
-    /** disable warnings for "catch" blocks containing
-     * rethrowing an exception. */
-    private boolean mAllowRethrow;
+	/**
+	 * disable warnings for "catch" blocks containing rethrowing an exception.
+	 */
+	private boolean mAllowRethrow = true;
 
-    /**
-     * Enable(false) | Disable(true) warnings for "catch" blocks containing
-     * throwing an exception.
-     * @param aValue Disable warning for throwing
-     */
-    public void setAllowThrow(final boolean aValue)
-    {
-        mAllowThrow = aValue;
-    }
+	/**
+	 * Enable(false) | Disable(true) warnings for "catch" blocks containing
+	 * throwing an exception.
+	 * 
+	 * @param aValue
+	 *            Disable warning for throwing
+	 */
+	public void setAllowThrow(final boolean aValue) {
+		mAllowThrow = aValue;
+	}
 
-    /**
-     * Enable(false) | Disable(true) warnings for "catch" blocks containing
-     * rethrowing an exception.
-     * @param aValue Disable warnings for rethrowing
-     */
-    public void setAllowRethrow(final boolean aValue)
-    {
-        mAllowRethrow = aValue;
-    }
+	/**
+	 * Enable(false) | Disable(true) warnings for "catch" blocks containing
+	 * rethrowing an exception.
+	 * 
+	 * @param aValue
+	 *            Disable warnings for rethrowing
+	 */
+	public void setAllowRethrow(final boolean aValue) {
+		mAllowRethrow = aValue;
+	}
 
-    /** Creates new instance of the check. */
-    public IllegalCatchCheck()
-    {
-        super(new String[]{"Exception", "Error", "RuntimeException",
-            "Throwable", "java.lang.Error", "java.lang.Exception",
-            "java.lang.RuntimeException", "java.lang.Throwable", });
-    }
+	/** Creates new instance of the check. */
+	public IllegalCatchCheck() {
+		super(new String[] { "Exception", "Error", "RuntimeException",
+				"Throwable", "java.lang.Error", "java.lang.Exception",
+				"java.lang.RuntimeException", "java.lang.Throwable", });
+	}
 
-    @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[]{TokenTypes.LITERAL_CATCH};
-    }
+	@Override
+	public int[] getDefaultTokens() {
+		return new int[] { TokenTypes.LITERAL_CATCH };
+	}
 
-    @Override
-    public int[] getRequiredTokens()
-    {
-        return getDefaultTokens();
-    }
+	@Override
+	public int[] getRequiredTokens() {
+		return getDefaultTokens();
+	}
 
-    @Override
-    public void visitToken(DetailAST aDetailAST)
-    {
-        final DetailAST paramDef = aDetailAST
-                .findFirstToken(TokenTypes.PARAMETER_DEF);
-        final DetailAST throwAST = getThrowAST(aDetailAST);
-        
-        
-        DetailAST firstLvlChild=null;
-        if(throwAST != null) {
-            firstLvlChild=throwAST.getFirstChild();
-        }
-        
-        DetailAST secondLvlChild = null;
-        if(firstLvlChild != null) {
-            secondLvlChild = firstLvlChild.getFirstChild();
-        }
-        
-        // For warnings disable first lvl child must be an EXPR and 
-        // second lvl child must be IDENT or LITERAL_NEW with appropriate boolean flags.
-        final boolean noWarning = (throwAST != null && firstLvlChild != null && secondLvlChild != null
-             && firstLvlChild.getType() == TokenTypes.EXPR
-             && ((mAllowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
-             || (mAllowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW)));
+	@Override
+	public void visitToken(DetailAST aDetailAST) {
+		final DetailAST paramDef = aDetailAST
+				.findFirstToken(TokenTypes.PARAMETER_DEF);
+		final DetailAST throwAST = getThrowAST(aDetailAST);
 
-        final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
-        final FullIdent ident = CheckUtils.createFullType(excType);
+		DetailAST firstLvlChild = null;
+		if (throwAST != null) {
+			firstLvlChild = throwAST.getFirstChild();
+		}
 
-        if (!noWarning && isIllegalClassName(ident.getText())) {
-            log(aDetailAST, "illegal.catch", ident.getText());
-        }
-    }
+		DetailAST secondLvlChild = null;
+		if (firstLvlChild != null) {
+			secondLvlChild = firstLvlChild.getFirstChild();
+		}
 
-    /** Looking for the keyword "throw" among current (aParentAST) node childs.
-     * @param aParentAST - the current parent node.
-     * @return null if the "throw" keyword was not found
-     * or the LITERAL_THROW DetailAST otherwise
-     */
-    public DetailAST getThrowAST(DetailAST aParentAST)
-    {
+		// For warnings disable first lvl child must be an EXPR and
+		// second lvl child must be IDENT or LITERAL_NEW with appropriate
+		// boolean flags.
+		final boolean noWarning = (throwAST != null && firstLvlChild != null
+				&& secondLvlChild != null
+				&& firstLvlChild.getType() == TokenTypes.EXPR && ((mAllowRethrow && secondLvlChild
+				.getType() == TokenTypes.IDENT) || (mAllowThrow && secondLvlChild
+				.getType() == TokenTypes.LITERAL_NEW)));
 
-        final DetailAST asts[] = getChilds(aParentAST);
+		final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
+		final FullIdent ident = CheckUtils.createFullType(excType);
 
-        for (DetailAST currentNode : asts) {
+		if (!noWarning && isIllegalClassName(ident.getText())) {
+			log(aDetailAST, "illegal.catch", ident.getText());
+		}
+	}
 
-            if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getNumberOfChildren() > 0)
-            {
-                final DetailAST astResult = (getThrowAST(currentNode));
-                if (astResult != null) {
-                    return astResult;
-                }
-            }
+	/**
+	 * Looking for the keyword "throw" among current (aParentAST) node childs.
+	 * 
+	 * @param aParentAST
+	 *            - the current parent node.
+	 * @return null if the "throw" keyword was not found or the LITERAL_THROW
+	 *         DetailAST otherwise
+	 */
+	public DetailAST getThrowAST(DetailAST aParentAST) {
 
-            if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
-                return currentNode;
-            }
+		final DetailAST asts[] = getChilds(aParentAST);
 
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
-            }
-        }
-        return null;
-    }
+		for (DetailAST currentNode : asts) {
 
-    /** Gets all the children one level below on the current top node.
-     * @param aNode - current parent node.
-     * @return an array of childs one level below
-     * on the current parent node aNode. */
-    public DetailAST[] getChilds(DetailAST aNode)
-    {
-        final DetailAST[] result = new DetailAST[aNode.getChildCount()];
+			if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+					&& currentNode.getNumberOfChildren() > 0) {
+				final DetailAST astResult = (getThrowAST(currentNode));
+				if (astResult != null) {
+					return astResult;
+				}
+			}
 
-        DetailAST currNode = aNode.getFirstChild();
+			if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
+				return currentNode;
+			}
 
-        for (int i = 0; i < aNode.getNumberOfChildren(); i++) {
-            result[i] = currNode;
-            currNode = currNode.getNextSibling();
-        }
+			if (currentNode.getNextSibling() != null) {
+				currentNode = currentNode.getNextSibling();
+			}
+		}
+		return null;
+	}
 
-        return result;
-    }
+	/**
+	 * Gets all the children one level below on the current top node.
+	 * 
+	 * @param aNode
+	 *            - current parent node.
+	 * @return an array of childs one level below on the current parent node
+	 *         aNode.
+	 */
+	public DetailAST[] getChilds(DetailAST aNode) {
+		final DetailAST[] result = new DetailAST[aNode.getChildCount()];
+
+		DetailAST currNode = aNode.getFirstChild();
+
+		for (int i = 0; i < aNode.getNumberOfChildren(); i++) {
+			result[i] = currNode;
+			currNode = currNode.getNextSibling();
+		}
+
+		return result;
+	}
 
 }
