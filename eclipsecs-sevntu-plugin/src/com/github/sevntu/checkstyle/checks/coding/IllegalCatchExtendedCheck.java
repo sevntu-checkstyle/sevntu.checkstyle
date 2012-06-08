@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2010  Oliver Burn
+// Copyright (C) 2001-2011  Oliver Burn
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -22,28 +22,42 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
-import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
 
 /**
- * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
- * is almost never acceptable.
- * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
+ * Check for illegal catch for some Exception types with option to ignore
+ * catches in some cases: when re-throwing existing exception or when throwing
+ * some new exception.
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
+ *         Yaroslavtsev</a>
  */
 public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
 {
 
-    /** disable warnings for "catch" blocks containing
-     * throwing an exception. */
-    private boolean mAllowThrow;
+    /**
+     * disable warnings for "catch" blocks containing throwing an exception.
+     */
+    private boolean mAllowThrow = true;
 
-    /** disable warnings for "catch" blocks containing
-     * rethrowing an exception. */
-    private boolean mAllowRethrow;
+    /**
+     * disable warnings for "catch" blocks containing rethrowing an exception.
+     */
+    private boolean mAllowRethrow = true;
+
+    /** Creates new instance of the check. */
+    public IllegalCatchExtendedCheck()
+    {
+        super(new String[] {"Exception", "Error",
+                            "RuntimeException", "Throwable",
+                            "java.lang.Error", "java.lang.Exception",
+                            "java.lang.RuntimeException",
+                            "java.lang.Throwable", });
+    }
 
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * throwing an exception.
-     * @param aValue Disable warning for throwing
+     * @param aValue
+     *        Disable warning for throwing
      */
     public void setAllowThrow(final boolean aValue)
     {
@@ -53,25 +67,18 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * rethrowing an exception.
-     * @param aValue Disable warnings for rethrowing
+     * @param aValue
+     *        Disable warnings for rethrowing
      */
     public void setAllowRethrow(final boolean aValue)
     {
         mAllowRethrow = aValue;
     }
 
-    /** Creates new instance of the check. */
-    public IllegalCatchExtendedCheck()
-    {
-        super(new String[]{"Exception", "Error", "RuntimeException",
-            "Throwable", "java.lang.Error", "java.lang.Exception",
-            "java.lang.RuntimeException", "java.lang.Throwable", });
-    }
-
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[]{TokenTypes.LITERAL_CATCH};
+        return new int[] {TokenTypes.LITERAL_CATCH };
     }
 
     @Override
@@ -86,24 +93,27 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
         final DetailAST paramDef = aDetailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
         final DetailAST throwAST = getThrowAST(aDetailAST);
-        
-        
-        DetailAST firstLvlChild=null;
-        if(throwAST != null) {
-            firstLvlChild=throwAST.getFirstChild();
+
+        DetailAST firstLvlChild = null;
+        if (throwAST != null) {
+            firstLvlChild = throwAST.getFirstChild();
         }
-        
+
         DetailAST secondLvlChild = null;
-        if(firstLvlChild != null) {
+        if (firstLvlChild != null) {
             secondLvlChild = firstLvlChild.getFirstChild();
         }
-        
-        // For warnings disable first lvl child must be an EXPR and 
-        // second lvl child must be IDENT or LITERAL_NEW with appropriate boolean flags.
-        final boolean noWarning = (throwAST != null && firstLvlChild != null && secondLvlChild != null
-             && firstLvlChild.getType() == TokenTypes.EXPR
-             && ((mAllowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
-             || (mAllowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW)));
+
+        // For warnings disable first lvl child must be an EXPR and
+        // second lvl child must be IDENT or LITERAL_NEW with appropriate
+        // boolean flags.
+        final boolean noWarning = (throwAST != null
+                && firstLvlChild != null && secondLvlChild != null
+                && firstLvlChild.getType() == TokenTypes.EXPR
+                && ((mAllowRethrow && secondLvlChild.getType()
+                        == TokenTypes.IDENT)
+                || (mAllowThrow && secondLvlChild.getType()
+                        == TokenTypes.LITERAL_NEW)));
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
         final FullIdent ident = CheckUtils.createFullType(excType);
@@ -113,10 +123,12 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
         }
     }
 
-    /** Looking for the keyword "throw" among current (aParentAST) node childs.
-     * @param aParentAST - the current parent node.
-     * @return null if the "throw" keyword was not found
-     * or the LITERAL_THROW DetailAST otherwise
+    /**
+     * Looking for the keyword "throw" among current (aParentAST) node childs.
+     * @param aParentAST
+     *        - the current parent node.
+     * @return null if the "throw" keyword was not found or the LITERAL_THROW
+     *         DetailAST otherwise
      */
     public DetailAST getThrowAST(DetailAST aParentAST)
     {
@@ -145,10 +157,13 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
         return null;
     }
 
-    /** Gets all the children one level below on the current top node.
-     * @param aNode - current parent node.
-     * @return an array of childs one level below
-     * on the current parent node aNode. */
+    /**
+     * Gets all the children one level below on the current top node.
+     * @param aNode
+     *        - current parent node.
+     * @return an array of childs one level below on the current parent node
+     *         aNode.
+     */
     public DetailAST[] getChilds(DetailAST aNode)
     {
         final DetailAST[] result = new DetailAST[aNode.getChildCount()];
