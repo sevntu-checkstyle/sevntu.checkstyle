@@ -7,10 +7,10 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class IllegalCatchCheckTest extends BaseCheckTestSupport
+public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport
 {
 
-	private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchCheck.class);
+	private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchExtendedCheck.class);
 
 	@Test
 	public final void testDefault() throws Exception

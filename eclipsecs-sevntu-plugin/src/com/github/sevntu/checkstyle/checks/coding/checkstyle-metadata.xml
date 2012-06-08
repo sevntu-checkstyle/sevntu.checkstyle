@@ -91,10 +91,10 @@
                <description>IllegalCatchExtended.illegalClassNames</description>
             </property-metadata>
 	    <property-metadata name="allowThrow" datatype="Boolean" default-value="true">
-               <description>IllegalCatchExtended.allowRethrow</description>
+               <description>IllegalCatchExtended.allowThrow</description>
             </property-metadata>
 	    <property-metadata name="allowRethrow" datatype="Boolean" default-value="false">
-               <description>IllegalCatchExtended.allowThrow</description>
+               <description>IllegalCatchExtended.allowRethrow</description>
             </property-metadata>
             <message-key key="illegal.catch"/>
         </rule-metadata>
