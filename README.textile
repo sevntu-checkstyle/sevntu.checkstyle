@@ -10,4 +10,4 @@ Checkstyle Eclipse plugin
 h2. Contributors
 
 Roman Ivanov, Ivan Sopov, Ruslan Diachenko, Danil Lopatin, Daniil Yaroslavtsev, Yuriy Balahonov, Dmitriy Antonenko, 
-Hidoyatov Victor, Troshin Sergey, Svinukhov Vladimir
+Hidoyatov Victor, Troshin Sergey, Svinukhov Vladimir, Ilia Dubinin
