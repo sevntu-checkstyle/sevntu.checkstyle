@@ -33,11 +33,11 @@ public final class IllegalCatchCheck extends AbstractIllegalCheck
 
     /** disable warnings for "catch" blocks containing
      * throwing an exception. */
-    private boolean mAllowThrow;
+    private boolean mAllowThrow = true;
 
     /** disable warnings for "catch" blocks containing
      * rethrowing an exception. */
-    private boolean mAllowRethrow;
+    private boolean mAllowRethrow = true;
 
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
@@ -85,24 +85,29 @@ public final class IllegalCatchCheck extends AbstractIllegalCheck
         final DetailAST paramDef = aDetailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
         final DetailAST throwAST = getThrowAST(aDetailAST);
-        
-        
-        DetailAST firstLvlChild=null;
-        if(throwAST != null) {
-            firstLvlChild=throwAST.getFirstChild();
+
+
+        DetailAST firstLvlChild = null;
+        if (throwAST != null) {
+            firstLvlChild = throwAST.getFirstChild();
         }
-        
+
         DetailAST secondLvlChild = null;
-        if(firstLvlChild != null) {
+        if (firstLvlChild != null) {
             secondLvlChild = firstLvlChild.getFirstChild();
         }
-        
-        // For warnings disable first lvl child must be an EXPR and 
-        // second lvl child must be IDENT or LITERAL_NEW with appropriate boolean flags.
-        final boolean noWarning = (throwAST != null && firstLvlChild != null && secondLvlChild != null
+
+        // For warnings disable first lvl child must be an EXPR and
+        // second lvl child must be IDENT or LITERAL_NEW with
+        // appropriate boolean flags.
+        final boolean noWarning = (throwAST != null
+                && firstLvlChild != null
+                && secondLvlChild != null
              && firstLvlChild.getType() == TokenTypes.EXPR
-             && ((mAllowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
-             || (mAllowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW)));
+             && ((mAllowThrow && secondLvlChild.getType()
+                     == TokenTypes.IDENT)
+             || (mAllowRethrow && secondLvlChild.getType()
+                     == TokenTypes.LITERAL_NEW)));
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
         final FullIdent ident = CheckUtils.createFullType(excType);
