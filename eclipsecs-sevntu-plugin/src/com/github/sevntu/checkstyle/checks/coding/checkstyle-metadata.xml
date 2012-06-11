@@ -88,10 +88,10 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck"/>
             <description>%IllegalCatchExtended.desc</description>
 	    <property-metadata name="allowThrow" datatype="Boolean" default-value="true">
-               <description>Allow catching when throwing some exception</description>
+               <description>IllegalCatchExtended.allowThrow</description>
             </property-metadata>
 	    <property-metadata name="allowRethrow" datatype="Boolean" default-value="false">
-               <description>Allow catching when re-throwing exception</description>
+               <description>IllegalCatchExtended.allowRethrow</description>
             </property-metadata>
             <message-key key="illegal.catch"/>
         </rule-metadata>
