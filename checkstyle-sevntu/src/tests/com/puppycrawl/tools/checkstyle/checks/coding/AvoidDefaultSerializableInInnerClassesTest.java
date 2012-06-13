@@ -45,4 +45,31 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
 		verify(checkConfig, getPath("coding" + File.separator
 				+ "InputAvoidDefaultSerializableInInnerClasses.java"), expected);
 	}
+	
+	
+	//TODO
+	@Test
+	public void testPrivateNotRealReadObject() throws Exception
+	{
+		final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
+		checkConfig.addAttribute("allowPartialImplementation", "true");
+
+		final String[] expected = {
+				"10: Inner class should not implement default Serializable interface."};
+		
+		verify(checkConfig, getPath("coding" + File.separator
+				+ "InputAvoidDefaultSerializableInInnerClasses2.java"), expected);
+	}
+	
+	//TODO
+	@Test
+	public void testRealReadObjectNotRealReadObjectRealPrivate() throws Exception
+	{
+		final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
+
+		final String[] expected = {};
+		
+		verify(checkConfig, getPath("coding" + File.separator
+				+ "InputAvoidDefaultSerializableInInnerClasses3.java"), expected);
+	}
 }
