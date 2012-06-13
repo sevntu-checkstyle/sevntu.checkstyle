@@ -72,6 +72,19 @@
      </p>
 <h2> New and noteworthy</h2>
 
+    <h3>Release 1.5.0 (12/June/2012):</h3>
+<div >
+    <b>AvoidDefaultSerializableInInnerClasses</b> -&nbsp;This check prevents the default implementation Serializable interface in
+ inner classes (Serializable interface are default if methods readObject() or writeObject() are not override in class). Check has option, that allow
+ implementation only one method, if it true, but if it false - class must implement both methods. For more information read
+ "Effective Java (2nd edition)" chapter 11, item 74, page 294. Done by Ilia Dubinin.&nbsp;
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3413512&group_id=29721&atid=397081">issue</a>
+<br/>
+<br/>
+    <b>IllegalCatchCheck</b> -&nbsp;Minor fix for default values. Done by Daniil Yaroslavtsev.&nbsp;
+<br/>
+<br/>
+    </div>
 
     <h3>Release 1.0.5 (14/April/2012):</h3>
 <div >
