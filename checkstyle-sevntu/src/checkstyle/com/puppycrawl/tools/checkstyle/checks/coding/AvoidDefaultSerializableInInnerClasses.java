@@ -1,4 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2011  Oliver Burn
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
 package com.puppycrawl.tools.checkstyle.checks.coding;
+
+import java.util.Iterator;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -17,35 +37,40 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
-
-    private boolean allowPartialImplementation;
+    /**
+    *<b>
+    *Option, that allow partial implementation of serializable interface.
+    *</b>
+    */
+    private boolean mAllowPartialImplementation;
 
     /**
      * <p>
      * Set allow partly implementation serializable interface.
      * </p>
-     * @param allow
+     * @param aAllow - Option, that allow partial implementation
+     *        of serializable interface.
      */
-    public void setAllowPartialImplementation(boolean allow)
+    public void setAllowPartialImplementation(boolean aAllow)
     {
-        this.allowPartialImplementation = allow;
+        this.mAllowPartialImplementation = aAllow;
     }
 
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[] { TokenTypes.CLASS_DEF };
+        return new int[] {TokenTypes.CLASS_DEF };
     }
 
     @Override
     public void visitToken(DetailAST aDetailAST)
     {
-        boolean topLevelClass = (aDetailAST.getParent() == null);
+        final boolean topLevelClass = (aDetailAST.getParent() == null);
         if (!topLevelClass && isSerializable(aDetailAST)
                 && !isStatic(aDetailAST)
                 && !hasSerialazableMethods(aDetailAST))
         {
-            DetailAST implementsBlock = aDetailAST
+            final DetailAST implementsBlock = aDetailAST
                     .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
             log(implementsBlock.getLineNo(),
                     "avoid.default.serializable.in.inner.classes");
@@ -57,18 +82,16 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * Return true if it is nested class. Terminology is here :
      * http://download.oracle.com/javase/tutorial/java/javaOO/nested.html
      * </p>
-     * @param aDetailAST
-     * @return
+     * @param aClassNode - class node
+     * @return - boolean variable
      */
-    private static boolean isStatic(DetailAST classNode)
+    private static boolean isStatic(DetailAST aClassNode)
     {
         boolean result = false;
-        DetailAST modifiers = classNode.findFirstToken(TokenTypes.MODIFIERS);
-        if (modifiers != null)
-        {
+        DetailAST modifiers = aClassNode.findFirstToken(TokenTypes.MODIFIERS);
+        if (modifiers != null) {
             modifiers = modifiers.getFirstChild();
-            while (!result && modifiers != null)
-            {
+            while (!result && modifiers != null) {
                 result = "static".equals(modifiers.getText());
                 modifiers = modifiers.getNextSibling();
             }
@@ -81,47 +104,109 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * Return true, if inner class contain overrided method readObject() and
      * writeObject();
      * </p>
-     * @param methNode
-     *        the start node for method definition.
+     * @param aClassNode
+     *        the start node of class definition.
      * @return The boolean value. True, if method was overrided.
      */
-    private boolean hasSerialazableMethods(DetailAST classNode)
+    private boolean hasSerialazableMethods(DetailAST aClassNode)
     {
-        DetailAST methodNode = classNode.findFirstToken(TokenTypes.OBJBLOCK);
-        methodNode = methodNode.findFirstToken(TokenTypes.METHOD_DEF);
-        boolean hasRead = false, hasWrite = false, result = false;
-        while (!result && methodNode != null)
+        final DetailAST objectBody =
+                aClassNode.findFirstToken(TokenTypes.OBJBLOCK);
+        int numberOfSerializationMethods = 0;
+        for (final Iterator<DetailAST> methodsIter =
+                ChildrenIterator.methodsIterator(objectBody);
+                    methodsIter.hasNext();)
         {
-            if (TokenTypes.METHOD_DEF == methodNode.getType())
+            final DetailAST methodNode = methodsIter.next();
+            if (isPrivateMethod(methodNode)
+                        && isVoidMethod(methodNode)
+                        && (hasCorrectParameter(methodNode, "ObjectInputStream")
+                        || hasCorrectParameter(methodNode, "ObjectOutputStream")
+                        ))
             {
-                String methodName = methodNode.findFirstToken(TokenTypes.IDENT)
-                        .getText();
-                if (!hasRead && "readObject".equals(methodName))
-                {
-                    hasRead = isPrivateMethod(methodNode)
-                            && isVoidMethod(methodNode)
-                            && hasCorrectParameter(methodNode,
-                                    "ObjectInputStream");
-                }
-                if (!hasWrite && "writeObject".equals(methodName))
-                {
-                    hasWrite = isPrivateMethod(methodNode)
-                            && isVoidMethod(methodNode)
-                            && hasCorrectParameter(methodNode,
-                                    "ObjectOutputStream");
-                }
+                numberOfSerializationMethods++;
             }
-            if (allowPartialImplementation)
+            if (numberOfSerializationMethods == 1
+                && mAllowPartialImplementation
+                || numberOfSerializationMethods == 2)
             {
-                result = hasRead || hasWrite;
+                return true;
             }
-            else
-            {
-                result = hasRead && hasWrite;
-            }
-            methodNode = methodNode.getNextSibling();
         }
-        return result;
+        return false;
+    }
+
+    /**
+     *<b>
+     * Nested class, that implements custom iterator for DetailAST method nodes.
+     *</b>
+     * @author Ivan Sopov
+     */
+    private static class ChildrenIterator implements Iterator<DetailAST>
+    {
+        /**
+        *<b>
+        *Type of child.
+        *</b>
+        */
+
+        private final int mChildType;
+        /**
+        *<b>
+        *Next
+        *</b>
+        */
+        private DetailAST mNext;
+
+        /**
+        *<b>
+        *Children Iterator constructer.
+        *</b>
+        *@param aParent - child parent.
+        *@param aChildType - type of child.
+        */
+        public ChildrenIterator(DetailAST aParent, int aChildType)
+        {
+            this.mChildType = aChildType;
+            mNext = aParent.findFirstToken(aChildType);
+        }
+
+        /**
+        *<b>
+        *Method iterator.
+        *</b>
+        *@param aParent - parent.
+        *@return method iterator.
+        */
+        public static ChildrenIterator methodsIterator(DetailAST aParent)
+        {
+            return new ChildrenIterator(aParent, TokenTypes.METHOD_DEF);
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return mNext != null;
+        }
+
+        @Override
+        public DetailAST next()
+        {
+            final DetailAST result = mNext;
+            while (mNext != null) {
+                mNext = mNext.getNextSibling();
+                if (mNext != null && mNext.getType() == mChildType) {
+                    break;
+                }
+            }
+            return result;
+        }
+
+        @Override
+        public void remove()
+        {
+            throw new IllegalStateException("Not implemented");
+        }
     }
 
     /**
@@ -129,19 +214,16 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * Return true, if methods readObject() and writeObject() have correct
      * modifiers;
      * </p>
-     * @param methodNode
+     * @param aMethodNode
      *        - current method node;
-     * @param argType
-     *        - type of arguments for readObject or writObject;
      * @return boolean value;
      */
-    private static boolean isPrivateMethod(DetailAST methodNode)
+    private static boolean isPrivateMethod(DetailAST aMethodNode)
     {
-        DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
+        DetailAST modifiers = aMethodNode.findFirstToken(TokenTypes.MODIFIERS);
         modifiers = modifiers.getFirstChild();
         boolean isPrivate = false;
-        while (!isPrivate && modifiers != null)
-        {
+        while (!isPrivate && modifiers != null) {
             isPrivate = "private".equals(modifiers.getText());
             modifiers = modifiers.getNextSibling();
         }
@@ -152,19 +234,14 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * <p>
      * Return true, if method has void type.
      * </p>
-     * @param methodNode
-     * @return
+     * @param aMethodNode - method node
+     * @return boolean variable
      */
-    private static boolean isVoidMethod(DetailAST methodNode)
+    private static boolean isVoidMethod(DetailAST aMethodNode)
     {
-        DetailAST type = methodNode.findFirstToken(TokenTypes.TYPE);
+        DetailAST type = aMethodNode.findFirstToken(TokenTypes.TYPE);
         type = type.getFirstChild();
-        boolean result = false;
-        if (TokenTypes.LITERAL_VOID == type.getType())
-        {
-            result = true;
-        }
-        return result;
+        return TokenTypes.LITERAL_VOID == type.getType();
     }
 
     /**
@@ -172,22 +249,21 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * Return true, if method has correct parameters (ObjectInputStream for
      * readObject() and ObjectOutputStream for writeObject()).
      * </p>
-     * @param methodNode
-     * @param parameterText
-     *        correct parameter text
-     * @return
+     * @param aMethodNode - method node.
+     * @param aParameterText - correct parameter text.
+     * @return boolean variable.
      */
-    private static boolean hasCorrectParameter(DetailAST methodNode,
-            String parameterText)
+    private static boolean hasCorrectParameter(DetailAST aMethodNode,
+            String aParameterText)
     {
-        DetailAST parameters = methodNode.findFirstToken(TokenTypes.PARAMETERS);
+        DetailAST parameters =
+            aMethodNode.findFirstToken(TokenTypes.PARAMETERS);
         boolean result = false;
-        if (parameters.getChildCount(TokenTypes.PARAMETER_DEF) == 1)
-        {
+        if (parameters.getChildCount(TokenTypes.PARAMETER_DEF) == 1) {
             parameters = parameters.findFirstToken(TokenTypes.PARAMETER_DEF);
             parameters = parameters.findFirstToken(TokenTypes.TYPE);
             parameters = parameters.getFirstChild();
-            result = parameterText.equals(parameters.getText());
+            result = aParameterText.equals(parameters.getText());
         }
         return result;
     }
@@ -196,21 +272,21 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * <p>
      * Return true, if class implement Serializable interface;
      * </p>
-     * @param classDefNode
+     * @param aClassDefNode
      *        - the start node for class definition.
      * @return boolean value. True, if class implements Serializable interface.
      */
-    private static boolean isSerializable(DetailAST classDefNode)
+    private static boolean isSerializable(DetailAST aClassDefNode)
     {
-        DetailAST implementationsDef = classDefNode
+        DetailAST implementationsDef = aClassDefNode
                 .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
         boolean result = false;
-        if (implementationsDef != null)
-        {
+        if (implementationsDef != null) {
             implementationsDef = implementationsDef.getFirstChild();
-
-            while (!result && implementationsDef != null)
-            {
+            while (!result && implementationsDef != null) {
+                if (implementationsDef.getType() == TokenTypes.DOT) {
+                    implementationsDef = implementationsDef.getLastChild();
+                }
                 result = "Serializable".equals(implementationsDef.getText());
                 implementationsDef = implementationsDef.getNextSibling();
             }

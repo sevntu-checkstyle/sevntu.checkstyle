@@ -7,22 +7,22 @@ import java.util.Date;
 
 public class InputAvoidDefaultSerializableInInnerClasses2
 {
-	public class Foo implements Serializable {
+    public class Foo implements Serializable {
 
-		public Date date;
+        public Date date;
 
-//		real readObject is commented
-//		private void readObject(ObjectInputStream aInputStream)
-//				throws ClassNotFoundException, IOException {
-//			// always perform the default de-serialization first
-//			aInputStream.defaultReadObject();
-//			date = (Date) aInputStream.readObject();
-//		}
-		//there should be warning, though method is both private and named readObject
-		private Foo readObject(String str)	throws  ParseException {
-			Foo result = new Foo();
-			result.date = new SimpleDateFormat().parse(str);
-			return result;
-		}
-	}
+//      real readObject is commented
+//      private void readObject(ObjectInputStream aInputStream)
+//              throws ClassNotFoundException, IOException {
+//          // always perform the default de-serialization first
+//          aInputStream.defaultReadObject();
+//          date = (Date) aInputStream.readObject();
+//      }
+        //there should be warning, though method is both private and named readObject
+        private Foo readObject(String str)  throws  ParseException {
+            Foo result = new Foo();
+            result.date = new SimpleDateFormat().parse(str);
+            return result;
+        }
+    }
 }
