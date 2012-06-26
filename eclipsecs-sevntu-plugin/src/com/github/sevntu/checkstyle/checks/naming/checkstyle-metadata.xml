@@ -53,5 +53,12 @@
             </property-metadata>
             <message-key key="abbreviationAsWord" />
         </rule-metadata>
+        
+        <rule-metadata name="%InterfaceTypeParameterNameCheck.name" internal-name="InterfaceTypeParameterNameCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck" />
+            <description>%InterfaceTypeParameterNameCheck.desc</description>
+            <property-metadata name="Format" datatype="String" default-value="^[A-Z]$">
+                <description>%InterfaceTypeParameterNameCheck.format</description>
+            </property-metadata>
     </rule-group-metadata>
 </checkstyle-metadata>
