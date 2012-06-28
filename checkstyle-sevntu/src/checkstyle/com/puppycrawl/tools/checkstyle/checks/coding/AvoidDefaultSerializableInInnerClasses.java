@@ -101,12 +101,12 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 
     /**
      * <p>
-     * Return true, if inner class contain overrided method readObject() and
+     * Return true, if inner class contain override method readObject() and
      * writeObject();
      * </p>
      * @param aClassNode
      *        the start node of class definition.
-     * @return The boolean value. True, if method was overrided.
+     * @return The boolean value. True, if method was override.
      */
     private boolean hasSerialazableMethods(DetailAST aClassNode)
     {
@@ -140,7 +140,6 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      *<b>
      * Nested class, that implements custom iterator for DetailAST method nodes.
      *</b>
-     * @author Ivan Sopov
      */
     private static class ChildrenIterator implements Iterator<DetailAST>
     {
@@ -160,7 +159,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
 
         /**
         *<b>
-        *Children Iterator constructer.
+        *Children Iterator constructor.
         *</b>
         *@param aParent - child parent.
         *@param aChildType - type of child.
@@ -183,13 +182,23 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
             return new ChildrenIterator(aParent, TokenTypes.METHOD_DEF);
         }
 
-        @Override
+        /**
+        *<b>
+        *Return boolean value, if has next element.
+        *</b>
+        *@return boolean value
+        */
         public boolean hasNext()
         {
             return mNext != null;
         }
 
-        @Override
+        /**
+        *<b>
+        *Return next DetailAST element.
+        *</b>
+        *@return next DetailAST.
+        */
         public DetailAST next()
         {
             final DetailAST result = mNext;
@@ -202,7 +211,11 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
             return result;
         }
 
-        @Override
+        /**
+        *<b>
+        *Not implemented method.
+        *</b>
+        */
         public void remove()
         {
             throw new IllegalStateException("Not implemented");
