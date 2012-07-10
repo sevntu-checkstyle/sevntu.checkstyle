@@ -11,10 +11,10 @@
         </rule-metadata>
 
        	<rule-metadata name="%AvoidDefaultSerializableInInnerClasses.name" internal-name="AvoidDefaultSerializableInInnerClasses" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses"/>
+	    <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses"/>
             <description>%AvoidDefaultSerializableInInnerClasses.desc</description>
             <property-metadata name="allowPartialImplementation" datatype="Boolean" default-value="false">
-				<description>Allow partial implementation for serializable interface</description>
+		<description>Allow partial implementation for serializable interface</description>
             </property-metadata>
         </rule-metadata>
 	
