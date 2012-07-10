@@ -1,14 +1,14 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>sevntu-checkstyle-maven-plugin</groupId>
-  <artifactId>sevntu-checkstyle-checks</artifactId>
+  <groupId>com.github.sevntu.checkstyle</groupId>
+  <artifactId>sevntu-maven-plugin</artifactId>
   <name>Sevntu Checkstyle Maven Plugin</name>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <dependencies>
     <dependency>
-      <groupId>com.puppycrawl.tools</groupId>
-      <artifactId>checkstyle-sevntu</artifactId>
-      <version>5.6-SNAPSHOT</version>
+      <groupId>com.github.sevntu.checkstyle</groupId>
+      <artifactId>sevntu-checks</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>
