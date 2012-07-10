@@ -30,7 +30,13 @@
 	  <scope>test</scope>
 	</dependency>
     </dependencies>
-  
+    <distributionManagement>
+      <repository>
+	<id>com.github.sevntu.checkstyle</id>
+	<name>sevntu-checks</name>
+	<url>file://${basedir}/../../maven2/</url>
+      </repository>
+    </distributionManagement>
     <build>
       <resources>
 	<resource>

@@ -16,4 +16,20 @@
         <version>2.9.1</version>
     </dependency>
   </dependencies>
+   <distributionManagement>
+    <repository>
+      <id>com.github.sevntu.checkstyle</id>
+      <name>Sevntu Checkstyle Maven Plugin</name>
+      <url>file://${basedir}/../../maven2/</url>
+    </repository>
+  </distributionManagement>
+  <build>
+    <plugins>
+      <plugin>
+	<groupId>com.github.sevntu.checkstyle</groupId>
+	<artifactId>sevntu-checks</artifactId>
+	<version>1.0-SNAPSHOT</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>
