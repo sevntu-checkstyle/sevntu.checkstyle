@@ -7,8 +7,8 @@
 		<relativePath>../pom.xml</relativePath>
 		<groupId>com.github.sevntu.checkstyle</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5.1</version>
-	</parent> 	
+		<version>1.5.0</version>
+ </parent> 
 
     <properties>
       <sevntu.checks.version>1.0-SNAPSHOT</sevntu.checks.version>
