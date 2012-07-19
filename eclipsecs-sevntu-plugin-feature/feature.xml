@@ -27,7 +27,7 @@ Eclipse Public License - Version 1.0
          id="com.github.sevntu.checkstyle.checks"
          download-size="0"
          install-size="0"
-         version="1.5.1"
+         version="1.5.0"
          unpack="false"/>
 
 </feature>

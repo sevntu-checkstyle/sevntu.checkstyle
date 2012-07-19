@@ -15,7 +15,8 @@
     </properties>
   
     <groupId>com.github.sevntu.checkstyle</groupId>
-    <artifactId>com.github.sevntu.checkstyle.checks</artifactId>
+    <version>1.5.1</version>
+    <artifactId>eclipsecs-sevntu-plugin</artifactId>
     <packaging>eclipse-plugin</packaging>
 
     <name>eclipse-cs Sevntu Checkstyle Plugin</name>
