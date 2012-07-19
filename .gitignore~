@@ -1,2 +1,4 @@
 target/
 bin/
+update-site/
+*~

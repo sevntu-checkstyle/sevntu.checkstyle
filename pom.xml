@@ -8,7 +8,7 @@
 	<modules>
  		<module>eclipsecs-sevntu-plugin</module>
 		<module>eclipsecs-sevntu-plugin-feature</module>
-	<!--	<module>update-site</module> -->
+		<module>update-site</module> 
 	</modules>
 
 	<properties>
