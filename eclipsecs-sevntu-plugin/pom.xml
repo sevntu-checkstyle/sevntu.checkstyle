@@ -3,19 +3,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- we use eclipse-cs parent to ease our compilation and always be up-to-date-->
-    <parent>
-	<groupId>net.sf.eclipsecs</groupId>
-	<artifactId>net.sf.eclipsecs.parent</artifactId>
-	<version>5.5.0-SNAPSHOT</version>
-    </parent>
+ <parent>
+		<relativePath>../pom.xml</relativePath>
+		<groupId>com.github.sevntu.checkstyle</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.5.1</version>
+ </parent> 
 
     <properties>
       <sevntu.checks.version>1.0-SNAPSHOT</sevntu.checks.version>
     </properties>
   
     <groupId>com.github.sevntu.checkstyle</groupId>
+    <version>1.5.1</version>
     <artifactId>eclipsecs-sevntu-plugin</artifactId>
-    <version>1.5.0</version>
     <packaging>eclipse-plugin</packaging>
 
     <name>eclipse-cs Sevntu Checkstyle Plugin</name>
