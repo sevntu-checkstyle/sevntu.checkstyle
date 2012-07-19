@@ -26,7 +26,7 @@ public class InputLogicConditionsNeedOptimizationCheck
 		for(;!test1.returnTrue() && bFalse;){}	//!!
 		for(;returnTrue() && returnFalse();){}
 		for(;!returnTrue() && field1 || field1 && a + b - c == d;){} //!!
-		for(;field1 && returnTrue() || field1 && returnTrue();){} //!!
+		for(;field1 && returnTrue() || field1 && returnTrue();){}
 	}
 	private void whileCyclesCheck()
 	{
@@ -47,7 +47,7 @@ public class InputLogicConditionsNeedOptimizationCheck
 		do{}while(returnTrue() && returnFalse() && field1); //!!
 	}
 	
-	private void ifCyclesCheck()
+	private void ifCheck()
 	{
 		boolean bTrue = true;
 		boolean bFalse = false;
@@ -58,6 +58,22 @@ public class InputLogicConditionsNeedOptimizationCheck
 		if(returnTrue() && returnFalse()){}
 		if(returnTrue() && returnFalse() && field1){} //!!
 		if(returnFalse() && field1 && 1 + 2 - 3 == 0 || field1 && returnTrue()){} //!!
+		if (comp.isFocusable() && (!(comp instanceof Container) || ((Container) comp).getLayout() == null)) {
+            return comp;
+        }
+		if (Boolean.TRUE.equals(getClientProperty("JTable.autoStartsEdit"))
+                && (ks.getModifiers() & KeyEvent.CTRL_MASK) != 0
+                && (ks.getKeyCode() == KeyEvent.VK_S || ks.getKeyCode() == KeyEvent.VK_W)) {
+            return false;
+        }
+		if (!LdHelper.isSystemName(table.getName())
+                && (cliTable == null
+                || !PermHelper.nullOrEqual(cliTable.getPermission(), table.getPermission()))) {
+
+            forceReloadMetadata = true;
+        }
+		 if (refCol != null && refCol.getTable() != null
+                 && (tableName == null || tableName.equals(refCol.getTable().getName()))) {}
 	}
 	
 	public class Testing

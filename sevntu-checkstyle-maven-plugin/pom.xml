@@ -20,9 +20,10 @@
     <repository>
       <id>com.github.sevntu.checkstyle</id>
       <name>Sevntu Checkstyle Maven Plugin</name>
-      <url>file://${basedir}/../../maven2/</url>
+      <url>file://${basedir}/../gh-pages/maven2/</url>
     </repository>
   </distributionManagement>
+  <!--
   <build>
     <plugins>
       <plugin>
@@ -32,4 +33,5 @@
       </plugin>
     </plugins>
   </build>
+  -->
 </project>

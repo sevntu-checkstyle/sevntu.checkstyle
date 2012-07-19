@@ -1,13 +1,23 @@
 #!/bin/sh
-rm -r ../maven2
-cd ./sevntu-checks/
-mvn deploy
-cd ../sevntu-checkstyle-maven-plugin/
-mvn deploy
-cd ..
-git stash
+
+#clean
+rm -rf gh-pages
+
+#prepare
+mkdir gh-pages
+cd ./gh-pages
+
+git init
+git remote add origin https://github.com/sevntu-checkstyle/sevntu.checkstyle.git
+git fetch origin gh-pages:refs/remotes/origin/gh-pages
 git checkout gh-pages
-git rm maven2/*
-cp -r ../maven2 ./
-git add maven2/*
-echo 'You are on the gh-pages branch! Your changes was stashed, type git stash apply, when you return on your branch."
+
+cd ../sevntu-checks/
+mvn deploy -DskipTests
+cd ../sevntu-checkstyle-maven-plugin/
+mvn deploy -DskipTests
+cd ../gh-pages
+
+git add .
+#git commit -m"new version deploy"
+#git push
