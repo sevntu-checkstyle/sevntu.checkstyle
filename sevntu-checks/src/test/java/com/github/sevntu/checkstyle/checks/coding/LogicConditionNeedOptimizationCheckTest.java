@@ -23,7 +23,6 @@ import java.io.File;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSupport
@@ -34,17 +33,17 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
     {
         final DefaultConfiguration checkConfig = createCheckConfig(LogicConditionNeedOptimizationCheck.class);
         final String[] expected = {
-            "26: Condition with &&[26:27] need optimization.",
-            "28: Condition with &&[28:21] need optimization.",
-            "28: Condition with ||[28:31] need optimization.",
-            "38: Condition with &&[38:21] need optimization.",
-            "40: Condition with &&[40:38] need optimization.",
-            "45: Condition with &&[45:25] need optimization.",
-            "47: Condition with &&[47:42] need optimization.",
-            "57: Condition with &&[57:18] need optimization.",
-            "59: Condition with &&[59:35] need optimization.",
-            "60: Condition with &&[60:19] need optimization.",
-            "60: Condition with &&[60:29] need optimization.", };
+            "26: Condition with && 26:27 need optimization.",
+            "28: Condition with && 28:21 need optimization.",
+            "28: Condition with || 28:31 need optimization.",
+            "38: Condition with && 38:21 need optimization.",
+            "40: Condition with && 40:38 need optimization.",
+            "45: Condition with && 45:25 need optimization.",
+            "47: Condition with && 47:42 need optimization.",
+            "57: Condition with && 57:18 need optimization.",
+            "59: Condition with && 59:35 need optimization.",
+            "60: Condition with && 60:19 need optimization.",
+            "60: Condition with && 60:29 need optimization.", };
         verify(checkConfig, getPath("coding" + File.separator
             + "InputLogicConditionsNeedOptimizationCheck.java"), expected);
     }
