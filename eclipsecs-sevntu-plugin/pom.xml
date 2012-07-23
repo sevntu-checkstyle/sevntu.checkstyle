@@ -4,10 +4,10 @@
 
     <!-- we use eclipse-cs parent to ease our compilation and always be up-to-date-->
  <parent>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../eclipse-pom.xml</relativePath>
 		<groupId>com.github.sevntu.checkstyle</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5.1</version>
+		<version>1.5.2</version>
  </parent> 
 
     <properties>
@@ -15,7 +15,7 @@
     </properties>
   
     <groupId>com.github.sevntu.checkstyle</groupId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <artifactId>eclipsecs-sevntu-plugin</artifactId>
     <packaging>eclipse-plugin</packaging>
 
