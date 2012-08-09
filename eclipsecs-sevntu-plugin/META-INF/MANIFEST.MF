@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Sevntu eclipse-cs Extension Plugin
-Bundle-SymbolicName: com.github.sevntu.checkstyle.checks;singleton:=true
-Bundle-Version: 1.5.0
+Bundle-SymbolicName: eclipsecs-sevntu-plugin;singleton:=true
+Bundle-Version: 1.5.2
 Require-Bundle: net.sf.eclipsecs.checkstyle,
  net.sf.eclipsecs.core,
  net.sf.eclipsecs.ui
