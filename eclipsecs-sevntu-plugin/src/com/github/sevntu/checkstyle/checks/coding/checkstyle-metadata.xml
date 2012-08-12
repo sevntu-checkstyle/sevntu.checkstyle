@@ -59,7 +59,19 @@
             <message-key key="custom.declaration.order.method"/>
             <message-key key="custom.declaration.order.constructor"/>
             <message-key key="custom.declaration.order.class"/>
-        </rule-metadata>        
+        </rule-metadata>  
+              
+       <rule-metadata name="%ForbidMethodOverloading.name" internal-name="ForbidMethodOverloading" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidMethodOverloadingCheck"/>
+            <description>%ForbidMethodOverloading.desc</description>
+            <property-metadata name="allowInClasses" datatype="Boolean" default-value="false">
+                <description>%ForbidMethodOverloading.allowInClasses</description>
+            </property-metadata>
+            <property-metadata name="allowPrivate" datatype="Boolean" default-value="false">
+                <description>%ForbidMethodOverloading.allowPrivate</description>
+            </property-metadata>
+            <message-key key="forbid.method.overloading"/>
+        </rule-metadata>
         
        <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
