@@ -22,9 +22,9 @@ package com.puppycrawl.tools.checkstyle.checks.coding;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.api.Check;
 
 /**
  * <p>
@@ -353,7 +353,11 @@ public class OverridableMethodInConstructorCheck extends Check
         if (methodName != null) {
             final DetailAST methodDef = getMethodDef(aMethodCallAST);
             if (methodDef != null) {
-                if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
+
+                if (hasModifier(methodDef, TokenTypes.LITERAL_STATIC)) {
+                    // do nothing
+                }
+                else if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
                         || hasModifier(methodDef, TokenTypes.FINAL))
                 {
                     final List<DetailAST> methodCallsList = getMethodCallsList(
@@ -586,7 +590,7 @@ public class OverridableMethodInConstructorCheck extends Check
      * @return true if method is related to current aMethodDefAST METHOD_DEF
      *         node has "private" or "final" modifier and false otherwise.
      */
-    private boolean hasModifier(final DetailAST aMethodOrClassDefAST,
+    private static boolean hasModifier(final DetailAST aMethodOrClassDefAST,
         int aModifierType)
     {
 
@@ -615,7 +619,7 @@ public class OverridableMethodInConstructorCheck extends Check
      * @return The parent CLASS_DEF node for the class that owns a METHOD_CALL
      *         node named aMethodNode.
      * */
-    private DetailAST getClassDef(final DetailAST aMethodNode)
+    private static DetailAST getClassDef(final DetailAST aMethodNode)
     {
 
         DetailAST curNode = aMethodNode;
@@ -636,7 +640,7 @@ public class OverridableMethodInConstructorCheck extends Check
      *            A CLASS_DEF DetailAST for class is currently being checked.
      * @param aInterfaceName
      *            The name of the interface to check.
-     * @return true if lass realizes "anInterfaceName" interface and false
+     * @return true if class realizes "anInterfaceName" interface and false
      *         otherwise.
      */
     private boolean realizesAnInterface(final DetailAST aClassDefNode,
@@ -669,7 +673,7 @@ public class OverridableMethodInConstructorCheck extends Check
      *         being processed implements "anInterfaceName" interface and false
      *         otherwise.
      */
-    private boolean implementsAnInterface(final DetailAST aClassDefAST,
+    private static boolean implementsAnInterface(final DetailAST aClassDefAST,
             final String aInterfaceName)
     {
 
@@ -730,7 +734,7 @@ public class OverridableMethodInConstructorCheck extends Check
      * @return The CLASS_DEF DetailAST node which is related to the class is
      *         named "aClassName".
      */
-    private DetailAST getClassDef(DetailAST aRootNode, String aClassName)
+    private static DetailAST getClassDef(DetailAST aRootNode, String aClassName)
     {
 
         DetailAST curNode = aRootNode;
@@ -767,7 +771,7 @@ public class OverridableMethodInConstructorCheck extends Check
      *            A CLASS_DEF DetailAST.
      * @return The name of a base class for current class.
      */
-    private String getBaseClassName(final DetailAST aClassDefNode)
+    private static String getBaseClassName(final DetailAST aClassDefNode)
     {
 
         String result = null;
@@ -796,7 +800,7 @@ public class OverridableMethodInConstructorCheck extends Check
      * @return An array of children one level below on the current parent node
      *         aNode.
      */
-    private List<DetailAST> getChildren(final DetailAST aNode)
+    private static List<DetailAST> getChildren(final DetailAST aNode)
     {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         DetailAST curNode = aNode.getFirstChild();

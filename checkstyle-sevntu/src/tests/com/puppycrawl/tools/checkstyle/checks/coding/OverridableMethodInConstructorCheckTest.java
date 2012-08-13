@@ -170,14 +170,11 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     }
 
     @Test
-    public final void testSerializable3WarningsInThirdDepth() throws Exception
+    public final void testStaticModifiers() throws Exception
     {
 
         String[] expected = {
-            "30:20: " + createLeadsMsg("doSmth", mReadObjectKey, "doSmth3"),
-            "31:25: " + createLeadsMsg("doSmth", mReadObjectKey, "doSmth3"),
-            "32:28: " + createLeadsMsg("doSmth", mReadObjectKey, "doSmth3"),
-            "33:29: " + createMsg("doSmth3", mReadObjectKey), };
+        };
 
         verify(checkConfig, getPath("coding" + File.separator
                 + "InputOverridableMethodInConstructor12.java"), expected);
@@ -318,10 +315,11 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
                 + " body.";
     }
 
-    private String createLeadsMsg(String methodName, String where, String overridableName)
+    private static String createLeadsMsg(String methodName, String where, String overridableName)
     {
         return "Calling the method '" + methodName + "' in " + where
-                + " body leads to the call of the overridable method '"+overridableName+"'.";
+                + " body leads to the call of the overridable method '"
+                + overridableName + "'.";
     }
 
 }

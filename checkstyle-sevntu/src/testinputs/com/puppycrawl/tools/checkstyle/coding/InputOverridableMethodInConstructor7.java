@@ -7,11 +7,11 @@ public class InputOverridableMethodInConstructor7 {
 		(new Object2()).clone();
 	}
 
-	private static class Object1 {
+	private class Object1 {
 
 	}
 
-	private static class Object2 extends Object1 implements Cloneable {
+	private class Object2 extends Object1 implements Cloneable {
 		private String value;
 
 		@Override
@@ -22,7 +22,7 @@ public class InputOverridableMethodInConstructor7 {
 		}
 	}
 
-	private static class Object3 extends Object2 {
+	private class Object3 extends Object2 {
 		private String value;
 
 		@Override

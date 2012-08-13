@@ -7,7 +7,7 @@ public class InputOverridableMethodInConstructor8 {
 		(new Object2()).clone();
 	}
 
-	private static class Object1 implements Cloneable {
+	private class Object1 implements Cloneable { 
 
 		
 		public void doSmth() {

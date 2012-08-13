@@ -7,7 +7,7 @@ public class InputOverridableMethodInConstructor9 {
 		(new Object2()).clone();
 	}
 
-	private static class Object1 implements Cloneable {
+	private class Object1 implements Cloneable {
 
 		private void doSmth() {
 			System.out.println("Bar!");
@@ -29,7 +29,7 @@ public class InputOverridableMethodInConstructor9 {
 
 	}
 
-	static class Object2 extends Object1 {
+	class Object2 extends Object1 {
 		private String value;
 
 		@Override

@@ -179,7 +179,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
                 + "InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
-    private String createMsg(String methodName, String methodType, int is,
+    private static String createMsg(String methodName, String methodType, int is,
             int max)
     {
         return "Return count for '" + methodName + "' " + methodType + " is "
