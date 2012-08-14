@@ -25,7 +25,7 @@ public class InputOverridableMethodInConstructor11 {
     }
 
 
-    private static class Object1 implements Serializable {
+    private class Object1 implements Serializable {
 
         public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
              doSmth(); // a warning here!
@@ -37,7 +37,7 @@ public class InputOverridableMethodInConstructor11 {
     }
 
 
-    private static class Object2 extends Object1 implements Serializable {
+    private class Object2 extends Object1 implements Serializable {
 
         String value;
 

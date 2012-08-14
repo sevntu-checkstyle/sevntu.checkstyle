@@ -23,14 +23,14 @@ public class InputOverridableMethodInConstructor12 {
     }
 
 
-    private static class Object1 implements Serializable {
+    private class Object1 implements Serializable {
 
         public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
         	 System.out.println("1"); // no warnings here
-             doSmth(); // ! a warning here
-             this.doSmth(); // ! a warning here
-             Object1.doSmth(); // ! a warning here
-             Object2.doSmth3(); // ! a warning here (check will look inside another inner classes, too =)
+             doSmth(); // no warnings here
+             this.doSmth(); // no warnings here
+             Object1.doSmth(); // no warnings here
+             Object2.doSmth3(); // no warnings here
         }
 
         private static void doSmth() {
@@ -53,7 +53,7 @@ public class InputOverridableMethodInConstructor12 {
     }
 
 
-    private static class Object2 extends Object1 implements Serializable {
+    private class Object2 extends Object1 implements Serializable {
 
         static String value;
 

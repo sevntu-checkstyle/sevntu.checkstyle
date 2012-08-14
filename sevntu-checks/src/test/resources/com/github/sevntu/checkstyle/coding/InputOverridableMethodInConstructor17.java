@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class InputOverridableMethodInConstructor16 {
 
 
-	private static class Object1 implements Serializable {
+	private class Object1 implements Serializable {
 
 		public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 			 doSmth();
