@@ -5,7 +5,7 @@ import com.puppycrawl.tools.checkstyle.gui.Main;
 
 public class InputOverridableMethodInConstructor18 extends WrongClass {
 
-	private static class Object1 implements Serializable {
+	private class Object1 implements Serializable {
 
 		 public void readObject(java.io.ObjectInputStream in) throws
 		 IOException, ClassNotFoundException {

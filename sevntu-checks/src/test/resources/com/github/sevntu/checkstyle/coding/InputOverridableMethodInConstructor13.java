@@ -13,7 +13,7 @@ public class InputOverridableMethodInConstructor13 {
 		(new Object3()).clone();
 	}
 
-	static class Object1 implements Cloneable, Data, FileFilter {
+	class Object1 implements Cloneable, Data, FileFilter {
 
 		public void doSmth() {
 			System.out.println("Bar!");
@@ -40,7 +40,7 @@ public class InputOverridableMethodInConstructor13 {
 
 	}
 
-	static class Object2 extends Object1 implements Data {
+	class Object2 extends Object1 implements Data {
 		@Override
 		public void doSmth() {
 			System.out.println("Bar!");
@@ -48,7 +48,7 @@ public class InputOverridableMethodInConstructor13 {
 	}
 	
 //                               Object1
-	static class Object3 extends Object2 { // implements Serializable 
+	class Object3 extends Object2 { // implements Serializable 
 		private String value;
 
 		@Override
