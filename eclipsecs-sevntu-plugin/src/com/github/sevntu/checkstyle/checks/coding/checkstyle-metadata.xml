@@ -9,7 +9,15 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantsInInterfacesCheck"/>
             <description>%AvoidConstantsInInterfaces.desc</description>
         </rule-metadata>
-        
+
+       	<rule-metadata name="%AvoidDefaultSerializableInInnerClasses.name" internal-name="AvoidDefaultSerializableInInnerClasses" parent="TreeWalker">
+	    <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses"/>
+            <description>%AvoidDefaultSerializableInInnerClasses.desc</description>
+            <property-metadata name="allowPartialImplementation" datatype="Boolean" default-value="false">
+		<description>Allow partial implementation for serializable interface</description>
+            </property-metadata>
+        </rule-metadata>
+	
         <rule-metadata name="%AvoidHidingCauseException.name" internal-name="AvoidHidingCauseException" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
             <description>%AvoidHidingCauseException.desc</description>
@@ -96,6 +104,11 @@
             <message-key key="illegal.catch"/>
         </rule-metadata>
         
+        <rule-metadata name="%LogicConditionNeedOptimizationCheck.name" internal-name="LogicConditionNeedOptimizationCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck"/>
+			<description>%LogicConditionNeedOptimizationCheck.desc</description>
+		</rule-metadata>
+
         <rule-metadata name="%MultipleVariableDeclarationsExtended.name" internal-name="MultipleVariableDeclarationsExtended" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck"/>
             <description>%MultipleVariableDeclarationsExtended.desc</description>

@@ -1,0 +1,36 @@
+<!DOCTYPE checkstyle-packages PUBLIC
+  "-//Puppy Crawl//DTD Package Names 1.0//EN"
+  "http://www.puppycrawl.com/dtds/packages_1_0.dtd">
+
+<checkstyle-packages>
+  <package name="com.github.sevntu.checkstyle">
+     <package name="checks">
+      <package name="annotation"/>
+      <package name="coding"/>
+      <package name="design"/>
+      <package name="naming"/>
+      <package name="sizes"/>
+    </package>
+    <package name="grammars"/>
+  </package>
+  <package name="com.puppycrawl.tools.checkstyle">
+     <package name="checks">
+      <package name="blocks"/>
+      <package name="coding"/>
+      <package name="design"/>
+      <package name="duplicates"/>
+      <package name="header"/>
+      <package name="imports"/>
+      <package name="indentation"/>
+      <package name="j2ee"/>
+      <package name="javadoc"/>
+      <package name="metrics"/>
+      <package name="modifier"/>
+      <package name="naming"/>
+      <package name="sizes"/>
+      <package name="whitespace"/>
+    </package>
+    <package name="filters"/>
+  </package>
+  
+</checkstyle-packages>

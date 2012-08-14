@@ -9,11 +9,15 @@
       Define the Java packages where your custom Checkstyle module classes (checks, filters) reside here.
       See http://checkstyle.sourceforge.net/config.html#Packages for more info.
       -->
-    <package name="com.github.sevntu.checkstyle.checks">
-        <package name="annotation"/>
-        <package name="coding"/>
-        <package name="design"/>
-        <package name="naming"/>
-        <package name="sizes"/>
+
+  <package name="com.github.sevntu.checkstyle">
+     <package name="checks">
+      <package name="annotation"/>
+      <package name="coding"/>
+      <package name="design"/>
+      <package name="naming"/>
+      <package name="sizes"/>
     </package>
+    <package name="grammars"/>
+  </package>
 </checkstyle-packages>
