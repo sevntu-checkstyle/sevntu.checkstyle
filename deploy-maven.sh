@@ -18,6 +18,6 @@ cd ../sevntu-checkstyle-maven-plugin/
 mvn deploy -DskipTests
 cd ../gh-pages
 
-git add .
+#git add .
 #git commit -m"new version deploy"
 #git push
