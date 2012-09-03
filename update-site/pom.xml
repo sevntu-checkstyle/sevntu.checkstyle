@@ -6,12 +6,12 @@
 		<relativePath>../eclipse-pom.xml</relativePath>
 		<groupId>com.github.sevntu.checkstyle</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.5.1</version>
 	</parent>
 
 	<artifactId>com.github.sevntu.checkstyle.p2updatesite</artifactId>
 	<packaging>eclipse-repository</packaging>
-
+	<version>1.5.1</version>
 	<name>Tycho Test Build</name>
 
 <build>
@@ -51,5 +51,5 @@
      </plugin>
     </plugins>
    </build>
-<version>1.5.1</version>
+
 </project>

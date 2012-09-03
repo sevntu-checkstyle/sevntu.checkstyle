@@ -2,7 +2,7 @@
 <feature
       id="com.github.sevntu.checkstyle.checks.feature"
       label="EclipseCS SevNTU plugin feature"
-      version="1.5.2">
+      version="1.5.1">
 
    <description url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
       sources: https://github.com/sevntu-checkstyle/sevntu.checkstyle
@@ -24,10 +24,10 @@ Eclipse Public License - Version 1.0
    </url>
 
    <plugin
-         id="com.github.sevntu.checkstyle.checks"
+         id="eclipsecs-sevntu-plugin"
          download-size="0"
          install-size="0"
-         version="1.5.0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>

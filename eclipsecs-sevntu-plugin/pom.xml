@@ -7,15 +7,15 @@
 		<relativePath>../eclipse-pom.xml</relativePath>
 		<groupId>com.github.sevntu.checkstyle</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5.2</version>
+		<version>1.5.1</version>
  </parent> 
 
     <properties>
-      <sevntu.checks.version>1.0-SNAPSHOT</sevntu.checks.version>
+      <sevntu.checks.version>1.5.1</sevntu.checks.version>
     </properties>
   
     <groupId>com.github.sevntu.checkstyle</groupId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
     <artifactId>eclipsecs-sevntu-plugin</artifactId>
     <packaging>eclipse-plugin</packaging>
 
