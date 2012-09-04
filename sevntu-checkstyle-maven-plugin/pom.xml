@@ -1,7 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.sevntu.checkstyle</groupId>
-  <artifactId>sevntu-maven-plugin</artifactId>
+  <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
   <name>Sevntu Checkstyle Maven Plugin</name>
   <version>1.5.2</version>
   <dependencies>
