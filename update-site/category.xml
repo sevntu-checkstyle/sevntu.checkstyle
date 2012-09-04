@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="eclipsecs-sevntu-plugin-feature/com.github.sevntu.checkstyle.checks.feature.1.5.2.qualifier.jar" id="com.github.sevntu.checkstyle.checks.feature" version="0.0.0"/>
+   <feature url="eclipsecs-sevntu-plugin-feature/com.github.sevntu.checkstyle.checks.feature.1.5.3.qualifier.jar" id="com.github.sevntu.checkstyle.checks.feature" version="0.0.0"/>
 </site>

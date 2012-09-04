@@ -7,11 +7,12 @@
 		<relativePath>../eclipse-pom.xml</relativePath>
 		<groupId>com.github.sevntu.checkstyle</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5.2</version>
+		<version>1.5.3-SNAPSHOT</version>
  </parent> 
 
     <properties>
-      <sevntu.checks.version>1.5.2</sevntu.checks.version>
+	<!-- TODO use ${project.version} instead ?-->
+      <sevntu.checks.version>1.5.3-SNAPSHOT</sevntu.checks.version>
     </properties>
   
     <groupId>com.github.sevntu.checkstyle</groupId>
