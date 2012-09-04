@@ -1,7 +1,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.IllegalCatchCheck;
+import com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import java.io.File;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.Test;
 public class IllegalCatchCheckTest extends BaseCheckTestSupport
 {
     
-    private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchCheck.class);
+    private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchExtendedCheck.class);
     
     @Test
     public final void testDefault() throws Exception

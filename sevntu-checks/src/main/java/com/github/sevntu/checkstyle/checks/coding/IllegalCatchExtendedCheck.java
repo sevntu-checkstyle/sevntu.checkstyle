@@ -29,7 +29,7 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
  * is almost never acceptable.
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
  */
-public final class IllegalCatchCheck extends AbstractIllegalCheck
+public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
 {
 
     /** disable warnings for "catch" blocks containing
@@ -61,7 +61,7 @@ public final class IllegalCatchCheck extends AbstractIllegalCheck
     }
 
     /** Creates new instance of the check. */
-    public IllegalCatchCheck()
+    public IllegalCatchExtendedCheck()
     {
         super(new String[]{"Exception", "Error", "RuntimeException",
             "Throwable", "java.lang.Error", "java.lang.Exception",

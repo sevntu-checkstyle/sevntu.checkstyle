@@ -52,7 +52,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Eric Roe
  * @author Antonenko Dmitriy
  */
-public class UnnecessaryParenthesesCheck extends Check
+public class UnnecessaryParenthesesExtendedCheck extends Check
 {
     /** The minimum number of child nodes to consider for a match. */
     private static final int MIN_CHILDREN_FOR_MATCH = 3;
