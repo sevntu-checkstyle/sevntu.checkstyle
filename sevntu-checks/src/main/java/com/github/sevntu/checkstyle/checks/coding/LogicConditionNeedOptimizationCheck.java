@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2011  Oliver Burn
+// Copyright (C) 2001-2012  Oliver Burn
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -62,33 +62,24 @@ public class LogicConditionNeedOptimizationCheck extends Check
      */
     private boolean needOptimization(DetailAST aLogicNode)
     {
-        final DetailAST[] children = getBothChildren(aLogicNode);
-        final DetailAST firstOperand = children[0];
-        final DetailAST secondOperand = children[1];
+        final DetailAST firstOperand = aLogicNode.getFirstChild();
+        final DetailAST secondOperand = getSecondOperand(aLogicNode);
         return !secondOperand.branchContains(TokenTypes.METHOD_CALL)
                 && firstOperand.branchContains(TokenTypes.METHOD_CALL);
     }
-
     /**
      * <p>
-     * Return both operators children
+     * Return second operand of current logic operator.
      * </p>
-     * @param aLogicNode
-     *        - current logic operator node
-     * @return - array with children
+     * @param aLogicNode - current logic operator
+     * @return second operand
      */
-    private DetailAST[] getBothChildren(DetailAST aLogicNode)
+    private DetailAST getSecondOperand(DetailAST aLogicNode)
     {
-        final DetailAST[] children = new DetailAST[2];
-        DetailAST child = aLogicNode.getFirstChild();
-        for (int i = 0; child != null;) {
-            if (child.getType() != TokenTypes.LPAREN
-                    && child.getType() != TokenTypes.RPAREN)
-            {
-                children[i++] = child;
-            }
-            child = child.getNextSibling();
+        DetailAST child = aLogicNode.getLastChild();
+        if (child.getType() == TokenTypes.RPAREN) {
+            child = child.getPreviousSibling();
         }
-        return children;
+        return child;
     }
 }
