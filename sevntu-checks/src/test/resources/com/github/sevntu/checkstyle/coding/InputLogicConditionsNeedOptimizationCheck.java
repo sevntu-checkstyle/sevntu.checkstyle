@@ -74,6 +74,18 @@ public class InputLogicConditionsNeedOptimizationCheck
         }
 		 if (refCol != null && refCol.getTable() != null
                  && (tableName == null || tableName.equals(refCol.getTable().getName()))) {}
+		 if (!LdHelper.isSystemName(table.getName()) && (cliTable == null || false)) {
+
+	            forceReloadMetadata = true;
+	        }
+		 if(returnTrue() && field1
+		         || (field2 && returnFalse() && field1)){}
+		 if(returnTrue() && 
+		         (field2 && returnFalse() && field1)){}
+		 if(returnTrue() && 
+                 (field2 && field1 && returnFalse())){}
+		 if(returnTrue() && 
+                 (field2 && field1)){}
 	}
 	
 	public class Testing

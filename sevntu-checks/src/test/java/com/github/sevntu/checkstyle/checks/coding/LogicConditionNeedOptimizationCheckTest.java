@@ -29,21 +29,27 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
 {
 
     @Test
-    public void testAll() throws Exception
+    public void test() throws Exception
     {
         final DefaultConfiguration checkConfig = createCheckConfig(LogicConditionNeedOptimizationCheck.class);
         final String[] expected = {
-            "26: Condition with && 26:27 need optimization.",
-            "28: Condition with && 28:21 need optimization.",
-            "28: Condition with || 28:31 need optimization.",
-            "38: Condition with && 38:21 need optimization.",
-            "40: Condition with && 40:38 need optimization.",
-            "45: Condition with && 45:25 need optimization.",
-            "47: Condition with && 47:42 need optimization.",
-            "57: Condition with && 57:18 need optimization.",
-            "59: Condition with && 59:35 need optimization.",
-            "60: Condition with && 60:19 need optimization.",
-            "60: Condition with && 60:29 need optimization.", };
+            "26: Condition with && at line 26 position 27 need optimization. All method calls are advised to move to end of logic expression.",
+            "28: Condition with && at line 28 position 21 need optimization. All method calls are advised to move to end of logic expression.",
+            "28: Condition with || at line 28 position 31 need optimization. All method calls are advised to move to end of logic expression.",
+            "38: Condition with && at line 38 position 21 need optimization. All method calls are advised to move to end of logic expression.",
+            "40: Condition with && at line 40 position 38 need optimization. All method calls are advised to move to end of logic expression.",
+            "45: Condition with && at line 45 position 25 need optimization. All method calls are advised to move to end of logic expression.",
+            "47: Condition with && at line 47 position 42 need optimization. All method calls are advised to move to end of logic expression.",
+            "57: Condition with && at line 57 position 18 need optimization. All method calls are advised to move to end of logic expression.",
+            "59: Condition with && at line 59 position 35 need optimization. All method calls are advised to move to end of logic expression.",
+            "60: Condition with && at line 60 position 19 need optimization. All method calls are advised to move to end of logic expression.",
+            "60: Condition with && at line 60 position 29 need optimization. All method calls are advised to move to end of logic expression.",
+            "77: Condition with && at line 77 position 47 need optimization. All method calls are advised to move to end of logic expression.",
+            "81: Condition with && at line 81 position 19 need optimization. All method calls are advised to move to end of logic expression.",
+            "82: Condition with && at line 82 position 39 need optimization. All method calls are advised to move to end of logic expression.",
+            "84: Condition with && at line 84 position 36 need optimization. All method calls are advised to move to end of logic expression.",
+            "87: Condition with && at line 87 position 19 need optimization. All method calls are advised to move to end of logic expression.",
+            };
         verify(checkConfig, getPath("coding" + File.separator
             + "InputLogicConditionsNeedOptimizationCheck.java"), expected);
     }

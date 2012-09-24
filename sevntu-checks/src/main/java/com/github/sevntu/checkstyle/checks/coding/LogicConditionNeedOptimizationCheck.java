@@ -62,33 +62,24 @@ public class LogicConditionNeedOptimizationCheck extends Check
      */
     private boolean needOptimization(DetailAST aLogicNode)
     {
-        final DetailAST[] children = getBothChildren(aLogicNode);
-        final DetailAST firstOperand = children[0];
-        final DetailAST secondOperand = children[1];
+        final DetailAST firstOperand = aLogicNode.getFirstChild();
+        final DetailAST secondOperand = getSecondOperand(aLogicNode);
         return !secondOperand.branchContains(TokenTypes.METHOD_CALL)
                 && firstOperand.branchContains(TokenTypes.METHOD_CALL);
     }
-
     /**
      * <p>
-     * Return both operators children
+     * Return second operand of current logic operator.
      * </p>
-     * @param aLogicNode
-     *        - current logic operator node
-     * @return - array with children
+     * @param aLogicNode - current logic operator
+     * @return second operand
      */
-    private DetailAST[] getBothChildren(DetailAST aLogicNode)
+    private DetailAST getSecondOperand(DetailAST aLogicNode)
     {
-        final DetailAST[] children = new DetailAST[2];
-        DetailAST child = aLogicNode.getFirstChild();
-        for (int i = 0; child != null;) {
-            if (child.getType() != TokenTypes.LPAREN
-                    && child.getType() != TokenTypes.RPAREN)
-            {
-                children[i++] = child;
-            }
-            child = child.getNextSibling();
+        DetailAST child = aLogicNode.getLastChild();
+        if(child.getType() == TokenTypes.RPAREN) {
+            child = child.getPreviousSibling();
         }
-        return children;
+        return child;
     }
 }
