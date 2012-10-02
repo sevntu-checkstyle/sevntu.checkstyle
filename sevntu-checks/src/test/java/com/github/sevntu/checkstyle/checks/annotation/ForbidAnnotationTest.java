@@ -49,6 +49,19 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
         verify(checkConfig, getPath("annotation" + File.separator
                 + "ForbiAnnotationInput.java"), expected1);
     }
+    
+    @Test
+    public void testFullAnnotationName() throws Exception
+    {
+        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+
+
+        final String[] expected1 = {};
+
+        verify(checkConfig, getPath("annotation" + File.separator
+                + "ForbiAnnotationInput2.java"), expected1);
+    }
+    
 
     @Test
     public void testVariableIsForbidden() throws Exception
