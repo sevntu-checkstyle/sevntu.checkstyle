@@ -1,7 +1,7 @@
 h1. Information
 
 Extension to standard Checkstyle checks that are compiled as plugin to Eclipse Checkstyle plugin.
-Travis-CI: "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png
+Travis-CI: "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle
 
 h2. Related Projects
 
