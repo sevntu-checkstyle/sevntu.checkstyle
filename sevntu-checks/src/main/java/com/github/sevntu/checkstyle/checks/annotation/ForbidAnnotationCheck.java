@@ -86,8 +86,7 @@ public class ForbidAnnotationCheck extends Check
     public void visitToken(DetailAST aAnnotation)
     {
 
-        final String annotationName = aAnnotation.findFirstToken(
-                TokenTypes.IDENT).getText();
+        final String annotationName = getAnnotationName(aAnnotation);
         // first parent - 'MODIFIERS', second parent - annotation's target
         final DetailAST annotationTarget = aAnnotation.getParent().getParent();
 
@@ -103,6 +102,18 @@ public class ForbidAnnotationCheck extends Check
                     currentTarget, annotationName);
         }
     }
+    
+    private static String getAnnotationName(DetailAST aAnnotation){
+    	DetailAST directname = aAnnotation.findFirstToken(TokenTypes.IDENT);
+
+    	if(directname != null){
+    		return directname.getText();
+    	}else{
+    		//This means that annotation is specified with the full package name
+    		return aAnnotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
+    	}
+    }
+    
 
     /**
      * return true if mAnnotationNames contains aAnnotationName.
