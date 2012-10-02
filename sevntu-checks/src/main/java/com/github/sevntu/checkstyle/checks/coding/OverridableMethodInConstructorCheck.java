@@ -552,7 +552,7 @@ public class OverridableMethodInConstructorCheck extends Check
      *     DetailAST node
      * @return the count of parameters for current method.
      */
-    private int getMethodParamsCount(DetailAST aMethodDefOrCallAST)
+    private static int getMethodParamsCount(DetailAST aMethodDefOrCallAST)
     {
 
         int result = 0;

@@ -551,7 +551,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
      *         (not in its declaration!) than return the first AST node
      *         of this block, otherwise - null.
      */
-    private DetailAST getFirstNodeInsideTryCatchFinallyBlocks(
+    private static DetailAST getFirstNodeInsideTryCatchFinallyBlocks(
             DetailAST aBlock, DetailAST aVariable)
     {
         DetailAST currentNode = aBlock.getFirstChild();
@@ -697,7 +697,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
      *        AST element which is checked for content in AST node.
      * @return true if AST element was found in AST node, otherwise - false.
      */
-    private boolean isChild(DetailAST aParent, DetailAST aAST)
+    private static boolean isChild(DetailAST aParent, DetailAST aAST)
     {
         boolean isChild = false;
         final ASTEnumeration astList = aParent.findAllPartial(aAST);

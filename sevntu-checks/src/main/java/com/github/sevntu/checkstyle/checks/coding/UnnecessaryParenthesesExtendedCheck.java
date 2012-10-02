@@ -268,7 +268,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
      * @return <code>true</code> if <code>aAST</code> is surrounded by
      *         parentheses.
      */
-    private boolean isSurrounded(DetailAST aAST)
+    private static boolean isSurrounded(DetailAST aAST)
     {
         final DetailAST prev = aAST.getPreviousSibling();
         final DetailAST next = aAST.getNextSibling();
@@ -286,7 +286,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
      * @throws IllegalArgumentException if <code>aAST.getType()</code> is not
      *         equal to <code>TokenTypes.EXPR</code>.
      */
-    private boolean exprSurrounded(DetailAST aAST)
+    private static boolean exprSurrounded(DetailAST aAST)
     {
         if (aAST.getType() != TokenTypes.EXPR) {
             throw new IllegalArgumentException("Not an expression node.");
@@ -309,7 +309,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
      * @return <code>true</code> if <code>aType</code> was found in <code>
      *         aTokens</code>.
      */
-    private boolean inTokenList(int aType, int [] aTokens)
+    private static boolean inTokenList(int aType, int [] aTokens)
     {
         // NOTE: Given the small size of the two arrays searched, I'm not sure
         //       it's worth bothering with doing a binary search or using a
@@ -330,7 +330,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
      * @return the chopped string if <code>aString</code> is longer than
      *         <code>MAX_QUOTED_LENGTH</code>; otherwise <code>aString</code>.
      */
-    private String chopString(String aString)
+    private static String chopString(String aString)
     {
         if (aString.length() > MAX_QUOTED_LENGTH) {
             return aString.substring(0, MAX_QUOTED_LENGTH) + "...\"";
@@ -344,7 +344,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
      * @param aAST the <code>DetailAST</code>
      * @return integer value of subtree
      */
-    private int subtreeType(DetailAST aAST)
+    private static int subtreeType(DetailAST aAST)
     {
         final DetailAST subtree = aAST.getFirstChild()
             .getNextSibling();

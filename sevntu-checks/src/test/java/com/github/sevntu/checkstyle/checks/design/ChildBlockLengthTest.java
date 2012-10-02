@@ -142,7 +142,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
                 + "InputChildBlockLengthCheckCheckNPE.java"), expected);
     }
 
-    private String getMessage(String linesCount)
+    private static String getMessage(String linesCount)
     {
         return "Block length should be lesser or equal to " + linesCount + " lines.";
     }

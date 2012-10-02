@@ -144,7 +144,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @param aNode - current method or variable definition node.
      * @return "true" if current method or variable has a Boolean type.
      */
-    public final boolean isBooleanType(final DetailAST aNode)
+    public final static boolean isBooleanType(final DetailAST aNode)
     {
         return mBOOLEAN.equals(CheckUtils.createFullType(
                 aNode.findFirstToken(TokenTypes.TYPE)).getText());
@@ -274,7 +274,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @return an array of children one level below on the current parent node
      *         aNode.
      */
-    public final LinkedList<DetailAST> getChildren(final DetailAST aNode)
+    public final static LinkedList<DetailAST> getChildren(final DetailAST aNode)
     {
         final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
 

@@ -112,7 +112,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
     }
 
 
-    private String getMessage(String className)
+    private static String getMessage(String className)
     {
         return "Instantiation of '" + className + "' is not allowed.";
     }

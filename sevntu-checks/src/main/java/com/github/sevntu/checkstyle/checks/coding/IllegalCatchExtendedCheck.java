@@ -154,7 +154,7 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
      * @param aNode - current parent node.
      * @return an array of childs one level below
      * on the current parent node aNode. */
-    public DetailAST[] getChilds(DetailAST aNode)
+    public static DetailAST[] getChilds(DetailAST aNode)
     {
         final DetailAST[] result = new DetailAST[aNode.getChildCount()];
 

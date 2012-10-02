@@ -137,7 +137,7 @@ public class SimpleAccesorNameNotationCheck extends Check
      * @param aObjectBlock is a link to checked block
      * @return true if object block is correct
      */
-    private boolean isCorrectSetterObjectBlock(DetailAST aObjectBlock)
+    private static boolean isCorrectSetterObjectBlock(DetailAST aObjectBlock)
     {
 
         return aObjectBlock.getChildCount() == 3
@@ -150,14 +150,14 @@ public class SimpleAccesorNameNotationCheck extends Check
      * @param aExpr is a link to EXPR.
      * @return true if EXPR is correct
      */
-    private boolean isCorrectSetterExpr(DetailAST aExpr)
+    private static boolean isCorrectSetterExpr(DetailAST aExpr)
     {
 
         return aExpr.getChildCount() == 1
                 && aExpr.getFirstChild().getType() == TokenTypes.ASSIGN;
     }
 
-    private String getNameOfSettingField(DetailAST aAssign,
+    private static String getNameOfSettingField(DetailAST aAssign,
             DetailAST aParameters)
     {
         String nameOfSettingField = null;
@@ -202,14 +202,14 @@ public class SimpleAccesorNameNotationCheck extends Check
         return !fieldName.equalsIgnoreCase(aMethodName);
     }
 
-    private boolean isCorrectGetterObjectBlock(DetailAST aObjectBlock)
+    private static boolean isCorrectGetterObjectBlock(DetailAST aObjectBlock)
     {
 
         return aObjectBlock.getChildCount() == 2
                 && aObjectBlock.getFirstChild().getType() == TokenTypes.LITERAL_RETURN;
     }
 
-    private boolean isCorrectGetterReturn(DetailAST aReturn)
+    private static boolean isCorrectGetterReturn(DetailAST aReturn)
     {
 
         return aReturn.getChildCount() == 2
@@ -217,7 +217,7 @@ public class SimpleAccesorNameNotationCheck extends Check
                 && aReturn.getLastChild().getType() == TokenTypes.SEMI;
     }
 
-    private String getNameOfGettingField(DetailAST aExpr)
+    private static String getNameOfGettingField(DetailAST aExpr)
     {
         String nameOfGettingField = null;
 
@@ -254,7 +254,7 @@ public class SimpleAccesorNameNotationCheck extends Check
         return fieldName;
     }
 
-    private boolean checkNameOfParameters(DetailAST aParamrters,
+    private static boolean checkNameOfParameters(DetailAST aParamrters,
             String aFieldName)
     {
 

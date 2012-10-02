@@ -105,7 +105,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
                 + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
-    private String getMessage(String pattern, String importText)
+    private static String getMessage(String pattern, String importText)
     {
         return "This import should not match '" + pattern
                 + "' pattern, it is forbidden in " + importText + ".";

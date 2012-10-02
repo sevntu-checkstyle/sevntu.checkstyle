@@ -60,7 +60,7 @@ public class LogicConditionNeedOptimizationCheck extends Check
      *        - current logic operator node
      * @return - boolean variable
      */
-    private boolean needOptimization(DetailAST aLogicNode)
+    private static boolean needOptimization(DetailAST aLogicNode)
     {
         final DetailAST firstOperand = aLogicNode.getFirstChild();
         final DetailAST secondOperand = getSecondOperand(aLogicNode);
@@ -74,7 +74,7 @@ public class LogicConditionNeedOptimizationCheck extends Check
      * @param aLogicNode - current logic operator
      * @return second operand
      */
-    private DetailAST getSecondOperand(DetailAST aLogicNode)
+    private static DetailAST getSecondOperand(DetailAST aLogicNode)
     {
         DetailAST child = aLogicNode.getLastChild();
         if (child.getType() == TokenTypes.RPAREN) {

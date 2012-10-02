@@ -165,7 +165,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
                 + "InputAvoidModifiersForTypesCheck2.java"), expected);
     }
 
-    private String getMessage(String className, String modifierType)
+    private static String getMessage(String className, String modifierType)
     {
         return "'" + className + "' instance should not have '" + modifierType
                 + "' modifier.";

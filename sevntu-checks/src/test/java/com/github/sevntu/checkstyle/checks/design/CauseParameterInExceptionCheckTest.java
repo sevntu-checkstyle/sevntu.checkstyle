@@ -137,7 +137,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
                 + "InputCauseParameterInException4.java"), expected);
     }
 
-    private String getMessage(String className)
+    private static String getMessage(String className)
     {
         return "'"
                 + className

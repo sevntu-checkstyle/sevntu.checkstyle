@@ -37,6 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class AvoidConstantsInInterfacesCheck extends Check 
 {
+	@Override
 	public int[] getDefaultTokens() 
 	{
 		return new int[] { TokenTypes.INTERFACE_DEF };
