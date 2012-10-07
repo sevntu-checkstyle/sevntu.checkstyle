@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -20,6 +18,6 @@ public class ReturnBooleanFromTernaryTest extends BaseCheckTestSupport {
 				"9:35: Returning explicit boolean from ternary operator.",
 				"9:43: Returning explicit boolean from ternary operator."
 		};
-		verify(checkConfig, getPath("coding" + File.separator + "InputReturnBooleanFromTernary.java"), expected);
+		verify(checkConfig, getPath("InputReturnBooleanFromTernary.java"), expected);
 	}
 }

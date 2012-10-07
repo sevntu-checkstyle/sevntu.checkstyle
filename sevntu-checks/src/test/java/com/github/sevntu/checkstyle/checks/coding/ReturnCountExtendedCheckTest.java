@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -47,8 +45,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckMethods.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
@@ -67,8 +64,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "63:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 4, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckCtors.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckCtors.java"), expected);
     }
 
     @Test
@@ -86,8 +82,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckMethods.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
@@ -103,8 +98,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckMethods.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
@@ -121,8 +115,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "10:16: " + createMsg("oneReturnInMethod2", "method", 1, 0),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckMethods.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
@@ -140,8 +133,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "63:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckCtors.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckCtors.java"), expected);
     }
 
     @Test
@@ -157,8 +149,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "100:24: " + createMsg("handleEvent", "method", 3, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckMethodsInMethods.java"),
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethodsInMethods.java"),
                 expected);
     }
 
@@ -176,8 +167,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
             "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputReturnCountExtendedCheckMethods.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     private static String createMsg(String methodName, String methodType, int is,

@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,8 +46,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor1.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor1.java"), expected);
     }
 
     @Test
@@ -58,8 +55,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {"10:27: " + createMsg("overrideMe", mCtorKey) };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor2.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor2.java"), expected);
     }
 
     @Test
@@ -68,8 +64,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         String[] expected = {"10:27: " + createMsg("overrideMe", mCtorKey),
             "15:27: " + createMsg("overrideMe", mCtorKey), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor3.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor3.java"), expected);
     }
 
     @Test
@@ -79,8 +74,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         String[] expected = {"10:32: "
                 + createLeadsMsg("overrideMe", mCtorKey, "overrideMe2"), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor4.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor4.java"), expected);
     }
 
     @Test
@@ -91,8 +85,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "10:32: " + createLeadsMsg("overrideMe", mCtorKey, "overrideMe3"),
             "11:27: " + createLeadsMsg("overrideMe", mCtorKey, "overrideMe3"), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor5.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor5.java"), expected);
     }
 
     @Test
@@ -101,8 +94,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor6.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor6.java"), expected);
     }
 
     @Test
@@ -111,8 +103,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor7.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor7.java"), expected);
     }
 
     @Test
@@ -122,8 +113,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         String[] expected = {"20:37: " + createMsg("doSmth", mCloneKey),
             "37:37: " + createMsg("doSmth", mCloneKey), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor8.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor8.java"), expected);
     }
 
     @Test
@@ -133,8 +123,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         String[] expected = {"25:37: " + createLeadsMsg("doSmth", mCloneKey, "doSmth2"),
             "26:20: " + createMsg("doSmth2", mCloneKey), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor9.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor9.java"), expected);
     }
 
     @Test
@@ -146,8 +135,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "27:24: " + createMsg("accept", mCloneKey),
             "62:37: " + createMsg("doSmth", mCloneKey), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor13.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor13.java"), expected);
     }
 
     @Test
@@ -156,8 +144,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor10.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor10.java"), expected);
     }
 
     @Test
@@ -166,8 +153,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {"31:20: " + createMsg("doSmth", mReadObjectKey), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor11.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor11.java"), expected);
     }
 
     @Test
@@ -177,8 +163,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor12.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor12.java"), expected);
     }
 
     @Test
@@ -196,8 +181,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "80:24: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
             "81:29: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor14.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor14.java"), expected);
     }
 
     @Test
@@ -206,8 +190,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor15.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor15.java"), expected);
     }
 
     @Test
@@ -216,8 +199,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor16.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor16.java"), expected);
     }
 
     @Test
@@ -226,8 +208,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor17.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor17.java"), expected);
     }
 
     @Test
@@ -236,8 +217,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor18.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor18.java"), expected);
     }
 
     @Test
@@ -246,8 +226,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor19.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor19.java"), expected);
     }
 
     @Test
@@ -256,8 +235,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor20.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor20.java"), expected);
     }
 
     @Test
@@ -266,8 +244,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor21.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor21.java"), expected);
     }
 
     @Test
@@ -276,8 +253,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {"4:15: " + createLeadsMsg("doSMTH", mCtorKey, "doPublic"), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor22.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor22.java"), expected);
     }
 
     @Test
@@ -286,8 +262,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor23.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor23.java"), expected);
     }
 
     @Test
@@ -296,8 +271,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {"18:22: " + createMsg("buildGetter", mCtorKey), };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor24.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor24.java"), expected);
     }
 
     @Test
@@ -306,8 +280,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputOverridableMethodInConstructor25.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor25.java"), expected);
     }
 
     public String createMsg(String methodName, String where)

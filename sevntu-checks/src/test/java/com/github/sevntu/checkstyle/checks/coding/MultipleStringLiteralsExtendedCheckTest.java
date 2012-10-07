@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -42,9 +40,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 				"10:23: The String \", \" appears 3 times in the file.",
 		};
 
-		verify(checkConfig,
-				getPath("coding" + File.separator + "InputMultipleStringLiterals.java"),
-				expected);
+		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
 	}
 
 	@Test
@@ -68,8 +64,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 				"13:21: The String \"StringContents\" appears 3 times in the file.",
 				"14:28: The String \"StringContents\" appears 3 times in the file.", };
 
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputMultipleStringLiterals.java"), expected);
+		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
 	}
 
 	@Test
@@ -85,9 +80,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 				"10:23: The String \", \" appears 3 times in the file.",
 		};
 
-		verify(checkConfig,
-				getPath("coding" + File.separator + "InputMultipleStringLiterals.java"),
-				expected);
+		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
 	}
 
 	@Test
@@ -103,9 +96,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 				"5:16: The String \"StringContents\" appears 3 times in the file.",
 		};
 
-		verify(checkConfig,
-				getPath("coding" + File.separator + "InputMultipleStringLiterals.java"),
-				expected);
+		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
 	}
 
 	@Test
@@ -121,9 +112,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 				"19:23: The String \"unchecked\" appears 4 times in the file.",
 		};
 
-		verify(checkConfig,
-				getPath("coding" + File.separator + "InputMultipleStringLiterals.java"),
-				expected);
+		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
 	}
 
 }

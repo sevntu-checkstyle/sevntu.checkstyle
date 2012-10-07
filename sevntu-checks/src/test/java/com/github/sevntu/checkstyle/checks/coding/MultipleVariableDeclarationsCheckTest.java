@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -45,8 +43,7 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("ignoreCycles", "false");
 		checkConfig.addAttribute("ignoreMethods", "false");
 
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputMultipleVariableDeclarations.java"), expected);
+		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
 	}
 
 	@Test
@@ -66,8 +63,7 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 
 		checkConfig.addAttribute("ignoreCycles", "true");
 		checkConfig.addAttribute("ignoreMethods", "false");
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputMultipleVariableDeclarations.java"), expected);
+		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
 	}
 
 	@Test
@@ -86,8 +82,7 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 
 		checkConfig.addAttribute("ignoreCycles", "false");
 		checkConfig.addAttribute("ignoreMethods", "true");
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputMultipleVariableDeclarations.java"), expected);
+		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
 	}
 
 	@Test
@@ -107,8 +102,7 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 
 		checkConfig.addAttribute("ignoreCycles", "true");
 		checkConfig.addAttribute("ignoreMethods", "true");
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputMultipleVariableDeclarations.java"), expected);
+		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
 	}
 
 }

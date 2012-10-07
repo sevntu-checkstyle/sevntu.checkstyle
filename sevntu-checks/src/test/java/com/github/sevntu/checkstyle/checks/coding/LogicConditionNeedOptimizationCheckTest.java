@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -50,7 +48,6 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
             "84: Condition with && at line 84 position 36 need optimization. All method calls are advised to move to end of logic expression.",
             "87: Condition with && at line 87 position 19 need optimization. All method calls are advised to move to end of logic expression.",
         };
-        verify(checkConfig, getPath("coding" + File.separator
-            + "InputLogicConditionsNeedOptimizationCheck.java"), expected);
+        verify(checkConfig, getPath("InputLogicConditionsNeedOptimizationCheck.java"), expected);
     }
 }

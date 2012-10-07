@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.naming;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -40,10 +38,7 @@ public class TypeParameterNameTest
             "2:51: Name 'it' must match pattern '^[A-Z]$'.",
             "6:27: Name 'foo' must match pattern '^[A-Z]$'.",
         };
-        verify(checkConfig,
-                getPath("naming" + File.separator
-                        + "InputInterfaceTypeParameterName.java"),
-                expected);
+        verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
     }
 
     @Test
@@ -57,9 +52,6 @@ public class TypeParameterNameTest
             "2:51: Name 'it' must match pattern '^foo$'.",
             "10:27: Name 'A' must match pattern '^foo$'.",
         };
-        verify(checkConfig,
-                getPath("naming" + File.separator
-                        + "InputInterfaceTypeParameterName.java"),
-                expected);
+        verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
     }
 }
