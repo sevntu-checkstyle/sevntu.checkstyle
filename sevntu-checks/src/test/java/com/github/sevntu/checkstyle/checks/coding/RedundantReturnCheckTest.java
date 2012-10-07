@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -22,8 +20,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
 		"102: Redundant return.", "106: Redundant return."
 	};
 
-	verify(checkConfig, getPath("coding" + File.separator
-		+ "InputRedundantReturn.java"), expected);
+	verify(checkConfig, getPath("InputRedundantReturn.java"), expected);
     }
 
     @Test
@@ -38,8 +35,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
 		"106: Redundant return."
 	};
 
-	verify(checkConfig, getPath("coding" + File.separator
-		+ "InputRedundantReturn.java"), expected);
+	verify(checkConfig, getPath("InputRedundantReturn.java"), expected);
 
     }
 }

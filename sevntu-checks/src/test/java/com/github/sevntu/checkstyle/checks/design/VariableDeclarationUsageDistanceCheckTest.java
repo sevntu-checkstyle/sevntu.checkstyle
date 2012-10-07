@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.design;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -59,7 +57,7 @@ public class VariableDeclarationUsageDistanceCheckTest extends
             "344: Distance between variable 'blue' declaration and its first usage is 3, but allowed 1.",
             "367: Distance between variable 'intervalMs' declaration and its first usage is 2, but allowed 1.",
         };
-        verify(checkConfig, getPath("design" + File.separator + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
+        verify(checkConfig, getPath("InputVariableDeclarationUsageDistanceCheck.java"), expected);
     }
 
     @Test
@@ -74,8 +72,7 @@ public class VariableDeclarationUsageDistanceCheckTest extends
             "71: Distance between variable 'count' declaration and its first usage is 4, but allowed 3.",
             "219: Distance between variable 't' declaration and its first usage is 5, but allowed 3.",
         };
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
+        verify(checkConfig, getPath("InputVariableDeclarationUsageDistanceCheck.java"), expected);
     }
 
     @Test
@@ -105,8 +102,7 @@ public class VariableDeclarationUsageDistanceCheckTest extends
             "344: Distance between variable 'blue' declaration and its first usage is 3, but allowed 1.",
             "367: Distance between variable 'intervalMs' declaration and its first usage is 2, but allowed 1.",
         };
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputVariableDeclarationUsageDistanceCheck.java"), expected);
+        verify(checkConfig, getPath("InputVariableDeclarationUsageDistanceCheck.java"), expected);
     }
 
     @Test
@@ -131,9 +127,7 @@ public class VariableDeclarationUsageDistanceCheckTest extends
             "344: Distance between variable 'blue' declaration and its first usage is 3, but allowed 1.",
             "367: Distance between variable 'intervalMs' declaration and its first usage is 2, but allowed 1.",
         };
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputVariableDeclarationUsageDistanceCheck.java"),
-                expected);
+        verify(checkConfig, getPath("InputVariableDeclarationUsageDistanceCheck.java"), expected);
     }
 
     @Test
@@ -164,8 +158,6 @@ public class VariableDeclarationUsageDistanceCheckTest extends
             "343: Distance between variable 'green' declaration and its first usage is 2, but allowed 1.",
             "344: Distance between variable 'blue' declaration and its first usage is 3, but allowed 1.",
         };
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputVariableDeclarationUsageDistanceCheck.java"),
-                expected);
+        verify(checkConfig, getPath("InputVariableDeclarationUsageDistanceCheck.java"), expected);
     }
 }

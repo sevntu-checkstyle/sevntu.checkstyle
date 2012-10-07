@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.annotation;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -32,7 +30,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  */
 public class ForbidAnnotationTest extends BaseCheckTestSupport
 {
-
+	
     @Test
     public void testPackageIsForbidden() throws Exception
     {
@@ -46,8 +44,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "2: Incorrect target: 'package' for annotation: 'pack2'.",
             "3: Incorrect target: 'package' for annotation: 'pack3'.", };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected1);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected1);
     }
     
     @Test
@@ -58,8 +55,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 
         final String[] expected1 = {};
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput2.java"), expected1);
+        verify(checkConfig, getPath("ForbiAnnotationInput2.java"), expected1);
     }
     
 
@@ -78,8 +74,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "20: Incorrect target: 'VARIABLE_DEF' for annotation: 'Author2'.",
             "58: Incorrect target: 'VARIABLE_DEF' for annotation: 'SuppressWarnings'.", };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected2);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected2);
     }
 
     @Test
@@ -97,8 +92,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "40: Incorrect target: 'METHOD_DEF' for annotation: 'Three'.",
             "46: Incorrect target: 'METHOD_DEF' for annotation: 'B'.", };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected3);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected3);
     }
 
     @Test
@@ -114,8 +108,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "7: Incorrect target: 'CTOR_DEF' for annotation: 'ctor'.",
             "8: Incorrect target: 'CTOR_DEF' for annotation: 'ctor2'.", };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected4);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected4);
     }
 
     @Test
@@ -130,8 +123,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "33: Incorrect target: 'ANNOTATION_DEF' for annotation: 'Retention'.",
             "34: Incorrect target: 'ANNOTATION_DEF' for annotation: 'Target'.", };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected5);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected5);
     }
 
     @Test
@@ -147,8 +139,7 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "42: Incorrect target: 'PARAMETER_DEF' for annotation: 'MyAnnotation'.",
             "44: Incorrect target: 'INTERFACE_DEF' for annotation: 'A'.", };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected6);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected6);
     }
 
     @Test
@@ -167,7 +158,6 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
             "55: Incorrect target: 'ENUM_CONSTANT_DEF' for annotation: 'int3'.",
         };
 
-        verify(checkConfig, getPath("annotation" + File.separator
-                + "ForbiAnnotationInput.java"), expected7);
+        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected7);
     }
 }

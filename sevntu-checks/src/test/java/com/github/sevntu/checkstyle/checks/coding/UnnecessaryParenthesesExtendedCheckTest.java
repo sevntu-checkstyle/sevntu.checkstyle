@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -33,8 +31,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  */
 public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSupport
 {
-	private static final String TEST_FILE = "coding" + File.separator
-			+ "InputUnnecessaryParentheses.java";
+	private static final String TEST_FILE = "InputUnnecessaryParentheses.java";
 
 	@Test
 	public void testDefault() throws Exception
@@ -158,6 +155,6 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "true");
-		verify(checkConfig, getPath("coding" + File.separator + "testUBV.java"), expected);
+		verify(checkConfig, getPath("testUBV.java"), expected);
 	}
 }

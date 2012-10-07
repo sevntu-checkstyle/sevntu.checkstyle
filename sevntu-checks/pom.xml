@@ -9,11 +9,6 @@
         
     <properties>
       <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
-      <testinputs.dir>${basedir}/src/test/resources/com/github/sevntu/checkstyle/</testinputs.dir>
-      <testsrcs.dir>${basedir}/src/test/java/com/github/sevntu/checkstyle/</testsrcs.dir>
-      <projectVersion>${project.version}</projectVersion>
-      <tools.jar.version>1.5.0</tools.jar.version>
-      <tools.jar.path>${java.home}/../lib/tools.jar</tools.jar.path>
     </properties>
     
     <dependencies>
@@ -38,24 +33,6 @@
       </repository>
     </distributionManagement>
     <build>
-      <resources>
-	<resource>
-	  <directory>${basedir}/src/main/java</directory>
-	  <includes>
-	    <include>**/*.properties</include>
-	    <include>**/*.xml</include>
-	  </includes>
-	</resource>
-      </resources>
-      
-      <testResources>
-	<testResource>
-	  <directory>${testinputs.dir}</directory>
-	</testResource>
-      </testResources>
-    
-      <testSourceDirectory>${testsrcs.dir}</testSourceDirectory>
-    
       <plugins>
 	<plugin>
 	  <groupId>org.apache.maven.plugins</groupId>
@@ -66,25 +43,6 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
-	
-	<plugin>
-	  <groupId>org.apache.maven.plugins</groupId>
-	  <artifactId>maven-surefire-plugin</artifactId>
-	  <version>2.12</version>
-	  <configuration>
-	    <systemProperties>
-	      <property>
-		<name>testinputs.dir</name>
-		<value>${testinputs.dir}</value>
-	      </property>
-	      <property>
-		<name>testsrcs.dir</name>
-		<value>${testsrcs.dir}</value>
-	      </property>
-	    </systemProperties>
-	  </configuration>
-	</plugin>
-	
       </plugins>
     </build>
 </project>

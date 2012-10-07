@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.AvoidConstantsInInterfacesCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -21,7 +19,6 @@ public class AvoidConstantsInInterfacesCheckTest extends BaseCheckTestSupport
 				"29: Please avoid to declare constant(s) in the interface.",
 				"39: Please avoid to declare constant(s) in the interface.", 
 			};
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputAvoidConstantsInInterfacesCheck.java"), expected);
+		verify(checkConfig, getPath("InputAvoidConstantsInInterfacesCheck.java"), expected);
 	}
 }

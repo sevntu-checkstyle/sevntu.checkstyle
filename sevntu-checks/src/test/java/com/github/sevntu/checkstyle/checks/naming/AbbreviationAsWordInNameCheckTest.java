@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.naming;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -33,8 +31,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 				String.format(message, 32, expectedCapitalCount),
 				String.format(message, 37, expectedCapitalCount) };
 
-		verify(checkConfig, getPath("naming" + File.separator
-				+ "InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 
 	@Test
@@ -55,8 +52,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 				// message <Linenumber> <expected capital count>
 				String.format(message, 32, expectedCapitalCount) };
 
-		verify(checkConfig, getPath("naming" + File.separator
-				+ "InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 
 	@Test
@@ -79,8 +75,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 				String.format(message, 37, expectedCapitalCount),
 			};
 
-		verify(checkConfig, getPath("naming" + File.separator
-				+ "InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 
 	@Test
@@ -107,8 +102,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 				String.format(message, 58, expectedCapitalCount),
 			};
 
-		verify(checkConfig, getPath("naming" + File.separator
-				+ "InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 	
 	@Test
@@ -137,8 +131,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 //				String.format(message, 61, expectedCapitalCount),
 			};
 
-		verify(checkConfig, getPath("naming" + File.separator
-				+ "InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 
 	   @Test
@@ -159,8 +152,8 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
                 String.format(message, 22, expectedCapitalCount),
                 };
 
-	        verify(checkConfig, getPath("naming" + File.separator
-	                + "InputAbbreviationAsWordInTypeNameCheckOverridableMethod.java"), expected);
+	        verify(checkConfig, 
+	        		getPath("InputAbbreviationAsWordInTypeNameCheckOverridableMethod.java"), expected);
 	    }
 	   
 	 

@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -17,6 +15,6 @@ public class ReturnNullInsteadOfBooleanTest extends BaseCheckTestSupport {
 				"11:9: Method declares to return Boolean and returns null.",
 				"22:25: Method declares to return Boolean and returns null."
 		};
-		verify(checkConfig, getPath("coding" + File.separator + "InputReturnNullInsteadOfBoolean.java"), expected);
+		verify(checkConfig, getPath("InputReturnNullInsteadOfBoolean.java"), expected);
 	}
 }

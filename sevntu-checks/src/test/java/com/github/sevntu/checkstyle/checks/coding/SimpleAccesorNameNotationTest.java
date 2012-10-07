@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -21,7 +19,6 @@ public class SimpleAccesorNameNotationTest extends BaseCheckTestSupport {
 				"16: Unexpected getter name.", "25: Unexpected setter name.",
 				"28: Unexpected getter name.", };
 
-		verify(checkConfig, getPath("coding" + File.separator
-				+ "InputSimpleAccesorNameNotation.java"), expected1);
+		verify(checkConfig, getPath("InputSimpleAccesorNameNotation.java"), expected1);
 	}
 }

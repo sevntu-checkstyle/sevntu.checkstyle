@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.design;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -44,8 +42,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheck.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheck.java"), expected);
     }
 
     @Test
@@ -58,8 +55,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheckNested.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckNested.java"), expected);
     }
 
     @Test
@@ -74,8 +70,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
             "15:15: " + getMessage("5"),  // 5.2%
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
     @Test
@@ -91,8 +86,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
             "31:15: " + getMessage("4"),
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
     @Test
@@ -108,8 +102,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
             "42:9: " + getMessage("4"),
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheckDoubleNested.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckDoubleNested.java"), expected);
     }
 
     @Test
@@ -123,8 +116,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
 
@@ -138,8 +130,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputChildBlockLengthCheckCheckNPE.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckCheckNPE.java"), expected);
     }
 
     private static String getMessage(String linesCount)
