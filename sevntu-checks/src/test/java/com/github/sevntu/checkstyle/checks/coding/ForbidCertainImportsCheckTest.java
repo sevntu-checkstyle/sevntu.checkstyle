@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -53,8 +51,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
                     "com.puppycrawl.tools.checkstyle.api.Check"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidsCertainImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
     }
 
     @Test
@@ -66,8 +63,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -79,8 +75,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -92,8 +87,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -101,8 +95,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     {
         String[] expected = {
         };
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     private static String getMessage(String pattern, String importText)

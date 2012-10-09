@@ -21,7 +21,6 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import java.io.File;
 import org.junit.Test;
 
 public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport
@@ -49,9 +48,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
             "97:11: " + createMsg("|="),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"),
-                expected);
+        verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
 
     public String createMsg(String literal)

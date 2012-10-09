@@ -3,7 +3,6 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import java.io.File;
 import org.junit.Test;
 
 public class IllegalCatchCheckTest extends BaseCheckTestSupport
@@ -26,8 +25,7 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "false");
         
-        verify(checkConfig,getPath("coding" + File.separator
-                + "InputIllegalCatchCheckNew.java"),expected);
+        verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
     }
 
     @Test
@@ -46,8 +44,7 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowThrow", "true");
         checkConfig.addAttribute("allowRethrow", "false");
         
-        verify(checkConfig,getPath("coding" + File.separator
-                + "InputIllegalCatchCheckNew.java"),expected);
+        verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
     }
     
     @Test
@@ -68,8 +65,7 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "true");
 
-        verify(checkConfig,getPath("coding" + File.separator
-                + "InputIllegalCatchCheckNew.java"),expected);
+        verify(checkConfig,getPath("InputIllegalCatchCheckNew.java"),expected);
     }
 
 }

@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.design;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -45,8 +43,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
             "3:1: " + getMessage("InputCauseParameterInException"),
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException.java"), expected);
     }
 
     @Test
@@ -61,8 +58,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
             "22:5: " + getMessage("MyException2"),
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException2.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
     }
 
     @Test
@@ -76,8 +72,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
             "22:5: " + getMessage("MyException2"),
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException2.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
     }
 
     @Test
@@ -91,8 +86,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
             "3:1: " + getMessage("InputCauseParameterInException2"),
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException2.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
     }
 
     @Test
@@ -105,8 +99,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException3.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException3.java"), expected);
     }
 
     @Test
@@ -119,8 +112,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException3.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException3.java"), expected);
     }
 
     @Test
@@ -133,8 +125,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("design" + File.separator
-                + "InputCauseParameterInException4.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInException4.java"), expected);
     }
 
     private static String getMessage(String className)

@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -54,8 +52,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
             "19:9: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidModifiersForTypesCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
     }
 
     @Test
@@ -75,8 +72,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
             "10:5: " + getMessage("File", "static"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidModifiersForTypesCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
     }
 
     @Test
@@ -96,8 +92,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
             "13:5: " + getMessage("InputAvoidModifiersForTypesCheck", "transient"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidModifiersForTypesCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
     }
 
     @Test
@@ -117,8 +112,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
             "14:5: " + getMessage("InputAvoidModifiersForTypesCheck", "volatile"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidModifiersForTypesCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
     }
 
     @Test
@@ -141,8 +135,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
             "19:9: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidModifiersForTypesCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
     }
 
     @Test
@@ -161,8 +154,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         String[] expected = {
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidModifiersForTypesCheck2.java"), expected);
+        verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck2.java"), expected);
     }
 
     private static String getMessage(String className, String modifierType)

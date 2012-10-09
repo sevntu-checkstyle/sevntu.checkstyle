@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -45,8 +43,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
             "12:36: " + getMessage("NullPointerException"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidInstantiationCheck.java"), expected);
+        verify(checkConfig, getPath("InputForbidInstantiationCheck.java"), expected);
     }
 
     @Test
@@ -61,8 +58,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
             "15:20: " + getMessage("String"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidInstantiationCheck.java"), expected);
+        verify(checkConfig, getPath("InputForbidInstantiationCheck.java"), expected);
     }
 
     @Test
@@ -75,8 +71,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
             "13:21: " + getMessage("File"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidInstantiationCheckWithoutDots.java"), expected);
+        verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
     }
 
     @Test
@@ -90,8 +85,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
             "15:20: " + getMessage("String"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidInstantiationCheckWithoutDots.java"), expected);
+        verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
     }
 
 
@@ -107,8 +101,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
             "15:20: " + getMessage("String"),
         };
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputForbidInstantiationCheckWithAsterisk.java"), expected);
+        verify(checkConfig, getPath("InputForbidInstantiationCheckWithAsterisk.java"), expected);
     }
 
 

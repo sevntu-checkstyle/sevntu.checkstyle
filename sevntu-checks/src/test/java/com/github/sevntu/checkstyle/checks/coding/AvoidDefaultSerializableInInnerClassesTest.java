@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -51,9 +49,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
             "159: Inner class should not implement default Serializable interface.",
             "170: Inner class should not implement default Serializable interface.",
             "177: Inner class should not implement default Serializable interface.", };
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidDefaultSerializableInInnerClasses1.java"),
-                expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 
     @Test
@@ -66,9 +62,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
         final String[] expected = {
             "10: Inner class should not implement default Serializable interface.", };
 
-        verify(checkConfig, getPath("coding" + File.separator
-            + "InputAvoidDefaultSerializableInInnerClasses2.java"),
-            expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses2.java"), expected);
     }
 
     @Test
@@ -79,9 +73,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidDefaultSerializableInInnerClasses3.java"),
-                expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses3.java"), expected);
     }
 
     @Test
@@ -101,8 +93,6 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
             "134: Inner class should not implement default Serializable interface.",
             "145: Inner class should not implement default Serializable interface.",
             "170: Inner class should not implement default Serializable interface.", };
-        verify(checkConfig, getPath("coding" + File.separator
-                + "InputAvoidDefaultSerializableInInnerClasses1.java"),
-                expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 }

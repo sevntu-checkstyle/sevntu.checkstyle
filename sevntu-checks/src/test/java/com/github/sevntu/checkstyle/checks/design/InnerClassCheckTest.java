@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle.checks.design;
 
-import java.io.File;
-
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -27,8 +25,6 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
 				"69:9: Fields and methods should be before inner classes.",
 				"78:5: Fields and methods should be before inner classes.",
 		};
-		//System.setProperty("testinputs.dir",
-       // "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle");
-		verify(checkConfig, getPath("design" + File.separator + "InputInnerClassCheck.java"), expected);
+		verify(checkConfig, getPath("InputInnerClassCheck.java"), expected);
 	}
 }

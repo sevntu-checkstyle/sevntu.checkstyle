@@ -3,7 +3,6 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import java.io.File;
 import org.junit.Test;
 
 public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
@@ -27,14 +26,7 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
                 "142:13: " + message,
                 "152:13: " + message, };
 
-        //System.setProperty(
-        //        "testinputs.dir",
-               // "/media/data/Work/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
-        // "/home/developer/Daniil Yaroslavtsev/sevntu.checkstyle/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/coding");
-        //verify(checkConfig, getPath("coding" + File.separator + "InputAvoidHidingCauseExceptionCheck.java"), expected);
-        verify(checkConfig,
-                getPath("coding" + File.separator
-                        + "InputAvoidHidingCauseExceptionCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
     }
 
 }
