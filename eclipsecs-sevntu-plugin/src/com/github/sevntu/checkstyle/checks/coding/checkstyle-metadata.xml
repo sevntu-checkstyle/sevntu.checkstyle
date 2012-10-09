@@ -82,6 +82,12 @@
             <message-key key="forbid.instantiation"/>
         </rule-metadata>
                 
+   		<rule-metadata name="%ForbidCCommentsInMethods.name" internal-name="ForbidCCommentsInMethods" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods"/>
+			<description>%ForbidCCommentsInMethods.desc</description>
+		</rule-metadata>
+		
+		
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean"/>
             <description>%ReturnNullInsteadOfBoolean.desc</description>
