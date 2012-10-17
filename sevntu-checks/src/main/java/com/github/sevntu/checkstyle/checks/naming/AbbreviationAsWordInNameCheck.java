@@ -35,6 +35,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * length in it. Options: Allowed Abbreviation Length - allowed abbreviation
  * length(length of capital characters). Allowed Abbreviations - list of
  * abbreviations separated by comma, without spaces.
+ * Option IgnoreFinal allow to skip variables with final declarations, 
+ * option IgnoreStatic allow to skip variables with static declarations,
+ * option IgnoreOverriddenMethod - Allows to ignore methods tagged with 
+ * '@Override' annotation (that usually mean inherited name).
  * </p>
  * @author Roman Ivanov, Daniil Yaroslvtsev
  */
