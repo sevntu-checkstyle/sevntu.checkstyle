@@ -13,9 +13,9 @@ git fetch origin gh-pages:refs/remotes/origin/gh-pages
 git checkout gh-pages
 
 cd ../sevntu-checks/
-mvn deploy -DskipTests
+mvn deploy
 cd ../sevntu-checkstyle-maven-plugin/
-mvn deploy -DskipTests
+mvn deploy
 cd ../gh-pages
 
 #git add .
