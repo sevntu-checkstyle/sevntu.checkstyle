@@ -1,16 +1,16 @@
-h1. Information
+h3. Information
 
 Additional checks for Checkstyle that are compiled as:
 - extension to Eclipse Checkstyle plugin
 - plugin to maven-checkstyle-plugin.
 Travis-CI: "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle
 
-h2. Related Projects
+h3. Related Projects
 
 "Checkstyle":http://checkstyle.sourceforge.net/
 "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/
 
-h2. Contributors
+h3. Contributors
 
 Roman Ivanov, Ivan Sopov, Ruslan Diachenko, Danil Lopatin, Daniil Yaroslavtsev, Yuriy Balahonov, Dmitriy Antonenko, 
 Hidoyatov Victor, Troshin Sergey, Svinukhov Vladimir, Ilia Dubinin, Dmitry Gridyushko
