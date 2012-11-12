@@ -60,3 +60,27 @@ abstract class NonAAAAbstractClassName1 {
 	private static int s2erialNUMBER = 6;
 	private static final int s3erialNUMBER = 6;
 }
+
+interface Interface1 {
+	
+	String VALUEEEE = "value"; // in interface this is final/static
+	
+}
+
+interface Interface2 {
+	
+	static String VALUEEEE = "value"; // in interface this is final/static
+	
+}
+
+interface Interface3 {
+	
+	final String VALUEEEE = "value"; // in interface this is final/static
+	
+}
+
+interface Interface4 {
+	
+	final static String VALUEEEE = "value"; // in interface this is final/static
+	
+}
