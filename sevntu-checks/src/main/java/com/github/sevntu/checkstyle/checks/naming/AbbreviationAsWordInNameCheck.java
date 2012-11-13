@@ -179,16 +179,35 @@ public class AbbreviationAsWordInNameCheck extends Check
     {
         final DetailAST modifiers = aAst.getFirstChild();
 
-        return aAst.getType() == TokenTypes.VARIABLE_DEF
-                && ((mIgnoreFinal && modifiers.branchContains(TokenTypes.FINAL))
-                || (mIgnoreStatic && modifiers
-                        .branchContains(TokenTypes.LITERAL_STATIC)))
-                || (mIgnoreOverriddenMethods && aAst.getType()
-                      == TokenTypes.METHOD_DEF
-                            && hasOverrideAnnotation(modifiers));
+        boolean result = false;
+        if (aAst.getType() == TokenTypes.VARIABLE_DEF) {
+        	if ((mIgnoreFinal || mIgnoreStatic) && isInterfaceDeclaration(aAst)) {
+        		// field declarations in interface are static/final
+        		result = true;
+        	} else {
+        		result = (mIgnoreFinal && modifiers.branchContains(TokenTypes.FINAL))
+                    || (mIgnoreStatic && modifiers.branchContains(TokenTypes.LITERAL_STATIC));
+        	}
+        } else if (aAst.getType() == TokenTypes.METHOD_DEF) {
+        	result = mIgnoreOverriddenMethods && hasOverrideAnnotation(modifiers);
+        }
+        return result;
     }
 
-    /**
+    private boolean isInterfaceDeclaration(DetailAST aAst) {
+    	boolean result = false;
+		DetailAST astBlock = aAst.getParent();
+    	if (astBlock != null) {
+    		DetailAST astParent2 = astBlock.getParent();
+    		if (astParent2 != null
+    				&& astParent2.getType() == TokenTypes.INTERFACE_DEF) {
+    			result = true;
+    		}
+    	}
+		return result;
+	}
+
+	/**
      * Checks that the method has "@Override" annotation.
      * @param aMethodModifiersAST
      *        A DetailAST nod is related to the given method modifiers

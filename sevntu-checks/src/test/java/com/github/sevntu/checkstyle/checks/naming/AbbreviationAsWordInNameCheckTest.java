@@ -18,9 +18,6 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "III");
 		checkConfig.addAttribute("targets", "CLASS_DEF"
-				//",VARIABLE_DEF" +
-				//",METHOD_DEF,ENUM_DEF,ENUM_CONSTANT_DEF" +
-				//",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
 				);
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 
@@ -42,9 +39,6 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "CLASS,FACTORY");
 		checkConfig.addAttribute("targets", "CLASS_DEF"
-				//",VARIABLE_DEF" +
-				//",METHOD_DEF,ENUM_DEF,ENUM_CONSTANT_DEF" +
-				//",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
 				);
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
@@ -63,9 +57,6 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "CLASS");
 		checkConfig.addAttribute("targets", "CLASS_DEF"
-				//",VARIABLE_DEF" +
-				//",METHOD_DEF,ENUM_DEF,ENUM_CONSTANT_DEF" +
-				//",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
 				);
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
@@ -106,7 +97,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	}
 	
 	@Test
-	public void testTypeAndVariablesAndMethodNamesWithIgnores() throws Exception {
+	public void testTypeAndVariablesAndMethodNamesWithNoIgnores() throws Exception {
 
 		final int expectedCapitalCount = 5;
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
@@ -126,35 +117,116 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 				String.format(message, 32, expectedCapitalCount),
 				String.format(message, 37, expectedCapitalCount),
 				String.format(message, 38, expectedCapitalCount),
-//				String.format(message, 59, expectedCapitalCount),
-//				String.format(message, 60, expectedCapitalCount),
-//				String.format(message, 61, expectedCapitalCount),
+				String.format(message, 66, expectedCapitalCount),
+				String.format(message, 72, expectedCapitalCount),
+				String.format(message, 78, expectedCapitalCount),
+				String.format(message, 84, expectedCapitalCount),
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 
-	   @Test
-	    public void testTypeNamesForThreePermitedCapitalLettersWithOverridenMethod() throws Exception {
+	@Test
+	public void testTypeAndVariablesAndMethodNamesWithIgnores() throws Exception {
 
-	        final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
-	        final int expectedCapitalCount = 3;
-	        checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
-	        checkConfig.addAttribute("allowedAbbreviations", "");
-	        checkConfig.addAttribute("targets", "CLASS_DEF, METHOD_DEF"
-	                //",VARIABLE_DEF" +
-	                //",,ENUM_DEF,ENUM_CONSTANT_DEF" +
-	                //",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
-	                );
-	        checkConfig.addAttribute("ignoreOverriddenMethods", "true");
+		final int expectedCapitalCount = 5;
+		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
+		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
+		checkConfig.addAttribute("allowedAbbreviations", "NUMBER,MARAZMATIC,VARIABLE");
+		checkConfig.addAttribute("ignoreStatic", "true");
+		checkConfig.addAttribute("ignoreFinal", "true");
+		checkConfig.addAttribute("targets", "CLASS_DEF" + 
+				",VARIABLE_DEF" +
+				",METHOD_DEF,ENUM_DEF,ENUM_CONSTANT_DEF" +
+				",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
+				);
+		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
+		
+		final String[] expected = {
+				// message <Linenumber> <expected capital count>
+				String.format(message, 32, expectedCapitalCount),
+				String.format(message, 37, expectedCapitalCount),
+				String.format(message, 38, expectedCapitalCount),
+			};
+
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+	}
+
+	@Test
+	public void testTypeAndVariablesAndMethodNamesWithIgnoresFinal() throws Exception {
+
+		final int expectedCapitalCount = 4;
+		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
+		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
+		checkConfig.addAttribute("allowedAbbreviations", "MARAZMATIC,VARIABLE");
+		checkConfig.addAttribute("ignoreStatic", "false");
+		checkConfig.addAttribute("ignoreFinal", "true");
+		checkConfig.addAttribute("targets", "CLASS_DEF" + 
+				",VARIABLE_DEF" +
+				",METHOD_DEF,ENUM_DEF,ENUM_CONSTANT_DEF" +
+				",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
+				);
+		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
+		
+		final String[] expected = {
+				// message <Linenumber> <expected capital count>
+				String.format(message, 12, expectedCapitalCount),
+				String.format(message, 32, expectedCapitalCount),
+				String.format(message, 37, expectedCapitalCount),
+				String.format(message, 38, expectedCapitalCount),
+				String.format(message, 58, expectedCapitalCount), // not in ignore list
+				String.format(message, 60, expectedCapitalCount), // no ignore for static
+			};
+
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+	}
+	
+	@Test
+	public void testTypeAndVariablesAndMethodNamesWithIgnoresStatic() throws Exception {
+
+		final int expectedCapitalCount = 5;
+		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
+		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
+		checkConfig.addAttribute("allowedAbbreviations", "MARAZMATIC,VARIABLE");
+		checkConfig.addAttribute("ignoreStatic", "true");
+		checkConfig.addAttribute("ignoreFinal", "false");
+		checkConfig.addAttribute("targets", "CLASS_DEF" + 
+				",VARIABLE_DEF" +
+				",METHOD_DEF,ENUM_DEF,ENUM_CONSTANT_DEF" +
+				",PARAMETER_DEF,INTERFACE_DEF,ANNOTATION_DEF"
+				);
+		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
+		
+		final String[] expected = {
+				// message <Linenumber> <expected capital count>
+				String.format(message, 32, expectedCapitalCount),
+				String.format(message, 37, expectedCapitalCount),
+				String.format(message, 38, expectedCapitalCount),
+				String.format(message, 58, expectedCapitalCount), // not in ignore list
+				String.format(message, 59, expectedCapitalCount), // no ignore for final
+			};
+
+		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+	}
+
+	@Test
+    public void testTypeNamesForThreePermitedCapitalLettersWithOverridenMethod() throws Exception {
+
+        final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
+        final int expectedCapitalCount = 3;
+        checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
+        checkConfig.addAttribute("allowedAbbreviations", "");
+        checkConfig.addAttribute("targets", "CLASS_DEF, METHOD_DEF"
+                );
+        checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 
         final String[] expected = {
-                String.format(message, 22, expectedCapitalCount),
-                };
+            String.format(message, 22, expectedCapitalCount),
+            };
 
-	        verify(checkConfig, 
-	        		getPath("InputAbbreviationAsWordInTypeNameCheckOverridableMethod.java"), expected);
-	    }
+        verify(checkConfig, 
+        		getPath("InputAbbreviationAsWordInTypeNameCheckOverridableMethod.java"), expected);
+    }
 	   
 	 
 	
