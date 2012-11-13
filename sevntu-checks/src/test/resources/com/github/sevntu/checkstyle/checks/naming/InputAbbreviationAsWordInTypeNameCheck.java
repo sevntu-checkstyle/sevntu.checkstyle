@@ -84,3 +84,4 @@ interface Interface4 {
 	final static String VALUEEEE = "value"; // in interface this is final/static
 	
 }
+
