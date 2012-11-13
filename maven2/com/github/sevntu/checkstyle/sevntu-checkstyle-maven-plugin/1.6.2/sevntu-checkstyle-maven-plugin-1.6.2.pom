@@ -1,0 +1,26 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.sevntu.checkstyle</groupId>
+  <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
+  <name>Sevntu Checkstyle Maven Plugin</name>
+  <version>1.6.2</version>
+  <dependencies>
+    <dependency>
+      <groupId>com.github.sevntu.checkstyle</groupId>
+      <artifactId>sevntu-checks</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.9.1</version>
+    </dependency>
+  </dependencies>
+   <distributionManagement>
+    <repository>
+      <id>com.github.sevntu.checkstyle</id>
+      <name>Sevntu Checkstyle Maven Plugin</name>
+      <url>file://${basedir}/../gh-pages/maven2/</url>
+    </repository>
+  </distributionManagement>
+</project>
