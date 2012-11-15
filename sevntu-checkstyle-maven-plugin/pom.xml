@@ -3,12 +3,12 @@
   <groupId>com.github.sevntu.checkstyle</groupId>
   <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
   <name>Sevntu Checkstyle Maven Plugin</name>
-  <version>1.6.2</version>
+  <version>1.7.0</version>
   <dependencies>
     <dependency>
       <groupId>com.github.sevntu.checkstyle</groupId>
       <artifactId>sevntu-checks</artifactId>
-      <version>1.6.2</version>
+      <version>1.7.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>
