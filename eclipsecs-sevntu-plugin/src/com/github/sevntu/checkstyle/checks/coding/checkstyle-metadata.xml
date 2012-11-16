@@ -140,6 +140,10 @@
             <message-key key="multiple.string.literal" />
         </rule-metadata>
 
+        <rule-metadata name="%NoMainMethodInAbstractClass.name" internal-name="NoMainMethodInAbstractClass" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NoMainMethodInAbstractClass"/>
+            <description>%NoMainMethodInAbstractClass.desc</description>
+    	</rule-metadata>
 
         <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
