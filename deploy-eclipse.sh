@@ -3,7 +3,12 @@
 #clean
 rm -rf gh-pages
 
-#prepare
+#compile and install library sevntu-checks
+cd sevntu-checks
+mvn install
+cd ../
+
+#prepare folders for update-site and our release maven repository
 mkdir gh-pages
 cd ./gh-pages
 
