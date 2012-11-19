@@ -13,5 +13,4 @@ h3. Related Projects
 h3. Contributors
 
 Roman Ivanov, Ivan Sopov, Ruslan Diachenko, Danil Lopatin, Daniil Yaroslavtsev, Yuriy Balahonov, Dmitriy Antonenko, 
-Hidoyatov Victor, Troshin Sergey, Svinukhov Vladimir, Ilia Dubinin, Dmitry Gridyushko
-, Vadym Chekrii
+Hidoyatov Victor, Troshin Sergey, Svinukhov Vladimir, Ilia Dubinin, Dmitry Gridyushko, Vadym Chekrii
