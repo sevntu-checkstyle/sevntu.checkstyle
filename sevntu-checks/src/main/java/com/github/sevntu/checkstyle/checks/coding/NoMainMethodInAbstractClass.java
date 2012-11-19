@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2010  Oliver Burn
+// Copyright (C) 2001-2011  Oliver Burn
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,38 +24,31 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * <p>
- * Checks if an abstract class does not have "main()" method, because it can mislead a developer to consider this class as a ready-to-use implementation
+ * Checks if an abstract class does not have "main()" method, because it can
+ * mislead a developer to consider this class as a ready-to-use implementation.
  * @author Vadym Chekrii
  */
 public class NoMainMethodInAbstractClass extends Check
 {
-	@Override
-	public int[] getDefaultTokens() 
-	{
-		return new int[] {TokenTypes.CLASS_DEF};
-	}
+    @Override
+    public int[] getDefaultTokens()
+    {
+        return new int[] {TokenTypes.METHOD_DEF};
+    }
 
-	@Override
-	public void visitToken(DetailAST aAST) 
-	{
-		DetailAST modifiersBlock = 
-				aAST.findFirstToken(TokenTypes.MODIFIERS);
-		DetailAST abstractMod = 
-				modifiersBlock.findFirstToken(TokenTypes.ABSTRACT);
-		DetailAST objBlock = aAST.findFirstToken(TokenTypes.OBJBLOCK);
-		DetailAST methods = 
-				objBlock.findFirstToken(TokenTypes.METHOD_DEF);
-		while (abstractMod != null && methods != null 
-				&& methods.getType() == TokenTypes.METHOD_DEF) 
-		{
-			String methodName = 
-					methods.findFirstToken(TokenTypes.IDENT)
-						.getText();
-			if (methodName.equals("main")) {
-				log(methods.getLineNo(), "avoid.main.method");
-			}
-			methods = methods.getNextSibling();
-		} 
-	}
+    @Override
+    public void visitToken(DetailAST aAST)
+    {
+        final DetailAST objBlock = aAST.getParent();
+        final DetailAST astClass = objBlock.getParent();
+        final DetailAST modifiersBlock =
+                astClass.findFirstToken(TokenTypes.MODIFIERS);
+        final DetailAST abstractMod =
+                modifiersBlock.findFirstToken(TokenTypes.ABSTRACT);
+        final String methodName =
+                aAST.findFirstToken(TokenTypes.IDENT).getText();
+        if (abstractMod != null && ("main").equals(methodName)) {
+            log(aAST.getLineNo(), "avoid.main.method");
+        }
+    }
 }
