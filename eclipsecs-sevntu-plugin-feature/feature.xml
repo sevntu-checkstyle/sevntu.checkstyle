@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.github.sevntu.checkstyle.checks.feature"
-      label="EclipseCS SevNTU plugin feature"
+      label="Extension for EclipseCS Plugin with additional Checks"
       version="1.7.0">
 
    <description url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
