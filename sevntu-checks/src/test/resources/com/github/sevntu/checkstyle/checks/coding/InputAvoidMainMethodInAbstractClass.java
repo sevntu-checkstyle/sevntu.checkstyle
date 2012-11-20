@@ -1,27 +1,83 @@
 public abstract class InputAvoidMainMethodInAbstractClass {
-    public abstract void doSomething();
-    public abstract void main();
-    public abstract void doSomething2();
-    public abstract String main(String arg);
-    public abstract void doSomething3();
-    abstract class Inner {
-        void main() {}
-    }
-    public String main(String arg, int i) {
-        return "";
-    }
-    class Inner2 {
-        void main() {}
-    }
-}
-
-class NotAbstractWithMain {
     public static void main(String[] args) {}
-    private abstract class Inner {
-        abstract void main();
-    }
+}
+abstract class InputAvoidMainMethodInAbstractClass1 {
+    public static void main(String... args) {}
+}
+abstract class InputAvoidMainMethodInAbstractClass2 {
+    public static String main(String[] args) {return "";}
+}
+abstract class InputAvoidMainMethodInAbstractClass3 {
+    public void main(String... args) {}
+}
+abstract class InputAvoidMainMethodInAbstractClass4 {
+    static void main(String... args) {}
+}
+abstract class InputAvoidMainMethodInAbstractClass5 {
+    static void main(String[] args) {}
+}
+abstract class InputAvoidMainMethodInAbstractClass6 {
+    public void main(String[] args) {}
+}
+abstract class InputAvoidMainMethodInAbstractClass7 {
+    public static String main(String... args) { return null; }
+}
+abstract class InputAvoidMainMethodInAbstractClass8 {
+    public static void main(String[] args) {}
+}
+abstract class InputAvoidMainMethodInAbstractClass9 {
+    public static String main(String[] args) { return null; }
+}
+abstract class InputAvoidMainMethodInAbstractClass10 {
+    public static void main() {}
 }
 
-abstract class AbstractWithMain {
-    abstract void main();
+abstract class Abstract1 {
+    private static abstract class NestedInner {
+        public static void main(String... args) {}
+    }
+    abstract class Inner_Abstract1 {
+        public void main(String[] args) {}
+    }
+}
+abstract class Abstract2 {
+    private static abstract class NestedInner {
+        public static void main(String[] args) {}
+    }
+    abstract class Inner_Abstract1 {
+        public void main(String[] args) {}
+    }
+    void doStuff() {
+        abstract class MethodInner {
+            public void main(String... args) {}
+        }
+    };
+}
+class NotAbstract {
+    private static abstract class NestedInner {
+        public static void main(String... args) {}
+    }
+    abstract class Inner_Abstract1 {
+        public void main(String[] args) {}
+    }
+    public static void main(String[] args) {}
+    void doStuff() {
+        abstract class MethodInner {
+            public void main(String... args) {}
+        }
+        class MethodInner2 {
+            public void main(String... args) {}
+        }
+    }
+}
+abstract class Dumb {
+    public abstract void main(String[] args);
+}
+
+abstract class AbstractWithAnonymous {
+    Dumb d = new Dumb() {
+        public void main(String[] args) {}
+    };
+    public static void main(String[] args) {}
+    
 }

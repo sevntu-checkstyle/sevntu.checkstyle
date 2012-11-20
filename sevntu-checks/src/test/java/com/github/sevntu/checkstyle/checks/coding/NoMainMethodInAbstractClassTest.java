@@ -20,7 +20,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.NoMainMethodInAbstractClass;
+import com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClass;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
 
@@ -39,12 +39,13 @@ public class NoMainMethodInAbstractClassTest extends BaseCheckTestSupport
                 createCheckConfig(NoMainMethodInAbstractClass.class);
 
         final String[] expected = {
-            "3: Avoid to have main() method in an abstract class.",
+            "2: Avoid to have main() method in an abstract class.",
             "5: Avoid to have main() method in an abstract class.",
-            "8: Avoid to have main() method in an abstract class.",
-            "10: Avoid to have main() method in an abstract class.",
-            "21: Avoid to have main() method in an abstract class.",
-            "26: Avoid to have main() method in an abstract class."
+            "26: Avoid to have main() method in an abstract class.",
+            "37: Avoid to have main() method in an abstract class.",
+            "45: Avoid to have main() method in an abstract class.",
+            "58: Avoid to have main() method in an abstract class.",
+            "81: Avoid to have main() method in an abstract class."
         };
         verify(checkConfig, getPath("InputAvoidMainMethodInAbstractClass.java")
                 , expected);
