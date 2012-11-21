@@ -19,7 +19,11 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -69,61 +73,138 @@ public class NoMainMethodInAbstractClass extends Check
             if (!(mAbstractClassesSet.contains(astClass))) {
                 return;
             }
-            final String methodName =
-                    aAST.findFirstToken(TokenTypes.IDENT).getText();
-            if (!(("main").equals(methodName))) {
-                return;
-            }
-            final DetailAST modifiers =
-                    aAST.findFirstToken(TokenTypes.MODIFIERS);
-            final DetailAST typeMod =
-                    aAST.findFirstToken(TokenTypes.TYPE);
-            if (modifiers == null || typeMod == null) {
-                return;
-            }
-            final DetailAST publicMod =
-                    modifiers.findFirstToken(TokenTypes.LITERAL_PUBLIC);
-            final DetailAST staticMod =
-                    modifiers.findFirstToken(TokenTypes.LITERAL_STATIC);
-            final DetailAST voidMod =
-                    typeMod.findFirstToken(TokenTypes.LITERAL_VOID);
-            final DetailAST abstractMod =
-                    modifiers.findFirstToken(TokenTypes.ABSTRACT);
-            if (publicMod == null || staticMod == null
-                    || voidMod == null || abstractMod != null) {
-                return;
-            }
-            final DetailAST params =
-                    aAST.findFirstToken(TokenTypes.PARAMETERS);
-            final DetailAST paramDef =
-                    params.findFirstToken(TokenTypes.PARAMETER_DEF);
-            if (paramDef == null || paramDef.getChildCount() == 0) {
-                return;
-            }
-            final DetailAST paramDefType =
-                    paramDef.findFirstToken(TokenTypes.TYPE);
-            //check if method parameter is String[]
-            final DetailAST paramArray =
-                    paramDefType.findFirstToken(TokenTypes.ARRAY_DECLARATOR);
-            //check if method parameter is String...
-            final DetailAST paramEllipsis =
-                    paramDef.findFirstToken(TokenTypes.ELLIPSIS);
-            if (paramArray != null) {
-                final String paramName =
-                        paramArray.findFirstToken(TokenTypes.IDENT).getText();
-                if ("String".equals(paramName)) {
-                    log(aAST.getLineNo(), "avoid.main.method");
-                }
-            }
-            else if (paramEllipsis != null) {
-                final DetailAST paramType =
-                        paramDef.findFirstToken(TokenTypes.TYPE);
-                final String paramName =
-                        paramType.findFirstToken(TokenTypes.IDENT).getText();
-                if ("String".equals(paramName)) {
-                    log(aAST.getLineNo(), "avoid.main.method");
-                }
+            final Boolean isAppropriate = isAppropriate(aAST);
+            if (isAppropriate) {
+                log(aAST.getLineNo(), "avoid.main.method");
             }
         }
+    }
+    /**
+     * Defines if the given DetailAST is appropriate for logging.
+     * @param aAST DetailAST instance, which is analyzed
+     * @return Boolean
+     */
+    public Boolean isAppropriate(DetailAST aAST)
+    {
+        final String methodName =
+                aAST.findFirstToken(TokenTypes.IDENT).getText();
+        if (!(("main").equals(methodName))) {
+            return false;
+        }
+        final Map<String, DetailAST> modifiers = getModifiers(aAST);
+        if (modifiers.get("public") == null || modifiers.get("static") == null
+                || modifiers.get("abstract") != null)
+        {
+            return false;
+        }
+        final Boolean isVoid = isVoid(aAST);
+        if (!isVoid) {
+            return false;
+        }
+        final List<String> paramsList = getParameters(aAST);
+        if (!paramsList.isEmpty() || paramsList.contains("String[]")
+                || paramsList.contains("String...")) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     *Returns a map of modifiers of given method.
+     * @param aAST DetailAST instance, which is analyzed
+     * @return map of modifiers
+     * @throws IllegalArgumentException
+     */
+    public Map<String, DetailAST> getModifiers(DetailAST aAST)
+            throws IllegalArgumentException
+    {
+        if (aAST.getType() != TokenTypes.METHOD_DEF) {
+            throw new IllegalArgumentException("Parameter passed is not a method");
+        }
+        final Map<String, DetailAST> result = new HashMap<String, DetailAST>();
+        final DetailAST modifiers =
+                aAST.findFirstToken(TokenTypes.MODIFIERS);
+        if (modifiers == null) {
+            return result;
+        }
+        final DetailAST publicMod =
+                modifiers.findFirstToken(TokenTypes.LITERAL_PUBLIC);
+        result.put("public", publicMod);
+        final DetailAST staticMod =
+                modifiers.findFirstToken(TokenTypes.LITERAL_STATIC);
+        result.put("static", staticMod);
+        final DetailAST abstractMod =
+                modifiers.findFirstToken(TokenTypes.ABSTRACT);
+        result.put("abstract", abstractMod);
+        return result;
+    }
+    /**
+     * Defines if the method passed is of void return type.
+     * @param aAST instance of a method
+     * @return Boolean
+     * @throws IllegalArgumentException
+     */
+    public Boolean isVoid(DetailAST aAST) throws IllegalArgumentException
+    {
+        if (aAST.getType() != TokenTypes.METHOD_DEF) {
+            throw new IllegalArgumentException("Parameter passed is not a method");
+        }
+        final DetailAST typeMod =
+                aAST.findFirstToken(TokenTypes.TYPE);
+        if (typeMod == null) {
+            return false;
+        }
+        final DetailAST voidType =
+                typeMod.findFirstToken(TokenTypes.LITERAL_VOID);
+        if (voidType == null) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Defines the parameters of a method.
+     * @param aAST instance of a method
+     * @return list of Strings
+     * @throws IllegalArgumentException
+     */
+    public List<String> getParameters(DetailAST aAST)
+    {
+        List<String> result = new ArrayList<String>();
+        if (aAST.getType() != TokenTypes.METHOD_DEF) {
+            throw new IllegalArgumentException("Parameter passed is not a method");
+        }
+        final DetailAST params =
+                aAST.findFirstToken(TokenTypes.PARAMETERS);
+        if (params.getChildCount(TokenTypes.PARAMETER_DEF) > 1)
+            return result;
+        final DetailAST paramDef =
+                params.findFirstToken(TokenTypes.PARAMETER_DEF);
+        if (paramDef == null || paramDef.getChildCount() == 0) {
+            return result;
+        }
+        final DetailAST paramDefType =
+                paramDef.findFirstToken(TokenTypes.TYPE);
+        //check if method parameter is String[]
+        final DetailAST paramArray =
+                paramDefType.findFirstToken(TokenTypes.ARRAY_DECLARATOR);
+        //check if method parameter is String...
+        final DetailAST paramEllipsis =
+                paramDef.findFirstToken(TokenTypes.ELLIPSIS);
+        if (paramArray != null) {
+            final String paramName =
+                    paramArray.findFirstToken(TokenTypes.IDENT).getText();
+            if ("String".equals(paramName)) {
+                result.add("String[]");
+            }
+        }
+        else if (paramEllipsis != null) {
+            final DetailAST paramType =
+                    paramDef.findFirstToken(TokenTypes.TYPE);
+            final String paramName =
+                    paramType.findFirstToken(TokenTypes.IDENT).getText();
+            if ("String".equals(paramName)) {
+                result.add("String...");
+            }
+        }
+        return result;
     }
 }

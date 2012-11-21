@@ -5,7 +5,7 @@ abstract class InputAvoidMainMethodInAbstractClass1 {
     public static void main(String... args) {}
 }
 abstract class InputAvoidMainMethodInAbstractClass2 {
-    public static String main(String[] args) {return "";}
+    public static String main(String[] args, int i) {return "";}
 }
 abstract class InputAvoidMainMethodInAbstractClass3 {
     public void main(String... args) {}
