@@ -44,6 +44,7 @@ public class NoMainMethodInAbstractClass extends Check
      * it is ignored.
      */
     private Set<DetailAST> mAbstractClassesSet = new HashSet<DetailAST>();
+    
     @Override
     public int[] getDefaultTokens()
     {
@@ -56,8 +57,9 @@ public class NoMainMethodInAbstractClass extends Check
         final int type = aAST.getType();
         if (type == TokenTypes.CLASS_DEF) {
             final DetailAST parentAst = aAST.getParent();
-            if (parentAst == null) { //clear collection if we get outer class
-                mAbstractClassesSet.clear();
+            //clear collection if we get outer class
+            if (parentAst == null) { 
+               mAbstractClassesSet.clear();
             }
             final DetailAST modifiersBlock =
                     aAST.findFirstToken(TokenTypes.MODIFIERS);
@@ -66,14 +68,13 @@ public class NoMainMethodInAbstractClass extends Check
             if (abstractMod != null) {
                 mAbstractClassesSet.add(aAST);
             }
-        }
-        else if (type == TokenTypes.METHOD_DEF) {
+        } else if (type == TokenTypes.METHOD_DEF) {
             final DetailAST objBlock = aAST.getParent();
             final DetailAST astClass = objBlock.getParent();
             if (!(mAbstractClassesSet.contains(astClass))) {
                 return;
             }
-            final Boolean isAppropriate = isAppropriate(aAST);
+            final Boolean isAppropriate = isAppropriateToLog(aAST);
             if (isAppropriate) {
                 log(aAST.getLineNo(), "avoid.main.method");
             }
@@ -84,70 +85,65 @@ public class NoMainMethodInAbstractClass extends Check
      * @param aAST DetailAST instance, which is analyzed
      * @return Boolean
      */
-    public Boolean isAppropriate(DetailAST aAST)
+    Boolean isAppropriateToLog(DetailAST aAST)
     {
         final String methodName =
                 aAST.findFirstToken(TokenTypes.IDENT).getText();
         if (!(("main").equals(methodName))) {
             return false;
         }
-        final Map<String, DetailAST> modifiers = getModifiers(aAST);
-        if (modifiers.get("public") == null || modifiers.get("static") == null
-                || modifiers.get("abstract") != null)
-        {
+        final Boolean modifiers = isModifierAppropriateToLog(aAST);
+        if (!modifiers) {
             return false;
         }
         final Boolean isVoid = isVoid(aAST);
         if (!isVoid) {
             return false;
         }
-        final List<String> paramsList = getParameters(aAST);
-        if (!paramsList.isEmpty() || paramsList.contains("String[]")
-                || paramsList.contains("String...")) {
-            return true;
+        final Boolean params = isParameterAppropriateToLog(aAST);
+        if (!params) {
+            return false;
         }
-        return false;
+        return true;
     }
     /**
      *Returns a map of modifiers of given method.
      * @param aAST DetailAST instance, which is analyzed
      * @return map of modifiers
-     * @throws IllegalArgumentException
      */
-    public Map<String, DetailAST> getModifiers(DetailAST aAST)
-            throws IllegalArgumentException
+    Boolean isModifierAppropriateToLog(DetailAST aAST)
     {
-        if (aAST.getType() != TokenTypes.METHOD_DEF) {
-            throw new IllegalArgumentException("Parameter passed is not a method");
-        }
-        final Map<String, DetailAST> result = new HashMap<String, DetailAST>();
+        final Map<String, DetailAST> modifiersMap =
+                new HashMap<String, DetailAST>();
         final DetailAST modifiers =
                 aAST.findFirstToken(TokenTypes.MODIFIERS);
         if (modifiers == null) {
-            return result;
+            return false;
         }
         final DetailAST publicMod =
                 modifiers.findFirstToken(TokenTypes.LITERAL_PUBLIC);
-        result.put("public", publicMod);
+        modifiersMap.put("public", publicMod);
         final DetailAST staticMod =
                 modifiers.findFirstToken(TokenTypes.LITERAL_STATIC);
-        result.put("static", staticMod);
+        modifiersMap.put("static", staticMod);
         final DetailAST abstractMod =
                 modifiers.findFirstToken(TokenTypes.ABSTRACT);
-        result.put("abstract", abstractMod);
-        return result;
+        modifiersMap.put("abstract", abstractMod);
+        if (modifiersMap.get("public") == null
+                || modifiersMap.get("static") == null
+                || modifiersMap.get("abstract") != null)
+        {
+            return false;
+        }
+        return true;
     }
     /**
      * Defines if the method passed is of void return type.
      * @param aAST instance of a method
      * @return Boolean
-     * @throws IllegalArgumentException
      */
-    public Boolean isVoid(DetailAST aAST) throws IllegalArgumentException
+    Boolean isVoid(DetailAST aAST)
     {
-        if (aAST.getType() != TokenTypes.METHOD_DEF) {
-            throw new IllegalArgumentException("Parameter passed is not a method");
-        }
         final DetailAST typeMod =
                 aAST.findFirstToken(TokenTypes.TYPE);
         if (typeMod == null) {
@@ -164,22 +160,18 @@ public class NoMainMethodInAbstractClass extends Check
      * Defines the parameters of a method.
      * @param aAST instance of a method
      * @return list of Strings
-     * @throws IllegalArgumentException
      */
-    public List<String> getParameters(DetailAST aAST)
+    Boolean isParameterAppropriateToLog(DetailAST aAST)
     {
-        List<String> result = new ArrayList<String>();
-        if (aAST.getType() != TokenTypes.METHOD_DEF) {
-            throw new IllegalArgumentException("Parameter passed is not a method");
-        }
         final DetailAST params =
                 aAST.findFirstToken(TokenTypes.PARAMETERS);
-        if (params.getChildCount(TokenTypes.PARAMETER_DEF) > 1)
-            return result;
+        if (params.getChildCount(TokenTypes.PARAMETER_DEF) > 1) {
+            return false;
+        }
         final DetailAST paramDef =
                 params.findFirstToken(TokenTypes.PARAMETER_DEF);
         if (paramDef == null || paramDef.getChildCount() == 0) {
-            return result;
+            return false;
         }
         final DetailAST paramDefType =
                 paramDef.findFirstToken(TokenTypes.TYPE);
@@ -193,7 +185,7 @@ public class NoMainMethodInAbstractClass extends Check
             final String paramName =
                     paramArray.findFirstToken(TokenTypes.IDENT).getText();
             if ("String".equals(paramName)) {
-                result.add("String[]");
+                return true;
             }
         }
         else if (paramEllipsis != null) {
@@ -202,9 +194,9 @@ public class NoMainMethodInAbstractClass extends Check
             final String paramName =
                     paramType.findFirstToken(TokenTypes.IDENT).getText();
             if ("String".equals(paramName)) {
-                result.add("String...");
+                return true;
             }
         }
-        return result;
+        return false;
     }
 }
