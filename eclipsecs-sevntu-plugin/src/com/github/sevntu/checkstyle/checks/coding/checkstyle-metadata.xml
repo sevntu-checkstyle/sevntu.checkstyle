@@ -5,6 +5,24 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="1600">
 
+        <rule-metadata name="%AvoidConstantAsFirstOperandInCondition.name" internal-name="AvoidConstantAsFirstOperandInConditionCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck"/>
+            <description>%AvoidConstantAsFirstOperandInCondition.desc</description>
+            <property-metadata name="targetConstantTypes" datatype="MultiCheck" 
+                               default-value="LITERAL_NULL, LITERAL_TRUE, LITERAL_FALSE, NUM_INT, NUM_DOUBLE, NUM_LONG, NUM_FLOAT">
+                <description>%AvoidConstantAsFirstOperandInCondition.targetConstantTypes</description>
+                <enumeration>
+                    <property-value-option value="LITERAL_NULL"/>
+                    <property-value-option value="LITERAL_TRUE"/>
+                    <property-value-option value="LITERAL_FALSE"/>
+                    <property-value-option value="NUM_INT"/>
+                    <property-value-option value="NUM_DOUBLE"/>
+                    <property-value-option value="NUM_LONG"/>
+                    <property-value-option value="NUM_FLOAT"/>
+	        </enumeration>	                
+            </property-metadata>
+        </rule-metadata>
+
        	<rule-metadata name="%AvoidDefaultSerializableInInnerClasses.name" internal-name="AvoidDefaultSerializableInInnerClasses" parent="TreeWalker">
 	    <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses"/>
             <description>%AvoidDefaultSerializableInInnerClasses.desc</description>
