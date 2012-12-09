@@ -82,6 +82,10 @@
 			<description>%ForbidCCommentsInMethods.desc</description>
 		</rule-metadata>
 		
+		<rule-metadata name="%ForbidReturnInFinalBlockCheck.name" internal-name="ForbidReturnInFinalBlockCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck"/>
+			<description>%ForbidReturnInFinalBlockCheck.desk</description>
+		</rule-metadata>
 		
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean"/>
