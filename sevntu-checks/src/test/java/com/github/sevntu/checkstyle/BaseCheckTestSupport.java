@@ -81,7 +81,7 @@ public abstract class BaseCheckTestSupport
     protected String getPath(String aFilename)
         throws IOException
     {
-    	return getClass().getResource(aFilename).getPath();
+    	return new File(getClass().getResource(aFilename).getPath()).getCanonicalPath();
 //        final File f = new File(System.getProperty("testinputs.dir"),
 //                                aFilename);
 //        return f.getCanonicalPath();
