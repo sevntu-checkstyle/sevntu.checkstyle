@@ -18,10 +18,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.design;
 
+import static java.text.MessageFormat.format;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
@@ -67,7 +68,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
         String[] expected = {
-            "15:15: " + getMessage("5"),  // 5.2%
+                "15:15: " + getMessage(5, 13), // 5.2%
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
@@ -82,15 +83,15 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
         String[] expected = {
-            "15:15: " + getMessage("4"),
-            "31:15: " + getMessage("4"),
+                "15:15: " + getMessage(4, 13),
+                "31:15: " + getMessage(4, 5),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
     @Test
-    public void testBadChildBlocksThatAreDoubleNested() throws Exception
+    public void testNestedBadChildBlocks() throws Exception
     {
         checkConfig.addAttribute("maxChildBlockPercentage", "70");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
@@ -98,8 +99,8 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
         String[] expected = {
-            "41:7: " + getMessage("6"),
-            "42:9: " + getMessage("4"),
+                "41:7: " + getMessage(6, 7),
+                "42:9: " + getMessage(4, 5),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckDoubleNested.java"), expected);
@@ -133,9 +134,12 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         verify(checkConfig, getPath("InputChildBlockLengthCheckCheckNPE.java"), expected);
     }
 
-    private static String getMessage(String linesCount)
+    private static String getMessage(int allowedLinesCount,
+            int currentLineCount)
     {
-        return "Block length should be lesser or equal to " + linesCount + " lines.";
+
+        return format("Block length is {0} lines, but should be lesser " +
+                "or equal to {1} lines.", currentLineCount, allowedLinesCount);
     }
 
 }
