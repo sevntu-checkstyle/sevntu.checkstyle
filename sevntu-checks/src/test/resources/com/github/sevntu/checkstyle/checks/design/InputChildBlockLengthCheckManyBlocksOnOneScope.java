@@ -36,31 +36,8 @@ public class InputChildBlockLengthCheckManyBlocksOnOneScope {
                   
               }
               
-          }
-                  
+          }                 
           
-//          if (isTrue()) { // 18 lines
-//              number = 2;
-//              
-//              if (isTrue()) { // 6 lines !
-//                  
-//                  
-//                  number = 3;
-//                  
-//                  
-//              }
-//
-//              if (isTrue()) { // 6 lines !
-//                  
-//                  
-//                  number = 3;
-//                  
-//                  
-//              }
-//
-//          }
-
-
         }
 
     }
