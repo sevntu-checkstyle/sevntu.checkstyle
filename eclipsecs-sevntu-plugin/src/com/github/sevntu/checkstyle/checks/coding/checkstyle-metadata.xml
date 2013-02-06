@@ -144,6 +144,13 @@
             <message-key key="multiple.string.literal" />
         </rule-metadata>
 
+	    <rule-metadata name="%NestedTernaryCheck.name" internal-name="NestedTernary" parent="TreeWalker">
+	            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck"/>
+	            <description>%NestedTernaryCheck.desc</description>
+	            <property-metadata name="ignoreFinal" datatype="Boolean" default-value="false">
+                	<description>%NestedTernaryCheck.ignoreFinal</description>
+           		 </property-metadata>
+	    </rule-metadata>
 
         <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
