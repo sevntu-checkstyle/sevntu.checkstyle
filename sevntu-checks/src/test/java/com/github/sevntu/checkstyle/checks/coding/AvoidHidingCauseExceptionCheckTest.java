@@ -9,6 +9,15 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
     final String message = "Cause exception 'e' was lost.";
 
     @Test
+    public final void issue52_test() throws Exception {
+        DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+
+        String[] expected = {};
+
+        verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheck2.java"), expected);
+    }
+    
+    @Test
     public final void test() throws Exception {
         DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
@@ -30,3 +39,4 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
     }
 
 }
+
