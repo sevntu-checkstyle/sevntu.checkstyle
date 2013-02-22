@@ -38,8 +38,28 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
     }
 
+    @Test
+    public final void revereCodeTest() throws Exception
+    {
+
+        String[] expected = {"11:17: "+ createLeadsMsg("init", mCtorKey,"getPart")};
+
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor26.java"), expected);
+    }
+    
+    @Test
+    public final void newFeauture() throws Exception
+    {
+
+        String[] expected = {"14:27: "+ createMsg("overrideMe", mCtorKey),
+                "15:21: "+ createMsg("init", mCtorKey)};
+
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
+    }
+    
     @Test
     public final void testNoWarnings() throws Exception
     {
@@ -206,7 +226,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void test2EqualMethodNamesWithoutWarning2() throws Exception
     {
 
-        String[] expected = {};
+        String[] expected = {"17:32: " + createMsg("doSmth", mReadObjectKey)};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor17.java"), expected);
     }
@@ -283,6 +303,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         verify(checkConfig, getPath("InputOverridableMethodInConstructor25.java"), expected);
     }
 
+    
     public String createMsg(String methodName, String where)
     {
         return "Overridable method '" + methodName + "' is called in " + where
