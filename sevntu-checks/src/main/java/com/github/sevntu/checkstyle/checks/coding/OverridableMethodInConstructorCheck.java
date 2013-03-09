@@ -121,6 +121,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  */
 public class OverridableMethodInConstructorCheck extends Check
 {
@@ -179,6 +180,12 @@ public class OverridableMethodInConstructorCheck extends Check
      * Serializable interface.
      */
     private boolean mCheckReadObjectMethod;
+    
+    /**
+     * A boolean check box that enables the matching methods by number of 
+     * their parameters.
+     */
+    private boolean mMatchMethodsByArgCount;
 
     /**
      * The name of current overridable method is being processed.
@@ -202,6 +209,18 @@ public class OverridableMethodInConstructorCheck extends Check
     public void setCheckCloneMethod(final boolean aValue)
     {
         mCheckCloneMethod = aValue;
+    }
+    
+    /**
+     * Enable|Disable matching methods by arguments count
+     *
+     * @param aValue
+     *            The state of a boolean check box that enables the matching of
+     *            methods by arguments count.
+     */
+    public void setMatchMethodsByArgCount(final boolean aValue)
+    {
+        mMatchMethodsByArgCount = aValue;
     }
 
     /**
@@ -379,6 +398,10 @@ public class OverridableMethodInConstructorCheck extends Check
                 }
             }
         }
+        else
+        {
+            result = false;
+        }
         return result;
     }
 
@@ -458,8 +481,7 @@ public class OverridableMethodInConstructorCheck extends Check
 
     /**
      * Gets the method definition is related to the current METHOD_CALL
-     * DetailAST node.
-     *
+     * DetailAST node. If method definition doesn't find, will returned null.
      * @param aMethodCallAST
      *            A METHOD_CALL DetailAST node is currently being processed.
      * @return the METHOD_DEF DetailAST node is pointing to the method
@@ -475,12 +497,19 @@ public class OverridableMethodInConstructorCheck extends Check
         mCurMethodDefCount = 0;
 
         final String methodName = getMethodName(aMethodCallAST);
-
         if (methodName != null) {
 
             final DetailAST curClassAST = getClassDef(aMethodCallAST);
+            final DetailAST callsChild = aMethodCallAST.getFirstChild();
+            String variableTypeName;
 
-            getMethodDef(curClassAST, methodName);
+            if (callsChild.getType() != TokenTypes.DOT ||
+                    (variableTypeName = getVariableType(aMethodCallAST)) == null
+                    || (isItTypeOfCurrentClass(variableTypeName, curClassAST) ||
+                    "this".equals(variableTypeName)))
+            {
+                getMethodDef(curClassAST, methodName);
+            }
 
             if (mCurMethodDefCount == 0) {
 
@@ -497,8 +526,93 @@ public class OverridableMethodInConstructorCheck extends Check
                 }
             }
             else if (mCurMethodDefCount == 1) {
-                getMethodDef(curClassAST, methodName);
                 result = mCurMethodDef;
+            }
+            else
+            {
+                if(mMatchMethodsByArgCount)
+                {
+                    int sameDefinitionCounter = 0;
+                    int curMethodParamCount = 
+                            getMethodParamsCount(aMethodCallAST);
+                    for(DetailAST currentDefinition :
+                        getMethodDef(curClassAST, methodName))
+                    {
+                        if(getMethodParamsCount(currentDefinition) ==
+                                curMethodParamCount )
+                        {
+                            result = currentDefinition;
+                            sameDefinitionCounter++;
+                        }
+                    }
+                    //you have a lot same method definitions and you can't 
+                    //select one of them and be sure that you are right
+                    if(sameDefinitionCounter > 1)
+                    {
+                        result = null;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return type of the variable, if it is declaration procedure.
+     * @param aMethodCall
+     * @return variables type name
+     */
+    private static String getVariableType(DetailAST aMethodCall)
+    {
+        DetailAST callsChild = aMethodCall.getFirstChild();
+        String typeName = new String();
+        if (callsChild.getType() == TokenTypes.DOT)
+        {
+            DetailAST dotChild = callsChild.getFirstChild();
+            if (dotChild.getType() == TokenTypes.LITERAL_THIS)
+            {
+                typeName = "this";
+            }
+            else if (callsChild.getChildCount(TokenTypes.TYPECAST) > 0)
+            {
+                DetailAST typeCast = callsChild
+                        .findFirstToken(TokenTypes.TYPECAST);
+                DetailAST type = typeCast.getFirstChild().getFirstChild();
+                typeName = type.getText();
+            }
+
+        }
+        return typeName;
+    }
+
+    /**
+     * Return true when usedIbjectName contains current class name or base class
+     * name.
+     * @param usedObjectName
+     * @param aClassDefNode
+     * @return
+     */
+    private static boolean
+            isItTypeOfCurrentClass(String aObjectTypeName, DetailAST aClassDefNode)
+    {
+        DetailAST className = aClassDefNode.findFirstToken(TokenTypes.IDENT);
+        boolean result = false;
+        if (aObjectTypeName.equals(className.getText()))
+        {
+            result = true;
+        }
+        else
+        {
+            DetailAST baseClass = aClassDefNode.findFirstToken(
+                    TokenTypes.EXTENDS_CLAUSE);
+            if (baseClass != null)
+            {
+                baseClass = baseClass.getFirstChild();
+
+                if (aObjectTypeName.equals(baseClass.getText()))
+                {
+                    result = true;
+                }
             }
         }
         return result;
@@ -515,11 +629,13 @@ public class OverridableMethodInConstructorCheck extends Check
      * @param aMethodName
      *            String containing the name of method is currently being
      *            searched.
+     * @return a List of method definition
      */
-    private void getMethodDef(final DetailAST aParentAST,
+    private List<DetailAST> getMethodDef(final DetailAST aParentAST,
             final String aMethodName)
     {
-
+        List<DetailAST> definitionsList = new LinkedList<DetailAST>();
+        
         for (DetailAST curNode : getChildren(aParentAST)) {
 
             if (curNode.getNumberOfChildren() > 0) {
@@ -528,6 +644,7 @@ public class OverridableMethodInConstructorCheck extends Check
                             TokenTypes.IDENT).getText();
                     if (aMethodName.equals(curMethodName)) {
                         mCurMethodDef = curNode;
+                        definitionsList.add(0,curNode);
                         mCurMethodDefCount++;
                     }
                 }
@@ -539,10 +656,11 @@ public class OverridableMethodInConstructorCheck extends Check
                         && type != TokenTypes.IMPLEMENTS_CLAUSE
                         && type != TokenTypes.METHOD_DEF)
                 {
-                    getMethodDef(curNode, aMethodName);
+                    definitionsList = getMethodDef(curNode, aMethodName);
                 }
             }
         }
+        return definitionsList;
     }
 
     /**

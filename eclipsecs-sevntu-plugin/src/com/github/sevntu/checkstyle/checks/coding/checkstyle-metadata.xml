@@ -161,6 +161,9 @@
             <property-metadata name="checkReadObjectMethod" datatype="Boolean" default-value="false">
                 <description>%OverridableMethodInConstructor.checkReadObjectMethod</description>
             </property-metadata>
+            <property-metadata name="matchMethodsByArgCount" datatype="Boolean" default-value="false">
+                <description>%OverridableMethodInConstructor.matchMethodsByArgCount</description>
+            </property-metadata>
             <message-key key="overridable.method" />
             <message-key key="overridable.method.leads" />
         </rule-metadata>
