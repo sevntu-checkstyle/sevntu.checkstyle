@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>sevntu-checkstyle ideas for Google Summer of Code 2013</title>
+	<style type="text/css">
+		body {
+  		margin-top: 1.0em;
+  		background-color: #014870;
+		  font-family: "Helvetica,Arial,FreeSans";
+  		color: #ffffff;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+		h1 { font-size: 3.8em; color: #feb78f; margin-bottom: 3px; }
+		h1 .small { font-size: 0.4em; }
+		h1 a { text-decoration: none }
+		h2 { font-size: 1.5em; color: #feb78f; }
+    h3 { text-align: center; color: #feb78f; }
+    a { color: #feb78f; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+		pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+	</style>
+	
+</head>
+
+<body>
+  
+  <div id="container">
+
+    <h2>List of project ideas for Google Summer of Code 2013</h2>
+      <span class="small">organization is mostly consist of student from <a href="http://sevntu.com.ua/">Sevastopol National Technical University (SevNTU)</a>, Ukraine. But this is just historical fact, we are open for help from any other contributors/students.
+      <br/>
+	Organization mentored by developers from <a href="http://www.reveredata.com">Revere Data LLC</a>, but we are open to any mentors from other organizations who have interest.
+      <br/>
+	Licence of code is GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
+      </span>
+
+    <h2>Administrator</h2>
+		<p> Roman Ivanov: ivanov-jr[*]mail[*]ru
+			<br/>
+		</p>
+
+<h2>Ideas</h2>
+
+  <h3>sevntu.checkstyle</h3>
+
+    <b>Brief explanation:</b>
+    <div class="description">
+      Extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>,
+      Incubator for Checkstyle checks that are not present in main stream of Checkstyle project.
+      If you have a check and need place to be build-in, let us know.
+      <br/>
+      If you want to study Java(with mentoring) and help us develop some Checks let us know, 
+      we are looking for new maintainers and level of Java experience does not matter.
+    </div>
+
+    <b>Issue Tracker entries:</b> 21,12,21,21,21,21
+    <br/>
+    <br/>    
+    <b>Expected results:</b> all issues have to be closed, all code covered with UTs, JavaDoc is created for each class, each Check tested agains huge opensource projects(Spring, Hibernate, Log4j, ...), patches should be created for <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> project.
+    <br/>
+    <br/>
+    <b>Knowledge Prerequisite:</b> basic Java (Java SE), basic knowledge of parsers and syntactic analysis.
+    <br/>
+    <br/>
+    <b>Mentor:</b> Roman Ivanov <romanivanov dash jr at gmail dot com>
+    <br/>
+    <br/>
+    <b>Mailing list: </b>sevntu-checkstyle [at] google groups [dot] com, <a href="http://groups.google.com/group/sevntu-checkstyle?hl=en">Homepage</a>
+    <br/>
+    <br/>
+    <b>IRC:</b> 
+    <br/>
+    <br/>
+
+  <h3>Eclipse-DSM-viewer</h3>
+
+    <b>Brief explanation:</b>
+    <div class="description">
+      Dependency Structure Matrices (DSMs) are very poverful in the analysis of software architecture and design as it allow the developer/architect to easily to see inter-module dependencies than traditional "box and arrows" techniques which become impossible to use for applications that are bigger then 20 classes. DSM already exist in popular IDEs (<a href="http://www.jetbrains.com/idea/features/dependency_analysis.html">Idea</a>, <a href="http://weblogs.asp.net/gunnarpeipman/archive/2009/11/05/visual-studio-2010-visualizing-dependencies.aspx">MS Visual Studio</a>), and as separate application <a href="http://www.lattix.com/files/dl/slides/s.php?directory=4tour">Latix</a>, <a href="http://www.ndepend.com/Doc_Matrix.aspx">NDepend</a>, <a href="http://docs.codehaus.org/display/SONAR/Cycles+-+Dependency+Structure+Matrix">Sonar</a>. Our idea to create native to Eclipse plugin with free license to let all Eclipse developers to encorporate DSM analysis during development but not as "after commit" analysis. In that milestone we will focus on UI presentation, DSM structure will be taken from opensource library <a href="http://web.sysart.fi/dtangler/">dtangler</a>, additionally we wil focus on convenience to use in Eclipse and navigation from matrix to real code. Detailed description of project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
+    </div>
+
+    <b>Issue Tracker entries:</b> 21,12,21,21,21,21
+    <br/>
+    <br/>    
+    <b>Expected results:</b> all issues have to be closed, JavaDoc is created for each class, UI rendering support inner tables features as it done in most others applications, Plugin have to be tested agains huge opensource projects(Spring, Hibernate, Log4j, ...).
+    <br/>
+    <br/>
+    <b>Knowledge Prerequisite:</b> basic Java (Java SE), SWT, Eclipse RCP.
+    <br/>
+    <br/>
+    <b>Mentor:</b> Roman Ivanov <romanivanov dash jr at gmail dot com>
+    <br/>
+    <br/>
+    <b>Mailing list: </b>eclipse-dsm-viewer [at] google groups [dot] com, <a href="http://groups.google.com/group/eclipse-dsm-viewer?hl=en">Homepage</a>
+    <br/>
+    <br/>
+    <b>IRC:</b> 
+    <br/>
+    <br/>
+<!--
+    <h2>Links</h2>    
+    <p>You can also clone the our projects with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/sevntu-checkstyle/sevntu.checkstyle</pre>
+      <pre>$ git clone git://github.com/sevntu-checkstyle/dsm-maven-plugin</pre>
+    </p>
+
+    <div class="footer">
+      All  : <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu-checkstyle/sevntu.checkstyle</a>
+    </div>
+-->
+
+  
+</body>
+</html>
