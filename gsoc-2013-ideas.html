@@ -26,6 +26,7 @@
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
 		pre { background: #000; color: #fff; padding: 15px;}
+    li { margin-left: 40px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
 	</style>
@@ -49,7 +50,7 @@
 			<br/>
 		</p>
 
-<h2>Ideas</h2>
+<h2>Projects</h2>
 
   <h3>sevntu.checkstyle</h3>
 
@@ -131,26 +132,45 @@
   <h3>Eclipse-DSM-viewer</h3>
 
     <b>Brief explanation:</b>
-      One more tool to analyse code on moment of developemnt in Eclipse.
+      One more tool to analyse Java code on moment of developemnt in Eclipse.
       <br/>
       <br/>
-      Dependency Structure Matrices (DSMs) are very poverful approach in the analysis of software architecture and design as it allow the developer/architect to easily to see inter-module dependencies than traditional "box and arrows" techniques which become impossible to use for applications that are bigger then 20 classes. 
+      Dependency Structure Matrices (DSMs) are very poverful approach in the analysis of software architecture and design as it allow the developer/architect to easily to see inter-module dependencies than traditional "<a href="https://kepler-project.org/developers/teams/framework/design-docs/dependency-analysis/root-package-graph.png/image_view_fullscreen">box and arrows</a>" techniques which become impossible to use for applications that are bigger then 20 classes. 
       <br/>
       <br/>
-      Dependency analys is usually under-estimated during development or even more completely ignored. Because it is show its reason 
-      only on stage when you try to devide your project into two, or try to refactor code to exchange part of project with new implementation. The more dependecies your classes the more complicated or painful refactoring will be. Most of dependecies are just unitended remnants after refactoring or developer was too tiered to notice that he used util class from UI package in class from DAO package.
+      Dependency analys is usually under-estimated during development or even completely ignored. Because it shows its reason 
+      only on stage when you try to devide your project into two, or try to refactor code or exchange part of project with new implementation. The more dependecies your class have the more complicated or painful refactoring will be. Most of dependecies are just unitended, remnants after refactoring, incorrect selection during suggestions by Intellisense suggestions (developer was too tiered to notice that he used util class from UI package in class from DAO package). In time, other developers will not dare to change that magic code.
       <br/>
       <br/>
       DSM already exist in popular IDEs (<a href="http://www.jetbrains.com/idea/features/dependency_analysis.html">Idea</a>, <a href="http://weblogs.asp.net/gunnarpeipman/archive/2009/11/05/visual-studio-2010-visualizing-dependencies.aspx">MS Visual Studio</a>), and as separate application <a href="http://www.lattix.com/files/dl/slides/s.php?directory=4tour">Latix</a>, <a href="http://www.ndepend.com/Doc_Matrix.aspx">NDepend</a>, <a href="http://docs.codehaus.org/display/SONAR/Cycles+-+Dependency+Structure+Matrix">Sonar</a>. 
       <br/>
       <br/>
-      Our idea to create native to Eclipse plugin with free license to let all Eclipse developers to encorporate DSM analysis during development but not as "after commit" analysis. In that milestone we will focus on UI presentation, DSM structure will be taken from opensource library <a href="http://web.sysart.fi/dtangler/">dtangler</a>, additionally we wil focus on convenience to use in Eclipse and navigation from matrix to real code. Detailed description of project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
+      Our idea to create native to Eclipse plugin with free license to let all Eclipse developers to encorporate DSM analysis during development but not as "after commit" analysis. In that milestone we will focus on UI presentation, DSM structure will be taken from opensource library <a href="http://web.sysart.fi/dtangler/">dtangler</a>, additionally we will focus on convenience to use in Eclipse and navigation from matrix to real code. Detailed description of project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
     <br/>
     <br/>    
-    <b>Issue Tracker entries:</b> 21,12,21,21,21,21
+    <b>Issue Tracker entries:</b>
+    <br/>     
+        Main task: <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/24'>#24</a>
+    <br/>
+        Satelite tasks:
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/22'>#22</a>,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/23'>#23</a> ,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/25'>#25</a> ,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/26'>#26</a> ,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/27'>#27</a> ,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/28'>#28</a> ,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/29'>#29</a> ,
+        <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/30'>#30</a>
     <br/>
     <br/>    
-    <b>Expected results:</b> all issues have to be closed, JavaDoc is created for each class, UI rendering support inner tables features as it done in most others applications, Plugin have to be tested agains huge opensource projects(Spring, Hibernate, Log4j, ...).
+    <b>Expected results:</b>
+    <lu>
+      <li> integration with Eclipse (popup menus, preferences, rendering in view) </li>
+      <li> exiting or self written UI contoll have to be used to show dependency matrix in a similar was as shown <a href="http://blogs.jetbrains.com/idea/wp-content/img/expandedDependencies3.gif">here</a>. With features to draw under level of dependecies in the same perspective as upper levels. </li>
+      <li> coloring of Matrix to highlight cyrcles, dependency "from" and "to", difference in levels, strength of dependecy to others. </li>
+      <li> navigation from Matrix to Java code editor. </li>
+      <li> Plugin have to be tested agains huge opensource projects(Spring, Hibernate, Log4j, ...) to test its usability and performance. </li>
+    <lu>
     <br/>
     <br/>
     <b>Knowledge Prerequisite:</b> basic Java (Java SE), SWT, Eclipse RCP.
