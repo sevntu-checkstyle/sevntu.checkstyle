@@ -59,7 +59,7 @@
       This project contains number of Checks that help your team to write code in almost the same style to remove understanding-threthold for new developers to examine a code.
       <br/>
       <br/>
-      Our project is extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>, we are in update site of that project in "Uncategorized" group.
+      Our project is extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>, we are in update site of that project in "Uncategorized" group. List of our already implemented Checks is <a href="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">here</a>.
       <br/>
       <br/>
       We are incubator for Checkstyle Checks that are not present in main stream of Checkstyle project, or not yet in that project.
@@ -76,13 +76,13 @@
       <br/>
       We have ideas and we cannot wait till Checkstyle project apply our patches, we allow to use our ideas for Eclipse users right now
       with ease to use only that Checks that they require and they see a reason. 
-      But we also provide extension to maven-chestyle-plugin so you can <a href="https://github.com/sevntu-checkstyle/checkstyle-samples">use our Checks</a> in maven site generation, build validation or ... .
+      But we also provide extension with the same functionality to maven-chestyle-plugin so you can <a href="https://github.com/sevntu-checkstyle/checkstyle-samples">use our Checks</a> in maven site generation, build validation or.
       <br/> 
       <br/>
       We offer diversity of Checks and each company choose what to use to satisfy their code-standard neeeds.
       <br/>
       <br/>
-      This project is the best way to study Java from syntax point view and encorporating best practicing from the begining of developer carier. After writing a Check student will get knowledge about automation for problem detection in code, and he will use that results at all his work places in future, and help all other developers not to write and 'bad' code anymore. Writing a Check require only basic Java knowledge, code of one Check is in average 400 lines so make it easy to finish task for student. 
+      This project is the best way to study Java from syntax point view and encorporating best practicing from the begining of developer carier. After writing a Check student will get knowledge about automation for problem detection in code, and he will use that results at all his work places in future, and help all other developers not to write and 'bad' code anymore. Writing a Check require only basic Java knowledge, code of one Check is in average 400 lines so make it easy to finish task for student.
       <br/>
       <br/>
 
@@ -132,23 +132,22 @@
     <br/>
     <br/>
 
+
   <h3><a href="https://github.com/EclipseDSM/Eclipse-DSM-viewer">Eclipse-DSM-viewer</a></h3>
 
     <b>Brief explanation:</b>
-      One more tool to analyse Java code on moment of developemnt in Eclipse.
       <br/>
-      <br/>
-      Dependency Structure Matrices (DSMs) are very poverful approach in the analysis of software architecture and design as it allow the developer/architect to easily to see inter-module dependencies than traditional "<a href="https://kepler-project.org/developers/teams/framework/design-docs/dependency-analysis/root-package-graph.png/image_view_fullscreen">box and arrows</a>" techniques which become impossible to use for applications that are bigger then 20 classes. 
+      Dependency Structure Matrices (DSMs) are very poverful approach in the analysis of software architecture and design as it allows the developer or architect to see inter-module dependencies than traditional "<a href="https://kepler-project.org/developers/teams/framework/design-docs/dependency-analysis/root-package-graph.png/image_view_fullscreen">box and arrows</a>" techniques which become to difficult to use for applications that are bigger then 20 classes. 
       <br/>
       <br/>
       Dependency analys is usually under-estimated during development or even completely ignored. Because it shows its reason 
-      only on stage when you try to devide your project into two, or try to refactor code or exchange part of project with new implementation. The more dependecies your class have the more complicated or painful refactoring will be. Most of dependecies are just unitended, remnants after refactoring, incorrect selection during suggestions by Intellisense suggestions (developer was too tiered to notice that he used util class from UI package in class from DAO package). In time, other developers will not dare to change that magic code.
+      only on stage when you try to devide your project/class into two, or try to refactor code or exchange part of project/class with new implementation. The more dependecies your class have the more complicated or painful refactoring will be. Most of dependecies are just unintended, remnants after refactoring, incorrect selection during suggestions by Intellisense suggestions (developer was too tiered to notice that he used util class from UI package in class from DAO package). In time, other developers will not dare to change that magic code.
       <br/>
       <br/>
       DSM already exist in popular IDEs (<a href="http://www.jetbrains.com/idea/features/dependency_analysis.html">Idea</a>, <a href="http://weblogs.asp.net/gunnarpeipman/archive/2009/11/05/visual-studio-2010-visualizing-dependencies.aspx">MS Visual Studio</a>), and as separate application <a href="http://www.lattix.com/files/dl/slides/s.php?directory=4tour">Latix</a>, <a href="http://www.ndepend.com/Doc_Matrix.aspx">NDepend</a>, <a href="http://docs.codehaus.org/display/SONAR/Cycles+-+Dependency+Structure+Matrix">Sonar</a>. 
       <br/>
       <br/>
-      Our idea to create native to Eclipse plugin with free license to let all Eclipse developers to encorporate DSM analysis during development but not as "after commit" analysis. In that milestone we will focus on UI presentation, DSM structure will be taken from opensource library <a href="http://web.sysart.fi/dtangler/">dtangler</a>, additionally we will focus on convenience to use in Eclipse and navigation from matrix to real code. Detailed description of project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
+      Our idea to create native to Eclipse plugin with free license to let all Eclipse developers to encorporate DSM analysis during development but not as "after commit" analysis. In that milestone we will focus on UI presentation, DSM structure will be taken from opensource library <a href="http://web.sysart.fi/dtangler/">dtangler</a>, additionally we will focus on convenience to use in Eclipse and navigation from matrix to real code. Usage of dtangler library was already succesfuly tested in our <a href="https://github.com/sevntu-checkstyle/dsm-maven-plugin">dsm-maven-plugin</a>. Detailed description of Eclipse-dsm-viewer project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
     <br/>
     <br/>    
     <b>Issue Tracker entries:</b>
