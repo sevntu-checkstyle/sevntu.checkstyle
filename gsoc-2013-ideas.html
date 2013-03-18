@@ -38,11 +38,11 @@
   <div id="container">
 
     <h2>List of project ideas for Google Summer of Code 2013</h2>
-      <span class="small">organization is mostly consist of student from <a href="http://sevntu.com.ua/">Sevastopol National Technical University (SevNTU)</a>, Ukraine. But this is just historical fact, we are open for help from any other contributors/students.
+      <span class="small">Our organization is mostly presented by students from <a href="http://sevntu.com.ua/">Sevastopol National Technical University (SevNTU)</a>, Ukraine. But this is just historical fact, we are open for help from any other contributors/students.
       <br/>
-	Organization mentored by developers from <a href="http://www.reveredata.com">Revere Data LLC</a>, but we are open to any mentors from other organizations who have interest.
+	Organization is supervised by developers from <a href="http://www.reveredata.com">Revere Data LLC</a>, however, we are open to any mentors from other organizations who have interest.
       <br/>
-	Licence of code is GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
+	License of code is GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
       </span>
 
     <h2>Administrator</h2>
@@ -55,34 +55,29 @@
   <h3><a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a></h3>
 
     <b>Brief explanation:</b>
-      Main idea of <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> is to automate and ease code-review process and following code-standard, and force minors to be fixed just as developer save a file. As we confinsed that changing a code is easie during writing but not after commit/push.
-      This project contains number of Checks that help your team to write code in almost the same style to remove understanding-threthold for new developers to examine a code.
+      Main idea of <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> project is to automate and to ease code-review process; to assist developers in complying with the company's Code-standard, and allow them to fix and eliminate any minor problem upon just saving the file. 
+We are strongly convinced that it is much more easier and convenient to catch minor traps in code during writing than after committing/pushing. This project contains a number of Checks that can help program engineers to write code in a uniform style, which makes it easier for the whole team of programmers to review the code, also significantly improves the low threshold of understanding for new developers.
       <br/>
       <br/>
-      Our project is extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>, we are in update site of that project in "Uncategorized" group. List of our already implemented Checks is <a href="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">here</a>.
+      Our project is extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>. You can install our project from Eclipse update site of  EclipseCS plugin in "Uncategorized" group. List of our already implemented Checks is <a href="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">here</a>.
       <br/>
       <br/>
-      We are incubator for Checkstyle Checks that are not present in main stream of Checkstyle project, or not yet in that project.
-      Unfortunately generating an idea of new code-rule is not trivial task, and not all in community will share same ideas, idea have 
-      to be prooven and tested throughly on a wide range of projects in opensource community to come up in main project and is used by most developers. Each idea of code standard is controversial and it is partly religion question, so we do not expect to be welcome in all developer groups.
+      Our team is a sort of a test area for many of the Checkstyle Checks; some of them are presented in main stream of Checkstyle project and some have not yet shown up in there. Unfortunately, generating an idea of a new code-rule is not a trivial task. An idea has to be proven and tested throughly on a wide range of projects in open-source community before it can finally get into the main project and become of use for most of the developers.
       <br/>
       <br/>
-      We grab ideas from our experiense, from books, blogs, forums, from other static code analysis application and just automate them,
-      to avoid describing best practices and code-standard points for developers over and over on code-review.  
+      Our team collects ideas for the project from our experience, books, blogs and forums. We automate these ideas, integrate them into our Checkstyle plugin. We improve Eclipse “to drop hints” to new developers about error-prone practices, thus, speeding up the process of their self-education.  
       <br/>
       <br/>
       We do contribute all our Checks to Checkstyle project as <a href="http://sourceforge.net/p/checkstyle/patches/">patches</a>, and will always do.
       <br/>
       <br/>
-      We have ideas and we cannot wait till Checkstyle project apply our patches, we allow to use our ideas for Eclipse users right now
-      with ease to use only that Checks that they require and they see a reason. 
-      But we also provide extension with the same functionality to maven-chestyle-plugin so you can <a href="https://github.com/sevntu-checkstyle/checkstyle-samples">use our Checks</a> in maven site generation, build validation or.
+      We have ideas and we cannot wait till Checkstyle project apply our patches. Eclipse plugin allow users to take advantage of our ideas right now and give them freedom to choose those Checks they need and consider reasonable. But we also provide  <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/tree/master/sevntu-checkstyle-maven-plugin">extension</a> to maven-chestyle-plugin, so anyone can <a href="https://github.com/sevntu-checkstyle/checkstyle-samples">use our Checks</a> in maven site generation or build validation. 
       <br/> 
       <br/>
-      We offer diversity of Checks and each company choose what to use to satisfy their code-standard neeeds.
+      We offer diversity of Checks and each company chooses what to use to satisfy their code-standard needs.
       <br/>
       <br/>
-      This project is the best way to study Java from syntax point view and encorporating best practicing from the begining of developer carier. After writing a Check student will get knowledge about automation for problem detection in code, and he will use that results at all his work places in future, and help all other developers not to write and 'bad' code anymore. Writing a Check require only basic Java knowledge, code of one Check is in average 400 lines so make it easy to finish task for student.
+      This project is the best way to study Java from the syntax point of view. It helps students to acquire best practice approaches right from the beginning of their developer's career, instead of going through long and tiring trial and error method. After completing writing a Check, student will get knowledge about how to automate the process of error-detection in code, and he will use that results in all his future work places, and help all other developers avoid writing a 'bad' code. Writing a Check requires only basic Java knowledge. Code of one Check is in average of 400 lines, so it makes it easier for a student to complete task on time. 
       <br/>
       <br/>
 
@@ -113,10 +108,10 @@
         <a href='https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/32'>#32</a>
     <br/>
     <br/>    
-    <b>Expected results:</b> all issues have to be closed, all code covered with UTs, JavaDoc is created for each class, each Check tested agains huge opensource projects(Spring, Hibernate, Log4j, ...), patches should be created for <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> project.
+    <b>Expected results:</b> l issues have to be closed; all code is to be covered with UTs; JavaDoc has to be created for each class; each Check should be tested against huge open-source projects (Spring, Hibernate, Log4j, …); patches should be created for Checkstyle project.
     <br/>
     <br/>
-    <b>Knowledge Prerequisite:</b> basic Java (Java SE), basic knowledge of parsers and syntactic analysis.
+    <b>Knowledge Prerequisite:</b> basic Java (Java SE) skills, basic knowledge of parsers and syntactic analysis.
     <br/>
     <br/>
     <b>Mentor:</b> Roman Ivanov <romanivanov dash jr at gmail dot com>
@@ -137,24 +132,23 @@
 
     <b>Brief explanation:</b>
       <br/>
-      Dependency Structure Matrices (DSMs) are very poverful approach in the analysis of software architecture and design as it allows the developer or architect to see inter-module dependencies than traditional "<a href="https://kepler-project.org/developers/teams/framework/design-docs/dependency-analysis/root-package-graph.png/image_view_fullscreen">box and arrows</a>" techniques which become to difficult to use for applications that are bigger then 20 classes. 
+      Dependency Structure Matrix (DSM) is a very powerful approach in the analysis of the software architecture and design. It allows a developer or an architect to see inter-module dependencies in a more convenient way than the traditional graph ("<a href="https://kepler-project.org/developers/teams/framework/design-docs/dependency-analysis/root-package-graph.png/image_view_fullscreen">box and arrows</a>") technique allow. Graph representation is too difficult to be used for applications that are bigger than 20 classes.
       <br/>
       <br/>
-      Dependency analys is usually under-estimated during development or even completely ignored. Because it shows its reason 
-      only on stage when you try to devide your project/class into two, or try to refactor code or exchange part of project/class with new implementation. The more dependecies your class have the more complicated or painful refactoring will be. Most of dependecies are just unintended, remnants after refactoring, incorrect selection during suggestions by Intellisense suggestions (developer was too tiered to notice that he used util class from UI package in class from DAO package). In time, other developers will not dare to change that magic code.
+      Dependency analysis is usually under-estimated during development or even completely ignored. It proves its effectiveness only on the stage when one try to divide project/class into several parts, or try to refactor code, or exchange part of project/class with new implementation, or try to UT code. The more dependencies a class has, the more complicated and painful the refactoring can be. Most of the unwanted dependencies are unintentional. They represent remnants after refactoring or incorrect selection during Intellisense suggestions (developer was too tired to notice that his DAO package started to use classes from UI package).
       <br/>
       <br/>
       DSM already exist in popular IDEs (<a href="http://www.jetbrains.com/idea/features/dependency_analysis.html">Idea</a>, <a href="http://weblogs.asp.net/gunnarpeipman/archive/2009/11/05/visual-studio-2010-visualizing-dependencies.aspx">MS Visual Studio</a>), and as separate application <a href="http://www.lattix.com/files/dl/slides/s.php?directory=4tour">Latix</a>, <a href="http://www.ndepend.com/Doc_Matrix.aspx">NDepend</a>, <a href="http://docs.codehaus.org/display/SONAR/Cycles+-+Dependency+Structure+Matrix">Sonar</a>. 
       <br/>
       <br/>
-      Our idea to create native to Eclipse plugin with free license to let all Eclipse developers to encorporate DSM analysis during development but not as "after commit" analysis. In that milestone we will focus on UI presentation, DSM structure will be taken from opensource library <a href="http://web.sysart.fi/dtangler/">dtangler</a>, additionally we will focus on convenience to use in Eclipse and navigation from matrix to real code. Usage of dtangler library was already succesfuly tested in our <a href="https://github.com/sevntu-checkstyle/dsm-maven-plugin">dsm-maven-plugin</a>. Detailed description of Eclipse-dsm-viewer project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
+      Our idea is to create native to Eclipse plugin with free license to let all Eclipse developers to integrate DSM analysis during code writing process instead of analyzing the code after task completion. In that milestone we will focus on UI presentation. DSM structure will be taken from open-source <a href="http://web.sysart.fi/dtangler/">dtangler</a> library. Additionally, we will focus on improving convenience of DSM usage in Eclipse and simplifying navigation from matrix to real code. Usage of dtangler library was already successfully tested in our <a href="https://github.com/sevntu-checkstyle/dsm-maven-plugin">dsm-maven-plugin</a>. Detailed description of Eclipse-dsm-viewer project could be found <a href="http://eclipsedsm.github.com/Eclipse-DSM-viewer/">here</a>.
     <br/>
     <br/>    
     <b>Issue Tracker entries:</b>
     <br/>     
         Main task: <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/24'>#24</a>
     <br/>
-        Satelite tasks:
+        Satellite tasks:
         <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/22'>#22</a>,
         <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/23'>#23</a> ,
         <a href='https://github.com/EclipseDSM/Eclipse-DSM-viewer/issues/25'>#25</a> ,
@@ -167,15 +161,15 @@
     <br/>    
     <b>Expected results:</b>
     <lu>
-      <li> integration with Eclipse (popup menus, preferences, rendering in view) </li>
-      <li> exiting or self written UI contoll have to be used to show dependency matrix in a similar was as shown <a href="http://blogs.jetbrains.com/idea/wp-content/img/expandedDependencies3.gif">here</a>. With features to draw under level of dependecies in the same perspective as upper levels. </li>
-      <li> coloring of Matrix to highlight cyrcles, dependency "from" and "to", difference in levels, strength of dependecy to others. </li>
-      <li> navigation from Matrix to Java code editor. </li>
-      <li> Plugin have to be tested agains huge opensource projects(Spring, Hibernate, Log4j, ...) to test its usability and performance. </li>
+      <li> Integration with Eclipse (pop-up menus, preferences, rendering as Eclipse View) </li>
+      <li> Existing or self-written UI control has to be used to show dependency matrix in a similar way as it is shown <a href="http://blogs.jetbrains.com/idea/wp-content/img/expandedDependencies3.gif">here</a>. (Levels of dependencies should be drawn in the flat manner, highlighting circles in matrix, tracing "from" and "to" dependency, showing difference in levels and strength of dependency between modules).
+          </li>
+      <li> Provide navigation from Matrix to Java code editor. </li>
+      <li> Plugin has to be tested on huge open-source projects (Spring, Hibernate, Log4j, ...) to examine its usability and performance. </li>
     <lu>
     <br/>
     <br/>
-    <b>Knowledge Prerequisite:</b> basic Java (Java SE), SWT, Eclipse RCP.
+    <b>Knowledge Prerequisite:</b> basic Java (Java SE) skills, SWT, Eclipse RCP.
     <br/>
     <br/>
     <b>Mentor:</b> Roman Ivanov <romanivanov dash jr at gmail dot com>
