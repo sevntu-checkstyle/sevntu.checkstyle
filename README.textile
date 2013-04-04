@@ -1,8 +1,9 @@
 h3. Information
 
 Additional(non-standard) checks for Checkstyle that are compiled as:
-- extension to Eclipse Checkstyle plugin
+- extension to Eclipse Checkstyle plugin;
 - plugin to maven-checkstyle-plugin.
+
 Travis-CI: "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle
 
 h3. Related Projects
