@@ -1,7 +1,8 @@
 h3. Information
 
 Additional(non-standard) checks for Checkstyle that are compiled as:
-- extension to "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/ (how to use: install from EclipseCS "update site":https://dl.dropbox.com/s/pk2y0kplcwbfbz7/4.JPG?dl=1);
+- extension to "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/ how to use: install from EclipseCS "update site": 
+!https://dl.dropbox.com/s/pk2y0kplcwbfbz7/4.JPG?dl=1!
 - extension to "maven-checkstyle-plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/ (how to use: "in general":http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-developed-checkstyle.html, "maven example":https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/maven-project, "ant example":https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/ant-project).
 
 Travis-CI: "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle
