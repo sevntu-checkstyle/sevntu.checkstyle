@@ -18,6 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,42 +30,35 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
 
 /**
- * Checks that method/ctor "return" literal count is not greater than the given
- * value ("maxReturnCount" property).<br>
+ * Checks that method/ctor "return" literal count is not greater than the given value ("maxReturnCount" property).<br>
  * <br>
  * Rationale:<br>
  * <br>
- * One return per method is a good practice as its ease understanding of method
- * logic. <br>
+ * One return per method is a good practice as its ease understanding of method logic. <br>
  * <br>
  * Reasoning is that:
  * <dl>
- * <li>It is easier to understand control flow when you know exactly where the
- * method returns.
- * <li>Methods with 2-3 or many "return" statements are much more difficult to
- * understand, debug and refactor.
+ * <li>It is easier to understand control flow when you know exactly where the method returns.
+ * <li>Methods with 2-3 or many "return" statements are much more difficult to understand, debug and refactor.
  * </dl>
  * Setting up the check options will make it to ignore:
  * <ol>
- * <li>Methods by name ("ignoreMethodsNames" property). Note, that the
- * "ignoreMethodsNames" property type is NOT regexp: using this property you can
- * list the names of ignored methods separated by comma.</li>
+ * <li>Methods by name ("ignoreMethodsNames" property). Note, that the "ignoreMethodsNames" property type is a RegExp:
+ * using this property you can list the names of ignored methods separated by comma (but you can also use '|' to
+ * separate different method names in usual for RegExp style).</li>
  * <li>Methods which linelength less than given value ("linesLimit" property).
- * <li>"return" statements which depth is greater or equal to the given value
- * ("returnDepthLimit" property). There are few supported <br>
- * coding blocks when depth counting: "if-else", "for", "while"/"do-while" and
- * "switch".
- * <li>"Empty" return statements = return statements in void methods and ctors
- * that have not any expression ("ignoreEmptyReturns" property).
- * <li>Return statements, which are located in the top lines of method/ctor (you
- * can specify the count of top method/ctor lines that will be ignored using
- * "rowsToIgnoreCount" property).
+ * <li>"return" statements which depth is greater or equal to the given value ("returnDepthLimit" property). There are
+ * few supported <br>
+ * coding blocks when depth counting: "if-else", "for", "while"/"do-while" and "switch".
+ * <li>"Empty" return statements = return statements in void methods and ctors that have not any expression
+ * ("ignoreEmptyReturns" property).
+ * <li>Return statements, which are located in the top lines of method/ctor (you can specify the count of top
+ * method/ctor lines that will be ignored using "rowsToIgnoreCount" property).
  * </ol>
- * So, this is much improved version of the existing {@link ReturnCountCheck}.
+ * So, this is much improved version of the existing {@link ReturnCountCheck}. <br>
  * <br>
- * <br>
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * 
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
 public class ReturnCountExtendedCheck extends Check
 {
@@ -107,8 +101,8 @@ public class ReturnCountExtendedCheck extends Check
     private static final int DEFAULT_TOP_LINES_TO_IGNORE_COUNT = 5;
 
     /**
-     * List contains the names of methods which would be ignored by check.
-     */
+	 * List contains RegExp patterns for methods' names which would be ignored by check.
+	 */
     private Set<String> mIgnoreMethodsNames = new HashSet<String>();
 
     /**
@@ -140,10 +134,11 @@ public class ReturnCountExtendedCheck extends Check
     private int mTopLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
     /**
-     * Sets the names of methods which would be ignored by check.
-     * @param aIgnoreMethodNames
-     *        list of the names of methods which would be ignored by check
-     */
+	 * Sets the RegExp patterns for methods' names which would be ignored by check.
+	 * 
+	 * @param aIgnoreMethodNames
+	 *            list of the RegExp patterns for methods' names which should be ignored by check
+	 */
     public void setIgnoreMethodsNames(String [] aIgnoreMethodNames)
     {
         mIgnoreMethodsNames.clear();
@@ -231,9 +226,9 @@ public class ReturnCountExtendedCheck extends Check
     {
         final DetailAST openingBrace = aMethodDefNode
                 .findFirstToken(TokenTypes.SLIST);
-
-        if (openingBrace != null
-                && !mIgnoreMethodsNames.contains(getMethodName(aMethodDefNode)))
+        String methodName = getMethodName(aMethodDefNode);
+        if (openingBrace != null && (methodName == null 
+                || !matches(methodName, mIgnoreMethodsNames)))
         {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
@@ -258,7 +253,7 @@ public class ReturnCountExtendedCheck extends Check
                             .findFirstToken(TokenTypes.IDENT);
 
                     log(methodNameToken, mKey,
-                            getMethodName(aMethodDefNode), mCurReturnCount,
+                            methodName, mCurReturnCount,
                             mMaxReturnCount);
                 }
             }
@@ -423,6 +418,28 @@ public class ReturnCountExtendedCheck extends Check
         while (curNode != null) {
             result.add(curNode);
             curNode = curNode.getNextSibling();
+        }
+        return result;
+    }
+    
+    /**
+	 * Matches string to given list of RegExp patterns.
+	 * 
+	 * @param string
+	 *            String to be matched.
+	 * @param patterns
+	 *            Collection of RegExp patterns to match with.
+	 * @return true if given string could be fully matched by one of given patterns, false otherwise
+	 */
+	private static boolean matches(String string, Collection<String> patterns) {
+        boolean result = false;
+        if (string != null && patterns != null && patterns.size() > 0) {
+            for (String pattern : patterns) {
+                if (string.matches(pattern)) {
+                    result = true;
+                    break;
+                }
+            }
         }
         return result;
     }
