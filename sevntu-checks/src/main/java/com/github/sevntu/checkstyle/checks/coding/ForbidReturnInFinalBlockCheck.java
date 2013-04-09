@@ -36,7 +36,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class ForbidReturnInFinalBlockCheck extends Check
 {
 
-    public final int[] getDefaultTokens()
+	@Override
+	public final int[] getDefaultTokens()
     {
         return new int[] { TokenTypes.LITERAL_FINALLY };
     }

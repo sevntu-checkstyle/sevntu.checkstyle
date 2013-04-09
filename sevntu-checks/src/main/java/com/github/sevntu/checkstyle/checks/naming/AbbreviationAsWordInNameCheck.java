@@ -194,7 +194,7 @@ public class AbbreviationAsWordInNameCheck extends Check
         return result;
     }
 
-    private boolean isInterfaceDeclaration(DetailAST aAst) {
+	private static boolean isInterfaceDeclaration(DetailAST aAst) {
     	boolean result = false;
 		DetailAST astBlock = aAst.getParent();
     	if (astBlock != null) {
