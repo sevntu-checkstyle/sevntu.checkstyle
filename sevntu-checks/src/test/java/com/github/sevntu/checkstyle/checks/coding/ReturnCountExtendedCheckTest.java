@@ -21,7 +21,6 @@ package com.github.sevntu.checkstyle.checks.coding;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
@@ -177,4 +176,20 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
                 + is + " (max allowed is " + max + ").";
     }
 
+	@Test
+	public void testRegexIgnoreMethodsNamesProperty() throws Exception
+	{
+		checkConfig.addAttribute("maxReturnCount", "1");
+		checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // swithed off
+		checkConfig.addAttribute("minIgnoreReturnDepth", "5");
+		checkConfig.addAttribute("ignoreEmptyReturns", "false");
+		checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+		checkConfig.addAttribute("ignoreMethodsNames", "(?iu)(?:TwO|Four)(?-iu)ReturnsInMethod");
+
+		String[] expected = {
+				"37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
+		};
+
+		verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
+	}
 }
