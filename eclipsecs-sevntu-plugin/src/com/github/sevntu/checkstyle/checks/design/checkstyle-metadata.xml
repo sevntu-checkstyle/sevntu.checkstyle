@@ -3,70 +3,121 @@
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
-    <rule-group-metadata name="SevNTU checks" priority="1600">
+	<rule-group-metadata name="SevNTU checks" priority="1600">
 
-        <rule-metadata name="%VariableDeclarationUsageDistance.name" internal-name="VariableDeclarationUsageDistance" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
-            <description>%VariableDeclarationUsageDistance.desc</description>
-            <property-metadata name="allowedDistance" datatype="Integer" default-value="3">
-                <description>%VariableDeclarationUsageDistance.allowedDistance</description>
-            </property-metadata>
-            <property-metadata name="ignoreVariablePattern" datatype="Regex" default-value="">
-                <description>%VariableDeclarationUsageDistance.ignoreVariablePattern</description>
-            </property-metadata>
-            <property-metadata name="validateBetweenScopes" datatype="Boolean" default-value="false">
-                <description>%VariableDeclarationUsageDistance.validateBetweenScopes</description>
-            </property-metadata>
-            <property-metadata name="ignoreFinal" datatype="Boolean" default-value="true">
-                <description>%VariableDeclarationUsageDistance.ignoreFinal</description>
-            </property-metadata>
-        </rule-metadata>
-        
-        <rule-metadata name="%CauseParameterInException.name" internal-name=" CauseParameterInException" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
-            <description>%CauseParameterInException.desc</description>
-            <property-metadata name="classNamesRegexp" datatype="Regex" default-value=".+Exception">
-                <description>%CauseParameterInException.classNamesRegexp</description>
-            </property-metadata>
-            <property-metadata name="ignoredClassNamesRegexp" datatype="Regex" default-value="">
-                <description>%CauseParameterInException.ignoredClassNamesRegexp</description>
-            </property-metadata>
-            <property-metadata name="allowedCauseTypes" datatype="String" default-value="Throwable, Exception">
-                <description>%CauseParameterInException.allowedCauseTypes</description>
-            </property-metadata>    
-        </rule-metadata>        
-        
-                <rule-metadata name="%ChildBlockLength.name" internal-name="ChildBlockLength" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck"/>
-            <description>%ChildBlockLength.desc</description>
-		    <property-metadata name="blockTypes" datatype="MultiCheck" default-value="LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH">
-	                <description>%ChildBlockLength.allowedBlockTypes</description>
-	                <enumeration>
-	                    <property-value-option value="LITERAL_IF"/>
-	                    <property-value-option value="LITERAL_ELSE"/>
-	                    <property-value-option value="LITERAL_WHILE"/>
-	                    <property-value-option value="LITERAL_DO"/>
-	                    <property-value-option value="LITERAL_FOR"/>
-	                    <property-value-option value="LITERAL_SWITCH"/>
-	                    <property-value-option value="LITERAL_TRY"/>
-	                    <property-value-option value="LITERAL_CATCH"/>
-	                </enumeration>
-		    </property-metadata>
-		    <property-metadata name="maxChildBlockPercentage" datatype="Integer" default-value="90">
-	                <description>%ChildBlockLength.maxPercentage</description>
-		    </property-metadata>
-		    <property-metadata name="ignoreBlockLinesCount" datatype="Integer" default-value="50">
-	                <description>%ChildBlockLength.ignoreBlockLinesCount</description>
-		    </property-metadata>
-		    <message-key key="child.block.length" />   
-        </rule-metadata>
+		<rule-metadata name="%VariableDeclarationUsageDistance.name"
+			internal-name="VariableDeclarationUsageDistance" parent="TreeWalker">
+			<alternative-name
+				internal-name="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck" />
+			<description>%VariableDeclarationUsageDistance.desc</description>
+			<property-metadata name="allowedDistance" datatype="Integer"
+				default-value="3">
+				<description>%VariableDeclarationUsageDistance.allowedDistance</description>
+			</property-metadata>
+			<property-metadata name="ignoreVariablePattern"
+				datatype="Regex" default-value="">
+				<description>%VariableDeclarationUsageDistance.ignoreVariablePattern</description>
+			</property-metadata>
+			<property-metadata name="validateBetweenScopes"
+				datatype="Boolean" default-value="false">
+				<description>%VariableDeclarationUsageDistance.validateBetweenScopes</description>
+			</property-metadata>
+			<property-metadata name="ignoreFinal" datatype="Boolean"
+				default-value="true">
+				<description>%VariableDeclarationUsageDistance.ignoreFinal</description>
+			</property-metadata>
+		</rule-metadata>
 
-	<rule-metadata name="%NoMainMethodInAbstractClass.name"
-            internal-name="NoMainMethodInAbstractClass" parent="TreeWalker">
+		<rule-metadata name="%CauseParameterInException.name"
+			internal-name=" CauseParameterInException" parent="TreeWalker">
+			<alternative-name
+				internal-name="com.puppycrawl.tools.checkstyle.checks.design.CauseParameterInExceptionCheck" />
+			<description>%CauseParameterInException.desc</description>
+			<property-metadata name="classNamesRegexp"
+				datatype="Regex" default-value=".+Exception">
+				<description>%CauseParameterInException.classNamesRegexp</description>
+			</property-metadata>
+			<property-metadata name="ignoredClassNamesRegexp"
+				datatype="Regex" default-value="">
+				<description>%CauseParameterInException.ignoredClassNamesRegexp</description>
+			</property-metadata>
+			<property-metadata name="allowedCauseTypes"
+				datatype="String" default-value="Throwable, Exception">
+				<description>%CauseParameterInException.allowedCauseTypes</description>
+			</property-metadata>
+		</rule-metadata>
+
+		<rule-metadata name="%ChildBlockLength.name"
+			internal-name="ChildBlockLength" parent="TreeWalker">
+			<alternative-name
+				internal-name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck" />
+			<description>%ChildBlockLength.desc</description>
+			<property-metadata name="blockTypes" datatype="MultiCheck"
+				default-value="LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH">
+				<description>%ChildBlockLength.allowedBlockTypes</description>
+				<enumeration>
+					<property-value-option value="LITERAL_IF" />
+					<property-value-option value="LITERAL_ELSE" />
+					<property-value-option value="LITERAL_WHILE" />
+					<property-value-option value="LITERAL_DO" />
+					<property-value-option value="LITERAL_FOR" />
+					<property-value-option value="LITERAL_SWITCH" />
+					<property-value-option value="LITERAL_TRY" />
+					<property-value-option value="LITERAL_CATCH" />
+				</enumeration>
+			</property-metadata>
+			<property-metadata name="maxChildBlockPercentage"
+				datatype="Integer" default-value="90">
+				<description>%ChildBlockLength.maxPercentage</description>
+			</property-metadata>
+			<property-metadata name="ignoreBlockLinesCount"
+				datatype="Integer" default-value="50">
+				<description>%ChildBlockLength.ignoreBlockLinesCount</description>
+			</property-metadata>
+			<message-key key="child.block.length" />
+		</rule-metadata>
+
+		<rule-metadata name="%NoMainMethodInAbstractClass.name"
+			internal-name="NoMainMethodInAbstractClass" parent="TreeWalker">
+			<alternative-name
+				internal-name="com.puppycrawl.tools.checkstyle.checks.coding.NoMainMethodInAbstractClass" />
+			<description>%NoMainMethodInAbstractClass.desc</description>
+		</rule-metadata>
+		
+		<rule-metadata name="%ForbidWildcardAsReturnType.name"
+            internal-name=" ForbidWildcardAsReturnType" parent="TreeWalker">
             <alternative-name
-                internal-name="com.puppycrawl.tools.checkstyle.checks.coding.NoMainMethodInAbstractClass" />
-            <description>%NoMainMethodInAbstractClass.desc</description>
+                internal-name="com.puppycrawl.tools.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck" />
+            <description>%ForbidWildcardAsReturnType.desc</description>
+            <property-metadata name="checkPublicMethods"
+                datatype="Boolean" default-value="true">
+                <description>%ForbidWildcardAsReturnType.checkPublicMethods</description>
+            </property-metadata>
+            <property-metadata name="checkPackageMethods"
+                datatype="Boolean" default-value="true">
+                <description>%ForbidWildcardAsReturnType.checkPackageMethods</description>
+            </property-metadata>
+            <property-metadata name="checkProtectedMethods"
+                datatype="Boolean" default-value="true">
+                <description>%ForbidWildcardAsReturnType.checkProtectedMethods</description>
+            </property-metadata>
+            <property-metadata name="checkPrivateMethods"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.checkPrivateMethods</description>
+            </property-metadata>
+            <property-metadata name="allowReturnWildcardWithExtends"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.allowWildcardWithExtends</description>
+            </property-metadata>
+            <property-metadata name="allowReturnWildcardWithSuper"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.allowWildcardWithSuper</description>
+            </property-metadata>
+            <property-metadata name="classNamesIgnoreList"
+                datatype="Regex" default-value="^(Comparator|Comparable)$">
+                <description>%ForbidWildcardAsReturnType.ignoreListForClassNames</description>
+            </property-metadata>
         </rule-metadata>
 
-    </rule-group-metadata>
+	</rule-group-metadata>
 </checkstyle-metadata>
