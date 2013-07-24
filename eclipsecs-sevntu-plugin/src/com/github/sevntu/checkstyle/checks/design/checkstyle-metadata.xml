@@ -61,5 +61,12 @@
 		    <message-key key="child.block.length" />   
         </rule-metadata>
 
+	<rule-metadata name="%NoMainMethodInAbstractClass.name"
+            internal-name="NoMainMethodInAbstractClass" parent="TreeWalker">
+            <alternative-name
+                internal-name="com.puppycrawl.tools.checkstyle.checks.coding.NoMainMethodInAbstractClass" />
+            <description>%NoMainMethodInAbstractClass.desc</description>
+        </rule-metadata>
+
     </rule-group-metadata>
 </checkstyle-metadata>
