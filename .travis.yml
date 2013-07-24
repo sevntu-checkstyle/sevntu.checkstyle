@@ -1,5 +1,6 @@
 language: java
 jdk:
+  - openjdk6
   - openjdk7
   - oraclejdk7
 before_script: cd sevntu-checks
