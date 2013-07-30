@@ -1,6 +1,10 @@
 package com.github.sevntu.checkstyle.checks.design;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
+
+import antlr.collections.AST;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -43,19 +47,19 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      */
     private static final DetailAST[] EMPTY_DETAILAST_ARRAY = new DetailAST[0];
     /**
-     * Check public methods option.
+     * Check methods with 'public' modifier.
      */
     private boolean mCheckPublicMethods = true;
     /**
-     * Check protected methods option.
+     * Check methods with 'protected' modifier.
      */
     private boolean mCheckProtectedMethods = true;
     /**
-     * Check package methods option.
+     * Check methods with 'package' modifier.
      */
     private boolean mCheckPackageMethods = true;
     /**
-     * Check private methods option.
+     * Check methods with 'private' modifier.
      */
     private boolean mCheckPrivateMethods;
     /**
@@ -118,32 +122,35 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     @Override
     public void visitToken(DetailAST aAST)
     {
+        final Set<String> methodModifiers = getModifiers(aAST);
+        final String methodScope = getVisibilityScope(methodModifiers);
         if ((mCheckPublicMethods
-                && hasModifier(aAST, TokenTypes.LITERAL_PUBLIC))
+                && "public".equals(methodScope))
                 || (mCheckPrivateMethods
-                        && hasModifier(aAST, TokenTypes.LITERAL_PRIVATE))
+                        && "private".equals(methodScope))
                 || (mCheckProtectedMethods
-                        && hasModifier(aAST, TokenTypes.LITERAL_PROTECTED))
+                        && "protected".equals(methodScope))
                 || (mCheckPackageMethods
-                        && isPackageMethod(aAST)))
+                        && "package".equals(methodScope)))
         {
-            if (hasWildcardInMethodReturnType(aAST)) {
-                final boolean containsExtends =
-                        hasBoundedWildcardInReturnType(aAST,
+            if (hasWildcardAsMethodReturnType(aAST)) {
+                final boolean hasExtendsWildcardAsReturnType =
+                        hasBoundedWildcardAsReturnType(aAST,
                                 WILDCARD_EXTENDS_IDENT);
-                final boolean containsSuper =
-                        hasBoundedWildcardInReturnType(aAST,
+                final boolean hasSuperWildcardAsReturnType =
+                        hasBoundedWildcardAsReturnType(aAST,
                                 WILDCARD_SUPER_IDENT);
                 if ((mAllowReturnWildcardWithExtends
                         && mAllowReturnWildcardWithSuper
-                        && (containsExtends || containsSuper))
+                        && (hasExtendsWildcardAsReturnType
+                                || hasSuperWildcardAsReturnType))
                     || (mAllowReturnWildcardWithExtends
-                        && containsExtends
-                        && !containsSuper)
+                        && hasExtendsWildcardAsReturnType
+                        && !hasSuperWildcardAsReturnType)
                     || (mAllowReturnWildcardWithSuper
-                        && containsSuper
-                        && !containsExtends)
-                    || matchesIgroneClassNames(aAST, mClassNamesIgnoreList))
+                        && hasSuperWildcardAsReturnType
+                        && !hasExtendsWildcardAsReturnType)
+                    || matchesIgnoreClassNames(aAST, mClassNamesIgnoreList))
                 {
                     return;
                 }
@@ -153,13 +160,13 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     }
 
     /**
-     * Verify that method return wildcard type.
+     * Verify that method returns the wildcard type.
      * @param aMethodDefAST
      *        DetailAST of method definition.
      * @return true if method return wildcard type, false otherwise.
      */
     private static boolean
-    hasWildcardInMethodReturnType(DetailAST aMethodDefAST)
+    hasWildcardAsMethodReturnType(DetailAST aMethodDefAST)
     {
         boolean result = false;
         final DetailAST methodTypeAST =
@@ -183,7 +190,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      */
     private static DetailAST[] getGenericTypeArguments(DetailAST aTypeAST)
     {
-        DetailAST[] result = null;
+        DetailAST[] result = EMPTY_DETAILAST_ARRAY;
         if (hasChildToken(aTypeAST, TokenTypes.TYPE_ARGUMENTS)) {
             final DetailAST typeArguments = aTypeAST
                     .findFirstToken(TokenTypes.TYPE_ARGUMENTS);
@@ -201,28 +208,6 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
                 firstTypeArgument = firstTypeArgument.getNextSibling();
             }
         }
-        else {
-            result = EMPTY_DETAILAST_ARRAY;
-        }
-        return result;
-    }
-
-    /**
-     * Check that given method is protected-package.
-     * @param aMethodDefAST
-     *        DetailAST of method definition.
-     * @return true if method is public.
-     */
-    private static boolean isPackageMethod(DetailAST aMethodDefAST)
-    {
-        boolean result = false;
-        if (hasChildToken(aMethodDefAST, TokenTypes.MODIFIERS)) {
-            final DetailAST modifiers =
-                    aMethodDefAST.findFirstToken(TokenTypes.MODIFIERS);
-            result = !hasChildToken(modifiers, TokenTypes.LITERAL_PRIVATE)
-                    && !hasChildToken(modifiers, TokenTypes.LITERAL_PROTECTED)
-                    && !hasChildToken(modifiers, TokenTypes.LITERAL_PUBLIC);
-        }
         return result;
     }
 
@@ -232,7 +217,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @param aBoundedWildcardType type of bounded wildcard.
      * @return true if method has bounded wildcard of defined type.
      */
-    private static boolean hasBoundedWildcardInReturnType(
+    private static boolean hasBoundedWildcardAsReturnType(
             DetailAST aMethodDefAST, int aBoundedWildcardType)
     {
         boolean result = false;
@@ -240,8 +225,8 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
                 .findFirstToken(TokenTypes.TYPE);
         final DetailAST[] typeArguments =
                 getGenericTypeArguments(methodTypeAST);
-        for (DetailAST current: typeArguments) {
-            if (hasChildToken(current, aBoundedWildcardType)) {
+        for (DetailAST typeArgumentAST: typeArguments) {
+            if (hasChildToken(typeArgumentAST, aBoundedWildcardType)) {
                 result = true;
                 break;
             }
@@ -257,7 +242,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      *      false otherwise.
      */
     private static boolean
-    matchesIgroneClassNames(DetailAST aMethodDefAST, String aTypeNamePattern)
+    matchesIgnoreClassNames(DetailAST aMethodDefAST, String aTypeNamePattern)
     {
         final DetailAST methodTypeAST =
                 aMethodDefAST.findFirstToken(TokenTypes.TYPE);
@@ -266,10 +251,10 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     }
 
     /**
-     * Get identifier of AST.
+     * Get identifier of aAST.
      * @param aAST
      *        DetailAST instance
-     * @return identifier of AST, null if AST does not have identifier.
+     * @return identifier of aAST, null if AST does not have identifier.
      */
     private static String getIdentifier(final DetailAST aAST)
     {
@@ -281,7 +266,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     }
 
     /**
-     * Return true if aAST has token of aTokenType type.
+     * Verify that aAST has token of aTokenType type.
      * @param aAST
      *        DetailAST instance.
      * @param aTokenType
@@ -294,26 +279,36 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     }
 
     /**
-     * Checks that method is related to the current METHOD_DEF DetailAST node
-     * has a specified modifier (private, final etc).
-     *
-     * @param aMethodDefAST
-     *            A METHOD_DEF DetailAST node is currently being
-     *            processed.
-     * @param aModifierType
-     *            desired modifier type.
-     * @return true if method is related to current aMethodDefAST METHOD_DEF
-     *         node has modifier aModifierType.
+     * Returns the set of modifier Strings for a METHOD_DEF AST.
+     * @param aMethodDefAST AST for a method definition
+     * @return the set of modifier Strings for aMethodDefAST
      */
-    private static boolean hasModifier(final DetailAST aMethodDefAST,
-        int aModifierType)
+    private static Set<String> getModifiers(DetailAST aMethodDefAST)
     {
-        boolean result = false;
-        if (hasChildToken(aMethodDefAST, TokenTypes.MODIFIERS)) {
-            final DetailAST modifiers =
-                    aMethodDefAST.findFirstToken(TokenTypes.MODIFIERS);
-            result = hasChildToken(modifiers, aModifierType);
+        final AST modifiersAST = aMethodDefAST.getFirstChild();
+        final Set<String> modifiersSet = new HashSet<String>();
+        AST modifierAST = modifiersAST.getFirstChild();
+        while (modifierAST != null) {
+            modifiersSet.add(modifierAST.getText());
+            modifierAST = modifierAST.getNextSibling();
         }
-        return result;
+        return modifiersSet;
+
+    }
+
+    /**
+     * Returns the visibility scope specified with a set of modifiers.
+     * @param aModifiers the set of modifier Strings
+     * @return one of "public", "private", "protected", "package"
+     */
+    private static String getVisibilityScope(Set<String> aModifiers)
+    {
+        final String[] explicitModifiers = {"public", "private", "protected"};
+        for (final String candidate : explicitModifiers) {
+            if (aModifiers.contains(candidate)) {
+                return candidate;
+            }
+        }
+        return "package";
     }
 }
