@@ -1,6 +1,8 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -133,12 +135,14 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
                 || (mCheckPackageMethods
                         && "package".equals(methodScope)))
         {
-            if (hasWildcardAsMethodReturnType(aAST)) {
+            final List<DetailAST> wildcardTypeArguments =
+                    getWildcardArgumentsAsMethodReturnType(aAST);
+            if (!wildcardTypeArguments.isEmpty()) {
                 final boolean hasExtendsWildcardAsReturnType =
-                        hasBoundedWildcardAsReturnType(aAST,
+                        hasBoundedWildcardAsReturnType(wildcardTypeArguments,
                                 WILDCARD_EXTENDS_IDENT);
                 final boolean hasSuperWildcardAsReturnType =
-                        hasBoundedWildcardAsReturnType(aAST,
+                        hasBoundedWildcardAsReturnType(wildcardTypeArguments,
                                 WILDCARD_SUPER_IDENT);
                 if ((mAllowReturnWildcardWithExtends
                         && mAllowReturnWildcardWithSuper
@@ -160,21 +164,39 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     }
 
     /**
-     * Verify that method returns the wildcard type.
+     * Receive list of arguments(AST nodes) which have wildcard.
      * @param aMethodDefAST
      *        DetailAST of method definition.
-     * @return true if method return wildcard type, false otherwise.
+     * @return list of arguments which have wildcard.
      */
-    private static boolean
-    hasWildcardAsMethodReturnType(DetailAST aMethodDefAST)
+    private static List<DetailAST>
+    getWildcardArgumentsAsMethodReturnType(DetailAST aMethodDefAST)
     {
-        boolean result = false;
+        final List<DetailAST> result = new LinkedList<DetailAST>();
         final DetailAST methodTypeAST =
                 aMethodDefAST.findFirstToken(TokenTypes.TYPE);
         final DetailAST[] methodTypeArgumentTokens =
                 getGenericTypeArguments(methodTypeAST);
-        for (DetailAST argument: methodTypeArgumentTokens) {
-            if (hasChildToken(argument, TokenTypes.WILDCARD_TYPE)) {
+        for (DetailAST typeArgumentAST: methodTypeArgumentTokens) {
+            if (hasChildToken(typeArgumentAST, TokenTypes.WILDCARD_TYPE)) {
+                result.add(typeArgumentAST);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Verify that method has bounded wildcard in type arguments list.
+     * @param aTypeArgumentsList list of type arguments.
+     * @param aBoundedWildcardType type of bounded wildcard.
+     * @return true if aTypeArgumentsList contains bounded wildcard.
+     */
+    private static boolean hasBoundedWildcardAsReturnType(
+            final List<DetailAST> aTypeArgumentsList, int aBoundedWildcardType)
+    {
+        boolean result = false;
+        for (DetailAST typeArgumentAST: aTypeArgumentsList) {
+            if (hasChildToken(typeArgumentAST, aBoundedWildcardType)) {
                 result = true;
                 break;
             }
@@ -206,29 +228,6 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
                     counter++;
                 }
                 firstTypeArgument = firstTypeArgument.getNextSibling();
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Verify that method has bounded wildcard in return type.
-     * @param aMethodDefAST DetailAST of method definition.
-     * @param aBoundedWildcardType type of bounded wildcard.
-     * @return true if method has bounded wildcard of defined type.
-     */
-    private static boolean hasBoundedWildcardAsReturnType(
-            DetailAST aMethodDefAST, int aBoundedWildcardType)
-    {
-        boolean result = false;
-        final DetailAST methodTypeAST = aMethodDefAST
-                .findFirstToken(TokenTypes.TYPE);
-        final DetailAST[] typeArguments =
-                getGenericTypeArguments(methodTypeAST);
-        for (DetailAST typeArgumentAST: typeArguments) {
-            if (hasChildToken(typeArgumentAST, aBoundedWildcardType)) {
-                result = true;
-                break;
             }
         }
         return result;
