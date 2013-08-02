@@ -3,7 +3,6 @@ package com.github.sevntu.checkstyle.checks.naming;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
@@ -227,7 +226,50 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, 
         		getPath("InputAbbreviationAsWordInTypeNameCheckOverridableMethod.java"), expected);
     }
-	   
-	 
-	
+
+	@Test
+	public void testTypeNamesForZeroPermitedCapitalLetter() throws Exception {
+	    final DefaultConfiguration checkConfig =
+	            createCheckConfig(AbbreviationAsWordInNameCheck.class);
+	    final int expectedCapitalCount = 0;
+	    checkConfig.addAttribute("allowedAbbreviationLength",
+	            String.valueOf(expectedCapitalCount));
+	    checkConfig.addAttribute("allowedAbbreviations", "");
+	    checkConfig.addAttribute("ignoreStatic", "false");
+	    checkConfig.addAttribute("ignoreFinal", "false");
+	    checkConfig.addAttribute("ignoreOverriddenMethods", "false");
+	    checkConfig.addAttribute("targets", "CLASS_DEF,INTERFACE_DEF,ENUM_DEF,"
+	            + "ANNOTATION_DEF,ANNOTATION_FIELD_DEF,ENUM_CONSTANT_DEF,"
+	            + "PARAMETER_DEF,VARIABLE_DEF,METHOD_DEF"
+	    );
+	    final String[] expected = {
+	            String.format(message, 3, expectedCapitalCount),
+	            String.format(message, 6, expectedCapitalCount),
+	            String.format(message, 9, expectedCapitalCount),
+	            String.format(message, 12, expectedCapitalCount),
+	            String.format(message, 32, expectedCapitalCount),
+	            String.format(message, 37, expectedCapitalCount),
+	            String.format(message, 38, expectedCapitalCount),
+	            String.format(message, 39, expectedCapitalCount),
+	            String.format(message, 40, expectedCapitalCount),
+	            String.format(message, 46, expectedCapitalCount),
+	            String.format(message, 47, expectedCapitalCount),
+	            String.format(message, 48, expectedCapitalCount),
+	            String.format(message, 49, expectedCapitalCount),
+	            String.format(message, 57, expectedCapitalCount),
+	            String.format(message, 58, expectedCapitalCount),
+	            String.format(message, 59, expectedCapitalCount),
+	            String.format(message, 60, expectedCapitalCount),
+	            String.format(message, 61, expectedCapitalCount),
+	            String.format(message, 66, expectedCapitalCount),
+	            String.format(message, 72, expectedCapitalCount),
+	            String.format(message, 78, expectedCapitalCount),
+	            String.format(message, 84, expectedCapitalCount),
+	            String.format(message, 88, expectedCapitalCount),
+	            String.format(message, 90, expectedCapitalCount),
+                String.format(message, 98, expectedCapitalCount),
+	    };
+	    verify(checkConfig, 
+	            getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
+	}
 }

@@ -85,3 +85,21 @@ interface Interface4 {
 	
 }
 
+public class FIleNameFormatException extends Exception {
+
+    private static final long serialVersionUID = 1L;
+
+    public FIleNameFormatException(Exception e) {
+        super(e);
+    }
+}
+
+class StateX {
+    int userID;
+    int scaleX, scaleY, scaleZ;
+    
+    int getScaleX() {
+        return this.scaleX;
+    }
+}
+
