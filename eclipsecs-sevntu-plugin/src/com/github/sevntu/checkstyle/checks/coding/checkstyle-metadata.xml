@@ -170,6 +170,18 @@
            		 </property-metadata>
 	    </rule-metadata>
 
+        <rule-metadata name="%NoNullForCollectionReturnCheck.name" internal-name="NoNullForCollectionReturnCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck"/>
+            <description>%NoNullForCollectionReturnCheck.desc</description>   
+            <property-metadata name="collectionList" datatype="String" default-value="AbstractCollection AbstractList AbstractQueue AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque ArrayList AttributeList BeanContextServicesSupport BeanContextSupport ConcurrentLinkedDeque ConcurrentLinkedQueue ConcurrentSkipListSet CopyOnWriteArrayList CopyOnWriteArraySet DelayQueue EnumSet HashSet JobStateReasons LinkedBlockingDeque LinkedBlockingQueue LinkedHashSet LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue RoleList RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set">
+                <description>%NoNullForCollectionReturnCheck.collectionList</description>
+            </property-metadata>
+            <property-metadata name="searchThroughMethodBody" datatype="Boolean" default-value="false">
+                <description>%NoNullForCollectionReturnCheck.searchThroughMethodBody</description>
+            </property-metadata>
+            <message-key key="no.null.for.collections"/>
+        </rule-metadata>       
+
         <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
             <description>%OverridableMethodInConstructor.desc</description>
