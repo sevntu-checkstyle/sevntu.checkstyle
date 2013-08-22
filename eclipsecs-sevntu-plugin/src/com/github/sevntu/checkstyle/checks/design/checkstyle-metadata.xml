@@ -67,6 +67,49 @@
                 internal-name="com.puppycrawl.tools.checkstyle.checks.coding.NoMainMethodInAbstractClass" />
             <description>%NoMainMethodInAbstractClass.desc</description>
         </rule-metadata>
+        
+        <rule-metadata name="%ForbidWildcardAsReturnType.name"
+            internal-name=" ForbidWildcardAsReturnType" parent="TreeWalker">
+            <alternative-name
+                internal-name="com.puppycrawl.tools.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck" />
+            <description>%ForbidWildcardAsReturnType.desc</description>
+            <property-metadata name="checkPublicMethods"
+                datatype="Boolean" default-value="true">
+                <description>%ForbidWildcardAsReturnType.checkPublicMethods</description>
+            </property-metadata>
+            <property-metadata name="checkPackageMethods"
+                datatype="Boolean" default-value="true">
+                <description>%ForbidWildcardAsReturnType.checkPackageMethods</description>
+            </property-metadata>
+            <property-metadata name="checkProtectedMethods"
+                datatype="Boolean" default-value="true">
+                <description>%ForbidWildcardAsReturnType.checkProtectedMethods</description>
+            </property-metadata>
+            <property-metadata name="checkPrivateMethods"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.checkPrivateMethods</description>
+            </property-metadata>
+            <property-metadata name="checkOverrideMethods"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.checkOverrideMethods</description>
+            </property-metadata>
+            <property-metadata name="checkDeprecatedMethods"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.checkDeprecatedMethods</description>
+            </property-metadata>
+            <property-metadata name="allowReturnWildcardWithExtends"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.allowWildcardWithExtends</description>
+            </property-metadata>
+            <property-metadata name="allowReturnWildcardWithSuper"
+                datatype="Boolean" default-value="false">
+                <description>%ForbidWildcardAsReturnType.allowWildcardWithSuper</description>
+            </property-metadata>
+            <property-metadata name="returnTypeClassNamesIgnoreRegex"
+                datatype="Regex" default-value="^(Comparator|Comparable)$">
+                <description>%ForbidWildcardAsReturnType.returnTypeClassNamesIgnoreRegex</description>
+            </property-metadata>
+        </rule-metadata>
 
     </rule-group-metadata>
 </checkstyle-metadata>
