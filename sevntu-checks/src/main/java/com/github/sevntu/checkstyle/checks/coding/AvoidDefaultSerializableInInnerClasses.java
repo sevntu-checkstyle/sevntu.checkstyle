@@ -65,7 +65,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
     @Override
     public void visitToken(DetailAST aDetailAST)
     {
-        final boolean topLevelClass = (aDetailAST.getParent() == null);
+        final boolean topLevelClass = aDetailAST.getParent() == null;
         if (!topLevelClass && isSerializable(aDetailAST)
                 && !isStatic(aDetailAST)
                 && !hasSerialazableMethods(aDetailAST))
