@@ -238,5 +238,11 @@ public class InputConfusingTernaryCheckFirst
             }
         }
         
+        if (!(!a && !b)) { 
+        }
+        else {
+            a = true;
+        }       
+        
     }
 }

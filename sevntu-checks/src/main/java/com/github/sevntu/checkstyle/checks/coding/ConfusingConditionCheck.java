@@ -96,7 +96,7 @@ public class ConfusingConditionCheck extends Check {
 	}
 
 	/**
-	 * Disable warnings for all inner "if".
+	 * Disable warnings for all sequential "if".
 	 */
 	private boolean ignoreSequentialIf = true;
 
@@ -177,10 +177,8 @@ public class ConfusingConditionCheck extends Check {
 	 * @return
 	 */
 	private static boolean isIfEndsWithElse(DetailAST aIf) {
-		boolean result = false;
 		final DetailAST aLastChildAfterIf = aIf.getLastChild();
-		result = aLastChildAfterIf.getType() == TokenTypes.LITERAL_ELSE;
-		return result;
+		return aLastChildAfterIf.getType() == TokenTypes.LITERAL_ELSE;
 	}
 
 	/**
@@ -191,14 +189,10 @@ public class ConfusingConditionCheck extends Check {
 	 * @return
 	 */
 	private static boolean isSequentialIf(DetailAST aIf) {
-		boolean result = false;
 		final DetailAST aLastChildAfterIf = aIf.getLastChild();
 		final boolean isSequentialIf = aLastChildAfterIf.getFirstChild()
 				.getType() == (TokenTypes.LITERAL_IF);
-		if (isSequentialIf) {
-			result = true;
-		}
-		return result;
+		return isSequentialIf;
 	}
 
 	/**
@@ -209,13 +203,9 @@ public class ConfusingConditionCheck extends Check {
 	 * @return
 	 */
 	private static boolean isInnerIf(DetailAST aIf) {
-		boolean result = false;
 		final DetailAST aChildIf = aIf.getFirstChild().getNextSibling()
 				.getNextSibling().getNextSibling();
-		if (aChildIf.branchContains(TokenTypes.LITERAL_IF)) {
-			result = true;
-		}
-		return result;
+		return aChildIf.branchContains(TokenTypes.LITERAL_IF);
 	}
 
 	/**
@@ -227,14 +217,9 @@ public class ConfusingConditionCheck extends Check {
 	 * @return
 	 */
 	private static boolean isElseWithThrow(DetailAST aIf) {
-		boolean result = false;
 		final DetailAST aLastChildAfterIf = aIf.getLastChild();
-
-		if (aLastChildAfterIf.getFirstChild().branchContains(
-				TokenTypes.LITERAL_THROW)) {
-			result = true;
-		}
-		return result;
+		return aLastChildAfterIf.getFirstChild().branchContains(
+				TokenTypes.LITERAL_THROW);
 	}
 
 	/**
@@ -251,11 +236,7 @@ public class ConfusingConditionCheck extends Check {
 		final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(aIf);
 		final int linesOfCodeInElseBlock = getAmounOfCodeRowsInBlock(aLastChildAfterIf);
 		if (linesOfCodeInElseBlock > 0) {
-			if (linesOfCodeInIfBlock / linesOfCodeInElseBlock < multiplyFactorForElseBlocks) {
-				result = true;
-			} else {
-				result = false;
-			}
+			result = linesOfCodeInIfBlock / linesOfCodeInElseBlock < multiplyFactorForElseBlocks;
 		}
 		return result;
 	}
@@ -315,17 +296,13 @@ public class ConfusingConditionCheck extends Check {
 	 * Check IF or not that contained NULL in the expression IF.
 	 * 
 	 * @param aIf
-	 * @param ignoreNullCaseInIf
+	 * @see ignoreNullCaseInIf
 	 * @return
 	 */
 
 	private static boolean isIfWithNull(DetailAST aIf) {
-		boolean result = false;
-		if (aIf.getFirstChild().getNextSibling()
-				.branchContains(TokenTypes.LITERAL_NULL)) {
-			result = true;
-		}
-		return result;
+		return aIf.getFirstChild().getNextSibling()
+				.branchContains(TokenTypes.LITERAL_NULL);
 	}
 
 	/**
