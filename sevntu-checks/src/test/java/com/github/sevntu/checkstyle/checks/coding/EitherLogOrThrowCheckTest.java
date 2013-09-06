@@ -30,13 +30,15 @@ public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport
      */
     @Test
     public void test()
-            throws Exception
+        throws Exception
     {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(EitherLogOrThrowCheck.class);
-        checkConfig.addAttribute("loggerFullyQualifiedClassName", "org.slf4j.Logger");
+        checkConfig.addAttribute("loggerFullyQualifiedClassName",
+                "org.slf4j.Logger");
         checkConfig.addAttribute("loggingMethodNames", "error, warn");
-        final int[] lines = { 19, 31, 43, 82, 93, 102, 112, 124, 154, 164, };
+        final int[] lines = { 19, 31, 43, 82, 93, 102, 112, 124, 154, 164,
+            207, };
         final String[] expected = new String[lines.length];
         for (int i = 0; i < lines.length; i++) {
             expected[i] = lines[i] + ": " + MESSAGE;

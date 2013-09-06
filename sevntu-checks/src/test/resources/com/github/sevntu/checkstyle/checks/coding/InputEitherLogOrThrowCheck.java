@@ -200,6 +200,33 @@ public class InputEitherLogOrThrowException
         }
     }
     
+    public void get17() throws Exception {
+        try{
+            throw new Exception();
+        } catch (Exception e) { // warning
+            slfLogger.error(getString(), e);
+            throw e;
+        }
+    }
+    
+    public void get18() throws Exception {
+        try{
+            throw new Exception();
+        } catch (Exception e) { //NO warning
+            slfLogger.error(getString());
+            throw e;
+        }
+    }
+    
+    public void get19() throws Exception {
+        try {
+            get1();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 ////////////////////////////////////////////////////////////////////////////////
 // Check can't detect these situations:
 ////////////////////////////////////////////////////////////////////////////////
@@ -246,4 +273,5 @@ public class InputEitherLogOrThrowException
             }
         }
     }
+
 }

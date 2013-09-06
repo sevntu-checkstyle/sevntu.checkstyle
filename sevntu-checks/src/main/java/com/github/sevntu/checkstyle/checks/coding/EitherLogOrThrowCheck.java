@@ -22,6 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -30,8 +31,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * Detects cases when in catch clause programmer logs exception's stack trace
- * and throws same(or derived) exception again.
+ * Either log the exception, or throw it, but never do both. Logging and
+ * throwing results in multiple log messages for a single problem in the code,
+ * and makes problems for the support engineer who is trying to dig through the
+ * logs. This is one of the most annoying error-handling antipatterns. All of
+ * these examples are equally wrong.
  * </p>
  * <p>
  * <b>Examples:</b>
@@ -48,10 +52,30 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     throw new MyServiceException("AnotherMessage", e);
  * }
  * </pre>
+ * <b>or</b>
+ * <pre>
+ * catch (NoSuchMethodException e) {
+ *      e.printStackTrace();
+ *      throw new MyServiceException("Message", e);
+ * }
+ * </pre>
  * </p>
  * <p>
- * Logging and throwing exception will lead to multiple messages of the same
- * problem. So find origin place of problem will be difficult.
+ * Parameters for this check:
+ * <ul>
+ * <li>
+ * <b>loggerFullyQualifiedClassName</b> - fully qualified class name of logger
+ * type. Default value is <i>"org.slf4j.Logger"</i>.
+ * </li>
+ * <li>
+ * <b>loggingMethodNames</b> - comma separated names of logging methods.
+ * Default value is <i>"error, warn, info, debug"</i>.
+ * </li>
+ * </ul>
+ * </p>
+ * <p>
+ * Note that check works with only one logger type. If you have multiple
+ * different loggers, then create another instance of this check.
  * </p>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
@@ -62,7 +86,7 @@ public class EitherLogOrThrowCheck extends Check
      */
     public static final String MSG_KEY = "either.log.or.throw";
     /**
-     * Logger full class name.
+     * Logger fully qualified class name.
      */
     private String mLoggerFullyQualifiedClassName = "org.slf4j.Logger";
     /**
@@ -82,6 +106,8 @@ public class EitherLogOrThrowCheck extends Check
      * Logger class is in imports.
      */
     private boolean mHasLoggerClassInImports;
+
+    private static Pattern mPrintStackTraceMethodPattern = Pattern.compile(".+\\.printStackTrace");
 
     /**
      * Set logger full class name and logger simple class name.
@@ -139,7 +165,8 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Find all logger fields in aClassDefAst and save them.
-     * @param aClassDefAst DetailAST of class definition.
+     * @param aClassDefAst
+     *        DetailAST of class definition.
      */
     private void saveClassFieldNamesOfLoggerType(DetailAST aClassDefAst)
     {
@@ -161,7 +188,8 @@ public class EitherLogOrThrowCheck extends Check
      * Look at the each statement of catch block to find logging and throwing.
      * If same exception is being logged and throwed, then prints warning
      * message.
-     * @param aCatchAst DetailAST of catch block.
+     * @param aCatchAst
+     *        DetailAST of catch block.
      */
     private void processCatchNode(DetailAST aCatchAst)
     {
@@ -180,37 +208,58 @@ public class EitherLogOrThrowCheck extends Check
                     loggerVariableNames
                             .add(getIdentifier(currentStatementAst));
                 }
-                else if (isExceptionCreatedWithCause(currentStatementAst,
-                        catchParameterName))
-                {
-                    exceptionVariableNames
-                            .add(getIdentifier(currentStatementAst));
+                else {
+                    final DetailAST assignAst = currentStatementAst
+                            .findFirstToken(TokenTypes.ASSIGN);
+                    if (assignAst != null
+                            && isCreateObjectWithExceptionArgument(assignAst.getFirstChild(), catchParameterName))
+                    {
+                        exceptionVariableNames
+                                .add(getIdentifier(currentStatementAst));
+                    }
                 }
             }
             // expression
             else if (currentStatementAst.getType() == TokenTypes.EXPR) {
-                if (!loggingExceptionFound
-                        && isLoggingExpression(currentStatementAst,
-                                loggerVariableNames)
-                        && hasExceptionAsParameter(currentStatementAst,
-                                catchParameterName))
-                {
-                    loggingExceptionFound = true;
-                    loggingExceptionLineNumber = currentStatementAst
-                            .getLineNo();
+                if (!loggingExceptionFound) {
+                    boolean isLoggingException = isLoggingExpression(currentStatementAst, loggerVariableNames)
+                            && hasExceptionAsParameter(currentStatementAst, catchParameterName);
+                    if (isLoggingException
+                            || isPrintStackTrace(currentStatementAst, catchParameterName))
+                    {
+                        loggingExceptionFound = true;
+                        loggingExceptionLineNumber = currentStatementAst
+                                .getLineNo();
+                    }
                 }
             }
             // throw statement
             else if (loggingExceptionFound
-                    && currentStatementAst.getType() == TokenTypes.LITERAL_THROW
-                    && throwsException(currentStatementAst,
-                            catchParameterName, exceptionVariableNames))
+                    && currentStatementAst.getType() == TokenTypes.LITERAL_THROW)
             {
-                log(loggingExceptionLineNumber, "either.log.or.throw");
-                break;
+                exceptionVariableNames.add(catchParameterName);
+                final DetailAST thrownExceptionAst = currentStatementAst.getFirstChild();
+                if (exceptionVariableNames.contains(getIdentifier(thrownExceptionAst))
+                        || isCreateObjectWithExceptionArgument(thrownExceptionAst, catchParameterName))
+                {
+                    log(loggingExceptionLineNumber, "either.log.or.throw");
+                    break;
+                }
             }
             currentStatementAst = currentStatementAst.getNextSibling();
         }
+    }
+
+    private static boolean isPrintStackTrace(DetailAST aExpressionAst, String aExceptionVariableName) {
+        boolean result = false;
+        DetailAST methodCallAst = aExpressionAst.getFirstChild();
+        if (isInstanceMethodCall(aExceptionVariableName, methodCallAst)) {
+            String methodCallStr = FullIdent.createFullIdentBelow(methodCallAst).getText();
+            if (mPrintStackTraceMethodPattern.matcher(methodCallStr).matches()) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
@@ -233,19 +282,14 @@ public class EitherLogOrThrowCheck extends Check
      */
     private boolean isLoggerVariableDefinition(final DetailAST aVariableDefAst)
     {
-        boolean result = false;
         final DetailAST variableTypeAst =
                 aVariableDefAst.findFirstToken(TokenTypes.TYPE).getFirstChild();
         final String variableTypeIdentifier =
                 FullIdent.createFullIdent(variableTypeAst).getText();
-        if (mHasLoggerClassInImports) {
-            result = variableTypeIdentifier.equals(mLoggerSimpleClassName);
-        }
-        if (!result) {
-            result = variableTypeIdentifier
-                    .equals(mLoggerFullyQualifiedClassName);
-        }
-        return result;
+        return (mHasLoggerClassInImports
+                && variableTypeIdentifier.equals(mLoggerSimpleClassName))
+                || variableTypeIdentifier.equals(
+                        mLoggerFullyQualifiedClassName);
     }
 
     /**
@@ -277,39 +321,19 @@ public class EitherLogOrThrowCheck extends Check
         return null;
     }
 
+    // TODO javadocs
     /**
-     * Verify that given variable definition is exception object definition with
-     * cause aExceptionCauseName.
-     * @param aVariableDefAst DetailAST of variable definition.
-     * @param aExceptionCauseName name of cause exception.
-     * @return true if given variable definition is exception object definition
-     * with cause aExceptionCauseName.
-     */
-    private static boolean isExceptionCreatedWithCause(
-            DetailAST aVariableDefAst, String aExceptionCauseName)
-    {
-        boolean result = false;
-        final DetailAST assignAst = aVariableDefAst
-                .findFirstToken(TokenTypes.ASSIGN);
-        if (assignAst != null) {
-            result = isCreatingExceptionObject(assignAst.getFirstChild(),
-                    aExceptionCauseName);
-        }
-        return result;
-    }
-
-    /**
-     * Verify that given expression is creating new exception based on another
-     * exception object named aExeceptionParameterName.
+     * Verify that given expression.
+     * 
      * @param aExpressionAst
-     *        DetailAST of expression.
-     * @param aExceptionParameterName
-     *        Exception parameter name.
-     * @return true if given expression is creating new exception based on
-     *         another exception object named aExeceptionParameterName.
+     *            DetailAST of expression.
+     * @param aExceptionArgumentName
+     *            Exception argument name.
+     * @return true if given expression is creating new exception based on another exception object named
+     *         aExeceptionParameterName.
      */
-    private static boolean isCreatingExceptionObject(DetailAST aExpressionAst,
-            String aExceptionParameterName)
+    private static boolean isCreateObjectWithExceptionArgument(DetailAST aExpressionAst,
+            String aExceptionArgumentName)
     {
         boolean result = false;
         final DetailAST literalNewAst =
@@ -319,7 +343,7 @@ public class EitherLogOrThrowCheck extends Check
                     .findFirstToken(TokenTypes.ELIST);
             if (parametersAst != null) {
                 result = containsExceptionParameter(parametersAst,
-                        aExceptionParameterName);
+                        aExceptionArgumentName);
             }
         }
         return result;
@@ -355,40 +379,50 @@ public class EitherLogOrThrowCheck extends Check
     }
 
     /**
-     * Verify that given expression takes exception as a parameter.
-     * @param aExpressionAst
-     *        DetailAST of expression.
-     * @param aExceptionParameterName
-     *        name of exception parameter.
-     * @return true if given logging expression takes exception as a parameter.
+     * Verify that logging expression takes exception as a parameter.
+     * @param aLoggingExpressionAst
+     *            DetailAST of expression.
+     * @param aExceptionVariableName
+     *            name of exception parameter.
+     * @return true if logging expression takes exception as a parameter.
      */
     private static boolean hasExceptionAsParameter(
-            DetailAST aExpressionAst, String aExceptionParameterName)
+            DetailAST aLoggingExpressionAst, String aExceptionVariableName)
     {
-        final DetailAST methodCallAst = aExpressionAst.getFirstChild();
+        final DetailAST methodCallAst = aLoggingExpressionAst.getFirstChild();
         final DetailAST loggerParametersAst =
                 methodCallAst.findFirstToken(TokenTypes.ELIST);
         return containsExceptionParameter(loggerParametersAst,
-                aExceptionParameterName);
+                aExceptionVariableName);
     }
 
     /**
-     * Verify that aExceptionParameterName is in aParametersAst.
+     * Verify that aExceptionVariableName is in aParametersAst.
      * @param aParametersAst
-     *        DetailAST of expression list(ELIST).
-     * @param aExceptionParameterName
-     *        name of exception.
-     * @return true if aExceptionParameterName is in aParametersAst.
+     *            DetailAST of expression list(ELIST).
+     * @param aExceptionVariableName
+     *            name of exception.
+     * @return true if aExceptionVariableName is in aParametersAst.
      */
     private static boolean containsExceptionParameter(
-            DetailAST aParametersAst, String aExceptionParameterName)
+            DetailAST aParametersAst, String aExceptionVariableName)
     {
         boolean result = false;
         DetailAST parameterAst = aParametersAst.getFirstChild();
         while (parameterAst != null) {
-            if (isExceptionParameter(parameterAst, aExceptionParameterName)) {
+            if (aExceptionVariableName.equals(getIdentifier(parameterAst)))
+            {
                 result = true;
                 break;
+            }
+            else {
+                final DetailAST methodCallAst = parameterAst.getFirstChild();
+                if (isInstanceMethodCall(aExceptionVariableName,
+                        methodCallAst))
+                {
+                    result = true;
+                    break;
+                }
             }
             parameterAst = parameterAst.getNextSibling();
         }
@@ -396,71 +430,25 @@ public class EitherLogOrThrowCheck extends Check
     }
 
     /**
-     * Verify that given aParameterAst is exception object or method which is
-     * invoked from exception object. And exception object's name is
-     * aExceptionParameterName.
-     * @param aParameterExpressionAst
-     *        DetailAST of parameter expression(EXPR).
-     * @param aExceptionParameterName
-     *        exception parameter name.
-     * @return true if given parameter is exception.
+     * Verify that aMethodCallAst is method call and
      */
-    private static boolean isExceptionParameter(
-            DetailAST aParameterExpressionAst, String aExceptionParameterName)
+    private static boolean isInstanceMethodCall(String aUsedInstanseName,
+            DetailAST aMethodCallAst)
     {
         boolean result = false;
-        // parameter is exception
-        if (aExceptionParameterName.equals(
-                getIdentifier(aParameterExpressionAst)))
+        if (aMethodCallAst != null
+                && aMethodCallAst.getType() == TokenTypes.METHOD_CALL)
         {
-            result = true;
-        }
-        // parameter is an invoking exception's method
-        else {
-            final DetailAST methodCallAst =
-                    aParameterExpressionAst.getFirstChild();
-            if (methodCallAst != null
-                    && methodCallAst.getType() == TokenTypes.METHOD_CALL)
-            {
-                final String methodCallIdent =
-                        FullIdent.createFullIdentBelow(methodCallAst).getText();
-                final int firstDotIndex = methodCallIdent.indexOf('.');
+            final String methodCallIdent =
+                    FullIdent.createFullIdentBelow(aMethodCallAst).getText();
+            final int firstDotIndex = methodCallIdent.indexOf('.');
+            if (firstDotIndex != -1) {
                 final String usedObjectName =
                         methodCallIdent.substring(0, firstDotIndex);
-                if (usedObjectName.equals(aExceptionParameterName)) {
+                if (usedObjectName.equals(aUsedInstanseName)) {
                     result = true;
                 }
             }
-        }
-        return result;
-    }
-
-    /**
-     * Verify that exception aExceptionVariableName is throwed or created
-     * locally exception(based on aExceptionVariableName) is throwed.
-     * @param aThrowStatementAst
-     *            DetailAST of literal throw.
-     * @param aExceptionVariableName
-     *            name of exception parameter.
-     * @param aLocalExceptionVariableNames
-     *            names list of created locally exceptions(based on
-     *            aExceptionVariableName).
-     * @return true if exception aExceptionVariableName is throwed or created
-     *         locally exception(based on aExceptionVariableName) is throwed.
-     */
-    private static boolean throwsException(
-            DetailAST aThrowStatementAst, String aExceptionVariableName,
-            List<String> aLocalExceptionVariableNames)
-    {
-        boolean result = false;
-        final DetailAST thrownExceptionAst = aThrowStatementAst.getFirstChild();
-        if (aExceptionVariableName.equals(getIdentifier(thrownExceptionAst))
-            || aLocalExceptionVariableNames.contains(
-                    getIdentifier(thrownExceptionAst))
-            || isCreatingExceptionObject(thrownExceptionAst,
-                aExceptionVariableName))
-        {
-            result = true;
         }
         return result;
     }
