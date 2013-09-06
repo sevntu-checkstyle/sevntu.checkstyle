@@ -74,6 +74,27 @@
             <message-key key="custom.declaration.order.class"/>
         </rule-metadata>        
         
+        <rule-metadata name="%ConfusingConditionCheck.name" internal-name="ConfusingConditionCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck"/>
+			<description>%ConfusingConditionCheck.desc</description>
+		<property-metadata name="multiplyFactorForElseBlocks" datatype="Integer" default-value="4">
+               <description>%ConfusingConditionCheck.multiplyFactorForElseBlocks</description>
+            </property-metadata>
+	    <property-metadata name="ignoreInnerIf" datatype="Boolean" default-value="true">
+               <description>%ConfusingConditionCheck.ignoreInnerIf</description>
+            </property-metadata>
+        <property-metadata name="ignoreSequentialIf" datatype="Boolean" default-value="true">
+               <description>%ConfusingConditionCheck.ignoreSequentialIf</description>
+            </property-metadata>
+        <property-metadata name="ignoreNullCaseInIf" datatype="Boolean" default-value="true">
+               <description>%ConfusingConditionCheck.ignoreNullCaseInIf</description>
+            </property-metadata>
+        <property-metadata name="ignoreThrowInElse" datatype="Boolean" default-value="true">
+            <description>%ConfusingConditionCheck.ignoreThrowInElse</description>
+            </property-metadata>
+            <message-key key="illegal.catch"/>
+		</rule-metadata>
+		
        <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
             <description>%ForbidCertainImports.desc</description>
