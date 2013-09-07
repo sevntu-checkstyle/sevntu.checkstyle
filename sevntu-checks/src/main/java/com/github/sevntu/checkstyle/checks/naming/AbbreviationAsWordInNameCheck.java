@@ -31,19 +31,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * Check name of the targeted item to validate abbreviations(capital letters)
- * length in it. Options: Allowed Abbreviation Length - allowed abbreviation
- * length(length of capital characters). Allowed Abbreviations - list of
- * abbreviations separated by comma, without spaces.
- * Option IgnoreFinal allow to skip variables with final declarations, 
- * option IgnoreStatic allow to skip variables with static declarations,
- * option IgnoreOverriddenMethod - Allows to ignore methods tagged with 
- * '@Override' annotation (that usually mean inherited name).
+ * Check name of the targeted item to validate abbreviations(capital letters) length in it. Options: Allowed
+ * Abbreviation Length - allowed abbreviation length(length of capital characters). Allowed Abbreviations - list of
+ * abbreviations separated by comma, without spaces. Option IgnoreFinal allow to skip variables with final declarations,
+ * option IgnoreStatic allow to skip variables with static declarations, option IgnoreOverriddenMethod - Allows to
+ * ignore methods tagged with '@Override' annotation (that usually mean inherited name).
  * </p>
- * @author Roman Ivanov, Daniil Yaroslvtsev
+ * 
+ * @author Roman Ivanov, Daniil Yaroslvtsev, Baratali Izmailov
  */
-public class AbbreviationAsWordInNameCheck extends Check
-{
+public class AbbreviationAsWordInNameCheck extends Check {
 
     /**
      * The default value of "allowedAbbreviationLength" option.
@@ -63,7 +60,7 @@ public class AbbreviationAsWordInNameCheck extends Check
             DEFAULT_ALLOWED_ABBREVIATIONS_LENGTH;
 
     /**
-     * Set of allowed abbreviation to ignore in check
+     * Set of allowed abbreviation to ignore in check.
      */
     private Set<String> mAllowedAbbreviations = new HashSet<String>();
 
@@ -181,33 +178,46 @@ public class AbbreviationAsWordInNameCheck extends Check
 
         boolean result = false;
         if (aAst.getType() == TokenTypes.VARIABLE_DEF) {
-        	if ((mIgnoreFinal || mIgnoreStatic) && isInterfaceDeclaration(aAst)) {
-        		// field declarations in interface are static/final
-        		result = true;
-        	} else {
-        		result = (mIgnoreFinal && modifiers.branchContains(TokenTypes.FINAL))
-                    || (mIgnoreStatic && modifiers.branchContains(TokenTypes.LITERAL_STATIC));
-        	}
-        } else if (aAst.getType() == TokenTypes.METHOD_DEF) {
-        	result = mIgnoreOverriddenMethods && hasOverrideAnnotation(modifiers);
+            if ((mIgnoreFinal || mIgnoreStatic)
+                    && isInterfaceDeclaration(aAst)) {
+                // field declarations in interface are static/final
+                result = true;
+            }
+            else {
+                result = (mIgnoreFinal
+                          && modifiers.branchContains(TokenTypes.FINAL))
+                    || (mIgnoreStatic
+                        && modifiers.branchContains(TokenTypes.LITERAL_STATIC));
+            }
+        }
+        else if (aAst.getType() == TokenTypes.METHOD_DEF) {
+            result = mIgnoreOverriddenMethods
+                    && hasOverrideAnnotation(modifiers);
         }
         return result;
     }
 
-	private static boolean isInterfaceDeclaration(DetailAST aAst) {
-    	boolean result = false;
-		DetailAST astBlock = aAst.getParent();
-    	if (astBlock != null) {
-    		DetailAST astParent2 = astBlock.getParent();
-    		if (astParent2 != null
-    				&& astParent2.getType() == TokenTypes.INTERFACE_DEF) {
-    			result = true;
-    		}
-    	}
-		return result;
-	}
+    /**
+     * Check that variable definition in interface definition.
+     * @param aVariableDefAst variable definition.
+     * @return true if variable definition(aVaribaleDefAst) is in interface
+     * definition.
+     */
+    private static boolean isInterfaceDeclaration(DetailAST aVariableDefAst)
+    {
+        boolean result = false;
+        final DetailAST astBlock = aVariableDefAst.getParent();
+        if (astBlock != null) {
+            final DetailAST astParent2 = astBlock.getParent();
+            if (astParent2 != null
+                    && astParent2.getType() == TokenTypes.INTERFACE_DEF) {
+                result = true;
+            }
+        }
+        return result;
+    }
 
-	/**
+    /**
      * Checks that the method has "@Override" annotation.
      * @param aMethodModifiersAST
      *        A DetailAST nod is related to the given method modifiers
@@ -275,7 +285,7 @@ public class AbbreviationAsWordInNameCheck extends Check
         if (abbrStarted) {
             final int endIndex = aString.length();
             final int abbrLength = endIndex - beginIndex;
-            if (abbrLength > mAllowedAbbreviationLength) {
+            if (abbrLength > 1 && abbrLength > mAllowedAbbreviationLength) {
                 result = aString.substring(beginIndex, endIndex);
                 if (mAllowedAbbreviations.contains(result)) {
                     result = null;

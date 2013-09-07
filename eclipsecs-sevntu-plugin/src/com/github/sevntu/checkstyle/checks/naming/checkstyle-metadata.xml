@@ -10,7 +10,7 @@
             <property-metadata name="allowedAbbreviationLength" datatype="Integer" default-value="3">
                 <description>%AbbreviationAsWordInName.allowedAbbreviationLength</description>
             </property-metadata>
-            <property-metadata name="allowedAbbreviations" datatype="String" default-value="XML,URL">
+            <property-metadata name="allowedAbbreviations" datatype="String" default-value="XML,URL,IT,I">
                 <description>%AbbreviationAsWordInName.allowedAbbreviations</description>
             </property-metadata>
       		<property-metadata name="targets" datatype="MultiCheck" default-value="CLASS_DEF">
