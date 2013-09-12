@@ -33,7 +33,7 @@ public class NestedTernaryCheckTest extends BaseCheckTestSupport {
 
 	private final DefaultConfiguration checkConfig = createCheckConfig(NestedTernaryCheck.class);
 
-	private static final String msg = getErrorMessage();
+	private final String msg = getCheckMessage(NestedTernaryCheck.MSG_KEY);
 
 	@Test
 	public void test() throws Exception
@@ -70,16 +70,6 @@ public class NestedTernaryCheckTest extends BaseCheckTestSupport {
 		};
 
 		verify(checkConfig, getPath("InputNestedTernaryCheck.java"), expected);
-	}
-
-	public static String getErrorMessage() {
-		Properties pr = new Properties();
-		try {
-			pr.load(NestedTernaryCheck.class.getResourceAsStream("messages.properties"));
-		} catch (IOException e) {
-			return null;
-		}
-		return pr.getProperty(NestedTernaryCheck.MSG_KEY);
 	}
 
 }

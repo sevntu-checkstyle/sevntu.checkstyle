@@ -40,6 +40,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ForbidAnnotationCheck extends Check
 {
+	
+	/**
+	 * A key is used to retrieve check message from 'messages.properties' file
+	 */
+    public static final String MSG_KEY = "annotation.incorrect.target";
+	
     /**
      * mAnnotationNames is set of annotation's names.
      */
@@ -98,7 +104,7 @@ public class ForbidAnnotationCheck extends Check
 
             final String currentTarget = annotationTarget.getText();
 
-            log(aAnnotation.getLineNo(), "annotation.incorrect.target",
+            log(aAnnotation.getLineNo(), MSG_KEY,
                     currentTarget, annotationName);
         }
     }
