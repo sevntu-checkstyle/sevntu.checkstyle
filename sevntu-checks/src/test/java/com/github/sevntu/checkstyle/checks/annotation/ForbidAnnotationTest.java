@@ -18,146 +18,154 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.annotation;
 
+import java.text.MessageFormat;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+
 /**
  * Test that annotation's target is correct.
+ * 
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
- *
+ * 
  */
 public class ForbidAnnotationTest extends BaseCheckTestSupport
 {
-	
-    @Test
-    public void testPackageIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "pack1,pack2,pack3");
-        checkConfig.addAttribute("annotationTargets", "PACKAGE_DEF");
+	private String msg = getCheckMessage(ForbidAnnotationCheck.MSG_KEY);
 
-        final String[] expected1 = {
-            "1: Incorrect target: 'package' for annotation: 'pack1'.",
-            "2: Incorrect target: 'package' for annotation: 'pack2'.",
-            "3: Incorrect target: 'package' for annotation: 'pack3'.", };
+	@Test
+	public void testPackageIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected1);
-    }
-    
-    @Test
-    public void testFullAnnotationName() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		checkConfig.addAttribute("annotationNames", "pack1,pack2,pack3");
+		checkConfig.addAttribute("annotationTargets", "PACKAGE_DEF");
 
+		final String[] expected1 = {
+				buildMesssage(1, "package", "pack1"),
+				buildMesssage(2, "package", "pack2"),
+				buildMesssage(3, "package", "pack3"), };
 
-        final String[] expected1 = {};
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected1);
+	}
 
-        verify(checkConfig, getPath("ForbiAnnotationInput2.java"), expected1);
-    }
-    
+	@Test
+	public void testFullAnnotationName() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-    @Test
-    public void testVariableIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		final String[] expected1 = {};
 
-        checkConfig.addAttribute("annotationNames",
-                "Edible,Author,Author2,SuppressWarnings");
-        checkConfig.addAttribute("annotationTargets", "VARIABLE_DEF");
+		verify(checkConfig, getPath("ForbiAnnotationInput2.java"), expected1);
+	}
 
-        final String[] expected2 = {
-            "12: Incorrect target: 'VARIABLE_DEF' for annotation: 'Edible'.",
-            "19: Incorrect target: 'VARIABLE_DEF' for annotation: 'Author'.",
-            "20: Incorrect target: 'VARIABLE_DEF' for annotation: 'Author2'.",
-            "58: Incorrect target: 'VARIABLE_DEF' for annotation: 'SuppressWarnings'.", };
+	@Test
+	public void testVariableIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected2);
-    }
+		checkConfig.addAttribute("annotationNames",
+				"Edible,Author,Author2,SuppressWarnings");
+		checkConfig.addAttribute("annotationTargets", "VARIABLE_DEF");
 
-    @Test
-    public void testMethodIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		final String[] expected2 = {
+				buildMesssage(12, "VARIABLE_DEF", "Edible"),
+				buildMesssage(19, "VARIABLE_DEF", "Author"),
+				buildMesssage(20, "VARIABLE_DEF", "Author2"),
+				buildMesssage(58, "VARIABLE_DEF", "SuppressWarnings"), };
 
-        checkConfig.addAttribute("annotationNames", "Twizzle,One,Two,Three,B");
-        checkConfig.addAttribute("annotationTargets", "METHOD_DEF");
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected2);
+	}
 
-        final String[] expected3 = {
-            "27: Incorrect target: 'METHOD_DEF' for annotation: 'Twizzle'.",
-            "38: Incorrect target: 'METHOD_DEF' for annotation: 'One'.",
-            "39: Incorrect target: 'METHOD_DEF' for annotation: 'Two'.",
-            "40: Incorrect target: 'METHOD_DEF' for annotation: 'Three'.",
-            "46: Incorrect target: 'METHOD_DEF' for annotation: 'B'.", };
+	@Test
+	public void testMethodIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected3);
-    }
+		checkConfig.addAttribute("annotationNames", "Twizzle,One,Two,Three,B");
+		checkConfig.addAttribute("annotationTargets", "METHOD_DEF");
 
-    @Test
-    public void testClassAndConstuctorIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		final String[] expected3 = {
+				buildMesssage(27, "METHOD_DEF", "Twizzle"),
+				buildMesssage(38, "METHOD_DEF", "One"),
+				buildMesssage(39, "METHOD_DEF", "Two"),
+				buildMesssage(40, "METHOD_DEF", "Three"),
+				buildMesssage(46, "METHOD_DEF", "B"), };
 
-        checkConfig.addAttribute("annotationNames", "Test,ctor,ctor2");
-        checkConfig.addAttribute("annotationTargets", "CLASS_DEF,CTOR_DEF");
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected3);
+	}
 
-        final String[] expected4 = {
-            "5: Incorrect target: 'CLASS_DEF' for annotation: 'Test'.",
-            "7: Incorrect target: 'CTOR_DEF' for annotation: 'ctor'.",
-            "8: Incorrect target: 'CTOR_DEF' for annotation: 'ctor2'.", };
+	@Test
+	public void testClassAndConstuctorIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected4);
-    }
+		checkConfig.addAttribute("annotationNames", "Test,ctor,ctor2");
+		checkConfig.addAttribute("annotationTargets", "CLASS_DEF,CTOR_DEF");
 
-    @Test
-    public void testAnnotationIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		final String[] expected4 = {
+				buildMesssage(5, "CLASS_DEF", "Test"),
+				buildMesssage(7, "CTOR_DEF", "ctor"),
+				buildMesssage(8, "CTOR_DEF", "ctor2"), };
 
-        checkConfig.addAttribute("annotationNames", "Retention,Target");
-        checkConfig.addAttribute("annotationTargets", "ANNOTATION_DEF");
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected4);
+	}
 
-        final String[] expected5 = {
-            "33: Incorrect target: 'ANNOTATION_DEF' for annotation: 'Retention'.",
-            "34: Incorrect target: 'ANNOTATION_DEF' for annotation: 'Target'.", };
+	@Test
+	public void testAnnotationIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected5);
-    }
+		checkConfig.addAttribute("annotationNames", "Retention,Target");
+		checkConfig.addAttribute("annotationTargets", "ANNOTATION_DEF");
 
-    @Test
-    public void testParamerterAndInterfaceIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		final String[] expected5 = {
+				buildMesssage(33, "ANNOTATION_DEF", "Retention"),
+				buildMesssage(34, "ANNOTATION_DEF", "Target"), };
 
-        checkConfig.addAttribute("annotationNames", "MyAnnotation,A");
-        checkConfig.addAttribute("annotationTargets",
-                "PARAMETER_DEF,INTERFACE_DEF");
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected5);
+	}
 
-        final String[] expected6 = {
-            "42: Incorrect target: 'PARAMETER_DEF' for annotation: 'MyAnnotation'.",
-            "44: Incorrect target: 'INTERFACE_DEF' for annotation: 'A'.", };
+	@Test
+	public void testParamerterAndInterfaceIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected6);
-    }
+		checkConfig.addAttribute("annotationNames", "MyAnnotation,A");
+		checkConfig.addAttribute("annotationTargets",
+				"PARAMETER_DEF,INTERFACE_DEF");
 
-    @Test
-    public void testEnumIsForbidden() throws Exception
-    {
-        DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+		final String[] expected6 = {
+				buildMesssage(42, "PARAMETER_DEF", "MyAnnotation"),
+				buildMesssage(44, "INTERFACE_DEF", "A"), };
 
-        checkConfig.addAttribute("annotationNames", "C,int1,int2,int3");
-        checkConfig.addAttribute("annotationTargets",
-                "ENUM_DEF,ENUM_CONSTANT_DEF");
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected6);
+	}
 
-        final String[] expected7 = {
-            "49: Incorrect target: 'ENUM_DEF' for annotation: 'C'.",
-            "51: Incorrect target: 'ENUM_CONSTANT_DEF' for annotation: 'int1'.",
-            "53: Incorrect target: 'ENUM_CONSTANT_DEF' for annotation: 'int2'.",
-            "55: Incorrect target: 'ENUM_CONSTANT_DEF' for annotation: 'int3'.",
-        };
+	@Test
+	public void testEnumIsForbidden() throws Exception
+	{
+		DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
 
-        verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected7);
-    }
+		checkConfig.addAttribute("annotationNames", "C,int1,int2,int3");
+		checkConfig.addAttribute("annotationTargets",
+				"ENUM_DEF,ENUM_CONSTANT_DEF");
+
+		final String[] expected7 = {
+				buildMesssage(49, "ENUM_DEF", "C"),
+				buildMesssage(51, "ENUM_CONSTANT_DEF", "int1"),
+				buildMesssage(53, "ENUM_CONSTANT_DEF", "int2"),
+				buildMesssage(55, "ENUM_CONSTANT_DEF", "int3"),
+		};
+
+		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected7);
+	}
+
+	private String buildMesssage(int lineNumber, String target, String annotationName) {
+		return lineNumber + ": " + MessageFormat.format(msg, target, annotationName);
+	}
 }
