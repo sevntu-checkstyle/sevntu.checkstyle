@@ -262,6 +262,17 @@
             <message-key key="unnecessary.paren.return" />
             <message-key key="unnecessary.paren.string" />
         </rule-metadata>
+        
+        <rule-metadata name="%EitherLogOrThrowCheck.name" internal-name="EitherLogOrThrowCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck" />
+            <description>%EitherLogOrThrowCheck.desc</description>
+            <property-metadata name="loggerFullyQualifiedClassName" datatype="String" default-value="org.slf4j.Logger">
+                <description>%EitherLogOrThrowCheck.loggerFullyQualifiedClassName</description>
+            </property-metadata>
+            <property-metadata name="loggingMethodNames" datatype="String" default-value="error, warn, info, debug">
+                <description>%EitherLogOrThrowCheck.loggerMethodNames</description>
+            </property-metadata>
+        </rule-metadata>
 
 <!-- DOES NOT WORK PROPERLY
         <rule-metadata name="%NoMainMethodInAbstractClass.name" internal-name="NoMainMethodInAbstractClass" parent="TreeWalker">
