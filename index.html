@@ -106,7 +106,7 @@ We are strongly convinced that it is much more easier and convenient to catch mi
 <h2> New and noteworthy</h2>
 
 <!--
-<h3>Release 1.9.0 (XX/XXXXX/2012):</h3>
+<h3>Release 1.10.0 (1X/ssss/2013):</h3>
 <div >
   <br/>
      <b>xxxxxxxxxxxxxxCheck</b> -&nbsp; %%DESCRIPTION%%. Done by %Name% %LastName%.&nbsp;
@@ -114,7 +114,77 @@ We are strongly convinced that it is much more easier and convenient to catch mi
    <br/>
    <br/>
 </div>
+ - 
+ - 
+
+fixes in checks: 
+ - Ilja Dubinin
+AbbreviationAsWordInNameCheck - Baratali Izmailov
 -->
+
+<h3 id="1.9.0">Release 1.9.0 (18/September/2013):</h3>
+<div >
+  <br/>
+     <b>AvoidConstantAsFirstOperandInConditionCheck</b> -&nbsp; Avoid Constant As First Operand In Condition. If comparing values, C(C++) developers prefer to put the constant first in the equality check, to prevent situations of assignment rather than equality checking. But in Java, in IF condition it is impossible to use assignment, so that habit become unnecessary and do damage readability of code.
+     <br/>Example:<br/>
+     <code>if (null == varialble)"</code> 
+     <br/> should be <br/>
+     <code>if (varialble == null)"</code>
+     <br/>Done by Sergey Burtsev.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/68">More</a>
+   <br/>
+   <br/>
+     <b>EitherLogOrThrowException</b> -&nbsp; Either log the exception, or throw it, but never do both. Logging and throwing results in multiple log messages for a single problem in the code, and makes problems for the support engineer who is trying to dig through the logs. This is one of the most annoying error-handling antipatterns.
+     <br/>Example:<br/>
+     <code>
+       catch (NoSuchMethodException e) {
+          LOG.error("Blah", e);
+          throw e;
+      }
+     </code> 
+     <br/>Done by Baratali Izmailov.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/82">More</a>
+   <br/>
+   <br/>
+     <b>ForbidWildcardAsReturnTypeCheck</b> -&nbsp; Do not use wildcard types as return
+        types. Rather than providing additional flexibility for your users, it would force
+        them to use wildcard types in client code.
+        Properly used, wildcard types are nearly invisible to users of a class. They
+        cause methods to accept the parameters they should accept and reject those they
+        should reject. If the user of a class has to think about wildcard types, there is
+        probably something wrong with the class’s API.
+        <br/>Example:<br/>
+        <code>public &lt;T&gt; List&lt;? extends T&gt; met5()</code>
+     <br/>Done by Baratali Izmailov.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/75">More</a>
+   <br/>
+   <br/>
+     <b>NoNullForCollectionReturnCheck</b> -&nbsp; Check detect when method, that must return array or collection, return null value instead of empty collection or empty array.
+     <br/>Done by Ilja Dubinin.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/63">More</a>
+   <br/>
+   <br/>
+     <b>ConfusingConditionCheck</b> -&nbsp; This check prevents negation within an "if" expression if "else" is present.
+     <br>For example, rephrase:<br/>
+     <code>if (x != y) smth1(); else smth2(); </code>
+     <br/> as: <br/>
+     <code>if (x == y) smth2(); else smth1(); </code> 
+     <br/>Done by Vadim Panasiuk.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/90">More</a>
+   <br/>
+   <br/>
+   <br/>
+     <b>SimpleAccessorNameNotationCheck</b> -&nbsp; Check only direct fields and setter and getter. Options: 1) member prefix "m_" 2) check only simple getter/setter XXXType getXXXName(); void setXXXName(XXXType). 
+     <br/>Reimplemented and fixed by Ilja Dubinin.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/74">More</a>
+   <br/>
+   <br/>
+     <b>AbbreviationAsWordInNameCheck</b> -&nbsp; problem detection of 2 char abbreviation with length limit 1 was fixed. 
+     <br/>Done by Baratali Izmailov.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/116">More</a>
+   <br/>
+   <br/>
+</div>
 <h3 id="1.8.0">Release 1.8.0 (16/April/2012):</h3>
 <div >
 	<b>NestedTernaryCheck</b> -&nbsp;This check forbids nested ternary operators (with option to ignore final variable initializations except initializations inside C-tors).
