@@ -114,12 +114,6 @@ We are strongly convinced that it is much more easier and convenient to catch mi
    <br/>
    <br/>
 </div>
- - 
- - 
-
-fixes in checks: 
- - Ilja Dubinin
-AbbreviationAsWordInNameCheck - Baratali Izmailov
 -->
 
 <h3 id="1.9.0">Release 1.9.0 (18/September/2013):</h3>
@@ -154,12 +148,14 @@ AbbreviationAsWordInNameCheck - Baratali Izmailov
         should reject. If the user of a class has to think about wildcard types, there is
         probably something wrong with the class’s API.
         <br/>Example:<br/>
-        <code>public &lt;T&gt; List&lt;? extends T&gt; met5()</code>
+        <code>public &lt;T&gt; List&lt;? extends T&gt; getValues()</code>
      <br/>Done by Baratali Izmailov.&nbsp;
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/75">More</a>
    <br/>
    <br/>
      <b>NoNullForCollectionReturnCheck</b> -&nbsp; Check detect when method, that must return array or collection, return null value instead of empty collection or empty array.
+     <br/>Example:<br/>
+     <code>public List&lt;String&gt; metValues() { return null; }</code>
      <br/>Done by Ilja Dubinin.&nbsp;
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/63">More</a>
    <br/>
@@ -175,11 +171,16 @@ AbbreviationAsWordInNameCheck - Baratali Izmailov
    <br/>
    <br/>
      <b>SimpleAccessorNameNotationCheck</b> -&nbsp; Check only direct fields and setter and getter. Options: 1) member prefix "m_" 2) check only simple getter/setter XXXType getXXXName(); void setXXXName(XXXType). 
+     <br/>Example:<br/>
+     <code>private String value; </code><br/>
+     <code>void setValue(String val) { this.value = val;} </code>
      <br/>Reimplemented and fixed by Ilja Dubinin.&nbsp;
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/74">More</a>
    <br/>
    <br/>
      <b>AbbreviationAsWordInNameCheck</b> -&nbsp; problem detection of 2 char abbreviation with length limit 1 was fixed. 
+     <br/>Example:<br/>
+     <code>int scaleX;</code>
      <br/>Done by Baratali Izmailov.&nbsp;
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/116">More</a>
    <br/>
