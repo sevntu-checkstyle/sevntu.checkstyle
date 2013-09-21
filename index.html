@@ -170,6 +170,16 @@ We are strongly convinced that it is much more easier and convenient to catch mi
    <br/>
    <br/>
    <br/>
+     <b>NoMainMethodInAbstractClassCheck</b> -&nbsp; Forbids main methods in abstract classes. Rationale: existance of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.
+     <br/>Example:<br/>
+     <code>
+         abstract class AbstractUiJob {...  public static void main(String args[]){ ... } ... }
+	 </code>
+     <br/>Done by Baratali Izmailov.&nbsp;
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/116">More</a>
+   <br/>
+   <br/>
+   <br/>
      <b>SimpleAccessorNameNotationCheck</b> -&nbsp; Check only direct fields and setter and getter. Options: 1) member prefix "m_" 2) check only simple getter/setter XXXType getXXXName(); void setXXXName(XXXType). 
      <br/>Example:<br/>
      <code>private String value; </code><br/>
