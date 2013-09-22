@@ -107,3 +107,68 @@ class Test {
     void test() {
     }
 }
+
+// Check must ignore these cases:
+class ClassForIssue58 {
+    public Object createB() {
+        class B {
+
+        }
+        return new B();
+    }
+
+    void otherMethod() {
+        
+    }
+}
+
+class ClassForIssue58 {
+    private void simplePrivate() {
+        class Inner {
+            int number;
+            public void get(){}
+            private void set(){}
+        }
+    }
+    
+    protected void simpleProtected() {
+        class Inner {
+            private int a;
+            protected int b;
+            int c;
+            public int d;
+            private void a(){}
+            void c(){}
+            public void d(){}
+            class AnotherClass{
+                public void t(){}
+                private void y(){}
+            }
+        }
+    }
+    
+    public void simplePublic() {
+        class Inner {
+            private int a;
+            protected int b;
+            int c;
+            public int d;
+            private void a(){}
+            void c(){}
+            public void d(){}
+            class AnotherClass{
+                public boolean right;
+                private boolean left;
+            }
+        }
+    }
+    
+    public void abc() {
+        class A {
+            public boolean is;
+        }
+        class B {
+            private boolean is;
+        }
+    }
+}

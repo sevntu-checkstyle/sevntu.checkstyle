@@ -100,6 +100,7 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * </p>
  *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
+ * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
 public class CustomDeclarationOrderCheck extends Check
 {
@@ -308,24 +309,46 @@ public class CustomDeclarationOrderCheck extends Check
     {
 
         if (aAST.getType() == TokenTypes.CLASS_DEF) {
-            if (mClassRoot) {
-                mClassStates.push(new ClassStates());
-                mClassRoot = false;
-            }
-            else {
-                if (mInnerClass) {
-                    //if we have condition to check Inner Classes order
-                    checkOrderLogic(aAST);
+            if(!isClassDefInMethodDef(aAST)) {
+                if (mClassRoot) {
+                    mClassStates.push(new ClassStates());
+                    mClassRoot = false;
                 }
-                mClassStates.push(new ClassStates());
+                else {
+                    if (mInnerClass) {
+                        //if we have condition to check Inner Classes order
+                        checkOrderLogic(aAST);
+                    }
+                    mClassStates.push(new ClassStates());
+                }
             }
         }
         else {
-            final int parentParentType = aAST.getParent().getParent().getType();
-            if (parentParentType == TokenTypes.CLASS_DEF) {
+            final DetailAST parentAst = aAST.getParent().getParent();
+            if (parentAst.getType() == TokenTypes.CLASS_DEF
+                    && !isClassDefInMethodDef(parentAst)) {
                 checkOrderLogic(aAST);
             }
         }
+    }
+    
+    /**
+     * Verify that class definition is in method definition.
+     * @param aClassDef
+     *        DetailAST of CLASS_DEF.
+     * @return true if class definition is in method definition.
+     */
+    private static boolean isClassDefInMethodDef(DetailAST aClassDef) {
+        boolean result = false;
+        DetailAST currentParentAst = aClassDef.getParent();
+        while (currentParentAst != null) {
+            if (currentParentAst.getType() == TokenTypes.METHOD_DEF) {
+                result = true;
+                break;
+            }
+            currentParentAst = currentParentAst.getParent();
+        }
+        return result;
     }
 
     /**
@@ -409,7 +432,8 @@ public class CustomDeclarationOrderCheck extends Check
     @Override
     public void leaveToken(DetailAST aAST)
     {
-        if (aAST.getType() == TokenTypes.CLASS_DEF) {
+        if (aAST.getType() == TokenTypes.CLASS_DEF
+                && !isClassDefInMethodDef(aAST)) {
             mClassStates.pop();
             if (mClassStates.isEmpty()) {
                 mClassRoot = true;
