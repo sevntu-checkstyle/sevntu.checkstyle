@@ -13,10 +13,10 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "10: Method return null instead empty collection.",
-                "45: Method return null instead empty collection.",
-                "53: Method return null instead empty collection.",
-                "58: Method return null instead empty collection.",
+                "10: Method returns null instead of empty collection.",
+                "45: Method returns null instead of empty collection.",
+                "53: Method returns null instead of empty collection.",
+                "58: Method returns null instead of empty collection.",
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck1.java"), expected);
@@ -28,11 +28,11 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-                "10: Method return null instead empty collection.",
-                "17: Method return null instead empty collection.",
-                "45: Method return null instead empty collection.",
-                "53: Method return null instead empty collection.",
-                "58: Method return null instead empty collection.",
+                "10: Method returns null instead of empty collection.",
+                "17: Method returns null instead of empty collection.",
+                "45: Method returns null instead of empty collection.",
+                "53: Method returns null instead of empty collection.",
+                "58: Method returns null instead of empty collection.",
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck1.java"), expected);
@@ -46,13 +46,13 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("collectionList", listOfCollecton);
         final String[] expected = {
 
-                "5: Method return null instead empty collection.",
-                "15: Method return null instead empty collection.",
-                "25: Method return null instead empty collection.",
-                "35: Method return null instead empty collection.",
-                "45: Method return null instead empty collection.",
-                "55: Method return null instead empty collection.",
-                "65: Method return null instead empty collection.",
+                "5: Method returns null instead of empty collection.",
+                "15: Method returns null instead of empty collection.",
+                "25: Method returns null instead of empty collection.",
+                "35: Method returns null instead of empty collection.",
+                "45: Method returns null instead of empty collection.",
+                "55: Method returns null instead of empty collection.",
+                "65: Method returns null instead of empty collection.",
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck2.java"), expected);
@@ -63,8 +63,8 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "12: Method return null instead empty collection.",
-                "15: Method return null instead empty collection.",
+                "12: Method returns null instead of empty collection.",
+                "15: Method returns null instead of empty collection.",
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck3.java"), expected);
@@ -76,8 +76,8 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-                "12: Method return null instead empty collection.",
-                "15: Method return null instead empty collection.",
+                "12: Method returns null instead of empty collection.",
+                "15: Method returns null instead of empty collection.",
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck3.java"), expected);
@@ -98,10 +98,10 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "16: Method return null instead empty collection.",
-                "24: Method return null instead empty collection.",
-                "26: Method return null instead empty collection.",
-                "38: Method return null instead empty collection.",
+                "16: Method returns null instead of empty collection.",
+                "24: Method returns null instead of empty collection.",
+                "26: Method returns null instead of empty collection.",
+                "38: Method returns null instead of empty collection.",
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck5.java"), expected);
