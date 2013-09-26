@@ -182,6 +182,27 @@
             </property-metadata>
             <message-key key="multiple.string.literal" />
         </rule-metadata>
+        
+        <rule-metadata name="%NameConvensionForJUnit3TestsClassesCheck.name" internal-name="NameConvensionForJUnit3TestsClassesCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NameConvensionForJUnit3TestsClassesCheck" />
+			<description>%NameConvensionForJUnit3TestsClassesCheck.desc</description>
+			<property-metadata name="validTestClassNameRegex" datatype="Regex" default-value=".+Test|Test.+|.+IT|.+TestCase">
+				<description>%NameConvensionForJUnit3TestsClassesCheck.validTestClassNameRegex</description>
+			</property-metadata>
+			<property-metadata name="inheritingClass" datatype="String" default-value="TestCase">
+				<description>%NameConvensionForJUnit3TestsClassesCheck.inheritingClass</description>
+			</property-metadata>
+			<message-key key="name.convension.for.tests.classes" />
+		</rule-metadata>
+        
+        <rule-metadata name="%NameConvensionForJUnit4TestsClassesCheck.name" internal-name="NameConvensionForJUnit4TestsClassesCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NameConvensionForJUnit4TestsClassesCheck" />
+			<description>%NameConvensionForJUnit4TestsClassesCheck.desc</description>
+			<property-metadata name="validTestClassNameRegex" datatype="Regex" default-value=".+Test|Test.+|.+IT|.+TestCase">
+				<description>%NameConvensionForJUnit4TestsClassesCheck.validTestClassNameRegex</description>
+			</property-metadata>
+			<message-key key="name.convension.for.tests.classes" />
+		</rule-metadata>
 
 	    <rule-metadata name="%NestedTernaryCheck.name" internal-name="NestedTernary" parent="TreeWalker">
 	            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck"/>
