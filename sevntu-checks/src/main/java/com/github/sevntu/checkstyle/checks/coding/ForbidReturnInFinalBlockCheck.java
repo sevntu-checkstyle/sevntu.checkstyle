@@ -51,7 +51,7 @@ public class ForbidReturnInFinalBlockCheck extends Check
                 .branchContains(TokenTypes.LITERAL_RETURN);
         if (isReturn) {
             log(aFinally.getLineNo(),
-                    "avoid.return.in.finally");
+                    "forbid.return.in.final.block");
         }
     }
 }

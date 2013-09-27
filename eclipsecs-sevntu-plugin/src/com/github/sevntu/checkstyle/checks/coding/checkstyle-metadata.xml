@@ -92,7 +92,7 @@
         <property-metadata name="ignoreThrowInElse" datatype="Boolean" default-value="true">
             <description>%ConfusingConditionCheck.ignoreThrowInElse</description>
             </property-metadata>
-            <message-key key="illegal.catch"/>
+            <message-key key="confusing.condition.check"/>
 		</rule-metadata>
 		
        <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
@@ -104,7 +104,7 @@
             <property-metadata name="forbiddenImportRegexp" datatype="Regex" default-value="">
                 <description>%ForbidCertainImports.forbiddenImportRegexp</description>
             </property-metadata>
-            <message-key key="forbid.certain.imports"/>
+            <message-key key="forbid.certain.imports" />
         </rule-metadata>
                 
         <rule-metadata name="%ForbidInstantiation.name" internal-name="ForbidInstantiation" parent="TreeWalker">
