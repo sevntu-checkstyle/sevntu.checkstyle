@@ -53,6 +53,43 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *                    // SHOULD BE HERE (distance = 2)
  *     }</code>
  * </pre>
+ * 
+ * <p>
+ * Check can detect block of initialization methods. If variable is used in
+ * such block and after variable declaration there is no other statements, then
+ * distance=1. Example:
+ * </p>
+ * <p>
+ * <b>Case #1:</b>
+ * <pre>
+ * int <b>minutes</b> = 5;
+ * Calendar cal = Calendar.getInstance();
+ * cal.setTimeInMillis(timeNow);
+ * cal.set(Calendar.SECOND, 0);
+ * cal.set(Calendar.MILLISECOND, 0);
+ * cal.set(Calendar.HOUR_OF_DAY, hh);
+ * cal.set(Calendar.MINUTE, <b>minutes</b>);
+ * 
+ * Distance for variable <b>minutes</b> is 1, although this variable is used in fifth method call.
+ * </pre>
+ * </p>
+ * <p>
+ * <b>Case #2:</b>
+ * <pre>
+ * int <b>minutes</b> = 5;
+ * Calendar cal = Calendar.getInstance();
+ * cal.setTimeInMillis(timeNow);
+ * cal.set(Calendar.SECOND, 0);
+ * cal.set(Calendar.MILLISECOND, 0);
+ * <i>System.out.println(cal);</i>
+ * cal.set(Calendar.HOUR_OF_DAY, hh);
+ * cal.set(Calendar.MINUTE, <b>minutes</b>);
+ * 
+ * Distance for variable <b>minutes</b> is 6, because between declaration and usage there is one
+ * more expression except initialization block.
+ * </pre>
+ * </p>
+ * 
  * There are several additional options to configure check:
  * <pre>
  * 1. allowedDistance - allows to set distance between declaration
@@ -103,6 +140,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * whole class.
  * </p>
  * @author <a href="mailto:rd.ryly@gmail.com">Ruslan Diachenko</a>
+ * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
 public class VariableDeclarationUsageDistanceCheck extends Check
 {
