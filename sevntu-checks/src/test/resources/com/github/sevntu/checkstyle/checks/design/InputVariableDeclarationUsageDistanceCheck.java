@@ -389,4 +389,179 @@ public class InputVariableDeclarationUsageDistanceCheck {
 			}
 		}
 	}
+	
+	public void testIssue32_1()
+    {
+        Option srcDdlFile = OptionBuilder.create("f");
+        Option logDdlFile = OptionBuilder.create("o");
+        Option help = OptionBuilder.create("h");
+
+        Options options = new Options();
+        options.something();
+        options.something();
+        options.something();
+        options.something();
+        options.addOption(srcDdlFile, logDdlFile, help); // distance=1
+    }
+
+    public void testIssue32_2()
+    {
+        int mm = Integer.parseInt(time.substring(div + 1).trim());
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timeNow);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.HOUR_OF_DAY, hh);
+        cal.set(Calendar.MINUTE, mm); // distance=1
+    }
+    
+    public void testIssue32_3(MyObject[] objects) {
+        Calendar cal = Calendar.getInstance();
+        for(int i=0; i<objects.length; i++) {
+            objects[i].setEnabled(true);
+            objects[i].setColor(0x121212);
+            objects[i].setUrl("http://google.com");
+            objects[i].setSize(789);
+            objects[i].setCalendar(cal); // distance=1
+        }
+    }
+    
+    public void testIssue32_4(boolean flag) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("flag is ");
+        builder.append(flag);
+        final String line = ast.getLineNo();
+        if(flag) {
+            builder.append("line of AST is:");
+            builder.append("\n");
+            builder.append(String.valueOf(line)); //distance=1
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+    
+    public void testIssue32_5() {
+        Option a;
+        Option b;
+        Option c;
+        boolean isCNull = isNull(c); // distance=1
+        boolean isBNull = isNull(b); // distance=1
+        boolean isANull = isNull(a); // distance=1
+    }
+    
+    public void testIssue32_6() {
+        Option aOpt;
+        Option bOpt;
+        Option cOpt;
+        isNull(cOpt); // distance = 1
+        isNull(bOpt); // distance = 2
+        isNull(aOpt); // distance = 3
+    }
+    
+    public void testIssue32_7() {
+        String line = "abc";
+        writer.write(line);
+        line.charAt(1);
+        builder.append(line);
+        test(line, line, line);
+    }
+    
+    public void testIssue32_8(Writer w1, Writer w2, Writer w3) {
+        String l1="1", l2="2", l3="3";
+        w1.write(l3); //distance=1
+        w2.write(l2); //distance=2
+        w3.write(l1); //distance=3
+    }
+    
+    public void testIssue32_9() {
+        Options options = new Options();
+        Option myOption = null;
+        options.addBindFile(null);
+        options.addBindFile(null);
+        options.addBindFile(null);
+        options.addBindFile(null);
+        options.addBindFile(null);
+        System.out.println("message");
+        myOption.setArgName("abc"); // distance=7
+    }
+    
+    public void testIssue32_10() {
+        Options options = new Options();
+        Option myOption = null;
+        options.addBindFile(null);
+        options.addBindFile(null);
+        options.addBindFile(null);
+        options.addBindFile(null);
+        options.addBindFile(null);
+        myOption.setArgName("q"); // distance=6
+    }
+    
+    public int testIssue32_11(File toDir)
+            throws IOException, FTPException,
+            ParseException, InterruptedException
+    {
+        int count = 0;
+        FTPFile[] files = client.dirDetails(".");
+
+        log.info("Data archivation started");
+        archiveOldData(archDir, files);
+        log.info("Data archivation finished");
+
+        if (files == null || files.length == 0) {
+            warn("No files on a remote site");
+        }
+        else {
+            log.debug("Files on remote site: " + files.length);
+
+            for (FTPFile ftpFile : files) {
+                if (!file.exists()) {
+                    getFile(client, ftpFile, file);
+                    file.setLastModified(ftpFile.lastModified().getTime());
+                    count++;
+                }
+            }
+        }
+
+        client.quit();
+
+        return count;
+    }
+    
+    //////////////////////////////////////////////////
+    // False positive. Will be fixed in future.
+    //////////////////////////////////////////////////
+    private TreeMapNode buildTree(List<Object[]> tree)
+    {
+        state.clear();
+        revState.clear();
+        TreeMapNode root = null;
+        for (Object[] s : tree) {
+            Integer id = (Integer) s[0];
+            String label = (String) s[1];
+            Integer parentId = (Integer) s[2]; ///!!!!!!!!
+            Number weight = (Number) s[3];
+            Number value = (Number) s[4];
+            Integer childCount = (Integer) s[5];
+            TreeMapNode node;
+            if (childCount == 0) {
+                node = new TreeMapNode(label,
+                        weight != null ? weight.doubleValue() : 0.0,
+                        new DefaultValue(value != null ? value.doubleValue()
+                                : 0.0));
+            }
+            else {
+                node = new TreeMapNode(label);
+            }
+            state.put(id, node);
+            revState.put(node, id);
+            if (parentId == null || parentId == -1) { ///!!!!!!!
+                root = node;
+            }
+            else {
+                state.get(parentId).add(node);
+            }
+        }
+        return root;
+    }
 }
