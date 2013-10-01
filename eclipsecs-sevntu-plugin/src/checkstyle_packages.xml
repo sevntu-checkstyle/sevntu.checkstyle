@@ -14,6 +14,7 @@
      <package name="checks">
       <package name="annotation"/>
       <package name="coding"/>
+      <package name="javadoc"/>
       <package name="design"/>
       <package name="naming"/>
       <package name="sizes"/>
