@@ -117,4 +117,31 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck6.java"), expected);
     }
+
+    @Test
+    public void testIss148()
+            throws Exception
+    {
+        final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
+        final String[] expected = {
+                "24: Method returns null instead of empty collection.",
+                };
+
+        verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck7.java"), expected);
+    }
+
+    @Test
+    public void testIss148Deep()
+            throws Exception
+    {
+        final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
+        checkConfig.addAttribute("searchThroughMethodBody", "true");
+        final String[] expected = {
+                "24: Method returns null instead of empty collection.",
+                };
+
+        verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck7.java"), expected);
+    }
+    
+    
 }
