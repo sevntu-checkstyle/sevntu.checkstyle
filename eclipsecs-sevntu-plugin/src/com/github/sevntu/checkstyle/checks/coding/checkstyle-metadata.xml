@@ -101,8 +101,11 @@
             <property-metadata name="packageNameRegexp" datatype="Regex" default-value="">
                 <description>%ForbidCertainImports.packageNameRegexp</description>
             </property-metadata>
-            <property-metadata name="forbiddenImportRegexp" datatype="Regex" default-value="">
-                <description>%ForbidCertainImports.forbiddenImportRegexp</description>
+            <property-metadata name="forbiddenImportsRegexp" datatype="Regex" default-value="">
+                <description>%ForbidCertainImports.forbiddenImportsRegexp</description>
+            </property-metadata>
+            <property-metadata name="forbiddenImportsExcludesRegexp" datatype="Regex" default-value="">
+                <description>%ForbidCertainImports.forbiddenImportsExcludesRegexp</description>
             </property-metadata>
             <message-key key="forbid.certain.imports" />
         </rule-metadata>
