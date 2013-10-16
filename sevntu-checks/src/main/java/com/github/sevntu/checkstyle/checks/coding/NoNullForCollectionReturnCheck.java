@@ -189,9 +189,10 @@ public class NoNullForCollectionReturnCheck extends Check
         boolean result = false; 
         if (returnExpression != null)
         {
-            if (returnExpression.branchContains(TokenTypes.QUESTION))
+            DetailAST ternary = returnExpression.getFirstChild(); 
+            if (TokenTypes.QUESTION == ternary.getType())
             {
-                returnExpression = returnExpression.findFirstToken(TokenTypes.QUESTION);
+                returnExpression = ternary;
             }
             result = returnExpression.getChildCount(TokenTypes.LITERAL_NULL) > 0;
         }
