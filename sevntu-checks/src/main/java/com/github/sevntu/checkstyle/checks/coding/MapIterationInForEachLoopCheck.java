@@ -30,10 +30,10 @@ import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * <p>This check can help you to write the whole map
- * iteration more correctly:</p>
+ * <p>This check can help you to write the whole for-each
+ * map iteration more correctly:</p>
  * <p>1. If you iterate over a map using map.keySet() or map.entrySet(),
- * but your code uses only map values, check will propose you to replace
+ * but your code uses only map values, Check will propose you to replace
  * map.keySet() or map.entrySet() with map.values() call.
  * Replacing map.keySet() or map.entrySet() with map.values()
  * for such cases can improve an iteration performance
@@ -54,7 +54,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *        }</pre>
  *
  * 2. If you iterate over a map using map.entrySet(),
- * but never call entry.getValue(), check will propose
+ * but never call entry.getValue(), Check will propose
  * you to replace map.entrySet() with map.keySet()
  * to iterate over map keys only.
  *   <p>Bad:</p>
@@ -86,25 +86,25 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  */
 
-public class PreferMapEntryToIterateWholeMapCheck extends Check
+public class MapIterationInForEachLoopCheck extends Check
 {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    public static final String MSG_KEY_KEYSET = "prefer.map.keySet";
+    public static final String MSG_KEY_KEYSET = "map.iteration.keySet";
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    public static final String MSG_KEY_ENTRYSET = "prefer.map.entrySet";
+    public static final String MSG_KEY_ENTRYSET = "map.iteration.entrySet";
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    public static final String MSG_KEY_VALUES = "prefer.map.values";
+    public static final String MSG_KEY_VALUES = "map.iteration.values";
 
     /**
      * Set of allowable map implementations. You can set your own map
@@ -150,29 +150,24 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
     private List<String> mQualifiedImportList = new ArrayList<String>();
 
     /**
-     * This variable contains literal for node.
-     */
-    private static DetailAST sCurrentLiteralForNode;
-
-    /**
      * If this value is true, checkstyle will process value() iterations.
      */
-    private boolean mIsCheckValueProcessingEnabled = true;
+    private boolean mProcessingValue = true;
 
     /**
      * If this value is true, checkstyle will process keySet() iterations.
      */
-    private boolean mIsCheckKeySetProcessingEnabled;
+    private boolean mProcessingKeySet;
 
     /**
      * If this value is true, checkstyle will process entrySet() iterations.
      */
-    private boolean mIsCheckEntrySetProcessingEnabled;
+    private boolean mProcessingEntrySet;
 
     /**
      * Creates default importList and mapImportClassesNamesList.
      */
-    public PreferMapEntryToIterateWholeMapCheck()
+    public MapIterationInForEachLoopCheck()
     {
         mSupportedMapImplQualifiedNames = new HashSet<String>();
         setSupportedMapImplementationQualifiedNames(new String []
@@ -203,35 +198,35 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
 
     /**
      * Set mIsCheckValueProcessingEnabled variable.
-     * @param mProcessingValue
+     * @param aProcessingValue
      *        User's value of mIsCheckValueProcessingEnabled
      */
     public void setProcessingValue(
-            final boolean mProcessingValue)
+            final boolean aProcessingValue)
     {
-        mIsCheckValueProcessingEnabled = mProcessingValue;
+        mProcessingValue = aProcessingValue;
     }
 
     /**
      * Set mIsCheckKeySetProcessingEnabled variable.
-     * @param mProcessingKeySet
+     * @param aProcessingKeySet
      *        User's value of mIsCheckKeySetProcessingEnabled
      */
     public void setProcessingKeySet(
-            final boolean mProcessingKeySet)
+            final boolean aProcessingKeySet)
     {
-        mIsCheckKeySetProcessingEnabled = mProcessingKeySet;
+        mProcessingKeySet = aProcessingKeySet;
     }
 
     /**
      * Set mIsCheckEntrySetProcessingEnabled variable.
-     * @param mProcessingEntrySet
+     * @param aProcessingEntrySet
      *        User's value of mIsCheckEntrySetProcessingEnabled
      */
     public void setProcessingEntrySet(
-            final boolean mProcessingEntrySet)
+            final boolean aProcessingEntrySet)
     {
-        mIsCheckEntrySetProcessingEnabled = mProcessingEntrySet;
+        mProcessingEntrySet = aProcessingEntrySet;
     }
 
     @Override
@@ -260,8 +255,8 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
 
         case TokenTypes.LITERAL_FOR:
             if (!mQualifiedImportList.isEmpty()) {
-                sCurrentLiteralForNode = aAst;
-                processForEachLoop(sCurrentLiteralForNode);
+                DetailAST currentLiteralForNode = aAst;
+                processForEachLoop(currentLiteralForNode);
             }
             break;
         default:
@@ -273,15 +268,15 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
     /**
      * This method process for cycle. It search keySet() or entrySet() nodes,
      * iterated maps, keys or entries.
-     * @param aLiteralForNode
+     * @param aForLiteral
      *        DetailAST of literal for
      */
-    private void processForEachLoop(DetailAST aLiteralForNode)
+    private void processForEachLoop(DetailAST aForLiteral)
     {
-        final DetailAST forEachNode = aLiteralForNode.getFirstChild()
+        final DetailAST forEachNode = aForLiteral.getFirstChild()
                 .getNextSibling();
 
-        final DetailAST keySetOrEntrySetNode = getKeySetOrEntrySetNode();
+        final DetailAST keySetOrEntrySetNode = getKeySetOrEntrySetNode(aForLiteral);
         // Search keySet or entrySet
         if (keySetOrEntrySetNode != null) {
             final DetailAST variableDefNode = forEachNode.getFirstChild();
@@ -290,19 +285,19 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
             final String currentMapVariableName =
                     keySetOrEntrySetNode.getPreviousSibling()
                     .getText();
-            final DetailAST forEachOpeningBrace = aLiteralForNode
+            final DetailAST forEachOpeningBrace = aForLiteral
                     .getLastChild();
 
             if (!isMapPassedIntoAnyMethod(forEachOpeningBrace)) {
 
-                if (mIsCheckKeySetProcessingEnabled
+                if (mProcessingKeySet
                         && KEY_SET_METHOD_NAME.equals(
                             keySetOrEntrySetNode.getText()))
                 {
                     checkForWrongKeySetUsage(forEachOpeningBrace,
                             keyOrEntryVariableName, currentMapVariableName);
                 }
-                if (mIsCheckEntrySetProcessingEnabled) {
+                if (mProcessingEntrySet) {
                     checkForWrongEntrySetUsage(forEachOpeningBrace,
                             keyOrEntryVariableName);
                 }
@@ -315,10 +310,10 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
      * @return keySet() or entrySet() node. If such node didn't found, method
      *         return null.
      */
-    private DetailAST getKeySetOrEntrySetNode()
+    private DetailAST getKeySetOrEntrySetNode(DetailAST aCurrentLiteralForNode)
     {
         final DetailAST forEachNode =
-                sCurrentLiteralForNode.getFirstChild().getNextSibling();
+                aCurrentLiteralForNode.getFirstChild().getNextSibling();
         final List<DetailAST> identList = filterTokens(forEachNode,
                 TokenTypes.IDENT);
         DetailAST keySetOrEntrySetNode = null;
@@ -391,6 +386,7 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
         int methodGetCallCount = 0;
         int methodGetCallInsideIfCount = 0;
         int keyIdentCounter = 0;
+        DetailAST currentLiteralForNode = aForEachOpeningBrace.getParent();
         final List<DetailAST> identAndLiteralIfList = filterTokens(
                 aForEachOpeningBrace, TokenTypes.IDENT, TokenTypes.LITERAL_IF);
         for (DetailAST token : identAndLiteralIfList) {
@@ -421,15 +417,14 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
         }
         if (methodGetCallCount != 0 && keyIdentCounter != 0) {
             if (methodGetCallCount == keyIdentCounter
-                    && mIsCheckValueProcessingEnabled)
+                    && mProcessingValue)
             {
-                log(sCurrentLiteralForNode, MSG_KEY_VALUES);
+                log(currentLiteralForNode, MSG_KEY_VALUES);
             }
             if (methodGetCallCount < keyIdentCounter && methodGetCallCount > 0
-                    
                     && methodGetCallInsideIfCount != methodGetCallCount)
             {
-                log(sCurrentLiteralForNode, MSG_KEY_ENTRYSET);
+                log(currentLiteralForNode, MSG_KEY_ENTRYSET);
             }
         }
     }
@@ -446,6 +441,7 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
     {
         int methodGetKeyCallCount = 0;
         int methodGetValueCallCount = 0;
+        DetailAST currentLiteralForNode = aForEachOpeningBrace.getParent();
         final List<DetailAST> identList = filterTokens(
                 aForEachOpeningBrace, TokenTypes.IDENT);
         for (DetailAST token : identList) {
@@ -462,12 +458,12 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
             }
         }
         if (methodGetKeyCallCount == 0 && methodGetValueCallCount > 0
-                && mIsCheckValueProcessingEnabled)
+                && mProcessingValue)
         {
-            log(sCurrentLiteralForNode, MSG_KEY_VALUES);
+            log(currentLiteralForNode, MSG_KEY_VALUES);
         }
         if (methodGetKeyCallCount > 0 && methodGetValueCallCount == 0) {
-            log(sCurrentLiteralForNode, MSG_KEY_KEYSET);
+            log(currentLiteralForNode, MSG_KEY_KEYSET);
 
         }
     }
@@ -487,15 +483,7 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
         if (getFirstSpecificToken(literaNewlList, TokenTypes.ASSIGN) == null) {
             return result;
         }
-        String className = null;
-        DetailAST exprNode;
-        for (DetailAST literalNew : literaNewlList) {
-            exprNode = literalNew.getParent();
-            if (exprNode.getParent().getType() == TokenTypes.ASSIGN) {
-                className = literalNew.getFirstChild().getText();
-                break;
-            }
-        }
+        String className = getClassName(literaNewlList);
         if (className != null) {
             for (String mapImplementationQualifiedName : mQualifiedImportList) {
                 if (mapImplementationQualifiedName.endsWith(className)) {
@@ -521,6 +509,24 @@ public class PreferMapEntryToIterateWholeMapCheck extends Check
             }
         }
         return result;
+    }
+
+    /**
+     * This method returns the object's class name.
+     * @param literaNewlList
+     *        This list contains "new" literals
+     * @return
+     */
+    private static String getClassName(final List<DetailAST> literaNewlList)
+    {
+        DetailAST exprNode;
+        for (DetailAST literalNew : literaNewlList) {
+            exprNode = literalNew.getParent();
+            if (exprNode.getParent().getType() == TokenTypes.ASSIGN) {
+                return literalNew.getFirstChild().getText();
+            }
+        }
+        return null;
     }
     /**
      * This method checks is DetailAST List contains specific token, or not.

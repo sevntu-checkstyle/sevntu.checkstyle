@@ -5,32 +5,32 @@ import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class PreferMapEntryToIterateWholeMapTest extends BaseCheckTestSupport
+public class MapIterationInForEachLoopTest extends BaseCheckTestSupport
 {
 
     /**
      * Default check configuration
      */
     private final DefaultConfiguration mCheckConfig =
-        createCheckConfig(PreferMapEntryToIterateWholeMapCheck.class);
+        createCheckConfig(MapIterationInForEachLoopCheck.class);
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file
      */
     private final String mMsgKeyEntrySet =
-            PreferMapEntryToIterateWholeMapCheck.MSG_KEY_ENTRYSET;
+            MapIterationInForEachLoopCheck.MSG_KEY_ENTRYSET;
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file
      */
     private final String mMsgKeyValues =
-            PreferMapEntryToIterateWholeMapCheck.MSG_KEY_VALUES;
+            MapIterationInForEachLoopCheck.MSG_KEY_VALUES;
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file
      */
     private final String mMsgKeyKeySet =
-            PreferMapEntryToIterateWholeMapCheck.MSG_KEY_KEYSET;
+            MapIterationInForEachLoopCheck.MSG_KEY_KEYSET;
 
     @Test
     public final void basicTest() throws Exception
@@ -55,7 +55,7 @@ public class PreferMapEntryToIterateWholeMapTest extends BaseCheckTestSupport
                     + getCheckMessage(mMsgKeyValues), };
 
         verify(mCheckConfig,
-                getPath("InputPreferMapEntryToIterateWholeMap.java"), expected);
+                getPath("InputMapIterationInForEachLoop.java"), expected);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class PreferMapEntryToIterateWholeMapTest extends BaseCheckTestSupport
             "11:9: " + getCheckMessage(mMsgKeyEntrySet),
             "16:9: " + getCheckMessage(mMsgKeyValues), };
         verify(mCheckConfig,
-                getPath("InputPreferMapEntryToIterateWholeMapImport.java"),
+                getPath("InputMapIterationInForEachLoopImport.java"),
                 expected);
     }
 
@@ -98,7 +98,7 @@ public class PreferMapEntryToIterateWholeMapTest extends BaseCheckTestSupport
                 "12:9: " + getCheckMessage(mMsgKeyEntrySet), 
                 "28:9: " + getCheckMessage(mMsgKeyValues), };
         verify(mCheckConfig,
-                getPath("InputPreferMapEntryToIterateWholeMapSkipIf.java"),
+                getPath("InputMapIterationInForEachLoopSkipIf.java"),
                 expected);
     }
 }
