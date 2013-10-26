@@ -62,11 +62,14 @@
         <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclarationOrder" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
             <description>%CustomDeclarationOrder.desc</description>
-            <property-metadata name="customDeclarationOrder" datatype="Regex" default-value="Field(public) ### Field(protected) ### Field(private) ### CTOR(.*) ### Method(.*)### InnerClass()">
+            <property-metadata name="customDeclarationOrder" datatype="Regex" default-value="Field(.*public.*) ### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*) ### MainMethod(.*) ### GetterSetter(.*) ### Method(.*) ### InnerClass(.*) ### InnerInterface(.*) ### InnerEnum(.*)">
                 <description>%CustomDeclarationOrder.customDeclarationOrder</description>
             </property-metadata>
-            <property-metadata name="ignoreRegExCase" datatype="Boolean" default-value="false">
-                <description>%CustomDeclarationOrder.ignoreRegExCase</description>
+            <property-metadata name="caseSensitive" datatype="Boolean" default-value="false">
+                <description>%CustomDeclarationOrder.caseSensitive</description>
+            </property-metadata>
+            <property-metadata name="fieldPrefix" datatype="String" default-value="">
+                <description>%CustomDeclarationOrder.fieldPrefix</description>
             </property-metadata>
             <message-key key="custom.declaration.order.field"/>
             <message-key key="custom.declaration.order.method"/>
