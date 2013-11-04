@@ -21,6 +21,8 @@ cd ../sevntu-checks/
 mvn deploy
 cd ../sevntu-checkstyle-maven-plugin/
 mvn deploy
+cd ../sevntu-checkstyle-sonar-plugin/
+mvn install wagon:upload-single
 cd ../gh-pages
 
 #git add .
