@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.text.MessageFormat;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -31,16 +33,18 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
 {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(ForbidCertainImportsCheck.class);
+    private final String messagePattern = getCheckMessage(ForbidCertainImportsCheck.MSG_KEY);
+    
+	private final DefaultConfiguration checkConfig = createCheckConfig(ForbidCertainImportsCheck.class);
 
     @Test
     public void testNormalWork() throws Exception
     {
         String importRegexp = ".+\\.api\\..+";
-        String nameRegexp = ".+\\.old\\..+";
 
-        checkConfig.addAttribute("packageNameRegexp", nameRegexp);
-        checkConfig.addAttribute("forbiddenImportRegexp", importRegexp);
+        checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
+        checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
         String[] expected = {
             "3: " + getMessage(importRegexp,
@@ -48,60 +52,68 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
             "9: " + getMessage(importRegexp,
                     "com.puppycrawl.tools.checkstyle.api.Check"),
             "21: " + getMessage(importRegexp,
-                    "com.puppycrawl.tools.checkstyle.api.Check"),
+                    "com.smth.tools.checkstyle.api.Smth"),
         };
 
         verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
     }
 
+	@Test
+	public void testNormalWorkWithExcludes() throws Exception
+	{
+		String importRegexp = ".+\\.api\\..+";
+
+		checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
+		checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
+		checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
+
+		String[] expected = {
+			"21: " + getMessage(importRegexp,
+				     "com.smth.tools.checkstyle.api.Smth"),
+		};
+
+		verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+	}
+    
     @Test
     public void testEmptyImportsAndDefaultPackage() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
-        checkConfig.addAttribute("forbiddenImportRegexp", ".+\\.api\\..+");
+        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {
-        };
+        String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
-    public void testEmptyImportsAndDefaultPackageWithoutParams() throws Exception
+    public void testEmptyParams() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", "");
-        checkConfig.addAttribute("forbiddenImportRegexp", "");
+        checkConfig.addAttribute("forbiddenImportsRegexp", "");
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {
-        };
+        String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
-    public void testImports() throws Exception
+    public void testNoImports() throws Exception
     {
         checkConfig.addAttribute("packageNameRegexp", "");
-        checkConfig.addAttribute("forbiddenImportRegexp", "");
+        checkConfig.addAttribute("forbiddenImportsRegexp", "");
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {
-        };
+        String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
-    @Test
-    public void testEmptyImportsAndDefaultPackageWithoutParams2() throws Exception
+    private String getMessage(String pattern, String importText)
     {
-        String[] expected = {
-        };
-        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
-    }
-
-    private static String getMessage(String pattern, String importText)
-    {
-        return "This import should not match '" + pattern
-                + "' pattern, it is forbidden in " + importText + ".";
+        return MessageFormat.format(messagePattern, pattern, importText);
     }
 
 

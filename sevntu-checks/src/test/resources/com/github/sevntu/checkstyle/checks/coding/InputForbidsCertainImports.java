@@ -18,7 +18,7 @@ public class InputForbidsCertainImports extends Check
     public int a()
     {
         return 5;
-        Check check = new com.puppycrawl.tools.checkstyle.api.Check();
+        Smth smth = new com.smth.tools.checkstyle.api.Smth(); // forbidden!
     }
 
 }
