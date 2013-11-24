@@ -13,7 +13,7 @@ where:
 manualDeploy="
 For new version deploy please do:
 
-    git add . && git commit -m \"new version deploy\" && git push
+    cd gh-pages && git add . && git commit -m \"new version deploy\" && git push
 		"
 prepareForDeploy()
 	{
