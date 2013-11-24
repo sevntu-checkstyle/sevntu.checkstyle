@@ -91,6 +91,11 @@ deploySonar()
 		return
 	}
 
+if [ $# -eq 0 ]
+  then
+    echo "$usage"
+fi
+
 while :
 do
     case $1 in
