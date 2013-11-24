@@ -66,6 +66,7 @@ deployEclipse()
 		mvn clean install -f eclipse-pom.xml
 		cd update-site
 		mvn wagon:upload
+		cd ../gh-pages
 		echo "$manualDeploy"
 		return
 	}
@@ -83,7 +84,9 @@ deployMaven()
 
 deploySonar()
 	{
-		echo "deploy sonar"
+		cd ../sevntu-checkstyle-sonar-plugin/
+		mvn install wagon:upload-single
+		cd ../gh-pages
 		echo "$manualDeploy"
 		return
 	}
@@ -96,8 +99,10 @@ do
             exit 0
             ;;
         --all)
-            prepareForDeploy
-            deployAll
+			echo "[ERROR] Deploy 'all' is not supported/tested yet"
+			# RI: no need to deploy sevntu-checks on each deployXXXX function call
+            #prepareForDeploy
+            #deployAll
             shift 1
             ;;
         --eclipse-cs)
