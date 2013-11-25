@@ -11,7 +11,7 @@ h3. Continuous integration (Travis): "!https://secure.travis-ci.org/sevntu-check
 
 h3. Related Projects
 
-"Checkstyle":http://checkstyle.sourceforge.net/, "EclipseCS":http://eclipse-cs.sourceforge.net/, "Maven Checkstyle Plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/ .
+"Checkstyle":http://checkstyle.sourceforge.net/, "EclipseCS":http://eclipse-cs.sourceforge.net/, "Maven Checkstyle Plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/, "Checkstyle IDEA":https://github.com/jshiell/checkstyle-idea, "Sonar Checkstyle Plugin":https://github.com/SonarSource/sonar-java/tree/master/sonar-checkstyle-plugin .
 
 
 h3. Contributors
