@@ -69,15 +69,18 @@
 We are strongly convinced that it is much more easier and convenient to catch minor traps in code during writing than after committing/pushing. This project contains a number of Checks that can help program engineers to write code in a uniform style, which makes it easier for the whole team of programmers to review the code, also significantly improves the low threshold of understanding for new developers.
       <br/>
       <br/>
-      We are extension to <a href="http://eclipse-cs.sourceforge.net/">EclipseCS plugin</a>,
-      Incubator for Checkstyle checks that are not present in main stream of Checkstyle project.
+This project is additional(non-standard) checks for Checkstyle that are compiled as:<br>
+- extension to <a href="http://maven.apache.org/plugins/maven-checkstyle-plugin/">maven-checkstyle-plugin</a> (how to use: <a href="http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-developed-checkstyle.html">in general</a>, <a href="https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/maven-project">maven example</a>, <a href="https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/ant-project">ant example</a>).<br>
+- extension to <a href="http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin">Sonar Checkstyle Plugin</a> (how to use: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-Sonar-%28user%27s-guide%29">in general</a>).<br>
+- extension to <a href="http://plugins.jetbrains.com/plugin/1065">CheckStyle-IDEA</a> (how to use: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA">in general</a>).<br>
+- extension to <a href="http://eclipse-cs.sourceforge.net/">Checkstyle Eclipse plugin</a> how to use: install from EclipseCS “update site”.
+<br/>
+<br/> 
+      This project is incubator for Checkstyle checks that are not present in main stream of Checkstyle project.
       If you have a check and need place to be build-in, let us know.
       <br/>
       If you want to study Java(with mentoring) and help us develop some Checks let us know, 
       we are looking for new maintainers and level of Java experience does not matter.
-      <br/>
-      <br/>
-      We do contribute all our Checks to Checkstyle project as <a href="http://sourceforge.net/p/checkstyle/patches/">patches</a>, and will always do.
       <br/>
       <br/>
       We offer diversity of nonstandard Checks and each developer's group chooses what to use to satisfy their code-standard needs.
