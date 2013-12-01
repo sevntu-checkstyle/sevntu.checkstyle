@@ -69,11 +69,7 @@
 We are strongly convinced that it is much more easier and convenient to catch minor traps in code during writing than after committing/pushing. This project contains a number of Checks that can help program engineers to write code in a uniform style, which makes it easier for the whole team of programmers to review the code, also significantly improves the low threshold of understanding for new developers.
       <br/>
       <br/>
-This project is additional(non-standard) checks for Checkstyle that are compiled as:<br>
-- extension to <a href="http://maven.apache.org/plugins/maven-checkstyle-plugin/">maven-checkstyle-plugin</a> (how to use: <a href="http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-developed-checkstyle.html">in general</a>, <a href="https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/maven-project">maven example</a>, <a href="https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/ant-project">ant example</a>).<br>
-- extension to <a href="http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin">Sonar Checkstyle Plugin</a> (how to use: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-Sonar-%28user%27s-guide%29">in general</a>).<br>
-- extension to <a href="http://plugins.jetbrains.com/plugin/1065">CheckStyle-IDEA</a> (how to use: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA">in general</a>).<br>
-- extension to <a href="http://eclipse-cs.sourceforge.net/">Checkstyle Eclipse plugin</a> how to use: install from EclipseCS “update site”.
+This project is additional(non-standard) checks for Checkstyle that are compiled as extension to maven-checkstyle-plugin, Sonar Checkstyle Plugin, CheckStyle-IDEA, Checkstyle Eclipse plugin, see <a href="#distribution">Distribution</a> chapter for more details. 
 <br/>
 <br/> 
       This project is incubator for Checkstyle checks that are not present in main stream of Checkstyle project.
@@ -99,15 +95,16 @@ This project is additional(non-standard) checks for Checkstyle that are compiled
     <h2>IRC</h2>
         <p> <a href="http://webchat.freenode.net/?channels=#sevntu.checkstyle">#sevntu.checkstyle on Freenode</a></p>
 
-<h2 id="eclipsecs-update-site">Update site for Eclipse (EclipseCS plugin is required)</h2>
-     <p>
-         http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/ (do not use this link in Browser, it will return 404 code, it is expected, but it will work well through Eclipse menu "Help"->"Install New Software ...")
-     </p>
-     <p>
-         or you can do it directly from update site of <a href="http://eclipse-cs.sourceforge.net/downloads.html">eclipse-cs</a>, group "Uncategorized". 
-     </p>
-<h2> New and noteworthy</h2>
+<h2 id="distribution">Distribution</h2>
+<p>
+<span id="checkstyle-maven">- extension to <a href="http://maven.apache.org/plugins/maven-checkstyle-plugin/">maven-checkstyle-plugin</a> (how to use: <a href="http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-developed-checkstyle.html">in general</a>, <a href="https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/maven-project">maven example</a>, <a href="https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/ant-project">ant example</a>).</span><br>
+<span id="checkstyle-sonar">- extension to <a href="http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin">Sonar Checkstyle Plugin</a> (how to use: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-Sonar-%28user%27s-guide%29">in general</a>).</span><br>
+<span id="checkstyle-idea">- extension to <a href="http://plugins.jetbrains.com/plugin/1065">CheckStyle-IDEA</a> (how to use: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA">in general</a>).</span><br>
+<span id="eclipsecs-update-site">- extension to <a href="http://eclipse-cs.sourceforge.net/">Checkstyle Eclipse plugin</a> how to use: install from EclipseCS “update site” or use our update site http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/ (do not use this link in Browser, it will return 404 code, it is expected, but it will work well through Eclipse menu "Help"->"Install New Software ...") </span>
+</p>
 
+
+<h2> New and noteworthy</h2>
 <!--
 <h3 id="1.XX.0">Release 1.XX.0 (1X/ssss/2013):</h3>
 <div >
