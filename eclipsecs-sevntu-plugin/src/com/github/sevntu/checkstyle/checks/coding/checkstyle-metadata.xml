@@ -167,6 +167,32 @@
             </property-metadata>
         </rule-metadata>
         
+	    <rule-metadata name="%MapIterationInForEachLoop.name"
+	        internal-name="MapIterationInForEachLoop" parent="TreeWalker">
+		    <alternative-name
+		    internal-name="com.puppycrawl.tools.checkstyle.checks.coding.MapIterationInForEachLoopCheck" />
+	        <description>%MapIterationInForEachLoop.desc</description>
+	        <property-metadata name="supportedMapImplQualifiedNames"
+		        datatype="String" default-value="java.util.Map, java.util.HashMap, java.util.TreeMap">
+		        <description>%MapIterationInForEachLoop.supportedMapImplQualifiedNames</description>
+	        </property-metadata>
+	        <property-metadata name="proposeValuesUsage"
+		        datatype="Boolean" default-value="true">
+			    <description>%MapIterationInForEachLoop.proposeValuesUsage</description>
+	        </property-metadata>
+	        <property-metadata name="proposeKeySetUsage"
+		        datatype="Boolean" default-value="false">
+		        <description>%MapIterationInForEachLoop.proposeKeySetUsage</description>
+	        </property-metadata>
+	        <property-metadata name="proposeEntrySetUsage"
+		        datatype="Boolean" default-value="false">
+		        <description>%MapIterationInForEachLoop.proposeEntrySetUsage</description>
+	        </property-metadata>
+	            <message-key key="map.iteration.keySet" />
+	            <message-key key="map.iteration.entrySet" />
+	            <message-key key="map.iteration.values" />
+        </rule-metadata>
+        
         <rule-metadata name="%MultipleStringLiteralsExtended.name" internal-name="MultipleStringLiteralsExtended" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck" />
             <description>%MultipleStringLiteralsExtended.desc</description>
