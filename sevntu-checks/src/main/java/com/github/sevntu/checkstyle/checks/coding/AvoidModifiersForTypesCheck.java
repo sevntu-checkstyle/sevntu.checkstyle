@@ -34,8 +34,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <br>
  * Example: <br>
  * "static" modifier for <a
- * href="http://ulc-community.canoo.com/snipsnap/space/Good+Practices"
- * >ULCComponents</a> is not allowed. <br>
+ * href="http://ulc.canoo.com/ulccommunity/Contributions/Extensions/GoodPractices.html"
+ * >ULCComponents</a> <br/> 
+ * Static variables <br/>
+ * Never keep instances of ULC classes in static variables (ULCIcons neither!). 
+ * They cannot be shared between different sessions.  <br>
  * So we can disallow "static" modifier for all ULC* components by setting up an
  * "forbiddenClassesRegexpStatic" option to "ULC.+" regexp String.
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
