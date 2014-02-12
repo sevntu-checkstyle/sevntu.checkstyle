@@ -59,6 +59,16 @@
             <message-key key="avoid.modifiers.for.types"/>
         </rule-metadata>
  
+        <rule-metadata name="%FinalizeImplementationCheck.name" internal-name="FinalizeImplementationCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.FinalizeImplementationCheck"/>
+            <description>%FinalizeImplementationCheck.desc</description>
+            <message-key key="finalize.implementation.empty"/>
+            <message-key key="finalize.implementation.missed.try.finally"/>
+            <message-key key="finalize.implementation.public"/>
+            <message-key key="finalize.implementation.useless"/>
+            <message-key key="finalize.implementation.missed.super.finalize"/>
+        </rule-metadata>        
+ 
         <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclarationOrder" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
             <description>%CustomDeclarationOrder.desc</description>

@@ -81,6 +81,7 @@
 	</rule>
 
 	<!-- 'design' checks -->
+
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck</key>
 		<name>Cause Parameter In Exception</name>
@@ -302,6 +303,13 @@
 			<defaultValue>error, warn, info, debug</defaultValue>
 			<description>Logging method names separated with commas. Example: "error,warn".</description>
     	</param>
+	</rule>
+    <rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</key>
+		<name>Finalize Implementation Check</name>
+		<category name="coding"/>
+		<description><p>This Check detects 3 most common cases of incorrect finalize() method implementation:</p><ul><li>negates effect of superclass finalize<br/><code>protected void finalize() { } <br/> protected void finalize() { doSomething(); }</code></li><li>useless (or worse) finalize<br/><code>protected void finalize() { super.finalize(); }</code></li><li>public finalize<br/><code>public void finalize() { try { doSomething(); } finally { super.finalize() } }</code></li></ul></description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</configKey>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods</key>
