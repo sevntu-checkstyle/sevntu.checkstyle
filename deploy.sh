@@ -1,5 +1,5 @@
 #!/bin/sh
-usage="$(basename "$0") [--help --all --eclipse --sonar --maven --idea]
+usage="$(basename "$0") [--help --all --eclipse-cs --sonar --maven --idea]
 where:
 
     --help       show this help text
