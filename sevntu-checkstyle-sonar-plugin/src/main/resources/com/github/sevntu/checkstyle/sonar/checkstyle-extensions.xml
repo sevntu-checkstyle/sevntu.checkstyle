@@ -364,6 +364,25 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck</configKey>
 	</rule>
 	<rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck</key>
+		<name>Map Iteration In For Each Loop</name>
+		<category name="coding"/>
+		<description>This check can help you to write the whole for-each map iteration more correctly.</description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck</configKey>
+		<param key="proposeValuesUsage" type="BOOLEAN">
+			<defaultValue>true</defaultValue>
+			<description>If this checkbox is checked, Check will propose to replace wrong usage to value().</description>
+    	</param>
+    	<param key="proposeKeySetUsage" type="BOOLEAN">
+			<defaultValue>false</defaultValue>
+			<description>If this checkbox is checked, Check will propose to replace wrong usage to keySet().</description>
+    	</param>
+    	<param key="proposeEntrySetUsage" type="BOOLEAN">
+			<defaultValue>false</defaultValue>
+			<description>If this checkbox is checked, Check will propose to replace wrong usage to entrySet().</description>
+    	</param>
+	</rule>
+	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck</key>
 		<name>Multiple String Literals Extended</name>
 		<category name="coding"/>
