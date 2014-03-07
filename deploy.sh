@@ -23,6 +23,7 @@ prepareForDeploy()
 		#compile and install library sevntu-checks
 		cd sevntu-checks
 		mvn install
+		mvn deploy
 		cd ../
 
 		#prepare folders for update-site and our release maven repository
@@ -48,8 +49,6 @@ deployAll()
 
 deployIdea()
 	{
-		cd ../sevntu-checks/
-		mvn deploy
 		cd ../sevntu-checkstyle-idea-extension/
 		mvn deploy
 		cd ../gh-pages
@@ -73,8 +72,6 @@ deployEclipse()
 
 deployMaven()
 	{
-		cd ../sevntu-checks/
-		mvn deploy
 		cd ../sevntu-checkstyle-maven-plugin/
 		mvn deploy
 		cd ../gh-pages
@@ -104,10 +101,8 @@ do
             exit 0
             ;;
         --all)
-			echo "[ERROR] Deploy 'all' is not supported/tested yet"
-			# RI: no need to deploy sevntu-checks on each deployXXXX function call
-            #prepareForDeploy
-            #deployAll
+            prepareForDeploy
+            deployAll
             shift 1
             ;;
         --eclipse-cs)
