@@ -285,8 +285,11 @@
 		<param key="customDeclarationOrder" type="REGULAR_EXPRESSION">
 			<defaultValue>Field(public) ### Field(protected) ### Field(private) ### CTOR(.*) ### Method(.*)### InnerClass()</defaultValue>
     	</param>
-    	<param key="ignoreRegExCase" type="BOOLEAN">
+    	<param key="caseSensitive" type="BOOLEAN">
 			<defaultValue>true</defaultValue>
+    	</param>
+    	<param key="fieldPrefix" type="String">
+			<defaultValue></defaultValue>
     	</param>
 	</rule>
 	<rule>
@@ -421,11 +424,11 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck</configKey>
 		<param key="ignoreCycles" type="BOOLEAN">
 			<defaultValue>false</defaultValue>
-			<description>Ignore cycles.</description>
+			<description>Turning on this option makes check not to warn on multiple variable definitions inside cycles.</description>
     	</param>
     	<param key="ignoreMethods" type="BOOLEAN">
 			<defaultValue>false</defaultValue>
-			<description>Ignore methods.</description>
+			<description>Turning on this option makes check not to warn on multiple variable definitions inside methods.</description>
     	</param>
 	</rule>
 	<rule>
@@ -549,17 +552,32 @@
 	</rule>
 
 	<!-- 'annotation' checks -->
-	<!-- 
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</key>
 		<name>Forbid Annotation</name>
 		<category name="annotation"/>
 		<description>Forbid specific annotation of variable,methods,class,package and other.</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</configKey>
-		<param key="" type="">
-			<defaultValue></defaultValue>
+    	<param key="annotationNames" type="String">
+			<defaultValue>Set of annotation's names</defaultValue>
 			<description></description>
     	</param>
+    	<param key="annotationTargets" type="MultiCheck">
+			<defaultValue>
+				<enumeration>
+	                    <property-value-option value="CLASS_DEF"/>
+	                    <property-value-option value="INTERFACE_DEF"/>
+	                    <property-value-option value="ENUM_DEF"/>
+	                    <property-value-option value="ANNOTATION_DEF"/>
+	                    <property-value-option value="ANNOTATION_FIELD_DEF"/>
+	                    <property-value-option value="ENUM_CONSTANT_DEF"/>
+	                    <property-value-option value="PARAMETER_DEF"/>
+	                    <property-value-option value="VARIABLE_DEF"/>
+	                    <property-value-option value="METHOD_DEF"/>
+	                    <property-value-option value="CTOR_DEF"/>
+	                	</enumeration>
+	                </defaultValue>
+			<description>Array of type forbidden annotation's target.</description>
+    	</param>
 	</rule>
-	 -->
 </rules>
