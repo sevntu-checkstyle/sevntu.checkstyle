@@ -32,6 +32,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class InnerClassCheck extends Check
 {
+	/**
+	 * Warning message key.
+	 */
+	public final static String MSG_KEY = "arrangement.members.before.inner";
+	
     @Override
     public int[] getDefaultTokens()
     {
@@ -56,8 +61,7 @@ public class InnerClassCheck extends Check
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
                         || nextSibling.getType() == TokenTypes.METHOD_DEF)
                 {
-                    log(nextSibling.getLineNo(), nextSibling.getColumnNo(),
-                        "arrangement.members.before.inner");
+                    log(nextSibling.getLineNo(), nextSibling.getColumnNo(), MSG_KEY);
                 }
                 nextSibling = nextSibling.getNextSibling();
             }

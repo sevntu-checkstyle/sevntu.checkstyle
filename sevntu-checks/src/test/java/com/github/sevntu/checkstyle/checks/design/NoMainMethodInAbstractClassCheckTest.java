@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
-import java.util.Properties;
+import static com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck.*;
 
 import org.junit.Test;
 
@@ -39,8 +39,7 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport
     /**
      * Message for this check.
      */
-    private static final String MESSAGE =
-            getMessage(NoMainMethodInAbstractClassCheck.MSG_KEY);
+    private final String warningMessage = getCheckMessage(MSG_KEY);
 
     /**
      * Main test.
@@ -53,34 +52,34 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(NoMainMethodInAbstractClassCheck.class);
-        final int[] lines = {23, 26, 34, 37, 51, 53, 57, 59, 100, 103, 106,
-            109, 116, 119, 122, 125, 130, 136, 151, 155, 164, 173, 183, };
-        final String[] expected = new String[lines.length];
-        for (int i = 0; i < lines.length; i++) {
-            expected[i] = lines[i] + ": " + MESSAGE;
-        }
+        final String[] expected = {
+        	  "23: " + warningMessage,
+        	  "26: " + warningMessage,
+        	  "34: " + warningMessage,
+        	  "37: " + warningMessage,
+        	  "51: " + warningMessage,
+        	  "53: " + warningMessage,
+        	  "57: " + warningMessage,
+        	  "59: " + warningMessage,
+        	  "100: " + warningMessage,
+        	  "103: " + warningMessage,
+        	  "106: " + warningMessage,
+        	  "109: " + warningMessage,
+        	  "116: " + warningMessage,
+        	  "119: " + warningMessage,
+        	  "122: " + warningMessage,
+        	  "125: " + warningMessage,
+        	  "130: " + warningMessage,
+        	  "136: " + warningMessage,
+        	  "151: " + warningMessage,
+        	  "155: " + warningMessage,
+        	  "164: " + warningMessage,
+        	  "173: " + warningMessage,
+        	  "183: " + warningMessage,
+        };
 
         verify(checkConfig,
                 getPath("InputNoMainMethodInAbstractClassCheck.java"),
                 expected);
-    }
-
-    /**
-     * Get error message from property file.
-     * @param aKey
-     *        key for error message
-     * @return error message
-     */
-    private static String getMessage(final String aKey)
-    {
-        final Properties prop = new Properties();
-        try {
-            prop.load(NoMainMethodInAbstractClassCheck.class
-                    .getResourceAsStream(PROP_FILE_NAME));
-        }
-        catch (Exception e) {
-            return null;
-        }
-        return prop.getProperty(aKey);
     }
 }

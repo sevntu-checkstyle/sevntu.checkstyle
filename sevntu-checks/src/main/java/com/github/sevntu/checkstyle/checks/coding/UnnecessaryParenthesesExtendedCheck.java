@@ -54,6 +54,18 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class UnnecessaryParenthesesExtendedCheck extends Check
 {
+	/**Warning message key.*/
+	public static final String MSG_KEY_ASSIGN = "unnecessary.paren.assign";
+	/**Warning message key.*/
+	public static final String MSG_KEY_EXPR = "unnecessary.paren.expr";
+	/**Warning message key.*/
+	public static final String MSG_KEY_IDENT = "unnecessary.paren.ident";
+	/**Warning message key.*/
+	public static final String MSG_KEY_LITERAL = "unnecessary.paren.literal";
+	/**Warning message key.*/
+	public static final String MSG_KEY_RETURN = "unnecessary.paren.return";
+	/**Warning message key.*/
+	public static final String MSG_KEY_STRING = "unnecessary.paren.string";
     /** The minimum number of child nodes to consider for a match. */
     private static final int MIN_CHILDREN_FOR_MATCH = 3;
     /** The maximum string length before we chop the string. */
@@ -159,7 +171,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
         // An identifier surrounded by parentheses.
         if (surrounded && (type == TokenTypes.IDENT)) {
             mParentToSkip = aAST.getParent();
-            log(aAST, "unnecessary.paren.ident", aAST.getText());
+            log(aAST, MSG_KEY_IDENT, aAST.getText());
             return;
         }
 
@@ -167,7 +179,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
         if (surrounded && inTokenList(type, LITERALS)) {
             mParentToSkip = aAST.getParent();
             if (type == TokenTypes.STRING_LITERAL) {
-                log(aAST, "unnecessary.paren.string",
+                log(aAST, MSG_KEY_STRING,
                     chopString(aAST.getText()));
             }
             else {
@@ -187,7 +199,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
                 if (!(mIgnoreCalculationOfBooleanVariables && inTokenList(
                     subtreeType, EQUALS)))
                 {
-                    log(aAST, "unnecessary.paren.assign");
+                    log(aAST, MSG_KEY_ASSIGN);
                 }
 
             }
@@ -219,7 +231,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
                     if (!(mIgnoreCalculationOfBooleanVariables && inTokenList(
                         subtreeType(aAST), EQUALS)))
                     {
-                        log(aAST, "unnecessary.paren.assign");
+                        log(aAST, MSG_KEY_ASSIGN);
                     }
                 }
                 else if (aAST.getParent().getType()
@@ -228,7 +240,7 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
                     if (!(mIgnoreCalculationOfBooleanVariablesWithReturn
                             && inTokenList(subtreeType(aAST), EQUALS)))
                     {
-                        log(aAST, "unnecessary.paren.return");
+                        log(aAST, MSG_KEY_RETURN);
                     }
                 }
                 else if (aAST.getParent().getType()
@@ -237,14 +249,14 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
                     if (!(mIgnoreCalculationOfBooleanVariablesWithAssert
                             && inTokenList(subtreeType(aAST), EQUALS)))
                     {
-                        log(aAST, "unnecessary.paren.expr");
+                        log(aAST, MSG_KEY_EXPR);
                     }
                 }
                 else {
                     if (!(mIgnoreCalculationOfBooleanVariables && inTokenList(
                         subtreeType(aAST), EQUALS)))
                     {
-                        log(aAST, "unnecessary.paren.expr");
+                        log(aAST, MSG_KEY_EXPR);
                     }
                 }
             }

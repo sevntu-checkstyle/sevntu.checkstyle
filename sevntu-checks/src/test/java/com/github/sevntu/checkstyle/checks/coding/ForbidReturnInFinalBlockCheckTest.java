@@ -18,12 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -34,47 +30,18 @@ public class ForbidReturnInFinalBlockCheckTest
     /**
      * An error message for current check.
      */
-    private static String errorMessage;
+    private final String warningMessage = getCheckMessage(MSG_KEY);
     @Test
     public void testDefault()
             throws Exception
     {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidReturnInFinalBlockCheck.class);
         final String[] expected = {
-                "9: " + errorMessage,
-                "22: " + errorMessage,
-                "42: " + errorMessage,
-                "49: " + errorMessage };
+                "9: " + warningMessage,
+                "22: " + warningMessage,
+                "42: " + warningMessage,
+                "49: " + warningMessage };
         verify(checkConfig, getPath("InputForbidReturnInFinalBlockCheck.java"),
                 expected);
-    }
-    /**
-     * Get an error message for current check from messages.properties file;
-     * @return an error message.
-     * @throws IOException
-     */
-    @BeforeClass
-    public static void getErrorMessage()
-            throws IOException
-    {
-        InputStream stream = ForbidReturnInFinalBlockCheckTest.class
-                .getResourceAsStream("messages.properties");
-        BufferedReader input = new BufferedReader(
-                new InputStreamReader(stream));
-        String message = "forbid.return.in.final.block";
-        String currentLine = new String();
-        while ((currentLine = input.readLine()) != null)
-        {
-            if (currentLine.startsWith(message))
-            {
-                errorMessage = currentLine.substring(currentLine
-                        .indexOf('=') + 1);
-                break;
-            }
-        }
-        if (input != null)
-        {
-            input.close();
-        }
     }
 }

@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck.*;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -33,27 +35,21 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
     {
 
         String[] expected = {
-            "6:17: " + createMsg("|"),
-            "25:20: " + createMsg("|"),
-            "35:25: " + createMsg("|"),
-            "48:25: " + createMsg("|"),
-            "53:16: " + createMsg("&"),
-            "64:17: " + createMsg("|"),
-            "71:9: " + createMsg("|"),
-            "79:9: " + createMsg("|"),
-            "88:17: " + createMsg("|"),
-            "94:22: " + createMsg("|"),
-            "95:14: " + createMsg("|"),
-            "96:14: " + createMsg("|"),
-            "97:11: " + createMsg("|="),
+        	"6:17: " + getCheckMessage(MSG_KEY, "|"),
+            "25:20: " + getCheckMessage(MSG_KEY, "|"),
+            "35:25: " + getCheckMessage(MSG_KEY, "|"),
+            "48:25: " + getCheckMessage(MSG_KEY, "|"),
+            "53:16: " + getCheckMessage(MSG_KEY, "&"),
+            "64:17: " + getCheckMessage(MSG_KEY, "|"),
+            "71:9: " + getCheckMessage(MSG_KEY, "|"),
+            "79:9: " + getCheckMessage(MSG_KEY, "|"),
+            "88:17: " + getCheckMessage(MSG_KEY, "|"),
+            "94:22: " + getCheckMessage(MSG_KEY, "|"),
+            "95:14: " + getCheckMessage(MSG_KEY, "|"),
+            "96:14: " + getCheckMessage(MSG_KEY, "|"),
+            "97:11: " + getCheckMessage(MSG_KEY, "|="),
         };
 
         verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
     }
-
-    public String createMsg(String literal)
-    {
-        return "Not short-circuit Operator '" + literal + "' used.";
-    }
-
 }

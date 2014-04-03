@@ -70,7 +70,8 @@ public class InterfaceTypeParameterNameCheck
     @Override
     protected final boolean mustCheckName(DetailAST aAST)
     {
-        DetailAST location =    aAST.getParent().getParent();
+        DetailAST location =    
+        		aAST.getParent().getParent();
 
         if (location.getType() == TokenTypes.MODIFIERS) {
             location = location.getParent();

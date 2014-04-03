@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle;
 
+import static java.text.MessageFormat.format;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -157,5 +159,13 @@ public abstract class BaseCheckTestSupport extends Assert
 		}
 		return pr.getProperty(messageKey);
 	}
-
+	
+	/**
+	 * Gets the check message 'as is' from appropriate 'messages.properties' file.
+	 * @param messageKey the key of message in 'messages.properties' file.
+	 * @param arguments the arguments of message in 'messages.properties' file.
+	 */
+	public String getCheckMessage(String messageKey, Object ... arguments) {
+		return format(getCheckMessage(messageKey), arguments);
+	}
 }

@@ -52,8 +52,7 @@ public class CauseParameterInExceptionCheck extends Check
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    private static final String WARNING_MSG_KEY =
-            "cause.parameter.in.exception";
+    public static final String MSG_KEY = "cause.parameter.in.exception";
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
@@ -175,7 +174,7 @@ public class CauseParameterInExceptionCheck extends Check
     public void finishTree(DetailAST aTreeRootAST)
     {
         for (DetailAST classDefNode : mExceptionClassesToWarn) {
-            log(classDefNode, WARNING_MSG_KEY, getName(classDefNode));
+            log(classDefNode, MSG_KEY, getName(classDefNode));
         }
         mExceptionClassesToWarn.clear();
     }

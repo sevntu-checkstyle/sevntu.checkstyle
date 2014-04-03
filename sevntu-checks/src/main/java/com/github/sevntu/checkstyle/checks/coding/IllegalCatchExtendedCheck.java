@@ -31,6 +31,10 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
  */
 public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
 {
+	/**
+	 * Warning message key.
+	 */
+	public static final String MSG_KEY = "illegal.catch";
 
     /** disable warnings for "catch" blocks containing
      * throwing an exception. */
@@ -114,7 +118,7 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
         final FullIdent ident = CheckUtils.createFullType(excType);
 
         if (!noWarning && isIllegalClassName(ident.getText())) {
-            log(aDetailAST, "illegal.catch", ident.getText());
+            log(aDetailAST, MSG_KEY, ident.getText());
         }
     }
 

@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.design;
 
+import static com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck.*;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -15,12 +17,12 @@ public class HideUtilityClassConstructorCheckTest
         final DefaultConfiguration checkConfig =
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
-            "11:1: Utility classes should not have a public or default constructor.",
+        	"11:1: " + getCheckMessage(MSG_KEY),
         };
         verify(checkConfig, getPath("InputArrayTypeStyle.java"), expected);
     }
 
-    /** nonstatic methods - always OK */
+    /** non static methods - always OK */
     @Test
     public void testNonUtilClass() throws Exception
     {

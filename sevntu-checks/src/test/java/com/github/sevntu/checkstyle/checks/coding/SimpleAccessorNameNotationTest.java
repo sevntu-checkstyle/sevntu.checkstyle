@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -8,18 +10,24 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
 
+	private final String warningGetterMessage = getCheckMessage(MSG_KEY_GETTER);
+	private final String warningSetterMessage = getCheckMessage(MSG_KEY_SETTER);
+	
 	@Test
 	public void test() throws Exception {
 		DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
 
 		checkConfig.addAttribute("prefix", "m");
 
-		final String[] expected1 = { "7: Unexpected setter name.",
-				"10: Unexpected getter name.", "13: Unexpected setter name.",
-				"16: Unexpected getter name.", "25: Unexpected setter name.",
-				"28: Unexpected getter name.", };
+		final String[] expected = { 
+				"7: " + warningSetterMessage,
+				"10: " + warningGetterMessage, 
+				"13: " + warningSetterMessage,
+				"16: " + warningGetterMessage, 
+				"25: " + warningSetterMessage,
+				"28: " + warningGetterMessage, };
 
-		verify(checkConfig, getPath("InputSimpleAccessorNameNotation.java"), expected1);
+		verify(checkConfig, getPath("InputSimpleAccessorNameNotation.java"), expected);
 	}
 	
 	@Test
@@ -27,8 +35,8 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "16: Unexpected setter name.",
-                "21: Unexpected getter name.",
+                "16: " + warningSetterMessage,
+                "21: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation1.java"), expected);
     }
@@ -39,8 +47,8 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
-                "6: Unexpected setter name.",
-                "11: Unexpected getter name.",
+                "6: " + warningSetterMessage,
+                "11: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation1.java"), expected);
     }
@@ -50,12 +58,12 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "14: Unexpected getter name.",
-                "19: Unexpected setter name.",
-                "29: Unexpected setter name.",
-                "34: Unexpected getter name.",
-                "39: Unexpected setter name.",
-                "44: Unexpected getter name.",
+                "14: " + warningGetterMessage,
+                "19: " + warningSetterMessage,
+                "29: " + warningSetterMessage,
+                "34: " + warningGetterMessage,
+                "39: " + warningSetterMessage,
+                "44: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation2.java"), expected);
     }
@@ -66,12 +74,12 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
-                "9: Unexpected setter name.",
-                "14: Unexpected getter name.",
-                "19: Unexpected setter name.",
-                "24: Unexpected getter name.",
-                "34: Unexpected getter name.",
-                "39: Unexpected setter name.",
+                "9: " + warningSetterMessage,
+                "14: " + warningGetterMessage,
+                "19: " + warningSetterMessage,
+                "24: " + warningGetterMessage,
+                "34: " + warningGetterMessage,
+                "39: " + warningSetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation2.java"), expected);
     }
@@ -81,10 +89,10 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "6: Unexpected setter name.",
-                "11: Unexpected getter name.",
-                "16: Unexpected setter name.",
-                "21: Unexpected getter name.",
+                "6: " + warningSetterMessage,
+                "11: " + warningGetterMessage,
+                "16: " + warningSetterMessage,
+                "21: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation3.java"), expected);
     }
@@ -95,10 +103,10 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
-                "6: Unexpected setter name.",
-                "11: Unexpected getter name.",
-                "16: Unexpected setter name.",
-                "21: Unexpected getter name.",
+                "6: " + warningSetterMessage,
+                "11: " + warningGetterMessage,
+                "16: " + warningSetterMessage,
+                "21: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation3.java"), expected);
     }
@@ -107,7 +115,7 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     public void cleanWithoutPrefix() throws Exception
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
-        final String[] expected = { };
+        final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation4.java"), expected);
     }
     
@@ -116,7 +124,7 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
-        final String[] expected = { };
+        final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation4.java"), expected);
     }
     
@@ -125,8 +133,8 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "27: Unexpected setter name.",
-                "32: Unexpected getter name.",
+                "27: " + warningSetterMessage,
+                "32: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation5.java"), expected);
     }
@@ -135,8 +143,7 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     public void testAnonymousCases() throws Exception
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
-        final String[] expected = {
-        };
+        final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation6.java"), expected);
     }
     
@@ -144,8 +151,7 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     public void testInterface() throws Exception
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
-        final String[] expected = {
-        };
+        final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation7.java"), expected);
     }
 }

@@ -67,20 +67,20 @@ public class ReturnCountExtendedCheck extends Check
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    private static final String WARNING_MSG_KEY_METHOD =
+    public static final String WARNING_MSG_KEY_METHOD =
             "return.count.extended.method";
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    private static final String WARNING_MSG_KEY_CTOR =
+    public static final String WARNING_MSG_KEY_CTOR =
             "return.count.extended.ctor";
 
     /**
      * Default maximum allowed "return" literals count per method/ctor.
      */
-    private static final int DEFAULT_MAX_RETURN_COUNT = 1;
+    protected static final int DEFAULT_MAX_RETURN_COUNT = 1;
 
     /**
      * Default number of lines of which method/ctor body may consist to be

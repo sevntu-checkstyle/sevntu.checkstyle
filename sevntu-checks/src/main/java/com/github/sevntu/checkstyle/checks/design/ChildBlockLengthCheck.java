@@ -57,7 +57,7 @@ public class ChildBlockLengthCheck extends Check
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    private static final String MSG_KEY = "child.block.length";
+    public static final String MSG_KEY = "child.block.length";
 
     /**
      * Default value of maximum percentage ratio between the child and the

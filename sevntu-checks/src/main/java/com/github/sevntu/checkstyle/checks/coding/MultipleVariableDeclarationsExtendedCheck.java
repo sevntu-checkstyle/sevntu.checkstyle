@@ -47,7 +47,16 @@ import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 
 public class MultipleVariableDeclarationsExtendedCheck extends Check
 {
+	/**
+	 * Warning message key.
+	 */
+	public static final String MSG_VAR_DECLARATIONS_COMMA = "multiple.variable.declarations.comma";
 
+	/**
+	 * Warning message key.
+	 */
+	public static final String MSG_VAR_DECLARATIONS = "multiple.variable.declarations";
+	
 	/** check declaration in cycles. */
 	private boolean mIgnoreCycles;
 
@@ -116,7 +125,7 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 		{
 			final DetailAST firstNode = CheckUtils.getFirstNode(aAST);
 			if (isCommaSeparated) {
-				log(firstNode, "multiple.variable.declarations.comma");
+				log(firstNode, MSG_VAR_DECLARATIONS_COMMA);
 				return;
 			}
 
@@ -124,7 +133,7 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 			final DetailAST firstNextNode = CheckUtils.getFirstNode(nextNode);
 
 			if (firstNextNode.getLineNo() == lastNode.getLineNo()) {
-				log(firstNode, "multiple.variable.declarations");
+				log(firstNode, MSG_VAR_DECLARATIONS);
 			}
 		}
 

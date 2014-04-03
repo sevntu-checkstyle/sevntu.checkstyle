@@ -38,6 +38,8 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  */
 public class MultipleStringLiteralsExtendedCheck extends Check
 {
+	public static final String MSG_KEY = "multiple.string.literal";
+	
 	/**
 	 * The found strings and their positions. <String, ArrayList>, with the ArrayList containing StringInfo objects.
 	 */
@@ -197,7 +199,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 					final int line = firstFinding.getLine();
 					final int col = firstFinding.getCol();
 					log(line, col,
-							"multiple.string.literal", key, hits.size());
+							MSG_KEY, key, hits.size());
 				}
 			}
 		}

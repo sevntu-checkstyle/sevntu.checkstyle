@@ -19,8 +19,9 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
+import static com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck.*;
+
 import java.util.Arrays;
-import java.util.Properties;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -36,14 +37,9 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
 {
     /**
-     * Name of file with messages.
-     */
-    public static final String PROP_FILE_NAME = "messages.properties";
-    /**
      * Message for this check.
      */
-    private static final String MESSAGE =
-            getMessage(ForbidWildcardAsReturnTypeCheck.MSG_KEY);
+    private final String warningMessage = getCheckMessage(MSG_KEY);
     /**
      * Line numbers with methods which have wildcard in return type.
      */
@@ -440,25 +436,6 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
             }
 
     /**
-     * Get error message from property file.
-     * @param aKey
-     *        key for error message
-     * @return error message
-     */
-    private static String getMessage(final String aKey)
-    {
-        final Properties prop = new Properties();
-        try {
-            prop.load(ForbidWildcardAsReturnTypeCheck.class
-                    .getResourceAsStream(PROP_FILE_NAME));
-        }
-        catch (Exception e) {
-            return null;
-        }
-        return prop.getProperty(aKey);
-    }
-
-    /**
      * Create new set of line numbers.
      * @param aLines
      *        arrays of line numbers
@@ -474,12 +451,12 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      * @param aLines sorted set of line numbers.
      * @return array of messages.
      */
-    private static String[] createExpectedMessages(SortedSet<Integer> aLines)
+    private String[] createExpectedMessages(SortedSet<Integer> aLines)
     {
         final String[] expected = new String[aLines.size()];
         int i = 0;
         for (Integer element : aLines) {
-            expected[i] = element + ": " + MESSAGE;
+            expected[i] = element + ": " + warningMessage;
             i++;
         }
         return expected;

@@ -18,8 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.IOException;
-import java.util.Properties;
+import static com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck.*;
 
 import org.junit.Test;
 
@@ -33,22 +32,22 @@ public class NestedTernaryCheckTest extends BaseCheckTestSupport {
 
 	private final DefaultConfiguration checkConfig = createCheckConfig(NestedTernaryCheck.class);
 
-	private final String msg = getCheckMessage(NestedTernaryCheck.MSG_KEY);
+	private final String warningMessage = getCheckMessage(MSG_KEY);
 
 	@Test
 	public void test() throws Exception
 	{
 		String[] expected = {
-				"18:43: " + msg,
-				"19:41: " + msg,
-				"23:81: " + msg,
-				"24:82: " + msg,
-				"28:72: " + msg,
-				"29:101: " + msg,
-				"34:49: " + msg,
-				"35:55: " + msg,
-				"44:61: " + msg, // C-tor final
-				"45:96: " + msg, // C-tor final
+				"18:43: " + warningMessage,
+				"19:41: " + warningMessage,
+				"23:81: " + warningMessage,
+				"24:82: " + warningMessage,
+				"28:72: " + warningMessage,
+				"29:101: " + warningMessage,
+				"34:49: " + warningMessage,
+				"35:55: " + warningMessage,
+				"44:61: " + warningMessage, // C-tor final
+				"45:96: " + warningMessage, // C-tor final
 		};
 
 		verify(checkConfig, getPath("InputNestedTernaryCheck.java"), expected);
@@ -60,13 +59,13 @@ public class NestedTernaryCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreFinal", "true");
 
 		String[] expected = {
-				"19:41: " + msg,
-				"24:82: " + msg,
-				"29:101: " + msg,
-				"34:49: " + msg,
-				"35:55: " + msg,
-				"44:61: " + msg, // C-tor final - always warn, no matter what the value of "ignoreFinal"
-				"45:96: " + msg, // C-tor final - always warn, no matter what the value of "ignoreFinal"
+				"19:41: " + warningMessage,
+				"24:82: " + warningMessage,
+				"29:101: " + warningMessage,
+				"34:49: " + warningMessage,
+				"35:55: " + warningMessage,
+				"44:61: " + warningMessage, // C-tor final - always warn, no matter what the value of "ignoreFinal"
+				"45:96: " + warningMessage, // C-tor final - always warn, no matter what the value of "ignoreFinal"
 		};
 
 		verify(checkConfig, getPath("InputNestedTernaryCheck.java"), expected);

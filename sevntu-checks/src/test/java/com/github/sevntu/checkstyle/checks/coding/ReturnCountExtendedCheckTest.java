@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -39,9 +41,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "25:16: " + createMsg("twoReturnsInMethod", "method", 2, 1),
-            "37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
-            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+        	"25:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "twoReturnsInMethod", 2, 1),
+        	"37:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
+        	"57:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1)
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
@@ -58,9 +60,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "28:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
-            "41:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
-            "63:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 4, 1),
+        	"28:12: " + getCheckMessage(WARNING_MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
+        	"41:12: " + getCheckMessage(WARNING_MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
+        	"63:12: " + getCheckMessage(WARNING_MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 4, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckCtors.java"), expected);
@@ -77,8 +79,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
-            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+        	"37:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
+        	"57:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
@@ -94,7 +96,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+        	"57:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
@@ -110,8 +112,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "6:16: " + createMsg("oneReturnInMethod", "method", 1, 0),
-            "10:16: " + createMsg("oneReturnInMethod2", "method", 1, 0),
+        	"6:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "oneReturnInMethod", 1, 0),
+        	"10:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "oneReturnInMethod2", 1, 0),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
@@ -127,9 +129,9 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "28:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 2, 1),
-            "41:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
-            "63:12: " + createMsg("InputReturnCountExtendedCheckCtors", "constructor", 3, 1),
+        	"28:12: " + getCheckMessage(WARNING_MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
+        	"41:12: " + getCheckMessage(WARNING_MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
+        	"63:12: " + getCheckMessage(WARNING_MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckCtors.java"), expected);
@@ -145,7 +147,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
         String[] expected = {
-            "100:24: " + createMsg("handleEvent", "method", 3, 1),
+        	"100:24: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "handleEvent", 3, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethodsInMethods.java"),
@@ -163,17 +165,10 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreMethodsNames", "threeReturnsInMethod, twoReturnsInMethod");
 
         String[] expected = {
-            "57:16: " + createMsg("fourReturnsInMethod", "method", 4, 1),
+        	"57:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
-    }
-
-    private static String createMsg(String methodName, String methodType, int is,
-            int max)
-    {
-        return "Return count for '" + methodName + "' " + methodType + " is "
-                + is + " (max allowed is " + max + ").";
     }
 
 	@Test
@@ -187,7 +182,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("ignoreMethodsNames", "(?iu)(?:TwO|Four)(?-iu)ReturnsInMethod");
 
 		String[] expected = {
-				"37:16: " + createMsg("threeReturnsInMethod", "method", 3, 1),
+			"37:16: " + getCheckMessage(WARNING_MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
 		};
 
 		verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);

@@ -37,6 +37,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
+	public static String MSG_KEY  = "avoid.default.serializable.in.inner.classes";
+	
     /**
     *<b>
     *Option, that allow partial implementation of serializable interface.
@@ -73,7 +75,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
             final DetailAST implementsBlock = aDetailAST
                     .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
             log(implementsBlock.getLineNo(),
-                    "avoid.default.serializable.in.inner.classes");
+                    MSG_KEY);
         }
     }
 

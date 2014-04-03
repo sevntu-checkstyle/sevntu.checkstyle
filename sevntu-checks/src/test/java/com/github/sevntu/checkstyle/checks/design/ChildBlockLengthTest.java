@@ -18,7 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.design;
 
-import static java.text.MessageFormat.format;
+
+import static com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck.*;
 
 import org.junit.Test;
 
@@ -68,7 +69,7 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
         String[] expected = {
-                "15:15: " + getMessage(5, 13), // 5.2%
+        		"15:15: " + getCheckMessage(MSG_KEY, 13, 5),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
@@ -83,8 +84,8 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
         String[] expected = {
-                "15:15: " + getMessage(4, 13),
-                "31:15: " + getMessage(4, 5),
+        		"15:15: " + getCheckMessage(MSG_KEY, 13, 4),
+        		"31:15: " + getCheckMessage(MSG_KEY, 5, 4),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
@@ -99,8 +100,8 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
         String[] expected = {
-                "41:7: " + getMessage(6, 7),
-                "42:9: " + getMessage(4, 5),
+        		"41:7: " + getCheckMessage(MSG_KEY, 7, 6),
+        		"42:9: " + getCheckMessage(MSG_KEY, 5, 4),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckDoubleNested.java"), expected);
@@ -133,13 +134,4 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckCheckNPE.java"), expected);
     }
-
-    private static String getMessage(int allowedLinesCount,
-            int currentLineCount)
-    {
-
-        return format("Block length is {0} lines, but should be lesser " +
-                "or equal to {1} lines.", currentLineCount, allowedLinesCount);
-    }
-
 }

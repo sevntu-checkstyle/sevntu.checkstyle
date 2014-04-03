@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.text.MessageFormat;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck.*;
 
 import org.junit.Test;
 
@@ -32,9 +32,6 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  */
 public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
 {
-
-    private final String messagePattern = getCheckMessage(ForbidCertainImportsCheck.MSG_KEY);
-    
 	private final DefaultConfiguration checkConfig = createCheckConfig(ForbidCertainImportsCheck.class);
 
     @Test
@@ -47,12 +44,9 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
         String[] expected = {
-            "3: " + getMessage(importRegexp,
-                    "com.puppycrawl.tools.checkstyle.api.Check"),
-            "9: " + getMessage(importRegexp,
-                    "com.puppycrawl.tools.checkstyle.api.Check"),
-            "21: " + getMessage(importRegexp,
-                    "com.smth.tools.checkstyle.api.Smth"),
+        	"3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.Check"),
+        	"9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.Check"),
+        	"21: " + getCheckMessage(MSG_KEY, importRegexp, "com.smth.tools.checkstyle.api.Smth"),
         };
 
         verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
@@ -68,8 +62,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
 
 		String[] expected = {
-			"21: " + getMessage(importRegexp,
-				     "com.smth.tools.checkstyle.api.Smth"),
+			"21: " + getCheckMessage(MSG_KEY, importRegexp, "com.smth.tools.checkstyle.api.Smth"),
 		};
 
 		verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
@@ -110,11 +103,4 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
-
-    private String getMessage(String pattern, String importText)
-    {
-        return MessageFormat.format(messagePattern, pattern, importText);
-    }
-
-
 }

@@ -27,6 +27,9 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class TypeParameterNameTest
     extends BaseCheckTestSupport
 {
+	/** Warning message key. */
+	private static final String MSG_KEY = "name.invalidPattern";
+	
     @Test
     public void testInterfaceDefault()
         throws Exception
@@ -35,8 +38,8 @@ public class TypeParameterNameTest
                 createCheckConfig(InterfaceTypeParameterNameCheck.class);
 
         final String[] expected = {
-            "2:51: Name 'it' must match pattern '^[A-Z]$'.",
-            "6:27: Name 'foo' must match pattern '^[A-Z]$'.",
+        	"2:51: " + getCheckMessage(MSG_KEY, "it", "^[A-Z]$"),
+        	"6:27: " + getCheckMessage(MSG_KEY, "foo", "^[A-Z]$"),
         };
         verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
     }
@@ -49,8 +52,8 @@ public class TypeParameterNameTest
                 createCheckConfig(InterfaceTypeParameterNameCheck.class);
         checkConfig.addAttribute("format", "^foo$");
         final String[] expected = {
-            "2:51: Name 'it' must match pattern '^foo$'.",
-            "10:27: Name 'A' must match pattern '^foo$'.",
+        	"2:51: " + getCheckMessage(MSG_KEY, "it", "^foo$"),
+        	"10:27: " + getCheckMessage(MSG_KEY, "A", "^foo$"),
         };
         verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
     }

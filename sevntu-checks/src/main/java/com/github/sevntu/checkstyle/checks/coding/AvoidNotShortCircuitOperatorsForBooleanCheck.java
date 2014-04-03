@@ -88,7 +88,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     /**
      * A key to search the warning message text in "messages.properties" file.
      * */
-    private static final String mKey = "avoid.not.short.circuit.operators.for.boolean";
+    public static final String MSG_KEY = "avoid.not.short.circuit.operators.for.boolean";
 
     /**
      * A list contains all names of operands, which are used in the current
@@ -129,7 +129,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
         if (type == TokenTypes.EXPR) {
 
             if (isBooleanExpression(currentNode)) {
-                log(aDetailAST, mKey, aDetailAST.getText());
+                log(aDetailAST, MSG_KEY, aDetailAST.getText());
             }
 
             mSupportedOperands.clear();

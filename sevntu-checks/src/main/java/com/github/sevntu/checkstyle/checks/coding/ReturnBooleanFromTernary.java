@@ -12,7 +12,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Ivan Sopov
  */
 public class ReturnBooleanFromTernary extends Check {
-
+	
+	/**
+	 * Warning message key.
+	 */
+	public final static String MSG_KEY = "return.boolean.ternary";
+	
 	@Override
 	public int[] getDefaultTokens() {
 		return new int[] { TokenTypes.QUESTION };

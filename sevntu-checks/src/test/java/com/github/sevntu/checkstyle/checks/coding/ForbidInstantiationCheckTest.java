@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -39,8 +41,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "java.lang.NullPointerException");
 
         String[] expected = {
-            "9:35: " + getMessage("NullPointerException"),
-            "12:36: " + getMessage("NullPointerException"),
+        	"9:35: " + getCheckMessage(MSG_KEY, "NullPointerException"),
+        	"12:36: " + getCheckMessage(MSG_KEY, "NullPointerException"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheck.java"), expected);
@@ -53,9 +55,9 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         String[] expected = {
-            "13:21: " + getMessage("File"),
-            "14:21: " + getMessage("File"),
-            "15:20: " + getMessage("String"),
+        	"13:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"14:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"15:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheck.java"), expected);
@@ -68,7 +70,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "File");
 
         String[] expected = {
-            "13:21: " + getMessage("File"),
+        	"13:21: " + getCheckMessage(MSG_KEY, "File"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
@@ -81,8 +83,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         String[] expected = {
-            "14:21: " + getMessage("File"),
-            "15:20: " + getMessage("String"),
+        	"14:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"15:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
@@ -96,19 +98,11 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         String[] expected = {
-            "13:21: " + getMessage("File"),
-            "14:21: " + getMessage("File"),
-            "15:20: " + getMessage("String"),
+        	"13:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"14:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"15:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithAsterisk.java"), expected);
     }
-
-
-    private static String getMessage(String className)
-    {
-        return "Instantiation of '" + className + "' is not allowed.";
-    }
-
-
 }

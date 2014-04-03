@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -35,9 +37,9 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("highlightAllDuplicates", "false");
 
 		final String[] expected = {
-				"5:16: The String \"StringContents\" appears 3 times in the file.",
-				"8:17: The String \"\" appears 4 times in the file.",
-				"10:23: The String \", \" appears 3 times in the file.",
+				"5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
+				"8:17: " + getCheckMessage(MSG_KEY, "\"\"", 4),
+				"10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
 		};
 
 		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
@@ -53,16 +55,17 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("highlightAllDuplicates", "true");
 
 		final String[] expected = {
-				"5:16: The String \"StringContents\" appears 3 times in the file.",
-				"8:17: The String \"\" appears 4 times in the file.",
-				"8:22: The String \"\" appears 4 times in the file.",
-				"9:17: The String \"\" appears 4 times in the file.",
-				"9:22: The String \"\" appears 4 times in the file.",
-				"10:23: The String \", \" appears 3 times in the file.",
-				"10:30: The String \", \" appears 3 times in the file.",
-				"10:37: The String \", \" appears 3 times in the file.",
-				"13:21: The String \"StringContents\" appears 3 times in the file.",
-				"14:28: The String \"StringContents\" appears 3 times in the file.", };
+				"5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
+				"8:17: " + getCheckMessage(MSG_KEY, "\"\"", 4),
+				"8:22: " + getCheckMessage(MSG_KEY, "\"\"", 4),
+				"9:17: " + getCheckMessage(MSG_KEY, "\"\"", 4),
+				"9:22: " + getCheckMessage(MSG_KEY, "\"\"", 4),
+				"10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
+				"10:30: " + getCheckMessage(MSG_KEY, "\", \"", 3),
+				"10:37: " + getCheckMessage(MSG_KEY, "\", \"", 3),
+				"13:21: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
+				"14:28: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
+				};
 
 		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
 	}
@@ -76,8 +79,8 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("highlightAllDuplicates", "false");
 
 		final String[] expected = {
-				"5:16: The String \"StringContents\" appears 3 times in the file.",
-				"10:23: The String \", \" appears 3 times in the file.",
+				"5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
+				"10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
 		};
 
 		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
@@ -93,7 +96,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("highlightAllDuplicates", "false");
 
 		final String[] expected = {
-				"5:16: The String \"StringContents\" appears 3 times in the file.",
+				"5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
 		};
 
 		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
@@ -109,7 +112,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("highlightAllDuplicates", "false");
 
 		final String[] expected = {
-				"19:23: The String \"unchecked\" appears 4 times in the file.",
+				"19:23: " + getCheckMessage(MSG_KEY, "\"unchecked\"", 4),
 		};
 
 		verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);

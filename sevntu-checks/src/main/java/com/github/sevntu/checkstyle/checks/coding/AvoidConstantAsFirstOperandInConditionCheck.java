@@ -46,6 +46,8 @@ import java.util.Arrays;
  */
 public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
 
+	public final static String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
+	
     /**
      * mTargetConstantTypes is array of default target constant types.
      */
@@ -82,7 +84,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
     @Override
     public void visitToken(DetailAST aDetailAST) {
         if (isRefactoringRequired(aDetailAST)) {
-            log(aDetailAST.getLineNo(), "avoid.constant.as.first.operand.in.condition",
+            log(aDetailAST.getLineNo(), MSG_KEY,
                     aDetailAST.getText());
         }
     }

@@ -86,6 +86,9 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  */
 public class LineLengthExtendedCheck extends Check
 {
+	/** Warning message key*/
+	public static final String MSG_KEY = "maxLineLen";
+	
 	/** default maximum number of columns in a line */
 	private static final int DEFAULT_MAX_COLUMNS = 80;
 
@@ -236,7 +239,7 @@ public class LineLengthExtendedCheck extends Check
 					line.length(), getTabWidth());
 
 			if ((realLength > mMax) && !mIgnorePattern.matcher(line).find()) {
-				log(i + 1, "maxLineLen", mMax);
+				log(i + 1, MSG_KEY, mMax);
 			}
 		}
 	}

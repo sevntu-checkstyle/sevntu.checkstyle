@@ -18,7 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.design;
 
+import static com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck.*;
+
 import org.junit.Test;
+
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck;
@@ -40,7 +43,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
-            "3:1: " + getMessage("InputCauseParameterInException"),
+        	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException.java"), expected);
@@ -54,8 +57,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
-            "3:1: " + getMessage("InputCauseParameterInException2"),
-            "22:5: " + getMessage("MyException2"),
+        	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
+        	"22:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
@@ -69,7 +72,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
-            "22:5: " + getMessage("MyException2"),
+        	"22:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
@@ -83,7 +86,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
-            "3:1: " + getMessage("InputCauseParameterInException2"),
+        	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
@@ -127,12 +130,4 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
 
         verify(checkConfig, getPath("InputCauseParameterInException4.java"), expected);
     }
-
-    private static String getMessage(String className)
-    {
-        return "'"
-                + className
-                + "' class should have a constructor with exception cause as parameter.";
-    }
-
 }

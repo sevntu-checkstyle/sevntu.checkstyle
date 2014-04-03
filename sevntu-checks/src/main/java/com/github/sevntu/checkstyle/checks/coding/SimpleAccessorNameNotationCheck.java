@@ -50,6 +50,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class SimpleAccessorNameNotationCheck extends Check
 {
+	public static final String MSG_KEY_GETTER = "incorrect.getter.name";
+	public static final String MSG_KEY_SETTER = "incorrect.setter.name";
     private static final String BOOLEAN_GETTER_PREFIX = "is";
     private static final String GETTER_PREFIX = "get";
     private static final String SETTER_PREFIX = "set";
@@ -84,21 +86,21 @@ public class SimpleAccessorNameNotationCheck extends Check
             {
                 if (!isGetterCorrect(aMethodDef, methodName.substring(BOOLEAN_GETTER_PREFIX.length())))
                 {
-                    log(aMethodDef.getLineNo(), "incorrect.getter.name");
+                    log(aMethodDef.getLineNo(), MSG_KEY_GETTER);
                 }
             }
             else if (methodName.startsWith(SETTER_PREFIX))
             {
                 if (!isSetterCorrect(aMethodDef, methodName.substring(SETTER_PREFIX.length())))
                 {
-                    log(aMethodDef.getLineNo(), "incorrect.setter.name");
+                    log(aMethodDef.getLineNo(), MSG_KEY_SETTER);
                 }
             }
             else if (methodName.startsWith(GETTER_PREFIX))
             {
                 if (!isGetterCorrect(aMethodDef, methodName.substring(GETTER_PREFIX.length())))
                 {
-                    log(aMethodDef.getLineNo(), "incorrect.getter.name");
+                    log(aMethodDef.getLineNo(), MSG_KEY_GETTER);
                 }
             }
         }

@@ -48,7 +48,7 @@ public class ForbidInstantiationCheck extends Check
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    private static final String WARNING_MSG_KEY = "forbid.instantiation";
+    public static final String MSG_KEY = "forbid.instantiation";
 
     /**
      * Set which contains classNames for objects that are forbidden to
@@ -121,20 +121,20 @@ public class ForbidInstantiationCheck extends Check
                     if (forbiddenClass.startsWith("java.lang.")
                             && forbiddenClass.endsWith(instanceClassName))
                     { // java.lang.*
-                        log(aAst, WARNING_MSG_KEY, instanceClassName);
+                        log(aAst, MSG_KEY, instanceClassName);
                     }
                     else if (instanceClass.contains(".")) { // className is full
 
                         if (instanceClass.equals(forbiddenClass)) {
                             // the full path is forbidden
-                            log(aAst, WARNING_MSG_KEY, instanceClassName);
+                            log(aAst, MSG_KEY, instanceClassName);
                         }
                     }
                     else if (addedUsingForbiddenImport(instanceClass,
                             forbiddenClass))
                     {
                         // className is short and exists in imports
-                        log(aAst, WARNING_MSG_KEY, instanceClass);
+                        log(aAst, MSG_KEY, instanceClass);
                     }
                 }
             }

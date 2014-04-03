@@ -68,6 +68,7 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  */
 public class AvoidHidingCauseExceptionCheck extends Check
 { 
+	public static final String MSG_KEY = "avoid.hiding.cause.exception";
 
     @Override
     public int[] getDefaultTokens()
@@ -99,7 +100,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
                 getThrowParamNamesList(throwAST, throwParamNamesList);
                 if (!isContainsCaughtExc(throwParamNamesList, wrapExcNames))
                 {
-                    log(throwAST, "avoid.hiding.cause.exception",
+                    log(throwAST, MSG_KEY,
                             originExcName);
                 }
             }
