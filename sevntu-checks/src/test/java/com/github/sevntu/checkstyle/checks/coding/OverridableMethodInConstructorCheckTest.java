@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,7 +47,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void revereCodeTest() throws Exception
     {
 
-        String[] expected = {"11:17: "+ createLeadsMsg("init", mCtorKey,"getPart")};
+        String[] expected = {
+        	"11:17: " + getCheckMessage(MSG_KEY_LEADS, "init", mCtorKey, "getPart"), 
+        	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor26.java"), expected);
     }
@@ -54,8 +58,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void newFeauture() throws Exception
     {
 
-        String[] expected = {"14:27: "+ createMsg("overrideMe", mCtorKey),
-                "15:21: "+ createMsg("init", mCtorKey)};
+        String[] expected = {
+        	"14:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
+       		"15:21: " + getCheckMessage(MSG_KEY, "init", mCtorKey),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
     }
@@ -73,7 +79,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testWarning() throws Exception
     {
 
-        String[] expected = {"10:27: " + createMsg("overrideMe", mCtorKey) };
+        String[] expected = {
+        	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
+        	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor2.java"), expected);
     }
@@ -81,8 +89,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void test2WarningsIn2Ctors() throws Exception
     {
-        String[] expected = {"10:27: " + createMsg("overrideMe", mCtorKey),
-            "15:27: " + createMsg("overrideMe", mCtorKey), };
+        String[] expected = {
+        	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
+        	"15:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor3.java"), expected);
     }
@@ -91,8 +101,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testWarningInSecondDepth() throws Exception
     {
 
-        String[] expected = {"10:32: "
-                + createLeadsMsg("overrideMe", mCtorKey, "overrideMe2"), };
+        String[] expected = {
+        		"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", mCtorKey, "overrideMe2"),
+                };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor4.java"), expected);
     }
@@ -102,8 +113,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-            "10:32: " + createLeadsMsg("overrideMe", mCtorKey, "overrideMe3"),
-            "11:27: " + createLeadsMsg("overrideMe", mCtorKey, "overrideMe3"), };
+        	"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", mCtorKey, "overrideMe3"),
+        	"11:27: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", mCtorKey, "overrideMe3"),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor5.java"), expected);
     }
@@ -130,8 +142,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testCloneWarnings() throws Exception
     {
 
-        String[] expected = {"20:37: " + createMsg("doSmth", mCloneKey),
-            "37:37: " + createMsg("doSmth", mCloneKey), };
+        String[] expected = {
+        	"20:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
+        	"37:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor8.java"), expected);
     }
@@ -140,8 +154,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testCloneSecondDepth() throws Exception
     {
 
-        String[] expected = {"25:37: " + createLeadsMsg("doSmth", mCloneKey, "doSmth2"),
-            "26:20: " + createMsg("doSmth2", mCloneKey), };
+        String[] expected = {
+        	"25:37: " + getCheckMessage(MSG_KEY_LEADS, "doSmth", mCloneKey, "doSmth2"),
+        	"26:20: " + getCheckMessage(MSG_KEY, "doSmth2", mCloneKey),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor9.java"), expected);
     }
@@ -150,10 +166,12 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testCloneThirdDepthImplementation() throws Exception
     {
 
-        String[] expected = {"25:37: " + createMsg("doSmth", mCloneKey),
-            "26:19: " + createMsg("accept", mCloneKey),
-            "27:24: " + createMsg("accept", mCloneKey),
-            "62:37: " + createMsg("doSmth", mCloneKey), };
+        String[] expected = {
+        	"25:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
+        	"26:19: " + getCheckMessage(MSG_KEY, "accept", mCloneKey),
+        	"27:24: " + getCheckMessage(MSG_KEY, "accept", mCloneKey),
+        	"62:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor13.java"), expected);
     }
@@ -171,7 +189,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testSerializableWarning() throws Exception
     {
 
-        String[] expected = {"31:20: " + createMsg("doSmth", mReadObjectKey), };
+        String[] expected = {
+        	"31:20: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor11.java"), expected);
     }
@@ -191,15 +211,17 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         throws Exception
     {
 
-        String[] expected = {"34:20: " + createMsg("doSmth", mReadObjectKey),
-            "60:19: " + createMsg("doSmth", mReadObjectKey),
-            "61:24: " + createMsg("doSmth", mReadObjectKey),
-            "62:20: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
-            "63:25: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
-            "77:23: " + createMsg("doSmth", mReadObjectKey),
-            "78:28: " + createMsg("doSmth", mReadObjectKey),
-            "80:24: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"),
-            "81:29: " + createLeadsMsg("doSmth2", mReadObjectKey, "doSmth"), };
+        String[] expected = {
+        	"34:20: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"60:19: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"61:24: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"62:20: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
+        	"63:25: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
+        	"77:23: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"78:28: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"80:24: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
+        	"81:29: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
+            };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor14.java"), expected);
     }
@@ -226,7 +248,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void test2EqualMethodNamesWithoutWarning2() throws Exception
     {
 
-        String[] expected = {"17:32: " + createMsg("doSmth", mReadObjectKey)};
+        String[] expected = {
+        	"17:32: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor17.java"), expected);
     }
@@ -271,7 +295,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testStackOverFlowErrorWithWarning() throws Exception
     {
 
-        String[] expected = {"4:15: " + createLeadsMsg("doSMTH", mCtorKey, "doPublic"), };
+        String[] expected = {
+        	"4:15: " + getCheckMessage(MSG_KEY_LEADS, "doSMTH", mCtorKey, "doPublic"),
+        	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor22.java"), expected);
     }
@@ -289,7 +315,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testAbstractMethodCall() throws Exception
     {
 
-        String[] expected = {"18:22: " + createMsg("buildGetter", mCtorKey), };
+        String[] expected = {
+        	"18:22: " + getCheckMessage(MSG_KEY, "buildGetter", mCtorKey),
+        	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor24.java"), expected);
     }
@@ -302,19 +330,4 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor25.java"), expected);
     }
-
-    
-    public String createMsg(String methodName, String where)
-    {
-        return "Overridable method '" + methodName + "' is called in " + where
-                + " body.";
-    }
-
-    private static String createLeadsMsg(String methodName, String where, String overridableName)
-    {
-        return "Calling the method '" + methodName + "' in " + where
-                + " body leads to the call of the overridable method '"
-                + overridableName + "'.";
-    }
-
 }

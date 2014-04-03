@@ -67,8 +67,9 @@ public class MapIterationInForEachLoopTest extends BaseCheckTestSupport
         mCheckConfig.addAttribute("supportedMapImplQualifiedNames",
                 supportedMapImplQualifiedNames);
 
-        final String [] expected =
-        {"12:9: " + getCheckMessage(MSG_KEY_ENTRYSET), };
+        final String [] expected = {
+        		"12:9: " + getCheckMessage(MSG_KEY_ENTRYSET), 
+        		};
         
         verify(mCheckConfig,
                 getPath("InputMapIterationInForEachLoopSkipIf.java"),

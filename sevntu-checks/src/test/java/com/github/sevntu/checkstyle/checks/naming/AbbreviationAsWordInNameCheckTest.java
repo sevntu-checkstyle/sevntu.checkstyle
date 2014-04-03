@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.naming;
 
+import static com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -7,13 +9,15 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 
-	private final String message = "%d: Abbreviation in name must contain no more than '%d' capital letters.";
+	/** Warning message*/
+	protected String warningMessage;
 	
 	@Test
 	public void testTypeNamesForThreePermitedCapitalLetters() throws Exception {
 
-		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
-		final int expectedCapitalCount = 3;
+	    final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
+	    final int expectedCapitalCount = 3;
+	    warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "III");
 		checkConfig.addAttribute("targets", "CLASS_DEF"
@@ -21,19 +25,20 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 9, expectedCapitalCount),
-				String.format(message, 12, expectedCapitalCount),
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount) };
+				"9: " + warningMessage,
+				"12: " + warningMessage,
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+		};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
 
 	@Test
-	public void testTypeNamesForFourPermitedCapitalLetters() throws Exception {
+    public void testTypeNamesForFourPermitedCapitalLetters() throws Exception {
 
 		final int expectedCapitalCount = 4;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "CLASS,FACTORY");
@@ -42,8 +47,8 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 32, expectedCapitalCount) };
+				"32: " + warningMessage,
+				};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
 	}
@@ -52,17 +57,16 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	public void testTypeNamesForFivePermitedCapitalLetters() throws Exception {
 
 		final int expectedCapitalCount = 5;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "CLASS");
 		checkConfig.addAttribute("targets", "CLASS_DEF"
 				);
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
-		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount),
+				"32: " + warningMessage,
+				"37: " + warningMessage,
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
@@ -72,6 +76,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	public void testTypeAndVariablesAndMethodNames() throws Exception {
 
 		final int expectedCapitalCount = 5;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "CLASS");
@@ -83,13 +88,12 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount),
-				String.format(message, 38, expectedCapitalCount),
-				String.format(message, 39, expectedCapitalCount),
-				String.format(message, 40, expectedCapitalCount),
-				String.format(message, 58, expectedCapitalCount),
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+				"38: " + warningMessage,
+				"39: " + warningMessage,
+				"40: " + warningMessage,
+				"58: " + warningMessage,
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
@@ -99,6 +103,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	public void testTypeAndVariablesAndMethodNamesWithNoIgnores() throws Exception {
 
 		final int expectedCapitalCount = 5;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "NUMBER,MARAZMATIC,VARIABLE");
@@ -112,14 +117,13 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount),
-				String.format(message, 38, expectedCapitalCount),
-				String.format(message, 66, expectedCapitalCount),
-				String.format(message, 72, expectedCapitalCount),
-				String.format(message, 78, expectedCapitalCount),
-				String.format(message, 84, expectedCapitalCount),
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+				"38: " + warningMessage,
+				"66: " + warningMessage,
+				"72: " + warningMessage,
+				"78: " + warningMessage,
+				"84: " + warningMessage,
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
@@ -129,6 +133,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	public void testTypeAndVariablesAndMethodNamesWithIgnores() throws Exception {
 
 		final int expectedCapitalCount = 5;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "NUMBER,MARAZMATIC,VARIABLE");
@@ -142,10 +147,9 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount),
-				String.format(message, 38, expectedCapitalCount),
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+				"38: " + warningMessage,
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
@@ -155,6 +159,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	public void testTypeAndVariablesAndMethodNamesWithIgnoresFinal() throws Exception {
 
 		final int expectedCapitalCount = 4;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "MARAZMATIC,VARIABLE");
@@ -168,13 +173,12 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 12, expectedCapitalCount),
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount),
-				String.format(message, 38, expectedCapitalCount),
-				String.format(message, 58, expectedCapitalCount), // not in ignore list
-				String.format(message, 60, expectedCapitalCount), // no ignore for static
+				"12: " + warningMessage,
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+				"38: " + warningMessage,
+				"58: " + warningMessage, // not in ignore list
+				"60: " + warningMessage, // no ignore for static
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
@@ -184,6 +188,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	public void testTypeAndVariablesAndMethodNamesWithIgnoresStatic() throws Exception {
 
 		final int expectedCapitalCount = 5;
+		warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 		final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
 		checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
 		checkConfig.addAttribute("allowedAbbreviations", "MARAZMATIC,VARIABLE");
@@ -197,12 +202,11 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 		checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 		
 		final String[] expected = {
-				// message <Linenumber> <expected capital count>
-				String.format(message, 32, expectedCapitalCount),
-				String.format(message, 37, expectedCapitalCount),
-				String.format(message, 38, expectedCapitalCount),
-				String.format(message, 58, expectedCapitalCount), // not in ignore list
-				String.format(message, 59, expectedCapitalCount), // no ignore for final
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+				"38: " + warningMessage,
+				"58: " + warningMessage, // not in ignore list
+				"59: " + warningMessage, // no ignore for final
 			};
 
 		verify(checkConfig, getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);
@@ -213,6 +217,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 
         final DefaultConfiguration checkConfig = createCheckConfig(AbbreviationAsWordInNameCheck.class);
         final int expectedCapitalCount = 3;
+        warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
         checkConfig.addAttribute("allowedAbbreviationLength", String.valueOf(expectedCapitalCount));
         checkConfig.addAttribute("allowedAbbreviations", "");
         checkConfig.addAttribute("targets", "CLASS_DEF, METHOD_DEF"
@@ -220,7 +225,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("ignoreOverriddenMethods", "true");
 
         final String[] expected = {
-            String.format(message, 22, expectedCapitalCount),
+        	"22: " + warningMessage,
             };
 
         verify(checkConfig, 
@@ -232,6 +237,7 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	    final DefaultConfiguration checkConfig =
 	            createCheckConfig(AbbreviationAsWordInNameCheck.class);
 	    final int expectedCapitalCount = 0;
+	    warningMessage = getCheckMessage(MSG_KEY, expectedCapitalCount);
 	    checkConfig.addAttribute("allowedAbbreviationLength",
 	            String.valueOf(expectedCapitalCount));
 	    checkConfig.addAttribute("allowedAbbreviations", "");
@@ -243,31 +249,31 @@ public class AbbreviationAsWordInNameCheckTest extends BaseCheckTestSupport {
 	            + "PARAMETER_DEF,VARIABLE_DEF,METHOD_DEF"
 	    );
 	    final String[] expected = {
-	            String.format(message, 3, expectedCapitalCount),
-	            String.format(message, 6, expectedCapitalCount),
-	            String.format(message, 9, expectedCapitalCount),
-	            String.format(message, 12, expectedCapitalCount),
-	            String.format(message, 32, expectedCapitalCount),
-	            String.format(message, 37, expectedCapitalCount),
-	            String.format(message, 38, expectedCapitalCount),
-	            String.format(message, 39, expectedCapitalCount),
-	            String.format(message, 40, expectedCapitalCount),
-	            String.format(message, 46, expectedCapitalCount),
-	            String.format(message, 47, expectedCapitalCount),
-	            String.format(message, 48, expectedCapitalCount),
-	            String.format(message, 49, expectedCapitalCount),
-	            String.format(message, 57, expectedCapitalCount),
-	            String.format(message, 58, expectedCapitalCount),
-	            String.format(message, 59, expectedCapitalCount),
-	            String.format(message, 60, expectedCapitalCount),
-	            String.format(message, 61, expectedCapitalCount),
-	            String.format(message, 66, expectedCapitalCount),
-	            String.format(message, 72, expectedCapitalCount),
-	            String.format(message, 78, expectedCapitalCount),
-	            String.format(message, 84, expectedCapitalCount),
-	            String.format(message, 88, expectedCapitalCount),
-	            String.format(message, 90, expectedCapitalCount),
-                String.format(message, 98, expectedCapitalCount),
+	    		"3: " + warningMessage,
+				"6: " + warningMessage,
+				"9: " + warningMessage,
+				"12: " + warningMessage,
+				"32: " + warningMessage,
+				"37: " + warningMessage,
+				"38: " + warningMessage,
+				"39: " + warningMessage,
+				"40: " + warningMessage,
+				"46: " + warningMessage,
+				"47: " + warningMessage,
+				"48: " + warningMessage,
+				"49: " + warningMessage,
+				"57: " + warningMessage,
+				"58: " + warningMessage,
+				"59: " + warningMessage,
+				"60: " + warningMessage,
+				"61: " + warningMessage,
+				"66: " + warningMessage,
+				"72: " + warningMessage,
+				"78: " + warningMessage,
+				"84: " + warningMessage,
+				"88: " + warningMessage,
+				"90: " + warningMessage,
+				"98: " + warningMessage,
 	    };
 	    verify(checkConfig, 
 	            getPath("InputAbbreviationAsWordInTypeNameCheck.java"), expected);

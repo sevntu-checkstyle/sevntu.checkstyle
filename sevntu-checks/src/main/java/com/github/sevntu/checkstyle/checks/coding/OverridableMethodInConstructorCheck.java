@@ -130,7 +130,13 @@ public class OverridableMethodInConstructorCheck extends Check
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      * */
-    private final String mKey = "overridable.method";
+    public static final String MSG_KEY = "overridable.method";
+    
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     * */
+    public static final String MSG_KEY_LEADS = "overridable.method.leads";
 
     /**
      * A key is using to build a warning message about calls of an overridable
@@ -306,15 +312,16 @@ public class OverridableMethodInConstructorCheck extends Check
             getOverridables(aDetailAST);
 
         for (OverridableMetCall om : methodCallsToWarnList) {
-            String msgKey = mKey;
             final DetailAST methodDef = getMethodDef(om.mMetCallAST);
             if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
                     || hasModifier(methodDef, TokenTypes.FINAL))
             {
-                msgKey += ".leads";
-            }
-            log(om.mMetCallAST, msgKey, getMethodName(om.mMetCallAST),
+            	log(om.mMetCallAST, MSG_KEY_LEADS, getMethodName(om.mMetCallAST),
+                        aKey, om.mOverridableMetName);
+            } else {
+            	log(om.mMetCallAST, MSG_KEY, getMethodName(om.mMetCallAST),
                     aKey, om.mOverridableMetName);
+           	}
         }
     }
 

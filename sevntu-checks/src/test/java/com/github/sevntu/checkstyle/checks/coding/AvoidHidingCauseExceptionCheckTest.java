@@ -1,12 +1,13 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck.*;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
 
 public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
-    final String message = "Cause exception 'e' was lost.";
 
     @Test
     public final void issue52_test() throws Exception {
@@ -22,18 +23,19 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
         DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
         String[] expected = {
-                "18:13: " + message,
-                "23:13: " + message,
-                "38:13: " + message,
-                "55:13: " + message,
-                "65:13: " + message,
-                "85:13: " + message,
-                "103:13: " + message,
-                "110:17: Cause exception 'n' was lost.",
-                "123:21: Cause exception 'x' was lost.",
-                "129:13: " + message,
-                "142:13: " + message,
-                "152:13: " + message, };
+        		"18:13: " + getCheckMessage(MSG_KEY, "e"),
+                "23:13: " + getCheckMessage(MSG_KEY, "e"),
+                "38:13: " + getCheckMessage(MSG_KEY, "e"),
+                "55:13: " + getCheckMessage(MSG_KEY, "e"),
+                "65:13: " + getCheckMessage(MSG_KEY, "e"),
+                "85:13: " + getCheckMessage(MSG_KEY, "e"),
+                "103:13: " + getCheckMessage(MSG_KEY, "e"),
+                "110:17: " + getCheckMessage(MSG_KEY, "n"),
+                "123:21: " + getCheckMessage(MSG_KEY, "x"),
+                "129:13: " + getCheckMessage(MSG_KEY, "e"),
+                "142:13: " + getCheckMessage(MSG_KEY, "e"),
+                "152:13: " + getCheckMessage(MSG_KEY, "e"), 
+                };
 
         verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
     }

@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -13,16 +15,17 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
             createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                "10:5: Field definition in wrong order. Expected 'Field(private static final long serialVersionUID)' then 'Field(.*final public.*|.*public final.*)'.",
-                "20:5: Field definition in wrong order. Expected 'Field(protected.*)' then 'Field(private.*)'.",
-                "22:5: Field definition in wrong order. Expected 'Field(@SuppressWarnings(.*serial.*).*)' then 'Field(private.*)'.",
-                "45:5: Constructor definition in wrong order. Expected 'Ctor()' then 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)'.",
-                "52:5: Method definition in wrong order. Expected 'Method(public static.*(new|edit|create).*)' then 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)'.",
-                "60:9: Field definition in wrong order. Expected 'Field(.*final public.*|.*public final.*)' then 'Field(private.*)'.",
-                "80:9: Class definition in wrong order. Expected 'InnerClass (public.*abstract.*)' then 'InnerClass (private.*)'.",
-                "84:5: Method definition in wrong order. Expected 'Method(@Deprecated.*)' then 'InnerClass (private.*)'.",
-                "95:5: Method definition in wrong order. Expected 'Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)' then 'InnerClass (private.*)'.",
-                "105:5: Field definition in wrong order. Expected 'Field(private.*)' then 'Ctor()'." };
+        		"10:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private static final long serialVersionUID)", "Field(.*final public.*|.*public final.*)"),
+        		"20:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(protected.*)", "Field(private.*)"),
+        		"22:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(@SuppressWarnings(.*serial.*).*)", "Field(private.*)"),
+        		"45:5: " + getCheckMessage(MSG_KEY_CONSTRUCTOR, "Ctor()", "Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)"),
+        		"52:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(public static.*(new|edit|create).*)", "Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)"),
+                "60:9: " + getCheckMessage(MSG_KEY_FIELD, "Field(.*final public.*|.*public final.*)", "Field(private.*)"),
+                "80:9: " + getCheckMessage(MSG_KEY_CLASS, "InnerClass (public.*abstract.*)", "InnerClass (private.*)"),
+                "84:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(@Deprecated.*)", "InnerClass (private.*)"),
+                "95:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(.*abstract.*public.*|.*public.*abstract.*|protected.*)", "InnerClass (private.*)"),
+                "105:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private.*)", "Ctor()"), 
+                };
         checkConfig.addAttribute("customDeclarationOrder",
                                   "Field(private static final long serialVersionUID) ###"
                                 + "Field(.*final public.*|.*public final.*) ###"
@@ -48,10 +51,10 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                "38:5: Field definition in wrong order. Expected 'DeclareAnnonClassField(private.*)' then 'Field(public.*)'.",
-                "53:5: Field definition in wrong order. Expected 'DeclareAnnonClassField(private.*)' then 'Field(private.*)'.",
-                "65:5: Field definition in wrong order. Expected 'DeclareAnnonClassField()' then 'Ctor(public.*)'.",
-                "94:9: Field definition in wrong order. Expected 'DeclareAnnonClassField(private.*)' then 'Field(private.*)'.",
+        		"38:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(public.*)"),
+        		"53:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(private.*)"),
+        		"65:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField()", "Ctor(public.*)"),
+        		"94:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(private.*)"),
         };
         checkConfig
                 .addAttribute(
@@ -77,19 +80,19 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                "49:5: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "54:5: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "59:5: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "64:5: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "69:5: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "74:5: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "89: Setter 'setField' is in wrong order. Should be right after 'getField'.",
-                "126: Setter 'setField' is in wrong order. Should be right after 'getField'.",
-                "131: Setter 'setX' is in wrong order. Should be right after 'getX'.",
-                "136: Setter 'setVisible' is in wrong order. Should be right after 'isVisible'.",
-                "165: Setter 'setField' is in wrong order. Should be right after 'getField'.",
-                "173:3: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
-                "177:3: Method definition in wrong order. Expected 'GetterSetter(.*)' then 'Method(.*)'.",
+        		"49:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+        		"54:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+        		"59:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+        		"64:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+        		"69:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+        		"74:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"), 
+        		"89: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
+        		"126: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
+        		"131: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setX", "getX"), 
+        		"136: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setVisible", "isVisible"),
+        		"165: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
+        		"173:3: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+        		"177:3: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
         };
         checkConfig.addAttribute(
                         "customDeclarationOrder",
@@ -106,12 +109,12 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                "40:5: Field definition in wrong order. Expected 'Field(private)' then 'InnerInterface(.*)'.",
-                "48:5: Field definition in wrong order. Expected 'Field(private)' then 'InnerEnum(.*)'.",
-                "56:5: Interface definition in wrong order. Expected 'InnerInterface(.*)' then 'InnerEnum(.*)'.",
-                "69:5: Method definition in wrong order. Expected 'Method(.*)' then 'InnerEnum(.*)'.",
-
+        		"40:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "InnerInterface(.*)"),
+        		"48:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "InnerEnum(.*)"),
+        		"56:5: " + getCheckMessage(MSG_KEY_INTERFACE, "InnerInterface(.*)", "InnerEnum(.*)"),
+        		"69:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(.*)", "InnerEnum(.*)"),
         };
+        
         checkConfig.addAttribute(
                         "customDeclarationOrder",
                         "Field(private) ### Field(public) ### Method(.*) ### InnerInterface(.*) ### InnerEnum(.*)"
@@ -127,8 +130,8 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                "9:5: Field definition in wrong order. Expected 'Field(private)' then 'Method(.*)'.",
-                "16:5: Field definition in wrong order. Expected 'Field(private)' then 'Method(.*)'.",
+        		"9:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
+        		"16:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
         };
         checkConfig.addAttribute(
                         "customDeclarationOrder",

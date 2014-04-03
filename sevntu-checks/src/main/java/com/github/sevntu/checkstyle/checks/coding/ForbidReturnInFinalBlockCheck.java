@@ -35,6 +35,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ForbidReturnInFinalBlockCheck extends Check
 {
+	
+	public static final String MSG_KEY = "forbid.return.in.final.block";
 
 	@Override
 	public final int[] getDefaultTokens()
@@ -50,8 +52,7 @@ public class ForbidReturnInFinalBlockCheck extends Check
         final boolean isReturn = bodySlist
                 .branchContains(TokenTypes.LITERAL_RETURN);
         if (isReturn) {
-            log(aFinally.getLineNo(),
-                    "forbid.return.in.final.block");
+            log(aFinally.getLineNo(), MSG_KEY);
         }
     }
 }

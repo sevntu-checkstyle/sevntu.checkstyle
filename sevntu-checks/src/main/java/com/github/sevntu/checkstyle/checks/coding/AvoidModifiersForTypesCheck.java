@@ -51,8 +51,7 @@ public class AvoidModifiersForTypesCheck extends Check
      * The key is pointing to the message text String in
      * "messages.properties file".
      */
-    private static final String WARNING_MSG_KEY =
-            "avoid.modifiers.for.types";
+    public static final String MSG_KEY = "avoid.modifiers.for.types";
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
@@ -159,28 +158,28 @@ public class AvoidModifiersForTypesCheck extends Check
                     if (mForbiddenClassesRegexpStatic.matcher(className)
                             .matches())
                     {
-                        log(aAst, WARNING_MSG_KEY, className, "static");
+                        log(aAst, MSG_KEY, className, "static");
                     }
                     break;
                 case TokenTypes.FINAL:
                     if (mForbiddenClassesRegexpFinal.matcher(className)
                             .matches())
                     {
-                        log(aAst, WARNING_MSG_KEY, className, "final");
+                        log(aAst, MSG_KEY, className, "final");
                     }
                     break;
                 case TokenTypes.LITERAL_TRANSIENT:
                     if (mForbiddenClassesRegexpTransient.matcher(className)
                             .matches())
                     {
-                        log(aAst, WARNING_MSG_KEY, className, "transient");
+                        log(aAst, MSG_KEY, className, "transient");
                     }
                     break;
                 case TokenTypes.LITERAL_VOLATILE:
                     if (mForbiddenClassesRegexpVolatile.matcher(className)
                             .matches())
                     {
-                        log(aAst, WARNING_MSG_KEY, className, "volatile");
+                        log(aAst, MSG_KEY, className, "volatile");
                     }
                     break;
                 default:

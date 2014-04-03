@@ -33,6 +33,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class ForbidCCommentsInMethods extends Check
 {
+	/*
+	 * Warning message key
+	 */
+	public final static String MSG_KEY = "forbid.c.comments.in.the.method.body";
+	
     /**
      * Set contains C style comments from current file
      */
@@ -66,8 +71,7 @@ public class ForbidCCommentsInMethods extends Check
                     if (commentLineNo > methodBodyBegin
                             && commentLineNo < methodBodyEnd)
                     {
-                        log(commentLineNo,
-                                "forbid.c.comments.in.the.method.body");
+                        log(commentLineNo, MSG_KEY);
                     }
                 }
             }

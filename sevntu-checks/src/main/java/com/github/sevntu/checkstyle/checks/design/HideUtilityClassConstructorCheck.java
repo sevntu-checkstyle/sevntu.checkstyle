@@ -35,6 +35,11 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
  */
 public class HideUtilityClassConstructorCheck extends Check
 {
+	/**
+	 * Warning message key.
+	 */
+	public final static String MSG_KEY = "hide.utility.class";
+	
     @Override
     public int[] getDefaultTokens()
     {

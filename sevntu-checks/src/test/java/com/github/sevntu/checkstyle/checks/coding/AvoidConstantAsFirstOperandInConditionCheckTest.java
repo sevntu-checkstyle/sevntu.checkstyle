@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck.*;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
@@ -10,36 +12,37 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
     public void testAll() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
         final String[] expected = {
-                createErrorMessage(24, "=="),
-                createErrorMessage(25, "=="),
-                createErrorMessage(27, "=="),
-                createErrorMessage(28, "=="),
-                createErrorMessage(29, "=="),
-                createErrorMessage(30, "=="),
-                createErrorMessage(31, "=="),
+        		"24: " + getCheckMessage(MSG_KEY, "=="),
+        		"25: " + getCheckMessage(MSG_KEY, "=="),
+        		"27: " + getCheckMessage(MSG_KEY, "=="),
+        		"28: " + getCheckMessage(MSG_KEY, "=="),
+        		"29: " + getCheckMessage(MSG_KEY, "=="),
+        		"30: " + getCheckMessage(MSG_KEY, "=="),
+        		"31: " + getCheckMessage(MSG_KEY, "=="),
 
-                createErrorMessage(46, "=="),
-                createErrorMessage(47, "!="),
-                createErrorMessage(52, "=="),
-                createErrorMessage(53, "!="),
-                createErrorMessage(58, "=="),
-                createErrorMessage(59, "!="),
-                createErrorMessage(67, "=="),
-                createErrorMessage(71, "=="),
-                createErrorMessage(72, "=="),
-                createErrorMessage(73, "=="),
-                createErrorMessage(74, "=="),
-                createErrorMessage(76, "=="),
-                createErrorMessage(77, "=="),
-                createErrorMessage(78, "=="),
-                createErrorMessage(84, "=="),
-                createErrorMessage(85, "=="),
-                createErrorMessage(86, "=="),
+        		
+        		"46: " + getCheckMessage(MSG_KEY, "=="),
+        		"47: " + getCheckMessage(MSG_KEY, "!="),
+        		"52: " + getCheckMessage(MSG_KEY, "=="),
+        		"53: " + getCheckMessage(MSG_KEY, "!="),
+        		"58: " + getCheckMessage(MSG_KEY, "=="),
+        		"59: " + getCheckMessage(MSG_KEY, "!="),
+        		"67: " + getCheckMessage(MSG_KEY, "=="),
+        		"71: " + getCheckMessage(MSG_KEY, "=="),
+        		"72: " + getCheckMessage(MSG_KEY, "=="),
+        		"73: " + getCheckMessage(MSG_KEY, "=="),
+        		"74: " + getCheckMessage(MSG_KEY, "=="),
+        		"76: " + getCheckMessage(MSG_KEY, "=="),
+        		"77: " + getCheckMessage(MSG_KEY, "=="),
+        		"78: " + getCheckMessage(MSG_KEY, "=="),
+        		"84: " + getCheckMessage(MSG_KEY, "=="),
+        		"85: " + getCheckMessage(MSG_KEY, "=="),
+        		"86: " + getCheckMessage(MSG_KEY, "=="),
 
-                createErrorMessage(97, "=="),
-                createErrorMessage(101, "=="),
-                createErrorMessage(111, "=="),
-                createErrorMessage(112, "=="),
+        		"97: " + getCheckMessage(MSG_KEY, "=="),
+        		"101: " + getCheckMessage(MSG_KEY, "=="),
+        		"111: " + getCheckMessage(MSG_KEY, "=="),
+        		"112: " + getCheckMessage(MSG_KEY, "=="),
         };
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"), expected);
     }
@@ -49,23 +52,11 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
         checkConfig.addAttribute("targetConstantTypes", "LITERAL_FALSE,NUM_INT,NUM_FLOAT");
         final String[] expected = {
-                createErrorMessage(25, "=="),
-                createErrorMessage(28, "=="),
-                createErrorMessage(31, "=="),
+        		"25: " + getCheckMessage(MSG_KEY, "=="),
+        		"28: " + getCheckMessage(MSG_KEY, "=="),
+        		"31: " + getCheckMessage(MSG_KEY, "=="),
         };
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"), expected);
 
     }
-
-    /**
-     * Create error message.
-     *
-     * @param lineNumber Line number.
-     * @param operand    Operand.
-     * @return String message
-     */
-    private String createErrorMessage(int lineNumber, String operand) {
-        return lineNumber + ": Constant have to be second operand of '" + operand + "'.";
-    }
-
 }

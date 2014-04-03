@@ -18,12 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods.*; 
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -33,81 +29,42 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ForbidCCommentsInMethodsTest extends
         BaseCheckTestSupport
 {
-    /**
-     * An error message for current check.
-     */
-    private static String errorMessage;
-
+	private final String warningMessage = getCheckMessage(MSG_KEY);
+	
     @Test
     public void defaultTest()
             throws Exception
     {
 
-        final DefaultConfiguration checkConfig = 
-                createCheckConfig(ForbidCCommentsInMethods.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethods.class);
         final String[] expected = {
-                "10: " + errorMessage,
-                "17: " + errorMessage,
-                "26: " + errorMessage,
-                "33: " + errorMessage,
-                "45: " + errorMessage,
-                "52: " + errorMessage,
-                "61: " + errorMessage,
-                "68: " + errorMessage,
+                "10: " + warningMessage,
+                "17: " + warningMessage,
+                "26: " + warningMessage,
+                "33: " + warningMessage,
+                "45: " + warningMessage,
+                "52: " + warningMessage,
+                "61: " + warningMessage,
+                "68: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods.java"),
-                expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethods.java"), expected);
     }
 
     @Test
     public void testFileWithoutComments()
             throws Exception
     {
-        final DefaultConfiguration checkConfig = 
-                createCheckConfig(ForbidCCommentsInMethods.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethods.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods2.java"),
-                expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethods2.java"), expected);
     }
 
     @Test
     public void testInterface()
             throws Exception
     {
-        final DefaultConfiguration checkConfig = 
-                createCheckConfig(ForbidCCommentsInMethods.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethods.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods3.java"),
-                expected);
-    }
-
-    /**
-     * Get an error message for current check from messages.properties file;
-     * @return an error message.
-     * @throws IOException
-     */
-    @BeforeClass
-    public static void getErrorMessage()
-            throws IOException
-    {
-        InputStream stream = ForbidCCommentsInMethodsTest.class
-                .getResourceAsStream("messages.properties");
-        BufferedReader input = new BufferedReader(
-                new InputStreamReader(stream));
-        String message = "forbid.c.comments.in.the.method.body";
-        String currentLine = new String();
-        while ((currentLine = input.readLine()) != null)
-        {
-            if (currentLine.startsWith(message))
-            {
-                errorMessage = currentLine.substring(currentLine
-                        .indexOf('=') + 1);
-                break;
-            }
-        }
-        if (input != null)
-        {
-            input.close();
-        }
+        verify(checkConfig, getPath("InputForbidCCommentsInMethods3.java"), expected);
     }
 }

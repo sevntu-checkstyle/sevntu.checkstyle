@@ -15,6 +15,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class ReturnNullInsteadOfBoolean extends Check {
 
+	/**
+	 * Warning message key
+	 */
+	public final static String MSG_KEY = "return.null.Boolean";
+	
     /** Stack of states of the need in exploring the methods. */
     private final FastStack<Boolean> mMethodStack = FastStack.newInstance();
     /** Should we explore current method or not. */
@@ -49,7 +54,7 @@ public class ReturnNullInsteadOfBoolean extends Check {
                 final DetailAST exprToken = aAST
                         .findFirstToken(TokenTypes.EXPR).getFirstChild();
                 if ("null".equals(exprToken.getText())) {
-                    log(aAST, "return.null.Boolean", (Object[]) null);
+                    log(aAST, MSG_KEY);
                 }
             }
             break;

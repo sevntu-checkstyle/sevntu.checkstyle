@@ -61,7 +61,7 @@ public class ForbidCertainImportsCheck extends Check
      * The key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    protected static final String MSG_KEY = "forbid.certain.imports";
+    public static final String MSG_KEY = "forbid.certain.imports";
 
     /**
      * Pattern for matching package fully qualified name

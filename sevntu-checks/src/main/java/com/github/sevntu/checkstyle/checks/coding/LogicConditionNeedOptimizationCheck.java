@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class LogicConditionNeedOptimizationCheck extends Check
 {
+	public static final String MSG_KEY = "logic.condition.need.optimization";
 
     @Override
     public int[] getDefaultTokens()
@@ -46,7 +47,7 @@ public class LogicConditionNeedOptimizationCheck extends Check
     public void visitToken(DetailAST aDetailAST)
     {
         if (needOptimization(aDetailAST)) {
-            log(aDetailAST.getLineNo(), "logic.condition.need.optimization",
+            log(aDetailAST.getLineNo(), MSG_KEY,
                     aDetailAST.getText(), aDetailAST.getLineNo(),
                     aDetailAST.getColumnNo());
         }

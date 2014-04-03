@@ -85,7 +85,7 @@ public class FinalizeImplementationCheck extends Check
     /**
      * The name of finalize() method.
      */
-    public static final String FINALIZE_METHOD_NAME = "finalize";
+    private static final String FINALIZE_METHOD_NAME = "finalize";
 
     @Override
     public int[] getDefaultTokens()

@@ -18,8 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.io.IOException;
-import java.util.Properties;
+import static com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck.*;
 
 import org.junit.Test;
 
@@ -31,49 +30,32 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  */
 public class ConfusingConditionCheckTest extends BaseCheckTestSupport
 {
-    /**
-     * An error message for current check.
-     */
-    private static String errorMessage = getErrorMessage();
 
+	private final String warningMessage = getCheckMessage(MSG_KEY);
+	
     @Test
     public void testDefault()
             throws Exception
     {
         final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
         final String[] expected = {
-                "10: " + errorMessage,
-                "13: " + errorMessage,
-                "16: " + errorMessage,
-                "19: " + errorMessage,
-                "22: " + errorMessage,
-                "105: " + errorMessage,
-                "108: " + errorMessage,
-                "111: " + errorMessage,
-                "149: " + errorMessage ,
-                "166: " + errorMessage ,
-                "177: " + errorMessage , //!!!
-                "181: " + errorMessage ,
-                "200: " + errorMessage ,
-                "215: " + errorMessage ,
-                "231: " + errorMessage ,};
+                "10: " + warningMessage,
+                "13: " + warningMessage,
+                "16: " + warningMessage,
+                "19: " + warningMessage,
+                "22: " + warningMessage,
+                "105: " + warningMessage,
+                "108: " + warningMessage,
+                "111: " + warningMessage,
+                "149: " + warningMessage,
+                "166: " + warningMessage,
+                "177: " + warningMessage, //!!!
+                "181: " + warningMessage,
+                "200: " + warningMessage,
+                "215: " + warningMessage,
+                "231: " + warningMessage,};
         
         verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
                 expected);
-    }
-
-    public static String getErrorMessage()
-    {
-        final Properties pr = new Properties();
-        try
-        {
-            pr.load(ConfusingConditionCheck.class
-                    .getResourceAsStream("messages.properties"));
-        }
-        catch (IOException e)
-        {
-            return null;
-        }
-        return pr.getProperty(ConfusingConditionCheck.MSG_KEY);
     }
 }

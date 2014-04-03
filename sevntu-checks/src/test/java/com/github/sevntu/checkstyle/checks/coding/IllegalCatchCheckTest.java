@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck.*;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -14,12 +16,12 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
     public final void testDefault() throws Exception
     {        
         String[] expected = {
-            "9:9: Catching 'RuntimeException' is not allowed.",
-            "11:9: Catching 'java.lang.Exception' is not allowed.",
-            "13:9: Catching 'Throwable' is not allowed.",       
-            "24:9: Catching 'RuntimeException' is not allowed.",
-            "29:9: Catching 'java.lang.Exception' is not allowed.",
-            "34:9: Catching 'Throwable' is not allowed.",
+        	"9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+        	"11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+        	"13:9: " + getCheckMessage(MSG_KEY, "Throwable"),
+        	"24:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+        	"29:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+        	"34:9: " + getCheckMessage(MSG_KEY, "Throwable"),
         };
 
         checkConfig.addAttribute("allowThrow", "false");
@@ -33,12 +35,12 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
     {
 
         String[] expected = {
-            "9:9: Catching 'RuntimeException' is not allowed.",
-            "11:9: Catching 'java.lang.Exception' is not allowed.",
-            "13:9: Catching 'Throwable' is not allowed.",
-//          "24:9: Catching 'RuntimeException' is not allowed.",
-            "29:9: Catching 'java.lang.Exception' is not allowed.",
-            "34:9: Catching 'Throwable' is not allowed.",
+        	"9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+           	"11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+           	"13:9: " + getCheckMessage(MSG_KEY, "Throwable"),
+//         	"24:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+           	"29:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+           	"34:9: " + getCheckMessage(MSG_KEY, "Throwable"),
         };
 
         checkConfig.addAttribute("allowThrow", "true");
@@ -54,12 +56,12 @@ public class IllegalCatchCheckTest extends BaseCheckTestSupport
                                  "java.lang.Error, java.lang.Exception, java.lang.Throwable");
 
         String[] expected = {
-//          "9:9: Catching 'RuntimeException' is not allowed.",
-            "11:9: Catching 'java.lang.Exception' is not allowed.",
-            "13:9: Catching 'Throwable' is not allowed.",
-//          "24:9: Catching 'RuntimeException' is not allowed.",
-//          "29:9: Catching 'java.lang.Exception' is not allowed.",
-//          "34:9: Catching 'Throwable' is not allowed.",
+//     		"9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+           	"11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+           	"13:9: " + getCheckMessage(MSG_KEY, "Throwable"),
+//         	"24:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+//          "29:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+//          "34:9: " + getCheckMessage(MSG_KEY, "Throwable"),
         };
 
         checkConfig.addAttribute("allowThrow", "false");

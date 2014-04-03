@@ -42,6 +42,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AbbreviationAsWordInNameCheck extends Check {
 
+	public static final String MSG_KEY = "abbreviation.as.word";
+	
     /**
      * The default value of "allowedAbbreviationLength" option.
      */
@@ -159,9 +161,7 @@ public class AbbreviationAsWordInNameCheck extends Check {
 
             final String abbr = getDisallowedAbbreviation(typeName);
             if (abbr != null) {
-                log(nameAst.getLineNo(),
-                        "abbreviationAsWord",
-                        mAllowedAbbreviationLength);
+                log(nameAst.getLineNo(), MSG_KEY, mAllowedAbbreviationLength);
             }
         }
     }

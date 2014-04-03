@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.annotation;
 
-import java.text.MessageFormat;
+import static com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck.*;
 
 import org.junit.Test;
 
@@ -35,8 +35,6 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ForbidAnnotationTest extends BaseCheckTestSupport
 {
 
-	private String msg = getCheckMessage(ForbidAnnotationCheck.MSG_KEY);
-
 	@Test
 	public void testPackageIsForbidden() throws Exception
 	{
@@ -46,9 +44,9 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("annotationTargets", "PACKAGE_DEF");
 
 		final String[] expected1 = {
-				buildMesssage(1, "package", "pack1"),
-				buildMesssage(2, "package", "pack2"),
-				buildMesssage(3, "package", "pack3"), };
+				"1: " + getCheckMessage(MSG_KEY, "package", "pack1"),
+				"2: " + getCheckMessage(MSG_KEY, "package", "pack2"),
+				"3: " + getCheckMessage(MSG_KEY, "package", "pack3"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected1);
 	}
@@ -73,10 +71,10 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("annotationTargets", "VARIABLE_DEF");
 
 		final String[] expected2 = {
-				buildMesssage(12, "VARIABLE_DEF", "Edible"),
-				buildMesssage(19, "VARIABLE_DEF", "Author"),
-				buildMesssage(20, "VARIABLE_DEF", "Author2"),
-				buildMesssage(58, "VARIABLE_DEF", "SuppressWarnings"), };
+				"12: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Edible"),
+				"19: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Author"),
+				"20: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Author2"),
+				"58: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "SuppressWarnings"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected2);
 	}
@@ -90,11 +88,11 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("annotationTargets", "METHOD_DEF");
 
 		final String[] expected3 = {
-				buildMesssage(27, "METHOD_DEF", "Twizzle"),
-				buildMesssage(38, "METHOD_DEF", "One"),
-				buildMesssage(39, "METHOD_DEF", "Two"),
-				buildMesssage(40, "METHOD_DEF", "Three"),
-				buildMesssage(46, "METHOD_DEF", "B"), };
+				"27: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Twizzle"),
+				"38: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "One"),
+				"39: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Two"),
+				"40: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Three"),
+				"46: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "B"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected3);
 	}
@@ -108,9 +106,9 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("annotationTargets", "CLASS_DEF,CTOR_DEF");
 
 		final String[] expected4 = {
-				buildMesssage(5, "CLASS_DEF", "Test"),
-				buildMesssage(7, "CTOR_DEF", "ctor"),
-				buildMesssage(8, "CTOR_DEF", "ctor2"), };
+				"5: " + getCheckMessage(MSG_KEY, "CLASS_DEF", "Test"),
+				"7: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor"),
+				"8: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor2"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected4);
 	}
@@ -124,8 +122,8 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("annotationTargets", "ANNOTATION_DEF");
 
 		final String[] expected5 = {
-				buildMesssage(33, "ANNOTATION_DEF", "Retention"),
-				buildMesssage(34, "ANNOTATION_DEF", "Target"), };
+				"33: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Retention"),
+				"34: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Target"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected5);
 	}
@@ -140,8 +138,8 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 				"PARAMETER_DEF,INTERFACE_DEF");
 
 		final String[] expected6 = {
-				buildMesssage(42, "PARAMETER_DEF", "MyAnnotation"),
-				buildMesssage(44, "INTERFACE_DEF", "A"), };
+				"42: " + getCheckMessage(MSG_KEY, "PARAMETER_DEF", "MyAnnotation"),
+				"44: " + getCheckMessage(MSG_KEY, "INTERFACE_DEF", "A"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected6);
 	}
@@ -156,16 +154,11 @@ public class ForbidAnnotationTest extends BaseCheckTestSupport
 				"ENUM_DEF,ENUM_CONSTANT_DEF");
 
 		final String[] expected7 = {
-				buildMesssage(49, "ENUM_DEF", "C"),
-				buildMesssage(51, "ENUM_CONSTANT_DEF", "int1"),
-				buildMesssage(53, "ENUM_CONSTANT_DEF", "int2"),
-				buildMesssage(55, "ENUM_CONSTANT_DEF", "int3"),
-		};
+				"49: " + getCheckMessage(MSG_KEY, "ENUM_DEF", "C"),
+				"51: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int1"),
+				"53: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int2"),
+				"55: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int3"), };
 
 		verify(checkConfig, getPath("ForbiAnnotationInput.java"), expected7);
-	}
-
-	private String buildMesssage(int lineNumber, String target, String annotationName) {
-		return lineNumber + ": " + MessageFormat.format(msg, target, annotationName);
 	}
 }

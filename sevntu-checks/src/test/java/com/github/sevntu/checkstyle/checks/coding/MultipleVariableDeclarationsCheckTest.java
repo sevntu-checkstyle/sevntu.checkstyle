@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -26,19 +28,22 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 /** Test class. */
 public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 {
+	private final String msgVarDeclarationsComa = getCheckMessage(MSG_VAR_DECLARATIONS_COMMA);
+	private final String msgVarDeclarations = getCheckMessage(MSG_VAR_DECLARATIONS);
+	
 	@Test
 	public void testStandartSituation() throws Exception
 	{
 		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
 		final String[] expected = {
-				"3:5: Each variable declaration must be in its own statement.",
-				"4:5: Only one variable definition per line allowed.",
-				"7:9: Each variable declaration must be in its own statement.",
-				"8:9: Only one variable definition per line allowed.",
-				"12:5: Only one variable definition per line allowed.",
-				"15:5: Only one variable definition per line allowed.",
-				"20:14: Each variable declaration must be in its own statement.", };
+				"3:5: " + msgVarDeclarationsComa,
+				"4:5: " + msgVarDeclarations,
+				"7:9: " + msgVarDeclarationsComa,
+				"8:9: " + msgVarDeclarations,
+				"12:5: " + msgVarDeclarations,
+				"15:5: " + msgVarDeclarations,
+				"20:14: " + msgVarDeclarationsComa, };
 
 		checkConfig.addAttribute("ignoreCycles", "false");
 		checkConfig.addAttribute("ignoreMethods", "false");
@@ -52,13 +57,13 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
 		final String[] expected = {
-				"3:5: Each variable declaration must be in its own statement.",
-				"4:5: Only one variable definition per line allowed.",
-				"7:9: Each variable declaration must be in its own statement.",
-				"8:9: Only one variable definition per line allowed.",
-				"12:5: Only one variable definition per line allowed.",
-				"15:5: Only one variable definition per line allowed.",
-				//   "20:14: Each variable declaration must be in its own statement.",
+				"3:5: " + msgVarDeclarationsComa,
+				"4:5: " + msgVarDeclarations,
+				"7:9: " + msgVarDeclarationsComa,
+				"8:9: " + msgVarDeclarations,
+				"12:5: " + msgVarDeclarations,
+				"15:5: " + msgVarDeclarations,
+				//   "20:14: " + msgVarDeclarationsComa,
 		};
 
 		checkConfig.addAttribute("ignoreCycles", "true");
@@ -72,13 +77,13 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
 		final String[] expected = {
-				"3:5: Each variable declaration must be in its own statement.",
-				"4:5: Only one variable definition per line allowed.",
-				// "7:9: Each variable declaration must be in its own statement.",
-				// "8:9: Only one variable definition per line allowed.",
-				"12:5: Only one variable definition per line allowed.",
-				"15:5: Only one variable definition per line allowed.",
-				"20:14: Each variable declaration must be in its own statement.", };
+				"3:5: " + msgVarDeclarationsComa,
+				"4:5: " + msgVarDeclarations,
+				// "7:9: " + msgVarDeclarationsComa,
+				// "8:9: " + msgVarDeclarations,
+				"12:5: " + msgVarDeclarations,
+				"15:5: " + msgVarDeclarations,
+				"20:14: " + msgVarDeclarationsComa, };
 
 		checkConfig.addAttribute("ignoreCycles", "false");
 		checkConfig.addAttribute("ignoreMethods", "true");
@@ -91,13 +96,13 @@ public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
 		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
 		final String[] expected = {
-				"3:5: Each variable declaration must be in its own statement.",
-				"4:5: Only one variable definition per line allowed.",
-				// "7:9: Each variable declaration must be in its own statement.",
-				// "8:9: Only one variable definition per line allowed.",
-				"12:5: Only one variable definition per line allowed.",
-				"15:5: Only one variable definition per line allowed.",
-				// "20:14: Each variable declaration must be in its own statement.",
+				"3:5: " + msgVarDeclarationsComa,
+				"4:5: " + msgVarDeclarations,
+				// "7:9: " + msgVarDeclarationsComa,
+				// "8:9: " + msgVarDeclarations,
+				"12:5: " + msgVarDeclarations,
+				"15:5: " + msgVarDeclarations,
+				// "20:14: " + msgVarDeclarationsComa,
 		};
 
 		checkConfig.addAttribute("ignoreCycles", "true");

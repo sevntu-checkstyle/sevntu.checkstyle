@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -27,7 +29,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class AvoidDefaultSerializableInInnerClassesTest extends
     BaseCheckTestSupport
 {
-
+	private final String warningMessage = getCheckMessage(MSG_KEY);
     @Test
     public void testWithAllowPartiaFalse()
         throws Exception
@@ -35,20 +37,20 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
 
         final String[] expected = {
-            "33: Inner class should not implement default Serializable interface.",
-            "45: Inner class should not implement default Serializable interface.",
-            "52: Inner class should not implement default Serializable interface.",
-            "59: Inner class should not implement default Serializable interface.",
-            "67: Inner class should not implement default Serializable interface.",
-            "74: Inner class should not implement default Serializable interface.",
-            "97: Inner class should not implement default Serializable interface.",
-            "104: Inner class should not implement default Serializable interface.",
-            "121: Inner class should not implement default Serializable interface.",
-            "134: Inner class should not implement default Serializable interface.",
-            "145: Inner class should not implement default Serializable interface.",
-            "159: Inner class should not implement default Serializable interface.",
-            "170: Inner class should not implement default Serializable interface.",
-            "177: Inner class should not implement default Serializable interface.", };
+            "33: " + warningMessage,
+            "45: " + warningMessage,
+            "52: " + warningMessage,
+            "59: " + warningMessage,
+            "67: " + warningMessage,
+            "74: " + warningMessage,
+            "97: " + warningMessage,
+            "104: " + warningMessage,
+            "121: " + warningMessage,
+            "134: " + warningMessage,
+            "145: " + warningMessage,
+            "159: " + warningMessage,
+            "170: " + warningMessage,
+            "177: " + warningMessage, };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 
@@ -60,7 +62,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
-            "10: Inner class should not implement default Serializable interface.", };
+            "10: " + warningMessage, };
 
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses2.java"), expected);
     }
@@ -83,16 +85,16 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
-            "33: Inner class should not implement default Serializable interface.",
-            "59: Inner class should not implement default Serializable interface.",
-            "67: Inner class should not implement default Serializable interface.",
-            "74: Inner class should not implement default Serializable interface.",
-            "97: Inner class should not implement default Serializable interface.",
-            "104: Inner class should not implement default Serializable interface.",
-            "121: Inner class should not implement default Serializable interface.",
-            "134: Inner class should not implement default Serializable interface.",
-            "145: Inner class should not implement default Serializable interface.",
-            "170: Inner class should not implement default Serializable interface.", };
+            "33: " + warningMessage,
+            "59: " + warningMessage,
+            "67: " + warningMessage,
+            "74: " + warningMessage,
+            "97: " + warningMessage,
+            "104: " + warningMessage,
+            "121: " + warningMessage,
+            "134: " + warningMessage,
+            "145: " + warningMessage,
+            "170: " + warningMessage, };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 }

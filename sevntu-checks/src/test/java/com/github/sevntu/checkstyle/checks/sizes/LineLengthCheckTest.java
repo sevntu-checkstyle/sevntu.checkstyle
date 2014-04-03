@@ -1,5 +1,7 @@
 package com.github.sevntu.checkstyle.checks.sizes;
 
+import static com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -16,8 +18,8 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("max", "80");
 		checkConfig.addAttribute("ignorePattern", "^.*is OK.*regexp.*$");
 		final String[] expected = {
-				"18: Line is longer than 80 characters.",
-				"145: Line is longer than 80 characters.",
+				"18: " + getCheckMessage(MSG_KEY, 80),
+				"145: " + getCheckMessage(MSG_KEY, 80),
 		};
 		verify(checkConfig, getPath("InputSimple.java"), expected);
 	}
@@ -31,22 +33,22 @@ public class LineLengthCheckTest extends BaseCheckTestSupport
 		checkConfig.addAttribute("max", "40");
 		checkConfig.addAttribute("ignorePattern", "^.*is OK.*regexp.*$");
 		final String[] expected = {
-				"1: Line is longer than 40 characters.",
-				"5: Line is longer than 40 characters.",
-				"6: Line is longer than 40 characters.",
-				"18: Line is longer than 40 characters.",
-				"101: Line is longer than 40 characters.",
-				"125: Line is longer than 40 characters.",
-				"128: Line is longer than 40 characters.",
-				"132: Line is longer than 40 characters.",
-				"145: Line is longer than 40 characters.",
-				"146: Line is longer than 40 characters.",
-				"148: Line is longer than 40 characters.",
-				"151: Line is longer than 40 characters.",
-				"152: Line is longer than 40 characters.",
-				"192: Line is longer than 40 characters.",
-				"200: Line is longer than 40 characters.",
-				"207: Line is longer than 40 characters.",
+				"1: " + getCheckMessage(MSG_KEY, 40),
+				"5: " + getCheckMessage(MSG_KEY, 40),
+				"6: " + getCheckMessage(MSG_KEY, 40),
+				"18: " + getCheckMessage(MSG_KEY, 40),
+				"101: " + getCheckMessage(MSG_KEY, 40),
+				"125: " + getCheckMessage(MSG_KEY, 40),
+				"128: " + getCheckMessage(MSG_KEY, 40),
+				"132: " + getCheckMessage(MSG_KEY, 40),
+				"145: " + getCheckMessage(MSG_KEY, 40),
+				"146: " + getCheckMessage(MSG_KEY, 40),
+				"148: " + getCheckMessage(MSG_KEY, 40),
+				"151: " + getCheckMessage(MSG_KEY, 40),
+				"152: " + getCheckMessage(MSG_KEY, 40),
+				"192: " + getCheckMessage(MSG_KEY, 40),
+				"200: " + getCheckMessage(MSG_KEY, 40),
+				"207: " + getCheckMessage(MSG_KEY, 40),
 		};
 		checkConfig.addAttribute("ignoreClass", "true");
 		checkConfig.addAttribute("ignoreConstructor", "true");

@@ -49,6 +49,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class NoNullForCollectionReturnCheck extends Check
 {
+	/**
+	 * Warning message key.
+	 */
+	public static final String MSG_KEY = "no.null.for.collections";
+	
     /**
      * <p>
      * Default list of collection implementing classes.
@@ -151,7 +156,7 @@ public class NoNullForCollectionReturnCheck extends Check
                                 || (mSearchThroughMethodBody
                                         && isReturnedValueBeNull(aDetailAST))))
                 {
-                    log(aDetailAST.getLineNo(), "no.null.for.collections");
+                    log(aDetailAST.getLineNo(), MSG_KEY);
                 }
             }
             break;

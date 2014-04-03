@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -25,8 +27,7 @@ import com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
 public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
 {
@@ -47,9 +48,9 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
 
         String[] expected = {
-            "11:5: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
-            "12:5: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
-            "19:9: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
+        	"11:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+        	"12:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+        	"19:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -69,7 +70,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
 
         String[] expected = {
-            "10:5: " + getMessage("File", "static"),
+        	"10:5: " + getCheckMessage(MSG_KEY, "File", "static"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -89,7 +90,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
 
         String[] expected = {
-            "13:5: " + getMessage("InputAvoidModifiersForTypesCheck", "transient"),
+        	"13:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "transient"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -109,7 +110,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
 
         String[] expected = {
-            "14:5: " + getMessage("InputAvoidModifiersForTypesCheck", "volatile"),
+        	"14:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "volatile"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -129,10 +130,10 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
 
         String[] expected = {
-            "11:5: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
-            "12:5: " + getMessage("InputAvoidModifiersForTypesCheck", "final"), // both
-            "12:5: " + getMessage("InputAvoidModifiersForTypesCheck", "static"), // both
-            "19:9: " + getMessage("InputAvoidModifiersForTypesCheck", "final"),
+        	"11:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+        	"12:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"), // both
+        	"12:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "static"), // both
+        	"19:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -151,16 +152,8 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpTransient", transientRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpVolatile", volatileRegexp);
 
-        String[] expected = {
-        };
+        String[] expected = {};
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck2.java"), expected);
     }
-
-    private static String getMessage(String className, String modifierType)
-    {
-        return "'" + className + "' instance should not have '" + modifierType
-                + "' modifier.";
-    }
-
 }

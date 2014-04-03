@@ -144,6 +144,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class VariableDeclarationUsageDistanceCheck extends Check
 {
+	/**
+	 * Warning message key.
+	 */
+	public final static String MSG_KEY = "variable.declaration.usage.distance";
+	
     /**
      * Default value of distance between declaration of variable and its first
      * usage.
@@ -248,8 +253,7 @@ public class VariableDeclarationUsageDistanceCheck extends Check
                         && !isInitializationSequence(variableUsageAst, variable.getText()))
                 {
                     log(variable.getLineNo(),
-                            "variable.declaration.usage.distance",
-                            variable.getText(), dist, mAllowedDistance);
+                            MSG_KEY, variable.getText(), dist, mAllowedDistance);
                 }
             }
         }

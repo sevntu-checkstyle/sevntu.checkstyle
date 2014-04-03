@@ -18,6 +18,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck.*;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -31,22 +33,22 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
     {
         final DefaultConfiguration checkConfig = createCheckConfig(LogicConditionNeedOptimizationCheck.class);
         final String[] expected = {
-            "26: Condition with && at line 26 position 27 need optimization. All method calls are advised to move to end of logic expression.",
-            "28: Condition with && at line 28 position 21 need optimization. All method calls are advised to move to end of logic expression.",
-            "28: Condition with || at line 28 position 31 need optimization. All method calls are advised to move to end of logic expression.",
-            "38: Condition with && at line 38 position 21 need optimization. All method calls are advised to move to end of logic expression.",
-            "40: Condition with && at line 40 position 38 need optimization. All method calls are advised to move to end of logic expression.",
-            "45: Condition with && at line 45 position 25 need optimization. All method calls are advised to move to end of logic expression.",
-            "47: Condition with && at line 47 position 42 need optimization. All method calls are advised to move to end of logic expression.",
-            "57: Condition with && at line 57 position 18 need optimization. All method calls are advised to move to end of logic expression.",
-            "59: Condition with && at line 59 position 35 need optimization. All method calls are advised to move to end of logic expression.",
-            "60: Condition with && at line 60 position 19 need optimization. All method calls are advised to move to end of logic expression.",
-            "60: Condition with && at line 60 position 29 need optimization. All method calls are advised to move to end of logic expression.",
-            "77: Condition with && at line 77 position 47 need optimization. All method calls are advised to move to end of logic expression.",
-            "81: Condition with && at line 81 position 19 need optimization. All method calls are advised to move to end of logic expression.",
-            "82: Condition with && at line 82 position 39 need optimization. All method calls are advised to move to end of logic expression.",
-            "84: Condition with && at line 84 position 36 need optimization. All method calls are advised to move to end of logic expression.",
-            "87: Condition with && at line 87 position 19 need optimization. All method calls are advised to move to end of logic expression.",
+        	"26: " + getCheckMessage(MSG_KEY, "&&", 26, 27),
+        	"28: " + getCheckMessage(MSG_KEY, "&&", 28, 21),
+        	"28: " + getCheckMessage(MSG_KEY, "||", 28, 31),
+        	"38: " + getCheckMessage(MSG_KEY, "&&", 38, 21),
+        	"40: " + getCheckMessage(MSG_KEY, "&&", 40, 38),
+        	"45: " + getCheckMessage(MSG_KEY, "&&", 45, 25),
+        	"47: " + getCheckMessage(MSG_KEY, "&&", 47, 42),
+        	"57: " + getCheckMessage(MSG_KEY, "&&", 57, 18),
+        	"59: " + getCheckMessage(MSG_KEY, "&&", 59, 35),
+        	"60: " + getCheckMessage(MSG_KEY, "&&", 60, 19),
+        	"60: " + getCheckMessage(MSG_KEY, "&&", 60, 29),
+        	"77: " + getCheckMessage(MSG_KEY, "&&", 77, 47),
+        	"81: " + getCheckMessage(MSG_KEY, "&&", 81, 19),
+        	"82: " + getCheckMessage(MSG_KEY, "&&", 82, 39),
+        	"84: " + getCheckMessage(MSG_KEY, "&&", 84, 36),
+        	"87: " + getCheckMessage(MSG_KEY, "&&", 87, 19),
         };
         verify(checkConfig, getPath("InputLogicConditionsNeedOptimizationCheck.java"), expected);
     }
