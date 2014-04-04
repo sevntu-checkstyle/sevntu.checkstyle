@@ -80,7 +80,7 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Default maximum allowed "return" literals count per method/ctor.
      */
-    protected static final int DEFAULT_MAX_RETURN_COUNT = 1;
+    private static final int DEFAULT_MAX_RETURN_COUNT = 1;
 
     /**
      * Default number of lines of which method/ctor body may consist to be

@@ -173,10 +173,10 @@
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck"/>
             <description>%MultipleVariableDeclarationsExtended.desc</description>
 	    <property-metadata name="ignoreCycles" datatype="Boolean" default-value="false">
-               <description>Ignore cycles</description>
+               <description>%MultipleVariableDeclarationsExtended.ignoreCycles</description>
             </property-metadata>
 	    <property-metadata name="ignoreMethods" datatype="Boolean" default-value="false">
-               <description>Ignore methods</description>
+               <description>%MultipleVariableDeclarationsExtended.ignoreMethods</description>
             </property-metadata>
         </rule-metadata>
         
