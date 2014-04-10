@@ -142,6 +142,11 @@
 			<description>%ForbidReturnInFinalBlockCheck.desk</description>
 		</rule-metadata>
 		
+		<rule-metadata name="%ForbidThrowAnonymousExceptionsCheck.name" internal-name="ForbidThrowAnonymousExceptionsCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck"/>
+			<description>%ForbidThrowAnonymousExceptionsCheck.desc</description>
+		</rule-metadata>
+		
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean"/>
             <description>%ReturnNullInsteadOfBoolean.desc</description>
