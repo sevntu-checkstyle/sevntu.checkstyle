@@ -556,6 +556,26 @@
     	</param>
 	</rule>
 
+	<rule>
+		<key>com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</key>
+		<name>Check for enum values name</name>
+		<category name="coding"/>
+		<description>Check forces enum values to match the specific pattern</description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</configKey>
+		<param key="constFormat" type="STRING">
+			<description>Regex for Values Enumeration name to conform</description>
+			<defaultValue>^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$</defaultValue>
+		</param>
+		<param key="objFormat" type="STRING">
+			<description>Regex for Class Enumeration name to conform</description>
+			<defaultValue>^[A-Z][a-zA-Z0-9]*$</defaultValue>
+		</param>
+		<param key="excludes" type="STRING">
+			<description>Exclude method and field names regexp list (comma-separated)</description>
+			<defaultValue>toString</defaultValue>
+		</param>
+	</rule>
+
 	<!-- 'annotation' checks -->
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</key>

@@ -46,5 +46,19 @@
                 <description>%InterfaceTypeParameterNameCheck.format</description>
             </property-metadata>
         </rule-metadata>
+
+        <rule-metadata name="%EnumValueName.name" internal-name="EnumValueNameCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck" />
+            <description>%EnumValueName.desc</description>
+            <property-metadata name="constFormat" datatype="String" default-value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
+                <description>%EnumValueName.format</description>
+            </property-metadata>
+            <property-metadata name="objFormat" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$">
+                <description>%EnumValueName.objFormat</description>
+            </property-metadata>
+            <property-metadata name="excludes" datatype="String" default-value="toString">
+                <description>%EnumValueName.excludes</description>
+            </property-metadata>
+        </rule-metadata>
     </rule-group-metadata>
 </checkstyle-metadata>
