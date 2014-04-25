@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.github.sevntu.checkstyle.checks.feature"
-      label="Extension for EclipseCS Plugin with additional Checks"
+      label="Extension for eclipse-cs plugin with additional Checks"
       version="1.10.0">
 
    <description url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
-      sources: https://github.com/sevntu-checkstyle/sevntu.checkstyle
+      http://sevntu-checkstyle.github.io/sevntu.checkstyle/
    </description>
 
    <copyright url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
-      Please visit site to view developer list
+      Please visit site to view developer list - https://github.com/sevntu-checkstyle/sevntu.checkstyle#contributors
    </copyright>
 
    <license url="http://www.eclipse.org/legal/epl-v10.html">

@@ -11,5 +11,5 @@
     <groupId>com.github.sevntu.checkstyle</groupId>
 	<artifactId>com.github.sevntu.checkstyle.checks.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<name>Extension for EclipseCS Plugin with additional Checks</name>
+	<name>Extension for eclipse-cs Plugin with additional Checks</name>
 </project>
