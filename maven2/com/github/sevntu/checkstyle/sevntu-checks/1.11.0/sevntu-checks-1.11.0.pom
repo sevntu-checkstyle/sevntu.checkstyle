@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.sevntu.checkstyle</groupId>
+    <artifactId>sevntu-checks</artifactId>
+    <version>1.11.0</version>
+        
+    <properties>
+      <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
+    </properties>
+    
+    <dependencies>
+    
+	<dependency>
+	  <groupId>com.puppycrawl.tools</groupId>
+	  <artifactId>checkstyle</artifactId>
+	  <version>5.7</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>junit</groupId>
+	  <artifactId>junit</artifactId>
+	  <version>4.10</version>
+	  <scope>test</scope>
+	</dependency>
+	
+    </dependencies>
+    <distributionManagement>
+      <repository>
+	<id>com.github.sevntu.checkstyle</id>
+	<name>sevntu-checks</name>
+	<url>file://${basedir}/../gh-pages/maven2/</url>
+      </repository>
+    </distributionManagement>
+    <build>
+      <plugins>
+	<plugin>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-compiler-plugin</artifactId>
+	  <version>2.3.2</version>
+	  <configuration>
+	    <source>1.5</source>
+	    <target>1.5</target>
+	  </configuration>
+	</plugin>
+      </plugins>
+    </build>
+
+</project>

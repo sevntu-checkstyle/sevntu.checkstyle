@@ -3,10 +3,11 @@
   <groupId>com.github.sevntu.checkstyle</groupId>
   <artifactId>sevntu-checkstyle-idea-extension</artifactId>
   <versioning>
-    <release>1.10.0</release>
+    <release>1.11.0</release>
     <versions>
       <version>1.10.0</version>
+      <version>1.11.0</version>
     </versions>
-    <lastUpdated>20131124192331</lastUpdated>
+    <lastUpdated>20140508001637</lastUpdated>
   </versioning>
 </metadata>
