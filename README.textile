@@ -2,8 +2,9 @@ h3. Information "!https://d2weczhvl823v0.cloudfront.net/sevntu-checkstyle/sevntu
 
 Additional(non-standard) checks for Checkstyle that are compiled as:
 - extension to "maven-checkstyle-plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/ (how to use: "in general":http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-developed-checkstyle.html, "maven example":https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/maven-project, "ant example":https://github.com/sevntu-checkstyle/checkstyle-samples/tree/master/ant-project).
-- extension to "Sonar Checkstyle Plugin":http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin (how to use: "in general":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-SonarQubeTM-%28user%27s-guide%29).
-- extension to "CheckStyle-IDEA":http://plugins.jetbrains.com/plugin/1065 (how to use: "in general":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA).
+- extension to "Sonar Checkstyle Plugin":http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin (how to use: "instructions with pictures":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-SonarQubeTM-%28user%27s-guide%29).
+- extension to "CheckStyle-IDEA":http://plugins.jetbrains.com/plugin/1065 (how to use: "instructions with pictures":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA).
+- extension to "Checkstyle Beans (NetBeans)":http://plugins.netbeans.org/plugin/3413/checkstyle-beans (how to use: "instructions with pictures":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-NetBeans).
 - extension to "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/ how to use: install from EclipseCS "update site": 
 !https://cloud.githubusercontent.com/assets/812984/2935361/20e479c8-d805-11e3-9391-f41cc4aa979c.png!
 
