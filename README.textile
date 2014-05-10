@@ -5,8 +5,7 @@ Additional(non-standard) checks for Checkstyle that are compiled as:
 - extension to "Sonar Checkstyle Plugin":http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin (how to use: "in general":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-SonarQubeTM-%28user%27s-guide%29).
 - extension to "CheckStyle-IDEA":http://plugins.jetbrains.com/plugin/1065 (how to use: "in general":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA).
 - extension to "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/ how to use: install from EclipseCS "update site": 
-!http://sevntu-checkstyle.github.io/sevntu.checkstyle/wiki-pages-content/sevntu-checkstyle-in-update-site-of-eclipsecs.JPG!
-
+!https://cloud.githubusercontent.com/assets/812984/2935350/c63a3888-d803-11e3-8dd1-db9efc57ed77.png!
 
 h3. Related Projects
 
