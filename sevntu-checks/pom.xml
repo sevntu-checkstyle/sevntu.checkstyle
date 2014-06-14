@@ -63,6 +63,21 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.7.1.201405082137</version>
+		<executions>
+			<execution>
+				<id>prepare-agent</id>
+				<goals>
+					<goal>prepare-agent</goal>
+				</goals>
+			</execution>
+			<execution>
+				<id>report</id>
+				<goals>
+					<goal>report</goal>
+				</goals>
+				<phase>prepare-package</phase>
+			</execution>
+		</executions>            
           </plugin>
           <plugin>
             <groupId>org.eluder.coveralls</groupId>
