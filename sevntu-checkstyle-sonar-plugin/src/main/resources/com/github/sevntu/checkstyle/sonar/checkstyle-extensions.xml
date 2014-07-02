@@ -448,17 +448,6 @@
     	</param>
 	</rule>
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck</key>
-		<name>Nested Ternary Check</name>
-		<category name="coding"/>
-		<description>Highlights the usage of nested ternary operators.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck</configKey>
-		<param key="ignoreFinal" type="BOOLEAN">
-			<defaultValue>false</defaultValue>
-			<description>Ignore nested ternary operators which are used for assigning the final variables. This option doesn`t ignore nested ternary operators which initializes final variables in constructors.</description>
-    	</param>
-	</rule>
-	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck</key>
 		<name>No null for collection return</name>
 		<category name="coding"/>
@@ -546,6 +535,25 @@
 		<param key="prefix" type="STRING">
 			<description>Prefix of field's name.</description>
     	</param>
+	</rule>
+	<rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</key>
+		<name>Ternary Per Expression Count</name>
+		<category name="coding" />
+		<description>Restricts the number of ternary operators in expression to a specified limit</description> 
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</configKey>
+		<param key="maxTernaryPerExpressionCount" type="INTEGER">
+			<defaultValue>1</defaultValue>
+			<description>Maximum number of ternary operators in expression</description>
+		</param>
+		<param key="ignoreTernaryOperatorsInBraces" type="BOOLEAN">
+			<defaultValue>true</defaultValue>
+			<description>Ignore ternary operators in expression in case if priority level is set explicitly</description>
+		</param>
+		<param key="ignoreIsolatedTernaryOnLine" type="BOOLEAN">
+			<defaultValue>true</defaultValue>
+			<description>Ignore ternary operators in expression in case if ternary operator is isolated in line</description>
+		</param>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck</key>
