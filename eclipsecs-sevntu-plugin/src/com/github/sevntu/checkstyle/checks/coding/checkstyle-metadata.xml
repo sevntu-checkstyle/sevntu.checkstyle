@@ -230,11 +230,17 @@
             <message-key key="multiple.string.literal" />
         </rule-metadata>
 
-	    <rule-metadata name="%NestedTernaryCheck.name" internal-name="NestedTernary" parent="TreeWalker">
-	            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck"/>
-	            <description>%NestedTernaryCheck.desc</description>
-	            <property-metadata name="ignoreFinal" datatype="Boolean" default-value="false">
-                	<description>%NestedTernaryCheck.ignoreFinal</description>
+	    <rule-metadata name="%TernaryPerExpressionCountCheck.name" internal-name="TernaryPerExpressionCount" parent="TreeWalker">
+	            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck"/>
+	            <description>%TernaryPerExpressionCountCheck.desc</description>
+	            <property-metadata name="maxTernaryPerExpressionCount" datatype="Integer" default-value="1">
+                	<description>%TernaryPerExpressionCountCheck.maxTernaryPerExpressionCount</description>
+           		 </property-metadata>
+           		 <property-metadata name="ignoreTernaryOperatorsInBraces" datatype="Boolean" default-value="true">
+           		    <description>%TernaryPerExpressionCountCheck.ignoreTernaryOperatorsInBraces</description>
+           		 </property-metadata>
+           		 <property-metadata name="ignoreIsolatedTernaryOnLine" datatype="Boolean" default-value="true">
+           		 	<description>%TernaryPerExpressionCountCheck.ignoreIsolatedTernaryOnLine</description>
            		 </property-metadata>
 	    </rule-metadata>
 
