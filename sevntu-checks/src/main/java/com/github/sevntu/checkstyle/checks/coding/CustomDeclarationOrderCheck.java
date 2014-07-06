@@ -771,7 +771,7 @@ public class CustomDeclarationOrderCheck extends Check
 
             result = statementsAst != null
             		&& !localVariableHidesField(statementsAst, setterFieldName)
-                    && containsAssignmentToField(statementsAst, setterFieldName);
+                    && isFieldUpdate(statementsAst, setterFieldName);
         }
         return result;
     }
@@ -890,25 +890,28 @@ public class CustomDeclarationOrderCheck extends Check
     }
 
     /**
-     * Verify that exists assignment to field among statements.
+     * Verify that exists updating of a field.
      * @param aStatementsAst DetailAST of statements (SLIST).
      * @param aFieldName name of target field.
-     * @return true if there is assignment to aFieldName in aStatementsAst.
+     * @return true if there is updating of aFieldName in aStatementsAst.
      */
-    private static boolean containsAssignmentToField(DetailAST aStatementsAst, String aFieldName)
+    private static boolean isFieldUpdate(DetailAST aStatementsAst, String aFieldName)
     {
         boolean result = false;
         DetailAST currentStatement = aStatementsAst.getFirstChild();
 
         while (currentStatement != null && currentStatement != aStatementsAst) {
-
+            
+            String nameOfSetterField = null;
             if (currentStatement.getType() == TokenTypes.ASSIGN) {
-                final String nameOfSetterField = getNameOfSetterField(currentStatement);
-
-                if (aFieldName.equalsIgnoreCase(nameOfSetterField)) {
-                    result = true;
-                    break;
-                }
+                nameOfSetterField = getNameOfAssignedField(currentStatement);
+            } else if (currentStatement.getType() == TokenTypes.METHOD_CALL) {
+                nameOfSetterField = getNameOfSuperClassUpdatedField(currentStatement);
+            }
+            
+            if (aFieldName.equalsIgnoreCase(nameOfSetterField)) {
+                result = true;
+                break;
             }
 
             DetailAST nextStatement = currentStatement.getFirstChild();
@@ -927,37 +930,64 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * <p>
-     * Return name of the field, that use in the setter.
+     * Return name of the field, that was assigned in current setter.
      * </p>
-     * @param aAssignAst
+     * @param assignAst
      *        - DetailAST contains ASSIGN from EXPR of the setter.
      * @return name of field, that use in setter.
      */
-    private static String getNameOfSetterField(DetailAST aAssignAst)
+    private static String getNameOfAssignedField(DetailAST assignAst)
     {
         String nameOfSettingField = null;
 
-        if (aAssignAst.getChildCount() == 2
-                && aAssignAst.getLastChild().getType() == TokenTypes.IDENT) {
+        if (assignAst.getChildCount() > 0 
+                        && (assignAst.getLastChild().getType() == TokenTypes.IDENT
+                        || assignAst.getLastChild().getType() == TokenTypes.METHOD_CALL)) {
 
-            final DetailAST leftPart = aAssignAst.getFirstChild();
-
-            if (leftPart.getType() == TokenTypes.IDENT) {
-
-                nameOfSettingField = leftPart.getText();
-
-            }
-            else if (leftPart.getType() == TokenTypes.DOT) {
-
-                if (leftPart.getChildCount() == 2
-                        && "this".equals(leftPart.getFirstChild().getText())
-                        && leftPart.getLastChild().getType() == TokenTypes.IDENT)
-                {
-                    nameOfSettingField = leftPart.getLastChild().getText();
-                }
+            final DetailAST methodCallDot = assignAst.getFirstChild();
+            if (methodCallDot.getChildCount() == 2 
+                    && "this".equals(methodCallDot.getFirstChild().getText())) { 
+                    nameOfSettingField = methodCallDot.getLastChild().getText();
             }
         }
+        
+        return nameOfSettingField;
+    }
+    
+    /**
+     * <p>
+     * Return name of the field of a super class, that was assigned in setter.
+     * </p>
+     * @param methodCallAst
+     *        - DetailAST contains METHOD_CALL from EXPR of the setter.
+     * @return name of field, that used in setter.
+     */
+    private static String getNameOfSuperClassUpdatedField(DetailAST methodCallAst) {
+        String nameOfSettingField = null;
+        
+        final DetailAST methodCallDot = methodCallAst.getFirstChild();
+        if (methodCallDot.getChildCount() == 2 
+                && "super".equals(methodCallDot.getFirstChild().getText())) {
+                nameOfSettingField = getFieldName(methodCallDot);
+        }
+        
+        return nameOfSettingField;
+    }
 
+    /**
+     * <p>
+     * Gets name of the field, that was used in calling setter from a super class
+     * </p>
+     * @param methodCallDotAst
+     * @return
+     *      name of field in method parameter.
+     */
+    private static String getFieldName(final DetailAST methodCallDotAst) {
+        String nameOfSettingField = null;
+        DetailAST parameterOfSetterMethod = methodCallDotAst.getNextSibling().getFirstChild();
+        if (parameterOfSetterMethod != null) {
+            nameOfSettingField = parameterOfSetterMethod.getFirstChild().getText();
+        }
         return nameOfSettingField;
     }
 
