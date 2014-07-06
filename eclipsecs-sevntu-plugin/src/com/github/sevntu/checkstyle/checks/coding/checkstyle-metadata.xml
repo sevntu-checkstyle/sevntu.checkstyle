@@ -108,6 +108,11 @@
             <message-key key="confusing.condition.check"/>
 		</rule-metadata>
 		
+		<rule-metadata name="%DiamondOperatorForVariableDefinitionCheck.name" internal-name="DiamondOperatorForVariableDefinitionCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
+			<description>%DiamondOperatorForVariableDefinitionCheck.desc</description>
+		</rule-metadata>
+		
        <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
             <description>%ForbidCertainImports.desc</description>
