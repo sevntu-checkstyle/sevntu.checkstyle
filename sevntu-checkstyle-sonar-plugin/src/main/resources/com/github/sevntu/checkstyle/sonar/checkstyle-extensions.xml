@@ -120,6 +120,13 @@
     	</param>
 	</rule>
 	<rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck</key>
+		<name>Diamond Operator For Variable Definition</name>
+		<category name="design"/>
+		<description>Highlights variable definition statements where diamond operator could be used</description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.DiamondOperatorForVariableDefinitionCheck</configKey>
+	</rule>
+	<rule>
 		<key>com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck</key>
 		<name>Forbid Wildcard As Return Type</name>
 		<category name="design"/>
