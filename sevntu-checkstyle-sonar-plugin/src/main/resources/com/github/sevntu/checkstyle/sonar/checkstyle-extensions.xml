@@ -295,7 +295,7 @@
     	<param key="caseSensitive" type="BOOLEAN">
 			<defaultValue>true</defaultValue>
     	</param>
-    	<param key="fieldPrefix" type="String">
+    	<param key="fieldPrefix" type="STRING">
 			<defaultValue></defaultValue>
     	</param>
 	</rule>
@@ -593,26 +593,13 @@
 		<category name="annotation"/>
 		<description>Forbid specific annotation of variable,methods,class,package and other.</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</configKey>
-    	<param key="annotationNames" type="String">
-			<defaultValue>Set of annotation's names</defaultValue>
-			<description></description>
+		<param key="annotationNames" type="STRING">
+			<description>Set of annotation's names</description>
     	</param>
-    	<param key="annotationTargets" type="MultiCheck">
-			<defaultValue>
-				<enumeration>
-	                    <property-value-option value="CLASS_DEF"/>
-	                    <property-value-option value="INTERFACE_DEF"/>
-	                    <property-value-option value="ENUM_DEF"/>
-	                    <property-value-option value="ANNOTATION_DEF"/>
-	                    <property-value-option value="ANNOTATION_FIELD_DEF"/>
-	                    <property-value-option value="ENUM_CONSTANT_DEF"/>
-	                    <property-value-option value="PARAMETER_DEF"/>
-	                    <property-value-option value="VARIABLE_DEF"/>
-	                    <property-value-option value="METHOD_DEF"/>
-	                    <property-value-option value="CTOR_DEF"/>
-	                	</enumeration>
-	                </defaultValue>
+		<param key="annotationTargets" type="s{}">
+		    <defaultValue>CLASS_DEF,INTERFACE_DEF,ENUM_DEF,ANNOTATION_DEF,ANNOTATION_FIELD_DEF,ENUM_CONSTANT_DEF,PARAMETER_DEF,VARIABLE_DEF,METHOD_DEF,CTOR_DEF</defaultValue>
 			<description>Array of type forbidden annotation's target.</description>
     	</param>
 	</rule>
+
 </rules>
