@@ -110,6 +110,11 @@
                 <description>%ForbidWildcardAsReturnType.returnTypeClassNamesIgnoreRegex</description>
             </property-metadata>
         </rule-metadata>
+        
+        <rule-metadata name="%PublicReferenceToPrivateTypeCheck.name" internal-name="PublicReferenceToPrivateTypeCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck"/>
+            <description>%PublicReferenceToPrivateTypeCheck.desc</description>
+        </rule-metadata>
 
     </rule-group-metadata>
 </checkstyle-metadata>
