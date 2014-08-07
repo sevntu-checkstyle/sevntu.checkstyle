@@ -49,8 +49,8 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
             "134: " + warningMessage,
             "145: " + warningMessage,
             "159: " + warningMessage,
-            "170: " + warningMessage,
-            "177: " + warningMessage, };
+            "171: " + warningMessage,
+            "179: " + warningMessage, };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 
@@ -94,7 +94,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
             "121: " + warningMessage,
             "134: " + warningMessage,
             "145: " + warningMessage,
-            "170: " + warningMessage, };
+            "171: " + warningMessage, };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 }

@@ -1,10 +1,10 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 public class InputAvoidDefaultSerializableInInnerClasses2
 {
     public class Foo implements Serializable {
