@@ -1,13 +1,13 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
+public class InputAvoidDefaultSerializableInInnerClasses1 implements Serializable
 {
 	private int field1;
 	private String field2 = new String();
 
-	InputAvoidDefaultSerializableInInnerClasses(int a, int b, String s)
+	InputAvoidDefaultSerializableInInnerClasses1(int a, int b, String s)
 	{
 		this.field1 = a;
 		this.field2 = s;
@@ -164,6 +164,7 @@ public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 		}
 		public int writeObject(ObjectOutputStream s)
 		{
+			return field1;
 		    
 		}
 	}
@@ -171,6 +172,7 @@ public class InputAvoidDefaultSerializableInInnerClasses implements Serializable
 	{
 		private final int readObject(ObjectInputStream s)
 		{
+			return field1;
 
 		}
 	}

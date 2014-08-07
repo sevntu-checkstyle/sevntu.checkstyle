@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -5,8 +6,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-public class InputAvoidDefaultSerializableInInnerClasses2 {
+public class InputAvoidDefaultSerializableInInnerClasses3 {
     public class Foo implements Serializable {
         private static final long serialVersionUID = 1L;
         public Date date;
