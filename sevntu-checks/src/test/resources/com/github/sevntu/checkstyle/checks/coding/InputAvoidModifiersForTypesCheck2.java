@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
+import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
 
@@ -55,4 +55,9 @@ public class InputAvoidModifiersForTypesCheck2 extends BaseCheckTestSupport
         //System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
         verify(checkConfig, getPath("InputSimple.java"), expected);
     }
+    
+    class LineLengthCheck {
+        
+    }
+    
 }
