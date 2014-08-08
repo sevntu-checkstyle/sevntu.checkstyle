@@ -7,7 +7,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 public class InputAvoidModifiersForTypesCheck
 {
 
-    static java.io.File k = new java.io.File();
+    static java.io.File k = new java.io.File("");
     final InputAvoidModifiersForTypesCheck i = new InputAvoidModifiersForTypesCheck();
     static final InputAvoidModifiersForTypesCheck m = new InputAvoidModifiersForTypesCheck();
     transient InputAvoidModifiersForTypesCheck a = new InputAvoidModifiersForTypesCheck();
