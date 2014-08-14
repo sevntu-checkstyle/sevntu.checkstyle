@@ -1,11 +1,11 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.io.IOException;
 
-
-public class InputConfusingTernaryCheckFirst
+public class InputConfusingConditionCheck
 {
   //all with "else" block and negation within an "if"
     void Main(){
-        boolean a, b, c, d;
+        boolean a = false, b = false, c = false, d = false;
                 
         if (!a) {b=a;}
         else{a=b;}
@@ -24,7 +24,7 @@ public class InputConfusingTernaryCheckFirst
     }
   //all with "else" block and one negation within an "if"
     void Second(){
-        boolean a, b, c, d;
+        boolean a = false, b = false, c = false, d = false;
         
         if (!a && b){b=a;}
         else{a=b;}
@@ -37,7 +37,7 @@ public class InputConfusingTernaryCheckFirst
     }
   //all with "else" block but without negation within an "if"
     void withoutNegation(){
-        boolean a, b, c, d;
+        boolean a = false, b = false, c = false, d = false;
 
         if (a) {b=a;}
         else{a=b;}
@@ -57,7 +57,7 @@ public class InputConfusingTernaryCheckFirst
     
   //all without "else" block and without negation within an "if"
     void withoutElse(){
-        boolean a, b, c, d;
+        boolean a = false, b = false, c = false, d = false;
 
         if (a) {b=a;}
         
@@ -71,8 +71,8 @@ public class InputConfusingTernaryCheckFirst
     }
     
   //all without "else" block and with negation within an "if"
-    void withoutElse(){
-        boolean a, b, c, d;
+    void withoutElse1(){
+        boolean a = false, b = false, c = false, d = false;
 
         if (!a) {b=a;}
         
@@ -84,9 +84,9 @@ public class InputConfusingTernaryCheckFirst
         
         if (!a || !b) {b=a;}
     }
-    
   //Hard cases
-    void hardIf(){
+    void hardIf() throws IOException {
+        boolean a = false, b = false, c = false, d = false; Object r = null;
         if(!a || (!b && !a) && b || a){}
         else{}
         
@@ -138,11 +138,11 @@ public class InputConfusingTernaryCheckFirst
         if (!a) {}
         else 
         {
-            throw IOException;
+            throw new IOException();
         }
         
         //null with in a if
-        if (a != null){}
+        if (r != null){}
         else {}
         
         
@@ -154,12 +154,12 @@ public class InputConfusingTernaryCheckFirst
         
         
         //
-        if (a != null) {}
+        if (r != null) {}
         else {}
         
-        if (a != null) {}
+        if (r != null) {}
         else {}
-        if (a != null) {}
+        if (r != null) {}
         else {}
         
         //
@@ -214,7 +214,7 @@ public class InputConfusingTernaryCheckFirst
         
         if (!a)
         {
-            s a = true;
+            a = true;
         }
         else
         {
@@ -224,7 +224,7 @@ public class InputConfusingTernaryCheckFirst
             a = true;
             }
         ////////////////
-        if (a != null) {
+        if (r != null) {
             a = true;
         }
         else {
