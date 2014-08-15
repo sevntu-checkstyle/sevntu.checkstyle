@@ -1,8 +1,9 @@
-
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputForbidThrowAnonymousExceptions {
 	public void anonymousEx() {
 		try {
 			//some code
+		    int k = 4;
 		} catch (Exception e) {
 		      throw new RuntimeException() { //anonymous exception declaration
 		           //some code
@@ -13,18 +14,20 @@ public class InputForbidThrowAnonymousExceptions {
 	public void notAnonEx() {
 		try {
 			//some code
+		    Object o = null;
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
 	}
 	
-	//limitation: This Check does not validate cases then Exception object is created before it is thrown
-	public void notAnonEx2() {
-		RuntimeException re = new RuntimeException();
-		try {
-			//some code
-		} catch (Exception e) {
-			throw re;
-		}
-	}
+	public void notAnonEx3() {
+        RuntimeException re = new RuntimeException();
+        try {
+            //some code
+            String rse = "lol";
+        } catch (Exception e) {
+            throw re;
+        }
+    }
+	
 }

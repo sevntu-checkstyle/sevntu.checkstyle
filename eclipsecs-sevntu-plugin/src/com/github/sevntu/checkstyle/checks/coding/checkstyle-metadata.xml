@@ -150,6 +150,9 @@
 		<rule-metadata name="%ForbidThrowAnonymousExceptionsCheck.name" internal-name="ForbidThrowAnonymousExceptionsCheck" parent="TreeWalker">
 			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck"/>
 			<description>%ForbidThrowAnonymousExceptionsCheck.desc</description>
+			<property-metadata name="exceptionClassNameRegex" datatype="Regex" default-value="^.*Exception">
+ 				<description>%ForbidThrowAnonymousExceptionsCheck.exceptionClassNameRegex</description>
+ 			</property-metadata>
 		</rule-metadata>
 		
 	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
