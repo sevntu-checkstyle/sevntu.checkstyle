@@ -19,61 +19,173 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-
 /**
  * <p>
- * Forbid throwing anonymous exception.
- * limitation: This Check does not validate cases then Exception object is created before it is thrown.
- * For example:
- * <p><code><pre>
+ * This Check warns on throwing anonymous exception.<br>
+ * Examples:
+ * <p>
+ * <code><pre>
  * catch (Exception e) {
- *	   throw new RuntimeException() { //anonymous exception declaration 
- *		    //some code
- *	   };</code></pre>
- *
+ * 	   throw new RuntimeException()  { //WARNING 
+ *          //some code
+ *     };
+ * }
+ * <br>
+ * catch (Exception e) {
+ *     RuntimeException run = new RuntimeException()  {
+ *          //some code
+ *     };
+ *     throw run;  //WARNING
+ * }
+ * </code></pre> The distinguishing of <b>exception</b> types occurs by
+ * analyzing variable's class's name.<br>
+ * Check has an option which contains the regular expression for exception class name matching<br>
+ * Default value is "^.*Exception" because usually exception type ends with suffix "Exception".<br>
+ * Then, if we have an ObjBlock (distinguished by curly braces), it's anonymous<br>
+ * exception definition. It could be defined in <b>throw</b> statement
+ * immediately.<br>
+ * In that case, after literal new, there would be an expression type finishing
+ * with and ObjBlock.<br>
+ * <br>
+ * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  */
 public class ForbidThrowAnonymousExceptionsCheck extends Check
 {
-	/**
-	 * Warning message key.
-	 */
-	public static final String MSG_KEY = "forbid.throw.anonymous.exception";
-	
-    @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.LITERAL_THROW };
+    /**
+     * Warning message key.
+     */
+    public static final String MSG_KEY = "forbid.throw.anonymous.exception";
+    
+    private static final String DEFAULT_EXCEPTION_CLASS_NAME_REGEX = "^.*Exception";
+    
+    private Pattern pattern = Pattern.compile(DEFAULT_EXCEPTION_CLASS_NAME_REGEX);
+
+    private List<String> anonymousExceptions = new ArrayList<String>();
+    
+    public void setExceptionClassNameRegex(String exceptionClassNameRegex) {
+        this.pattern = Pattern.compile(exceptionClassNameRegex);
     }
 
     @Override
-    public void visitToken(DetailAST aLiteralThrow)
+    public int[] getDefaultTokens()
     {
-    	final DetailAST literalNew = getLiteralNew(aLiteralThrow.getFirstChild());
-    	if (literalNew != null && hasObjectBlock(literalNew)) {
-    		log(aLiteralThrow.getLineNo(), MSG_KEY);
-    	}
+        return new int[] { TokenTypes.LITERAL_THROW, TokenTypes.VARIABLE_DEF };
     }
-    
+
+    @Override
+    public void visitToken(DetailAST literalThrowOrVariableDefAst)
+    {
+        switch (literalThrowOrVariableDefAst.getType()) {
+        case TokenTypes.LITERAL_THROW:
+            identifyThrowingAnonymousException(literalThrowOrVariableDefAst);
+            break;
+        case TokenTypes.VARIABLE_DEF:
+            lookForAnonymousExceptionDefinition(literalThrowOrVariableDefAst);
+            break;
+        default:
+            throw new IllegalArgumentException("Unsupported token type: "
+                    + TokenTypes.getTokenName(literalThrowOrVariableDefAst.getType()));
+        }
+    }
+
     /**
-     * 
-     * @param aExprNode
-     * @return literal 'new' or null.
+     * Warns on throwing anonymous exception
      */
-    private DetailAST getLiteralNew (DetailAST aExprNode) {
-    	return aExprNode.findFirstToken(TokenTypes.LITERAL_NEW);
+    private void
+            identifyThrowingAnonymousException(DetailAST throwDefAst)
+    {
+        DetailAST throwingLiteralNewAst = getLiteralNew(throwDefAst);
+
+        if (throwingLiteralNewAst != null
+                && hasObjectBlock(throwingLiteralNewAst)) {
+            log(throwDefAst.getLineNo(), MSG_KEY);
+        }
+
+        else if (throwingLiteralNewAst == null) {
+            DetailAST throwingExceptionNameAst = getThrowingExceptionNameAst(throwDefAst
+                    .getFirstChild());
+            if (throwingExceptionNameAst != null
+                    && anonymousExceptions.contains(throwingExceptionNameAst
+                            .getText())) {
+                log(throwDefAst.getLineNo(), MSG_KEY);
+            }
+        }
     }
-    
+
     /**
-     * 
-     * @param aLiteralNew
-     * @return true, if literal 'new' has OBJBLOCK as a last child.
+     * Analyzes variable definition for anonymous exception definition, if found
+     * - adds it to list of anonymous exceptions
      */
-    private boolean hasObjectBlock (DetailAST aLiteralNew) {
-    	return aLiteralNew.getLastChild().getType() == TokenTypes.OBJBLOCK;
+    private void
+            lookForAnonymousExceptionDefinition(DetailAST variableDefAst)
+    {
+        DetailAST variableLiteralNewAst = null;
+        DetailAST variableAssignment = variableDefAst.findFirstToken(TokenTypes.ASSIGN);
+        if (variableAssignment != null && variableAssignment.getFirstChild() != null) {
+            variableLiteralNewAst = getLiteralNew(variableAssignment);
+        }
+
+        DetailAST variableNameAst = variableDefAst
+                .findFirstToken(TokenTypes.TYPE).getNextSibling();
+        if (isExceptionName(variableNameAst)) {
+            String exceptionName = variableNameAst.getText();
+
+            if (anonymousExceptions.contains(exceptionName)) {
+                anonymousExceptions.remove(exceptionName);
+            }
+
+            if (variableLiteralNewAst != null
+                    && hasObjectBlock(variableLiteralNewAst)) {
+                anonymousExceptions.add(exceptionName);
+            }
+        }
     }
+
+    /**
+     * Gets the literal new node from variable definition node or throw node
+     */
+    private static DetailAST
+            getLiteralNew(DetailAST literalThrowOrVariableDefAst)
+    {
+        return literalThrowOrVariableDefAst.getFirstChild().findFirstToken(
+                TokenTypes.LITERAL_NEW);
+    }
+
+    /**
+     * Retrieves the AST node which contains the name of throwing exception
+     */
+    private static DetailAST
+            getThrowingExceptionNameAst(DetailAST expressionAst)
+    {
+        return expressionAst.findFirstToken(TokenTypes.IDENT);
+    }
+
+    /**
+     * Checks if definition with a literal new has an ObjBlock
+     */
+    private static boolean hasObjectBlock(DetailAST literalNewAst)
+    {
+        return literalNewAst.getLastChild().getType() == TokenTypes.OBJBLOCK;
+    }
+
+    /**
+     * Checks if variable name is definitely an exception name. It is so if
+     * variable type ends with "Exception" suffix
+     */
+    private boolean isExceptionName(DetailAST variableNameAst)
+    {
+        DetailAST typeAst = variableNameAst.getPreviousSibling();
+        String typeName = typeAst.getFirstChild().getText();
+        return pattern.matcher(typeName).matches();
+    }
+
 }
