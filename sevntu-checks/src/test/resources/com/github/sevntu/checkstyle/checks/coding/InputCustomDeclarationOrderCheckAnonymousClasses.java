@@ -1,20 +1,21 @@
-class Ok_1 {
-    private Integer i1 = new Integer(){
+package com.github.sevntu.checkstyle.checks.coding;
+class InputCustomDeclarationOrderCheckAnonymousClasses {
+    private Object i1 = new Object(){
         int getInt() {
             return 1;
         }
     };
-    protected Integer i2 = new Integer(){
+    protected Object i2 = new Object(){
         int getInt() {
             return 1;
         }
     };
-    Integer i3 = new Integer(){
+    Object i3 = new Object(){
         int getInt() {
             return 1;
         }
     };
-    public Integer i4 = new Integer(){
+    public Object i4 = new Object(){
         int getInt() {
             return 1;
         }
@@ -23,57 +24,57 @@ class Ok_1 {
     private int max = 3;
     public int min = 1;
     
-    public Ok() {
+    public InputCustomDeclarationOrderCheckAnonymousClasses() {
     }
     
     public void a() {
     }
 }
 
-class Errors_1 {
+class Errors_11 {
     //wrong order
     private int max = 3;
     public int min = 1;
     
-    private Integer i1 = new Integer(){
+    private Object i1 = new Object(){
         int getInt() {
             return 1;
         }
     };
 }
 
-class Errors_2 {
-    private Integer i1 = new Integer(){
+class Errors_12 {
+    private Object i1 = new Object(){
         int getInt() {
             return 1;
         }
     };
     //wrong order
     private double d1 = 4.6;
-    private Integer i2 = new Integer(){
+    private Object i2 = new Object(){
         int getInt() {
             return 1;
         }
     };
 }
 
-class Errors_3 {
+class Errors_31 {
     //wrong order
-    public Errors_3() {
+    public Errors_31() {
     }
     
-    Integer i = new Integer() {
+    Object i = new Object() {
         int getInt() {
             return 34;
         }
     };
 }
 
-class Ok_2 {
+class Ok_210{
     private int k = 7;
     
     public void process(){
-        Integer i = new Integer(){
+        Object i = new Object(){
             int getInt() {
                 return 34;
             }
@@ -91,7 +92,7 @@ class ErrorsInInnerClass_1 {
     class Erros {
         // wrong order
         private int x;
-        private Integer i = new Integer() {
+        private Object i = new Object() {
             int getInt() {
                 return 1;
             }
@@ -100,7 +101,7 @@ class ErrorsInInnerClass_1 {
     }
 }
 
-public class SpacePadder {
+class SpacePadder {
 
     final static String[] SPACES = { " ", "  ", "    ", "        ", // 1,2,4,8
         // spaces

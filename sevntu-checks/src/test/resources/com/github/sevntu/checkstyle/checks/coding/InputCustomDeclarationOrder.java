@@ -97,9 +97,9 @@ public class InputCustomDeclarationOrder {
 
 }
 
-class Test {
+class Test1 {
 
-    Test() {
+    Test1() {
     }
 
     private String someTest;
@@ -122,7 +122,7 @@ class ClassForIssue58 {
     }
 }
 
-class ClassForIssue58 {
+class ClassForIssue528 {
     private void simplePrivate() {
         class Inner {
             int number;

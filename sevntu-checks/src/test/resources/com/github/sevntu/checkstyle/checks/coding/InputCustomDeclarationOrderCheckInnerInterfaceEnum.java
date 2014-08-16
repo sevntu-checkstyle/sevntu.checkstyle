@@ -1,4 +1,5 @@
-class Ok_1 {
+package com.github.sevntu.checkstyle.checks.coding;
+class InputCustomDeclarationOrderCheckInnerInterfaceEnum {
     private int fieldOne;
     public double fieldTwo;
     
