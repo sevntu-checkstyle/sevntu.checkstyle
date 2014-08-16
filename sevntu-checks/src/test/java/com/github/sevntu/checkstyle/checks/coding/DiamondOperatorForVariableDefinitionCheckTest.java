@@ -30,10 +30,12 @@ public class DiamondOperatorForVariableDefinitionCheckTest extends BaseCheckTest
     @Test
     public void testDefault() throws Exception {
         String[] expected = { 
-                "31:58: " + getCheckMessage(MSG_KEY),
-                "33:26: " + getCheckMessage(MSG_KEY),
-                "35:41: " + getCheckMessage(MSG_KEY),
-                "152:88: " + getCheckMessage(MSG_KEY)
+                "25:58: " + getCheckMessage(MSG_KEY),
+                "27:26: " + getCheckMessage(MSG_KEY),
+                "28:50: " + getCheckMessage(MSG_KEY),
+                "29:41: " + getCheckMessage(MSG_KEY),
+                "59:40: " + getCheckMessage(MSG_KEY),
+                "60:83: " + getCheckMessage(MSG_KEY)
                 };
         verify(checkConfig,
                 getPath("InputDiamondOperatorForVariableDefinitionCheck.java"), expected);
