@@ -1,9 +1,8 @@
 package com.github.sevntu.checkstyle.checks.coding;
-import org.aspectj.lang.annotation.Before;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
-import test.aop.Lockable;
 import junit.framework.TestCase;
-class Ok_1 {
+class InputCustomDeclarationOrderCheckGettersSetters {
     private int field;
     private double x;
     private boolean visible;
@@ -39,7 +38,7 @@ class Ok_1 {
 // =========================================================================
 // =========================================================================
 // =========================================================================
-class Errors_1 {
+class Errors_10 {
     private int field;
     private double x;
     private boolean visible;
@@ -83,7 +82,7 @@ class Errors_1 {
 // =========================================================================
 // =========================================================================
 // =========================================================================
-class Errors_2 {
+class Errors_20 {
     private int field;
     private double x;
     private boolean visible;
@@ -120,7 +119,7 @@ class Errors_2 {
 // =========================================================================
 // =========================================================================
 // =========================================================================
-class Errors_3 {
+class Errors_30 {
     private int field;
     private double x;
     private boolean visible;
@@ -137,7 +136,7 @@ class Errors_3 {
 
     // wrong order
     public void setVisible(boolean visible) {
-        log.info("Visible is " + visible);
+        String.format(String.valueOf(visible), 4);
         this.visible = visible;
     }
 
@@ -160,7 +159,7 @@ class Errors_3 {
 // =========================================================================
 // =========================================================================
 // =========================================================================
-class Errors_4 {
+class Errors_40 {
     private int field;
     private double x;
     private boolean visible;
@@ -234,8 +233,8 @@ class Check {
 
     private boolean isInFoundGetters(String aMethodName) {
         boolean result = false;
-        for (DetailAST methodAst : mGetters.peek()) {
-            String methodName = getIdentifier(methodAst);
+        int[] col = null; for (Object methodAst : col) {
+            String methodName = col.toString();
             if (methodName.equals(aMethodName)) {
                 result = true;
             }
@@ -247,34 +246,24 @@ class Check {
 // =========================================================================
 // =========================================================================
 // =========================================================================
-class LocalVariable {
 
-    public void checkDate() {
-    }
+class UserCache {
 
-    // it is not a getter
-    public Comparator getComparator() {
-        Comparator comparator = new Comparator();
-        return comparator;
+    public void setUserCache(UserCache userCache)
+    {
+        
+        
     }
-
-    // it is not a setter
-    public void setComparator(Comparator newComparator) {
-        Comparator comparator;
-        comparator = newComparator;
-    }
-
-    public void main() {
-    }
+    
 }
 
-class Errors_5 {
+class Errors_5 extends UserCache {
     private int field;
     private int x;
     private int y;
     private boolean visible;
-    private WorkMode workMode;
-    private UserCahe userCache;
+    private String workMode;
+    private UserCache userCache;
 
     // wrong order
     public void setField(int field) {
@@ -291,7 +280,7 @@ class Errors_5 {
     }
     
     public void setWorkMode(String workMode) {
-        this.workMode = WorkMode.valueOf(workMode);
+        this.workMode = String.valueOf(workMode);
     }
 
     public void setUserCache(UserCache userCache) {
@@ -302,15 +291,15 @@ class Errors_5 {
     public void setY(Integer y) { // setter
         this.y = Integer.parseInt(y + "");
     }
-    
+ 
  class TestMnaNewsClassifier extends TestCase {
 
-        private MnaNewsClassifier classifier;
+        private String classifier;
 
         @Override
         protected void setUp() throws Exception {
             super.setUp();
-            classifier = new MnaNewsClassifier();
+            classifier = new String();
         }
 
         @Override
@@ -320,32 +309,23 @@ class Errors_5 {
         }
 
         public void testMna() throws Exception {
-            assertTrue(classifier.isMna(IoHelper.readText(getClass(), "mna1.txt")));
+            assertTrue(classifier.equals(String.format("mna1.txt")));
         }
 
         public void testNonMna() throws Exception {
-            assertFalse(classifier.isMna(IoHelper.readText(getClass(), "non-mna1.txt")));
+            assertFalse(classifier.equals(String.format("non-mna1.txt")));
         }
 
-        @Before(value="execution(void set*(*)) && this(mixin)", argNames="mixin")
-        public void checkNotLocked(
-            Lockable mixin)  // Bind to arg
-        {
-            // Can also obtain the mixin (this) this way
-            //Lockable mixin = (Lockable) jp.getThis();
-            if (mixin.locked()) {
-                throw new IllegalStateException();
-            }
-        }
-        
         public void setAge(int a) {}
         
         public void testMany() throws Exception {
             for (int i = 0; i < 1000; i++) {
-                assertTrue(classifier.isMna(IoHelper.readText(getClass(), "mna1.txt")));
+                assertTrue(classifier.equals(String.format("mna1.txt")));
             }
         }
 
     }
+
+
     
 }

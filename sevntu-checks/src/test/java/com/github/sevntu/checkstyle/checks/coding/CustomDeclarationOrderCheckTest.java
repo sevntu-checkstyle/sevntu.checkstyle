@@ -51,10 +51,10 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-        		"38:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(public.*)"),
-        		"53:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(private.*)"),
-        		"65:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField()", "Ctor(public.*)"),
-        		"94:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(private.*)"),
+                       "39:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(public.*)"),
+                       "54:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(private.*)"),
+                       "66:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField()", "Ctor(public.*)"),
+                       "95:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private.*)", "Field(private.*)"),
         };
         checkConfig
                 .addAttribute(
@@ -80,22 +80,22 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-        		"51:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"57:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"62:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"67:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"72:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"77:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"), 
-        		"92: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
-        		"129: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
-        		"134: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setX", "getX"), 
-        		"139: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setVisible", "isVisible"),
-        		"169: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
-        		"177:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"181:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"293:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"297:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
-        		"302:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "50:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "56:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "61:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "66:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "71:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "76:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"), 
+                       "91: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
+                       "128: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
+                       "133: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setX", "getX"), 
+                       "138: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setVisible", "isVisible"),
+                       "168: " + getCheckMessage(MSG_KEY_INVALID_SETTER, "setField", "getField"),
+                       "176:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "180:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "282:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "286:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
+                       "291:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
         };
         checkConfig.addAttribute(
                         "customDeclarationOrder",
@@ -112,10 +112,10 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-        		"40:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "InnerInterface(.*)"),
-        		"48:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "InnerEnum(.*)"),
-        		"56:5: " + getCheckMessage(MSG_KEY_INTERFACE, "InnerInterface(.*)", "InnerEnum(.*)"),
-        		"69:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(.*)", "InnerEnum(.*)"),
+                       "41:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "InnerInterface(.*)"),
+                       "49:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "InnerEnum(.*)"),
+                       "57:5: " + getCheckMessage(MSG_KEY_INTERFACE, "InnerInterface(.*)", "InnerEnum(.*)"),
+                       "70:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(.*)", "InnerEnum(.*)"),
         };
         
         checkConfig.addAttribute(
@@ -133,8 +133,8 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-        		"9:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
-        		"16:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
+                       "10:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
+                       "17:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
         };
         checkConfig.addAttribute(
                         "customDeclarationOrder",
