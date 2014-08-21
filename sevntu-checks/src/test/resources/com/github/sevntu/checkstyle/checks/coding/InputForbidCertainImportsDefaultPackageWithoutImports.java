@@ -1,4 +1,4 @@
-//package coding.rocket.old.generation;
+package com.github.sevntu.checkstyle.checks.coding;
 //
 //import java.io.File;
 //import org.junit.Test;
@@ -16,7 +16,7 @@
 public class InputForbidCertainImportsDefaultPackageWithoutImports extends Check
 {
 
-    @Override
+    
     public int a()
     {
         return 5;
