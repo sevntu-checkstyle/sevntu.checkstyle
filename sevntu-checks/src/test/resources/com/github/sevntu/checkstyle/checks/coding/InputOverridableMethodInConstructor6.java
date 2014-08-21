@@ -1,13 +1,13 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.io.IOException;
-
 public class InputOverridableMethodInConstructor6 {
 
 	public static void main(String args[]) throws IOException,
-			ClassNotFoundException, CloneNotSupportedException {
+	                ClassNotFoundException, CloneNotSupportedException {
 		(new Object2()).clone();
 	}
 
-	private class Object1 implements Cloneable {
+	static private class Object2 implements Cloneable {
 
 		// final
 		private void doSmth() {
@@ -17,7 +17,7 @@ public class InputOverridableMethodInConstructor6 {
 		@Override
 		protected Object clone() throws CloneNotSupportedException {
 			Object clone = super.clone();
-			((Object1) clone).doSmth(); // no warnings here
+			((Object2) clone).doSmth(); // no warnings here
 			return clone;
 		}
 

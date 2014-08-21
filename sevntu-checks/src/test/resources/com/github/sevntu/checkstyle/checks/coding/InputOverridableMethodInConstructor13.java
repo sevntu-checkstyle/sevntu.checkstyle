@@ -1,4 +1,4 @@
-package TestClasses;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -13,7 +13,7 @@ public class InputOverridableMethodInConstructor13 {
 		(new Object3()).clone();
 	}
 
-	class Object1 implements Cloneable, Data, FileFilter {
+	static class Object1 implements Cloneable, Data, FileFilter {
 
 		public void doSmth() {
 			System.out.println("Bar!");
@@ -40,15 +40,15 @@ public class InputOverridableMethodInConstructor13 {
 
 	}
 
-	class Object2 extends Object1 implements Data {
+	static class Object2 extends Object1 implements Data {
 		@Override
 		public void doSmth() {
 			System.out.println("Bar!");
 		}
 	}
 	
-//                               Object1
-	class Object3 extends Object2 { // implements Serializable 
+
+	static class Object3 extends Object2 { // implements Serializable 
 		private String value;
 
 		@Override

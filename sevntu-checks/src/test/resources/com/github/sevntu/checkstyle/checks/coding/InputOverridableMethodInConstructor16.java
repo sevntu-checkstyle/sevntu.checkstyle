@@ -1,4 +1,4 @@
-package TestClasses;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import java.io.File;
 import java.io.FileInputStream;

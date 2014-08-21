@@ -1,4 +1,4 @@
-package org.hibernate.bytecode.javassist;
+package com.github.sevntu.checkstyle.checks.coding;
 
 public interface InputOverridableMethodInConstructor20 {
 

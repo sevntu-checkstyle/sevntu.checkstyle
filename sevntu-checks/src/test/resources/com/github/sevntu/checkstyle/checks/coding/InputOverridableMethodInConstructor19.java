@@ -22,11 +22,7 @@
  * Boston, MA  02110-1301  USA
  *
  */
-package org.hibernate.loader;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
+package com.github.sevntu.checkstyle.checks.coding;
 
 /**
  * Abstract walker for walkers which begin at an entity (criteria
@@ -34,16 +30,19 @@ import java.util.Iterator;
  *
  * @author Gavin King
  */
-public abstract class InputOverridableMethodInConstructor19 extends JoinWalker {
+public abstract class InputOverridableMethodInConstructor19 {
 
-	public AbstractEntityJoinWalker(
-			OuterJoinLoadable persister,
-			SessionFactoryImplementor factory,
-			LoadQueryInfluencers loadQueryInfluencers,
+	private String persister;
+    private Object alias;
+
+    public InputOverridableMethodInConstructor19(
+			String persister,
+			String factory,
+			String loadQueryInfluencers,
 			String alias) {
-		super( factory, loadQueryInfluencers );
+		super();
 		this.persister = persister;
-		this.alias = ( alias == null ) ? generateRootAlias( persister.getEntityName() ) : alias;
+		this.alias = ( alias == null ) ? persister : alias;
 	}
 	
 }
