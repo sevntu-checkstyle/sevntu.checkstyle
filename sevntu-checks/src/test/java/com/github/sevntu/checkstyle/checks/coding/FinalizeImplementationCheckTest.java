@@ -21,11 +21,11 @@ public class FinalizeImplementationCheckTest extends BaseCheckTestSupport
     {
 
         final String[] expected = {
-                "21: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
-                "34: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
-                "47: " + getCheckMessage(MSG_KEY_PUBLIC_FINALIZE),
-                "61: " + getCheckMessage(MSG_KEY_USELESS_FINALIZE),
-                "74: " + getCheckMessage(MSG_KEY_MISSED_SUPER_FINALIZE_CALL),
+                "22: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+                "35: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+                "48: " + getCheckMessage(MSG_KEY_PUBLIC_FINALIZE),
+                "62: " + getCheckMessage(MSG_KEY_USELESS_FINALIZE),
+                "75: " + getCheckMessage(MSG_KEY_MISSED_SUPER_FINALIZE_CALL),
             };
 
         verify(mCheckConfig,
