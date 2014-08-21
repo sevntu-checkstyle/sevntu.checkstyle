@@ -45,6 +45,48 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
+	<plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+      <version>1.9</version>
+      <executions>
+        <execution>
+        <id>add-test-source</id>
+        <phase>generate-test-sources</phase>
+        <goals>
+          <goal>add-test-source</goal>
+        </goals>
+        <configuration>
+          <sources>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor26.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor27.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor1.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor2.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor3.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor4.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor5.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor6.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor7.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor8.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor9.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor13.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor14.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor15.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor16.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor17.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor18.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor19.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor20.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor21.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor22.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor23.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor24.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputOverridableMethodInConstructor25.java</source>
+          </sources>
+        </configuration>
+        </execution>
+       </executions>
+    </plugin>
       </plugins>
     </build>
 
