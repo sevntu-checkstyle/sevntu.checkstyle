@@ -1,4 +1,4 @@
- 
+package com.github.sevntu.checkstyle.checks.coding;
  public class InputForbidCCommentsInMethods
 {
     /*
@@ -34,7 +34,7 @@
         }
     }
 }
-class InputForbidCCommentsInMethods2
+class InnerInputForbidCCommentsInMethods2
 {
     /*
      * fifth comment, that hasn't error
