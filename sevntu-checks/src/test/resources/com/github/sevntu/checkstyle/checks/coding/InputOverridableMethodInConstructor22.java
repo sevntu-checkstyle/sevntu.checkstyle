@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputOverridableMethodInConstructor22 {
 
 	InputOverridableMethodInConstructor22() {

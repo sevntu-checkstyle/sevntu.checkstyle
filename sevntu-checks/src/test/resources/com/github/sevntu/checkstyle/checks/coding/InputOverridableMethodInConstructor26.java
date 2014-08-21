@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
 public class InputOverridableMethodInConstructor26
 {
@@ -9,30 +9,17 @@ public class InputOverridableMethodInConstructor26
         public ULCWorkbenchPartSite()
         {
             init();
-            initPart(part, input);
+            initPart("");
         }
 
-        @SuppressWarnings("unchecked")
-        private void initPart(IWorkbenchPart<?> part, Object input)
+        private void initPart(String str)
         {
-            try {
-                ((IWorkbenchPart<Object>) part).init(this, input);
-            }
-            catch (InvalidInputException e) {
-                // TODO  any special handling
-                throw new RuntimeException(e);
-            }
+            
         }
 
-        @Override
-        public IWorkbenchPart<?> getComponent()
+        public void getPart()
         {
-            return (IWorkbenchPart<?>) super.getComponent();
-        }
 
-        public IWorkbenchPart<?> getPart()
-        {
-            return getComponent();
         }
 
         private void init()

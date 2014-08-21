@@ -1,4 +1,4 @@
-package TestClasses;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +28,7 @@ public class InputOverridableMethodInConstructor14 {
 	}
 
 
-	private class Object1 implements Serializable {
+	private static class Object1 implements Serializable {
 
 		public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
              doSmth(); // ! a warning here
@@ -40,7 +40,7 @@ public class InputOverridableMethodInConstructor14 {
 	}
 
 
-	private class Object2 extends Object1 {
+	private static class Object2 extends Object1 {
 
 		String value;
 

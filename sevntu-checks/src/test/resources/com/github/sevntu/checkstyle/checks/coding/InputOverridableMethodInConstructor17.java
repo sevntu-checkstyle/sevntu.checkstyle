@@ -1,4 +1,4 @@
-package TestClasses;
+package com.github.sevntu.checkstyle.checks.coding;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class InputOverridableMethodInConstructor16 {
+public class InputOverridableMethodInConstructor17 {
 
 
 	private class Object1 implements Serializable {
