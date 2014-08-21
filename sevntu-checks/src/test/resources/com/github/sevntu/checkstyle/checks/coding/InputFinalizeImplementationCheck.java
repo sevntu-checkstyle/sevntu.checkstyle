@@ -1,10 +1,11 @@
+package com.github.sevntu.checkstyle.checks.coding;
 class NormalFinalizer {
     
     public static void doStuff()
     {
         //This method do some stuff 
     }
-    protected void finalize()
+    protected void finalize() throws Throwable
     {
         try {
             doStuff(); 
@@ -44,7 +45,7 @@ class PublicFinalizer {
     {
         //This method do some stuff 
     }
-    public void finalize()
+    public void finalize() throws Throwable
     {
         try {
             doStuff(); 
@@ -65,13 +66,13 @@ class SuperFinalizer {
 }
 
 //public finalizer
-class PublicFinalizer {
+class PublicFinalizer1 {
   
   public static void doStuff()
   {
       //This method do some stuff 
   }
-  protected void finalize()
+  protected void finalize() throws Throwable
   {
       try {
           doStuff(); 
