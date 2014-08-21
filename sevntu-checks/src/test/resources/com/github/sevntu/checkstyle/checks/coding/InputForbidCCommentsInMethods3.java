@@ -1,10 +1,10 @@
- 
-public interface InputForbidCCommentsInMethods
+package com.github.sevntu.checkstyle.checks.coding;
+public interface InputForbidCCommentsInMethods3
 {
     /*
      * first comment, that hasn't error
      */
     
-    private void anyMethod();
+     void anyMethod();
         
 }
