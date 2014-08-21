@@ -1,4 +1,4 @@
-
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputForbidThrowAnonymousExceptions {
 	public void anonymousEx() {
 		try {
