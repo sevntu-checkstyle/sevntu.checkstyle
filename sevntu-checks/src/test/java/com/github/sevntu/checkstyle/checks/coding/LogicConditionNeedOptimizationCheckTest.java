@@ -44,11 +44,11 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
         	"59: " + getCheckMessage(MSG_KEY, "&&", 59, 35),
         	"60: " + getCheckMessage(MSG_KEY, "&&", 60, 19),
         	"60: " + getCheckMessage(MSG_KEY, "&&", 60, 29),
-        	"77: " + getCheckMessage(MSG_KEY, "&&", 77, 47),
-        	"81: " + getCheckMessage(MSG_KEY, "&&", 81, 19),
-        	"82: " + getCheckMessage(MSG_KEY, "&&", 82, 39),
-        	"84: " + getCheckMessage(MSG_KEY, "&&", 84, 36),
-        	"87: " + getCheckMessage(MSG_KEY, "&&", 87, 19),
+        	"62: " + getCheckMessage(MSG_KEY, "&&", 62, 21),
+        	"66: " + getCheckMessage(MSG_KEY, "&&", 66, 19),
+        	"67: " + getCheckMessage(MSG_KEY, "&&", 67, 38),
+        	"69: " + getCheckMessage(MSG_KEY, "&&", 69, 35),
+        	"72: " + getCheckMessage(MSG_KEY, "&&", 72, 19),
         };
         verify(checkConfig, getPath("InputLogicConditionsNeedOptimizationCheck.java"), expected);
     }
