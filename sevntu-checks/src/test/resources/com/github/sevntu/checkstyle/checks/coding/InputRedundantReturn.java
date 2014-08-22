@@ -1,18 +1,16 @@
-package com.puppycrawl.tools.checkstyle.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
-import com.HelloWorld.MyTestClass;
-
-public class HelloWorld {
+public class InputRedundantReturn {
 
 	/**
 	 * @param args
 	 */
-	public HelloWorld(){
+	public InputRedundantReturn(){
 		//check the allowed/not empty c-tor
 		return;
 	}//c-tor
 	
-	public	HelloWorld(String s){
+	public	InputRedundantReturn(String s){
 		//check the non empty costructor
 		boolean b = true;
 		b = b ? true: false;
