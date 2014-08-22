@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputSimpleAccessorNameNotation1
 {
     private String field1;

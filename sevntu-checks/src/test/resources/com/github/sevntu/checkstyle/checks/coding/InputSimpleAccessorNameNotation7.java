@@ -1,6 +1,6 @@
-package com.puppycrawl.tools.checkstyle.checks.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
-public interface InputSimpleAccesorNameNotation8
+public interface InputSimpleAccessorNameNotation7
 {
     String getSmth();
 }

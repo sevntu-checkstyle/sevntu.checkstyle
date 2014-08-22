@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputSimpleAccessorNameNotation5
 {
     private boolean field1; 
