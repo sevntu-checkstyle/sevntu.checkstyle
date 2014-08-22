@@ -191,7 +191,7 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
                 "49:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
                 "57:41: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
                 "67:39: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-                "79:66: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
+                "79:41: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
                 "91:29: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
                 "94:29: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
                 "99:29: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
