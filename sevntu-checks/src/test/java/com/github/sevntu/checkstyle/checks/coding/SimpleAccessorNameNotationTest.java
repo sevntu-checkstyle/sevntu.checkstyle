@@ -35,8 +35,8 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "16: " + warningSetterMessage,
-                "21: " + warningGetterMessage,
+                "17: " + warningSetterMessage,
+                "22: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation1.java"), expected);
     }
@@ -47,8 +47,8 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
-                "6: " + warningSetterMessage,
-                "11: " + warningGetterMessage,
+                "7: " + warningSetterMessage,
+                "12: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation1.java"), expected);
     }
@@ -58,12 +58,12 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "14: " + warningGetterMessage,
-                "19: " + warningSetterMessage,
-                "29: " + warningSetterMessage,
-                "34: " + warningGetterMessage,
-                "39: " + warningSetterMessage,
-                "44: " + warningGetterMessage,
+                "15: " + warningGetterMessage,
+                "20: " + warningSetterMessage,
+                "30: " + warningSetterMessage,
+                "35: " + warningGetterMessage,
+                "40: " + warningSetterMessage,
+                "45: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation2.java"), expected);
     }
@@ -74,12 +74,12 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
-                "9: " + warningSetterMessage,
-                "14: " + warningGetterMessage,
-                "19: " + warningSetterMessage,
-                "24: " + warningGetterMessage,
-                "34: " + warningGetterMessage,
-                "39: " + warningSetterMessage,
+                "10: " + warningSetterMessage,
+                "15: " + warningGetterMessage,
+                "20: " + warningSetterMessage,
+                "25: " + warningGetterMessage,
+                "35: " + warningGetterMessage,
+                "40: " + warningSetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation2.java"), expected);
     }
@@ -89,10 +89,10 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "6: " + warningSetterMessage,
-                "11: " + warningGetterMessage,
-                "16: " + warningSetterMessage,
-                "21: " + warningGetterMessage,
+                "7: " + warningSetterMessage,
+                "12: " + warningGetterMessage,
+                "17: " + warningSetterMessage,
+                "22: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation3.java"), expected);
     }
@@ -103,10 +103,10 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
-                "6: " + warningSetterMessage,
-                "11: " + warningGetterMessage,
-                "16: " + warningSetterMessage,
-                "21: " + warningGetterMessage,
+                "7: " + warningSetterMessage,
+                "12: " + warningGetterMessage,
+                "17: " + warningSetterMessage,
+                "22: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation3.java"), expected);
     }
@@ -133,8 +133,8 @@ public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
     {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
-                "27: " + warningSetterMessage,
-                "32: " + warningGetterMessage,
+                "28: " + warningSetterMessage,
+                "33: " + warningGetterMessage,
         };
         verify(checkConfig, getPath("InputSimpleAccessorNameNotation5.java"), expected);
     }

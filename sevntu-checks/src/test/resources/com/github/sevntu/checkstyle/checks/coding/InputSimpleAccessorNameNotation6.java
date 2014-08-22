@@ -1,18 +1,16 @@
-package com.puppycrawl.tools.checkstyle.checks.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
-public class InputSimpleAccesorNameNotation7
+public class InputSimpleAccessorNameNotation6
 {
     public static void
-            updateCheckSum(final InputStream metadataFile, File metadataFileSum, HashFunction hashFunction)
-                    throws IOException
+            updateCheckSum(final String metadataFile, String metadataFileSum, String hashFunction)
+                    throws Exception
     {
-        HashCode hash = ByteStreams.hash(new InputSupplier<InputStream>()
-        {
-            @Override
-                    public InputStream getInput() throws IOException
+        new Object() {
+            public String getInput() throws Exception
             {
                 return metadataFile;
             }
-        }, hashFunction);
+        };
     }
 }

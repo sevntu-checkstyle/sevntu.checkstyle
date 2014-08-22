@@ -1,8 +1,9 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputSimpleAccessorNameNotation2
 {
     private String field1;
     private int field2;
-    
+    private String field3;
     private String mField3;
     private int mField4;
 
@@ -18,7 +19,7 @@ public class InputSimpleAccessorNameNotation2
     
     public void setFiel2(String aField2) // !! in both case
     {
-        field2 = aField2;
+        field3 = aField2;
     }
     
     public int getField2() //prefix "m" !!
@@ -38,7 +39,7 @@ public class InputSimpleAccessorNameNotation2
     
     public void setFiel4(String aField4) // !! in both case
     {
-        mField4 = aField4;
+        mField3 = aField4;
     }
     
     public int getField4() //prefix "" !!

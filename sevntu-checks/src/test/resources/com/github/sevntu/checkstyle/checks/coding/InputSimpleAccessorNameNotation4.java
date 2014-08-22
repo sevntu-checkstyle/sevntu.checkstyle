@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputSimpleAccessorNameNotation4
 {
     private String field1;
@@ -22,6 +23,6 @@ public class InputSimpleAccessorNameNotation4
     public int getField2()
     {
         String anyString = null;
-        return anyString;
+        return 4;
     }
 }

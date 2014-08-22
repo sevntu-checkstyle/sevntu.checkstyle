@@ -1,5 +1,5 @@
-package com.puppycrawl.tools.checkstyle.checks.coding;
-public class InputSimpleAccesorNameNotation {
+package com.github.sevntu.checkstyle.checks.coding;
+public class InputSimpleAccessorNameNotation {
 	private int mFirst;
 	private int mSecond;
 	private int mA;
