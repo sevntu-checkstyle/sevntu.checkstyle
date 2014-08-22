@@ -1,4 +1,4 @@
-package com.github.sevntu.checkstyle.coding;
+package com.github.sevntu.checkstyle.checks.coding;
 
 public class InputReturnNullInsteadOfBoolean{
 	
