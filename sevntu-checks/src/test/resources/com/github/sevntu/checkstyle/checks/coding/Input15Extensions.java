@@ -1,5 +1,5 @@
+package com.github.sevntu.checkstyle.checks.coding;
 // someexamples of 1.5 extensions
-
 @interface MyAnnotation1 {
     String name();
     int version();

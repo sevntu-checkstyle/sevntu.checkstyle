@@ -1,4 +1,5 @@
-public class InputUnnecessaryParentheses {
+package com.github.sevntu.checkstyle.checks.coding;
+public class testUBV {
     int f1() {
         int x = 0;
         for (int i = (0+1); ((i) < (6+6)); i += (1+0)) {
@@ -95,14 +96,14 @@ public class InputUnnecessaryParentheses {
 		f = (2 >= 3);
 		f = b != true;
 		f = (f != b);
-		assert (firstOnPage == 1);
+		assert (1 == 1);
 		if(f)
 		{
 			return b = ( b != f );
 		}
 		else
 		{
-			return f != d;
+			return f != false;
 		}
     	}
 
@@ -110,15 +111,12 @@ public class InputUnnecessaryParentheses {
 		boolean b = (x == null);
 		if(flag != (y == 0))
 		{
-			return (tradename == null && company == null);
+			return ("" == null && "null" == null);
 		}
 		else
 		{
 			return (flag != b);
 		}
-		b = (LifeCycleEntityHelper.isDiscontinuedNow(officer) || LifeCycleEntityHelper.isDiscontinuedNow(officer.getCompany()));
-		return (b == c) != (2 < 3);
-		
 	}
     
     

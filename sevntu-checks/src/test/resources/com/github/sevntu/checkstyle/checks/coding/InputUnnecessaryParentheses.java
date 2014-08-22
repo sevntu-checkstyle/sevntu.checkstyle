@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputUnnecessaryParentheses {
     int f1() {
         int x = 0;
