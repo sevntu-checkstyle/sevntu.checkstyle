@@ -76,8 +76,8 @@ public class InputTernaryPerExpressionCountCheck {
        String schemaNameToUse = null;
        String procedureNameToUse = null;
        String callString = "{? = call " +
-               (StringUtils.capitalize(catalogNameToUse) != null ? catalogNameToUse + "." : "") +
-               (StringUtils.capitalize(schemaNameToUse) != null ? schemaNameToUse + "." : "") +
+               ("".concat("ss") != null ? catalogNameToUse + "." : "") +
+               ("".concat("ss") != null ? schemaNameToUse + "." : "") +
                procedureNameToUse + "(";
    } 
 
