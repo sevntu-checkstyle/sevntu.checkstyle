@@ -16,29 +16,16 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-package com.puppycrawl.tools.checkstyle.checks.javadoc;
+package com.github.sevntu.checkstyle.checks.design;
 
-import com.google.common.collect.Lists;
-import com.puppycrawl.tools.checkstyle.api.JavadocTagInfo;
-import com.puppycrawl.tools.checkstyle.api.TextBlock;
-import com.puppycrawl.tools.checkstyle.api.Utils;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-/**
- * Contains utility methods for working with Javadoc.
- * @author Lyle Hanson
- */
 public final class InputChildBlockLengthCheckCheckNPE
 {
 
-    private JavadocUtils()
+    private InputChildBlockLengthCheckCheckNPE()
     {
     }
 
-    public static JavadocTags getJavadocTags(TextBlock aCmt,
-                                             JavadocTagType aTagType)
+    public static String getJavadocTags()
     {
         for (int i = 0; i < 5; i++) {                     
 
