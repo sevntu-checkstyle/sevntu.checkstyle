@@ -73,9 +73,9 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport
         	  "136: " + warningMessage,
         	  "151: " + warningMessage,
         	  "155: " + warningMessage,
-        	  "164: " + warningMessage,
-        	  "173: " + warningMessage,
-        	  "183: " + warningMessage,
+        	  "166: " + warningMessage,
+        	  "175: " + warningMessage,
+        	  "185: " + warningMessage,
         };
 
         verify(checkConfig,
