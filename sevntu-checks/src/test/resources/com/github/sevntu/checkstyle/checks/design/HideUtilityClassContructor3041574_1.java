@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.design;
+package com.github.sevntu.checkstyle.checks.design;
 
 import java.io.Serializable;
 
