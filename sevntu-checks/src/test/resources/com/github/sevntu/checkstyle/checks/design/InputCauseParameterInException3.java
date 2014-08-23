@@ -1,19 +1,20 @@
+package com.github.sevntu.checkstyle.checks.design;
 @SuppressWarnings("serial")
-public class QueryException extends RuntimeException {
+public class InputCauseParameterInException3 extends RuntimeException {
 
-    public QueryException() {
+    public InputCauseParameterInException3() {
         super();
     }
 
-    public QueryException(String message) {
+    public InputCauseParameterInException3(String message) {
         super(message);
     }
 
-    public QueryException(Throwable cause) {
+    public InputCauseParameterInException3(Throwable cause) {
         super(cause);
     }
 
-    public QueryException(String message, Throwable cause) {
+    public InputCauseParameterInException3(String message, Throwable cause) {
         super(message, cause);
     }
 
