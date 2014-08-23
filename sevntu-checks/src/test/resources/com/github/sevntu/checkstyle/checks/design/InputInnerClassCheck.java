@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.design;
+package com.github.sevntu.checkstyle.checks.design;
 
 public class InputInnerClassCheck {
 	public int test1 = 100;
