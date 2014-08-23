@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.checks.design;
+package com.github.sevntu.checkstyle.checks.design;
 
 /**
  * Input for HideUtilityClassConstructorCheck, a non utility class that has 

@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.checks.design;
+package com.github.sevntu.checkstyle.checks.design;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
