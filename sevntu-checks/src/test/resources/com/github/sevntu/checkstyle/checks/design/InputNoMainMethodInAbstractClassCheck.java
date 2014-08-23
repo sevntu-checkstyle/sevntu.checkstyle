@@ -156,8 +156,10 @@ abstract class Abs23{
 }
 
 class NoAbsClass{
-    public void met1();
-    public void met2();
+    public void met1() {
+    }
+    public void met2() {
+    }
     
     static abstract class InnerAbs1{
         public void innermet1(){};
