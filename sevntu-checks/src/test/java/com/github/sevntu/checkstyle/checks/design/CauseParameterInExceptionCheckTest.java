@@ -58,7 +58,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
 
         String[] expected = {
         	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
-        	"22:5: " + getCheckMessage(MSG_KEY, "MyException2"),
+        	"16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
@@ -72,7 +72,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         String[] expected = {
-        	"22:5: " + getCheckMessage(MSG_KEY, "MyException2"),
+        	"16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
