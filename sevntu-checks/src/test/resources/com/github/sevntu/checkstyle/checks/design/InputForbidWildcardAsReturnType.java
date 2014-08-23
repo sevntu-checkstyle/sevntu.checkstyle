@@ -3,7 +3,7 @@ package com.github.sevntu.checkstyle.checks.design;
 import java.io.Serializable; import java.util.Collection; 
 import java.util.Comparator; import java.util.List;
 import java.util.Map;
-
+import java.util.ArrayList;
 class Wildscards
 {
     public <T> List<? super T> met1()
@@ -242,7 +242,7 @@ class OuterClass {
         public abstract List<? extends Number> met1();
         protected abstract List<? super Number> met2();
         abstract List<?> met3();
-        private abstract List<Number> met4();
+        protected abstract List<Number> met4();
     }
     static class SecondInnerClass {
         static List<? extends Number> met1(){
@@ -300,7 +300,7 @@ class OuterTest{
     };
 }
 
-class MethodsWithAnnotations {
+class MethodsWithAnnotations extends SomeClass {
     @Deprecated public List<?> met1(){
         return null;
     }
@@ -326,8 +326,8 @@ class GenericMethods {
 
 class DeprecatedMethods {
     @Deprecated
-    public static <E extends IEventListener<?>> Class<?> getArgumentClass(IEventListener<?> listener) {
-        return ClassUtils.getGenericClassTypeParameter(listener.getClass(), 0);
+    public static <E extends List<?>> Class<?> getArgumentClass(List<?> listener) {
+        return listener.getClass();
     }
 }
 
@@ -335,7 +335,7 @@ class MyClass<T> {}
 class A extends MyClass<A>{}
 class B extends A{}
 
-public class WildcardTest
+public class InputForbidWildcardAsReturnType
 {
     public static void main(String args[]) {
         A objA = max(new ArrayList<A>());
@@ -344,5 +344,10 @@ public class WildcardTest
     static <T extends MyClass<? super T>> T max(List<? extends T> list) {
         return null;
     }
+}
+
+abstract class SomeClass {
+    abstract List met2();
+    abstract List met4();
 }
 
