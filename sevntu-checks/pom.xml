@@ -45,6 +45,29 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
+	<plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+      <version>1.9</version>
+      <executions>
+        <execution>
+        <id>add-test-source</id>
+        <phase>generate-test-sources</phase>
+        <goals>
+          <goal>add-test-source</goal>
+        </goals>
+        <configuration>
+          <sources>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputCauseParameterInException.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputCauseParameterInException2.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputCauseParameterInException3.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputCauseParameterInException4.java</source>
+            <source>sevntu-checks/src/test/resources/project/ParentException.java</source>
+          </sources>
+        </configuration>
+        </execution>
+       </executions>
+    </plugin>
       </plugins>
     </build>
 
