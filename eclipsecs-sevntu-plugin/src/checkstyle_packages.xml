@@ -5,7 +5,7 @@
     "http://www.puppycrawl.com/dtds/packages_1_0.dtd">
 
 <checkstyle-packages>
-    <!-- 
+    <!--
       Define the Java packages where your custom Checkstyle module classes (checks, filters) reside here.
       See http://checkstyle.sourceforge.net/config.html#Packages for more info.
       -->
@@ -16,6 +16,7 @@
       <package name="coding"/>
       <package name="design"/>
       <package name="naming"/>
+      <package name="regexp"/>
       <package name="sizes"/>
     </package>
     <package name="grammars"/>

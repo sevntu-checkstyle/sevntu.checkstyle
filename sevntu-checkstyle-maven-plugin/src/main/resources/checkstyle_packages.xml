@@ -9,6 +9,7 @@
       <package name="coding"/>
       <package name="design"/>
       <package name="naming"/>
+      <package name="regexp"/>
       <package name="sizes"/>
     </package>
     <package name="grammars"/>
@@ -32,5 +33,5 @@
     </package>
     <package name="filters"/>
   </package>
-  
+
 </checkstyle-packages>

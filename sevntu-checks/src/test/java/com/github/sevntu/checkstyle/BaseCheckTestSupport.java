@@ -1,7 +1,5 @@
 package com.github.sevntu.checkstyle;
 
-import static java.text.MessageFormat.format;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,11 +9,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-
-import org.junit.Assert;
 
 import com.google.common.collect.Lists;
 import com.puppycrawl.tools.checkstyle.Checker;
@@ -24,6 +21,8 @@ import com.puppycrawl.tools.checkstyle.DefaultLogger;
 import com.puppycrawl.tools.checkstyle.TreeWalker;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.Configuration;
+import org.junit.Assert;
+import static java.text.MessageFormat.format;
 
 public abstract class BaseCheckTestSupport extends Assert
 {
@@ -138,7 +137,8 @@ public abstract class BaseCheckTestSupport extends Assert
 						+ "(does not exist or just not visible for current classloader)",
 						aFilename));
 			} else {
-				result = new File(resource.getPath()).getCanonicalPath();
+                final String decodedPath = URLDecoder.decode(resource.getPath(), "UTF-8");
+				result = new File(decodedPath).getCanonicalPath();
 			}
 		} catch (IOException e) {
 			throw new RuntimeException("Error while getting path for resource: " + aFilename, e);
@@ -159,7 +159,7 @@ public abstract class BaseCheckTestSupport extends Assert
 		}
 		return pr.getProperty(messageKey);
 	}
-	
+
 	/**
 	 * Gets the check message 'as is' from appropriate 'messages.properties' file.
 	 * @param messageKey the key of message in 'messages.properties' file.
