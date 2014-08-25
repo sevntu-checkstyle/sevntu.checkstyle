@@ -1,6 +1,7 @@
 target/
 bin/
 gh-pages/
+.idea/
 *~
-
+*.iml
 .settings
