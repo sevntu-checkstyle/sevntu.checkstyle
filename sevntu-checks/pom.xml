@@ -45,6 +45,40 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
+	<plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+      <version>1.9</version>
+      <executions>
+        <execution>
+        <id>add-test-source</id>
+        <phase>generate-test-sources</phase>
+        <goals>
+          <goal>add-test-source</goal>
+        </goals>
+        <configuration>
+          <sources>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/ForbidAnnotationInput.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/ForbidAnnotationInput2.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/A.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/Author2.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/B.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/C.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/MyAnnotation.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/One.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/Test.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/Three.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/Two.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/ctor.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/ctor2.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/int1.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/int2.java</source>
+            <source>src/test/resources/com/github/sevntu/checkstyle/checks/annotation/int3.java</source>
+          </sources>
+        </configuration>
+        </execution>
+       </executions>
+    </plugin>
       </plugins>
     </build>
 
