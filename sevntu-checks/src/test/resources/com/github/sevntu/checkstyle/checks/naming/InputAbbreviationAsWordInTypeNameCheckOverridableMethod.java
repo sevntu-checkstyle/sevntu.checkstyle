@@ -1,17 +1,17 @@
-package com.puppycrawl.tools.checkstyle.naming;
+package com.github.sevntu.checkstyle.checks.naming;
 
 import org.junit.Before;
 
-abstract class NonAAAAbstractClassName1 {
+abstract class NonAAAAbstractClassName1 extends AbbreviationClass {
 	public int serialNUMBER = 6;
 	public final int s1erialNUMBER = 6;
 	private static int s2erialNUMBER = 6;
 	private static final int s3erialNUMBER = 6;
 	
 	@Override
-	@SuppressWarnings
+	@SuppressWarnings(value = { "" })
 	@Before
-	private void oveRRRRRrriddenMethod(){
+	protected void oveRRRRRrriddenMethod(){
 	    int a = 0;
 	    // blah-blah
 	}
@@ -26,12 +26,12 @@ class Class1 {
     
 }
 
-class Class2 extends Class1 {
+class Class2 extends AbbreviationClass {
     
     @Override
-    @SuppressWarnings
+    @SuppressWarnings(value = { "" })
     @Before
-    private void oveRRRRRrriddenMethod(){
+    protected void oveRRRRRrriddenMethod1(){
         int a = 0;
         // blah-blah
     }
