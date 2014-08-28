@@ -16,7 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-package com.puppycrawl.tools.checkstyle.checks.naming;
+package com.github.sevntu.checkstyle.checks.naming;
 
 /**
  * Test case for
@@ -25,7 +25,7 @@ package com.puppycrawl.tools.checkstyle.checks.naming;
  *
  * @author Pavel Baranchikov
  */
-public class InputEnumNamingCheck
+public class InputEnumValueNameCheck
 {
     /**
      * Simple enum. It has neither fiels nor methods.
@@ -75,6 +75,6 @@ public class InputEnumNamingCheck
     {
         FO_FIRST, FoSecond;
 
-        private final int someField;
+        private final int someField = 0;
     }
 }
