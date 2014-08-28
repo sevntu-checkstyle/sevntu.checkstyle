@@ -1,12 +1,12 @@
-
+package com.github.sevntu.checkstyle.checks.naming;
 public interface InputInterfaceTypeParameterName <it> {
 
 }
 
 interface OtherInterface <foo>{
-	public static void action();
+	void action();
 }
 
 interface ThirdInterface <A>{
-	public static void action2();
+	void action2();
 }
