@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.naming;
+package com.github.sevntu.checkstyle.checks.naming;
 
 abstract public class InputAbstractClassName {
 }
