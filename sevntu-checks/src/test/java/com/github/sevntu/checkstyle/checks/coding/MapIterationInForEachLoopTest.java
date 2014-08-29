@@ -23,15 +23,15 @@ public class MapIterationInForEachLoopTest extends BaseCheckTestSupport
         mCheckConfig.addAttribute("proposeEntrySetUsage", "true");
 
         final String[] expected = {
-            "22:13: " + getCheckMessage(MSG_KEY_ENTRYSET),
-            "45:13: " + getCheckMessage(MSG_KEY_VALUES),
-            "47:17: " + getCheckMessage(MSG_KEY_KEYSET),
-            "71:17: " + getCheckMessage(MSG_KEY_ENTRYSET),
-            "76:13: " + getCheckMessage(MSG_KEY_KEYSET),
-            "83:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
-            "88:9: " + getCheckMessage(MSG_KEY_VALUES),
-            "106:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
-            "116:9: " + getCheckMessage(MSG_KEY_VALUES),};
+            "23:13: " + getCheckMessage(MSG_KEY_ENTRYSET),
+            "46:13: " + getCheckMessage(MSG_KEY_VALUES),
+            "48:17: " + getCheckMessage(MSG_KEY_KEYSET),
+            "72:17: " + getCheckMessage(MSG_KEY_ENTRYSET),
+            "77:13: " + getCheckMessage(MSG_KEY_KEYSET),
+            "84:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
+            "89:9: " + getCheckMessage(MSG_KEY_VALUES),
+            "107:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
+            "117:9: " + getCheckMessage(MSG_KEY_VALUES),};
 
         verify(mCheckConfig,
                 getPath("InputMapIterationInForEachLoop.java"), expected);
@@ -45,7 +45,7 @@ public class MapIterationInForEachLoopTest extends BaseCheckTestSupport
         mCheckConfig.addAttribute("proposeEntrySetUsage", "true");
 
         final String [] expected = {
-            "11:9: " + getCheckMessage(MSG_KEY_ENTRYSET),};
+            "12:9: " + getCheckMessage(MSG_KEY_ENTRYSET),};
         verify(mCheckConfig,
                 getPath("InputMapIterationInForEachLoopImport.java"),
                 expected);
@@ -68,7 +68,7 @@ public class MapIterationInForEachLoopTest extends BaseCheckTestSupport
                 supportedMapImplQualifiedNames);
 
         final String [] expected = {
-        		"12:9: " + getCheckMessage(MSG_KEY_ENTRYSET), 
+        		"14:9: " + getCheckMessage(MSG_KEY_ENTRYSET), 
         		};
         
         verify(mCheckConfig,

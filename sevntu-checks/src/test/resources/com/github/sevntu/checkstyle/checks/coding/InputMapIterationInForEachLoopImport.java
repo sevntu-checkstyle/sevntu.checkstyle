@@ -1,7 +1,8 @@
-import com.myTest.*;
+package com.github.sevntu.checkstyle.checks.coding;
+import com.github.sevntu.checkstyle.checks.coding.MyMap;
 import java.util.*;
 
-public class Test
+public class InputMapIterationInForEachLoopImport
 {
     public static void main(String[] args)
     {
@@ -13,9 +14,10 @@ public class Test
             System.out.println(key + " --> " + map.get(key));
         }
 
-        for (myMap.Entry<String, String> entry : myMap.entrySet())
+        for (MyMap.Entry<String, String> entry : myMap.entrySet())
         {
             System.out.println(entry.getValue() + " --> ");
         }
     }
+    
 }
