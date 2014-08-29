@@ -50,7 +50,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputRegression1762702.java"), expected);
+        verify(checkConfig, getPath("InputRegression.java"), expected);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("HideUtilityClassContructor3041574_1.java"), expected);
+        verify(checkConfig, getPath("HideUtilityClassContructor1.java"), expected);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("HideUtilityClassContructor3041574_2.java"), expected);
+        verify(checkConfig, getPath("HideUtilityClassContructor2.java"), expected);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("HideUtilityClassContructor3041574_3.java"), expected);
+        verify(checkConfig, getPath("HideUtilityClassContructor3.java"), expected);
     }
 
 }
