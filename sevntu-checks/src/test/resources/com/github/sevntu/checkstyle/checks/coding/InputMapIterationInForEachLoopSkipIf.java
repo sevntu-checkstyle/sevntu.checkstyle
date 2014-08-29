@@ -1,7 +1,9 @@
-import com.myTest.*;
+package com.github.sevntu.checkstyle.checks.coding;
+import com.github.sevntu.checkstyle.checks.coding.MyMap;
 import java.util.*;
+import java.util.Map.Entry;
 
-public class Test
+public class InputMapIterationInForEachLoopSkipIf
 {
     public static void main(String[] args)
     {
@@ -39,10 +41,10 @@ public class Test
             }
         }
 
-        for (myMap.Entry<String, String> entry : myMap.entrySet())
+        for (MyMap.Entry<String, String> entry : myMap.entrySet())
         {
-            System.out.println(entry.getKey);
-            if (entry.getValue != "value") {
+            System.out.println(entry.getKey());
+            if (entry.getValue() != "value") {
                 System.out.println(entry.getValue() + " --> ");
             }
         }
@@ -51,8 +53,8 @@ public class Test
         
         for (Entry<String, String> entry : tableToUpdater.entrySet()) {
             String updater = entry.getValue();
-            if (updater instanceof DailyTableUpdater) {
-                updateManager.put(entry.getKey() + "-updater", updater);
+            if (updater instanceof Object) {
+                System.out.println(entry.getKey() + "-updater" + updater);
             }
         }
     }

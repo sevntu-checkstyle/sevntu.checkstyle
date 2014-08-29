@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -6,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-public class test {
+public class InputMapIterationInForEachLoop {
     Map<String, String> mMap = new HashMap<String, String>();
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<String, String>();
