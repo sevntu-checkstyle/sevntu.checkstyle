@@ -5,12 +5,12 @@ package com.github.sevntu.checkstyle.checks.design;
  * 
  * @author lkuehne
  */
-public class InputRegression1762702
+public class InputRegression
 {
     public long constructionTime = System.currentTimeMillis();
 
-    public static InputRegression1762702 create()
+    public static InputRegression create()
     {
-        return new InputRegression1762702();
+        return new InputRegression();
     }
 }
