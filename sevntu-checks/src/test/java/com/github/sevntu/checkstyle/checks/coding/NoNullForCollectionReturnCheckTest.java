@@ -17,10 +17,10 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "10: " + warningMessage,
-                "45: " + warningMessage,
-                "53: " + warningMessage,
-                "58: " + warningMessage,
+                "11: " + warningMessage,
+                "46: " + warningMessage,
+                "54: " + warningMessage,
+                "59: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck1.java"), expected);
@@ -32,11 +32,11 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-                "10: " + warningMessage,
-                "17: " + warningMessage,
-                "45: " + warningMessage,
-                "53: " + warningMessage,
-                "58: " + warningMessage,
+                "11: " + warningMessage,
+                "18: " + warningMessage,
+                "46: " + warningMessage,
+                "54: " + warningMessage,
+                "59: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck1.java"), expected);
@@ -50,13 +50,13 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("collectionList", listOfCollecton);
         final String[] expected = {
 
-                "5: " + warningMessage,
-                "15: " + warningMessage,
-                "25: " + warningMessage,
-                "35: " + warningMessage,
-                "45: " + warningMessage,
-                "55: " + warningMessage,
-                "65: " + warningMessage,
+                "7: " + warningMessage,
+                "17: " + warningMessage,
+                "27: " + warningMessage,
+                "37: " + warningMessage,
+                "47: " + warningMessage,
+                "57: " + warningMessage,
+                "67: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck2.java"), expected);
@@ -67,8 +67,8 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "12: " + warningMessage,
-                "15: " + warningMessage,
+                "13: " + warningMessage,
+                "16: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck3.java"), expected);
@@ -80,8 +80,8 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-                "12: " + warningMessage,
-                "15: " + warningMessage,
+                "13: " + warningMessage,
+                "16: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck3.java"), expected);
@@ -102,10 +102,10 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "16: " + warningMessage,
-                "24: " + warningMessage,
-                "26: " + warningMessage,
-                "38: " + warningMessage,
+                "17: " + warningMessage,
+                "25: " + warningMessage,
+                "27: " + warningMessage,
+                "39: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck5.java"), expected);
@@ -128,7 +128,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
     {
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-                "24: " + warningMessage,
+                "8: " + warningMessage,
                 };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck7.java"), expected);
@@ -141,7 +141,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig = createCheckConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-                "24: " + warningMessage,
+                "8: " + warningMessage,
                 };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck7.java"), expected);

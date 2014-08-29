@@ -1,9 +1,10 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputNoNullForCollectionReturnCheck6
 {
-    class DecoratableResourceMapping extends DecoratableResource {
+    class DecoratableResourceMapping {
 
-        public DecoratableResourceMapping(ResourceMapping mapping) {
-            if(projects == null || projects.length == 0)
+        public DecoratableResourceMapping() {
+            if("" != null || "".length() == 0)
                 return;
         }
     }

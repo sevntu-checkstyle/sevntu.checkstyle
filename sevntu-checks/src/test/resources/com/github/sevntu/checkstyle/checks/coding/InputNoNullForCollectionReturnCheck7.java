@@ -1,26 +1,10 @@
-package com.smth.cool;
+package com.github.sevntu.checkstyle.checks.coding;
 
-public class SecurityExchangeTool
+public class InputNoNullForCollectionReturnCheck7
 {
-
-    private Map loadData(final SqlStatement coListSql)
-    {
-        return (Map) new JdbcTemplate(ds).execute(new ConnectionCallback()
-        {
-            @Override
-            public Object doInConnection(Connection con)
-                    throws SQLException,
-                    DataAccessException
-            {
-                map.put(exch, new PartAndTotal(rs.getInt(2), (total != null ? total.intValue() : 0)));
-                return map;
-            }
-        });
-    }
-    
     private int[] method8()
     {
-        Boolean test;
+        Boolean test = null;
         return test == null? null : new int[4];
     }
 }
