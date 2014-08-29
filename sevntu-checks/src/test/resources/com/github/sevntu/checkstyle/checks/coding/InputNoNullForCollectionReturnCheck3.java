@@ -1,17 +1,18 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputNoNullForCollectionReturnCheck3
 {
-    public Object[] scrollTo(BigDecimal revision) throws SQLException {
+    public Object[] scrollTo(String revision) throws Throwable {
         Object[] record = null;
 
-        if (isReady()) {
-            if (r.compareTo(revision) == 0) {
-                record = new Object[resultSet.getMetaData().getColumnCount()];
+        if (true) {
+            if (true) {
+                record = new Object[10];
                 for (int index = 0; index < record.length; ++index) {
-                    if (getColumnSqlTypes()[index] == Types.TIMESTAMP) {
-                        record[index] = resultSet.getTimestamp(index + 1);
+                    if (true) {
+                        record[index] = "";
                         return null; //!!
                     } else {
-                        record[index] = resultSet.getObject(index + 1);
+                        record[index] = "";
                         return null; //!!
                     }
                 }
@@ -27,10 +28,10 @@ public class InputNoNullForCollectionReturnCheck3
     public String[] method2()
     {
         String[] result = null;
-        if (!checkNotExists) {
-            result = new String[] { updateSql };
+        if (true) {
+            result = new String[] {  };
         } else {
-            result = new String[] { updateSql, removeItemsRelatedToDiscontinuedCompany(table, column) };
+            result = new String[] {  };
         }
         return result;
     }

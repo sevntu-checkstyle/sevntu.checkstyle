@@ -1,8 +1,9 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputNoNullForCollectionReturnCheck1
 {
     private int[] method1()
     {
-        return;
+        return new int[5];
     }
     
     private int[] method2()
@@ -58,7 +59,7 @@ public class InputNoNullForCollectionReturnCheck1
                 return null; //!!
             }
         }
-        Boolean test;
+        Boolean test = false;
         return test == null? new int[3] : new int[4];
     }
     
