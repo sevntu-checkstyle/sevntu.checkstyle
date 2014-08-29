@@ -3,7 +3,7 @@
 // Created: Feb-2001
 // Ignore error
 ////////////////////////////////////////////////////////////////////////////////
-package com.puppycrawl.tools.checkstyle.sizes;
+package com.github.sevntu.checkstyle.checks.sizes;
 import java.io.*;
 /**
  * Contains simple mistakes:

@@ -1,4 +1,4 @@
-package com.puppycrawl.tools.checkstyle.sizes;
+package com.github.sevntu.checkstyle.checks.sizes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
