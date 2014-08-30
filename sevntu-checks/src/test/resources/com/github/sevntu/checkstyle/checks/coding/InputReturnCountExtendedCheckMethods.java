@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputReturnCountExtendedCheckMethods
 {
 
@@ -98,6 +99,7 @@ public class InputReturnCountExtendedCheckMethods
                     return 5;
             }
         }
+        return a;
     }
 
 }

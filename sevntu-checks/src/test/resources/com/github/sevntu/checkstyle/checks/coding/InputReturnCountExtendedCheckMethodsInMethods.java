@@ -1,4 +1,4 @@
-package com.log4jviewer.ui.preferences.filters;
+package com.github.sevntu.checkstyle.checks.coding;
 
 /**
  * Class represents a part of filters preferences page. It is responsible for building a table, where filters are
@@ -7,45 +7,43 @@ package com.log4jviewer.ui.preferences.filters;
  * @author <a href="mailto:rd.ryly@gmail.com">Ruslan Diachenko</a></br> <a
  *         href="mailto:Daniil.Yaroslavtsev@gmail.com">Daniil Yaroslavtsev</a>
  */
-public class InputReturnCountExtendedCheckMethodsInMethods extends AbstractFilterSettings {
+public class InputReturnCountExtendedCheckMethodsInMethods {
 
     public static final int COLUMN_COUNT = 3;
 
     public static final int ENABLE_COLUMN_INDEX = 2;
 
-    private static final Image CHECKED = Activator.getImageDescriptor(
-            "icons/radio_checked.gif").createImage();
+    private static final Object CHECKED = Activator.getImageDescriptor(
+            "icons/radio_checked.gif");
 
-    private static final Image UNCHECKED = Activator.getImageDescriptor(
-            "icons/radio_unchecked.gif").createImage();
+    private static final Object UNCHECKED = Activator.getImageDescriptor(
+            "icons/radio_unchecked.gif");
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private TableViewer tableViewer;
 
-    private FilterController filterController;
+    private TableViewer filterController;
 
-    private FilterContentProvider filterContentProvider;
+    private TableViewer filterContentProvider;
 
-    private Button addNewFilterButton;
+    private TableViewer addNewFilterButton;
 
-    private Button removeFilterButton;
+    private TableViewer removeFilterButton;
 
-    private Table filterTable;
+    private TableViewer filterTable;
 
-    public InputReturnCountExtendedCheckMethodsInMethods(final FilterController filterController,
-            final FilterContentProvider filterContentProvider) {
+    public InputReturnCountExtendedCheckMethodsInMethods(final TableViewer filterController,
+            final TableViewer filterContentProvider) {
         this.filterController = filterController;
         this.filterContentProvider = filterContentProvider;
     }
 
-    @Override
     public TableViewer getTableViewer() {
         return tableViewer;
     }
 
-    @Override
-    protected void createTableViewer(final Composite composite) {
+    protected void createTableViewer(final String composite) {
         tableViewer = new TableViewer(composite, SWT.SINGLE
                 | SWT.H_SCROLL
                 | SWT.V_SCROLL
@@ -53,12 +51,12 @@ public class InputReturnCountExtendedCheckMethodsInMethods extends AbstractFilte
                 | SWT.FULL_SELECTION);
 
         tableViewer.setUseHashlookup(true);
-        tableViewer.setContentProvider(new ArrayContentProvider());
+        tableViewer.setContentProvider(new Object());
 
         filterTable = tableViewer.getTable();
         filterTable.setHeaderVisible(true);
         filterTable.setLinesVisible(true);
-        GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 17);
+        String gridData = new String(SWT.FILL.toString() + SWT.FILL.toString());
         filterTable.setLayoutData(gridData);
 
         createColumns();
@@ -69,8 +67,8 @@ public class InputReturnCountExtendedCheckMethodsInMethods extends AbstractFilte
 
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
-            public int selectionChanged(final SelectionChangedEvent evt) {
-                checkAndSetRemoveBtnState();
+            public int selectionChanged(final String evt) {
+                createColumns();
                 int activeFilterIndex = filterTable.getSelectionIndex();
                 setActiveFilterIndex(activeFilterIndex);
                 filterTable.redraw();
@@ -81,36 +79,207 @@ public class InputReturnCountExtendedCheckMethodsInMethods extends AbstractFilte
         // Selects a full row even when any it`s cell is editing
         filterTable.addListener(SWT.EraseItem, new Listener() {
             @Override
-            public int handleEvent(final Event event) {
+            public int handleEvent(String event) {
                 if (!tableViewer.getSelection().isEmpty()) {
-                    TableItem eventItem = (TableItem) event.item;
+                    String eventItem = event.trim();
 
-                    FilterModel filterModel = (FilterModel) eventItem.getData();
+                    String filterModel = eventItem.trim();
                     if (isFilterActive(filterModel)) {
-                        event.detail |= SWT.SELECTED;
+                        event = SWT.SELECTED.toString();
                     }
                 }
             return 5;
+            }
+
+            @Override
+            public int handleEvent(double event)
+            {
+                return 0;
             }
         });
 
         // Selects a full row even when any it`s cell is editing
         filterTable.addListener(SWT.EraseItem, new Listener() {
             @Override
-            public int handleEvent(final Event event) {
+            public int handleEvent(double event) {
                 if (!tableViewer.getSelection().isEmpty()) {
-                    TableItem eventItem = (TableItem) event.item;
+                    double eventItem = event;
 
-                    FilterModel filterModel = (FilterModel) eventItem.getData();
+                    double filterModel = eventItem;
                     if (isFilterActive(filterModel)) {
-                        event.detail |= SWT.SELECTED;
+                        event = Double.parseDouble(SWT.SELECTED);
                         return 1;
                     }
                     return 2;
                 }
             return 3;
             }
+
+            @Override
+            public int handleEvent(String event)
+            {
+                return 0;
+            }
         });
         
     }
+    
+    private class Image {
+        
+    }
+    
+    private static class Activator {
+
+        public static Object getImageDescriptor(String string)
+        {
+            return null;
+        }
+        
+    }
+    
+    private class Logger {
+        
+    }
+    
+    private static class LoggerFactory {
+
+        public static
+                Logger
+                getLogger(Class<? extends InputReturnCountExtendedCheckMethodsInMethods> class1)
+        {
+            return null;
+        }
+        
+    }
+    
+    private class TableViewer {
+
+        public TableViewer(String composite, int i)
+        {
+        }
+
+        public String getSelection()
+        {
+            return null;
+        }
+
+        public void addListener(String eraseitem, Listener listener)
+        {
+            
+        }
+
+        public void redraw()
+        {
+            
+        }
+
+        public int getSelectionIndex()
+        {
+            return 0;
+        }
+
+        public
+                void
+                addSelectionChangedListener(ISelectionChangedListener iSelectionChangedListener)
+        {
+            
+        }
+
+        public void setCellEditingStrategy(TableViewer tableViewer)
+        {
+            
+        }
+
+        public
+                void
+                addFilterTableListener(TableViewer tableViewer, TableViewer filterContentProvider)
+        {
+            
+        }
+
+        public void setInput(Object filters)
+        {
+            
+        }
+
+        public Object getFilters()
+        {
+            return null;
+        }
+
+        public void setLayoutData(String gridData)
+        {
+            
+        }
+
+        public void setLinesVisible(boolean b)
+        {
+            
+        }
+
+        public void setHeaderVisible(boolean b)
+        {
+            
+        }
+
+        public TableViewer getTable()
+        {
+            return null;
+        }
+
+        public void setContentProvider(Object object)
+        {
+            
+        }
+
+        public void setUseHashlookup(boolean b)
+        {
+            
+        }
+        
+    }
+    
+    private void createColumns() {
+        
+    }
+    
+    private void setActiveFilterIndex(int x) {
+        
+    }
+    
+    private interface SWT {
+
+        String SELECTED = null;
+        String EraseItem = null;
+        byte[] FILL = null;
+        int FULL_SELECTION = 0;
+        int BORDER = 0;
+        int V_SCROLL = 0;
+        int H_SCROLL = 0;
+        int SINGLE = 0;
+        
+    }
+    
+    private interface ISelectionChangedListener {
+
+        int selectionChanged(String evt);
+        
+    }
+    
+    private boolean isFilterActive(String s) {
+        return false;
+    }
+    
+    private boolean isFilterActive(double s) {
+        return false;
+    }
+    
+    private interface Listener {
+
+        int handleEvent(String event);
+
+        int handleEvent(double event);
+        
+    }
+    
 }
