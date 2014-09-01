@@ -33,10 +33,10 @@ public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport
         		"154: " + warningMessage,
         		"164: " + warningMessage,
         		"207: " + warningMessage,
-        		"226: " + warningMessage,
-        		"236: " + warningMessage,
-        		"247: " + warningMessage,
-        		"257: " + warningMessage,
+        		"231: " + warningMessage,
+        		"241: " + warningMessage,
+        		"252: " + warningMessage,
+        		"262: " + warningMessage,
         };
         verify(checkConfig, getPath("InputEitherLogOrThrowCheck.java"),
                 expected);
