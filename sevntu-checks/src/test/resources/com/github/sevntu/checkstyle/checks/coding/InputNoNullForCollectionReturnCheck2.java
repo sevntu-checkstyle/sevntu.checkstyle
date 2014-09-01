@@ -1,3 +1,5 @@
+package com.github.sevntu.checkstyle.checks.coding;
+import java.util.*;
 public class InputNoNullForCollectionReturnCheck2
 {
     private Collection method1()
@@ -5,7 +7,7 @@ public class InputNoNullForCollectionReturnCheck2
         return null; //!!
     }
     
-    private Collection method2()
+    private LinkedList method2()
     {
         return new LinkedList();
     }
