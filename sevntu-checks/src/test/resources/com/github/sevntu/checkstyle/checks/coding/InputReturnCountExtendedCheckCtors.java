@@ -1,3 +1,4 @@
+package com.github.sevntu.checkstyle.checks.coding;
 public class InputReturnCountExtendedCheckCtors
 {
 
@@ -5,7 +6,7 @@ public class InputReturnCountExtendedCheckCtors
     
     // one "return"
     public InputReturnCountExtendedCheckCtors() {
-        return a;
+        return;
     }
 
     // one "return"
@@ -21,7 +22,7 @@ public class InputReturnCountExtendedCheckCtors
                 }
             }
         }
-        return a + a * a;
+        return;
     }
 
     // two "returns"
@@ -29,32 +30,32 @@ public class InputReturnCountExtendedCheckCtors
         System.out.println();
         int a = x + s.length();
         if (a != 4) {
-            return 1;
+            return;
         }
         else {
             System.out.println(a);
-            return 2;
+            return;
         }
     }
 
     // three "returns"
     public InputReturnCountExtendedCheckCtors(String z, double y) {
         System.out.println();
-        int a = z;
+        int a = Integer.parseInt(z);
         y+=0.6;
         if (a != 4)
         {
-            return 1;
+            return;
         }
         else
         {
             if (a - 1 != 2) {
                 this.a = 0;
-                return 6;
+                return;
             }
             else {
                 System.out.println();
-                return 2;
+                return;
             }
         }
     }
@@ -65,7 +66,7 @@ public class InputReturnCountExtendedCheckCtors
         int a = x;
         if (a != 4)  {
             if (a != 6) {
-                return 1;
+                return;
             }
             else {
                 a++;
@@ -75,11 +76,11 @@ public class InputReturnCountExtendedCheckCtors
         else {
             if (a - 1 != 2) {
                 this.a = 0;
-                return 6;
+                return;
             }
             else {
                 System.out.println();
-                return 2;
+                return;
             }
         }
     }
