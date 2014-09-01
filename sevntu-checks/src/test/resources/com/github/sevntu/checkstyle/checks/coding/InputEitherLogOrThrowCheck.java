@@ -1,13 +1,13 @@
+package com.github.sevntu.checkstyle.checks.coding;
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InputEitherLogOrThrowException
+public class InputEitherLogOrThrowCheck
 {
-    private static Logger slfLogger = LoggerFactory.getLogger(App.class);
-    private org.slf4j.Logger anotherLogger = LoggerFactory.getLogger(App.class);;
+    private static Logger slfLogger = LoggerFactory.getLogger(Object.class);
+    private org.slf4j.Logger anotherLogger = LoggerFactory.getLogger(Object.class);
     
     public void get1()
             throws Exception
@@ -108,7 +108,7 @@ public class InputEitherLogOrThrowException
         try {
             throw new Exception();
         } catch (Exception e) { //warning
-            Logger log = LoggerFactory.getLogger(App.class);
+            Logger log = LoggerFactory.getLogger(Object.class);
             log.error("Exception", e);
             throw e;
         }
@@ -118,9 +118,9 @@ public class InputEitherLogOrThrowException
         try {
             throw new Exception();
         } catch(Exception e) { // warning
-            Logger log1 = LoggerFactory.getLogger(App.class);
-            Logger log2 = LoggerFactory.getLogger(App.class);
-            Logger log3 = LoggerFactory.getLogger(App.class);
+            Logger log1 = LoggerFactory.getLogger(Object.class);
+            Logger log2 = LoggerFactory.getLogger(Object.class);
+            Logger log3 = LoggerFactory.getLogger(Object.class);
             log2.error("Exception", e);
             throw e;
         }
@@ -130,13 +130,13 @@ public class InputEitherLogOrThrowException
         try {
             throw new Exception();
         } catch (Exception e) { // NO warning
-            Logger log = LoggerFactory.getLogger(App.class);
+            Logger log = LoggerFactory.getLogger(Object.class);
             log.error("Message");
             throw e;
         }
     }
     
-    public void get11() throws Exception {
+    public void get12() throws Exception {
         try {
             throw new Exception();
         } catch (Exception e) { // NO warning
@@ -146,7 +146,7 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get12() throws SQLException{
+    public void get13() throws SQLException{
         try {
             throw new Exception();
         }
@@ -157,7 +157,7 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get13() {
+    public void get14() {
         try {
             throw new Exception();
         } catch (Exception e) { // warning
@@ -167,24 +167,12 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get14() throws SQLException{
-        try {
-            throw new Exception();
-        }
-        catch (Exception e) { // NO warning
-            slfLogger.error("Exception", e);
-            SQLException newException = new SQLException("abc");
-            throw newException;
-        }
-    }
-    
     public void get15() throws SQLException{
         try {
             throw new Exception();
         }
         catch (Exception e) { // NO warning
             slfLogger.error("Exception", e);
-            RuntimeException ex = new RuntimeException(e);
             SQLException newException = new SQLException("abc");
             throw newException;
         }
@@ -196,20 +184,32 @@ public class InputEitherLogOrThrowException
         }
         catch (Exception e) { // NO warning
             slfLogger.error("Exception", e);
-            throw new Exception();
+            RuntimeException ex = new RuntimeException(e);
+            SQLException newException = new SQLException("abc");
+            throw newException;
         }
     }
     
-    public void get17() throws Exception {
-        try{
+    public void get17() throws SQLException{
+        try {
             throw new Exception();
-        } catch (Exception e) { // warning
-            slfLogger.error(getString(), e);
-            throw e;
+        }
+        catch (Exception e) { // NO warning
+            slfLogger.error("Exception", e);
+            throw new SQLException();
         }
     }
     
     public void get18() throws Exception {
+        try{
+            throw new Exception();
+        } catch (Exception e) { // warning
+            slfLogger.error("".toString(), e);
+            throw e;
+        }
+    }
+    
+    public void get19() throws Exception {
         try{
             throw new Exception();
         } catch (Exception e) { //NO warning
@@ -218,7 +218,12 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get19() throws Exception {
+    private String getString()
+    {
+        return null;
+    }
+
+    public void get20() throws Exception {
         try {
             get1();
         }
@@ -228,7 +233,7 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get20() throws Exception {
+    public void get21() throws Exception {
         try {
             get1();
         }
@@ -238,7 +243,7 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get21() throws Exception {
+    public void get22() throws Exception {
         Logger logger = LoggerFactory.getLogger("MyClass");
         try {
             get1();
@@ -249,7 +254,7 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get22(Integer i, Logger loggerFromParameter, Double d) throws Exception {
+    public void get23(Integer i, Logger loggerFromParameter, Double d) throws Exception {
         try {
             get1();
         }
@@ -262,7 +267,7 @@ public class InputEitherLogOrThrowException
 // Check can't detect these situations:
 ////////////////////////////////////////////////////////////////////////////////
     
-    public void get12() throws Exception {
+    public void get24() throws Exception {
         try{
             throw new Exception();
         } catch (Exception e) { //warning
@@ -275,24 +280,31 @@ public class InputEitherLogOrThrowException
         }
     }
     
-    public void get13() throws Exception {
+    public void get25() throws Exception {
         try{
             boolean flag1 = getRandomBoolean();
             boolean flag2 = getRandomBoolean();
             throw new Exception();
         } catch (Exception e) { //warning
             slfLogger.error("Exception", e);
-            if (flag1) {
+            boolean flag1 = false;
+            boolean flag2 = false;
+            if (flag1 ) {
                 throw e;
             } else if(flag2) {
-                throw new Runtime(e);
+                throw new RuntimeException(e);
             } else {
                 slfLogger.debug("OK");
             }
         }
     }
     
-    public void get15() throws Exception {
+    private boolean getRandomBoolean()
+    {
+        return false;
+    }
+
+    public void get26() throws Exception {
         try {
             get1();
         } catch (Exception e) {
