@@ -45,6 +45,29 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
+	<plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+      <version>1.9</version>
+      <executions>
+        <execution>
+        <id>add-test-source</id>
+        <phase>generate-test-sources</phase>
+        <goals>
+          <goal>add-test-source</goal>
+        </goals>
+        <configuration>
+          <sources>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputCustomDeclarationOrder.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputCustomDeclarationOrderCheckAnonymousClasses.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputCustomDeclarationOrderCheckGettersSetters.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputCustomDeclarationOrderCheckInnerInterfaceEnum.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputCustomDeclarationOrderCheckMainMethod.java</source>
+          </sources>
+        </configuration>
+        </execution>
+       </executions>
+    </plugin>
       </plugins>
     </build>
 
