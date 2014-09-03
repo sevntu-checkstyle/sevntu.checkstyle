@@ -39,14 +39,14 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
     {
         String importRegexp = ".+\\.api\\..+";
 
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
+        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
         checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
         String[] expected = {
-        	"3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.Check"),
-        	"9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.Check"),
-        	"21: " + getCheckMessage(MSG_KEY, importRegexp, "com.smth.tools.checkstyle.api.Smth"),
+        	"3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+        	"9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+        	"21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
         verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
@@ -57,13 +57,11 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
 	{
 		String importRegexp = ".+\\.api\\..+";
 
-		checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
+		checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
 		checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
 		checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
 
-		String[] expected = {
-			"21: " + getCheckMessage(MSG_KEY, importRegexp, "com.smth.tools.checkstyle.api.Smth"),
-		};
+		String[] expected = {};
 
 		verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
 	}
