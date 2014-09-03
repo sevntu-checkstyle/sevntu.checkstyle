@@ -1,4 +1,4 @@
-package project;
+package com.github.sevntu.checkstyle.checks.coding;
 
 //import File;
 import java.io.*;
@@ -10,8 +10,8 @@ public class InputForbidInstantiationCheckWithAsterisk
         int []x = new int[10];
         new InputForbidInstantiationCheck();
         NullPointerException ex2 = new java.lang.NullPointerException("message"); // !
-        File File = new File();
-        File File = new java.io.File(); // 2 !
+        File File = new File("");
+        File File1 = new java.io.File(""); // 2 !
         String a = new String(); // 2 !
         InputForbidInstantiationCheck c = new InputForbidInstantiationCheck();
     }
