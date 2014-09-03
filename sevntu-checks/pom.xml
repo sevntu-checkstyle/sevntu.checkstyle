@@ -45,26 +45,6 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
-	<plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>build-helper-maven-plugin</artifactId>
-      <version>1.9</version>
-      <executions>
-        <execution>
-        <id>add-test-source</id>
-        <phase>generate-test-sources</phase>
-        <goals>
-          <goal>add-test-source</goal>
-        </goals>
-        <configuration>
-          <sources>
-            <source>src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputAvoidModifiersForTypesCheck.java</source>
-            <source>src/test/resources/com/github/sevntu/checkstyle/checks/coding/InputAvoidModifiersForTypesCheck2.java</source>
-          </sources>
-        </configuration>
-        </execution>
-       </executions>
-    </plugin>
       </plugins>
     </build>
 
