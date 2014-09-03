@@ -5,7 +5,7 @@ public class InputPublicReferenceToPrivateTypeCheck18 {
     private interface InnerInterface {} 
     private interface AnotherInnerInterface {}
     private class Inner {}
-    private class InnerClass1 extends InputPublicAccessToPrivateTypeCheck1 
+    private class InnerClass1 extends InputPublicReferenceToPrivateTypeCheck1 
         implements InnerInterface, Comparable {
 
         @Override
