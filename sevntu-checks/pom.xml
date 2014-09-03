@@ -45,6 +45,43 @@
 	    <target>1.5</target>
 	  </configuration>
 	</plugin>
+	<plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+      <version>1.9</version>
+      <executions>
+        <execution>
+        <id>add-test-source</id>
+        <phase>generate-test-sources</phase>
+        <goals>
+          <goal>add-test-source</goal>
+        </goals>
+        <configuration>
+          <sources>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck1.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck2.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck3.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck4.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck5.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck6.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck7.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck8.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck9.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck10.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck11.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck12.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck13.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck14.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck15.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck16.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck17.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck18.java</source>
+            <source>sevntu-checks/src/test/resources/com/github/sevntu/checkstyle/checks/design/InputPublicReferenceToPrivateTypeCheck19.java</source>
+          </sources>
+        </configuration>
+        </execution>
+       </executions>
+    </plugin>
       </plugins>
     </build>
 
