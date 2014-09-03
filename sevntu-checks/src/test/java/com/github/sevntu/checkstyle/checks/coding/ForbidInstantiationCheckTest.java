@@ -56,7 +56,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
 
         String[] expected = {
         	"13:21: " + getCheckMessage(MSG_KEY, "File"),
-        	"14:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"14:22: " + getCheckMessage(MSG_KEY, "File"),
         	"15:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 
@@ -67,10 +67,10 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
     public void testNormalWork2() throws Exception
     {
 
-        checkConfig.addAttribute("forbiddenClasses", "File");
+        checkConfig.addAttribute("forbiddenClasses", "com.github.sevntu.checkstyle.checks.test.utils.File");
 
         String[] expected = {
-        	"13:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"12:68: " + getCheckMessage(MSG_KEY, "File"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
@@ -83,8 +83,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         String[] expected = {
-        	"14:21: " + getCheckMessage(MSG_KEY, "File"),
-        	"15:20: " + getCheckMessage(MSG_KEY, "String"),
+        	"13:22: " + getCheckMessage(MSG_KEY, "File"),
+        	"14:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
@@ -99,7 +99,7 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport
 
         String[] expected = {
         	"13:21: " + getCheckMessage(MSG_KEY, "File"),
-        	"14:21: " + getCheckMessage(MSG_KEY, "File"),
+        	"14:22: " + getCheckMessage(MSG_KEY, "File"),
         	"15:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 

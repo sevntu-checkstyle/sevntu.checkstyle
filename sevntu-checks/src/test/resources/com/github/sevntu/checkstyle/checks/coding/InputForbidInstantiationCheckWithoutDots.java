@@ -1,7 +1,6 @@
-package project;
+package com.github.sevntu.checkstyle.checks.coding;
 
-import File;
-//import java.io.File;
+import java.io.File;
 
 public class InputForbidInstantiationCheckWithoutDots
 {        
@@ -10,8 +9,8 @@ public class InputForbidInstantiationCheckWithoutDots
         int []x = new int[10];
         new InputForbidInstantiationCheck();
         NullPointerException ex2 = new java.lang.NullPointerException("message"); // !
-        File File = new File();
-        File File = new java.io.File(); // 2 !
+        com.github.sevntu.checkstyle.checks.test.utils.File File = new com.github.sevntu.checkstyle.checks.test.utils.File(""); // !
+        File File1 = new java.io.File(""); // 2 !
         String a = new String(); // 2 !
         InputForbidInstantiationCheck c = new InputForbidInstantiationCheck();
     }
