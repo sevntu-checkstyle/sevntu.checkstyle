@@ -1,50 +1,14 @@
-public class A1
+package com.github.sevntu.checkstyle.checks.coding;
+
+public class InputForbidReturnInFinalBlockCheck
 {
-    boolean meth1()
+    private class A1
     {
-
-        try {
-            return;
-        }
-        finally {
-            return g;
-        }
-    }
-}
-
-class A2
-{
-    boolean meth2()
-    {
-        try {
-
-        }
-        finally {
-            if (true) {
-                for (;;) {
-                    try {
-                    }
-                    catch (Exception e) {
-                        if (true)
-                            return t;
-                    }
-                }
-            }
-            return;
-        }
-    }
-
-    boolean meth3()
-    {
-        try {
-
-        }
-        finally {
+        boolean meth1()
+        {
+            boolean g = false;
             try {
-
-            }
-            catch (Exception e) {
-
+                return false;
             }
             finally {
                 return g;
@@ -52,19 +16,61 @@ class A2
         }
     }
 
-    boolean meth4()
+    class A2
     {
-        try {
+        boolean meth2()
+        {
+            try {
 
+            }
+            finally {
+                if (true) {
+                    for (;;) {
+                        try {
+                        }
+                        catch (Exception e) {
+                            if (true)
+                                return true;
+                        }
+                    }
+                }
+                return false;
+            }
         }
-        finally {
-        }
-        try {
-        }
-        catch (Exception e) {
 
+        boolean meth3()
+        {
+            try {
+
+            }
+            finally {
+                try {
+
+                }
+                catch (Exception e) {
+
+                }
+                finally {
+                    return false;
+                }
+            }
         }
-        return;
+
+        boolean meth4()
+        {
+            try {
+
+            }
+            finally {
+            }
+            try {
+            }
+            catch (Exception e) {
+
+            }
+            return false;
+        }
+
     }
 
 }
