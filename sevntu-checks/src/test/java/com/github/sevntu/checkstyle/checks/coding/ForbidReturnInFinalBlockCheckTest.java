@@ -37,10 +37,10 @@ public class ForbidReturnInFinalBlockCheckTest
     {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidReturnInFinalBlockCheck.class);
         final String[] expected = {
-                "9: " + warningMessage,
-                "22: " + warningMessage,
-                "42: " + warningMessage,
-                "49: " + warningMessage };
+                "13: " + warningMessage,
+                "26: " + warningMessage,
+                "46: " + warningMessage,
+                "53: " + warningMessage };
         verify(checkConfig, getPath("InputForbidReturnInFinalBlockCheck.java"),
                 expected);
     }
