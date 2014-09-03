@@ -1,5 +1,5 @@
 package com.github.sevntu.checkstyle.checks.design;
-
+import CauseParameterInExceptionCheck.utils.ParentException;
 public class InputCauseParameterInException extends ParentException
 {
 
@@ -33,14 +33,4 @@ public class InputCauseParameterInException extends ParentException
         super(str, null);
     }
     
-    private class ParentException {
-
-        public ParentException(String str, Exception e) {
-        }
-
-        public ParentException(Exception cause) {
-        }
-
-    }
-
 }
