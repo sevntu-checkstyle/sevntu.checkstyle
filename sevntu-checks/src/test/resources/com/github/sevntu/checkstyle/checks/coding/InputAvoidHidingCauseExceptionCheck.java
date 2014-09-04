@@ -6,7 +6,7 @@ public class InputAvoidHidingCauseExceptionCheck
     
     public void Simple()
     {
-        RuntimeException r;
+        RuntimeException r = new RuntimeException();
         try {
         }
         catch (ClassCastException  e) {
@@ -43,7 +43,7 @@ public class InputAvoidHidingCauseExceptionCheck
     public void Stronger()
     { 
         boolean x=false;
-        RuntimeException r;
+        RuntimeException r = new RuntimeException();
         try {       
         }
 
@@ -91,7 +91,7 @@ public class InputAvoidHidingCauseExceptionCheck
     
     public void TestNestedANDNotSimple() {
 
-        RuntimeException myOwnException;
+        RuntimeException myOwnException = new RuntimeException();
         try {
         } 
         catch (ClassCastException e) { // nested: good --> bad

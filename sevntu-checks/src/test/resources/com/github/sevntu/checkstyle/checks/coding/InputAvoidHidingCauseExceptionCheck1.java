@@ -4,7 +4,7 @@ public class InputAvoidHidingCauseExceptionCheck1 {
 
     public void TestNestedANDNotSimple() {
 
-        RuntimeException myOwnException;
+        RuntimeException myOwnException = null;
         try {
         } 
         catch (ClassCastException e) { // nested: good --> bad
