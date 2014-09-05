@@ -239,7 +239,7 @@ public class LineLengthExtendedCheck extends Check
 					line.length(), getTabWidth());
 
 			if ((realLength > mMax) && !mIgnorePattern.matcher(line).find()) {
-				log(i + 1, MSG_KEY, mMax);
+				log(i + 1, MSG_KEY, mMax, realLength);
 			}
 		}
 	}
