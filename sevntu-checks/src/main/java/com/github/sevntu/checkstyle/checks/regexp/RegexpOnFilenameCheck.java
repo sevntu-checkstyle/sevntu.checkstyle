@@ -246,10 +246,7 @@ public class RegexpOnFilenameCheck
                 filePath = aFile.getName();
             }
 
-            ok = mRegexp.matcher(filePath).find();
-            if (mMode == RegexpOnFilenameOption.ILLEGAL) {
-                ok = !ok;
-            }
+            ok = mRegexp.matcher(filePath).find() ^ (mMode == RegexpOnFilenameOption.ILLEGAL);
         }
 
         if (!ok) {
