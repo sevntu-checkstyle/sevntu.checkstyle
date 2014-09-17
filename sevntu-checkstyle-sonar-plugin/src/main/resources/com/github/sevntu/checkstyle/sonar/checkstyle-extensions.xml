@@ -495,6 +495,17 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</configKey>
 	</rule>
 	<rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck</key>
+		<name>Redundant Return Check</name>
+		<category name="coding"/>
+		<description><p>Highlight usage redundant returns inside constructors and methods with  void result.</p><p>For example:</p><p>1. Non empty constructor</p><br/><code><pre>public HelloWorld(){<br/>    doStuff();<br/>    return;<br/>}</pre></code><p>2. Method with void result</p><br/><code><pre>public void testMethod1(){<br/>    doStuff();<br/>    return;<br/>}</pre></code><p>However, if your IDE does not support breakpoints on the method entry, you can allow the use of redundant returns in constructors and methodswith void result without code except for 'return;'.</p><p>For example:</p><p>1. Empty constructor</p><br/><code><pre>public HelloWorld(){<br/>    return;<br/>}</pre></code><p>2. Method with void result and empty body</p><br/><code><pre>public void testMethod1(){<br/>    return;<br/>}</pre></code></description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck</configKey>
+		<param key="allowReturnInEmptyMethodsAndConstructors" type="BOOLEAN">
+			<defaultValue>false</defaultValue>
+			<description>If True, allow 'return' in empty constructors and methods that return void.</description>
+		</param>
+	</rule>
+	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary</key>
 		<name>Returning Boolean from Ternary Operator</name>
 		<category name="coding"/>
