@@ -6,20 +6,20 @@ public class InputRedundantReturn {
 	 * @param args
 	 */
 	public InputRedundantReturn(){
-		//check the allowed/not empty c-tor
-		return;
+		//allowed/not empty c-tor
+		return; //WARNING if option 'allowReturnInEmptyMethodsAndConstructors' is off
 	}//c-tor
 	
 	public	InputRedundantReturn(String s){
-		//check the non empty costructor
+		//non empty constructor
 		boolean b = true;
 		b = b ? true: false;
-		return;
+		return;	//WARNING
 	}//c-tor2
 	
 	public void testMethod1(){
 		//check the allowed/not empty method
-		return;
+		return;	//WARNING if option 'allowReturnInEmptyMethodsAndConstructors' is off
 	}//testMethod1
 	
 	public void testMethod2(){
@@ -29,18 +29,18 @@ public class InputRedundantReturn {
 				int y=0;
 				int u=8;
 				int e=u-y;
-				return;
+				return;	//WARNING
 			}
 		};
 		
 		for (int i = 0; i < 10; i++) {
 			i++;
 		}
-		return;
+		return;	//WARNING
 	}//testMethod1
 	
 	public static void main(String[] args) {
-		System.out.println("Hello, World !!!");// TODO Auto-generated method s
+		System.out.println("Hello, World !!!");
 	}//void main
 	
 	public void testTryCatch()
@@ -49,15 +49,15 @@ public class InputRedundantReturn {
 			int y=0;
 			int u=8;
 			int e=u-y;
-			return;
+			return;	//WARNING
 		} 
 		catch (Exception e) {
 			System.out.println(e);
-			return;
+			return;	//WARNING
 		}
 		finally
 		{
-			return;
+			return;	//WARNING
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class InputRedundantReturn {
 	private class MyTestClass{
 		public MyTestClass(){}
 		public void testMethod(){
-			return;
+			return;	//WARNING if option 'allowReturnInEmptyMethodsAndConstructors' is off
 		}	
 	}//myTestClass
 	
@@ -97,11 +97,102 @@ public class InputRedundantReturn {
 		} 
 		catch (IllegalArgumentException e) {
 			System.out.println(e);
-			return;
+			return;	//WARNING
 		}
 		catch (IllegalStateException ex) {
 		    	System.out.println(ex);
-		    	return;
+		    	return;	//WARNING
 		}
 	}
+	
+    public void testTryCatch4()
+    {
+	    int y=0;
+        int u=8;
+        try {
+            int e=u-y;
+        } 
+        catch (IllegalArgumentException e) {
+            System.out.println(e);
+            return;	//WARNING
+        }
+    }
+    public void setFormats() {
+		try {
+			int k = 4;
+		} catch (Exception e) {
+			Object k = null;
+			if (k != null)
+				k = "ss";
+			else {
+				return; //WARNING
+			}
+		}
+    }
+    public void setFormats1() {
+		try {
+			int k = 4;
+		} catch (Exception e) {
+			Object k = null;
+			if (k != null) {
+				k = "ss";
+			} else {
+				return; //WARNING
+			}
+		}
+    }
+    public void setFormats2() {
+		try {
+			int k = 4;
+		} catch (Exception e) {
+			Object k = null;
+			if (k != null) {
+				k = "ss";
+				return;	//WARNING
+			} 
+		}
+    }
+    public void setFormats3() {
+		try {
+			int k = 4;
+		} catch (Exception e) {
+			Object k = null;
+			if (k != null) {
+				k = "ss";
+				
+			} 
+		}
+    }
+    public int getRandomNumber() {
+    	return 4;
+    }
+    public InputRedundantReturn(double content) {
+    	
+    }
+    public void setFormat() {
+		try {
+			int k = 4;
+		} catch (Exception e) {
+			Object k = null;
+			if (k != null) {
+				k = "ss";
+				if (k.toString().concat("ss") == "ssss") {
+					if (e.getMessage() == "Exception") {
+						return;	// WARNING
+					}
+				}
+			} 
+		}
+    }
+    
+    private static void foo(int x) {}
+    
+    private static void foo1() {
+    	try {
+    		char c = 'c';
+    	} finally {
+    		
+    	}
+    }
+    
 }
