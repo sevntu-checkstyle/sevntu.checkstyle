@@ -205,7 +205,7 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private static final Comparator<DetailAST> AST_LINE_COMPARATOR = new Comparator<DetailAST>()
     {
-        @Override
+        
         public int compare(DetailAST aObj1, DetailAST aObj2)
         {
             return aObj1.getLineNo() - aObj2.getLineNo();

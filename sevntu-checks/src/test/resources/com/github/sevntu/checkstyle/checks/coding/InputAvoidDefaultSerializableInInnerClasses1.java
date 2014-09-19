@@ -36,7 +36,7 @@ public class InputAvoidDefaultSerializableInInnerClasses1 implements Serializabl
 
 	private class NotError1 implements Runnable
 	{
-		@Override
+		
 		public void run()
 		{
 		}
@@ -121,7 +121,7 @@ public class InputAvoidDefaultSerializableInInnerClasses1 implements Serializabl
 	private class Error7 implements EmptyInterface, Serializable, Runnable // error7
 	{
 
-		@Override
+		
 		public void run()
 		{
 		}
@@ -134,7 +134,7 @@ public class InputAvoidDefaultSerializableInInnerClasses1 implements Serializabl
 	private class Error8 implements Runnable, Serializable // error8
 	{
 
-		@Override
+		
 		public void run()
 		{
 		}

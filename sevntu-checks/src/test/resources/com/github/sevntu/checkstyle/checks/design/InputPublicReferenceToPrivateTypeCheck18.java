@@ -8,7 +8,7 @@ public class InputPublicReferenceToPrivateTypeCheck18 {
     private class InnerClass1 extends InputPublicReferenceToPrivateTypeCheck1 
         implements InnerInterface, Comparable {
 
-        @Override
+        
         public int compareTo(Object o)
         {
             return 0;

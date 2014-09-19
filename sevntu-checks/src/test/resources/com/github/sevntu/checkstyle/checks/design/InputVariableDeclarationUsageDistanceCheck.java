@@ -367,7 +367,7 @@ public class InputVariableDeclarationUsageDistanceCheck {
 		final long intervalMs = 30 * 60000L; // 30 min
 		Object authCheckUrl = null, authInfo = null;
         authUpdateTask = new AuthUpdateTask(authCheckUrl, authInfo, new IAuthListener() {
-            @Override
+            
             public void authTokenChanged(String cookie, String token) {
                 fireAuthTokenChanged(cookie, token);
             }

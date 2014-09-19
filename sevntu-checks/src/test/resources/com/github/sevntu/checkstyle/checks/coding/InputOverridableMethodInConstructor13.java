@@ -29,7 +29,7 @@ public class InputOverridableMethodInConstructor13 {
             return clone;
 		}
 
-		@Override
+		
 		public boolean accept(File pathname) {
 			return false;
 		}		

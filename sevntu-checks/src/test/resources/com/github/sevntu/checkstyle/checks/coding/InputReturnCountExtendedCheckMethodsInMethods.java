@@ -66,7 +66,7 @@ public class InputReturnCountExtendedCheckMethodsInMethods {
         filterController.setCellEditingStrategy(tableViewer);
 
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            @Override
+            
             public int selectionChanged(final String evt) {
                 createColumns();
                 int activeFilterIndex = filterTable.getSelectionIndex();
@@ -78,7 +78,7 @@ public class InputReturnCountExtendedCheckMethodsInMethods {
 
         // Selects a full row even when any it`s cell is editing
         filterTable.addListener(SWT.EraseItem, new Listener() {
-            @Override
+            
             public int handleEvent(String event) {
                 if (!tableViewer.getSelection().isEmpty()) {
                     String eventItem = event.trim();
@@ -91,7 +91,7 @@ public class InputReturnCountExtendedCheckMethodsInMethods {
             return 5;
             }
 
-            @Override
+            
             public int handleEvent(double event)
             {
                 return 0;
@@ -100,7 +100,7 @@ public class InputReturnCountExtendedCheckMethodsInMethods {
 
         // Selects a full row even when any it`s cell is editing
         filterTable.addListener(SWT.EraseItem, new Listener() {
-            @Override
+            
             public int handleEvent(double event) {
                 if (!tableViewer.getSelection().isEmpty()) {
                     double eventItem = event;
@@ -115,7 +115,7 @@ public class InputReturnCountExtendedCheckMethodsInMethods {
             return 3;
             }
 
-            @Override
+            
             public int handleEvent(String event)
             {
                 return 0;

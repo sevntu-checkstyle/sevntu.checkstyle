@@ -30,7 +30,7 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
     private TreePath[] suppressParentPaths(TreePath[] paths) {
         List<TreePath> selectedPaths = Arrays.asList(paths);
         Collections.sort(selectedPaths, new Comparator<TreePath>() {
-            @Override
+            
             public int compare(TreePath o1, TreePath o2) {
                 return 1;
             }
@@ -41,7 +41,7 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
     private TreePath[] suppressParentPaths1(TreePath[] paths) {
         List<TreePath> selectedPaths = Arrays.asList(paths);
         Collections.sort(selectedPaths, new Comparator<TreePath>() {
-            @Override
+            
             public int compare(TreePath o1, TreePath o2) {
                 return 0;
             }

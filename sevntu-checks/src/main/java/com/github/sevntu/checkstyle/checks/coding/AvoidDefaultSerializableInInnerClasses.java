@@ -191,7 +191,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         *</b>
         *@return boolean value
         */
-		@Override
+		
 		public boolean hasNext()
         {
             return mNext != null;
@@ -203,7 +203,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         *</b>
         *@return next DetailAST.
         */
-		@Override
+		
 		public DetailAST next()
         {
             final DetailAST result = mNext;
@@ -221,7 +221,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         *Not implemented method.
         *</b>
         */
-		@Override
+		
 		public void remove()
         {
             throw new IllegalStateException("Not implemented");

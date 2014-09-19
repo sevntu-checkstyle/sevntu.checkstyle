@@ -49,7 +49,7 @@ public class InputForbidThrowAnonymousExceptions3 {
 
         Comparator<String> c = new Comparator<String>()
         {
-            @Override
+            
             public int compare(String o1, String o2)
             {
                 RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
@@ -74,7 +74,7 @@ public class InputForbidThrowAnonymousExceptions3 {
 
         Comparator<String> c = new Comparator<String>()
         {
-            @Override
+            
             public int compare(String o1, String o2)
             {
                 RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
@@ -92,7 +92,7 @@ public class InputForbidThrowAnonymousExceptions3 {
 
         Comparator<String> c = new Comparator<String>()
         {
-            @Override
+            
             public int compare(String o1, String o2)
             {
                RuntimeException runtimeException = new RuntimeException();
@@ -115,7 +115,7 @@ public class InputForbidThrowAnonymousExceptions3 {
 
         Comparator<String> c = new Comparator<String>()
         {
-            @Override
+            
             public int compare(String o1, String o2)
             {
                 RuntimeException runtimeException = new RuntimeException();
