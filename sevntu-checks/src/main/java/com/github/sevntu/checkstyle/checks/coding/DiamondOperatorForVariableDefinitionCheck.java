@@ -73,7 +73,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
      *          right type arguments of assignment
      * @return true or false
      */
-    private boolean isSameTypeArgsInVariableDef(DetailAST variableDefNode,
+    private static boolean isSameTypeArgsInVariableDef(DetailAST variableDefNode,
             DetailAST typeArgs) {
 
         DetailAST typeNode = variableDefNode.findFirstToken(TokenTypes.TYPE);

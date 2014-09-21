@@ -111,7 +111,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
      * @param aLogicNode Current logic operator node
      * @return Array with children
      */
-    private DetailAST[] getBothChildren(DetailAST aLogicNode) {
+    private static DetailAST[] getBothChildren(DetailAST aLogicNode) {
         final DetailAST[] children = new DetailAST[2];
         int i = 0;
         for (DetailAST child = aLogicNode.getFirstChild(); child != null; child = child.getNextSibling()) {

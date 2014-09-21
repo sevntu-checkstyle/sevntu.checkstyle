@@ -123,17 +123,17 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * If this value is true, Checkstyle will process value() iterations.
      */
-    private static boolean mProposeValuesUsage = true;
+    private boolean mProposeValuesUsage = true;
 
     /**
      * If this value is true, Checkstyle will process keySet() iterations.
      */
-    private static boolean mProposeKeySetUsage = false;
+    private boolean mProposeKeySetUsage = false;
 
     /**
      * If this value is true, Checkstyle will process entrySet() iterations.
      */
-    private static boolean mProposeEntrySetUsage = false;
+    private boolean mProposeEntrySetUsage = false;
 
     /**
      * The key is pointing to the warning message text in "messages.properties"
@@ -357,7 +357,7 @@ public class MapIterationInForEachLoopCheck extends Check
      * @param aForNode
      * @return
      */
-    private boolean isForEach(DetailAST aForNode)
+    private static boolean isForEach(DetailAST aForNode)
     {
         return aForNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE) != null;
     }
@@ -449,7 +449,7 @@ public class MapIterationInForEachLoopCheck extends Check
      *        Current map name.
      * @return keySet warning message key.
      */
-    private static String
+    private String
     checkForWrongKeySetUsage(DetailAST aForEachOpeningBraceNode,
             String aKeyName, String aMapName, boolean aIsMapClassField)
     {
@@ -520,7 +520,7 @@ public class MapIterationInForEachLoopCheck extends Check
      *        This variable contains Map.Entry name.
      * @return entrySet warning message key.
      */
-    private static String
+    private String
     checkForWrongEntrySetUsage(DetailAST aForEachOpeningBraceNode, String aEntryName)
     {
         String result = null;
