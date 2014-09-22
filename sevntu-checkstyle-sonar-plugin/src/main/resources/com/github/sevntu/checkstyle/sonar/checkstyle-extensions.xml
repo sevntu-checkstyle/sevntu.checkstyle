@@ -553,7 +553,7 @@
 		<key>com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</key>
 		<name>Ternary Per Expression Count</name>
 		<category name="coding" />
-		<description>Restricts the number of ternary operators in expression to a specified limit</description> 
+		<description>Restricts the number of ternary operators in expression to a specified limit</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</configKey>
 		<param key="maxTernaryPerExpressionCount" type="INTEGER">
 			<defaultValue>1</defaultValue>
@@ -608,7 +608,37 @@
 		</param>
 	</rule>
 
-	<!-- 'annotation' checks -->
+
+    <!-- 'regexp' checks -->
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.regexp.RegexpOnFilenameCheck</key>
+        <name>RegexpOnFilename</name>
+        <category name="regexp"/>
+        <description>Checks the names of files against a regular expression.</description>
+        <configKey>Checker/com.github.sevntu.checkstyle.checks.regexp.RegexpOnFilenameCheck</configKey>
+        <cardinality>MULTIPLE</cardinality>
+        <param key="fileExtensions" type="s{}">
+            <description>Only files with these extensions will be checked. Leave blank for unrestricted.</description>
+        </param>
+        <param key="selection" type="REGULAR_EXPRESSION">
+            <description>Only files which match this expression in addition to the file extensions will be checked. Leave blank for unrestricted.</description>
+        </param>
+        <param key="regexp" type="REGULAR_EXPRESSION">
+            <description>The regular expression to apply to the selected file names.</description>
+            <defaultValue>^(?:\s+.*|.*?\s+)$</defaultValue>
+        </param>
+        <param key="mode" type="s[illegal,required]">
+            <description>Determines if the regular expression must or must not match.</description>
+            <defaultValue>illegal</defaultValue>
+        </param>
+        <param key="simple" type="BOOLEAN">
+            <description>Check the simple file name only (true), or the entire path (false).</description>
+            <defaultValue>true</defaultValue>
+        </param>
+    </rule>
+
+
+    <!-- 'annotation' checks -->
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</key>
 		<name>Forbid Annotation</name>

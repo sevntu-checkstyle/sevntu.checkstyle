@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC "-//eclipse-cs//DTD Check Metadata 1.1//EN"
+        "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="500">
+
+        <rule-metadata name="%RegexpOnFilename.name" internal-name="RegexpOnFilename" parent="Checker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.regexp.RegexpOnFilenameCheck"/>
+            <description>%RegexpOnFilename.desc</description>
+
+            <property-metadata name="fileExtensions" datatype="String">
+                <description>%RegexpOnFilename.fileExtensions</description>
+            </property-metadata>
+            <property-metadata name="selection" datatype="Regex">
+                <description>%RegexpOnFilename.selection</description>
+            </property-metadata>
+            <property-metadata name="regexp" datatype="Regex" default-value="^(?:\s+.*|.*?\s+)$">
+                <description>%RegexpOnFilename.regexp</description>
+            </property-metadata>
+            <property-metadata name="mode" datatype="SingleSelect" default-value="illegal">
+                <description>%RegexpOnFilename.mode</description>
+                <enumeration>
+                    <property-value-option value="illegal"/>
+                    <property-value-option value="required"/>
+                </enumeration>
+            </property-metadata>
+            <property-metadata name="simple" datatype="Boolean" default-value="true">
+                <description>%RegexpOnFilename.simple</description>
+            </property-metadata>
+
+            <message-key key="regexp.filepath.illegal"/>
+            <message-key key="regexp.filepath.required"/>
+        </rule-metadata>
+
+    </rule-group-metadata>
+</checkstyle-metadata>
