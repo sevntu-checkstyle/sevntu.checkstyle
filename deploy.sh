@@ -130,7 +130,6 @@ do
             ;;
         --all)
             prepareForDeploy
-            deployMavenLibrary
             deployAll
             shift 1
             ;;
