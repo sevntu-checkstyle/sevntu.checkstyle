@@ -73,6 +73,14 @@ deployEclipse()
 		return
 	}
 
+deployMaven()
+	{
+		deployMavenLibrary
+		deployMavenPlugin
+		echo "$manualDeploy"
+		return
+	}
+
 deployMavenLibrary()
 	{
 		# As we do not use SNAPSHOT qualifier for developemnt in pom.xml
