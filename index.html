@@ -115,11 +115,58 @@ This project is additional(non-standard) checks for Checkstyle that are compiled
    <br/>
 </div>
 -->
+<h3 id="1.12.0">Release 1.12.0 (9/Oct/2014):</h3>
+<div >
+  <br/>
+     <b>Update in Redundant Return Check</b> -&nbsp; Redundant Return Check was retested and fixed. Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/258">More</a>
+   <br/>
+   <br/>
+   
+   <br/>
+     <b>Update in ForbidThrowAnonymousExceptionsCheck</b> -&nbsp; Reduced ForbidThrowAnonymousExceptionsCheck's limitation. Now this Check puts violation on throwing anonymous exception even in case if it is defined before throwing. Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/248">More</a>
+   <br/>
+   <br/>
+   
+   <br/>
+     <b>Update in LineLengthCheck</b> -&nbsp; Updated LineLengthCheck to print the current line length in it's warnings. Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/245">More</a>
+   <br/>
+   <br/>
+   
+   <br/>
+     <b>DiamondOperatorForVariableDefinitionCheck</b> -&nbsp; This Check highlights variable definition statements where diamond operator could be used. Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/194">More</a>
+   <br/>
+   <br/>
+   
+   <br/>
+     <b>PrivateTypesAsMethodReturnTypeCheck</b> -&nbsp; This Check warns on propagation of inner private types to outer classes:<br>- Externally accessible method if it returns private inner type.<br>- Externally accessible field if it's type is a private inner type.<br>These types could be <a href='http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html'>private inner classes</a>, interfaces or enumerations. Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/201">More</a>
+   <br/>
+   <br/>
+   
+   <br/>
+     <b>TernaryPerExpressionCountCheck</b> -&nbsp; Replaced existing NestedTernaryCheck with more general TernaryPerExpressionCountCheck.<br/>
+      New Check provides options to ignore ternary sequences with explicitly set priority level (expressions in braces) and also to force Check to ignore ternary operators which are isolated inside a single line.
+      Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/198">More</a>
+   <br/>
+   <br/>
+
+   <br/>
+     <b>Update in CustomDeclarationOrderCheck</b> -&nbsp; Updated Check to treat more king of methods as setters. E.g., now Check treats 'set' method as setter, if 1.. 2...  Done by Alexey Nesterenko.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/193">More</a>
+   <br/>
+   <br/>
+
+</div>
 
 <h3 id="1.11.0">Release 1.11.0 (7/May/2014):</h3>
 <div >
   <br/>
-     <b>update for CustomDeclarationOrderCheck</b> -&nbsp; New macros for Fields with assigning to Anonymous classes, macros for Setter/Geter, macros for nested interfaces and nested enumarations
+     <b>Update for CustomDeclarationOrderCheck</b> -&nbsp; New macros for Fields with assigning to Anonymous classes, macros for Setter/Geter, macros for nested interfaces and nested enumarations
 macros for "main()" method. Done by Baratali Izmailov.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/73">More</a>
    <br/>
