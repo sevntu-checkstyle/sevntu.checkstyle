@@ -156,7 +156,17 @@ This project is additional(non-standard) checks for Checkstyle that are compiled
    <br/>
 
    <br/>
-     <b>Update in CustomDeclarationOrderCheck</b> -&nbsp; Updated Check to treat more king of methods as setters. E.g., now Check treats 'set' method as setter, if 1.. 2...  Done by Alexey Nesterenko.
+     <b>Update in CustomDeclarationOrderCheck</b> -&nbsp; Updated Check to treat more king of methods as setters. E.g., now Check treats 'set' method as setter, in cases like:
+<br/><br/>
+public void setWorkMode(String workMode) {<br/>
+this.workMode = WorkMode.valueOf(workMode);<br/>
+}<br/>
+public void setUserCache(UserCache userCache) {<br/>
+super.setUserCache(userCache);<br/>
+}<br/>
+public void setY(Integer y) { // setter<br/>
+this.y = Integer.parseInt(y + "");<br/>
+}<br/><br/>  Done by Alexey Nesterenko.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/193">More</a>
    <br/>
    <br/>
