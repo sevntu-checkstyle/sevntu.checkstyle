@@ -7,30 +7,122 @@
 
 	<title>sevntu-checkstyle/sevntu.checkstyle @ GitHub</title>
 	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #014870;
-      font-family: "Helvetica";
-      color: #ffffff;
-      font-size: 1.1em;
-    }
-    #container {
-      margin: 0 auto;
-      width: 750px;
-    }
-		h1 { font-size: 3.8em; color: #feb78f; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #feb78f; }
-    h3 { text-align: center; color: #feb78f; }
-    a { color: #feb78f; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
+	<script type="text/Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<style type="text/css">
+body {
+  margin-top: 1.0em;
+  background-color: #E8F2FC;
+  font-family: Helvetica, Arial, FreeSans, san-serif;
+  color: #000;
+}
+
+#container {
+  margin: 0 auto;
+  width: 70%;
+}
+
+h1 {
+  font-size: 3.1em;
+  color: #242630;
+  margin-bottom: 10px;
+}
+
+h1 .small {
+  font-size: 0.4em;
+}
+
+h1 a {
+  text-decoration: none
+}
+
+h2 {
+  font-size: 1.7em;
+  color: #242630;
+}
+
+h3 {
+  text-align: left;
+  color: #242630;
+}
+
+a {
+  color:#242630;
+  -o-transition:.01s;
+  -ms-transition:.01s;
+  -moz-transition:.01s;
+  -webkit-transition:.01s;
+  transition:.01s;
+  
+  /* Micro shadow in all sides */
+  text-shadow: 0 0 1px #79848F;
+  transform: scale(1.01);
+}
+
+a:hover {
+  color: #242630;
+}
+
+.description {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+.download {
+  float: right;  
+}
+
+pre {
+  background: #000;
+  color: #fff;
+  padding: 15px;
+}
+
+hr {
+  border: 0;
+  width: 80%;
+  border-bottom: 1px solid #aaa
+}
+
+.footer {
+  text-align: center;
+  padding-top: 30px;
+  font-style: italic;
+}
+
+div.spoiler div.name {
+	cursor: pointer;
+    height:auto;
+    width:auto;
+}
+
+div.spoiler div.text {
+	display: none;
+}
+
+img.jumpingImage {
+    float: left;
+    margin-top: 4px;
+    -webkit-transition: margin 0.2s ease-out;
+    -moz-transition: margin 0.2s ease-out;
+    -o-transition: margin 0.2s ease-out;
+}
+ 
+img.jumpingImage:hover {
+    margin-top: 3px;
+}
+
+img.shadowed {
+  /* Shadow in all sides */
+  box-shadow: 0 0 3px #3B3B3B;
+}
+
+img.darkShadowed {
+  /* Shadow in all sides */
+  box-shadow: 0 0 5px #0F0F0F;
+}
+
+</style>
 	
 </head>
 
@@ -48,21 +140,64 @@
 
 </script>
 
+<script type="text/Javascript">
+		$(document).ready(function() {
+			
+			// Configure spoilers. Spoilers are configured by their classes: 
+			// openOnHover color_on_hover pre_opened_spoiler
+			var fadeTime = 300;
+
+			// Set the toggle operarions (spoilers fading)
+			$("div.spoiler div.name span").toggle(
+			function() {
+				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeIn(fadeTime);
+			}
+			,function() {
+				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeOut(fadeTime);	
+			});
+
+			// Set mouseOver operations (coloring/opening on hover)
+			$("div.spoiler div.name span").mouseover(function() {	
+
+			    var openOnHover = $(this).parent("div.name").parent("div.spoiler").hasClass("openOnHower");
+		        var color_on_hover = $(this).parent("div.name").parent("div.spoiler").hasClass("color_on_hover");
+		    
+				if (color_on_hover) {
+				    $(this).children().css("color", "#1D4875");
+			    }			
+				if (openOnHover) {
+					 $(this).parent("div.name").parent("div.spoiler").children("div.text").fadeIn(fadeTime);
+				}
+
+			}).mouseout(function() {			
+				var color_on_hover = $(this).parent("div.name").parent("div.spoiler").hasClass("color_on_hover");
+				if (color_on_hover) {
+					$(this).children().css("color", "#242630");
+	 		    }			    
+			});
+			
+		    // Open spoilers with 'pre-opened' class
+			$(".pre_opened_spoiler").children("div.text").fadeIn(fadeTime);
+			// End configure spoilers
+		});
+	</script>
+
 <body>
   <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">
-    <img style="position: absolute; top: 0; right: 0; border: 0;" 
-	src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+   <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+  </a>
 
   <div id="container">
 
-    <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>    </h1>
-      <span class="small">by students from <a href="http://sevntu.com.ua/">Sevastopol National Technical University (SevNTU)</a>, Ukraine.
+    <h1><a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">SevNTU-Checkstyle</a></h1>
+      <p><span class="small">By students from <a href="http://sevntu.com.ua/">Sevastopol National Technical University (SevNTU)</a>, Ukraine.
       <br/>
-	Supported and mentored by developers from <a href="http://www.reveredata.com">Revere Data LLC</a>.
+	Supported and mentored by developers from <a href="http://www.factset.com">FactSet</a>.
       <br/>
-	Licence is GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
-      </span>
+	Licence is <a href="https://www.gnu.org/licenses/lgpl-2.1.en.html">GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.</a>
+      </span></p>
 
+    <h2>Description</h2>
 
     <div class="description">
       Main idea of <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> project is to automate and to ease code-review process; to assist developers in complying with the company's Code-standard, and allow them to fix and eliminate any minor problem upon just saving the file. 
@@ -106,18 +241,21 @@ This project is additional(non-standard) checks for Checkstyle that are compiled
 
 <h2> New and noteworthy</h2>
 <!--
-<h3 id="1.XX.0">Release 1.XX.0 (1X/ssss/2013):</h3>
-<div >
-  <br/>
-     <b>CustomDeclarationOrderCheck</b> -&nbsp; %%DESCRIPTION%%. Done by %Name% %LastName%.
-     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/%%">More</a>
+<div id="X.Y.Z" class="spoiler color_on_hover pre_opened_spoiler">
+<div class="name"><span><h3>Release X.Y.Z (9/Oct/2014)</h3></span></div>
+<div class="text">
+     <b>new FooBarCheck</b> -&nbsp; %DESCRIPTION%. Done by %AUTHOR%.
+     <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/%PR_NUMBER%">More</a>
    <br/>
    <br/>
 </div>
+</div>
 -->
-<h3 id="1.12.0">Release 1.12.0 (9/Oct/2014):</h3>
-<div >
-  <br/>
+
+
+<div id="1.12.0" class="spoiler color_on_hover pre_opened_spoiler">
+<div class="name"><span><h3>Release 1.12.0 (9/Oct/2014)</h3></span></div>
+<div class="text">
      <b>Update in Redundant Return Check</b> -&nbsp; Redundant Return Check was retested and fixed. Done by Alexey Nesterenko.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/258">More</a>
    <br/>
@@ -172,9 +310,12 @@ this.y = Integer.parseInt(y + "");<br/>
    <br/>
 
 </div>
+</div>
 
-<h3 id="1.11.0">Release 1.11.0 (7/May/2014):</h3>
-<div >
+
+<div id="1.11.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.11.0 (7/May/2014)</h3></span></div>
+<div class="text">
   <br/>
      <b>Update for CustomDeclarationOrderCheck</b> -&nbsp; New macros for Fields with assigning to Anonymous classes, macros for Setter/Geter, macros for nested interfaces and nested enumarations
 macros for "main()" method. Done by Baratali Izmailov.
@@ -207,9 +348,11 @@ macros for "main()" method. Done by Baratali Izmailov.
    <br/>
    <br/>
 </div>
+</div>
 
-<h3 id="1.10.0">Release 1.10.0 (24/November/2013):</h3>
-<div >
+<div id="1.10.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.10.0 (24/Nov/2013)</h3></span></div>
+<div class="text">
   <br/>
      <span style="color: red;">New project!</span> <b>sevntu-checkstyle-sonar-plugin</b> - &nbsp;Project was created as extension to <a href="http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin" target="_blank">Sonar Checkstyle Plugin</a>&nbsp;for <a href="http://www.sonarqube.org/" target="_blank">SonarQube&trade;</a>, How to use it is described <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-SonarQubeTM-%28user%27s-guide%29" target="_blank">here</a> in detail and pictures, Done by Ruslan Diachenko. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/113" target="_blank">More</a>.
    <br/>
@@ -219,7 +362,7 @@ macros for "main()" method. Done by Baratali Izmailov.
    <br/>
    <br/>
   <br/>
-     <b>update for CustomDeclarationOrderCheck</b> -&nbsp; Inner Classes in methods are ignored. Done by Baratali Izmailov.
+     <b>Update for CustomDeclarationOrderCheck</b> -&nbsp; Inner Classes in methods are ignored. Done by Baratali Izmailov.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/58">More</a>
    <br/>
    <br/>
@@ -229,30 +372,32 @@ macros for "main()" method. Done by Baratali Izmailov.
    <br/>
    <br/>
   <br/>
-     <b>update in VariableDeclarationUsageDistanceCheck</b> -&nbsp; Update to support block constructions/builders and methods with long list arguments,Done by Baratali Izmailov.
+     <b>Update in VariableDeclarationUsageDistanceCheck</b> -&nbsp; Update to support block constructions/builders and methods with long list arguments,Done by Baratali Izmailov.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/32">More</a>
    <br/>
    <br/>
   <br/>
-     <b>update in ConfusingConditionCheck</b> -&nbsp; Update to skip alarming on sequentional IF, Done by Vadim Panasiuk.
+     <b>Update in ConfusingConditionCheck</b> -&nbsp; Update to skip alarming on sequentional IF, Done by Vadim Panasiuk.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/153">More</a>
    <br/>
    <br/>
   <br/>
-     <b>update in NoNullForCollectionReturnCheck</b> -&nbsp; Fix for NullPointerException,Done by Ilja Dubinin.
+     <b>Update in NoNullForCollectionReturnCheck</b> -&nbsp; Fix for NullPointerException,Done by Ilja Dubinin.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/148">More</a>
    <br/>
    <br/>
   <br/>
-     <b>update in ForbidCertainImportsCheck</b> -&nbsp; additional field as Regexp for excluding imports from checking,Done by Daniil Yaroslavtsev.
+     <b>Update in ForbidCertainImportsCheck</b> -&nbsp; additional field as Regexp for excluding imports from checking,Done by Daniil Yaroslavtsev.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/140">More</a>
    <br/>
    <br/>
-  <br/>   
-   
+  <br/>
 </div>
-<h3 id="1.9.0">Release 1.9.0 (18/September/2013):</h3>
-<div >
+</div>
+
+<div id="1.9.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.9.0 (18/Sept/2013)</h3></span></div>
+<div class="text">
   <br/>
      <b>AvoidConstantAsFirstOperandInConditionCheck</b> -&nbsp; Avoid Constant As First Operand In Condition. If comparing values, C(C++) developers prefer to put the constant first in the equality check, to prevent situations of assignment rather than equality checking. But in Java, in IF condition it is impossible to use assignment, so that habit become unnecessary and do damage readability of code.
      <br/>Example:<br/>
@@ -333,8 +478,11 @@ macros for "main()" method. Done by Baratali Izmailov.
    <br/>
    <br/>
 </div>
-<h3 id="1.8.0">Release 1.8.0 (16/April/2012):</h3>
-<div >
+</div>
+
+<div id="1.8.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.8.0 (16/Apr/2012)</h3></span></div>
+<div class="text">
 	<b>NestedTernaryCheck</b> -&nbsp;This check forbids nested ternary operators (with option to ignore final variable initializations except initializations inside C-tors).
 	<br/>Done by Daniil Yaroslavtsev.&nbsp;
 	(<a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/98">issue</a>)
@@ -364,25 +512,37 @@ macros for "main()" method. Done by Baratali Izmailov.
   <br/>Done by Alexey Grigorov.&nbsp;
   <br/>
 </div>
-<h3 id="1.7.0">Release 1.7.0 (15/November/2012):</h3>
-<div >
+</div>
+
+<div id="1.7.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.7.0 (15/Nov/2012)</h3></span></div>
+<div class="text">
     <b>AvoidConstantsInInterfacesCheck</b> -&nbsp; has been removed as it has been already implemented in standart Checkstyle. Done by Vadym Chekrii.&nbsp;
 </div>
-<h3 id="1.6.2">Release 1.6.2 (12/November/2012):</h3>
-<div >
+</div>
+
+<div id="1.6.2" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.6.2 (12/Nov/2012)</h3></span></div>
+<div class="text">
     <b>AbbreviationAsWordInNameCheck</b> -&nbsp;problem with constants in interfaces was fixed. Done by Roman Ivanov.&nbsp;
 	<a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/85">issue</a>
     <br/>
     <br/>
 </div>
-<h3 id="1.6.1">Release 1.6.1 (29/October/2012):</h3>
-<div >
+</div>
+
+<div id="1.6.1" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.6.1 (29/Oct/2012)</h3></span></div>
+<div class="text">
      Changes for descriptions for Eclipse plugin for checks that appear in 1.6.0. Done by Ilja Dubinin and Roman Ivanov.
     <br/>
     <br/>
 </div>
-<h3 id="1.6.0">Release 1.6.0 (21/October/2012):</h3>
-<div >
+</div>
+
+<div id="1.6.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.6.0 (21/Oct/2012)</h3></span></div>
+<div class="text">
     <b>LogicConditionNeedOptimizationCheck</b> -&nbsp; This check prevents the placement of local variables and fields after calling
 methods in '&&' and '||' conditions. Done by Ilja Dubinin.&nbsp;<a href="http://sourceforge.net/p/checkstyle/patches/232/">Patch</a>.
     <br/>
@@ -395,13 +555,19 @@ by the format property. Default format is ^[A-Z]$. Done by Dmitry Gridyushko.&nb
     <br/>
     <br/>
 </div>
+</div>
 
-<h3 id="1.5.3">Release 1.5.3 (4/September/2012):</h3>
-<div> Internal release for site generation automation, refactoring of projects structure to be more independend from
+<div id="1.5.3" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.5.3 (4/Sept/2012)</h3></span></div>
+<div class="text">
+Internal release for site generation automation, refactoring of projects structure to be more independend from
 main project and ease code managment and ease new developers unserstanding of project, extension for maven plugin was introduced. Done By Ivan Sopov with help of Ilia Dubinin, Dmitry Gridyushko.
 </div>
-    <h3  id="1.5.0">Release 1.5.0 (12/June/2012):</h3>
-<div >
+</div>
+
+<div id="1.5.0" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.5.0 (12/Jun/2012)</h3></span></div>
+<div class="text">
     <b>AvoidDefaultSerializableInInnerClasses</b> -&nbsp;This check prevents the default implementation Serializable interface in
  inner classes (Serializable interface are default if methods readObject() or writeObject() are not override in class). Check has option, that allow
  implementation only one method, if it true, but if it false - class must implement both methods. For more information read
@@ -413,9 +579,11 @@ main project and ease code managment and ease new developers unserstanding of pr
 <br/>
 <br/>
     </div>
+</div>
 
-    <h3  id="1.0.5">Release 1.0.5 (14/April/2012):</h3>
-<div >
+<div id="1.0.5" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.0.5 (14/Apr/2012)</h3></span></div>
+<div class="text">
     <b>ChildBlockLengthCheck</b> -&nbsp;Length of child block that is more then 90% of parent block is hard to read 
 		  in case child block is long(few display screens). Done by Daniil Yaroslavtsev.&nbsp;
 <a href="https://sourceforge.net/tracker/?func=detail&aid=3197024&group_id=29721&atid=397081">issue</a>
@@ -454,11 +622,11 @@ main project and ease code managment and ease new developers unserstanding of pr
 <br/>
 <br/>
     </div>
+</div>
 
-
-<h3  id="1.0.4">Release 1.0.4 (11/October/2011):</h3>
-<div >
-
+<div id="1.0.5" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.0.4 (11/Oct/2011)</h3></span></div>
+<div class="text">
 <b>ForbidAnnotationCheck</b> -&nbsp;Forbid specific annotation for field/method, e.g. forbid @Autowired
 annotation for private field. Done by&nbsp;Victor Hidoyatov.&nbsp;
 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=3165196&amp;group_id=29721&amp;atid=397081">issue</a>
@@ -508,10 +676,12 @@ Done by Ruslan Diachenko.&nbsp;
 Checks names for fields, methods , ....... . Few ignore options. Done by Roman Ivanov. 
 (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>).
 <br/>
-    </div>
+</div>
+</div>
 
-<h3 id="1.0.2">Release 1.0.2 (15/March/2011):</h3>
-<div >
+<div id="1.0.2" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.0.2 (15/Mar/2011)</h3></span></div>
+<div class="text">
 AvoidNotShortCircuitOperatorsForBooleanCheck - check to force user not to use ShortCircuit operators ("|", "&" for boolean calculations)
 . Done by Daniil Yaroslavtsev.
 <a href="http://sourceforge.net/tracker/?func=detail&aid=3197134&group_id=29721&atid=397080">patch</a>
@@ -529,9 +699,11 @@ MultipleVariableDeclarationsExtendedCheck - stndard check + option to ignore whi
 UnnecessaryParenthesesExtendedCheck - standart check + option to ignore some arguable cases. Dmitriy Antonenko.
 <a href="http://sourceforge.net/tracker/?func=detail&aid=3211385&group_id=29721&atid=397080">patch</a>
 </div>
+</div>
 
-<h3 id="1.0.1">Release 1.0.1 (21/September/2010):</h3>
-<div >
+<div id="1.0.1" class="spoiler color_on_hover">
+<div class="name"><span><h3>Release 1.0.1 (21/Sept/2010)</h3></span></div>
+<div class="text">
 CustomDeclarationOrderCheck - check to adjust class structure to make it more predictable. 
 Done by Danil Lopatin. <a href="http://habrahabr.ru/blogs/java/111739/">acticle in russian</a>
 <a href="http://sourceforge.net/tracker/?func=detail&aid=3044455&group_id=29721&atid=397080">patch and example of config</a>
@@ -546,9 +718,12 @@ AbstractClassNameExtendedCheck - extension to check if you named class AbstractX
 <br/>
 <br/>
 LineLengthExtendedCheck - extension of standard check with a lot of ignore option. Done by Ruslan Dyachenko.
-<a href="http://sourceforge.net/tracker/?func=detail&aid=3044164&group_id=29721&atid=397080">patch<a>
+<a href="http://sourceforge.net/tracker/?func=detail&aid=3044164&group_id=29721&atid=397080">patch</a>
+</div>
 </div>
 
+	<h2>Examples</h2>
+	Examples of how you could use SevNTU-Checkstyle with Maven, Ant or Gradle you can find at <a href="https://github.com/sevntu-checkstyle/checkstyle-samples">checkstyle-samples</a> repo.
 
     <h2>Download</h2>    
     <p>
@@ -558,14 +733,14 @@ LineLengthExtendedCheck - extension of standard check with a lot of ignore optio
     </p>  
     <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
       by running:
-      <pre>$ git clone git://github.com/sevntu-checkstyle/sevntu.checkstyle</pre>
+      <pre style="border-bottom-style: dashed; border-top-style: dashed; border-left-color: #E8F2FC; border-top-color: #E8F2FC; border-left-style: dashed; border-right-color: #E8F2FC; border-right-style: dashed; border-bottom-color: #E8F2FC; border-bottom-width: medium; border-right-width: medium; border-left-width: medium; border-top-width: medium; width:70%;">$ git clone git://github.com/sevntu-checkstyle/sevntu.checkstyle</pre>
     </p>
 
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu-checkstyle/sevntu.checkstyle</a>
     </div>
     <br/>
-    <a href="http://sevntu-checkstyle.github.com/sevntu.checkstyle/gsoc-2013-ideas.html">gsoc<a>
+    <a href="http://sevntu-checkstyle.github.com/sevntu.checkstyle/gsoc-2013-ideas.html">gsoc</a>
   </div>
 
   
