@@ -584,6 +584,21 @@
         <description>Checks for the presence of useless single catch blocks.</description>
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck</configKey>
     </rule>
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck</key>
+        <name>Useless super constructor call</name>
+        <category name="coding"/>
+        <description><p>Checks for useless "super()" calls in ctors.</p><p>"super()" call could be considered by Check as "useless" in two cases:</p><p>Case 1. no-argument "super()" is called from class ctor if class is not derived, for example:<pre><code>class Dummy {<br>    Dummy() {<br>            super();<br>    <br>}</code></pre>"super()" call is useless because class "Dummy" is not derived.<p>Case 2. no-argument "super()" is called without parameters from class ctor if class is derived, for example:<pre><code>class Derived extends Base {<br>    Derived() {<br>            super();<br>    }<br>}</code></pre>Java compiler automatically inserts a call to the no-args constructor of the super class, so there is no need to call super ctor explicitly. Check has options "allowCallToNoArgsSuperCtor" and "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" to adjust check behavior for such cases(see Check`s options description for details).</p><p>Check has following options:</p><p>"allowCallToNoArgsSuperCtor" - if this option set to true, Check will not generate violations when "super()" called inside derived class. This option defaults to "false". If for example this option set to "true", then Check will not generate violation for cases like following:<pre><code>class Base {<br>    public Base() {<br>    }<br>}<br><br>class Derived extends Base {<br>   public Derived() {<br>        super();<br>    }<br>}</code></pre></p><p>"allowCallToNoArgsSuperCtorIfMultiplePublicCtor" - if this option set to "true",then Check will not generate violation when "super()" called inside class ctor when class has multiple public ctors(however, setting this option to"true" will not prevent Check from logging violation if class does not extend anything). This option defaults to "false". This option may be usefull for cases in which class`s ctors just forward its arguments to super ctors, thus removing "super()" in this case will make default ctors look not like others.For example:<pre><code>class Base {<br>    public Base() {<br>    }<br><br>    public Base(int i) {<br>    }<br>}<br><br>class Derived extends Base {<br>    public Derived() {<br>        super(); // this "super()" will not be considered useless if option is set to true,<br>                 // because "Derived" has multiple public ctors. <br>    }<br><br>    public Derived(int i) {<br>        super(i); // this "super()" will not be considered useless if option is set to true,<br>                  // because "Derived" has multiple public ctors.<br>    }<br>}<br><br>class NotDerived{<br>   public NotDerived() {<br>        super(); // this "super()" will be considered useless regardless of option value,<br>                 // because "NotDerived" does not extend anything.<br>    }<br>    public NotDerived(int i) {<br>        super(); // this "super()" will be considered useless regardless of option value,<br>                 // because "NotDerived" does not extend anything.<br>    }<br>}</code></pre></p>@author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a></description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck</configKey>
+        <param key="allowCallToNoArgsSuperCtor" type="BOOLEAN">
+            <defaultValue>false</defaultValue>
+            <description>Allow calls to no-arguments super constructor from derived class.</description>
+        </param>
+        <param key="allowCallToNoArgsSuperCtorIfMultiplePublicCtor" type="BOOLEAN">
+            <defaultValue>false</defaultValue>
+            <description>Allow calls to no-arguments super constructor from derived class if it has multiple public constructors.</description>
+        </param>
+    </rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</key>
 		<name>Check for enum values name</name>
