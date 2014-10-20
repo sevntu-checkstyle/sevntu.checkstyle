@@ -355,12 +355,25 @@
             <message-key key="unnecessary.paren.return" />
             <message-key key="unnecessary.paren.string" />
         </rule-metadata>
-        
+
         <rule-metadata name="%UselessSingleCatchCheck.name" internal-name="UselessSingleCatchCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck"/>
             <description>%UselessSingleCatchCheck.desc</description>
         </rule-metadata>
-        
+
+        <rule-metadata name="%UselessSuperCtorCallCheck.name" internal-name="UselessSuperCtorCallCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck"/>
+            <description>%UselessSuperCtorCallCheck.desc</description>
+            <property-metadata name="allowCallToNoArgsSuperCtor" datatype="Boolean" default-value="false">
+                <description>%UselessSuperCtorCallCheck.allowCallToNoArgsSuperCtor</description>
+            </property-metadata>
+            <property-metadata name="allowCallToNoArgsSuperCtorIfMultiplePublicCtor" datatype="Boolean" default-value="false">
+                <description>%UselessSuperCtorCallCheck.allowCallToNoArgsSuperCtorIfMultiplePublicCtor</description>
+            </property-metadata>
+            <message-key key="useless.super.ctor.call.in.not.derived.class" />
+            <message-key key="useless.super.ctor.call.without.args" />
+        </rule-metadata>
+
         <rule-metadata name="%EitherLogOrThrowCheck.name" internal-name="EitherLogOrThrowCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck" />
             <description>%EitherLogOrThrowCheck.desc</description>
