@@ -113,6 +113,18 @@
 			<description>%DiamondOperatorForVariableDefinitionCheck.desc</description>
 		</rule-metadata>
 		
+       <rule-metadata name="%EmptyPublicCtorInClassCheck.name" internal-name="EmptyPublicCtorInClassCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck"/>
+            <description>%EmptyPublicCtorInClassCheck.desc</description>
+            <property-metadata name="classAnnotationNames" datatype="Regex" default-value="javax\.persistence\.Entity">
+                <description>%EmptyPublicCtorInClassCheck.classAnnotationNames</description>
+            </property-metadata>
+            <property-metadata name="ctorAnnotationNames" datatype="Regex" default-value="com\.google\.inject\.Inject">
+                <description>%EmptyPublicCtorInClassCheck.ctorAnnotationNames</description>
+            </property-metadata>
+            <message-key key="empty.public.ctor"/>
+       </rule-metadata>
+		
        <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
             <description>%ForbidCertainImports.desc</description>
