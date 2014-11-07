@@ -55,13 +55,17 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
         DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);
         
         if (assignNode != null) {
-            DetailAST newNode = assignNode.getFirstChild().getFirstChild();
-            if (newNode.getType() == TokenTypes.LITERAL_NEW) {
-                DetailAST typeArgs = newNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
-                if (typeArgs != null && isSameTypeArgsInVariableDef(variableDefNode, typeArgs)) {
-                        log(typeArgs, MSG_KEY);
-                }
-            }
+        
+        	DetailAST newNode = assignNode.getFirstChild().getFirstChild();
+            
+        	if (newNode.getType() == TokenTypes.LITERAL_NEW
+        			&& newNode.getLastChild().getType() != TokenTypes.OBJBLOCK) {
+            	
+        		DetailAST typeArgs = newNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
+        		if (typeArgs != null && isSameTypeArgsInVariableDef(variableDefNode, typeArgs)) {
+        			log(typeArgs, MSG_KEY);
+        		}
+        	}
         }
     }
 
@@ -79,6 +83,6 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
         DetailAST typeNode = variableDefNode.findFirstToken(TokenTypes.TYPE);
         DetailAST variableDefTypeArgs = typeNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
         
-        return variableDefTypeArgs != null && variableDefTypeArgs.equalsTree(typeArgs);            
+        return variableDefTypeArgs.equalsTree(typeArgs);            
     }
 }
