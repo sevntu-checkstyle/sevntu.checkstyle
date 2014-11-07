@@ -1,5 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.lang.reflect.Method;
@@ -14,11 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
-
 import javax.print.attribute.Attribute;
 import javax.print.attribute.AttributeSet;
-
 import javax.swing.tree.TreePath;
+import com.google.common.base.Predicate;
 
 
 public class InputDiamondOperatorForVariableDefinitionCheck {
@@ -58,6 +58,17 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
 
     List<Integer> list = new LinkedList<Integer>();
     private transient Map<Method, String> shadowMatchCache = new ConcurrentHashMap<Method, String>(32);
+    
+    private Predicate<File> inputCsvFilesFilter = new Predicate<File>() {
+    	public boolean apply(File input)
+		{
+			return false;
+		}
+    };
+    
+    String str = new String("");
+    
+    Object obj;
     
 }
     
