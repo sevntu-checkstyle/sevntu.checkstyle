@@ -4,41 +4,6 @@
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="500">
-        <rule-metadata name="%AbbreviationAsWordInName.name" internal-name="AbbreviationAsWordInName" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck" />
-            <description>%AbbreviationAsWordInName.desc</description>
-            <property-metadata name="allowedAbbreviationLength" datatype="Integer" default-value="3">
-                <description>%AbbreviationAsWordInName.allowedAbbreviationLength</description>
-            </property-metadata>
-            <property-metadata name="allowedAbbreviations" datatype="String" default-value="XML,URL,IT,I">
-                <description>%AbbreviationAsWordInName.allowedAbbreviations</description>
-            </property-metadata>
-      		<property-metadata name="targets" datatype="MultiCheck" default-value="CLASS_DEF">
-                <description>%AbbreviationAsWordInName.targets</description>
-					<enumeration>
-	                    <property-value-option value="CLASS_DEF"/>
-	                    <property-value-option value="INTERFACE_DEF"/>
-	                    <property-value-option value="ENUM_DEF"/>
-	                    <property-value-option value="ANNOTATION_DEF"/>
-	                    <property-value-option value="ANNOTATION_FIELD_DEF"/>
-	                    <property-value-option value="ENUM_CONSTANT_DEF"/>
-	                    <property-value-option value="PARAMETER_DEF"/>
-	                    <property-value-option value="VARIABLE_DEF"/>
-	                    <property-value-option value="METHOD_DEF"/>
-	                </enumeration>	
-       		</property-metadata>
-	    	<property-metadata name="ignoreFinal" datatype="Boolean" default-value="true">
-                <description>%AbbreviationAsWordInName.ignoreFinal</description>
-            </property-metadata>
-	    	<property-metadata name="ignoreStatic" datatype="Boolean" default-value="true">
-                <description>%AbbreviationAsWordInName.ignoreStatic</description>
-            </property-metadata>
-            <property-metadata name="ignoreOverriddenMethods" datatype="Boolean" default-value="true">
-                <description>%AbbreviationAsWordInName.ignoreOverriddenMethods</description>
-            </property-metadata>
-            <message-key key="abbreviationAsWord" />
-        </rule-metadata>
-        
         <rule-metadata name="%InterfaceTypeParameterNameCheck.name" internal-name="InterfaceTypeParameterNameCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck" />
             <description>%InterfaceTypeParameterNameCheck.desc</description>

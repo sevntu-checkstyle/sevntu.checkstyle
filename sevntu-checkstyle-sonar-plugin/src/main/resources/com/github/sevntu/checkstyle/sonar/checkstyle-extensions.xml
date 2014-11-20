@@ -38,37 +38,6 @@
 
 	<!-- 'naming' checks -->
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck</key>
-		<name>Abbreviation As Word In Name</name>
-		<category name="naming"/>
-		<description>Check name of the targeted item to validate abbreviations (capital letters) length in it.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck</configKey>
-		<param key="allowedAbbreviationLength" type="INTEGER">
-			<defaultValue>3</defaultValue>
-			<description>Amount of allowed capital letters in abbreviation.</description>
-    	</param>
-    	<param key="allowedAbbreviations" type="STRING">
-    		<defaultValue>XML,URL,IT,I</defaultValue>
-    		<description>A string of abbreviations that must be skipped from checking, each abbreviation separated by comma, no spaces are allowed.</description>
-    	</param>
-    	<param key="targets" type="s{}">
-    		<defaultValue>CLASS_DEF</defaultValue>
-    		<description>Targets for a check that need to be validated.</description>
-    	</param>
-		<param key="ignoreFinal" type="BOOLEAN">
-			<defaultValue>true</defaultValue>
-			<description>Allows to ignore variables with 'final' modifier.</description>
-		</param>
-		<param key="ignoreStatic" type="BOOLEAN">
-			<defaultValue>true</defaultValue>
-			<description>Allows to ignore variables with 'static' modifier.</description>
-		</param>
-		<param key="ignoreOverriddenMethods" type="BOOLEAN">
-			<defaultValue>true</defaultValue>
-			<description>Allows to ignore methods with '@Override' annotation.</description>
-		</param>
-	</rule>
-	<rule>
 		<key>com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck</key>
 		<name>Interface type parameter name check</name>
 		<category name="naming"/>
