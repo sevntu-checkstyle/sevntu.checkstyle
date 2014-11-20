@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.sevntu.checkstyle</groupId>
 	<artifactId>sevntu-checkstyle-sonar-plugin</artifactId>
-	<version>1.12.0</version>
+    <version>1.13.0</version>
 	<packaging>sonar-plugin</packaging>
 
 	<name>SevNTU Checkstyle Sonar Extension Plugin</name>
@@ -48,4 +48,103 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!--  That profile is from https://github.com/SonarSource/sonar-developer-toolset/tree/master/eclipse/m2e-error-disabler-plugin
+	      to avoid errors in Eclipse
+	 -->	
+    <profiles>
+		<profile>
+		  <id>m2e</id>
+		      <activation>
+		        <!-- This profile is active only when used from Eclipse m2e and is used only to store settings. -->
+		        <property>
+		          <name>m2e.version</name>
+		        </property>
+		      </activation>
+		      <build>
+		        <pluginManagement>
+		          <plugins>
+		            <plugin>
+		              <groupId>org.eclipse.m2e</groupId>
+		              <artifactId>lifecycle-mapping</artifactId>
+		              <version>1.0.0</version>
+		              <configuration>
+		                <lifecycleMappingMetadata>
+		                  <pluginExecutions>
+		                    <pluginExecution>
+		                      <pluginExecutionFilter>
+		                        <groupId>org.codehaus.sonar</groupId>
+		                        <artifactId>sonar-packaging-maven-plugin</artifactId>
+		                        <versionRange>[1.0,)</versionRange>
+		                        <goals>
+		                          <goal>check-dependencies</goal>
+		                        </goals>
+		                      </pluginExecutionFilter>
+		                      <action>
+		                        <ignore />
+		                      </action>
+		                    </pluginExecution>
+		                    <pluginExecution>
+		                      <pluginExecutionFilter>
+		                        <groupId>org.codehaus.mojo</groupId>
+		                        <artifactId>gwt-maven-plugin</artifactId>
+		                        <versionRange>[1.0,)</versionRange>
+		                        <goals>
+		                          <goal>compile</goal>
+		                        </goals>
+		                      </pluginExecutionFilter>
+		                      <action>
+		                        <ignore />
+		                      </action>
+		                    </pluginExecution>
+		                    <pluginExecution>
+		                      <pluginExecutionFilter>
+		                        <groupId>org.codehaus.sonar</groupId>
+		                        <artifactId>sonar-dev-maven-plugin</artifactId>
+		                        <versionRange>[1.0,)</versionRange>
+		                        <goals>
+		                          <goal>trim</goal>
+		                        </goals>
+		                      </pluginExecutionFilter>
+		                      <action>
+		                        <ignore />
+		                      </action>
+		                    </pluginExecution>
+		                    <pluginExecution>
+		                      <pluginExecutionFilter>
+		                        <groupId>org.apache.maven.plugins</groupId>
+		                        <artifactId>maven-dependency-plugin</artifactId>
+		                        <versionRange>[1.0,)</versionRange>
+		                        <goals>
+		                          <goal>unpack</goal>
+		                          <goal>copy</goal>
+		                          <goal>copy-dependencies</goal>
+		                        </goals>
+		                      </pluginExecutionFilter>
+		                      <action>
+		                        <ignore />
+		                      </action>
+		                    </pluginExecution>
+		                    <pluginExecution>
+		                      <pluginExecutionFilter>
+		                        <groupId>org.codehaus.mojo</groupId>
+		                        <artifactId>native2ascii-maven-plugin</artifactId>
+		                        <versionRange>[1.0-alpha-1,)</versionRange>
+		                        <goals>
+		                          <goal>native2ascii</goal>
+		                        </goals>
+		                      </pluginExecutionFilter>
+		                      <action>
+		                        <ignore />
+		                      </action>
+		                    </pluginExecution>
+		                  </pluginExecutions>
+		                </lifecycleMappingMetadata>
+		              </configuration>
+		            </plugin>
+		          </plugins>
+		        </pluginManagement>
+		      </build>
+		</profile>
+	</profiles>
 </project>
