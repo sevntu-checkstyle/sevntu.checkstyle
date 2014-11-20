@@ -145,28 +145,6 @@
 		<description>Forbids main methods in abstract classes. Rationale: existance of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</configKey>
 	</rule>
-	<rule>
-		<key>com.github.sevntu.checkstyle.checks.design.VariableDeclarationUsageDistanceCheck</key>
-		<name>Variable Declaration Usage Distance</name>
-		<category name="design"/>
-		<description>Checks distance between declaration of variable and its first usage.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.VariableDeclarationUsageDistanceCheck</configKey>
-		<param key="ignoreVariablePattern" type="REGULAR_EXPRESSION">
-			<description>RegEx pattern for ignoring distance calculation for variables listed in this pattern.</description>
-    	</param>
-    	<param key="allowedDistance" type="INTEGER">
-    		<defaultValue>3</defaultValue>
-			<description>Allowed distance between declaration of variable and its first usage.</description>
-    	</param>
-    	<param key="validateBetweenScopes" type="BOOLEAN">
-			<defaultValue>false</defaultValue>
-			<description>Allows to calculate distance between declaration of variable and its first usage in different scopes.</description>
-    	</param>
-    	<param key="ignoreFinal" type="BOOLEAN">
-			<defaultValue>true</defaultValue>
-			<description>Allows to ignore variables with 'final' modifier.</description>
-    	</param>
-	</rule>
 
 	<!-- 'coding' checks -->
 	<rule>
