@@ -96,6 +96,17 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.DiamondOperatorForVariableDefinitionCheck</configKey>
 	</rule>
 	<rule>
+		<key>com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck</key>
+		<name>Avoid Condition Inversion</name>
+		<category name="design"/>
+		<description>This Check helps to catch condition inversion cases which could be rewritten in a more<br>readable manner<br>There're cases where it's justified to get rid of such inversion without changing<br>the main logic. E.g.:<p><code>if (!(( a >= 8) && ( b >= 5))) { ... }</code></p><p>It can be rewritten as:</p><p><code>if ((a < 8) && (b < 5)) { ... }</code></p><p><code>if (!(a != b)) { ... }</code></p><p>as</p><code>if (a == b) { ... } </code></p>Sure, there're cases where we can't get rid of inversion without changing the main logic, e.g.:<p><code>return !(list.isEmpty());</code></p><p><code>return !(obj instanceof SomeClass);</code></p>That's why Check has following property:<br><b>applyOnlyToRelationalOperands</b> - if true Check will only put violation on<br>condition inversions with <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">relational</a> operands.<br>This option makes Check less strict, e.g.:<br>Using with value <b>true</b> does not put violation on code below:<br><p><code>if (! (obj instanceof SomeClass || obj1.isValid())) { ... }</code></p>@author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a></description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck</configKey>
+		<param key="applyOnlyToRelationalOperands" type="BOOLEAN">
+			<defaultValue>false</defaultValue>
+			<description>Avoid condition inversion only with relational operands.</description>
+		</param>
+	</rule>
+	<rule>
 		<key>com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck</key>
 		<name>Forbid Wildcard As Return Type</name>
 		<category name="design"/>
