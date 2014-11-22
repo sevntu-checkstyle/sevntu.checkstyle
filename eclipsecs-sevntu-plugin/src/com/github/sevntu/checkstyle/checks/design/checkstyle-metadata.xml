@@ -5,6 +5,14 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="1600">
 
+        <rule-metadata name="%AvoidConditionInversionCheck.name" internal-name="AvoidConditionInversionCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck"/>
+            <description>%AvoidConditionInversionCheck.desc</description>
+            <property-metadata name="applyOnlyToRelationalOperands" datatype="Boolean" default-value="false">
+                <description>%AvoidConditionInversionCheck.applyOnlyToRelationalOperands</description>
+            </property-metadata>
+        </rule-metadata>      
+
         <rule-metadata name="%CauseParameterInException.name" internal-name=" CauseParameterInException" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
             <description>%CauseParameterInException.desc</description>
