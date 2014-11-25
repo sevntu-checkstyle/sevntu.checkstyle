@@ -324,6 +324,11 @@
             <message-key key="unnecessary.paren.string" />
         </rule-metadata>
         
+        <rule-metadata name="%UselessSingleCatchCheck.name" internal-name="UselessSingleCatchCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck"/>
+            <description>%UselessSingleCatchCheck.desc</description>
+        </rule-metadata>
+        
         <rule-metadata name="%EitherLogOrThrowCheck.name" internal-name="EitherLogOrThrowCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck" />
             <description>%EitherLogOrThrowCheck.desc</description>

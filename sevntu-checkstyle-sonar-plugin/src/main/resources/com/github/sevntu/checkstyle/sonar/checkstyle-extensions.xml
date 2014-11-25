@@ -556,7 +556,13 @@
 			<description>Cancel validation setups of unnecessary parentheses in Boolean computations with assert state.</description>
     	</param>
 	</rule>
-
+	<rule>
+        <key>com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck</key>
+        <name>Useless single catch check</name>
+        <category name="coding"/>
+        <description>Checks for the presence of useless single catch blocks.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck</configKey>
+    </rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</key>
 		<name>Check for enum values name</name>
