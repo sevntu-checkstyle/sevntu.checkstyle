@@ -157,10 +157,6 @@
       <property name="severity" value="warning"/>
       <property name="targetConstantTypes" value="LITERAL_NULL,LITERAL_TRUE,LITERAL_FALSE,NUM_INT,NUM_DOUBLE,NUM_LONG,NUM_FLOAT"/>
     </module>
-    <module name="com.github.sevntu.checkstyle.checks.coding.NestedTernaryCheck">
-      <property name="severity" value="warning"/>
-      <property name="ignoreFinal" value="false"/>
-    </module>
     <module name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck">
       <property name="severity" value="warning"/>
     </module>
@@ -168,7 +164,8 @@
     <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
 	  <property name="severity" value="warning"/>
       <property name="objFormat" value="^[A-Z][a-zA-Z0-9]*$"/>
-      <property name="constRegexp" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+      <property name="constFormat" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+      <property name="excludes" value="toString"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck">
 	  <property name="severity" value="warning"/>
