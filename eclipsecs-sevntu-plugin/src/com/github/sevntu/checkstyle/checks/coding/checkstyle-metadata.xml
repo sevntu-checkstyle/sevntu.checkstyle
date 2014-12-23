@@ -252,6 +252,26 @@
            		 </property-metadata>
 	    </rule-metadata>
 
+        <rule-metadata name="%NameConventionForJunit4TestClassesCheck.name"
+            internal-name="NameConventionForJunit4TestClassesCheck" parent="TreeWalker">
+            <alternative-name
+                internal-name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck" />
+            <description>%NameConventionForJunit4TestClassesCheck.desc</description>
+            <property-metadata name="expectedClassNameRegex"
+                datatype="Regex" default-value=".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*">
+                <description>%NameConventionForJunit4TestClassesCheck.correctTestClassNameRegex</description>
+            </property-metadata>
+            <property-metadata name="classAnnotationNameRegex"
+                datatype="Regex" default-value="">
+                <description>%NameConventionForJunit4TestClassesCheck.classAnnotationNameRegex</description>
+            </property-metadata>
+            <property-metadata name="methodAnnotationNameRegex"
+                datatype="Regex" default-value="Test|org.junit.Test">
+                <description>%NameConventionForJunit4TestClassesCheck.methodAnnotationNameRegex</description>
+            </property-metadata>
+            <message-key key="name.convention.for.test.classes" />
+        </rule-metadata>
+        
         <rule-metadata name="%NoNullForCollectionReturnCheck.name" internal-name="NoNullForCollectionReturnCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck"/>
             <description>%NoNullForCollectionReturnCheck.desc</description>   
