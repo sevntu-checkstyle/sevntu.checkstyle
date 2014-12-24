@@ -73,4 +73,15 @@ public class InputForbidReturnInFinalBlockCheck
 
     }
 
+    private static void meth5()
+    {
+        try {
+            while (true) {
+                break;
+            }
+        }
+        finally {
+        }
+    }
+
 }
