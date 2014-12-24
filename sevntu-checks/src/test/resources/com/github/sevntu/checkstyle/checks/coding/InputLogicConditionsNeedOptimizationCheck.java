@@ -80,4 +80,10 @@ public class InputLogicConditionsNeedOptimizationCheck
 	        return true;
 	    }
 	}
+
+    private static void test()
+    {
+        String x = "test";
+        boolean y = x.length() == 3 ? true : false;
+    }
 }
