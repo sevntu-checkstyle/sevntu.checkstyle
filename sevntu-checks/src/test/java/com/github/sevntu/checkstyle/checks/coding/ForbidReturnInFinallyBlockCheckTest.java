@@ -18,13 +18,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck.*;
 
 import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidReturnInFinalBlockCheckTest 
+public class ForbidReturnInFinallyBlockCheckTest 
         extends BaseCheckTestSupport
 {
     /**
@@ -35,13 +35,14 @@ public class ForbidReturnInFinalBlockCheckTest
     public void testDefault()
             throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidReturnInFinalBlockCheck.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidReturnInFinallyBlockCheck.class);
         final String[] expected = {
                 "13: " + warningMessage,
-                "26: " + warningMessage,
-                "46: " + warningMessage,
-                "53: " + warningMessage };
-        verify(checkConfig, getPath("InputForbidReturnInFinalBlockCheck.java"),
+                "28: " + warningMessage,
+                "49: " + warningMessage,
+                "56: " + warningMessage,
+                "82: " + warningMessage};
+        verify(checkConfig, getPath("InputForbidReturnInFinallyBlockCheck.java"),
                 expected);
     }
 }
