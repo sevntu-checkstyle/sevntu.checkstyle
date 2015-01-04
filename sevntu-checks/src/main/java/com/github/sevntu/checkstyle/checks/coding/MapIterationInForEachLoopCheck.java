@@ -268,6 +268,13 @@ public class MapIterationInForEachLoopCheck extends Check
     }
 
     @Override
+    public void finishTree(DetailAST ast)
+    {
+        mMapNamesList.clear();
+        mMapNamesList.clear();
+    }
+
+    @Override
     public void visitToken(DetailAST aAst)
     {
         switch (aAst.getType()) {
