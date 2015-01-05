@@ -83,19 +83,19 @@ public class TryWithResourcesCheck extends Check
         }
     }
 
-    private boolean matchedType(DetailAST ast)
+    private boolean matchedType(DetailAST typeAST)
     {
-        DetailAST identFirstChild = ast.getFirstChild();
+        DetailAST identFirstChild = typeAST.getFirstChild();
 
         switch (identFirstChild.getType()) {
         case TokenTypes.IDENT: // eg. FileInputStream
-            if (isParentAcceptable(ast.getParent())) {
+            if (isParentAcceptable(typeAST.getParent())) {
                 // IDENT is fine but first check if the parent is OK
                 return isClassAutoCloseable(identFirstChild.getText());
             }
             return false;
         case TokenTypes.DOT: // eg. java.io.FileInputStream
-            if (isParentAcceptable(ast.getParent())) {
+            if (isParentAcceptable(typeAST.getParent())) {
                 // DOT is fine but first check if the parent is OK
                 return isClassAutoCloseable(FullIdent.createFullIdent(identFirstChild).getText());
             }
