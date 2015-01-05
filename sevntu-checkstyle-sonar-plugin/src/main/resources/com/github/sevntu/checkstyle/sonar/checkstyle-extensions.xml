@@ -558,6 +558,13 @@
 			<description>Ignore ternary operators in expression in case if ternary operator is isolated in line</description>
 		</param>
 	</rule>
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.coding.TryWithResourcesCheck</key>
+        <name>Try with resources</name>
+        <category name="coding" />
+        <description>Verifies that AutoCloseable resource is declared with try-with-resources statement to make sure that is closed correctly</description> 
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.TryWithResourcesCheck</configKey>
+    </rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck</key>
 		<name>Unnecessary Parentheses Extended</name>

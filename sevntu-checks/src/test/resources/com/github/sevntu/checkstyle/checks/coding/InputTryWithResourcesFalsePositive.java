@@ -3,15 +3,11 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.io.Closeable;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+// one import with .* just for testing and code coverage
+import java.io.*;
 
 public class InputTryWithResourcesFalsePositive
 {
-
-    // hard to make it work with try-with-resources
-    private InputStream stream = null;
-
     public void failEvenStreamAsClosed()
             throws IOException
     {
@@ -32,5 +28,4 @@ public class InputTryWithResourcesFalsePositive
         AutoCloseable stream = getClass().getResourceAsStream("");
         stream.close();
     }
-
 }

@@ -111,7 +111,7 @@ public class TryWithResourcesCheck extends Check
         case TokenTypes.LITERAL_DOUBLE:
             return false;
         case TokenTypes.ARRAY_DECLARATOR: // array declaration: []
-            // supporting arrays is more complicated than useful
+            // supporting arrays is more complicated so don't complain about it
             return false;
         case TokenTypes.BOR: // pipeline, eg catch (FileNotFoundException | ZipException e
             return false;
@@ -120,6 +120,9 @@ public class TryWithResourcesCheck extends Check
         }
     }
 
+    /**
+     * Determines if parent for {@link TokenTypes#TYPE} token is acceptable to mark the problem.
+     */
     private boolean isParentAcceptable(DetailAST parent)
     {
         switch (parent.getType()) {
@@ -159,24 +162,31 @@ public class TryWithResourcesCheck extends Check
         }
     }
 
+    /**
+     * Checks if passed type implements {@link AutoCloseable}.
+     * @param typeName
+     *        short type such as <code>FileInputStream</code> or
+     *        <code>java.io.FileInputStream</code>
+     * @return true if given type implements {@link AutoCloseable}
+     */
     private boolean isClassAutoCloseable(String typeName)
     {
         // check when this IDENT is not fully qualified type with package
-        if (implementsCloseable(buildClass(typeName))) {
+        if (implementsAutoCloseable(buildClass(typeName))) {
             return true;
         }
         // try to merge with imports and check if type is valid
         for (String importName : imports) {
             boolean result = false;
 
-            // in case of start imports (import java.io.*) drop last character and try to create class for this package
+            // in case of star imports (import java.io.*) drop last character and try to create class for this package
             if (importName.endsWith(".*")) {
-                result = implementsCloseable(buildClass(importName.substring(0,
+                result = implementsAutoCloseable(buildClass(importName.substring(0,
                         importName.length() - 1) + typeName));
             }
             // otherwise import contains full class name
             else if (importName.endsWith(typeName)) {
-                result = implementsCloseable(buildClass(importName));
+                result = implementsAutoCloseable(buildClass(importName));
             }
             if (result) {
                 return true;
@@ -185,6 +195,12 @@ public class TryWithResourcesCheck extends Check
         return false;
     }
 
+    /**
+     * Checks if given type is a known class or interface type.
+     * @param typeName
+     *        literal that shall be checked
+     * @return true if given type could be created
+     */
     private Class<?> buildClass(String typeName)
     {
         try {
@@ -195,7 +211,13 @@ public class TryWithResourcesCheck extends Check
         }
     }
 
-    private boolean implementsCloseable(Class<?> instance)
+    /**
+     * Check if given class implements {@link AutoCloseable} directly or indirectly.
+     * @param instance
+     *        class or interface that shall be validated
+     * @return true if given type implements {@link AutoCloseable}
+     */
+    private boolean implementsAutoCloseable(Class<?> instance)
     {
         if (instance == null) {
             return false;
@@ -204,22 +226,35 @@ public class TryWithResourcesCheck extends Check
             // if this implements interfaces check if any of them is not AutoCloseable
             // or it implements AutoCloseable
             for (Class<?> clazz : instance.getInterfaces()) {
-                if (implementsCloseable(clazz)) {
+                if (implementsAutoCloseable(clazz)) {
                     return true;
                 }
             }
             // success if finally reached AutoCloseable
             return instance.equals(AutoCloseable.class)
                     // if not, repeat validation for class it extends
-                    || implementsCloseable(instance.getSuperclass());
+                    || implementsAutoCloseable(instance.getSuperclass());
         }
     }
 
+    /**
+     * Report the violation.
+     * @param lineNumber
+     *        line which is violated
+     */
     private void reportProblem(int lineNumber)
     {
         log(lineNumber, MSG_KEY);
     }
 
+    /**
+     * Throwing when parsed token is not supported. It means that some cas it not supported by this
+     * Check and it should be updated or new token appears with new JDK and shall be supported as
+     * well.
+     * @param ast
+     *        AST which could not be parsed properly
+     * @return exception that should be thrown/passed to inform about unexpected situation
+     */
     private RuntimeException reportUnsupportedToken(DetailAST ast)
     {
         return new IllegalArgumentException(String.format("Unsupported type: %s with value %d.",

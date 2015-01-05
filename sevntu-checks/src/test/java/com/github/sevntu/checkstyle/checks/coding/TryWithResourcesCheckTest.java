@@ -57,12 +57,24 @@ public class TryWithResourcesCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig = createCheckConfig(TryWithResourcesCheck.class);
 
         final String[] expected = {
-                "18: " + getCheckMessage(MSG_KEY),
-                "25: " + getCheckMessage(MSG_KEY),
-                "32: " + getCheckMessage(MSG_KEY)
+                "14: " + getCheckMessage(MSG_KEY),
+                "21: " + getCheckMessage(MSG_KEY),
+                "28: " + getCheckMessage(MSG_KEY)
         };
 
         verify(checkConfig, getPath("InputTryWithResourcesFalsePositive.java"), expected);
+    }
+
+    @Test
+    public void testValidStatements()
+            throws Exception
+    {
+        final DefaultConfiguration checkConfig = createCheckConfig(TryWithResourcesCheck.class);
+
+        final String[] expected = {
+                };
+
+        verify(checkConfig, getPath("InputTryWithResourcesValidStatements.java"), expected);
     }
 
     @Test
