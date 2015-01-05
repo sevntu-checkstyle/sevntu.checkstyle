@@ -20,9 +20,12 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -192,16 +195,15 @@ public class MapIterationInForEachLoopCheck extends Check
      * Set of allowable map implementations. You can set your own map
      * implementations in Checkstyle configuration
      */
-    private final Set<String> mSupportedMapImplQualifiedNames;
+    private final Set<String> mSupportedMapImplQualifiedNames = new HashSet<String>();
 
     /**
      * Creates default importList and mapImportClassesNamesList.
      */
     public MapIterationInForEachLoopCheck()
     {
-        mSupportedMapImplQualifiedNames = new HashSet<String>();
         setSupportedMapImplQualifiedNames(new String[] {
-            "java.util.Map", "java.util.TreeMap", "java.util.HashMap", });
+            Map.class.getName(), TreeMap.class.getName(), HashMap.class.getName() });
     }
 
     /**
@@ -268,9 +270,9 @@ public class MapIterationInForEachLoopCheck extends Check
     }
 
     @Override
-    public void finishTree(DetailAST ast)
+    public void beginTree(DetailAST ast)
     {
-        mMapNamesList.clear();
+        mQualifiedImportList.clear();
         mMapNamesList.clear();
     }
 
