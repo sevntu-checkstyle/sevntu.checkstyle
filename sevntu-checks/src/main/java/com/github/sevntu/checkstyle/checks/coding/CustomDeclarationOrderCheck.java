@@ -156,20 +156,20 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  */
 public class CustomDeclarationOrderCheck extends Check
 {
-	public static final String MSG_KEY_FIELD = "custom.declaration.order.field";
-	
-	public static final String MSG_KEY_METHOD = "custom.declaration.order.method";
-	
-	public static final String MSG_KEY_CONSTRUCTOR = "custom.declaration.order.constructor";
-	
-	public static final String MSG_KEY_CLASS = "custom.declaration.order.class";
-	
-	public static final String MSG_KEY_INTERFACE = "custom.declaration.order.interface";
-	
-	public static final String MSG_KEY_ENUM = "custom.declaration.order.enum";
-	
-	public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
-	
+    public static final String MSG_KEY_FIELD = "custom.declaration.order.field";
+
+    public static final String MSG_KEY_METHOD = "custom.declaration.order.method";
+
+    public static final String MSG_KEY_CONSTRUCTOR = "custom.declaration.order.constructor";
+
+    public static final String MSG_KEY_CLASS = "custom.declaration.order.class";
+
+    public static final String MSG_KEY_INTERFACE = "custom.declaration.order.interface";
+
+    public static final String MSG_KEY_ENUM = "custom.declaration.order.enum";
+
+    public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
+
     private static final String INNER_ENUM_MACRO = "InnerEnum";
 
     private static final String INNER_INTERFACE_MACRO = "InnerInterface";

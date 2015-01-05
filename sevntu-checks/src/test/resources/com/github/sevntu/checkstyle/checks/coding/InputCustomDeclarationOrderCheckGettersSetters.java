@@ -8,7 +8,7 @@ class InputCustomDeclarationOrderCheckGettersSetters {
     private boolean visible;
 
     public int getField() {
-        return field;
+        return this.field;
     }
 
     public void setField(int field) {

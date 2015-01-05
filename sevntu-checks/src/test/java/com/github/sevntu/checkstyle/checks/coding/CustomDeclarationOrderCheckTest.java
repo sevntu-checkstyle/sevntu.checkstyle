@@ -133,12 +133,13 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-                       "10:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
-                       "17:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "Method(.*)"),
+                "10:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "MainMethod(.*)"),
+                "17:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private)", "MainMethod(.*)"),
+                "23:5: " + getCheckMessage(MSG_KEY_METHOD, "MainMethod(.*)", "Method(.*)"),
         };
         checkConfig.addAttribute(
                         "customDeclarationOrder",
-                        "Field(private) ### Field(public) ### MainMethod() ### Method(.*)"
+                        "Field(private) ### Field(public) ### MainMethod(.*) ### Method(.*)"
                         );
         checkConfig.addAttribute("caseSensitive", "false");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheckMainMethod.java"), expected);
