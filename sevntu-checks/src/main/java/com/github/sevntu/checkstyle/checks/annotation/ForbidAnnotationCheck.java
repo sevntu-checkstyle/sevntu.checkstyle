@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -38,7 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  */
 
-public class ForbidAnnotationCheck extends Check
+public class ForbidAnnotationCheck extends AnnotationAbstract
 {
 	
 	/**
@@ -108,18 +107,7 @@ public class ForbidAnnotationCheck extends Check
                     currentTarget, annotationName);
         }
     }
-    
-    private static String getAnnotationName(DetailAST aAnnotation){
-    	DetailAST directname = aAnnotation.findFirstToken(TokenTypes.IDENT);
 
-    	if(directname != null){
-    		return directname.getText();
-    	}else{
-    		//This means that annotation is specified with the full package name
-    		return aAnnotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
-    	}
-    }
-    
 
     /**
      * return true if mAnnotationNames contains aAnnotationName.

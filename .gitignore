@@ -5,3 +5,4 @@ gh-pages/
 *~
 *.iml
 .settings
+.metadata
