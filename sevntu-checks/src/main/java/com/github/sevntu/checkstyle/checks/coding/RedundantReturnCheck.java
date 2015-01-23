@@ -83,10 +83,10 @@ public class RedundantReturnCheck extends Check {
 	/**
 	 *  If True, allow 'return' in empty constructors and methods that return void.
 	 */
-	private boolean mAllowReturnInEmptyMethodsAndConstructors = false;
+	private boolean allowReturnInEmptyMethodsAndConstructors = false;
 
-	public void setAllowReturnInEmptyMethodsAndConstructors(boolean aAllowEmptyBlocks) {
-		mAllowReturnInEmptyMethodsAndConstructors = aAllowEmptyBlocks;
+	public void setAllowReturnInEmptyMethodsAndConstructors(boolean allowEmptyBlocks) {
+		allowReturnInEmptyMethodsAndConstructors = allowEmptyBlocks;
 	}
 
 	@Override
@@ -95,20 +95,20 @@ public class RedundantReturnCheck extends Check {
 	}
 
 	@Override
-	public void visitToken(DetailAST aAst) {
+	public void visitToken(DetailAST ast) {
 
-		final DetailAST blockAst = aAst.getLastChild();
+		final DetailAST blockAst = ast.getLastChild();
 
-		switch (aAst.getType()) {
+		switch (ast.getType()) {
 			case TokenTypes.CTOR_DEF:
-				if (!ignoreLonelyReturn(blockAst) && hasNonEmptyBody(aAst)) {
+				if (!ignoreLonelyReturn(blockAst) && hasNonEmptyBody(ast)) {
 					List<DetailAST> redundantReturns = getRedundantReturns(blockAst);
 					log(redundantReturns);
 				}
 				break;
 
 			case TokenTypes.METHOD_DEF:
-				if (!ignoreLonelyReturn(blockAst) && isVoidMethodWithNonEmptyBody(aAst)) {
+				if (!ignoreLonelyReturn(blockAst) && isVoidMethodWithNonEmptyBody(ast)) {
 					List<DetailAST> redundantReturns = getRedundantReturns(blockAst);
 					log(redundantReturns);
 				}
@@ -116,7 +116,7 @@ public class RedundantReturnCheck extends Check {
 
 			default:
 				final String exceptionMsg = "Unexpected TokenType - " 
-						+ TokenTypes.getTokenName(aAst.getType());
+						+ TokenTypes.getTokenName(ast.getType());
 				throw new IllegalStateException(exceptionMsg);
 			}
 	}
@@ -124,42 +124,42 @@ public class RedundantReturnCheck extends Check {
 	/**
 	 * Ignores method or constructor if it contains <b>only</> return statement
 	 * in its body
-	 * @param aObjectBlockAst
+	 * @param objectBlockAst
 	 */
-	private boolean ignoreLonelyReturn(DetailAST aObjectBlockAst) {
+	private boolean ignoreLonelyReturn(DetailAST objectBlockAst) {
 		
-		return mAllowReturnInEmptyMethodsAndConstructors 
-					&& aObjectBlockAst.getFirstChild().getType() 
+		return allowReturnInEmptyMethodsAndConstructors 
+					&& objectBlockAst.getFirstChild().getType() 
 						== TokenTypes.LITERAL_RETURN;
 	}
 	
 	/**
 	 * Checks if method's or ctor's body is not empty
-	 * @param aDefAst
+	 * @param defAst
 	 */
-	private static boolean hasNonEmptyBody(DetailAST aDefAst) {
-		return aDefAst.getLastChild().getChildCount() > 1;
+	private static boolean hasNonEmptyBody(DetailAST defAst) {
+		return defAst.getLastChild().getChildCount() > 1;
 	}
 	
 	/**
 	 * Checks if method is void and has a body
-	 * @param aMethodDefAst
+	 * @param methodDefAst
 	 */
-	private static boolean isVoidMethodWithNonEmptyBody(DetailAST aMethodDefAst) {
+	private static boolean isVoidMethodWithNonEmptyBody(DetailAST methodDefAst) {
 		
-		return aMethodDefAst.getLastChild().getType() == TokenTypes.SLIST 
-					&& aMethodDefAst.findFirstToken(TokenTypes.TYPE)
+		return methodDefAst.getLastChild().getType() == TokenTypes.SLIST 
+					&& methodDefAst.findFirstToken(TokenTypes.TYPE)
 						.findFirstToken(TokenTypes.LITERAL_VOID) != null
-					&& hasNonEmptyBody(aMethodDefAst);
+					&& hasNonEmptyBody(methodDefAst);
 	}
 
 	/**
 	 * Puts violation on each redundant return met in object block of 
 	 * method or ctor
-	 * @param aRedundantReturnsAst
+	 * @param redundantReturnsAst
 	 */
-	private void log(List<DetailAST> aRedundantReturnsAst) {
-		for (DetailAST redundantLiteralReturnAst : aRedundantReturnsAst) {
+	private void log(List<DetailAST> redundantReturnsAst) {
+		for (DetailAST redundantLiteralReturnAst : redundantReturnsAst) {
 			log(redundantLiteralReturnAst.getLineNo(), MSG_KEY);
 		}
 	}
@@ -167,31 +167,31 @@ public class RedundantReturnCheck extends Check {
 	/**
 	 * Returns the list of redundant returns found in method's or ctor's
 	 * object block
-	 * @param aObjectBlockAst
+	 * @param objectBlockAst
 	 *            - a method or constructor object block
 	 * @return list of redundant returns or empty list if none were found
 	 */
-	private static List<DetailAST> getRedundantReturns(DetailAST aObjectBlockAst) {
+	private static List<DetailAST> getRedundantReturns(DetailAST objectBlockAst) {
 		
 		List<DetailAST> redundantReturns = new ArrayList<DetailAST>();
 		
-		final int placeForRedundantReturn = aObjectBlockAst
+		final int placeForRedundantReturn = objectBlockAst
 			.getLastChild().getPreviousSibling().getType();
 
 		if (placeForRedundantReturn == TokenTypes.LITERAL_RETURN) {
 
-			final DetailAST lastChildAst = aObjectBlockAst.getLastChild();
+			final DetailAST lastChildAst = objectBlockAst.getLastChild();
 
 			final DetailAST redundantReturnAst = lastChildAst.getPreviousSibling();
 			
 			redundantReturns.add(redundantReturnAst);
 			
 		} else if (placeForRedundantReturn == TokenTypes.LITERAL_TRY 
-				&& !getRedundantReturnsInTryCatchBlock(aObjectBlockAst
+				&& !getRedundantReturnsInTryCatchBlock(objectBlockAst
 					.findFirstToken(TokenTypes.LITERAL_TRY)).isEmpty()) {
 			
 			final List<DetailAST> redundantsAst 
-				= getRedundantReturnsInTryCatchBlock(aObjectBlockAst
+				= getRedundantReturnsInTryCatchBlock(objectBlockAst
 				    .findFirstToken(TokenTypes.LITERAL_TRY));
 			
 			redundantReturns.addAll(redundantsAst);
@@ -202,20 +202,20 @@ public class RedundantReturnCheck extends Check {
 
 	/**
 	 * Returns the list of redundant returns found in try, catch, finally object blocks.
-	 * @param aTryAst
+	 * @param tryAst
 	 *            - Ast that contain a try node.
 	 * @return list of redundant returns or empty list if none were found
 	 */
-	private static List<DetailAST> getRedundantReturnsInTryCatchBlock(DetailAST aTryAst) {
+	private static List<DetailAST> getRedundantReturnsInTryCatchBlock(DetailAST tryAst) {
 
 		List<DetailAST> redundantReturns = new ArrayList<DetailAST>();
 		
 		DetailAST tryBlockAst = null;
 		
-		if (aTryAst.getFirstChild().getType() != TokenTypes.RESOURCE_SPECIFICATION) {
-			tryBlockAst = aTryAst.getFirstChild();
+		if (tryAst.getFirstChild().getType() != TokenTypes.RESOURCE_SPECIFICATION) {
+			tryBlockAst = tryAst.getFirstChild();
 		} else {
-			tryBlockAst = aTryAst.getFirstChild().getNextSibling();
+			tryBlockAst = tryAst.getFirstChild().getNextSibling();
 		}
 		
 		DetailAST redundantReturnAst =
@@ -265,37 +265,37 @@ public class RedundantReturnCheck extends Check {
 
 	/**
 	 * Gets next catch block in try block if exists
-	 * @param aBlockAst
+	 * @param blockAst
 	 * @return next found catchBlockAst, if no catch was found - returns null
 	 */
-	private static DetailAST getNextCatchBlock(DetailAST aBlockAst) {
+	private static DetailAST getNextCatchBlock(DetailAST blockAst) {
 		DetailAST catchBlockAst = null;
-		if (aBlockAst.getNextSibling() != null 
-				&& aBlockAst.getNextSibling().getType() == TokenTypes.LITERAL_CATCH) {
+		if (blockAst.getNextSibling() != null 
+				&& blockAst.getNextSibling().getType() == TokenTypes.LITERAL_CATCH) {
 			
-			catchBlockAst = aBlockAst.getNextSibling();
+			catchBlockAst = blockAst.getNextSibling();
 		}
 		return catchBlockAst;
 	}
 
 	/**
 	 * Returns redundant return from try-catch-finally block.
-	 * @param aStatementAst
+	 * @param statementAst
 	 *            - a place where the redundantReturn is expected.
 	 * @return redundant literal return if found, else null.
 	 */
-	private static DetailAST getRedundantReturnInBlock(DetailAST aStatementAst) {
+	private static DetailAST getRedundantReturnInBlock(DetailAST statementAst) {
 
 		DetailAST redundantReturnAst = null;
 		
-		if (aStatementAst != null) {
+		if (statementAst != null) {
 
-			if (aStatementAst.getType() == TokenTypes.LITERAL_RETURN) {
-				redundantReturnAst = aStatementAst;
+			if (statementAst.getType() == TokenTypes.LITERAL_RETURN) {
+				redundantReturnAst = statementAst;
 			}
 			else {
-				if (aStatementAst.getFirstChild() != null) {
-					DetailAST foundRedundantReturnAst = findRedundantReturnInCatch(aStatementAst);
+				if (statementAst.getFirstChild() != null) {
+					DetailAST foundRedundantReturnAst = findRedundantReturnInCatch(statementAst);
 					if (foundRedundantReturnAst != null) {
 						redundantReturnAst = foundRedundantReturnAst;
 					}
@@ -308,12 +308,12 @@ public class RedundantReturnCheck extends Check {
 
 	/**
 	 * Looks for literal return in the last statement of a catch block
-	 * @param aLastStatementInCatchBlockAst
+	 * @param lastStatementInCatchBlockAst
 	 * @return redundant literal return, if there's no one - returns null
 	 */
-	private static DetailAST findRedundantReturnInCatch(DetailAST aLastStatementInCatchBlockAst) {
+	private static DetailAST findRedundantReturnInCatch(DetailAST lastStatementInCatchBlockAst) {
 		DetailAST redundantReturnAst = null;
-		DetailAST currentNodeAst = aLastStatementInCatchBlockAst;
+		DetailAST currentNodeAst = lastStatementInCatchBlockAst;
 		DetailAST toVisitAst = currentNodeAst;
 		DetailAST returnAst = null;
 		while (toVisitAst != null) {
@@ -343,7 +343,7 @@ public class RedundantReturnCheck extends Check {
 			}
 		}
 		
-		currentNodeAst = getNextSubTreeNode(currentNodeAst, aLastStatementInCatchBlockAst);
+		currentNodeAst = getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
 		return redundantReturnAst;
 			
 	}
@@ -351,26 +351,26 @@ public class RedundantReturnCheck extends Check {
 	/**
 	 * Gets the next node of a syntactical tree (child of a current node or
 	 * sibling of a current node, or sibling of a parent of a current node)
-	 * @param aCurrentNodeAst
+	 * @param currentNodeAst
 	 *        Current node in considering
 	 * @return Current node after bypassing, if current node reached the root of a subtree
 	 * 		  method returns null
 	 */
 	private static DetailAST 
-		getNextSubTreeNode(DetailAST aCurrentNodeAst, DetailAST aSubTreeRootAst) {
+		getNextSubTreeNode(DetailAST currentNodeAst, DetailAST subTreeRootAst) {
 		
-		DetailAST toVisitAst = aCurrentNodeAst.getFirstChild();
+		DetailAST toVisitAst = currentNodeAst.getFirstChild();
 		while (toVisitAst == null) {
-			toVisitAst = aCurrentNodeAst.getNextSibling();
+			toVisitAst = currentNodeAst.getNextSibling();
 			if (toVisitAst == null) {
-				if (aCurrentNodeAst.getParent().equals(aSubTreeRootAst)) {
+				if (currentNodeAst.getParent().equals(subTreeRootAst)) {
 					break;
 				}
-				aCurrentNodeAst = aCurrentNodeAst.getParent();
+				currentNodeAst = currentNodeAst.getParent();
 			}
 		}
-		aCurrentNodeAst = toVisitAst;
-		return aCurrentNodeAst;
+		currentNodeAst = toVisitAst;
+		return currentNodeAst;
 	}
 
 }

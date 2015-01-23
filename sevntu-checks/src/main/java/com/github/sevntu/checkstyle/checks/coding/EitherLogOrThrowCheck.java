@@ -127,24 +127,24 @@ public class EitherLogOrThrowCheck extends Check
     /**
      * Logger fully qualified class name.
      */
-    private String mLoggerFullyQualifiedClassName = "org.slf4j.Logger";
+    private String loggerFullyQualifiedClassName = "org.slf4j.Logger";
     /**
      * Logger class name.
      */
-    private String mLoggerSimpleClassName = "Logger";
+    private String loggerSimpleClassName = "Logger";
     /**
      * Logger method names.
      */
-    private List<String> mLoggingMethodNames =
+    private List<String> loggingMethodNames =
             Arrays.asList("error", "warn", "info", "debug");
     /**
      * Variables names of logger variables.
      */
-    private List<String> mLoggerFieldNames = new LinkedList<String>();
+    private List<String> loggerFieldNames = new LinkedList<String>();
     /**
      * Logger class is in imports.
      */
-    private boolean mHasLoggerClassInImports;
+    private boolean hasLoggerClassInImports;
     /**
      * Regexp of printStackTrace method.
      */
@@ -153,38 +153,38 @@ public class EitherLogOrThrowCheck extends Check
     /**
      * Considered class definition.
      */
-    private DetailAST mCurrentClassDefAst;
+    private DetailAST currentClassDefAst;
     /**
      * Considered method definition.
      */
-    private DetailAST mCurrentMethodDefAst;
+    private DetailAST currentMethodDefAst;
     /**
      * Current local variable names of logger type. It can be method's parameter
      * or method's local variable.
      */
-    private List<String> mCurrentLocalLoggerVariableNames = new ArrayList<String>();
+    private List<String> currentLocalLoggerVariableNames = new ArrayList<String>();
 
     /**
      * Set logger full class name and logger simple class name.
-     * @param aLoggerFullyQualifiedClassName
+     * @param loggerFullyQualifiedClassName
      *        Logger full class name. Example: org.slf4j.Logger.
      */
     public void setLoggerFullyQualifiedClassName(
-            String aLoggerFullyQualifiedClassName)
+            String loggerFullyQualifiedClassName)
     {
-        mLoggerFullyQualifiedClassName = aLoggerFullyQualifiedClassName;
-        mLoggerSimpleClassName = mLoggerFullyQualifiedClassName;
+        this.loggerFullyQualifiedClassName = loggerFullyQualifiedClassName;
+        loggerSimpleClassName = loggerFullyQualifiedClassName;
         final int lastDotIndex =
-                mLoggerFullyQualifiedClassName.lastIndexOf('.');
+                this.loggerFullyQualifiedClassName.lastIndexOf('.');
         if (lastDotIndex != -1) {
-            mLoggerSimpleClassName = mLoggerFullyQualifiedClassName
+            loggerSimpleClassName = this.loggerFullyQualifiedClassName
                     .substring(lastDotIndex + 1);
         }
     }
 
-    public void setLoggingMethodNames(String[] aLoggingMethodNames)
+    public void setLoggingMethodNames(String[] loggingMethodNames)
     {
-        mLoggingMethodNames = Arrays.asList(aLoggingMethodNames);
+        this.loggingMethodNames = Arrays.asList(loggingMethodNames);
     }
 
     @Override
@@ -199,72 +199,72 @@ public class EitherLogOrThrowCheck extends Check
     }
 
     @Override
-    public void visitToken(final DetailAST aAst)
+    public void visitToken(final DetailAST ast)
     {
-        switch (aAst.getType()) {
-        case TokenTypes.IMPORT:
-            if (!mHasLoggerClassInImports
-                    && isLoggerImport(aAst))
-            {
-                mHasLoggerClassInImports = true;
-            }
-            break;
-        case TokenTypes.CLASS_DEF:
-            if (!isInnerClass(aAst)) {
-                mCurrentClassDefAst = aAst;
-                collectLoggerFieldNames(aAst);
-            }
-            break;
-        case TokenTypes.METHOD_DEF:
-            if (isMethodOfCurrentClass(aAst)) {
-                mCurrentMethodDefAst = aAst;
-                mCurrentLocalLoggerVariableNames.clear();
-                final DetailAST parametersAst = mCurrentMethodDefAst
+        switch (ast.getType()) {
+            case TokenTypes.IMPORT:
+                if (!hasLoggerClassInImports
+                    && isLoggerImport(ast))
+                {
+                    hasLoggerClassInImports = true;
+                }
+                break;
+            case TokenTypes.CLASS_DEF:
+                if (!isInnerClass(ast)) {
+                    currentClassDefAst = ast;
+                    collectLoggerFieldNames(ast);
+                }
+                break;
+            case TokenTypes.METHOD_DEF:
+                if (isMethodOfCurrentClass(ast)) {
+                    currentMethodDefAst = ast;
+                    currentLocalLoggerVariableNames.clear();
+                    final DetailAST parametersAst = currentMethodDefAst
                         .findFirstToken(TokenTypes.PARAMETERS);
-                collectLoggersFromParameters(parametersAst);
-            }
-            break;
-        case TokenTypes.VARIABLE_DEF:
-            final DetailAST methodDefAst = aAst.getParent().getParent();
-            if (methodDefAst.getType() == TokenTypes.METHOD_DEF
-                    && methodDefAst == mCurrentMethodDefAst
-                    && isLoggerVariableDefinition(aAst))
-            {
-                mCurrentLocalLoggerVariableNames.add(getIdentifier(aAst));
-            }
-            break;
-        case TokenTypes.LITERAL_CATCH:
-            processCatchNode(aAst);
-            break;
-        default:
-            throw new IllegalArgumentException("Non-correct AST node.");
+                    collectLoggersFromParameters(parametersAst);
+                }
+                break;
+            case TokenTypes.VARIABLE_DEF:
+                final DetailAST methodDefAst = ast.getParent().getParent();
+                if (methodDefAst.getType() == TokenTypes.METHOD_DEF
+                    && methodDefAst == currentMethodDefAst
+                    && isLoggerVariableDefinition(ast))
+                {
+                    currentLocalLoggerVariableNames.add(getIdentifier(ast));
+                }
+                break;
+            case TokenTypes.LITERAL_CATCH:
+                processCatchNode(ast);
+                break;
+            default:
+                throw new IllegalArgumentException("Non-correct AST node.");
         }
     }
 
     /**
-     * @param aImportAst
+     * @param importAst
      *        DetailAST of import statement.
      * @return true if import equals logger full class name.
      */
-    private boolean isLoggerImport(final DetailAST aImportAst)
+    private boolean isLoggerImport(final DetailAST importAst)
     {
         final String importIdentifier =
-                FullIdent.createFullIdent(aImportAst.getFirstChild()).getText();
-        return mLoggerFullyQualifiedClassName.equals(importIdentifier);
+                FullIdent.createFullIdent(importAst.getFirstChild()).getText();
+        return loggerFullyQualifiedClassName.equals(importIdentifier);
     }
 
     /**
      * Verify that class is inner.
-     * @param aClassDefAst
+     * @param classDefAst
      *        DetailAST of class definition.
      * @return true if class is inner, false otherwise.
      */
-    private boolean isInnerClass(final DetailAST aClassDefAst)
+    private boolean isInnerClass(final DetailAST classDefAst)
     {
         boolean result = false;
-        DetailAST parentAst = aClassDefAst.getParent();
+        DetailAST parentAst = classDefAst.getParent();
         while (parentAst != null) {
-            if (parentAst == mCurrentClassDefAst) {
+            if (parentAst == currentClassDefAst) {
                 result = true;
                 break;
             }
@@ -275,19 +275,19 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Save names of parameters which have logger type.
-     * @param aParametersAst
+     * @param parametersAst
      *        DetailAST of parameters.
      */
-    private void collectLoggersFromParameters(final DetailAST aParametersAst)
+    private void collectLoggersFromParameters(final DetailAST parametersAst)
     {
-        DetailAST currentParameterAst = aParametersAst
+        DetailAST currentParameterAst = parametersAst
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
         while (currentParameterAst != null) {
             final DetailAST parameterTypeAst = currentParameterAst
                     .findFirstToken(TokenTypes.TYPE);
             final String className = getIdentifier(parameterTypeAst);
             if (className != null && isLoggerClassName(className)) {
-                mCurrentLocalLoggerVariableNames
+                currentLocalLoggerVariableNames
                         .add(getIdentifier(currentParameterAst));
             }
             currentParameterAst = currentParameterAst.getNextSibling();
@@ -296,31 +296,31 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Verify that method's parent is class, stored in mCurrentClassDefAst.
-     * @param aMethodDefAst DetailAST of METHOD_DEF.
+     * @param methodDefAst DetailAST of METHOD_DEF.
      * @return true if method's parent is class, stored in mCurrentClassDefAst.
      */
-    private boolean isMethodOfCurrentClass(final DetailAST aMethodDefAst)
+    private boolean isMethodOfCurrentClass(final DetailAST methodDefAst)
     {
-        final DetailAST classDefAst = aMethodDefAst.getParent().getParent();
-        return classDefAst == mCurrentClassDefAst;
+        final DetailAST classDefAst = methodDefAst.getParent().getParent();
+        return classDefAst == currentClassDefAst;
     }
 
     /**
      * Find all logger fields in aClassDefAst and save them.
-     * @param aClassDefAst
+     * @param classDefAst
      *        DetailAST of class definition.
      */
-    private void collectLoggerFieldNames(final DetailAST aClassDefAst)
+    private void collectLoggerFieldNames(final DetailAST classDefAst)
     {
         final DetailAST objBlockAst =
-                aClassDefAst.findFirstToken(TokenTypes.OBJBLOCK);
+                classDefAst.findFirstToken(TokenTypes.OBJBLOCK);
         DetailAST variableDefAst =
                 objBlockAst.findFirstToken(TokenTypes.VARIABLE_DEF);
         while (variableDefAst != null) {
             if (variableDefAst.getType() == TokenTypes.VARIABLE_DEF
                     && isLoggerVariableDefinition(variableDefAst))
             {
-                mLoggerFieldNames.add(getIdentifier(variableDefAst));
+                loggerFieldNames.add(getIdentifier(variableDefAst));
             }
             variableDefAst = variableDefAst.getNextSibling();
         }
@@ -330,64 +330,64 @@ public class EitherLogOrThrowCheck extends Check
      * Look at the each statement of catch block to find logging and throwing.
      * If same exception is being logged and throwed, then prints warning
      * message.
-     * @param aCatchAst
+     * @param catchAst
      *        DetailAST of catch block.
      */
-    private void processCatchNode(final DetailAST aCatchAst)
+    private void processCatchNode(final DetailAST catchAst)
     {
         boolean isLoggingExceptionFound = false;
         int loggingExceptionLineNumber = 0;
         final List<String> exceptionVariableNames = new LinkedList<String>();
-        final String catchParameterName = getCatchParameterName(aCatchAst);
+        final String catchParameterName = getCatchParameterName(catchAst);
         final DetailAST statementsAst =
-                aCatchAst.findFirstToken(TokenTypes.SLIST);
+                catchAst.findFirstToken(TokenTypes.SLIST);
         DetailAST currentStatementAst = statementsAst.getFirstChild();
         while (currentStatementAst != null) {
             switch (currentStatementAst.getType()) {
-            // local logger or exception variable definition
-            case TokenTypes.VARIABLE_DEF:
-                if (isLoggerVariableDefinition(currentStatementAst)) {
-                    mCurrentLocalLoggerVariableNames
+                // local logger or exception variable definition
+                case TokenTypes.VARIABLE_DEF:
+                    if (isLoggerVariableDefinition(currentStatementAst)) {
+                        currentLocalLoggerVariableNames
                             .add(getIdentifier(currentStatementAst));
-                }
-                else {
-                    final DetailAST assignAst = currentStatementAst
-                            .findFirstToken(TokenTypes.ASSIGN);
-                    if (assignAst != null
-                            && isInstanceCreationBasedOnException(
-                                    assignAst.getFirstChild(),
-                                    catchParameterName))
-                    {
-                        exceptionVariableNames
-                                .add(getIdentifier(currentStatementAst));
                     }
-                }
-                break;
-            // logging exception or printStackTrace
-            case TokenTypes.EXPR:
-                if (!isLoggingExceptionFound
+                    else {
+                        final DetailAST assignAst = currentStatementAst
+                            .findFirstToken(TokenTypes.ASSIGN);
+                        if (assignAst != null
+                            && isInstanceCreationBasedOnException(
+                                assignAst.getFirstChild(),
+                                 catchParameterName))
+                        {
+                            exceptionVariableNames
+                                .add(getIdentifier(currentStatementAst));
+                        }
+                    }
+                    break;
+                    // logging exception or printStackTrace
+                case TokenTypes.EXPR:
+                    if (!isLoggingExceptionFound
                         && (isLoggingExceptionArgument(currentStatementAst, catchParameterName)
                         || isPrintStackTrace(currentStatementAst, catchParameterName)))
-                {
-                    isLoggingExceptionFound = true;
-                    loggingExceptionLineNumber = currentStatementAst.getLineNo();
-                }
-                break;
-            // throw exception
-            case TokenTypes.LITERAL_THROW:
-                if (isLoggingExceptionFound)
-                {
-                    exceptionVariableNames.add(catchParameterName);
-                    final DetailAST thrownExceptionAst = currentStatementAst
-                            .getFirstChild();
-                    if (exceptionVariableNames.contains(getIdentifier(thrownExceptionAst))
-                            || isInstanceCreationBasedOnException(
-                                    thrownExceptionAst, catchParameterName))
                     {
-                        log(loggingExceptionLineNumber, "either.log.or.throw");
-                        break;
+                        isLoggingExceptionFound = true;
+                        loggingExceptionLineNumber = currentStatementAst.getLineNo();
                     }
-                }
+                    break;
+                    // throw exception
+                case TokenTypes.LITERAL_THROW:
+                    if (isLoggingExceptionFound)
+                    {
+                        exceptionVariableNames.add(catchParameterName);
+                        final DetailAST thrownExceptionAst = currentStatementAst
+                            .getFirstChild();
+                        if (exceptionVariableNames.contains(getIdentifier(thrownExceptionAst))
+                            || isInstanceCreationBasedOnException(
+                                thrownExceptionAst, catchParameterName))
+                        {
+                            log(loggingExceptionLineNumber, "either.log.or.throw");
+                            break;
+                        }
+                    }
             }
             currentStatementAst = currentStatementAst.getNextSibling();
         }
@@ -395,14 +395,14 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Verify that aVariableDefAst is variable of logger type.
-     * @param aVariableDefAst
+     * @param variableDefAst
      *        DetailAST of variable definition.
      * @return true if variable is of logger type.
      */
-    private boolean isLoggerVariableDefinition(final DetailAST aVariableDefAst)
+    private boolean isLoggerVariableDefinition(final DetailAST variableDefAst)
     {
         final DetailAST variableTypeAst =
-                aVariableDefAst.findFirstToken(TokenTypes.TYPE).getFirstChild();
+                variableDefAst.findFirstToken(TokenTypes.TYPE).getFirstChild();
         final String variableTypeName =
                 FullIdent.createFullIdent(variableTypeAst).getText();
         return isLoggerClassName(variableTypeName);
@@ -410,41 +410,41 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Verify that aClassName is class name of logger type.
-     * @param aClassName name of checked class.
+     * @param className name of checked class.
      * @return true aClassName is class name of logger type.
      */
-    private boolean isLoggerClassName(String aClassName)
+    private boolean isLoggerClassName(String className)
     {
-        return (mHasLoggerClassInImports
-                && aClassName.equals(mLoggerSimpleClassName))
-                || aClassName.equals(mLoggerFullyQualifiedClassName);
+        return (hasLoggerClassInImports
+                && className.equals(loggerSimpleClassName))
+                || className.equals(loggerFullyQualifiedClassName);
     }
 
     /**
      * Get parameter name of catch block.
-     * @param aCatchAst
+     * @param catchAst
      *        DetailAST of catch block.
      * @return name of parameter.
      */
-    private static String getCatchParameterName(final DetailAST aCatchAst)
+    private static String getCatchParameterName(final DetailAST catchAst)
     {
         final DetailAST parameterDefAst =
-                aCatchAst.findFirstToken(TokenTypes.PARAMETER_DEF);
+                catchAst.findFirstToken(TokenTypes.PARAMETER_DEF);
         return getIdentifier(parameterDefAst);
     }
 
     /**
      * Get identifier of AST. These can be names of types, subpackages, fields,
      * methods, parameters, and local variables.
-     * @param aAST
+     * @param ast
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
      */
-    private static String getIdentifier(final DetailAST aAST)
+    private static String getIdentifier(final DetailAST ast)
     {
         String result = null;
-        if (aAST != null) {
-            final DetailAST identAst = aAST.findFirstToken(TokenTypes.IDENT);
+        if (ast != null) {
+            final DetailAST identAst = ast.findFirstToken(TokenTypes.IDENT);
             if (identAst != null) {
                 result = identAst.getText();
             }
@@ -455,25 +455,25 @@ public class EitherLogOrThrowCheck extends Check
     /**
      * Verify that expression is creating instance. And this instance is created
      * with exception argument. Example: new MyException("message", exception).
-     * @param aExpressionAst
+     * @param expressionAst
      *        DetailAST of expression.
-     * @param aExceptionArgumentName
+     * @param exceptionArgumentName
      *        Exception argument name.
      * @return true if given expression is creating new exception based on
      *         another exception object named aExeceptionParameterName.
      */
     private static boolean isInstanceCreationBasedOnException(
-            final DetailAST aExpressionAst, final String aExceptionArgumentName)
+            final DetailAST expressionAst, final String exceptionArgumentName)
     {
         boolean result = false;
         final DetailAST literalNewAst =
-                aExpressionAst.findFirstToken(TokenTypes.LITERAL_NEW);
+                expressionAst.findFirstToken(TokenTypes.LITERAL_NEW);
         if (literalNewAst != null) {
             final DetailAST parametersAst = literalNewAst
                     .findFirstToken(TokenTypes.ELIST);
             if (parametersAst != null) {
                 result = containsExceptionParameter(parametersAst,
-                        aExceptionArgumentName);
+                        exceptionArgumentName);
             }
         }
         return result;
@@ -481,35 +481,35 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Verify that expression is logging exception.
-     * @param aExpressionAst DetailAST of expression(EXPR).
-     * @param aExceptionVariableName name of exception variable.
+     * @param expressionAst DetailAST of expression(EXPR).
+     * @param exceptionVariableName name of exception variable.
      * @return true if expression is logging exception.
      */
     private boolean isLoggingExceptionArgument(
-            final DetailAST aExpressionAst, final String aExceptionVariableName)
+            final DetailAST expressionAst, final String exceptionVariableName)
     {
         boolean result = false;
-        if (isLoggingExpression(aExpressionAst)) {
+        if (isLoggingExpression(expressionAst)) {
             final DetailAST loggingMethodCallAst =
-                    aExpressionAst.getFirstChild();
+                    expressionAst.getFirstChild();
             final DetailAST loggerParametersAst =
                     loggingMethodCallAst.findFirstToken(TokenTypes.ELIST);
             result = containsExceptionParameter(
-                    loggerParametersAst, aExceptionVariableName);
+                    loggerParametersAst, exceptionVariableName);
         }
         return result;
     }
 
     /**
      * Verify that aExpressionAst is a logging expression.
-     * @param aExpressionAst
+     * @param expressionAst
      *        DetailAST of expression.
      * @return true if aExpressionAst is a logging expression.
      */
-    private boolean isLoggingExpression(final DetailAST aExpressionAst)
+    private boolean isLoggingExpression(final DetailAST expressionAst)
     {
         boolean result = false;
-        final DetailAST methodCallAst = aExpressionAst.getFirstChild();
+        final DetailAST methodCallAst = expressionAst.getFirstChild();
         if (methodCallAst.getType() == TokenTypes.METHOD_CALL
                 && hasChildToken(methodCallAst, TokenTypes.DOT))
         {
@@ -519,36 +519,36 @@ public class EitherLogOrThrowCheck extends Check
             final String loggerObjectIdentifier =
                     FullIdent.createFullIdent(loggerObjectAst).getText();
             final String invokedMethodIdentifier = invokedMethodAst.getText();
-            result = (mCurrentLocalLoggerVariableNames
+            result = (currentLocalLoggerVariableNames
                     .contains(loggerObjectIdentifier)
-                    || mLoggerFieldNames.contains(loggerObjectIdentifier))
-                    && mLoggingMethodNames.contains(invokedMethodIdentifier);
+                    || loggerFieldNames.contains(loggerObjectIdentifier))
+                    && loggingMethodNames.contains(invokedMethodIdentifier);
         }
         return result;
     }
 
     /**
      * Verify that aExceptionVariableName is in aParametersAst.
-     * @param aParametersAst
+     * @param parametersAst
      *            DetailAST of expression list(ELIST).
-     * @param aExceptionVariableName
+     * @param exceptionVariableName
      *            name of exception.
      * @return true if aExceptionVariableName is in aParametersAst.
      */
     private static boolean containsExceptionParameter(
-            final DetailAST aParametersAst, final String aExceptionVariableName)
+            final DetailAST parametersAst, final String exceptionVariableName)
     {
         boolean result = false;
-        DetailAST parameterAst = aParametersAst.getFirstChild();
+        DetailAST parameterAst = parametersAst.getFirstChild();
         while (parameterAst != null) {
-            if (aExceptionVariableName.equals(getIdentifier(parameterAst)))
+            if (exceptionVariableName.equals(getIdentifier(parameterAst)))
             {
                 result = true;
                 break;
             }
             else {
                 final DetailAST methodCallAst = parameterAst.getFirstChild();
-                if (isInstanceMethodCall(aExceptionVariableName,
+                if (isInstanceMethodCall(exceptionVariableName,
                         methodCallAst))
                 {
                     result = true;
@@ -562,18 +562,18 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Verify that expression is call of exception's printStackTrace method.
-     * @param aExpressionAst
+     * @param expressionAst
      *        DetailAST of expression.
-     * @param aExceptionVariableName
+     * @param exceptionVariableName
      *        name of exception variable.
      * @return true if expression is call of exception's printStackTrace method.
      */
-    private static boolean isPrintStackTrace(final DetailAST aExpressionAst,
-            final String aExceptionVariableName)
+    private static boolean isPrintStackTrace(final DetailAST expressionAst,
+            final String exceptionVariableName)
     {
         boolean result = false;
-        final DetailAST methodCallAst = aExpressionAst.getFirstChild();
-        if (isInstanceMethodCall(aExceptionVariableName, methodCallAst)) {
+        final DetailAST methodCallAst = expressionAst.getFirstChild();
+        if (isInstanceMethodCall(exceptionVariableName, methodCallAst)) {
             final String methodCallStr =
                     FullIdent.createFullIdentBelow(methodCallAst).getText();
             if (PRINT_STACK_TRACE_METHOD_PATTERN.matcher(methodCallStr).matches()) {
@@ -585,24 +585,24 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Verify that method is invoked on aUsedInstanceName.
-     * @param aUsedInstanseName name of instance.
-     * @param aMethodCallAst DetailAST of METHOD_CALL.
+     * @param usedInstanseName name of instance.
+     * @param methodCallAst DetailAST of METHOD_CALL.
      * @return true if method is invoked on aUsedInstanceName.
      */
-    private static boolean isInstanceMethodCall(final String aUsedInstanseName,
-            final DetailAST aMethodCallAst)
+    private static boolean isInstanceMethodCall(final String usedInstanseName,
+            final DetailAST methodCallAst)
     {
         boolean result = false;
-        if (aMethodCallAst != null
-                && aMethodCallAst.getType() == TokenTypes.METHOD_CALL)
+        if (methodCallAst != null
+                && methodCallAst.getType() == TokenTypes.METHOD_CALL)
         {
             final String methodCallIdent =
-                    FullIdent.createFullIdentBelow(aMethodCallAst).getText();
+                    FullIdent.createFullIdentBelow(methodCallAst).getText();
             final int firstDotIndex = methodCallIdent.indexOf('.');
             if (firstDotIndex != -1) {
                 final String usedObjectName =
                         methodCallIdent.substring(0, firstDotIndex);
-                if (usedObjectName.equals(aUsedInstanseName)) {
+                if (usedObjectName.equals(usedInstanseName)) {
                     result = true;
                 }
             }
@@ -612,15 +612,15 @@ public class EitherLogOrThrowCheck extends Check
 
     /**
      * Return true if aAST has token of aTokenType type.
-     * @param aAST
+     * @param ast
      *        DetailAST instance.
-     * @param aTokenType
+     * @param tokenType
      *        one of TokenTypes
      * @return true if aAST has token of given type, or false otherwise.
      */
-    private static boolean hasChildToken(final DetailAST aAST, int aTokenType)
+    private static boolean hasChildToken(final DetailAST ast, int tokenType)
     {
-        return aAST.findFirstToken(aTokenType) != null;
+        return ast.findFirstToken(tokenType) != null;
     }
 
 }

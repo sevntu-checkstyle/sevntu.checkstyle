@@ -31,9 +31,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
-    private static final String mCtorKey = "constructor";
-    private static final String mCloneKey = "'clone()' method";
-    private static final String mReadObjectKey = "'readObject()' method";
+    private static final String ctorKey = "constructor";
+    private static final String cloneKey = "'clone()' method";
+    private static final String readObjectKey = "'readObject()' method";
 
     @Before
     public void setTestinputsDir()
@@ -48,7 +48,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"11:17: " + getCheckMessage(MSG_KEY_LEADS, "init", mCtorKey, "getPart"), 
+        	"11:17: " + getCheckMessage(MSG_KEY_LEADS, "init", ctorKey, "getPart"), 
         	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor26.java"), expected);
@@ -59,8 +59,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"14:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
-       		"15:21: " + getCheckMessage(MSG_KEY, "init", mCtorKey),
+        	"14:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
+       		"15:21: " + getCheckMessage(MSG_KEY, "init", ctorKey),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
@@ -80,7 +80,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
+        	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
         	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor2.java"), expected);
@@ -90,8 +90,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void test2WarningsIn2Ctors() throws Exception
     {
         String[] expected = {
-        	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
-        	"15:27: " + getCheckMessage(MSG_KEY, "overrideMe", mCtorKey),
+        	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
+        	"15:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor3.java"), expected);
@@ -102,7 +102,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        		"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", mCtorKey, "overrideMe2"),
+        		"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", ctorKey, "overrideMe2"),
                 };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor4.java"), expected);
@@ -113,8 +113,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", mCtorKey, "overrideMe3"),
-        	"11:27: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", mCtorKey, "overrideMe3"),
+        	"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", ctorKey, "overrideMe3"),
+        	"11:27: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", ctorKey, "overrideMe3"),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor5.java"), expected);
@@ -143,8 +143,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"20:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
-        	"37:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
+        	"20:37: " + getCheckMessage(MSG_KEY, "doSmth", cloneKey),
+        	"37:37: " + getCheckMessage(MSG_KEY, "doSmth", cloneKey),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor8.java"), expected);
@@ -155,8 +155,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"25:37: " + getCheckMessage(MSG_KEY_LEADS, "doSmth", mCloneKey, "doSmth2"),
-        	"26:20: " + getCheckMessage(MSG_KEY, "doSmth2", mCloneKey),
+        	"25:37: " + getCheckMessage(MSG_KEY_LEADS, "doSmth", cloneKey, "doSmth2"),
+        	"26:20: " + getCheckMessage(MSG_KEY, "doSmth2", cloneKey),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor9.java"), expected);
@@ -167,10 +167,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"25:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
-        	"26:19: " + getCheckMessage(MSG_KEY, "accept", mCloneKey),
-        	"27:24: " + getCheckMessage(MSG_KEY, "accept", mCloneKey),
-        	"62:37: " + getCheckMessage(MSG_KEY, "doSmth", mCloneKey),
+        	"25:37: " + getCheckMessage(MSG_KEY, "doSmth", cloneKey),
+        	"26:19: " + getCheckMessage(MSG_KEY, "accept", cloneKey),
+        	"27:24: " + getCheckMessage(MSG_KEY, "accept", cloneKey),
+        	"62:37: " + getCheckMessage(MSG_KEY, "doSmth", cloneKey),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor13.java"), expected);
@@ -190,7 +190,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"31:20: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"31:20: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
         	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor11.java"), expected);
@@ -212,15 +212,15 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"34:20: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
-        	"60:19: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
-        	"61:24: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
-        	"62:20: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
-        	"63:25: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
-        	"77:23: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
-        	"78:28: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
-        	"80:24: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
-        	"81:29: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", mReadObjectKey, "doSmth"),
+        	"34:20: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
+        	"60:19: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
+        	"61:24: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
+        	"62:20: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", readObjectKey, "doSmth"),
+        	"63:25: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", readObjectKey, "doSmth"),
+        	"77:23: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
+        	"78:28: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
+        	"80:24: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", readObjectKey, "doSmth"),
+        	"81:29: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", readObjectKey, "doSmth"),
             };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor14.java"), expected);
@@ -249,7 +249,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"17:32: " + getCheckMessage(MSG_KEY, "doSmth", mReadObjectKey),
+        	"17:32: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
         	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor17.java"), expected);
@@ -296,7 +296,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"5:15: " + getCheckMessage(MSG_KEY_LEADS, "doSMTH", mCtorKey, "doPublic"),
+        	"5:15: " + getCheckMessage(MSG_KEY_LEADS, "doSMTH", ctorKey, "doPublic"),
         	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor22.java"), expected);
@@ -316,7 +316,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     {
 
         String[] expected = {
-        	"11:22: " + getCheckMessage(MSG_KEY, "buildGetter", mCtorKey),
+        	"11:22: " + getCheckMessage(MSG_KEY, "buildGetter", ctorKey),
         	};
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor24.java"), expected);

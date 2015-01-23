@@ -57,25 +57,25 @@ public class AvoidModifiersForTypesCheck extends Check
      * Pattern object is used to store the regexp for the names of classes, that
      * could not have 'final' modifier.
      */
-    private Pattern mForbiddenClassesRegexpFinal = Pattern.compile("");
+    private Pattern forbiddenClassesRegexpFinal = Pattern.compile("");
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
      * could not have 'static' modifier.
      */
-    private Pattern mForbiddenClassesRegexpStatic = Pattern.compile("ULC.+");
+    private Pattern forbiddenClassesRegexpStatic = Pattern.compile("ULC.+");
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
      * could not have 'transient' modifier.
      */
-    private Pattern mForbiddenClassesRegexpTransient = Pattern.compile("");
+    private Pattern forbiddenClassesRegexpTransient = Pattern.compile("");
 
     /**
      * Pattern object is used to store the regexp for the names of classes, that
      * could not have 'volatile' modifier.
      */
-    private Pattern mForbiddenClassesRegexpVolatile = Pattern.compile("");
+    private Pattern forbiddenClassesRegexpVolatile = Pattern.compile("");
 
     /**
      * Sets the regexp for the names of classes, that could not have 'static'
@@ -85,11 +85,11 @@ public class AvoidModifiersForTypesCheck extends Check
      *        could not have 'static' modifier.
      */
     public void setForbiddenClassesRegexpStatic(
-            String aForbiddenClassesRegexpStatic)
+            String forbiddenClassesRegexpStatic)
     {
-        final String regexp = aForbiddenClassesRegexpStatic == null ? ""
-                : aForbiddenClassesRegexpStatic;
-        mForbiddenClassesRegexpStatic = Pattern.compile(regexp);
+        final String regexp = forbiddenClassesRegexpStatic == null ? ""
+                : forbiddenClassesRegexpStatic;
+        this.forbiddenClassesRegexpStatic = Pattern.compile(regexp);
     }
 
     /**
@@ -100,11 +100,11 @@ public class AvoidModifiersForTypesCheck extends Check
      *        could not have 'final' modifier.
      */
     public void setForbiddenClassesRegexpFinal(
-            String aForbiddenClassesRegexpFinal)
+            String forbiddenClassesRegexpFinal)
     {
-        final String regexp = aForbiddenClassesRegexpFinal == null ? ""
-                : aForbiddenClassesRegexpFinal;
-        mForbiddenClassesRegexpFinal = Pattern.compile(regexp);
+        final String regexp = forbiddenClassesRegexpFinal == null ? ""
+                : forbiddenClassesRegexpFinal;
+        this.forbiddenClassesRegexpFinal = Pattern.compile(regexp);
     }
 
     /**
@@ -115,11 +115,11 @@ public class AvoidModifiersForTypesCheck extends Check
      *        could not have 'transient' modifier.
      */
     public void setForbiddenClassesRegexpTransient(
-            String aForbiddenClassesRegexpTransient)
+            String forbiddenClassesRegexpTransient)
     {
-        final String regexp = aForbiddenClassesRegexpTransient == null ? ""
-                : aForbiddenClassesRegexpTransient;
-        mForbiddenClassesRegexpTransient = Pattern.compile(regexp);
+        final String regexp = forbiddenClassesRegexpTransient == null ? ""
+                : forbiddenClassesRegexpTransient;
+        this.forbiddenClassesRegexpTransient = Pattern.compile(regexp);
     }
 
     /**
@@ -130,11 +130,11 @@ public class AvoidModifiersForTypesCheck extends Check
      *        could not have 'volatile' modifier.
      */
     public void setForbiddenClassesRegexpVolatile(
-            String aForbiddenClassesRegexpVolatile)
+            String forbiddenClassesRegexpVolatile)
     {
-        final String regexp = aForbiddenClassesRegexpVolatile == null ? ""
-                : aForbiddenClassesRegexpVolatile;
-        mForbiddenClassesRegexpVolatile = Pattern.compile(regexp);
+        final String regexp = forbiddenClassesRegexpVolatile == null ? ""
+                : forbiddenClassesRegexpVolatile;
+        this.forbiddenClassesRegexpVolatile = Pattern.compile(regexp);
     }
 
     @Override
@@ -144,47 +144,47 @@ public class AvoidModifiersForTypesCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAst)
+    public void visitToken(DetailAST ast)
     {
-        final String classNameAndPath = getClassNameAndPath(aAst);
+        final String classNameAndPath = getClassNameAndPath(ast);
 
         if (classNameAndPath != null) {
 
             final String className = getClassName(classNameAndPath);
 
-            for (int modifierType : getModifiers(aAst)) {
+            for (int modifierType : getModifiers(ast)) {
                 switch (modifierType) {
-                case TokenTypes.LITERAL_STATIC:
-                    if (mForbiddenClassesRegexpStatic.matcher(className)
+                    case TokenTypes.LITERAL_STATIC:
+                        if (forbiddenClassesRegexpStatic.matcher(className)
                             .matches())
-                    {
-                        log(aAst, MSG_KEY, className, "static");
-                    }
-                    break;
-                case TokenTypes.FINAL:
-                    if (mForbiddenClassesRegexpFinal.matcher(className)
+                        {
+                            log(ast, MSG_KEY, className, "static");
+                        }
+                        break;
+                    case TokenTypes.FINAL:
+                        if (forbiddenClassesRegexpFinal.matcher(className)
                             .matches())
-                    {
-                        log(aAst, MSG_KEY, className, "final");
-                    }
-                    break;
-                case TokenTypes.LITERAL_TRANSIENT:
-                    if (mForbiddenClassesRegexpTransient.matcher(className)
+                        {
+                            log(ast, MSG_KEY, className, "final");
+                        }
+                        break;
+                    case TokenTypes.LITERAL_TRANSIENT:
+                        if (forbiddenClassesRegexpTransient.matcher(className)
                             .matches())
-                    {
-                        log(aAst, MSG_KEY, className, "transient");
-                    }
-                    break;
-                case TokenTypes.LITERAL_VOLATILE:
-                    if (mForbiddenClassesRegexpVolatile.matcher(className)
+                        {
+                            log(ast, MSG_KEY, className, "transient");
+                        }
+                        break;
+                    case TokenTypes.LITERAL_VOLATILE:
+                        if (forbiddenClassesRegexpVolatile.matcher(className)
                             .matches())
-                    {
-                        log(aAst, MSG_KEY, className, "volatile");
-                    }
-                    break;
-                default:
-                    // no code (unreachable block for current Java spec)
-                    break;
+                        {
+                            log(ast, MSG_KEY, className, "volatile");
+                        }
+                        break;
+                    default:
+                        // no code (unreachable block for current Java spec)
+                        break;
                 }
             }
         }
@@ -192,16 +192,16 @@ public class AvoidModifiersForTypesCheck extends Check
 
     /**
      * Gets the full className of the defined variable.
-     * @param aVariableDefNode
+     * @param variableDefNode
      *        A DetailAST node is related to variable definition (VARIABLE_DEF
      *        node type).
      * @return String contains the className of the defined variable or null if
      *         the current processed object is an array of primitive types
      */
-    private static String getClassNameAndPath(DetailAST aVariableDefNode)
+    private static String getClassNameAndPath(DetailAST variableDefNode)
     {
         String result = null;
-        final DetailAST type = aVariableDefNode.findFirstToken(TokenTypes.TYPE);
+        final DetailAST type = variableDefNode.findFirstToken(TokenTypes.TYPE);
         final DetailAST textWithoutDots = type.findFirstToken(TokenTypes.IDENT);
 
         if (textWithoutDots == null) {
@@ -224,28 +224,28 @@ public class AvoidModifiersForTypesCheck extends Check
 
     /**
      * Gets the class name from full (dotted) classPath.
-     * @param aClassNameAndPath
+     * @param classNameAndPath
      *        - the full (dotted) classPath. Must not be null.
      * @return the name of the class is specified by the current full name&path.
      *         Guaranteed to not be null if aClassNameAndPath is not null.
      */
-    private static String getClassName(final String aClassNameAndPath)
+    private static String getClassName(final String classNameAndPath)
     {
-        return aClassNameAndPath.replaceAll(".+\\.", "");
+        return classNameAndPath.replaceAll(".+\\.", "");
     }
 
     /**
      * Gets the modifiers of the defined variable (final, static, transient or
      * volatile).
-     * @param aVariableDefAst
+     * @param variableDefAst
      *        A DeatilAST node is related to the variable definition
      *        (VARIABLE_DEF type)
      * @return List of token types is related to the given variable modifiers.
      */
-    private static List<Integer> getModifiers(DetailAST aVariableDefAst)
+    private static List<Integer> getModifiers(DetailAST variableDefAst)
     {
         final List<Integer> modifiersList = new LinkedList<Integer>();
-        final DetailAST modifiersAST = aVariableDefAst
+        final DetailAST modifiersAST = variableDefAst
                 .findFirstToken(TokenTypes.MODIFIERS);
         for (DetailAST modifier : getChildren(modifiersAST)) {
             modifiersList.add(modifier.getType());
@@ -256,14 +256,14 @@ public class AvoidModifiersForTypesCheck extends Check
     /**
      * Gets all the children which are one level below on the current DetailAST
      * parent node.
-     * @param aNode
+     * @param node
      *        The parent node.
      * @return The list of children one level below on the current parent node.
      */
-    private static List<DetailAST> getChildren(final DetailAST aNode)
+    private static List<DetailAST> getChildren(final DetailAST node)
     {
         final List<DetailAST> result = new LinkedList<DetailAST>();
-        DetailAST curNode = aNode.getFirstChild();
+        DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);
             curNode = curNode.getNextSibling();

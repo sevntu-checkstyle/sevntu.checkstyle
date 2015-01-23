@@ -38,7 +38,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     private final String defaultTestClassName =
             ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases";
 
-    private final DefaultConfiguration mCheckConfig =
+    private final DefaultConfiguration checkConfig =
             buildConfiguration(defaultTestClassName, "", "Test");
 
     @Test
@@ -64,7 +64,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("8:18: ", defaultTestClassName),
         };
 
-        verify(mCheckConfig, getPath("InputNameConventionForTest2.java"), expected);
+        verify(checkConfig, getPath("InputNameConventionForTest2.java"), expected);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         final String[] expected = {
                 };
 
-        verify(mCheckConfig, getPath("InputNameConventionForTest3.java"), expected);
+        verify(checkConfig, getPath("InputNameConventionForTest3.java"), expected);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("7:18: ", defaultTestClassName),
         };
 
-        verify(mCheckConfig, getPath("InputNameConventionForTest4.java"), expected);
+        verify(checkConfig, getPath("InputNameConventionForTest4.java"), expected);
     }
 
     @Test
@@ -144,21 +144,21 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
     }
 
-    private static DefaultConfiguration buildConfiguration(String aExpectedNameRegex,
-            String aClassAnnotationNameRegex, String aMethodAnnotationNameRegex)
+    private static DefaultConfiguration buildConfiguration(String expectedNameRegex,
+            String classAnnotationNameRegex, String methodAnnotationNameRegex)
     {
         DefaultConfiguration config =
                 createCheckConfig(NameConventionForJunit4TestClassesCheck.class);
 
-        config.addAttribute("expectedClassNameRegex", aExpectedNameRegex);
-        config.addAttribute("classAnnotationNameRegex", aClassAnnotationNameRegex);
-        config.addAttribute("methodAnnotationNameRegex", aMethodAnnotationNameRegex);
+        config.addAttribute("expectedClassNameRegex", expectedNameRegex);
+        config.addAttribute("classAnnotationNameRegex", classAnnotationNameRegex);
+        config.addAttribute("methodAnnotationNameRegex", methodAnnotationNameRegex);
 
         return config;
     }
 
-    private String buildMesssage(String aLineNumber, String aArguments)
+    private String buildMesssage(String lineNumber, String arguments)
     {
-        return aLineNumber + MessageFormat.format(msgFormat, aArguments);
+        return lineNumber + MessageFormat.format(msgFormat, arguments);
     }
 }

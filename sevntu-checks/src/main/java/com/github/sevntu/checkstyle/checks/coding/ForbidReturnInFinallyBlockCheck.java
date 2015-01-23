@@ -49,23 +49,23 @@ public class ForbidReturnInFinallyBlockCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aFinallyNode)
+    public void visitToken(DetailAST finallyNode)
     {
-        final DetailAST firstSlistNode = aFinallyNode.findFirstToken(TokenTypes.SLIST);
+        final DetailAST firstSlistNode = finallyNode.findFirstToken(TokenTypes.SLIST);
 
         final List<DetailAST> listOfReturnNodes = getReturnNodes(firstSlistNode);
 
         for (DetailAST returnNode : listOfReturnNodes) {
             if (!isReturnInMethodDefinition(returnNode)) {
-                log(aFinallyNode.getLineNo(), MSG_KEY);
+                log(finallyNode.getLineNo(), MSG_KEY);
             }
         }
     }
 
-    private List<DetailAST> getReturnNodes(DetailAST aNode)
+    private List<DetailAST> getReturnNodes(DetailAST node)
     {
         final List<DetailAST> result = new ArrayList<DetailAST>();
-        DetailAST child = aNode.getFirstChild();
+        DetailAST child = node.getFirstChild();
         while (child != null) {
             if (child.getType() == TokenTypes.LITERAL_RETURN) {
                 return Collections.singletonList(child);
@@ -76,10 +76,10 @@ public class ForbidReturnInFinallyBlockCheck extends Check
         return result;
     }
 
-    private boolean isReturnInMethodDefinition(DetailAST aReturnNode)
+    private boolean isReturnInMethodDefinition(DetailAST returnNode)
     {
         Boolean result = false;
-        DetailAST node = aReturnNode;
+        DetailAST node = returnNode;
         while (node.getType() != TokenTypes.LITERAL_FINALLY) {
             if (node.getType() == TokenTypes.METHOD_DEF) {
                 result = true;

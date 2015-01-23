@@ -103,108 +103,108 @@ public class ReturnCountExtendedCheck extends Check
     /**
 	 * List contains RegExp patterns for methods' names which would be ignored by check.
 	 */
-    private Set<String> mIgnoreMethodsNames = new HashSet<String>();
+    private Set<String> ignoreMethodsNames = new HashSet<String>();
 
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
      */
-    private int mMaxReturnCount = DEFAULT_MAX_RETURN_COUNT;
+    private int maxReturnCount = DEFAULT_MAX_RETURN_COUNT;
 
     /**
      * Maximum number of lines of which method/ctor body may consist to be
      * skipped by check. 20 by default.
      */
-    private int mIgnoreMethodLinesCount = DEFAULT_IGNORE_METHOD_LINES_COUNT;
+    private int ignoreMethodLinesCount = DEFAULT_IGNORE_METHOD_LINES_COUNT;
 
     /**
      * Minimum "return" statement depth to be skipped by check. 4 by default.
      */
-    private int mMinIgnoreReturnDepth = DEFAULT_MIN_IGNORE_RETURN_DEPTH;
+    private int minIgnoreReturnDepth = DEFAULT_MIN_IGNORE_RETURN_DEPTH;
 
     /**
      * Option to ignore "empty" return statements in void methods and ctors.
      * "true" by default.
      */
-    private boolean mIgnoreEmptyReturns = true;
+    private boolean ignoreEmptyReturns = true;
 
     /**
      * Number which defines, how many lines of code on the top of each
      * processed method/ctor will be ignored by check. 5 by default.
      */
-    private int mTopLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
+    private int topLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
     /**
 	 * Sets the RegExp patterns for methods' names which would be ignored by check.
 	 * 
-	 * @param aIgnoreMethodNames
+	 * @param ignoreMethodNames
 	 *            list of the RegExp patterns for methods' names which should be ignored by check
 	 */
-    public void setIgnoreMethodsNames(String [] aIgnoreMethodNames)
+    public void setIgnoreMethodsNames(String [] ignoreMethodNames)
     {
-        mIgnoreMethodsNames.clear();
-        if (aIgnoreMethodNames != null) {
-            for (String name : aIgnoreMethodNames) {
-                mIgnoreMethodsNames.add(name);
+        ignoreMethodsNames.clear();
+        if (ignoreMethodNames != null) {
+            for (String name : ignoreMethodNames) {
+                ignoreMethodsNames.add(name);
             }
         }
     }
 
     /**
      * Sets maximum allowed "return" literals count per method/ctor.
-     * @param aMaxReturnCount - the new "maxReturnCount" property value.
-     * @see ReturnCountExtendedCheck#mMaxReturnCount
+     * @param maxReturnCount - the new "maxReturnCount" property value.
+     * @see ReturnCountExtendedCheck#maxReturnCount
      */
-    public void setMaxReturnCount(int aMaxReturnCount)
+    public void setMaxReturnCount(int maxReturnCount)
     {
-        mMaxReturnCount = aMaxReturnCount;
+        this.maxReturnCount = maxReturnCount;
     }
 
     /**
      * Sets the maximum number of lines of which method/ctor body may consist to
      * be skipped by check.
-     * @param aIgnoreMethodLinesCount
+     * @param ignoreMethodLinesCount
      *        - the new value of "ignoreMethodLinesCount" property.
-     * @see ReturnCountExtendedCheck#mIgnoreMethodLinesCount
+     * @see ReturnCountExtendedCheck#ignoreMethodLinesCount
      */
-    public void setIgnoreMethodLinesCount(int aIgnoreMethodLinesCount)
+    public void setIgnoreMethodLinesCount(int ignoreMethodLinesCount)
     {
-        mIgnoreMethodLinesCount = aIgnoreMethodLinesCount;
+        this.ignoreMethodLinesCount = ignoreMethodLinesCount;
     }
 
     /**
      * Sets the minimum "return" statement depth with that will be skipped by
      * check.
-     * @param aMinIgnoreReturnDepth
+     * @param minIgnoreReturnDepth
      *        - the new "minIgnoreReturnDepth" property value.
-     * @see ReturnDepthCheck#mMinIgnoreReturnDepth
+     * @see ReturnDepthCheck#minIgnoreReturnDepth
      */
-    public void setMinIgnoreReturnDepth(int aMinIgnoreReturnDepth)
+    public void setMinIgnoreReturnDepth(int minIgnoreReturnDepth)
     {
-        mMinIgnoreReturnDepth = aMinIgnoreReturnDepth;
+        this.minIgnoreReturnDepth = minIgnoreReturnDepth;
     }
 
     /**
      * Sets the "ignoring empty return statements in void methods and ctors"
      * option state.
-     * @param aIgnoreEmptyReturns
+     * @param ignoreEmptyReturns
      *        the new "allowEmptyReturns" property value.
-     * @see ReturnCountExtendedCheck#mIgnoreEmptyReturns
+     * @see ReturnCountExtendedCheck#ignoreEmptyReturns
      */
-    public void setIgnoreEmptyReturns(boolean aIgnoreEmptyReturns)
+    public void setIgnoreEmptyReturns(boolean ignoreEmptyReturns)
     {
-        mIgnoreEmptyReturns = aIgnoreEmptyReturns;
+        this.ignoreEmptyReturns = ignoreEmptyReturns;
     }
 
     /**
      * Sets the count of code lines on the top of each
      * processed method/ctor that will be ignored by check.
-     * @param aTopLinesToIgnoreCount
+     * @param topLinesToIgnoreCount
      *        the new "rowsToIgnoreCount" property value.
-     * @see ReturnCountExtendedCheck#mTopLinesToIgnoreCount
+     * @see ReturnCountExtendedCheck#topLinesToIgnoreCount
      */
-    public void setTopLinesToIgnoreCount(int aTopLinesToIgnoreCount)
+    public void setTopLinesToIgnoreCount(int topLinesToIgnoreCount)
     {
-        mTopLinesToIgnoreCount = aTopLinesToIgnoreCount;
+        this.topLinesToIgnoreCount = topLinesToIgnoreCount;
     }
 
     /**
@@ -212,7 +212,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     public ReturnCountExtendedCheck()
     {
-        mIgnoreMethodsNames.add("equals");
+        ignoreMethodsNames.add("equals");
     }
 
     @Override
@@ -222,13 +222,13 @@ public class ReturnCountExtendedCheck extends Check
     }
 
     @Override
-    public void visitToken(final DetailAST aMethodDefNode)
+    public void visitToken(final DetailAST methodDefNode)
     {
-        final DetailAST openingBrace = aMethodDefNode
+        final DetailAST openingBrace = methodDefNode
                 .findFirstToken(TokenTypes.SLIST);
-        String methodName = getMethodName(aMethodDefNode);
+        String methodName = getMethodName(methodDefNode);
         if (openingBrace != null && (methodName == null 
-                || !matches(methodName, mIgnoreMethodsNames)))
+                || !matches(methodName, ignoreMethodsNames)))
         {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
@@ -239,22 +239,22 @@ public class ReturnCountExtendedCheck extends Check
                 curMethodLinesCount--;
             }
 
-            if (curMethodLinesCount >= mIgnoreMethodLinesCount) {
+            if (curMethodLinesCount >= ignoreMethodLinesCount) {
 
-                final int mCurReturnCount = getReturnCount(aMethodDefNode,
+                final int mCurReturnCount = getReturnCount(methodDefNode,
                         openingBrace);
 
-                if (mCurReturnCount > mMaxReturnCount) {
-                    final String mKey = (aMethodDefNode.getType()
+                if (mCurReturnCount > maxReturnCount) {
+                    final String mKey = (methodDefNode.getType()
                             == TokenTypes.METHOD_DEF)
                             ? WARNING_MSG_KEY_METHOD : WARNING_MSG_KEY_CTOR;
 
-                    final DetailAST methodNameToken = aMethodDefNode
+                    final DetailAST methodNameToken = methodDefNode
                             .findFirstToken(TokenTypes.IDENT);
 
                     log(methodNameToken, mKey,
                             methodName, mCurReturnCount,
-                            mMaxReturnCount);
+                            maxReturnCount);
                 }
             }
         }
@@ -264,36 +264,36 @@ public class ReturnCountExtendedCheck extends Check
      * Gets the "return" statements count for given method/ctor and saves the
      * last "return" statement DetailAST node for given method/ctor body. Uses
      * an iterative algorithm.
-     * @param aMethodOpeningBrace
+     * @param methodOpeningBrace
      *        a DetailAST node that points to the current method`s opening
      *        brace.
-     * @param aMethodDefNode
+     * @param methodDefNode
      *        DetailAST node is pointing to current method definition is being
      *        processed.
      * @return "return" literals count for given method.
      */
-    private int getReturnCount(final DetailAST aMethodDefNode,
-            final DetailAST aMethodOpeningBrace)
+    private int getReturnCount(final DetailAST methodDefNode,
+            final DetailAST methodOpeningBrace)
     {
         int result = 0;
 
-        DetailAST curNode = aMethodOpeningBrace;
+        DetailAST curNode = methodOpeningBrace;
 
         while (curNode != null) {
 
             // before node visiting
             if (curNode.getType() == TokenTypes.RCURLY
-                    && curNode.getParent() == aMethodOpeningBrace)
+                    && curNode.getParent() == methodOpeningBrace)
             {
                 break; // stop at closing brace
             }
             else {
                 if (curNode.getType() == TokenTypes.LITERAL_RETURN
-                        && getDepth(aMethodDefNode
-                                , curNode) < mMinIgnoreReturnDepth
+                        && getDepth(methodDefNode
+                                , curNode) < minIgnoreReturnDepth
                         && shouldEmptyReturnStatementBeCounted(curNode)
-                        && getLinesCount(aMethodOpeningBrace,
-                                curNode) > mTopLinesToIgnoreCount)
+                        && getLinesCount(methodOpeningBrace,
+                                curNode) > topLinesToIgnoreCount)
                 {
                     result++;
                 }
@@ -325,16 +325,16 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Checks that the current processed "return" statement is "empty" and
      * should to be counted.
-     * @param aReturnNode
+     * @param returnNode
      *        the DetailAST node is pointing to the current "return" statement.
      *        is being processed.
      * @return true if current processed "return" statement is empty or if
      *         mIgnoreEmptyReturns option has "false" value.
      */
-    private boolean shouldEmptyReturnStatementBeCounted(DetailAST aReturnNode)
+    private boolean shouldEmptyReturnStatementBeCounted(DetailAST returnNode)
     {
-        final DetailAST returnChildNode = aReturnNode.getFirstChild();
-        return !(mIgnoreEmptyReturns && returnChildNode != null
+        final DetailAST returnChildNode = returnNode.getFirstChild();
+        return !(ignoreEmptyReturns && returnChildNode != null
                 && returnChildNode.getType() == TokenTypes.SEMI);
     }
 
@@ -342,20 +342,20 @@ public class ReturnCountExtendedCheck extends Check
      * Gets the depth level of given "return" statement. There are few supported
      * coding blocks when depth counting: "if-else", "for", "while"/"do-while"
      * and "switch".
-     * @param aMethodDefNode
+     * @param methodDefNode
      *        a DetailAST node that points to the current method`s definition.
-     * @param aReturnStmtNode
+     * @param returnStmtNode
      *        given "return" statement node.
      * @return the depth of given
      */
-    private static int getDepth(DetailAST aMethodDefNode,
-            DetailAST aReturnStmtNode)
+    private static int getDepth(DetailAST methodDefNode,
+            DetailAST returnStmtNode)
     {
         int result = 0;
 
-        DetailAST curNode = aReturnStmtNode;
+        DetailAST curNode = returnStmtNode;
 
-        while (!curNode.equals(aMethodDefNode)) {
+        while (!curNode.equals(methodDefNode)) {
             curNode = curNode.getParent();
             final int type = curNode.getType();
             if (type == TokenTypes.LITERAL_IF
@@ -374,14 +374,14 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Gets the name of given method by DetailAST node is pointing to desired
      * method definition.
-     * @param aMethodDefNode
+     * @param methodDefNode
      *        a DetailAST node that points to the current method`s definition.
      * @return the method name.
      */
-    private static String getMethodName(DetailAST aMethodDefNode)
+    private static String getMethodName(DetailAST methodDefNode)
     {
         String result = null;
-        for (DetailAST curNode : getChildren(aMethodDefNode)) {
+        for (DetailAST curNode : getChildren(methodDefNode)) {
             if (curNode.getType() == TokenTypes.IDENT) {
                 result = curNode.getText();
                 break;
@@ -393,28 +393,28 @@ public class ReturnCountExtendedCheck extends Check
     /**
      * Gets the line count between the two DetailASTs which are related to the
      * given "begin" and "end" tokens.
-     * @param aBeginAst
+     * @param beginAst
      *        the "begin" token AST node.
-     * @param aEndAST
+     * @param endAST
      *        the "end" token AST node.
      * @return the line count between "begin" and "end" tokens.
      */
-    private static int getLinesCount(DetailAST aBeginAst, DetailAST aEndAST)
+    private static int getLinesCount(DetailAST beginAst, DetailAST endAST)
     {
-        return aEndAST.getLineNo() - aBeginAst.getLineNo();
+        return endAST.getLineNo() - beginAst.getLineNo();
     }
 
     /**
      * Gets all the children which are one level below on the current DetailAST
      * parent node.
-     * @param aNode
+     * @param node
      *        Current parent node.
      * @return The list of children one level below on the current parent node.
      */
-    private static List<DetailAST> getChildren(final DetailAST aNode)
+    private static List<DetailAST> getChildren(final DetailAST node)
     {
         final List<DetailAST> result = new LinkedList<DetailAST>();
-        DetailAST curNode = aNode.getFirstChild();
+        DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);
             curNode = curNode.getNextSibling();

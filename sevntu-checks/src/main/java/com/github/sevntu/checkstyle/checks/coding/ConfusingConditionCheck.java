@@ -104,10 +104,10 @@ public class ConfusingConditionCheck extends Check {
 	 * Enable(true) | Disable(false) warnings for all "if" that follows the
 	 * "else".
 	 * 
-	 * @param aIgnoreSequentialIf
+	 * @param ignoreSequentialIf
 	 */
-	public void setIgnoreSequentialIf(final boolean aIgnoreSequentialIf) {
-		ignoreSequentialIf = aIgnoreSequentialIf;
+	public void setIgnoreSequentialIf(final boolean ignoreSequentialIf) {
+		this.ignoreSequentialIf = ignoreSequentialIf;
 	}
 
 	/**
@@ -118,11 +118,11 @@ public class ConfusingConditionCheck extends Check {
 	/**
 	 * Disable(true) | Enable(false) warnings.
 	 * 
-	 * @param aIgnoreNullCaseInIf
+	 * @param ignoreNullCaseInIf
 	 *            if true disable warnings for "if".
 	 */
-	public void setIgnoreNullCaseInIf(final boolean aIgnoreNullCaseInIf) {
-		ignoreNullCaseInIf = aIgnoreNullCaseInIf;
+	public void setIgnoreNullCaseInIf(final boolean ignoreNullCaseInIf) {
+		this.ignoreNullCaseInIf = ignoreNullCaseInIf;
 	}
 
 	/**
@@ -133,11 +133,11 @@ public class ConfusingConditionCheck extends Check {
 	/**
 	 * Disable(true) | Enable(false) warnings.
 	 * 
-	 * @param aIgnoreThrowInElse
+	 * @param ignoreThrowInElse
 	 *            if true disable warnings for "if".
 	 */
-	public void setIgnoreThrowInElse(final boolean aIgnoreThrowInElse) {
-		ignoreThrowInElse = aIgnoreThrowInElse;
+	public void setIgnoreThrowInElse(final boolean ignoreThrowInElse) {
+		this.ignoreThrowInElse = ignoreThrowInElse;
 	}
 
 	/**
@@ -147,8 +147,8 @@ public class ConfusingConditionCheck extends Check {
 	 *            define multiplyFactorForElseBlocks field.
 	 * @see ConfusingConditionCheck#MultiplyFactorForElseBlocks
 	 */
-	public void setMultiplyFactorForElseBlocks(int aMultiplyFactorForElseBlocks) {
-		multiplyFactorForElseBlocks = aMultiplyFactorForElseBlocks;
+	public void setMultiplyFactorForElseBlocks(int multiplyFactorForElseBlocks) {
+		this.multiplyFactorForElseBlocks = multiplyFactorForElseBlocks;
 	}
 
 	@Override
@@ -157,15 +157,15 @@ public class ConfusingConditionCheck extends Check {
 	}
 
 	@Override
-	public void visitToken(DetailAST aIf) {
-		if (isIfEndsWithElse(aIf)
-				&& !(ignoreSequentialIf && isSequentialIf(aIf))
-				&& !(ignoreInnerIf && isInnerIf(aIf))
-				&& !(ignoreThrowInElse && isElseWithThrow(aIf))) {
-			if (isRatioBetweenIfAndElseBlockSuitable(aIf)
-					&& !(ignoreNullCaseInIf && isIfWithNull(aIf))
-					&& isConditionAllNegative(aIf)) {
-				log(aIf.getLineNo(), MSG_KEY);
+	public void visitToken(DetailAST literalIf) {
+		if (isIfEndsWithElse(literalIf)
+				&& !(ignoreSequentialIf && isSequentialIf(literalIf))
+				&& !(ignoreInnerIf && isInnerIf(literalIf))
+				&& !(ignoreThrowInElse && isElseWithThrow(literalIf))) {
+			if (isRatioBetweenIfAndElseBlockSuitable(literalIf)
+					&& !(ignoreNullCaseInIf && isIfWithNull(literalIf))
+					&& isConditionAllNegative(literalIf)) {
+				log(literalIf.getLineNo(), MSG_KEY);
 			}
 		}
 	}
@@ -176,21 +176,21 @@ public class ConfusingConditionCheck extends Check {
 	 * @param aLastChildAfterIf
 	 * @return
 	 */
-	private static boolean isIfEndsWithElse(DetailAST aIf) {
-		final DetailAST aLastChildAfterIf = aIf.getLastChild();
-		return aLastChildAfterIf.getType() == TokenTypes.LITERAL_ELSE;
+	private static boolean isIfEndsWithElse(DetailAST literalIf) {
+		final DetailAST lastChildAfterIf = literalIf.getLastChild();
+		return lastChildAfterIf.getType() == TokenTypes.LITERAL_ELSE;
 	}
 
 	/**
 	 * Check the sequential IF or not.
 	 * 
-	 * @param aIf
+	 * @param literalIf
 	 * @param ignoreSequentialIf
 	 * @return
 	 */
-	private static boolean isSequentialIf(DetailAST aIf) {
-		final DetailAST aLastChildAfterIf = aIf.getLastChild();
-		final boolean isSequentialIf = aLastChildAfterIf.getFirstChild()
+	private static boolean isSequentialIf(DetailAST literalIf) {
+		final DetailAST lastChildAfterIf = literalIf.getLastChild();
+		final boolean isSequentialIf = lastChildAfterIf.getFirstChild()
 				.getType() == (TokenTypes.LITERAL_IF);
 		return isSequentialIf;
 	}
@@ -198,27 +198,27 @@ public class ConfusingConditionCheck extends Check {
 	/**
 	 * Check the inner IF or not.
 	 * 
-	 * @param aIf
+	 * @param literalIf
 	 * @param ignoreInnerIf
 	 * @return
 	 */
-	private static boolean isInnerIf(DetailAST aIf) {
-		final DetailAST aChildIf = aIf.getFirstChild().getNextSibling()
+	private static boolean isInnerIf(DetailAST literalIf) {
+		final DetailAST childIf = literalIf.getFirstChild().getNextSibling()
 				.getNextSibling().getNextSibling();
-		return aChildIf.branchContains(TokenTypes.LITERAL_IF);
+		return childIf.branchContains(TokenTypes.LITERAL_IF);
 	}
 
 	/**
 	 * Check IF - ELSE or not that contained THROW in the expression in a block
 	 * ELSE.
 	 * 
-	 * @param aIf
+	 * @param literalIf
 	 * @param ignoreThrowInElse
 	 * @return
 	 */
-	private static boolean isElseWithThrow(DetailAST aIf) {
-		final DetailAST aLastChildAfterIf = aIf.getLastChild();
-		return aLastChildAfterIf.getFirstChild().branchContains(
+	private static boolean isElseWithThrow(DetailAST literalIf) {
+		final DetailAST lastChildAfterIf = literalIf.getLastChild();
+		return lastChildAfterIf.getFirstChild().branchContains(
 				TokenTypes.LITERAL_THROW);
 	}
 
@@ -226,15 +226,15 @@ public class ConfusingConditionCheck extends Check {
 	 * Display if the ratio of the number of rows in an IF and ELSE. If the
 	 * condition is met, checkIfElseCodeLinesRatio = true.
 	 * 
-	 * @param aIf
+	 * @param literalIf
 	 * @return If the condition is met (true) |Isn't men (false).
 	 */
-	private static boolean isRatioBetweenIfAndElseBlockSuitable(DetailAST aIf) {
+	private static boolean isRatioBetweenIfAndElseBlockSuitable(DetailAST literalIf) {
 		boolean result = true;
 
-		final DetailAST aLastChildAfterIf = aIf.getLastChild();
-		final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(aIf);
-		final int linesOfCodeInElseBlock = getAmounOfCodeRowsInBlock(aLastChildAfterIf);
+		final DetailAST lastChildAfterIf = literalIf.getLastChild();
+		final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(literalIf);
+		final int linesOfCodeInElseBlock = getAmounOfCodeRowsInBlock(lastChildAfterIf);
 		if (linesOfCodeInElseBlock > 0) {
 			result = linesOfCodeInIfBlock / linesOfCodeInElseBlock < multiplyFactorForElseBlocks;
 		}
@@ -248,12 +248,12 @@ public class ConfusingConditionCheck extends Check {
 	 *            aDetailAST.
 	 * @return linesOfCodeInIfBlock line of code in block.
 	 */
-	private static int getAmounOfCodeRowsInBlock(DetailAST aDetailAST) {
+	private static int getAmounOfCodeRowsInBlock(DetailAST detailAST) {
 		DetailAST firstBrace = null;
-		if (aDetailAST.getType() == TokenTypes.LITERAL_ELSE) {
-			firstBrace = aDetailAST.getFirstChild();
-		} else if (aDetailAST.getType() == TokenTypes.LITERAL_IF) {
-			firstBrace = aDetailAST.getFirstChild().getNextSibling()
+		if (detailAST.getType() == TokenTypes.LITERAL_ELSE) {
+			firstBrace = detailAST.getFirstChild();
+		} else if (detailAST.getType() == TokenTypes.LITERAL_IF) {
+			firstBrace = detailAST.getFirstChild().getNextSibling()
 					.getNextSibling().getNextSibling();
 		}
 		DetailAST lastBrace = firstBrace.getLastChild();
@@ -270,20 +270,20 @@ public class ConfusingConditionCheck extends Check {
 	 * Number of comparison operators in IF must be one less than negative
 	 * symbols
 	 * 
-	 * @param aIf
+	 * @param literalIf
 	 * @return
 	 */
-	private static boolean isConditionAllNegative(DetailAST aIf) {
+	private static boolean isConditionAllNegative(DetailAST literalIf) {
 		boolean result = false;
 
-		final DetailAST aIfExpr = aIf.getFirstChild().getNextSibling();
-		final int countOfLnot = getCountOfToken(aIfExpr, TokenTypes.LNOT);
-		final int countOfNotequal = getCountOfToken(aIfExpr,
+		final DetailAST ifExpr = literalIf.getFirstChild().getNextSibling();
+		final int countOfLnot = getCountOfToken(ifExpr, TokenTypes.LNOT);
+		final int countOfNotequal = getCountOfToken(ifExpr,
 				TokenTypes.NOT_EQUAL);
 		int countOfNegativeSymbolInIf = countOfLnot + countOfNotequal;
 		if (countOfNegativeSymbolInIf > 0) {
-			final int countOfLand = getCountOfToken(aIfExpr, TokenTypes.LAND);
-			final int countOfLor = getCountOfToken(aIfExpr, TokenTypes.LOR);
+			final int countOfLand = getCountOfToken(ifExpr, TokenTypes.LAND);
+			final int countOfLor = getCountOfToken(ifExpr, TokenTypes.LOR);
 			int countOfComparisonOperators = countOfLand + countOfLor;
 			if (countOfNegativeSymbolInIf - countOfComparisonOperators == 1) {
 				result = true;
@@ -295,13 +295,13 @@ public class ConfusingConditionCheck extends Check {
 	/**
 	 * Check IF or not that contained NULL in the expression IF.
 	 * 
-	 * @param aIf
+	 * @param literalIf
 	 * @see ignoreNullCaseInIf
 	 * @return
 	 */
 
-	private static boolean isIfWithNull(DetailAST aIf) {
-		return aIf.getFirstChild().getNextSibling()
+	private static boolean isIfWithNull(DetailAST literalIf) {
+		return literalIf.getFirstChild().getNextSibling()
 				.branchContains(TokenTypes.LITERAL_NULL);
 	}
 
@@ -314,16 +314,16 @@ public class ConfusingConditionCheck extends Check {
 	 * @param aType
 	 *            a TokenType
 	 */
-	private static int getCountOfToken(DetailAST detAst, int atype) {
+	private static int getCountOfToken(DetailAST detAst, int type) {
 		int count = 0;
-		if (detAst.branchContains(atype)) {
+		if (detAst.branchContains(type)) {
 			while (detAst != null) {
-				count += detAst.getChildCount(atype);
+				count += detAst.getChildCount(type);
 				final DetailAST detAstChild = detAst.getFirstChild();
 				if (detAstChild == null) {
 					detAst = detAst.getNextSibling();
 				} else {
-					count += getCountOfToken(detAstChild, atype);
+					count += getCountOfToken(detAstChild, type);
 					detAst = detAst.getNextSibling();
 				}
 

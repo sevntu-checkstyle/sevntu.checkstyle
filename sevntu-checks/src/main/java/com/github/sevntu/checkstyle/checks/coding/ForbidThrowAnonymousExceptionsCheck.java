@@ -85,14 +85,14 @@ public class ForbidThrowAnonymousExceptionsCheck extends Check
     public void visitToken(DetailAST literalThrowOrVariableDefAst)
     {
         switch (literalThrowOrVariableDefAst.getType()) {
-        case TokenTypes.LITERAL_THROW:
-            identifyThrowingAnonymousException(literalThrowOrVariableDefAst);
-            break;
-        case TokenTypes.VARIABLE_DEF:
-            lookForAnonymousExceptionDefinition(literalThrowOrVariableDefAst);
-            break;
-        default:
-            throw new IllegalArgumentException("Unsupported token type: "
+            case TokenTypes.LITERAL_THROW:
+                identifyThrowingAnonymousException(literalThrowOrVariableDefAst);
+                break;
+            case TokenTypes.VARIABLE_DEF:
+                lookForAnonymousExceptionDefinition(literalThrowOrVariableDefAst);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported token type: "
                     + TokenTypes.getTokenName(literalThrowOrVariableDefAst.getType()));
         }
     }

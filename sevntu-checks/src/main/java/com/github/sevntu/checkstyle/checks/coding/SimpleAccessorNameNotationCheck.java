@@ -62,12 +62,12 @@ public class SimpleAccessorNameNotationCheck extends Check
 
     /**
      * setPrefix is a setter for prefix.
-     * @param aPrefix
+     * @param prefix
      *        - prefix of field's name
      */
-    public void setPrefix(String aPrefix)
+    public void setPrefix(String prefix)
     {
-        prefix = aPrefix;
+        this.prefix = prefix;
     }
 
     @Override
@@ -77,30 +77,30 @@ public class SimpleAccessorNameNotationCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aMethodDef)
+    public void visitToken(DetailAST methodDef)
     {
-        String methodName = aMethodDef.findFirstToken(TokenTypes.IDENT).getText();
-        if (hasBody(aMethodDef) && !isMethodAtAnonymousClass(aMethodDef))
+        String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
+        if (hasBody(methodDef) && !isMethodAtAnonymousClass(methodDef))
         {
             if (methodName.startsWith(BOOLEAN_GETTER_PREFIX))
             {
-                if (!isGetterCorrect(aMethodDef, methodName.substring(BOOLEAN_GETTER_PREFIX.length())))
+                if (!isGetterCorrect(methodDef, methodName.substring(BOOLEAN_GETTER_PREFIX.length())))
                 {
-                    log(aMethodDef.getLineNo(), MSG_KEY_GETTER);
+                    log(methodDef.getLineNo(), MSG_KEY_GETTER);
                 }
             }
             else if (methodName.startsWith(SETTER_PREFIX))
             {
-                if (!isSetterCorrect(aMethodDef, methodName.substring(SETTER_PREFIX.length())))
+                if (!isSetterCorrect(methodDef, methodName.substring(SETTER_PREFIX.length())))
                 {
-                    log(aMethodDef.getLineNo(), MSG_KEY_SETTER);
+                    log(methodDef.getLineNo(), MSG_KEY_SETTER);
                 }
             }
             else if (methodName.startsWith(GETTER_PREFIX))
             {
-                if (!isGetterCorrect(aMethodDef, methodName.substring(GETTER_PREFIX.length())))
+                if (!isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length())))
                 {
-                    log(aMethodDef.getLineNo(), MSG_KEY_GETTER);
+                    log(methodDef.getLineNo(), MSG_KEY_GETTER);
                 }
             }
         }
@@ -110,18 +110,18 @@ public class SimpleAccessorNameNotationCheck extends Check
      * <p>
      * Returns true when setter is correct.
      * </p>
-     * @param aMethodDef
+     * @param methodDef
      *        - DetailAST contains method definition.
-     * @param aMethodName
+     * @param methodName
      *        - name of setter without "set".
      */
-    private boolean isSetterCorrect(DetailAST aMethodDef, String aMethodName)
+    private boolean isSetterCorrect(DetailAST methodDef, String methodName)
     {
-        DetailAST methodType = aMethodDef.findFirstToken(TokenTypes.TYPE);
+        DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
         boolean result = true;
         if (methodType.branchContains(TokenTypes.LITERAL_VOID)) {
 
-            DetailAST currentVerifiedTop = aMethodDef.findFirstToken(TokenTypes.SLIST);
+            DetailAST currentVerifiedTop = methodDef.findFirstToken(TokenTypes.SLIST);
 
             if (containsOnlyExpression(currentVerifiedTop)) {
 
@@ -132,13 +132,13 @@ public class SimpleAccessorNameNotationCheck extends Check
 
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
                     DetailAST parameters =
-                            aMethodDef.findFirstToken(TokenTypes.PARAMETERS);
+                            methodDef.findFirstToken(TokenTypes.PARAMETERS);
                     String nameOfSettingField = getNameOfSettingField(
                             currentVerifiedTop, parameters);
 
                     if (nameOfSettingField != null
                             && verifyFieldAndMethodName(nameOfSettingField,
-                                    aMethodName)) {
+                                    methodName)) {
 
                         result = false;
                     }
@@ -153,19 +153,19 @@ public class SimpleAccessorNameNotationCheck extends Check
      * Returns true when getter is correct.
      * </p>
      * .
-     * @param aMethodDef
+     * @param methodDef
      *        - DetailAST contains method definition.
-     * @param aMethodName
+     * @param methodName
      *        - name of getter without "get" or "is".
      */
-    private boolean isGetterCorrect(DetailAST aMethodDef, String aMethodName)
+    private boolean isGetterCorrect(DetailAST methodDef, String methodName)
     {
-        DetailAST parameters = aMethodDef.findFirstToken(TokenTypes.PARAMETERS);
+        DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
         boolean result = true;
         if (parameters.getChildCount() == 0) {
 
             DetailAST currentVerifiedTop =
-                    aMethodDef.findFirstToken(TokenTypes.SLIST);
+                    methodDef.findFirstToken(TokenTypes.SLIST);
             if (containsOnlyReturn(currentVerifiedTop)) {
 
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
@@ -177,7 +177,7 @@ public class SimpleAccessorNameNotationCheck extends Check
 
                     if (nameOfGettingField != null
                             && verifyFieldAndMethodName(nameOfGettingField,
-                                    aMethodName)) {
+                                    methodName)) {
 
                         result = false;
                     }
@@ -192,43 +192,43 @@ public class SimpleAccessorNameNotationCheck extends Check
      * Returns true, when object block contains only three child: EXPR, SEMI and
      * RCURLY.
      * </p>
-     * @param aObjectBlock
+     * @param objectBlock
      *        - is a link to checked block
      * @return true if object block is correct
      */
-    private static boolean containsOnlyExpression(DetailAST aObjectBlock)
+    private static boolean containsOnlyExpression(DetailAST objectBlock)
     {
         //three child: EXPR, SEMI and RCURLY
-        return aObjectBlock.getChildCount() == 3
-                && aObjectBlock.getFirstChild().getType() == TokenTypes.EXPR
-                && aObjectBlock.findFirstToken(TokenTypes.SEMI) != null;
+        return objectBlock.getChildCount() == 3
+                && objectBlock.getFirstChild().getType() == TokenTypes.EXPR
+                && objectBlock.findFirstToken(TokenTypes.SEMI) != null;
     }
 
     /**
      * <p>
      * Return name of the field, that use in the setter.
      * </p>
-     * @param aAssign
+     * @param assign
      *        - DetailAST contains ASSIGN from EXPR of the setter.
-     * @param aParameters
+     * @param parameters
      *        - DetailAST contains parameters of the setter.
      * @return name of field, that use in setter.
      */
-    private static String getNameOfSettingField(DetailAST aAssign,
-            DetailAST aParameters)
+    private static String getNameOfSettingField(DetailAST assign,
+            DetailAST parameters)
     {
         String nameOfSettingField = null;
 
-        DetailAST assigningFirstChild = aAssign.getFirstChild();
+        DetailAST assigningFirstChild = assign.getFirstChild();
 
-        if (aAssign.getChildCount() == 2
-                && aAssign.getLastChild().getType() == TokenTypes.IDENT) {
+        if (assign.getChildCount() == 2
+                && assign.getLastChild().getType() == TokenTypes.IDENT) {
 
             if (assigningFirstChild.getType() == TokenTypes.IDENT) {
 
                 nameOfSettingField = assigningFirstChild.getText();
 
-                if (checkNameOfParameters(aParameters, nameOfSettingField)) {
+                if (checkNameOfParameters(parameters, nameOfSettingField)) {
                     nameOfSettingField = null;
                 }
 
@@ -257,62 +257,62 @@ public class SimpleAccessorNameNotationCheck extends Check
      * Compare name of the field and part of name of the method. Return true
      * when they are different.
      * </p>
-     * @param aFieldName
+     * @param fieldName
      *        - name of the field.
-     * @param aMethodName
+     * @param methodName
      *        - part of name of the method (without "set", "get" or "is").
      * @return true when names are different.
      */
-    private boolean verifyFieldAndMethodName(String aFieldName,
-            String aMethodName)
+    private boolean verifyFieldAndMethodName(String fieldName,
+            String methodName)
     {
-        String methodName = prefix + aMethodName;
-        return !aFieldName.equalsIgnoreCase(methodName);
+        String name = prefix + methodName;
+        return !fieldName.equalsIgnoreCase(name);
     }
 
     /**
      * <p>
      * Returns true, when object block contains only one child: LITERAL_RETURN.
      * </p>
-     * @param aMethodBody
+     * @param methodBody
      *        - DetailAST contains object block of the getter.
      * @return true when object block correct.
      */
-    private static boolean containsOnlyReturn(DetailAST aMethodBody)
+    private static boolean containsOnlyReturn(DetailAST methodBody)
     {
-        return aMethodBody.getFirstChild().getType() == TokenTypes.LITERAL_RETURN;
+        return methodBody.getFirstChild().getType() == TokenTypes.LITERAL_RETURN;
     }
 
     /**
      * <p>
      * Return true when getter has correct arguments of return.
      * </p>
-     * @param aReturn
+     * @param literalReturn
      *        - DeailAST contains LITERAL_RETURN
      * @return - true when getter has correct return.
      */
-    private static boolean isCorrectReturn(DetailAST aReturn)
+    private static boolean isCorrectReturn(DetailAST literalReturn)
     {
         //two child: EXPR and SEMI
-        return aReturn.getChildCount() == 2
-                && aReturn.getFirstChild().getType() == TokenTypes.EXPR
-                && aReturn.getLastChild().getType() == TokenTypes.SEMI;
+        return literalReturn.getChildCount() == 2
+                && literalReturn.getFirstChild().getType() == TokenTypes.EXPR
+                && literalReturn.getLastChild().getType() == TokenTypes.SEMI;
     }
 
     /**
      * <p>
      * Return name of the field, that use in the getter.
      * </p>
-     * @param aExpr
+     * @param expr
      *        - DetailAST contains expression from getter.
      * @return name of the field, that use in getter.
      */
-    private static String getNameOfGettingField(DetailAST aExpr)
+    private static String getNameOfGettingField(DetailAST expr)
     {
         String nameOfGettingField = null;
 
-        if (aExpr.getChildCount() == 1) {
-            DetailAST exprFirstChild = aExpr.getFirstChild();
+        if (expr.getChildCount() == 1) {
+            DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
 
@@ -338,25 +338,25 @@ public class SimpleAccessorNameNotationCheck extends Check
      * Return true when name of the field is not contained in parameters of the
      * setter method.
      * </p>
-     * @param aParamrters
+     * @param paramrters
      *        - DetailAST contains parameters of the setter.
-     * @param aFieldName
+     * @param fieldName
      *        - name of the field.
      * @return true when name of the field is not contained in parameters.
      */
-    private static boolean checkNameOfParameters(DetailAST aParamrters,
-            String aFieldName)
+    private static boolean checkNameOfParameters(DetailAST paramrters,
+            String fieldName)
     {
 
         boolean isNameOfParameter = false;
-        int parametersChildCount = aParamrters.getChildCount();
+        int parametersChildCount = paramrters.getChildCount();
 
-        DetailAST parameterDef = aParamrters
+        DetailAST parameterDef = paramrters
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
 
         for (int i = 0; i < parametersChildCount && !isNameOfParameter; i++) {
 
-            isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText().equals(aFieldName);
+            isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText().equals(fieldName);
 
         }
 
@@ -367,12 +367,12 @@ public class SimpleAccessorNameNotationCheck extends Check
      * <p>
      * Returns true when method has contained into an anonymous class.
      * </p>
-     * @param aMethodDef
+     * @param methodDef
      * @return
      */
-    private static boolean isMethodAtAnonymousClass(DetailAST aMethodDef)
+    private static boolean isMethodAtAnonymousClass(DetailAST methodDef)
     {
-        DetailAST classObjBlock = aMethodDef.getParent();
+        DetailAST classObjBlock = methodDef.getParent();
         return classObjBlock.getParent().getType() == TokenTypes.LITERAL_NEW;
     }
 
@@ -380,13 +380,13 @@ public class SimpleAccessorNameNotationCheck extends Check
      * <p>
      * Returns true when method or other block has a body.
      * </p>
-     * @param aMethodDef
+     * @param methodDef
      *        - method definition node
      * @return true when method or other block has a body.
      */
-    private static boolean hasBody(DetailAST aMethodDef)
+    private static boolean hasBody(DetailAST methodDef)
     {
-        DetailAST body = aMethodDef.findFirstToken(TokenTypes.SLIST);
+        DetailAST body = methodDef.findFirstToken(TokenTypes.SLIST);
         return body != null;
     }
 }

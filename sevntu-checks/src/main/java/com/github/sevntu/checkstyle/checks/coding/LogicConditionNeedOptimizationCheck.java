@@ -44,12 +44,12 @@ public class LogicConditionNeedOptimizationCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aDetailAST)
+    public void visitToken(DetailAST detailAST)
     {
-        if (needOptimization(aDetailAST)) {
-            log(aDetailAST.getLineNo(), MSG_KEY,
-                    aDetailAST.getText(), aDetailAST.getLineNo(),
-                    aDetailAST.getColumnNo());
+        if (needOptimization(detailAST)) {
+            log(detailAST.getLineNo(), MSG_KEY,
+                    detailAST.getText(), detailAST.getLineNo(),
+                    detailAST.getColumnNo());
         }
     }
 
@@ -57,14 +57,14 @@ public class LogicConditionNeedOptimizationCheck extends Check
      * <p>
      * Return true, if current expression part need optimization.
      * </p>
-     * @param aLogicNode
+     * @param logicNode
      *        - current logic operator node
      * @return - boolean variable
      */
-    private static boolean needOptimization(DetailAST aLogicNode)
+    private static boolean needOptimization(DetailAST logicNode)
     {
-        final DetailAST firstOperand = aLogicNode.getFirstChild();
-        final DetailAST secondOperand = getSecondOperand(aLogicNode);
+        final DetailAST firstOperand = logicNode.getFirstChild();
+        final DetailAST secondOperand = getSecondOperand(logicNode);
         return !secondOperand.branchContains(TokenTypes.METHOD_CALL)
                 && firstOperand.branchContains(TokenTypes.METHOD_CALL);
     }
@@ -72,12 +72,12 @@ public class LogicConditionNeedOptimizationCheck extends Check
      * <p>
      * Return second operand of current logic operator.
      * </p>
-     * @param aLogicNode - current logic operator
+     * @param logicNode - current logic operator
      * @return second operand
      */
-    private static DetailAST getSecondOperand(DetailAST aLogicNode)
+    private static DetailAST getSecondOperand(DetailAST logicNode)
     {
-        DetailAST child = aLogicNode.getLastChild();
+        DetailAST child = logicNode.getLastChild();
         if (child.getType() == TokenTypes.RPAREN) {
             child = child.getPreviousSibling();
         }

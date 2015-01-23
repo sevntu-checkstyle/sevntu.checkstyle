@@ -123,17 +123,17 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * If this value is true, Checkstyle will process value() iterations.
      */
-    private boolean mProposeValuesUsage = true;
+    private boolean proposeValuesUsage = true;
 
     /**
      * If this value is true, Checkstyle will process keySet() iterations.
      */
-    private boolean mProposeKeySetUsage = false;
+    private boolean proposeKeySetUsage = false;
 
     /**
      * If this value is true, Checkstyle will process entrySet() iterations.
      */
-    private boolean mProposeEntrySetUsage = false;
+    private boolean proposeEntrySetUsage = false;
 
     /**
      * The key is pointing to the warning message text in "messages.properties"
@@ -181,25 +181,25 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * This list contains Map object's names.
      */
-    private List<String> mMapNamesList = new ArrayList<String>();
+    private List<String> mapNamesList = new ArrayList<String>();
 
     /**
      * This list contains all qualified imports.
      */
-    private List<String> mQualifiedImportList = new ArrayList<String>();
+    private List<String> qualifiedImportList = new ArrayList<String>();
 
     /**
      * Set of allowable map implementations. You can set your own map
      * implementations in Checkstyle configuration
      */
-    private final Set<String> mSupportedMapImplQualifiedNames;
+    private final Set<String> supportedMapImplQualifiedNames;
 
     /**
      * Creates default importList and mapImportClassesNamesList.
      */
     public MapIterationInForEachLoopCheck()
     {
-        mSupportedMapImplQualifiedNames = new HashSet<String>();
+        supportedMapImplQualifiedNames = new HashSet<String>();
         setSupportedMapImplQualifiedNames(new String[] {
             "java.util.Map", "java.util.TreeMap", "java.util.HashMap", });
     }
@@ -208,19 +208,19 @@ public class MapIterationInForEachLoopCheck extends Check
      * Set user's map implementations. It must state the full paths of imported
      * classes. Import paths must be separated by commas. For example:
      * java.util.Map, java.util.HashMap.
-     * @param aSetSupportedMapImplQualifiedNames
+     * @param setSupportedMapImplQualifiedNames
      *        User's set of map implementations.
      */
     public void setSupportedMapImplQualifiedNames(
-            final String[] aSetSupportedMapImplQualifiedNames)
+            final String[] setSupportedMapImplQualifiedNames)
     {
-        mSupportedMapImplQualifiedNames.clear();
-        if (aSetSupportedMapImplQualifiedNames != null) {
-            for (String name : aSetSupportedMapImplQualifiedNames) {
-                mSupportedMapImplQualifiedNames.add(name);
+        supportedMapImplQualifiedNames.clear();
+        if (setSupportedMapImplQualifiedNames != null) {
+            for (String name : setSupportedMapImplQualifiedNames) {
+                supportedMapImplQualifiedNames.add(name);
                 final String importPathWithoutClassName = name.substring(0,
                         name.lastIndexOf(".") + 1) + "*";
-                mSupportedMapImplQualifiedNames.add(importPathWithoutClassName);
+                supportedMapImplQualifiedNames.add(importPathWithoutClassName);
             }
         }
     }
@@ -228,37 +228,37 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * Set aProcessingValue. If value is true, Check will process cases, where
      * values() method will be suitable.
-     * @param aProposeValuesUsage
+     * @param proposeValuesUsage
      *        User's value of mProcessingValue.
      */
     public void setProposeValuesUsage(
-            final boolean aProposeValuesUsage)
+            final boolean proposeValuesUsage)
     {
-        this.mProposeValuesUsage = aProposeValuesUsage;
+        this.proposeValuesUsage = proposeValuesUsage;
     }
 
     /**
      * Set aProcessingKeySet. If value is true, Check will process cases, where
      * keySet() method will be suitable.
-     * @param aProposeKeySetUsage
+     * @param proposeKeySetUsage
      *        User's value of mIsCheckKeySetProcessingEnabled.
      */
     public void setProposeKeySetUsage(
-            final boolean aProposeKeySetUsage)
+            final boolean proposeKeySetUsage)
     {
-        this.mProposeKeySetUsage = aProposeKeySetUsage;
+        this.proposeKeySetUsage = proposeKeySetUsage;
     }
 
     /**
      * Set aProcessingEntrySet. If value is true, Check will process cases,
      * where entrySet() method will be suitable.
-     * @param aProposeEntrySetUsage
+     * @param proposeEntrySetUsage
      *        User's value of mIsCheckEntrySetProcessingEnabled.
      */
     public void setProposeEntrySetUsage(
-            final boolean aProposeEntrySetUsage)
+            final boolean proposeEntrySetUsage)
     {
-        this.mProposeEntrySetUsage = aProposeEntrySetUsage;
+        this.proposeEntrySetUsage = proposeEntrySetUsage;
     }
 
     @Override
@@ -268,40 +268,40 @@ public class MapIterationInForEachLoopCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAst)
+    public void visitToken(DetailAST ast)
     {
-        switch (aAst.getType()) {
+        switch (ast.getType()) {
 
-        case TokenTypes.IMPORT:
-            String qualifiedMapImportText = getMapImportQualifiedName(aAst);
-            if (qualifiedMapImportText != null) {
-                mQualifiedImportList.add(qualifiedMapImportText);
-            }
-            break;
-
-        case TokenTypes.VARIABLE_DEF:
-            if (!mQualifiedImportList.isEmpty() && isMapVariable(aAst)) {
-                DetailAST mapIdentNode = aAst.findFirstToken(TokenTypes.TYPE).getNextSibling();
-                String mapName = mapIdentNode.getText();
-                //If Map name is contains into mMapNamesList, it doesn't need second inclusion
-                if (!mMapNamesList.contains(mapName)) {
-                    mMapNamesList.add(mapIdentNode.getText());
+            case TokenTypes.IMPORT:
+                String qualifiedMapImportText = getMapImportQualifiedName(ast);
+                if (qualifiedMapImportText != null) {
+                    qualifiedImportList.add(qualifiedMapImportText);
                 }
-            }
-            break;
+                break;
 
-        case TokenTypes.LITERAL_FOR:
-            if (!mQualifiedImportList.isEmpty() && isForEach(aAst)) {
-                final String warningMessageKey = validate(aAst);
-                if (warningMessageKey != null) {
-                    log(aAst, warningMessageKey);
+            case TokenTypes.VARIABLE_DEF:
+                if (!qualifiedImportList.isEmpty() && isMapVariable(ast)) {
+                    DetailAST mapIdentNode = ast.findFirstToken(TokenTypes.TYPE).getNextSibling();
+                    String mapName = mapIdentNode.getText();
+                    //If Map name is contains into mMapNamesList, it doesn't need second inclusion
+                    if (!mapNamesList.contains(mapName)) {
+                        mapNamesList.add(mapIdentNode.getText());
+                    }
                 }
-            }
-            break;
+                break;
 
-        default:
-            throw new IllegalArgumentException("MapIterationInForEachLoopCheck: Argument of type "
-                    + aAst.getType() + "is not supported");
+            case TokenTypes.LITERAL_FOR:
+                if (!qualifiedImportList.isEmpty() && isForEach(ast)) {
+                    final String warningMessageKey = validate(ast);
+                    if (warningMessageKey != null) {
+                        log(ast, warningMessageKey);
+                    }
+                }
+                break;
+
+            default:
+                throw new IllegalArgumentException("MapIterationInForEachLoopCheck: Argument of type "
+                    + ast.getType() + "is not supported");
         }
     }
 
@@ -309,14 +309,14 @@ public class MapIterationInForEachLoopCheck extends Check
      * Processes "for-each" loop.
      * It searches for keySet() or entrySet() nodes,
      * iterated maps, keys or entries.
-     * @param aForLiteralNode
+     * @param forLiteralNode
      *        DetailAST of literal for.
      * @return warning message key.
      */
-    private String validate(DetailAST aForLiteralNode)
+    private String validate(DetailAST forLiteralNode)
     {
         String warningMessageKey = null;
-        final DetailAST forEachNode = aForLiteralNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE);
+        final DetailAST forEachNode = forLiteralNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE);
         final DetailAST keySetOrEntrySetNode =
                 getKeySetOrEntrySetNode(forEachNode);
         boolean isMapClassField = false;
@@ -331,11 +331,11 @@ public class MapIterationInForEachLoopCheck extends Check
             final String currentMapVariableName = isMapClassField ?
                     keySetOrEntrySetNode.getPreviousSibling().getLastChild().getText()
                     :keySetOrEntrySetNode.getPreviousSibling().getText();
-            final DetailAST forEachOpeningBrace = aForLiteralNode.getLastChild();
+            final DetailAST forEachOpeningBrace = forLiteralNode.getLastChild();
 
             if (!isMapPassedIntoAnyMethod(forEachOpeningBrace)) {
 
-                if (mProposeKeySetUsage
+                if (proposeKeySetUsage
                         && KEY_SET_METHOD_NAME.equals(
                                 keySetOrEntrySetNode.getText()))
                 {
@@ -343,7 +343,7 @@ public class MapIterationInForEachLoopCheck extends Check
                             checkForWrongKeySetUsage(forEachOpeningBrace,
                             keyOrEntryVariableName, currentMapVariableName, isMapClassField);
                 }
-                else if (mProposeEntrySetUsage) {
+                else if (proposeEntrySetUsage) {
                     warningMessageKey = checkForWrongEntrySetUsage(forEachOpeningBrace,
                             keyOrEntryVariableName);
                 }
@@ -354,24 +354,24 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * 
-     * @param aForNode
+     * @param forNode
      * @return
      */
-    private static boolean isForEach(DetailAST aForNode)
+    private static boolean isForEach(DetailAST forNode)
     {
-        return aForNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE) != null;
+        return forNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE) != null;
     }
     
     /**
      * Searches for keySet() or entrySet() node.
-     * @param aForEachNode
+     * @param forEachNode
      *        Contains current for node.
      * @return keySet() or entrySet() node. If such node didn't found, method
      *         return null.
      */
-    private DetailAST getKeySetOrEntrySetNode(DetailAST aForEachNode)
+    private DetailAST getKeySetOrEntrySetNode(DetailAST forEachNode)
     {
-        final List<DetailAST> identAndThisNodesList = getSubTreeNodesOfType(aForEachNode,
+        final List<DetailAST> identAndThisNodesList = getSubTreeNodesOfType(forEachNode,
                 TokenTypes.IDENT, TokenTypes.LITERAL_THIS);
         boolean isMapClassField = false;
         for (DetailAST thisNode : identAndThisNodesList) {
@@ -388,7 +388,7 @@ public class MapIterationInForEachLoopCheck extends Check
                 String mapClassName = isMapClassField
                         ? identNode.getPreviousSibling().getLastChild().getText()
                                 : identNode.getPreviousSibling().getText();
-                if (mMapNamesList.contains(mapClassName)) {
+                if (mapNamesList.contains(mapClassName)) {
                     keySetOrEntrySetNode = identNode;
                     break;
                 }
@@ -400,14 +400,14 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * Returns true, if any method call inside for loop contains map
      * object as parameter.
-     * @param aForEachOpeningBraceNode
+     * @param forEachOpeningBraceNode
      *        List with subtree IDENT nodes.
      * @return true, if any Method Call contains Map Parameter.
      */
-    private boolean isMapPassedIntoAnyMethod(DetailAST aForEachOpeningBraceNode)
+    private boolean isMapPassedIntoAnyMethod(DetailAST forEachOpeningBraceNode)
     {
         final List<DetailAST> methodCallNodeList = getSubTreeNodesOfType(
-                aForEachOpeningBraceNode, TokenTypes.METHOD_CALL);
+                forEachOpeningBraceNode, TokenTypes.METHOD_CALL);
         for (DetailAST methodCallNode : methodCallNodeList) {
             if (hasMapAsParameter(methodCallNode)) {
                 return true;
@@ -418,16 +418,16 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Checks is map instance passed into method call, or not.
-     * @param aMethodCallNode
+     * @param methodCallNode
      *        DetailAST node of Method Call.
      * @return return true, if method call contain map as parameter.
      */
-    private boolean hasMapAsParameter(DetailAST aMethodCallNode)
+    private boolean hasMapAsParameter(DetailAST methodCallNode)
     {
         boolean result = false;
-        final List<DetailAST> identNodesList = getSubTreeNodesOfType(aMethodCallNode,
+        final List<DetailAST> identNodesList = getSubTreeNodesOfType(methodCallNode,
                 TokenTypes.IDENT);
-        for (String mapName : mMapNamesList) {
+        for (String mapName : mapNamesList) {
             for (DetailAST identNode : identNodesList) {
                 if (mapName.equals(identNode.getText())
                         && identNode.getParent().getType() == TokenTypes.EXPR)
@@ -441,38 +441,38 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Searches for wrong ketSet() usage into for cycles.
-     * @param aForEachOpeningBraceNode
+     * @param forEachOpeningBraceNode
      *        For-each opening brace.
-     * @param aKeyName
+     * @param keyName
      *        Map's key name.
-     * @param aMapName
+     * @param mapName
      *        Current map name.
      * @return keySet warning message key.
      */
     private String
-    checkForWrongKeySetUsage(DetailAST aForEachOpeningBraceNode,
-            String aKeyName, String aMapName, boolean aIsMapClassField)
+    checkForWrongKeySetUsage(DetailAST forEachOpeningBraceNode,
+            String keyName, String mapName, boolean isMapClassField)
     {
         String result = null;
 
         final List<DetailAST> identAndLiteralIfNodesList =
-                getSubTreeNodesOfType(aForEachOpeningBraceNode,
+                getSubTreeNodesOfType(forEachOpeningBraceNode,
                         TokenTypes.IDENT, TokenTypes.LITERAL_IF);
         int methodGetCallCount = 0;
         int keyIdentCount = 0;
         for (DetailAST identOrLiteralIfNode : identAndLiteralIfNodesList) {
             DetailAST mapIdentNode = identOrLiteralIfNode.getPreviousSibling();
-            if (aIsMapClassField && mapIdentNode != null) {
+            if (isMapClassField && mapIdentNode != null) {
                 mapIdentNode = mapIdentNode.getLastChild();
             }
             if (mapIdentNode != null && GET_NODE_NAME.equals(identOrLiteralIfNode.getText())
-                    && aMapName.equals(mapIdentNode.getText()))
+                    && mapName.equals(mapIdentNode.getText()))
             {        
 
                 methodGetCallCount++;
             }
 
-            if (aKeyName.equals(identOrLiteralIfNode.getText())) {
+            if (keyName.equals(identOrLiteralIfNode.getText())) {
                 keyIdentCount++;
             }
         }
@@ -485,12 +485,12 @@ public class MapIterationInForEachLoopCheck extends Check
             for (DetailAST node : getSubTreeNodesOfType(literalIfNode, TokenTypes.IDENT))
             {
                 DetailAST mapIdentNode = node.getPreviousSibling();
-                if (aIsMapClassField && mapIdentNode != null) {
+                if (isMapClassField && mapIdentNode != null) {
                     mapIdentNode = mapIdentNode.getLastChild();
                 }
 
                 if (mapIdentNode != null && GET_NODE_NAME.equals(node.getText())
-                        && aMapName.equals(mapIdentNode.getText()))
+                        && mapName.equals(mapIdentNode.getText()))
                 {
                     methodGetCallInsideIfCount++;
                 }
@@ -499,7 +499,7 @@ public class MapIterationInForEachLoopCheck extends Check
 
         if (methodGetCallCount != 0 && keyIdentCount != 0) {
 
-            if (mProposeValuesUsage && methodGetCallCount == keyIdentCount) {
+            if (proposeValuesUsage && methodGetCallCount == keyIdentCount) {
                 result = MSG_KEY_VALUES;
             }
 
@@ -514,19 +514,19 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Searches for wrong entrySet() usage inside for cycles.
-     * @param aForEachOpeningBraceNode
+     * @param forEachOpeningBraceNode
      *        For-each opening brace.
-     * @param aEntryName
+     * @param entryName
      *        This variable contains Map.Entry name.
      * @return entrySet warning message key.
      */
     private String
-    checkForWrongEntrySetUsage(DetailAST aForEachOpeningBraceNode, String aEntryName)
+    checkForWrongEntrySetUsage(DetailAST forEachOpeningBraceNode, String entryName)
     {
         String result = null;
 
         final List<DetailAST> identNodesList = getSubTreeNodesOfType(
-                aForEachOpeningBraceNode, TokenTypes.IDENT);
+                forEachOpeningBraceNode, TokenTypes.IDENT);
         int methodGetKeyCallCount = 0;
         int methodGetValueCallCount = 0;
         for (DetailAST identNode : identNodesList) {
@@ -534,19 +534,19 @@ public class MapIterationInForEachLoopCheck extends Check
             final DetailAST entryNode = identNode.getPreviousSibling();
 
             if (entryNode != null && GET_KEY_NODE_NAME.equals(identNode.getText()) 
-                    && aEntryName.equals(entryNode.getText()))
+                    && entryName.equals(entryNode.getText()))
             {
                 methodGetKeyCallCount++;
             }
 
             if (entryNode != null && GET_VALUE_NODE_NAME.equals(identNode.getText())
-                    && aEntryName.equals(entryNode.getText()))
+                    && entryName.equals(entryNode.getText()))
             {
                 methodGetValueCallCount++;
             }
         }
 
-        if (mProposeValuesUsage
+        if (proposeValuesUsage
                 && methodGetKeyCallCount == 0 && methodGetValueCallCount > 0)
         {
             result = MSG_KEY_VALUES;
@@ -560,15 +560,15 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Checks if the new variable is Map object, or not.
-     * @param aVariableDefNode
+     * @param variableDefNode
      *        DetailAST node of Variable Definition.
      * @return true, if the new variable is Map object.
      */
-    private boolean isMapVariable(DetailAST aVariableDefNode)
+    private boolean isMapVariable(DetailAST variableDefNode)
     {
         boolean result = false;
         final List<DetailAST> literaNewNodeslList =
-                getSubTreeNodesOfType(aVariableDefNode,
+                getSubTreeNodesOfType(variableDefNode,
                         TokenTypes.LITERAL_NEW, TokenTypes.ASSIGN);
         final String className = getClassName(literaNewNodeslList);
         if (getFirstNodeOfType(literaNewNodeslList, TokenTypes.ASSIGN)
@@ -580,31 +580,31 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Checks, is current class a Map implementation or not.
-     * @param aClassName
+     * @param className
      *        Current class's name.
      * @return true, if current class is contained inside mQualifiedImportList.
      */
-    private boolean isMapImplementation(String aClassName)
+    private boolean isMapImplementation(String className)
     {
-        return isClassContainsInsideQualifiedImportList(aClassName)
-                || containsInSupportedMapImplQualifiedNames(aClassName);
+        return isClassContainsInsideQualifiedImportList(className)
+                || containsInSupportedMapImplQualifiedNames(className);
     }
 
     /**
      * Checks, is mSupportedMapImplQualifiedNames List contains
      * current class.
-     * @param aClassName
+     * @param className
      *        current class name.
      * @return true, if List contains current class.
      */
-    private boolean containsInSupportedMapImplQualifiedNames(String aClassName)
+    private boolean containsInSupportedMapImplQualifiedNames(String className)
     {
         boolean result = false;
-        for (String supportedMapName : mSupportedMapImplQualifiedNames) {
-            if (supportedMapName.endsWith(aClassName)) {
+        for (String supportedMapName : supportedMapImplQualifiedNames) {
+            if (supportedMapName.endsWith(className)) {
                 final int lastDotIndex = supportedMapName.lastIndexOf(".") + 1;
                 final String packageName = supportedMapName.substring(0, lastDotIndex) + "*";
-                if (mQualifiedImportList.contains(packageName)) {
+                if (qualifiedImportList.contains(packageName)) {
                     result = true;
                     break;
                 }
@@ -616,15 +616,15 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * Checks, is mQualifiedImportList contains
      * current class.
-     * @param aClassName
+     * @param className
      *        current class name.
      * @return true, if List contains current class.
      */
-    private boolean isClassContainsInsideQualifiedImportList(String aClassName)
+    private boolean isClassContainsInsideQualifiedImportList(String className)
     {
         boolean result = false;
-        for (String mapImplementationQualifiedName : mQualifiedImportList) {
-            if (mapImplementationQualifiedName.endsWith(aClassName)) {
+        for (String mapImplementationQualifiedName : qualifiedImportList) {
+            if (mapImplementationQualifiedName.endsWith(className)) {
                 result = true;
                 break;
             }
@@ -634,14 +634,14 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Returns the instance's class name.
-     * @param aLiteraNewNodesList
+     * @param literaNewNodesList
      *        This list contains "new" literals.
      * @return object's class name,
      *        if class name is missed, returns null.
      */
-    private static String getClassName(final List<DetailAST> aLiteraNewNodesList)
+    private static String getClassName(final List<DetailAST> literaNewNodesList)
     {
-        for (DetailAST literalNewNode : aLiteraNewNodesList) {
+        for (DetailAST literalNewNode : literaNewNodesList) {
             DetailAST exprNode = literalNewNode.getParent();
             if (exprNode.getParent().getType() == TokenTypes.ASSIGN) {
                 return literalNewNode.getFirstChild().getText();
@@ -653,16 +653,16 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * Searches the first specific
      * DetailAST node inside List.
-     * @param aNodesList
+     * @param nodesList
      *        DetailAST List witch maybe contains specific token.
      * @param aSpecificType
      *        A specific type of token.
      * @return specific token or null.
      */
-    private static DetailAST getFirstNodeOfType(List<DetailAST> aNodesList,
+    private static DetailAST getFirstNodeOfType(List<DetailAST> nodesList,
             int aSpecificType)
     {
-        for (DetailAST node : aNodesList) {
+        for (DetailAST node : nodesList) {
             if (node.getType() == aSpecificType) {
                 return node;
             }
@@ -673,15 +673,15 @@ public class MapIterationInForEachLoopCheck extends Check
     /**
      * Returns full path of map implementation. If path doesn't
      * contain full map implementation path, null will be returned.
-     * @param aImportNode
+     * @param importNode
      *        Import node.
      * @return full path of map implementation or null.
      */
-    private String getMapImportQualifiedName(DetailAST aImportNode)
+    private String getMapImportQualifiedName(DetailAST importNode)
     {
         final String mapClassQualifiedName = FullIdent.createFullIdent(
-                aImportNode.getFirstChild()).getText();
-        for (String qualifiedName : mSupportedMapImplQualifiedNames) {
+                importNode.getFirstChild()).getText();
+        for (String qualifiedName : supportedMapImplQualifiedNames) {
             if (mapClassQualifiedName.equals(qualifiedName)) {
                 return mapClassQualifiedName;
             }
@@ -691,26 +691,26 @@ public class MapIterationInForEachLoopCheck extends Check
 
     /**
      * Searches over subtree for all tokens of necessary types.
-     * @param aRootNode
+     * @param rootNode
      *        The root of subtree.
-     * @param aTokenTypes
+     * @param tokenTypes
      *        Token's necessary types into If condition.
      * @return DetailAST List with necessary tokens.
      */
-    private static List<DetailAST> getSubTreeNodesOfType(DetailAST aRootNode,
-            int... aTokenTypes)
+    private static List<DetailAST> getSubTreeNodesOfType(DetailAST rootNode,
+            int... tokenTypes)
     {
         final List<DetailAST> result = new ArrayList<DetailAST>();
         final DetailAST finishNode;
-        if (aRootNode.getNextSibling() == null) {
-            finishNode = aRootNode.getLastChild();
+        if (rootNode.getNextSibling() == null) {
+            finishNode = rootNode.getLastChild();
         }
         else {
-            finishNode = aRootNode.getNextSibling();
+            finishNode = rootNode.getNextSibling();
         }
-        DetailAST curNode = aRootNode;
+        DetailAST curNode = rootNode;
         while (curNode != null && curNode != finishNode) {
-            for (int tokenType : aTokenTypes) {
+            for (int tokenType : tokenTypes) {
                 if (curNode.getType() == tokenType) {
                     result.add(curNode);
                 }

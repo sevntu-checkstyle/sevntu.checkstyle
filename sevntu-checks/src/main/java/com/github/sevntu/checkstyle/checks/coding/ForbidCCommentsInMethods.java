@@ -41,7 +41,7 @@ public class ForbidCCommentsInMethods extends Check
     /**
      * Set contains C style comments from current file
      */
-    private Set<Integer> mCComments;
+    private Set<Integer> clangComments;
 
     @Override
     public int[] getDefaultTokens()
@@ -50,24 +50,24 @@ public class ForbidCCommentsInMethods extends Check
     }
 
     @Override
-    public void beginTree(DetailAST aRootAST)
+    public void beginTree(DetailAST rootAST)
     {
-        mCComments = getFileContents().getCComments().keySet();
+        clangComments = getFileContents().getCComments().keySet();
     }
 
     @Override
-    public void visitToken(DetailAST aMethodNode)
+    public void visitToken(DetailAST methodNode)
     {
-        if (!mCComments.isEmpty()) {
+        if (!clangComments.isEmpty()) {
             final DetailAST borders =
-                    aMethodNode.findFirstToken(TokenTypes.SLIST);
+                    methodNode.findFirstToken(TokenTypes.SLIST);
             //Could be null when aMethodNode doesn't have body 
             //(into interface for example)
             if (borders != null)    
             {
                 final int methodBodyBegin = borders.getLineNo();
                 final int methodBodyEnd = borders.getLastChild().getLineNo();
-                for (final int commentLineNo : mCComments) {
+                for (final int commentLineNo : clangComments) {
                     if (commentLineNo > methodBodyBegin
                             && commentLineNo < methodBodyEnd)
                     {
