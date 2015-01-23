@@ -47,38 +47,38 @@ public class ForbidAnnotationCheck extends Check
     public static final String MSG_KEY = "annotation.incorrect.target";
 	
     /**
-     * mAnnotationNames is set of annotation's names.
+     * annotationNames is set of annotation's names.
      */
-    private Set<String> mAnnotationNames = new HashSet<String>();
+    private Set<String> annotationNames = new HashSet<String>();
     /**
-     * mAnnotationTargets is array of type forbidden annotation's target.
+     * annotationTargets is array of type forbidden annotation's target.
      */
-    private int[] mAnnotationTargets = new int[0];
+    private int[] annotationTargets = new int[0];
     /**
      * setAnnotationNames is a setter for mAnnotationNames.
-     * @param aNames - array of annotation's names
+     * @param names - array of annotation's names
      */
-    public void setAnnotationNames(final String[] aNames)
+    public void setAnnotationNames(final String[] names)
     {
-        if (aNames != null) {
-            for (String name : aNames) {
-                mAnnotationNames.add(name);
+        if (names != null) {
+            for (String name : names) {
+                annotationNames.add(name);
             }
         }
     }
 
     /**
      * setAnnotationTargets is a getter for mAnnotationNames.
-     * @param aTargets - array of type's names
+     * @param targets - array of type's names
      */
-    public void setAnnotationTargets(String[] aTargets)
+    public void setAnnotationTargets(String[] targets)
     {
-        if (aTargets != null) {
-            mAnnotationTargets = new int[aTargets.length];
-            for (int i = 0; i < aTargets.length; i++) {
-                mAnnotationTargets[i] = TokenTypes.getTokenId(aTargets[i]);
+        if (targets != null) {
+            annotationTargets = new int[targets.length];
+            for (int i = 0; i < targets.length; i++) {
+                annotationTargets[i] = TokenTypes.getTokenId(targets[i]);
             }
-            Arrays.sort(mAnnotationTargets);
+            Arrays.sort(annotationTargets);
         }
     }
 
@@ -89,12 +89,12 @@ public class ForbidAnnotationCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAnnotation)
+    public void visitToken(DetailAST annotation)
     {
 
-        final String annotationName = getAnnotationName(aAnnotation);
+        final String annotationName = getAnnotationName(annotation);
         // first parent - 'MODIFIERS', second parent - annotation's target
-        final DetailAST annotationTarget = aAnnotation.getParent().getParent();
+        final DetailAST annotationTarget = annotation.getParent().getParent();
 
         final int targetType = annotationTarget.getType();
 
@@ -104,41 +104,41 @@ public class ForbidAnnotationCheck extends Check
 
             final String currentTarget = annotationTarget.getText();
 
-            log(aAnnotation.getLineNo(), MSG_KEY,
+            log(annotation.getLineNo(), MSG_KEY,
                     currentTarget, annotationName);
         }
     }
     
-    private static String getAnnotationName(DetailAST aAnnotation){
-    	DetailAST directname = aAnnotation.findFirstToken(TokenTypes.IDENT);
+    private static String getAnnotationName(DetailAST annotation){
+    	DetailAST directname = annotation.findFirstToken(TokenTypes.IDENT);
 
     	if(directname != null){
     		return directname.getText();
     	}else{
     		//This means that annotation is specified with the full package name
-    		return aAnnotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
+    		return annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
     	}
     }
     
 
     /**
      * return true if mAnnotationNames contains aAnnotationName.
-     * @param aAnnotationName - name of current annotation
+     * @param annotationName - name of current annotation
      * @return boolean
      */
-    private boolean isRequiredAnnotationName(String aAnnotationName)
+    private boolean isRequiredAnnotationName(String annotationName)
     {
-        return aAnnotationName != null
-                && mAnnotationNames.contains(aAnnotationName);
+        return annotationName != null
+                && annotationNames.contains(annotationName);
     }
 
     /**
      * return true if mAnnotationTargets contains aTargetType.
-     * @param aTargetType - type of current annotation
+     * @param targetType - type of current annotation
      * @return boolean
      */
-    private boolean isForbiddenAnnotationTarget(int aTargetType)
+    private boolean isForbiddenAnnotationTarget(int targetType)
     {
-        return Arrays.binarySearch(mAnnotationTargets, aTargetType) > -1;
+        return Arrays.binarySearch(annotationTargets, targetType) > -1;
     }
 }
