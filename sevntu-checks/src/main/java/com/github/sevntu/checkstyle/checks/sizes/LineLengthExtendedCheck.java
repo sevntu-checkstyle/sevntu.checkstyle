@@ -93,68 +93,68 @@ public class LineLengthExtendedCheck extends Check
 	private static final int DEFAULT_MAX_COLUMNS = 80;
 
 	/** the maximum number of columns in a line */
-	private int mMax = DEFAULT_MAX_COLUMNS;
+	private int max = DEFAULT_MAX_COLUMNS;
 
 	/** the regexp when long lines are ignored */
-	private Pattern mIgnorePattern;
+	private Pattern ignorePattern;
 
 	/** array of strings in source file */
-	private String[] mLines;
+	private String[] lines;
 
 	/** check field declaration length */
-	private boolean mIgnoreField;
+	private boolean ignoreField;
 
 	/** check method declaration length */
-	private boolean mIgnoreMethod;
+	private boolean ignoreMethod;
 
 	/** check constructor declaration length */
-	private boolean mIgnoreConstructor;
+	private boolean ignoreConstructor;
 
 	/** check class declaration length */
-	private boolean mIgnoreClass;
+	private boolean ignoreClass;
 
 	/**
 	 * Enable|Disable checking field declaration length.
 	 * 
-	 * @param aValue
+	 * @param value
 	 *            check field declaration length.
 	 */
-	public void setIgnoreField(boolean aValue)
+	public void setIgnoreField(boolean value)
 	{
-		mIgnoreField = aValue;
+		ignoreField = value;
 	}
 
 	/**
 	 * Enable|Disable checking method declaration length.
 	 * 
-	 * @param aValue
+	 * @param value
 	 *            check method declaration length.
 	 */
-	public void setIgnoreMethod(boolean aValue)
+	public void setIgnoreMethod(boolean value)
 	{
-		mIgnoreMethod = aValue;
+		ignoreMethod = value;
 	}
 
 	/**
 	 * Enable|Disable checking constructor declaration length.
 	 * 
-	 * @param aValue
+	 * @param value
 	 *            check constructor declaration length.
 	 */
-	public void setIgnoreConstructor(boolean aValue)
+	public void setIgnoreConstructor(boolean value)
 	{
-		mIgnoreConstructor = aValue;
+		ignoreConstructor = value;
 	}
 
 	/**
 	 * Enable|Disable checking class declaration length.
 	 * 
-	 * @param aValue
+	 * @param value
 	 *            check class declaration length.
 	 */
-	public void setIgnoreClass(boolean aValue)
+	public void setIgnoreClass(boolean value)
 	{
-		mIgnoreClass = aValue;
+		ignoreClass = value;
 	}
 
 	/**
@@ -174,16 +174,16 @@ public class LineLengthExtendedCheck extends Check
 		/*disable checking field, method, constructor
 		 * or class declaration length
 		 */
-		if (mIgnoreClass) {
+		if (ignoreClass) {
 			tokens.add(TokenTypes.CLASS_DEF);
 		}
-		if (mIgnoreConstructor) {
+		if (ignoreConstructor) {
 			tokens.add(TokenTypes.CTOR_DEF);
 		}
-		if (mIgnoreField) {
+		if (ignoreField) {
 			tokens.add(TokenTypes.VARIABLE_DEF);
 		}
-		if (mIgnoreMethod) {
+		if (ignoreMethod) {
 			tokens.add(TokenTypes.METHOD_DEF);
 		}
 
@@ -198,21 +198,21 @@ public class LineLengthExtendedCheck extends Check
 	}
 
 	@Override
-	public void visitToken(DetailAST aAST)
+	public void visitToken(DetailAST ast)
 	{
-		final DetailAST endOfIgnoreLine = aAST.findFirstToken(TokenTypes.SLIST);
-		if (null != aAST.getParent()
-				&& aAST.getParent().getType() == TokenTypes.OBJBLOCK
-				|| aAST.getType() == TokenTypes.CLASS_DEF)
+		final DetailAST endOfIgnoreLine = ast.findFirstToken(TokenTypes.SLIST);
+		if (null != ast.getParent()
+				&& ast.getParent().getType() == TokenTypes.OBJBLOCK
+				|| ast.getType() == TokenTypes.CLASS_DEF)
 		{
-			final int mNumberOfLine = aAST.getLineNo();
+			final int mNumberOfLine = ast.getLineNo();
 			if (null == endOfIgnoreLine) {
-				mLines[mNumberOfLine - 1] = null;
+				lines[mNumberOfLine - 1] = null;
 			}
 			else {
 				int mEndNumberOfLine = endOfIgnoreLine.getLineNo();
 				while (mEndNumberOfLine >= mNumberOfLine) {
-					mLines[mEndNumberOfLine - 1] = null;
+					lines[mEndNumberOfLine - 1] = null;
 					mEndNumberOfLine--;
 				}
 			}
@@ -220,53 +220,53 @@ public class LineLengthExtendedCheck extends Check
 	}
 
 	@Override
-	public void beginTree(DetailAST aRootAST)
+	public void beginTree(DetailAST rootAST)
 	{
-		mLines = getLines();
+		lines = getLines();
 	}
 
 	@Override
-	public void finishTree(DetailAST aRootAST)
+	public void finishTree(DetailAST rootAST)
 	{
-		for (int i = 0; i < mLines.length; i++) {
+		for (int i = 0; i < lines.length; i++) {
 
-			if (null == mLines[i]) {
+			if (null == lines[i]) {
 				continue;
 			}
 
-			final String line = mLines[i];
+			final String line = lines[i];
 			final int realLength = Utils.lengthExpandedTabs(line,
 					line.length(), getTabWidth());
 
-			if ((realLength > mMax) && !mIgnorePattern.matcher(line).find()) {
-				log(i + 1, MSG_KEY, mMax, realLength);
+			if ((realLength > max) && !ignorePattern.matcher(line).find()) {
+				log(i + 1, MSG_KEY, max, realLength);
 			}
 		}
 	}
 
 	/**
-	 * @param aLength
+	 * @param length
 	 *            the maximum length of a line
 	 */
-	public void setMax(int aLength)
+	public void setMax(int length)
 	{
-		mMax = aLength;
+		max = length;
 	}
 
 	/**
 	 * Set the ignore pattern.
 	 * 
-	 * @param aFormat
+	 * @param format
 	 *            a <code>String</code> value
 	 * @throws ConversionException
 	 *             unable to parse aFormat
 	 */
-	public void setIgnorePattern(String aFormat) throws ConversionException
+	public void setIgnorePattern(String format) throws ConversionException
 	{
 		try {
-			mIgnorePattern = Utils.getPattern(aFormat);
+			ignorePattern = Utils.getPattern(format);
 		} catch (final PatternSyntaxException e) {
-			throw new ConversionException("unable to parse " + aFormat, e);
+			throw new ConversionException("unable to parse " + format, e);
 		}
 	}
 }
