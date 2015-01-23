@@ -130,15 +130,15 @@ public class AvoidConditionInversionCheck extends Check {
 	}
 	
 	@Override
-	public void visitToken(DetailAST aAst) {
+	public void visitToken(DetailAST ast) {
 		
-		DetailAST expressionAst = aAst.findFirstToken(TokenTypes.EXPR);
+		DetailAST expressionAst = ast.findFirstToken(TokenTypes.EXPR);
 		
-		switch (aAst.getType()) {
+		switch (ast.getType()) {
 		
 			case TokenTypes.LITERAL_RETURN:
 				
-				if (!isEmptyReturn(aAst)) {
+				if (!isEmptyReturn(ast)) {
 
 					DetailAST inversionAst = getInversion(expressionAst);
 						
@@ -160,7 +160,7 @@ public class AvoidConditionInversionCheck extends Check {
 				break;
 			case TokenTypes.FOR_CONDITION:
 				
-				if (!isEmptyForCondition(aAst)) {
+				if (!isEmptyForCondition(ast)) {
 					
 					DetailAST inversionAst = getInversion(expressionAst);
 					
@@ -173,7 +173,7 @@ public class AvoidConditionInversionCheck extends Check {
 			default:
 				
 				final String exceptionMsg = "Unexpected Token Type - "
-					+ TokenTypes.getTokenName(aAst.getType());
+					+ TokenTypes.getTokenName(ast.getType());
 				
 				throw new IllegalStateException(exceptionMsg);
 		}
@@ -181,44 +181,44 @@ public class AvoidConditionInversionCheck extends Check {
 
 	/**
 	 * Checks if return statement is not empty
-	 * @param aReturnAst
+	 * @param returnAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LITERAL_RETURN}
 	 */
-	private static boolean isEmptyReturn(DetailAST aReturnAst) {
+	private static boolean isEmptyReturn(DetailAST returnAst) {
 		
-		return aReturnAst.findFirstToken(TokenTypes.EXPR) == null;
+		return returnAst.findFirstToken(TokenTypes.EXPR) == null;
 	}
 	
 	/**
 	 * Checks if condition in for-loop is not empty
-	 * @param aForConditionAst
+	 * @param forConditionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#FOR_CONDITION}
 	 */
-	private static boolean isEmptyForCondition(DetailAST aForConditionAst) {
+	private static boolean isEmptyForCondition(DetailAST forConditionAst) {
 		
-		return aForConditionAst.getFirstChild() == null;
+		return forConditionAst.getFirstChild() == null;
 	}
 	
 	/**
 	 * Gets inversion node of condition if one exists
-	 * @param aExpressionAst
+	 * @param expressionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#EXPR}
 	 * @return Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
 	 * if exists, else - null
 	 */
-	private static DetailAST getInversion(DetailAST aExpressionAst) {
+	private static DetailAST getInversion(DetailAST expressionAst) {
 		
-		return aExpressionAst.findFirstToken(TokenTypes.LNOT);
+		return expressionAst.findFirstToken(TokenTypes.LNOT);
 	}
 	
 	/**
 	 * Checks if current inversion is avoidable according to Check's properties
-	 * @param aInversionAst
+	 * @param inversionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
 	 */
-	private boolean isAvoidableInversion(DetailAST aInversionAst) { 
+	private boolean isAvoidableInversion(DetailAST inversionAst) { 
 		
-		return aInversionAst != null && !isSkipCondition(aInversionAst);
+		return inversionAst != null && !isSkipCondition(inversionAst);
 	}
 	
 	/**
@@ -226,28 +226,28 @@ public class AvoidConditionInversionCheck extends Check {
 	 * it depends from user-defined property <b>"applyOnlyToRelationalOperands"</b>
 	 * if it's <b>true</b> - Check will ignore inverted conditions with
 	 * non-relational operands
-	 * @param aInversionConditionAst
+	 * @param inversionConditionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
 	 */
-	private boolean isSkipCondition(DetailAST aInversionConditionAst) {
+	private boolean isSkipCondition(DetailAST inversionConditionAst) {
 		
 		return (applyOnlyToRelationalOperands 
-					&& !containsRelationalOperandsOnly(aInversionConditionAst))
-				|| !containsConditionalOrRelationalOperands(aInversionConditionAst);
+					&& !containsRelationalOperandsOnly(inversionConditionAst))
+				|| !containsConditionalOrRelationalOperands(inversionConditionAst);
 	}
 	
 	/**
 	 * Checks if current inverted condition contains only
 	 * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
 	 * relational</a> operands
-	 * @param aInversionConditionAst
+	 * @param inversionConditionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
 	 */
-	private static boolean containsRelationalOperandsOnly(DetailAST aInversionConditionAst) {
+	private static boolean containsRelationalOperandsOnly(DetailAST inversionConditionAst) {
 		
 		boolean result = true;
 		
-		DetailAST operatorInInversionAst = aInversionConditionAst.getFirstChild().getNextSibling();
+		DetailAST operatorInInversionAst = inversionConditionAst.getFirstChild().getNextSibling();
 		
 		if (operatorInInversionAst != null) {
 			
@@ -275,27 +275,27 @@ public class AvoidConditionInversionCheck extends Check {
 	 * Checks if current operand is
 	 * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
 	 * relational</a> operand
-	 * @param aOperandAst
+	 * @param operandAst
 	 * 			Child node of {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT} node
 	 */
-	private static boolean isRelationalOperand(DetailAST aOperandAst) {
+	private static boolean isRelationalOperand(DetailAST operandAst) {
 		
-		return aOperandAst.getFirstChild() == null
-				|| relationalOperatorsSet.contains(aOperandAst.getType());
+		return operandAst.getFirstChild() == null
+				|| relationalOperatorsSet.contains(operandAst.getType());
 	}
 
 	/**
 	 * Checks if current condition contains
 	 * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
 	 * conditional</a> operators
-	 * @param aInversionAst
+	 * @param inversionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
 	 */
-	private static boolean containsConditionalOrRelationalOperands(DetailAST aInversionAst) {
+	private static boolean containsConditionalOrRelationalOperands(DetailAST inversionAst) {
 		
 		boolean result = false;
 		
-		DetailAST currentNodeAst = aInversionAst.getFirstChild();
+		DetailAST currentNodeAst = inversionAst.getFirstChild();
 		
 		while (currentNodeAst != null) {
 			
@@ -312,12 +312,12 @@ public class AvoidConditionInversionCheck extends Check {
 	
 	/**
 	 * Logs message on line where inverted condition is used
-	 * @param aInversionAst
+	 * @param inversionAst
 	 * 			Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
 	 */
-	private void log(DetailAST aInversionAst) {
+	private void log(DetailAST inversionAst) {
 		
-		log(aInversionAst.getLineNo(), MSG_KEY);
+		log(inversionAst.getLineNo(), MSG_KEY);
 	}
 	
 }

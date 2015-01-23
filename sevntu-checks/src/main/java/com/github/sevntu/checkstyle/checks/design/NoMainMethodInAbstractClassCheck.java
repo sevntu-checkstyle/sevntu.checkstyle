@@ -40,7 +40,7 @@ public class NoMainMethodInAbstractClassCheck extends Check
     /**
      * Keep OBJBLOCKs of classes that are under validation.
      */
-    private Deque<DetailAST> mObjBlockTokensStack =
+    private Deque<DetailAST> objBlockTokensStack =
             new LinkedList<DetailAST>();
 
     @Override
@@ -50,37 +50,37 @@ public class NoMainMethodInAbstractClassCheck extends Check
     }
 
     @Override
-    public final void visitToken(final DetailAST aAST)
+    public final void visitToken(final DetailAST ast)
     {
-        if (aAST.getType() == TokenTypes.CLASS_DEF) {
-            if (isNotInnerClass(aAST)) {
+        if (ast.getType() == TokenTypes.CLASS_DEF) {
+            if (isNotInnerClass(ast)) {
                 // remove all tokens from stack
-                mObjBlockTokensStack.clear();
+                objBlockTokensStack.clear();
             }
-            if (hasAbstractModifier(aAST)) {
-                mObjBlockTokensStack.push(
-                        aAST.findFirstToken(TokenTypes.OBJBLOCK));
+            if (hasAbstractModifier(ast)) {
+                objBlockTokensStack.push(
+                        ast.findFirstToken(TokenTypes.OBJBLOCK));
             }
         }
         // type of token is METHOD_DEF
-        else if (isChildOfCurrentObjBlockToken(aAST) && isMainMethod(aAST)) {
-            log(aAST.getLineNo(), MSG_KEY);
+        else if (isChildOfCurrentObjBlockToken(ast) && isMainMethod(ast)) {
+            log(ast.getLineNo(), MSG_KEY);
             // remove current objblock
-            mObjBlockTokensStack.pop();
+            objBlockTokensStack.pop();
         }
     }
 
     /**
      * Verify that class is not inner.
-     * @param aClassDefAST
+     * @param classDefAST
      *        DetailAST of class definition.
      * @return true if class is not inner, false otherwise.
      */
-    private boolean isNotInnerClass(final DetailAST aClassDefAST)
+    private boolean isNotInnerClass(final DetailAST classDefAST)
     {
         boolean result = true;
-        final DetailAST objBlockAST = aClassDefAST.getParent();
-        for (DetailAST currentObjBlock : mObjBlockTokensStack) {
+        final DetailAST objBlockAST = classDefAST.getParent();
+        for (DetailAST currentObjBlock : objBlockTokensStack) {
             if (objBlockAST == currentObjBlock) {
                 result = false;
                 break;
@@ -91,28 +91,28 @@ public class NoMainMethodInAbstractClassCheck extends Check
 
     /**
      * Verify that aMethodDefAST is child token of considered objblock.
-     * @param aMethodDefAST DetailAST of method definition.
+     * @param methodDefAST DetailAST of method definition.
      * @return true if aMethodDefAST is child of of considered objblock.
      */
-    private boolean isChildOfCurrentObjBlockToken(final DetailAST aMethodDefAST)
+    private boolean isChildOfCurrentObjBlockToken(final DetailAST methodDefAST)
     {
-        final DetailAST objBlockAST = mObjBlockTokensStack.peek();
+        final DetailAST objBlockAST = objBlockTokensStack.peek();
         return objBlockAST != null
-                && aMethodDefAST.getParent() == objBlockAST;
+                && methodDefAST.getParent() == objBlockAST;
     }
 
     /**
      * Return true if AST has abstract modifier.
-     * @param aClassDefAST
+     * @param classDefAST
      *        AST which has modifier
      * @return true if AST has abstract modifier, false otherwise.
      */
-    private static boolean hasAbstractModifier(final DetailAST aClassDefAST)
+    private static boolean hasAbstractModifier(final DetailAST classDefAST)
     {
         boolean result = false;
-        if (hasChildToken(aClassDefAST, TokenTypes.MODIFIERS)) {
+        if (hasChildToken(classDefAST, TokenTypes.MODIFIERS)) {
             final DetailAST modifiers =
-                    aClassDefAST.findFirstToken(TokenTypes.MODIFIERS);
+                    classDefAST.findFirstToken(TokenTypes.MODIFIERS);
             result = hasChildToken(modifiers, TokenTypes.ABSTRACT);
         }
         return result;
@@ -120,18 +120,18 @@ public class NoMainMethodInAbstractClassCheck extends Check
 
     /**
      * Verifies that the given DetailAST is a main method.
-     * @param aMethodAST
+     * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST is a main method, false otherwise.
      */
-    private static boolean isMainMethod(final DetailAST aMethodAST)
+    private static boolean isMainMethod(final DetailAST methodAST)
     {
         boolean result = true;
-        final String methodName = getIdentifier(aMethodAST);
+        final String methodName = getIdentifier(methodAST);
         if ("main".equals(methodName)) {
-            result = isVoidType(aMethodAST)
-                    && isMainMethodModifiers(aMethodAST)
-                    && isMainMethodParameters(aMethodAST);
+            result = isVoidType(methodAST)
+                    && isMainMethodModifiers(methodAST)
+                    && isMainMethodParameters(methodAST);
         }
         else {
             result = false;
@@ -142,13 +142,13 @@ public class NoMainMethodInAbstractClassCheck extends Check
     /**
      * Get identifier of AST. These can be names of types, subpackages,
      * fields, methods, parameters, and local variables.
-     * @param aAST
+     * @param ast
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
      */
-    private static String getIdentifier(final DetailAST aAST)
+    private static String getIdentifier(final DetailAST ast)
     {
-        final DetailAST ident = aAST.findFirstToken(TokenTypes.IDENT);
+        final DetailAST ident = ast.findFirstToken(TokenTypes.IDENT);
         if (ident != null) {
             return ident.getText();
         }
@@ -157,17 +157,17 @@ public class NoMainMethodInAbstractClassCheck extends Check
 
     /**
      * Verifies that given AST has appropriate modifiers for main method.
-     * @param aMethodAST
+     * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST has (public & static & !abstract) modifiers,
      *         false otherwise.
      */
-    private static boolean isMainMethodModifiers(final DetailAST aMethodAST)
+    private static boolean isMainMethodModifiers(final DetailAST methodAST)
     {
         boolean result = false;
-        if (hasChildToken(aMethodAST, TokenTypes.MODIFIERS)) {
+        if (hasChildToken(methodAST, TokenTypes.MODIFIERS)) {
             final DetailAST modifiers =
-                    aMethodAST.findFirstToken(TokenTypes.MODIFIERS);
+                    methodAST.findFirstToken(TokenTypes.MODIFIERS);
             result = hasChildToken(modifiers, TokenTypes.LITERAL_PUBLIC)
                     && hasChildToken(modifiers, TokenTypes.LITERAL_STATIC);
         }
@@ -176,16 +176,16 @@ public class NoMainMethodInAbstractClassCheck extends Check
 
     /**
      * Verifies that given AST has type and this type is void.
-     * @param aMethodAST
+     * @param methodAST
      *        DetailAST instance.
      * @return true if AST's type void, false otherwise.
      */
-    private static boolean isVoidType(final DetailAST aMethodAST)
+    private static boolean isVoidType(final DetailAST methodAST)
     {
         boolean result = true;
         DetailAST methodTypeAST = null;
-        if (hasChildToken(aMethodAST, TokenTypes.TYPE)) {
-            methodTypeAST = aMethodAST.findFirstToken(TokenTypes.TYPE);
+        if (hasChildToken(methodAST, TokenTypes.TYPE)) {
+            methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
             result = hasChildToken(methodTypeAST, TokenTypes.LITERAL_VOID);
         }
         return result;
@@ -193,15 +193,15 @@ public class NoMainMethodInAbstractClassCheck extends Check
 
     /**
      * Verifies that given AST has appropriate for main method parameters.
-     * @param aMethodAST
+     * @param methodAST
      *        instance of a method
      * @return true if parameters of aMethodAST are appropriate for main method,
      *         false otherwise.
      */
-    private static boolean isMainMethodParameters(final DetailAST aMethodAST)
+    private static boolean isMainMethodParameters(final DetailAST methodAST)
     {
         final DetailAST params =
-                aMethodAST.findFirstToken(TokenTypes.PARAMETERS);
+                methodAST.findFirstToken(TokenTypes.PARAMETERS);
         return hasOnlyStringArrayParameter(params)
                 || hasOnlyStringEllipsisParameter(params);
     }
@@ -209,20 +209,20 @@ public class NoMainMethodInAbstractClassCheck extends Check
     /**
      * Return true if AST of method parameters has String[] parameter child
      * token.
-     * @param aParametersAST
+     * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if AST has String[] parameter child token, false otherwise.
      */
     private static boolean
-    hasOnlyStringArrayParameter(final DetailAST aParametersAST)
+    hasOnlyStringArrayParameter(final DetailAST parametersAST)
     {
         boolean result = true;
-        if (aParametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
+        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
             result = false;
         }
         else { // there is one parameter
             final DetailAST parameterDefinitionAST =
-                    aParametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
+                    parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
             final DetailAST parameterTypeAST = parameterDefinitionAST
                     .findFirstToken(TokenTypes.TYPE);
             if (hasChildToken(parameterTypeAST, TokenTypes.ARRAY_DECLARATOR)) {
@@ -242,22 +242,22 @@ public class NoMainMethodInAbstractClassCheck extends Check
     /**
      * Return true if AST of method parameters has String... parameter child
      * token.
-     * @param aParametersAST
+     * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if aParametersAST has String... parameter child token, false
      *         otherwise.
      */
     private static boolean
-    hasOnlyStringEllipsisParameter(final DetailAST aParametersAST)
+    hasOnlyStringEllipsisParameter(final DetailAST parametersAST)
     {
         boolean result = true;
-        if (aParametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
+        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
             result = false;
         }
         // there is one parameter
         else {
             final DetailAST parameterDefinitionAST =
-                    aParametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
+                    parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
             if (hasChildToken(parameterDefinitionAST, TokenTypes.ELLIPSIS)) {
                 final DetailAST parameterTypeAST =
                         parameterDefinitionAST.findFirstToken(TokenTypes.TYPE);
@@ -274,14 +274,14 @@ public class NoMainMethodInAbstractClassCheck extends Check
 
     /**
      * Return true if aAST has token of aTokenType type.
-     * @param aAST
+     * @param ast
      *        DetailAST instance.
-     * @param aTokenType
+     * @param tokenType
      *        one of TokenTypes
      * @return true if aAST has token of given type, or false otherwise.
      */
-    private static boolean hasChildToken(DetailAST aAST, int aTokenType)
+    private static boolean hasChildToken(DetailAST ast, int tokenType)
     {
-        return aAST.findFirstToken(aTokenType) != null;
+        return ast.findFirstToken(tokenType) != null;
     }
 }

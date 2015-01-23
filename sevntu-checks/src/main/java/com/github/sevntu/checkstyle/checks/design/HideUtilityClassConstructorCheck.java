@@ -47,16 +47,16 @@ public class HideUtilityClassConstructorCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAST)
+    public void visitToken(DetailAST ast)
     {
-        if (isAbstract(aAST)) {
+        if (isAbstract(ast)) {
             // abstract class could not have private constructor
             return;
         }
 
-        final DetailAST objBlock = aAST.findFirstToken(TokenTypes.OBJBLOCK);
+        final DetailAST objBlock = ast.findFirstToken(TokenTypes.OBJBLOCK);
         DetailAST child = objBlock.getFirstChild();
-        final boolean hasStaticModifier = isStatic(aAST);
+        final boolean hasStaticModifier = isStatic(ast);
         boolean hasMethodOrField = false;
         boolean hasNonStaticMethodOrField = false;
         boolean hasNonPrivateStaticMethodOrField = false;
@@ -106,35 +106,35 @@ public class HideUtilityClassConstructorCheck extends Check
         // TODO: check for "extends java.lang.Object" and "extends Object"
         // consider "import org.omg.CORBA.*"
         final boolean extendsJLO = // J.Lo even made it into in our sources :-)
-            aAST.findFirstToken(TokenTypes.EXTENDS_CLAUSE) == null;
+            ast.findFirstToken(TokenTypes.EXTENDS_CLAUSE) == null;
 
         final boolean isUtilClass = extendsJLO && hasMethodOrField
             && !hasNonStaticMethodOrField && hasNonPrivateStaticMethodOrField;
 
         if (isUtilClass && (hasAccessibleCtor && !hasStaticModifier)) {
-            log(aAST.getLineNo(), aAST.getColumnNo(), "hide.utility.class");
+            log(ast.getLineNo(), ast.getColumnNo(), "hide.utility.class");
         }
     }
 
     /**
-     * @param aAST class definition for check.
+     * @param ast class definition for check.
      * @return true if a given class declared as abstract.
      */
-    private static boolean isAbstract(DetailAST aAST)
+    private static boolean isAbstract(DetailAST ast)
     {
-        final DetailAST abstractAST = aAST.findFirstToken(TokenTypes.MODIFIERS)
+        final DetailAST abstractAST = ast.findFirstToken(TokenTypes.MODIFIERS)
             .findFirstToken(TokenTypes.ABSTRACT);
 
         return abstractAST != null;
     }
 
     /**
-     * @param aAST class definition for check.
+     * @param ast class definition for check.
      * @return true if a given class declared as static.
      */
-    private static boolean isStatic(DetailAST aAST)
+    private static boolean isStatic(DetailAST ast)
     {
-        final DetailAST staticAST = aAST.findFirstToken(TokenTypes.MODIFIERS)
+        final DetailAST staticAST = ast.findFirstToken(TokenTypes.MODIFIERS)
             .findFirstToken(TokenTypes.LITERAL_STATIC);
 
         return staticAST != null;

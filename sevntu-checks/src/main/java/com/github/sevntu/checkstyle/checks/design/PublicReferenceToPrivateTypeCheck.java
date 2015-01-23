@@ -108,27 +108,27 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     public void visitToken(DetailAST defAst)
     {
         switch (defAst.getType()) {
-        case TokenTypes.CLASS_DEF:
-        case TokenTypes.INTERFACE_DEF:
-        case TokenTypes.ENUM_DEF:
-            if (hasModifier(TokenTypes.LITERAL_PRIVATE, defAst)) {
-                addPrivateTypes(defAst);
-            }
-            break;
-        case TokenTypes.METHOD_DEF:
-            if (isDefinedInTopLevelClass(defAst)
+            case TokenTypes.CLASS_DEF:
+            case TokenTypes.INTERFACE_DEF:
+            case TokenTypes.ENUM_DEF:
+                if (hasModifier(TokenTypes.LITERAL_PRIVATE, defAst)) {
+                    addPrivateTypes(defAst);
+                }
+                break;
+            case TokenTypes.METHOD_DEF:
+                if (isDefinedInTopLevelClass(defAst)
                     && !hasModifier(TokenTypes.LITERAL_PRIVATE, defAst)) {
-                addExternallyAccessibleMethodTypes(defAst);
-            }
-            break;
-        case TokenTypes.VARIABLE_DEF:
-            if (isDefinedInTopLevelClass(defAst)
+                    addExternallyAccessibleMethodTypes(defAst);
+                }
+                break;
+            case TokenTypes.VARIABLE_DEF:
+                if (isDefinedInTopLevelClass(defAst)
                     && !hasModifier(TokenTypes.LITERAL_PRIVATE, defAst)) {
-                addExternallyAccessibleFieldTypes(defAst);
-            }
-            break;
-        default:
-            throw new IllegalArgumentException("Unsupported token type: "
+                    addExternallyAccessibleFieldTypes(defAst);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported token type: "
                     + defAst.getType());
         }
     }
