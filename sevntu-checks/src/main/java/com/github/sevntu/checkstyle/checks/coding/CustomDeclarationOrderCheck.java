@@ -80,12 +80,13 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * ATTENTION!
  * <p>
  * Use separator <code>' ', '.', '\s'</code> between declaration in the RegExp.
+ * Whitespace should be added after each modifier.
  * </p>
  * <pre>
  * Example:
- *      Field(public.*final.*)
- *      Field(public final.*)
- *      Field(public<code>\s*</code>final.*)
+ *      Field(public .*final .*)
+ *      Field(public final .*)
+ *      Field(public<code>\s*</code>final .*)
  * </pre>
  * NOTICE!
  * <p>
@@ -111,10 +112,10 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * </p>
  * <p>
  * <code>Field(private static final long serialVersionUID) ###
- * Field(public static final.*) ### Field(.*private.*) ### Ctor(.*) ###
- * GetterSetter(.*) ### Method(.*public.*final.*|@Ignore.*public.*) ###
- * Method(public static.*(final|(new|edit|create).*).*) ###
- * InnerClass(public abstract.*) ### InnerInterface(.*) ### InnerEnum(.*)</code>
+ * Field(public static final .*) ### Field(.*private .*) ### Ctor(.*) ###
+ * GetterSetter(.*) ### Method(.*public .*final .*|@Ignore.*public .*) ###
+ * Method(public static .*(final|(new|edit|create).*).*) ###
+ * InnerClass(public abstract .*) ### InnerInterface(.*) ### InnerEnum(.*)</code>
  * </p>
  *
  * <p><b>What is group of getters and setters(<code>GetterSetter</code>)?</b></p>
@@ -195,8 +196,8 @@ public class CustomDeclarationOrderCheck extends Check
     private static final String SETTER_PREFIX = "set";
 
     /** Default format for custom declaration check */
-    private static final String DEFAULT_DECLARATION = "Field(.*public.*) "
-            + "### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*) ### "
+    private static final String DEFAULT_DECLARATION = "Field(.*public .*) "
+            + "### Field(.*protected .*) ### Field(.*private .*) ### CTOR(.*) ### "
             + "MainMethod(.*) ### GetterSetter(.*) ### Method(.*) ### InnerClass(.*) "
             + "### InnerInterface(.*) ### InnerEnum(.*)";
 
