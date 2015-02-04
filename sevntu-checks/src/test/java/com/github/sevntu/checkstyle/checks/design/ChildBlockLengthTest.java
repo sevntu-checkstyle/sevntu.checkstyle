@@ -19,7 +19,7 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 
-import static com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck.*;
+import static com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck.MSG_KEY;
 
 import org.junit.Test;
 
@@ -121,7 +121,6 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
-
     @Test
     public void testBadChildBlocksThatAreDoubleNested2() throws Exception
     {
@@ -133,5 +132,19 @@ public class ChildBlockLengthTest extends BaseCheckTestSupport
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckCheckNPE.java"), expected);
+    }
+
+    @Test
+    public void testNestedClass() throws Exception
+    {
+        checkConfig.addAttribute("maxChildBlockPercentage", "19");
+		checkConfig.addAttribute("blockTypes", "LITERAL_IF");
+        checkConfig.addAttribute("ignoreBlockLinesCount", "0");
+
+        String[] expected = {
+        		"9:25: " + getCheckMessage(MSG_KEY, 15, 3),
+        };
+
+        verify(checkConfig, getPath("InputChildBlockLengthCheckNestedClass.java"), expected);
     }
 }
