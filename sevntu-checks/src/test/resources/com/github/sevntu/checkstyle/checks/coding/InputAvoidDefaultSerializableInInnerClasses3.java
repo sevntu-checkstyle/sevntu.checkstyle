@@ -2,12 +2,11 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 public class InputAvoidDefaultSerializableInInnerClasses3 {
-    public class Foo implements Serializable {
+    public class Foo implements java.io.Serializable {
         private static final long serialVersionUID = 1L;
         public Date date;
 
