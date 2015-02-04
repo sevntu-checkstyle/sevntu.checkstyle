@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck.MSG_KEY;
 
 import org.junit.Test;
 
@@ -33,11 +33,17 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport
 
 	private final String warningMessage = getCheckMessage(MSG_KEY);
 	
+	private final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+
     @Test
-    public void testDefault()
-            throws Exception
+	public void testDefault() throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+		checkConfig.addAttribute("ignoreInnerIf", "true");
+		checkConfig.addAttribute("ignoreNullCaseInIf", "true");
+		checkConfig.addAttribute("ignoreSequentialIf", "true");
+		checkConfig.addAttribute("ignoreThrowInElse", "true");
+		checkConfig.addAttribute("multiplyFactorForElseBlocks", "4");
+        
         final String[] expected = {
                 "10: " + warningMessage,
                 "13: " + warningMessage,
