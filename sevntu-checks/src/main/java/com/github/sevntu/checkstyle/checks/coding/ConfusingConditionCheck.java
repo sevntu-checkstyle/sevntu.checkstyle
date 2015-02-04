@@ -78,7 +78,7 @@ public class ConfusingConditionCheck extends Check {
 	 * Allow to ignore "else" block if its length is in
 	 * "multiplyFactorForElseBlocks" time less then "if" block.
 	 */
-	private static int multiplyFactorForElseBlocks = MULTIPLY_FACTOR_FOR_ELSE_BLOCK;
+	private int multiplyFactorForElseBlocks = MULTIPLY_FACTOR_FOR_ELSE_BLOCK;
 
 	/**
 	 * Disable warnings for all "if" that follows the "else". It is useful for
@@ -148,7 +148,7 @@ public class ConfusingConditionCheck extends Check {
 	 * @see ConfusingConditionCheck#MultiplyFactorForElseBlocks
 	 */
 	public void setMultiplyFactorForElseBlocks(int multiplyFactorForElseBlocks) {
-		this.multiplyFactorForElseBlocks = multiplyFactorForElseBlocks;
+		multiplyFactorForElseBlocks = multiplyFactorForElseBlocks;
 	}
 
 	@Override
@@ -229,7 +229,7 @@ public class ConfusingConditionCheck extends Check {
 	 * @param literalIf
 	 * @return If the condition is met (true) |Isn't men (false).
 	 */
-	private static boolean isRatioBetweenIfAndElseBlockSuitable(DetailAST literalIf) {
+	private boolean isRatioBetweenIfAndElseBlockSuitable(DetailAST literalIf) {
 		boolean result = true;
 
 		final DetailAST lastChildAfterIf = literalIf.getLastChild();
