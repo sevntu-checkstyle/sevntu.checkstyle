@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck.MSG_KEY;
 
 import org.junit.Test;
 
@@ -15,12 +15,14 @@ public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport
 {
 	private final String warningMessage = getCheckMessage(MSG_KEY);
 	
+    final DefaultConfiguration checkConfig = createCheckConfig(EitherLogOrThrowCheck.class);
+
     @Test
     public void test() throws Exception
     {
-        final DefaultConfiguration checkConfig =
-                createCheckConfig(EitherLogOrThrowCheck.class);
-        
+        checkConfig.addAttribute("loggerFullyQualifiedClassName", "org.slf4j.Logger");
+        checkConfig.addAttribute("loggingMethodNames", "error, warn");
+
         final String[] expected = {
         		"19: " + warningMessage,
         		"31: " + warningMessage,

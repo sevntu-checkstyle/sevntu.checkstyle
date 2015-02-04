@@ -124,40 +124,49 @@ public class EitherLogOrThrowCheck extends Check
      * Key for error message.
      */
     public static final String MSG_KEY = "either.log.or.throw";
+
     /**
      * Logger fully qualified class name.
      */
     private String loggerFullyQualifiedClassName = "org.slf4j.Logger";
+
     /**
      * Logger class name.
      */
     private String loggerSimpleClassName = "Logger";
+
     /**
      * Logger method names.
      */
     private List<String> loggingMethodNames =
             Arrays.asList("error", "warn", "info", "debug");
+
     /**
      * Variables names of logger variables.
      */
     private List<String> loggerFieldNames = new LinkedList<String>();
+
     /**
      * Logger class is in imports.
      */
     private boolean hasLoggerClassInImports;
+
     /**
      * Regexp of printStackTrace method.
      */
     private static final Pattern PRINT_STACK_TRACE_METHOD_PATTERN = Pattern
             .compile(".+\\.printStackTrace");
+
     /**
      * Considered class definition.
      */
     private DetailAST currentClassDefAst;
+
     /**
      * Considered method definition.
      */
     private DetailAST currentMethodDefAst;
+
     /**
      * Current local variable names of logger type. It can be method's parameter
      * or method's local variable.
@@ -237,7 +246,7 @@ public class EitherLogOrThrowCheck extends Check
                 processCatchNode(ast);
                 break;
             default:
-                throw new IllegalArgumentException("Non-correct AST node.");
+			throw new IllegalArgumentException("Non-correct AST node: " + ast.getType());
         }
     }
 
