@@ -317,4 +317,16 @@ public class InputEitherLogOrThrowCheck
         }
     }
 
+	class InnerClass {
+		public void get27() throws Exception {
+			new Object() {
+				{
+					try {
+					} catch (Exception e) {
+						throw e;
+					}
+				}
+			};
+		}
+	}
 }
