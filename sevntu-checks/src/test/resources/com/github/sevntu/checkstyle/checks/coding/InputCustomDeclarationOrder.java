@@ -172,3 +172,20 @@ class ClassForIssue528 {
         }
     }
 }
+
+class ClassForIssue264
+{
+    final public int privateabc = 7;
+    public final int abcprotected = 7;
+    protected String abcprivate;
+    protected double privatebcd;
+    protected int abcprivateabc;
+    private String protectedz;
+    
+    public abstract class privatea {
+        
+    }
+    private class publicabstract {
+        
+    }
+}

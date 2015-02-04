@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-public class InputForbidReturnInFinalBlockCheck
+public class InputForbidReturnInFinallyBlockCheck
 {
     private class A1
     {
@@ -11,7 +11,9 @@ public class InputForbidReturnInFinalBlockCheck
                 return false;
             }
             finally {
-                return g;
+                if (1 != 2) {
+                    return g; //violation
+                }
             }
         }
     }
@@ -30,12 +32,13 @@ public class InputForbidReturnInFinalBlockCheck
                         }
                         catch (Exception e) {
                             if (true)
-                                return true;
+                                return true; //violation
                         }
                     }
                 }
-                return false;
+
             }
+            return false;
         }
 
         boolean meth3()
@@ -51,7 +54,7 @@ public class InputForbidReturnInFinalBlockCheck
 
                 }
                 finally {
-                    return false;
+                    return false; //violation
                 }
             }
         }
@@ -71,9 +74,19 @@ public class InputForbidReturnInFinalBlockCheck
             return false;
         }
 
+        void meth5()
+        {
+            try {
+
+            }
+            finally {
+                return; //violation
+            }
+        }
+
     }
 
-    private static void meth5()
+    private static void meth6()
     {
         try {
             while (true) {
@@ -84,4 +97,20 @@ public class InputForbidReturnInFinalBlockCheck
         }
     }
 
+    public void meth7()
+    {
+        try {
+            
+        }
+        finally {
+            Runtime.getRuntime().addShutdownHook(new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    return;
+                }
+            });
+        }
+    }
 }

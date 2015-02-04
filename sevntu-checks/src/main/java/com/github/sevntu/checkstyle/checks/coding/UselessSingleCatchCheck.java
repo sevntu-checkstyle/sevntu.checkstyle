@@ -49,13 +49,13 @@ public class UselessSingleCatchCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aTryBlockNode)
+    public void visitToken(DetailAST tryBlockNode)
     {
-        int catchBlocksCount = aTryBlockNode.getChildCount(TokenTypes.LITERAL_CATCH);
+        int catchBlocksCount = tryBlockNode.getChildCount(TokenTypes.LITERAL_CATCH);
 
         if (catchBlocksCount == 1)
         {
-            DetailAST catchNode = aTryBlockNode.findFirstToken(TokenTypes.LITERAL_CATCH);
+            DetailAST catchNode = tryBlockNode.findFirstToken(TokenTypes.LITERAL_CATCH);
 
             DetailAST catchStatementListNode= catchNode.findFirstToken(TokenTypes.SLIST);
 
@@ -77,13 +77,13 @@ public class UselessSingleCatchCheck extends Check
     /**
      * Determines whether throw node is of form
      * <code>throw exceptionObject;</code>
-     * @param aThrowNode
+     * @param throwNode
      *        node of type TokenTypes.LITERAL_THROW
      * @return wheather this throw node is of specified form
      */
-    private static boolean isSimpleRethrow(DetailAST aThrowNode)
+    private static boolean isSimpleRethrow(DetailAST throwNode)
     {
-        DetailAST exprNode = aThrowNode.findFirstToken(TokenTypes.EXPR);
+        DetailAST exprNode = throwNode.findFirstToken(TokenTypes.EXPR);
 
         return exprNode.getChildCount() == 1
                 && exprNode.getFirstChild().getType() == TokenTypes.IDENT;
@@ -91,13 +91,13 @@ public class UselessSingleCatchCheck extends Check
 
     /**
      * Gets catch parameter name
-     * @param aCatchNode
+     * @param catchNode
      *        node of type TokenTypes.LITERAL_CATCH
      * @return catch parameter name
      */
-    private static String getCatchParameterName(DetailAST aCatchNode)
+    private static String getCatchParameterName(DetailAST catchNode)
     {
-        DetailAST parameterDefNode = aCatchNode.findFirstToken(TokenTypes.PARAMETER_DEF);
+        DetailAST parameterDefNode = catchNode.findFirstToken(TokenTypes.PARAMETER_DEF);
 
         return parameterDefNode.findFirstToken(TokenTypes.IDENT).getText();
     }
@@ -105,13 +105,13 @@ public class UselessSingleCatchCheck extends Check
     /**
      * Gets throw parameter name. throw node must be of the form
      * <code>throw exceptionObject;</code>
-     * @param aThrowNode
+     * @param throwNode
      *        node of type TokenTypes.LITERAL_THROW
      * @return throw parameter name
      */
-    private static String getThrowParameterName(DetailAST aThrowNode)
+    private static String getThrowParameterName(DetailAST throwNode)
     {
-        return aThrowNode.findFirstToken(TokenTypes.EXPR).getFirstChild().getText();
+        return throwNode.findFirstToken(TokenTypes.EXPR).getFirstChild().getText();
     }
 
 }

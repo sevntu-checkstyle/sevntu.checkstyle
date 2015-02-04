@@ -58,31 +58,31 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 	public static final String MSG_VAR_DECLARATIONS = "multiple.variable.declarations";
 	
 	/** check declaration in cycles. */
-	private boolean mIgnoreCycles;
+	private boolean ignoreCycles;
 
 	/** check declaration in methods. */
-	private boolean mIgnoreMethods;
+	private boolean ignoreMethods;
 
 	/**
 	 * Enable|Disable declaration checking in cycles.
 	 * 
-	 * @param aValue
+	 * @param value
 	 *            check declaration in Methods
 	 */
-	public void setIgnoreCycles(final boolean aValue)
+	public void setIgnoreCycles(final boolean value)
 	{
-		mIgnoreCycles = aValue;
+		ignoreCycles = value;
 	}
 
 	/**
 	 * Enable|Disable declaration checking in Methods. *
 	 * 
-	 * @param aValue
+	 * @param value
 	 *            check declaration in Methods
 	 */
-	public void setIgnoreMethods(final boolean aValue)
+	public void setIgnoreMethods(final boolean value)
 	{
-		mIgnoreMethods = aValue;
+		ignoreMethods = value;
 	}
 
 	/** Creates new instance of the check. */
@@ -99,13 +99,13 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 	/**
 	 * Searches for wrong declarations and checks the their type.
 	 * 
-	 * @param aAST
+	 * @param ast
 	 *            uses to get the parent or previous sibling token.
 	 */
-	public void work(DetailAST aAST)
+	public void work(DetailAST ast)
 	{
 
-		DetailAST nextNode = aAST.getNextSibling();
+		DetailAST nextNode = ast.getNextSibling();
 		final boolean isCommaSeparated = ((nextNode != null) && (nextNode
 				.getType() == TokenTypes.COMMA));
 
@@ -123,13 +123,13 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 		if ((nextNode != null)
 				&& (nextNode.getType() == TokenTypes.VARIABLE_DEF))
 		{
-			final DetailAST firstNode = CheckUtils.getFirstNode(aAST);
+			final DetailAST firstNode = CheckUtils.getFirstNode(ast);
 			if (isCommaSeparated) {
 				log(firstNode, MSG_VAR_DECLARATIONS_COMMA);
 				return;
 			}
 
-			final DetailAST lastNode = getLastNode(aAST);
+			final DetailAST lastNode = getLastNode(ast);
 			final DetailAST firstNextNode = CheckUtils.getFirstNode(nextNode);
 
 			if (firstNextNode.getLineNo() == lastNode.getLineNo()) {
@@ -140,23 +140,23 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 	}
 
 	@Override
-	public void visitToken(DetailAST aAST)
+	public void visitToken(DetailAST ast)
 	{
 
-		final DetailAST token = aAST;
-		final boolean inFor = (aAST.getParent().getType()
+		final DetailAST token = ast;
+		final boolean inFor = (ast.getParent().getType()
 				== TokenTypes.FOR_INIT);
-		final boolean inClass = (aAST.getParent().getParent().getType()
+		final boolean inClass = (ast.getParent().getParent().getType()
 				== TokenTypes.CLASS_DEF);
 
 		if (inClass) {
 			work(token);
 		}
-		else if (!mIgnoreCycles & inFor) {
+		else if (!ignoreCycles & inFor) {
 			work(token);
 		}
 
-		else if (!mIgnoreMethods & !inClass & !inFor) {
+		else if (!ignoreMethods & !inClass & !inFor) {
 			work(token);
 		}
 
@@ -165,14 +165,14 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 	/**
 	 * Finds sub-node for given node maximum (line, column) pair.
 	 * 
-	 * @param aNode
+	 * @param node
 	 *            the root of tree for search.
 	 * @return sub-node with maximum (line, column) pair.
 	 */
-	private static DetailAST getLastNode(final DetailAST aNode)
+	private static DetailAST getLastNode(final DetailAST node)
 	{
-		DetailAST currentNode = aNode;
-		DetailAST child = aNode.getFirstChild();
+		DetailAST currentNode = node;
+		DetailAST child = node.getFirstChild();
 		while (child != null) {
 			final DetailAST newNode = getLastNode(child);
 			if ((newNode.getLineNo() > currentNode.getLineNo())

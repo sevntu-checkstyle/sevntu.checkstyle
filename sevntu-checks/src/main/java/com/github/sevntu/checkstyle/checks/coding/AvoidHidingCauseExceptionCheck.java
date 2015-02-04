@@ -77,18 +77,18 @@ public class AvoidHidingCauseExceptionCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aDetailAST)
+    public void visitToken(DetailAST detailAST)
     {
 
-        final String originExcName = aDetailAST
+        final String originExcName = detailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
                 .getText();
         
-        LinkedList<DetailAST> throwList = makeThrowList(aDetailAST);
+        LinkedList<DetailAST> throwList = makeThrowList(detailAST);
         
         LinkedList<String> wrapExcNames = new LinkedList<String>();
         wrapExcNames.add(originExcName);
-        wrapExcNames.addAll(makeExceptionsList(aDetailAST, aDetailAST, 
+        wrapExcNames.addAll(makeExceptionsList(detailAST, detailAST, 
                             originExcName));
 
         for (DetailAST throwAST : throwList) {
@@ -109,20 +109,20 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
     /**
      * Returns true when aThrowParamNamesList contains caught exception
-     * @param aThrowParamNamesList
-     * @param aWrapExcNames
+     * @param throwParamNamesList
+     * @param wrapExcNames
      * @return true when aThrowParamNamesList contains caught exception
      */
     private static boolean 
-                    isContainsCaughtExc(List<DetailAST> aThrowParamNamesList, 
-                                    LinkedList<String> aWrapExcNames)
+                    isContainsCaughtExc(List<DetailAST> throwParamNamesList, 
+                                    LinkedList<String> wrapExcNames)
     {
         boolean result = false;
-        for(DetailAST currentNode : aThrowParamNamesList)
+        for(DetailAST currentNode : throwParamNamesList)
         {
             if (currentNode != null
                     && currentNode.getParent().getType() != TokenTypes.DOT
-                    && aWrapExcNames.contains(currentNode.getText()))
+                    && wrapExcNames.contains(currentNode.getText()))
             {
                 result = true;
                 break;
@@ -134,45 +134,45 @@ public class AvoidHidingCauseExceptionCheck extends Check
     /**
      * Returns a List of<code>DetailAST</code> that contains the names of
      * parameters  for current "throw" keyword.
-     * @param aStartNode The start node for exception name searching.
-     * @param aParamNamesAST The list, that will be contain names of the 
+     * @param startNode The start node for exception name searching.
+     * @param paramNamesAST The list, that will be contain names of the 
      * parameters 
      * @return A List of tokens (<code>DetailAST</code>) contains the
      * thrown exception name if it was found or null otherwise.
      */
-    private List<DetailAST> getThrowParamNamesList(DetailAST aStartNode, 
-                            List<DetailAST> aParamNamesAST)
+    private List<DetailAST> getThrowParamNamesList(DetailAST startNode, 
+                            List<DetailAST> paramNamesAST)
     {
-        for (DetailAST currentNode : getChildNodes(aStartNode)) {
+        for (DetailAST currentNode : getChildNodes(startNode)) {
 
             if (currentNode.getType() == TokenTypes.IDENT) {
-                aParamNamesAST.add(currentNode);
+                paramNamesAST.add(currentNode);
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
                     && currentNode.getNumberOfChildren() > 0)
             {
-                getThrowParamNamesList(currentNode, aParamNamesAST);
+                getThrowParamNamesList(currentNode, paramNamesAST);
             }
 
         }
-        return aParamNamesAST;
+        return paramNamesAST;
     }
 
     /**
      * Recursive method which searches for the <code>LITERAL_THROW</code>
      * DetailASTs all levels below on the current <code>aParentAST</code> node
      * without entering into nested try/catch blocks.
-     * @param aParentAST A start node for "throw" keyword <code>DetailASTs
+     * @param parentAST A start node for "throw" keyword <code>DetailASTs
      * </code> searching.
      * @return list of throw literals
      */
-    private LinkedList<DetailAST> makeThrowList(DetailAST aParentAST)
+    private LinkedList<DetailAST> makeThrowList(DetailAST parentAST)
     {
 
         LinkedList<DetailAST> throwList = new LinkedList<DetailAST>();    
-        for (DetailAST currentNode : getChildNodes(aParentAST)) {
+        for (DetailAST currentNode : getChildNodes(parentAST)) {
 
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
                 throwList.add(currentNode);
@@ -193,30 +193,30 @@ public class AvoidHidingCauseExceptionCheck extends Check
     /**
      * Searches for all exceptions that wraps the original exception
      * object (only in current "catch" block).
-     * @param aCurrentCatchAST A LITERAL_CATCH node of the
+     * @param currentCatchAST A LITERAL_CATCH node of the
      * current "catch" block.
-     * @param aParentAST Current parent node to start search.
-     * @param aCurrentExcName The name of exception handled by
+     * @param parentAST Current parent node to start search.
+     * @param currentExcName The name of exception handled by
      * current "catch" block.
      * @return LinkedList<String> contains exceptions that wraps the original 
      * exception object.
      */
-    private LinkedList<String> makeExceptionsList(DetailAST aCurrentCatchAST,
-            DetailAST aParentAST, String aCurrentExcName)
+    private LinkedList<String> makeExceptionsList(DetailAST currentCatchAST,
+            DetailAST parentAST, String currentExcName)
     {
         LinkedList<String> wrapExcNames = new LinkedList<String>();
 
-        for (DetailAST currentNode : getChildNodes(aParentAST)) {
+        for (DetailAST currentNode : getChildNodes(parentAST)) {
 
             if (currentNode.getType() == TokenTypes.IDENT
-                    && currentNode.getText().equals(aCurrentExcName)
+                    && currentNode.getText().equals(currentExcName)
                     && currentNode.getParent() != null
                     && currentNode.getParent().getType() != TokenTypes.DOT)
             {
 
                 DetailAST temp = currentNode;
 
-                while (!temp.equals(aCurrentCatchAST)
+                while (!temp.equals(currentCatchAST)
                         && temp.getType() != TokenTypes.ASSIGN)
                 {
                     temp = temp.getParent();
@@ -233,7 +233,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
                     }
 
                     if (convertedExc != null
-                            && !convertedExc.getText().equals(aCurrentExcName))
+                            && !convertedExc.getText().equals(currentExcName))
                     {
                         if (!wrapExcNames.contains(convertedExc
                                 .getText()))
@@ -250,8 +250,8 @@ public class AvoidHidingCauseExceptionCheck extends Check
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getNumberOfChildren() > 0)
             {
-                wrapExcNames.addAll(makeExceptionsList(aCurrentCatchAST, 
-                        currentNode, aCurrentExcName));
+                wrapExcNames.addAll(makeExceptionsList(currentCatchAST, 
+                        currentNode, currentExcName));
             }
 
         }
@@ -260,15 +260,15 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
     /**
      * Gets all the children one level below on the current parent node.
-     * @param aNode Current parent node.
+     * @param node Current parent node.
      * @return List of children one level below on the current
      *         parent node (aNode).
      */
-    private static LinkedList<DetailAST> getChildNodes(DetailAST aNode)
+    private static LinkedList<DetailAST> getChildNodes(DetailAST node)
     {
         final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
 
-        DetailAST currNode = aNode.getFirstChild();
+        DetailAST currNode = node.getFirstChild();
 
         while (currNode != null) {
             result.add(currNode);

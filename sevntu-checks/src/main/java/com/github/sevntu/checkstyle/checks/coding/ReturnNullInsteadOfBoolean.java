@@ -21,9 +21,9 @@ public class ReturnNullInsteadOfBoolean extends Check {
 	public final static String MSG_KEY = "return.null.Boolean";
 	
     /** Stack of states of the need in exploring the methods. */
-    private final FastStack<Boolean> mMethodStack = FastStack.newInstance();
+    private final FastStack<Boolean> methodStack = FastStack.newInstance();
     /** Should we explore current method or not. */
-    private boolean mExploreMethod = false;
+    private boolean exploreMethod = false;
 
     @Override
     public int[] getDefaultTokens() {
@@ -36,44 +36,44 @@ public class ReturnNullInsteadOfBoolean extends Check {
     }
 
     @Override
-    public void beginTree(DetailAST aRootAST) {
-        mMethodStack.clear();
+    public void beginTree(DetailAST rootAST) {
+        methodStack.clear();
     }
 
     @Override
-    public void visitToken(DetailAST aAST) {
-        switch (aAST.getType()) {
-        case TokenTypes.METHOD_DEF:
-            mMethodStack.push(mExploreMethod);
-            final DetailAST returnTypeAST = aAST
+    public void visitToken(DetailAST ast) {
+        switch (ast.getType()) {
+            case TokenTypes.METHOD_DEF:
+                methodStack.push(exploreMethod);
+                final DetailAST returnTypeAST = ast
                     .findFirstToken(TokenTypes.TYPE).getFirstChild();
-            mExploreMethod = "Boolean".equals(returnTypeAST.getText());
-            break;
-        case TokenTypes.LITERAL_RETURN:
-            if (mExploreMethod) {
-                final DetailAST exprToken = aAST
+                exploreMethod = "Boolean".equals(returnTypeAST.getText());
+                break;
+            case TokenTypes.LITERAL_RETURN:
+                if (exploreMethod) {
+                    final DetailAST exprToken = ast
                         .findFirstToken(TokenTypes.EXPR).getFirstChild();
-                if ("null".equals(exprToken.getText())) {
-                    log(aAST, MSG_KEY);
+                    if ("null".equals(exprToken.getText())) {
+                        log(ast, MSG_KEY);
+                    }
                 }
-            }
-            break;
-        default:
-            throw new IllegalStateException(aAST.toString());
+                break;
+            default:
+                throw new IllegalStateException(ast.toString());
         }
     }
 
     @Override
-    public void leaveToken(DetailAST aAST) {
-        switch (aAST.getType()) {
-        case TokenTypes.METHOD_DEF:
-            mExploreMethod = mMethodStack.pop();
-            break;
-        case TokenTypes.LITERAL_RETURN:
-            // Do nothing
-            break;
-        default:
-            throw new IllegalStateException(aAST.toString());
+    public void leaveToken(DetailAST ast) {
+        switch (ast.getType()) {
+            case TokenTypes.METHOD_DEF:
+                exploreMethod = methodStack.pop();
+                break;
+            case TokenTypes.LITERAL_RETURN:
+                // Do nothing
+                break;
+            default:
+                throw new IllegalStateException(ast.toString());
         }
     }
 }

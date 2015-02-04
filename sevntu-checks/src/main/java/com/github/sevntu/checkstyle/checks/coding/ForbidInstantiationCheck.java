@@ -54,43 +54,43 @@ public class ForbidInstantiationCheck extends Check
      * Set which contains classNames for objects that are forbidden to
      * instantiate.
      */
-    private Set<String> mForbiddenClasses = new HashSet<String>();
+    private Set<String> forbiddenClasses = new HashSet<String>();
 
     /**
      * List which contains String representation of imports for class is
      * currently being processed.
      */
-    private List<String> mImportsList = new LinkedList<String>();
+    private List<String> importsList = new LinkedList<String>();
 
     /**
      * Creates the check instance.
      */
     public ForbidInstantiationCheck()
     {
-        mForbiddenClasses.add("java.lang.NullPointerException");
+        forbiddenClasses.add("java.lang.NullPointerException");
     }
 
     /**
      * Sets a classNames&Paths for objects that are forbidden to instantiate.
-     * @param aClassNames
+     * @param classNames
      *        - the list of classNames separated by a comma. ClassName should be
      *        full, such as "java.lang.NullpointerException", do not use short
      *        name - NullpointerException;
      */
-    public void setForbiddenClasses(final String[] aClassNames)
+    public void setForbiddenClasses(final String[] classNames)
     {
-        mForbiddenClasses.clear();
-        if (aClassNames != null) {
-            for (String name : aClassNames) {
-                mForbiddenClasses.add(name);
+        forbiddenClasses.clear();
+        if (classNames != null) {
+            for (String name : classNames) {
+                forbiddenClasses.add(name);
             }
         }
     }
 
     @Override
-    public void beginTree(final DetailAST aRootAST)
+    public void beginTree(final DetailAST rootAST)
     {
-        mImportsList.clear();
+        importsList.clear();
     }
 
     @Override
@@ -100,54 +100,54 @@ public class ForbidInstantiationCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAst)
+    public void visitToken(DetailAST ast)
     {
-        switch (aAst.getType()) {
+        switch (ast.getType()) {
 
-        case TokenTypes.IMPORT:
-            mImportsList.add(getText(aAst));
-            break;
+            case TokenTypes.IMPORT:
+                importsList.add(getText(ast));
+                break;
 
-        case TokenTypes.LITERAL_NEW:
+            case TokenTypes.LITERAL_NEW:
 
-            final String instanceClass = getText(aAst);
+                final String instanceClass = getText(ast);
 
-            if (instanceClass != null) { // non-primitive instance
+                if (instanceClass != null) { // non-primitive instance
 
-                final String instanceClassName = getClassName(instanceClass);
+                    final String instanceClassName = getClassName(instanceClass);
 
-                for (String forbiddenClass : mForbiddenClasses) {
+                    for (String forbiddenClass : forbiddenClasses) {
 
-                    if (forbiddenClass.startsWith("java.lang.")
+                        if (forbiddenClass.startsWith("java.lang.")
                             && forbiddenClass.endsWith(instanceClassName))
-                    { // java.lang.*
-                        log(aAst, MSG_KEY, instanceClassName);
-                    }
-                    else if (instanceClass.contains(".")) { // className is full
+                        { // java.lang.*
+                            log(ast, MSG_KEY, instanceClassName);
+                        }
+                        else if (instanceClass.contains(".")) { // className is full
 
-                        if (instanceClass.equals(forbiddenClass)) {
-                            // the full path is forbidden
-                            log(aAst, MSG_KEY, instanceClassName);
+                            if (instanceClass.equals(forbiddenClass)) {
+                                // the full path is forbidden
+                                log(ast, MSG_KEY, instanceClassName);
+                            }
+                        }
+                        else if (addedUsingForbiddenImport(instanceClass,
+                            forbiddenClass))
+                        {
+                            // className is short and exists in imports
+                            log(ast, MSG_KEY, instanceClass);
                         }
                     }
-                    else if (addedUsingForbiddenImport(instanceClass,
-                            forbiddenClass))
-                    {
-                        // className is short and exists in imports
-                        log(aAst, MSG_KEY, instanceClass);
-                    }
                 }
-            }
-            break;
+                break;
 
-        default:
-            final String className = this.getClass().getSimpleName();
-            final String tokenType = TokenTypes.getTokenName(aAst.getType());
-            final String tokenDescription = aAst.toString();
-            final String message =
+            default:
+                final String className = this.getClass().getSimpleName();
+                final String tokenType = TokenTypes.getTokenName(ast.getType());
+                final String tokenDescription = ast.toString();
+                final String message =
                     String.format("%s got the wrong input token: %s (%s)",
-                            className, tokenType, tokenDescription);
-            throw new IllegalArgumentException(message);
+                        className, tokenType, tokenDescription);
+                throw new IllegalArgumentException(message);
         }
 
     }
@@ -155,31 +155,31 @@ public class ForbidInstantiationCheck extends Check
     /**
      * Checks that the class with given className is visible because of the
      * forbidden import.
-     * @param aClassName
+     * @param className
      *        - the name of the class to check.
-     * @param aForbiddenClassNameAndPath
+     * @param forbiddenClassNameAndPath
      *        - full name&path of the given forbidden class.
      * @return true if the class with given className is imported with the
      *         forbidden import and false otherwise.
      */
-    private boolean addedUsingForbiddenImport(final String aClassName,
-            String aForbiddenClassNameAndPath)
+    private boolean addedUsingForbiddenImport(final String className,
+            String forbiddenClassNameAndPath)
     {
         boolean result = false;
 
-        for (String importText : mImportsList) {
+        for (String importText : importsList) {
             if (importText.endsWith("*")) {
                 final String importTextWithoutAsterisk =
                         importText.substring(0, importText.length() - 1);
-                if (aForbiddenClassNameAndPath.equals(
-                        importTextWithoutAsterisk + aClassName))
+                if (forbiddenClassNameAndPath.equals(
+                        importTextWithoutAsterisk + className))
                 {
                     result = true;
                     break;
                 }
             }
-            else if (importText.equals(aForbiddenClassNameAndPath)
-                    && importText.endsWith(aClassName))
+            else if (importText.equals(forbiddenClassNameAndPath)
+                    && importText.endsWith(className))
             {
                 result = true;
                 break;
@@ -190,33 +190,33 @@ public class ForbidInstantiationCheck extends Check
 
     /**
      * Gets the class name from full (dotted) classPath.
-     * @param aClassNameAndPath
+     * @param classNameAndPath
      *        - the full (dotted) classPath
      * @return the name of the class is specified by the current full name&path.
      */
-    private static String getClassName(final String aClassNameAndPath)
+    private static String getClassName(final String classNameAndPath)
     {
-        return aClassNameAndPath.replaceAll(".+\\.", "");
+        return classNameAndPath.replaceAll(".+\\.", "");
     }
 
     /**
      * Gets the text representation from the given DetailAST node.
-     * @param aAST
+     * @param ast
      *        - DetailAST node is pointing to import definition or to the "new"
      *        literal node ("IMPORT" or "LITERAL_NEW" node types).
      * @return Import text without "import" word and semicolons for given
      *         "IMPORT" node or instanstiated class Name&Path for given
      *         "LITERAL_NEW" node.
      */
-    private static String getText(final DetailAST aAST)
+    private static String getText(final DetailAST ast)
     {
         String result = null;
 
-        final DetailAST textWithoutDots = aAST.findFirstToken(TokenTypes.IDENT);
+        final DetailAST textWithoutDots = ast.findFirstToken(TokenTypes.IDENT);
 
         if (textWithoutDots == null) {
             // if there are TokenTypes.DOT nodes in subTree.
-            final DetailAST parentDotAST = aAST.findFirstToken(TokenTypes.DOT);
+            final DetailAST parentDotAST = ast.findFirstToken(TokenTypes.DOT);
             if (parentDotAST != null) {
                 final FullIdent dottedPathIdent = FullIdent
                         .createFullIdentBelow(parentDotAST);

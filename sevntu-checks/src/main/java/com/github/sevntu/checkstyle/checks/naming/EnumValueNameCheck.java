@@ -97,29 +97,29 @@ public class EnumValueNameCheck extends Check
     /**
      * Regular expression to test Class Enumeration names against.
      */
-    private Pattern mObjRegexp;
+    private Pattern objRegexp;
 
     /**
      * Format for Class Enumeration names to check for. Compiled to
-     * {@link #mObjRegexp}
+     * {@link #objRegexp}
      */
-    private String mObjFormat;
+    private String objFormat;
 
     /**
      * Regular expression to test Values Enumeration names against.
      */
-    private Pattern mConstRegexp;
+    private Pattern constRegexp;
 
     /**
      * Format for Values Enumeration names to check for. Compiled to
-     * {@link #mConstRegexp}
+     * {@link #constRegexp}
      */
-    private String mConstFormat;
+    private String constFormat;
 
     /**
      * Method and field names to exclude from check.
      */
-    private final List<Pattern> mExcludes;
+    private final List<Pattern> excludes;
 
     /**
      * Constructs check with the default pattern.
@@ -128,40 +128,40 @@ public class EnumValueNameCheck extends Check
     {
         setConstFormat(DEFAULT_CONST_PATTERN);
         setObjFormat(DEFAULT_OBJ_PATTERN);
-        mExcludes = Lists.newArrayList();
+        excludes = Lists.newArrayList();
         setExcludes(DEFAULT_EXCLUSION);
     }
 
     /**
      * Method sets format to match Class Enumeration names.
-     * @param aConstRegexp format to check against
+     * @param constRegexp format to check against
      */
-    public final void setConstFormat(String aConstRegexp)
+    public final void setConstFormat(String constRegexp)
     {
-        mConstRegexp = Utils.getPattern(aConstRegexp, 0);
-        mConstFormat = aConstRegexp;
+        this.constRegexp = Utils.getPattern(constRegexp, 0);
+        constFormat = constRegexp;
     }
 
     /**
      * Method sets format to match Values Enumeration names.
-     * @param aObjectRegexp format to check against
+     * @param objectRegexp format to check against
      */
-    public final void setObjFormat(String aObjectRegexp)
+    public final void setObjFormat(String objectRegexp)
     {
-        mObjRegexp = Utils.getPattern(aObjectRegexp, 0);
-        mObjFormat = aObjectRegexp;
+        objRegexp = Utils.getPattern(objectRegexp, 0);
+        objFormat = objectRegexp;
     }
 
     /**
      * Method sets method and field name exclusions.
-     * @param aExcludes
+     * @param excludes
      *        comma separated list or regular expressions
      */
-    public void setExcludes(String[] aExcludes)
+    public void setExcludes(String[] excludes)
     {
-        mExcludes.clear();
-        for (String exclude: aExcludes) {
-            mExcludes.add(Utils.getPattern(exclude));
+        this.excludes.clear();
+        for (String exclude: excludes) {
+            this.excludes.add(Utils.getPattern(exclude));
         }
     }
 
@@ -172,15 +172,15 @@ public class EnumValueNameCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAST)
+    public void visitToken(DetailAST ast)
     {
-        final DetailAST nameAST = aAST.findFirstToken(TokenTypes.IDENT);
-        final boolean enumIsClass = isClassEnumeration(aAST);
-        final Pattern pattern = enumIsClass ? mObjRegexp
-                : mConstRegexp;
+        final DetailAST nameAST = ast.findFirstToken(TokenTypes.IDENT);
+        final boolean enumIsClass = isClassEnumeration(ast);
+        final Pattern pattern = enumIsClass ? objRegexp
+                : constRegexp;
         if (!pattern.matcher(nameAST.getText()).find()) {
-            final String format = enumIsClass ? mObjFormat
-                    : mConstFormat;
+            final String format = enumIsClass ? objFormat
+                    : constFormat;
             final String msg = enumIsClass ? MSG_OBJ : MSG_CONST;
             log(nameAST.getLineNo(),
                     nameAST.getColumnNo(),
@@ -192,32 +192,32 @@ public class EnumValueNameCheck extends Check
 
     /**
      * Method determines, whether the Enum, specified as parameter has any
-     * members. Method uses {@link #mExcludes} while looking though the tree
+     * members. Method uses {@link #excludes} while looking though the tree
      * nodes
      *
-     * @param aAST
+     * @param ast
      *        ast to check
      * @return <code>true</code> if enum is a class enumeration
      */
-    private boolean isClassEnumeration(DetailAST aAST)
+    private boolean isClassEnumeration(DetailAST ast)
     {
-        return hasMembers(aAST, mExcludes);
+        return hasMembers(ast, excludes);
     }
 
     /**
      * Method determines whether the specified enum is a constant or is an
      * object.
      * 
-     * @param aAST
+     * @param ast
      *        token of a enum value definition
-     * @param aExcludes
+     * @param excludes
      *        list of ignored member names
      * @return <code>true</code> if enum is a class enumeration
      */
     private static boolean
-            hasMembers(DetailAST aAST, List<Pattern> aExcludes)
+            hasMembers(DetailAST ast, List<Pattern> excludes)
     {
-        final DetailAST objBlock = aAST.getParent();
+        final DetailAST objBlock = ast.getParent();
         assert (objBlock.getType() == TokenTypes.OBJBLOCK);
         boolean memberFound = false;
         for (DetailAST member = objBlock.getFirstChild(); member != null; member = member
@@ -228,7 +228,7 @@ public class EnumValueNameCheck extends Check
                         .findFirstToken(TokenTypes.IDENT);
                 assert (memberIdent != null);
                 final String identifierStr = memberIdent.getText();
-                if (!isAnyMatched(aExcludes, identifierStr)) {
+                if (!isAnyMatched(excludes, identifierStr)) {
                     memberFound = true;
                     break;
                 }

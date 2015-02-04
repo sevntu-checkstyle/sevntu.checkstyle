@@ -13,7 +13,7 @@ public class FinalizeImplementationCheckTest extends BaseCheckTestSupport
     /**
      * Default check configuration
      */
-    private final DefaultConfiguration mCheckConfig =
+    private final DefaultConfiguration checkConfig =
         createCheckConfig(FinalizeImplementationCheck.class);
 
     @Test
@@ -28,7 +28,7 @@ public class FinalizeImplementationCheckTest extends BaseCheckTestSupport
                 "75: " + getCheckMessage(MSG_KEY_MISSED_SUPER_FINALIZE_CALL),
             };
 
-        verify(mCheckConfig,
+        verify(checkConfig,
                 getPath("InputFinalizeImplementationCheck.java"), expected);
     }
 }

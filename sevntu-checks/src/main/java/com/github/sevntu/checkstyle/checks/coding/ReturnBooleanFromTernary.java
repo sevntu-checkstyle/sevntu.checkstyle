@@ -24,12 +24,12 @@ public class ReturnBooleanFromTernary extends Check {
 	}
 
 	@Override
-	public void visitToken(DetailAST aAST) {
-		DetailAST secondBranch = aAST.getLastChild();
+	public void visitToken(DetailAST ast) {
+		DetailAST secondBranch = ast.getLastChild();
 		DetailAST firstBranch = secondBranch.getPreviousSibling().getPreviousSibling();
 		if ("true".equals(secondBranch.getText()) || "false".equals(secondBranch.getText())
 				|| "true".equals(firstBranch.getText()) || "false".equals(firstBranch.getText())) {
-			log(aAST, "return.boolean.ternary");
+			log(ast, "return.boolean.ternary");
 		}
 	}
 }

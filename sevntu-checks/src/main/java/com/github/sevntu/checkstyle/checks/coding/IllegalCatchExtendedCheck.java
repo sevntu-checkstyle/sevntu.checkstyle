@@ -38,30 +38,30 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
 
     /** disable warnings for "catch" blocks containing
      * throwing an exception. */
-    private boolean mAllowThrow = true;
+    private boolean allowThrow = true;
 
     /** disable warnings for "catch" blocks containing
      * rethrowing an exception. */
-    private boolean mAllowRethrow = true;
+    private boolean allowRethrow = true;
 
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * throwing an exception.
-     * @param aValue Disable warning for throwing
+     * @param value Disable warning for throwing
      */
-    public void setAllowThrow(final boolean aValue)
+    public void setAllowThrow(final boolean value)
     {
-        mAllowThrow = aValue;
+        allowThrow = value;
     }
 
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * rethrowing an exception.
-     * @param aValue Disable warnings for rethrowing
+     * @param value Disable warnings for rethrowing
      */
-    public void setAllowRethrow(final boolean aValue)
+    public void setAllowRethrow(final boolean value)
     {
-        mAllowRethrow = aValue;
+        allowRethrow = value;
     }
 
     /** Creates new instance of the check. */
@@ -85,11 +85,11 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
     }
 
     @Override
-    public void visitToken(DetailAST aDetailAST)
+    public void visitToken(DetailAST detailAST)
     {
-        final DetailAST paramDef = aDetailAST
+        final DetailAST paramDef = detailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
-        final DetailAST throwAST = getThrowAST(aDetailAST);
+        final DetailAST throwAST = getThrowAST(detailAST);
 
 
         DetailAST firstLvlChild = null;
@@ -109,28 +109,28 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
                 && firstLvlChild != null
                 && secondLvlChild != null
              && firstLvlChild.getType() == TokenTypes.EXPR
-             && ((mAllowThrow && secondLvlChild.getType()
+             && ((allowThrow && secondLvlChild.getType()
                      == TokenTypes.IDENT)
-             || (mAllowRethrow && secondLvlChild.getType()
+             || (allowRethrow && secondLvlChild.getType()
                      == TokenTypes.LITERAL_NEW)));
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
         final FullIdent ident = CheckUtils.createFullType(excType);
 
         if (!noWarning && isIllegalClassName(ident.getText())) {
-            log(aDetailAST, MSG_KEY, ident.getText());
+            log(detailAST, MSG_KEY, ident.getText());
         }
     }
 
     /** Looking for the keyword "throw" among current (aParentAST) node childs.
-     * @param aParentAST - the current parent node.
+     * @param parentAST - the current parent node.
      * @return null if the "throw" keyword was not found
      * or the LITERAL_THROW DetailAST otherwise
      */
-    public DetailAST getThrowAST(DetailAST aParentAST)
+    public DetailAST getThrowAST(DetailAST parentAST)
     {
 
-        final DetailAST asts[] = getChilds(aParentAST);
+        final DetailAST asts[] = getChilds(parentAST);
 
         for (DetailAST currentNode : asts) {
 
@@ -155,16 +155,16 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
     }
 
     /** Gets all the children one level below on the current top node.
-     * @param aNode - current parent node.
+     * @param node - current parent node.
      * @return an array of childs one level below
      * on the current parent node aNode. */
-    public static DetailAST[] getChilds(DetailAST aNode)
+    public static DetailAST[] getChilds(DetailAST node)
     {
-        final DetailAST[] result = new DetailAST[aNode.getChildCount()];
+        final DetailAST[] result = new DetailAST[node.getChildCount()];
 
-        DetailAST currNode = aNode.getFirstChild();
+        DetailAST currNode = node.getFirstChild();
 
-        for (int i = 0; i < aNode.getNumberOfChildren(); i++) {
+        for (int i = 0; i < node.getNumberOfChildren(); i++) {
             result[i] = currNode;
             currNode = currNode.getNextSibling();
         }

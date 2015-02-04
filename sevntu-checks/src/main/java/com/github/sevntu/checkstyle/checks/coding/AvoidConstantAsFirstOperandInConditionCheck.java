@@ -49,9 +49,9 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
 	public final static String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
 	
     /**
-     * mTargetConstantTypes is array of default target constant types.
+     * targetConstantTypes is array of default target constant types.
      */
-    private int[] mTargetConstantTypes = new int[]{
+    private int[] targetConstantTypes = new int[]{
             TokenTypes.LITERAL_TRUE,
             TokenTypes.LITERAL_FALSE,
             TokenTypes.LITERAL_NULL,
@@ -64,15 +64,15 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
     /**
      * Set target constant types
      *
-     * @param aTargets
+     * @param targets
      */
-    public void setTargetConstantTypes(String[] aTargets) {
-        if (aTargets != null) {
-            mTargetConstantTypes = new int[aTargets.length];
-            for (int i = 0; i < aTargets.length; i++) {
-                mTargetConstantTypes[i] = TokenTypes.getTokenId(aTargets[i]);
+    public void setTargetConstantTypes(String[] targets) {
+        if (targets != null) {
+            targetConstantTypes = new int[targets.length];
+            for (int i = 0; i < targets.length; i++) {
+                targetConstantTypes[i] = TokenTypes.getTokenId(targets[i]);
             }
-            Arrays.sort(mTargetConstantTypes);
+            Arrays.sort(targetConstantTypes);
         }
     }
 
@@ -82,21 +82,21 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
     }
 
     @Override
-    public void visitToken(DetailAST aDetailAST) {
-        if (isRefactoringRequired(aDetailAST)) {
-            log(aDetailAST.getLineNo(), MSG_KEY,
-                    aDetailAST.getText());
+    public void visitToken(DetailAST detailAST) {
+        if (isRefactoringRequired(detailAST)) {
+            log(detailAST.getLineNo(), MSG_KEY,
+                    detailAST.getText());
         }
     }
 
     /**
      * Return true if current expression part required refactoring.
      *
-     * @param aLogicNode Current logic operator node
+     * @param logicNode Current logic operator node
      * @return Boolean variable
      */
-    private boolean isRefactoringRequired(DetailAST aLogicNode) {
-        final DetailAST[] children = getBothChildren(aLogicNode);
+    private boolean isRefactoringRequired(DetailAST logicNode) {
+        final DetailAST[] children = getBothChildren(logicNode);
         final DetailAST firstOperand = children[0];
         final DetailAST secondOperand = children[1];
 
@@ -108,13 +108,13 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
     /**
      * Return both operators children.
      *
-     * @param aLogicNode Current logic operator node
+     * @param logicNode Current logic operator node
      * @return Array with children
      */
-    private static DetailAST[] getBothChildren(DetailAST aLogicNode) {
+    private static DetailAST[] getBothChildren(DetailAST logicNode) {
         final DetailAST[] children = new DetailAST[2];
         int i = 0;
-        for (DetailAST child = aLogicNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+        for (DetailAST child = logicNode.getFirstChild(); child != null; child = child.getNextSibling()) {
             if (child.getType() != TokenTypes.LPAREN && child.getType() != TokenTypes.RPAREN) {
                 children[i++] = child;
             }
@@ -126,10 +126,10 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
     /**
      * Return true if isTargetConstantType contains aTargetType.
      *
-     * @param aTargetType - type of current constant
+     * @param targetType - type of current constant
      * @return boolean
      */
-    private boolean isTargetConstantType(int aTargetType) {
-        return Arrays.binarySearch(mTargetConstantTypes, aTargetType) > -1;
+    private boolean isTargetConstantType(int targetType) {
+        return Arrays.binarySearch(targetConstantTypes, targetType) > -1;
     }
 }

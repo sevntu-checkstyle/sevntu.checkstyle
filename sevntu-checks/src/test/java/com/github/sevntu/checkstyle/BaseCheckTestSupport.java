@@ -52,33 +52,33 @@ public abstract class BaseCheckTestSupport extends Assert
 	private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	private final PrintStream printStream = new PrintStream(baos);
 
-	public static DefaultConfiguration createCheckConfig(Class<?> aClazz)
+	public static DefaultConfiguration createCheckConfig(Class<?> clazz)
 	{
-		return new DefaultConfiguration(aClazz.getName());
+		return new DefaultConfiguration(clazz.getName());
 	}
 
-	protected void verify(Configuration aConfig, String aFileName, String[] aExpected)
+	protected void verify(Configuration config, String fileName, String[] expected)
 			throws Exception
 	{
-		verify(createChecker(aConfig), aFileName, aFileName, aExpected);
+		verify(createChecker(config), fileName, fileName, expected);
 	}
 
-	protected void verify(Checker aC, String aFileName, String[] aExpected) throws Exception
+	protected void verify(Checker c, String fileName, String[] expected) throws Exception
 	{
-		verify(aC, aFileName, aFileName, aExpected);
+		verify(c, fileName, fileName, expected);
 	}
 
-	protected void verify(Checker aC, String aProcessedFilename, String aMessageFileName,
+	protected void verify(Checker c, String processedFilename, String messageFileName,
 			String[] aExpected) throws Exception
 	{
-		verify(aC, new File[] { new File(aProcessedFilename) }, aMessageFileName, aExpected);
+		verify(c, new File[] { new File(processedFilename) }, messageFileName, aExpected);
 	}
 
-	protected void verify(Checker checker, File[] aProcessedFiles, String aMessageFileName,
-			String[] aExpected) throws Exception
+	protected void verify(Checker checker, File[] processedFiles, String messageFileName,
+			String[] expected) throws Exception
 	{
 		printStream.flush();
-		List<File> testInputFiles = Lists.newArrayList(aProcessedFiles);
+		List<File> testInputFiles = Lists.newArrayList(processedFiles);
 		int foundErrorsCount = checker.process(testInputFiles);
 
 		// Process each output line
@@ -86,13 +86,13 @@ public abstract class BaseCheckTestSupport extends Assert
 		BufferedReader br = new BufferedReader(new InputStreamReader(bais));
 
 		try {
-			for (int i = 0; i < aExpected.length; i++) {
-				final String expected = aMessageFileName + ":" + aExpected[i];
+			for (int i = 0; i < expected.length; i++) {
+				final String expectedResult = messageFileName + ":" + expected[i];
 				final String actual = br.readLine();
-				assertEquals("error message " + i, expected, actual);
+				assertEquals("error message " + i, expectedResult, actual);
 			}
 
-			assertEquals("Check generated unexpected warning: " + br.readLine(), aExpected.length, foundErrorsCount);
+			assertEquals("Check generated unexpected warning: " + br.readLine(), expected.length, foundErrorsCount);
 			checker.destroy();
 		} finally {
 			br.close();
@@ -100,7 +100,7 @@ public abstract class BaseCheckTestSupport extends Assert
 		}
 	}
 
-	protected Checker createChecker(Configuration aCheckConfig) throws Exception
+	protected Checker createChecker(Configuration checkConfig) throws Exception
 	{
 		Checker checker = new Checker();
 		// make sure the tests always run with english error messages
@@ -110,38 +110,38 @@ public abstract class BaseCheckTestSupport extends Assert
 		checker.setLocaleLanguage(locale.getLanguage());
 		checker.setModuleClassLoader(Thread.currentThread().getContextClassLoader());
 
-		DefaultConfiguration defaultConfig = createCheckerConfig(aCheckConfig);
+		DefaultConfiguration defaultConfig = createCheckerConfig(checkConfig);
 		checker.configure(defaultConfig);
 
 		checker.addListener(new BriefLogger(printStream));
 		return checker;
 	}
 
-	protected DefaultConfiguration createCheckerConfig(Configuration aConfig)
+	protected DefaultConfiguration createCheckerConfig(Configuration config)
 	{
 		DefaultConfiguration result = new DefaultConfiguration("configuration");
 		DefaultConfiguration treeWalkerConfig = createCheckConfig(TreeWalker.class);
 		// make sure that the tests always run with this charset
 		result.addAttribute("charset", "iso-8859-1");
 		result.addChild(treeWalkerConfig);
-		treeWalkerConfig.addChild(aConfig);
+		treeWalkerConfig.addChild(config);
 		return result;
 	}
 
-	protected String getPath(String aFilename)
+	protected String getPath(String filename)
 	{
 		String result = null;
 		try {
-			URL resource = getClass().getResource(aFilename);
+			URL resource = getClass().getResource(filename);
 			if (resource == null) {
 				throw new RuntimeException(String.format("Resource '%s' can NOT be found "
 						+ "(does not exist or just not visible for current classloader)",
-						aFilename));
+						filename));
 			} else {
 				result = new File(resource.getPath()).getCanonicalPath();
 			}
 		} catch (IOException e) {
-			throw new RuntimeException("Error while getting path for resource: " + aFilename, e);
+			throw new RuntimeException("Error while getting path for resource: " + filename, e);
 		}
 		return result;
 	}

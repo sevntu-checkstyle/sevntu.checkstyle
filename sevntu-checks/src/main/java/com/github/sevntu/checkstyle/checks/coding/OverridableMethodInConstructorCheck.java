@@ -142,105 +142,105 @@ public class OverridableMethodInConstructorCheck extends Check
      * A key is using to build a warning message about calls of an overridable
      * methods from any constructor body.
      * */
-    private final String mKeyCtor = "constructor";
+    private final String keyCtor = "constructor";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any clone() method is implemented from Cloneable interface.
      * */
-    private final String mKeyClone = "'clone()' method";
+    private final String keyClone = "'clone()' method";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any readObject() method is implemented from Serializable
      * interface.
      * */
-    private final String mKeyReadObject = "'readObject()' method";
+    private final String keyReadObject = "'readObject()' method";
 
     /**
      * A list contains all METHOD_CALL DetailAST nodes that have been already
      * visited by check.
      * */
-    private List<DetailAST> mVisitedMethodCalls = new LinkedList<DetailAST>();
+    private List<DetailAST> visitedMethodCalls = new LinkedList<DetailAST>();
 
     /**
      * A current MethodDef AST is being processed by check.
      * */
-    private DetailAST mCurMethodDef;
+    private DetailAST curMethodDef;
 
     /**
      * A current root of the synthax tree is being processed.
      * */
-    private DetailAST mTreeRootAST;
+    private DetailAST treeRootAST;
 
     /**
      * A boolean check box that enables the searching of calls to overridable
      * methods from the body of any clone() method is implemented from Cloneable
      * interface.
      * */
-    private boolean mCheckCloneMethod;
+    private boolean checkCloneMethod;
 
     /**
      * A boolean check box that enables the searching of calls to overridable
      * methods from the body of any readObject() method is implemented from
      * Serializable interface.
      */
-    private boolean mCheckReadObjectMethod;
+    private boolean checkReadObjectMethod;
     
     /**
      * A boolean check box that enables the matching methods by number of 
      * their parameters.
      */
-    private boolean mMatchMethodsByArgCount;
+    private boolean matchMethodsByArgCount;
 
     /**
      * The name of current overridable method is being processed.
      */
-    private String mCurOverridableMetName;
+    private String curOverridableMetName;
 
     /**
      * Method definitions counter for class is currently being processed.
      */
-    private int mCurMethodDefCount;
+    private int curMethodDefCount;
 
     /**
      * Enable|Disable searching of calls to overridable methods from body of any
      * clone() method is implemented from Cloneable interface.
      *
-     * @param aValue
+     * @param value
      *            The state of a boolean check box that enables the searching of
      *            calls to overridable methods from body of any clone() method
      *            is implemented from Cloneable interface.
      */
-    public void setCheckCloneMethod(final boolean aValue)
+    public void setCheckCloneMethod(final boolean value)
     {
-        mCheckCloneMethod = aValue;
+        checkCloneMethod = value;
     }
     
     /**
      * Enable|Disable matching methods by arguments count
      *
-     * @param aValue
+     * @param value
      *            The state of a boolean check box that enables the matching of
      *            methods by arguments count.
      */
-    public void setMatchMethodsByArgCount(final boolean aValue)
+    public void setMatchMethodsByArgCount(final boolean value)
     {
-        mMatchMethodsByArgCount = aValue;
+        matchMethodsByArgCount = value;
     }
 
     /**
      * Enable|Disable searching of calls to overridable methods from body of any
      * readObject() method is implemented from Serializable interface.
      *
-     * @param aValue
+     * @param value
      *            The state of a boolean check box that enables the searching of
      *            calls to overridable methods from body of any readObject()
      *            method is implemented from Serializable interface.
      */
-    public void setCheckReadObjectMethod(final boolean aValue)
+    public void setCheckReadObjectMethod(final boolean value)
     {
-        mCheckReadObjectMethod = aValue;
+        checkReadObjectMethod = value;
     }
 
     @Override
@@ -250,45 +250,45 @@ public class OverridableMethodInConstructorCheck extends Check
     }
 
     @Override
-    public void beginTree(DetailAST aRootAST)
+    public void beginTree(DetailAST rootAST)
     {
-        mTreeRootAST = aRootAST;
+        treeRootAST = rootAST;
     }
 
     @Override
-    public void visitToken(final DetailAST aDetailAST)
+    public void visitToken(final DetailAST detailAST)
     {
 
-        final DetailAST classDef = getClassDef(aDetailAST);
+        final DetailAST classDef = getClassDef(detailAST);
 
         if (classDef != null && !hasModifier(classDef, TokenTypes.FINAL)) {
 
-            switch (aDetailAST.getType()) {
+            switch (detailAST.getType()) {
 
-            case TokenTypes.CTOR_DEF:
-                logWarnings(aDetailAST, mKeyCtor);
-                break;
+                case TokenTypes.CTOR_DEF:
+                    logWarnings(detailAST, keyCtor);
+                    break;
 
-            case TokenTypes.METHOD_DEF:
+                case TokenTypes.METHOD_DEF:
 
-                final String methodName = aDetailAST.findFirstToken(
+                    final String methodName = detailAST.findFirstToken(
                         TokenTypes.IDENT).getText();
 
-                if (mCheckCloneMethod && "clone".equals(methodName)
+                    if (checkCloneMethod && "clone".equals(methodName)
                         && realizesAnInterface(classDef, "Cloneable"))
-                {
-                    logWarnings(aDetailAST, mKeyClone);
-                }
-                else if (mCheckReadObjectMethod
+                    {
+                        logWarnings(detailAST, keyClone);
+                    }
+                    else if (checkReadObjectMethod
                         && "readObject".equals(methodName)
                         && realizesAnInterface(classDef, "Serializable"))
-                {
-                    logWarnings(aDetailAST, mKeyReadObject);
-                }
-                break;
+                    {
+                        logWarnings(detailAST, keyReadObject);
+                    }
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
             }
         }
     }
@@ -297,30 +297,30 @@ public class OverridableMethodInConstructorCheck extends Check
      * Gets all METHOD_CALL DetailASTs that are pointing to overridable methods
      * calls from current method or c-tor body and logs them.
      *
-     * @param aDetailAST
+     * @param detailAST
      *            A DetailAST node which is pointing to current method or c-tor
      *            body is being processed to retrieve overridable method calls
      *            list.
-     * @param aKey
+     * @param key
      *            A string is using to retrieve the warning message text from
      *            "messages.properties" file.
      */
-    private void logWarnings(final DetailAST aDetailAST, final String aKey)
+    private void logWarnings(final DetailAST detailAST, final String key)
     {
 
         final List<OverridableMetCall> methodCallsToWarnList =
-            getOverridables(aDetailAST);
+            getOverridables(detailAST);
 
         for (OverridableMetCall om : methodCallsToWarnList) {
-            final DetailAST methodDef = getMethodDef(om.mMetCallAST);
+            final DetailAST methodDef = getMethodDef(om.metCallAST);
             if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
                     || hasModifier(methodDef, TokenTypes.FINAL))
             {
-            	log(om.mMetCallAST, MSG_KEY_LEADS, getMethodName(om.mMetCallAST),
-                        aKey, om.mOverridableMetName);
+            	log(om.metCallAST, MSG_KEY_LEADS, getMethodName(om.metCallAST),
+                        key, om.overridableMetName);
             } else {
-            	log(om.mMetCallAST, MSG_KEY, getMethodName(om.mMetCallAST),
-                    aKey, om.mOverridableMetName);
+            	log(om.metCallAST, MSG_KEY, getMethodName(om.metCallAST),
+                    key, om.overridableMetName);
            	}
         }
     }
@@ -330,22 +330,22 @@ public class OverridableMethodInConstructorCheck extends Check
      * methods calls in current method or c-tor body and generates a list of
      * them.
      *
-     * @param aParentAST
+     * @param parentAST
      *            A DetailAST METHOD_DEF of CTOR_DEF node which is pointing to
      *            the current method or c-tor body is being processed to
      *            retrieve overridable method calls.
      * @return A list of overridable methods calls for current method or
      *         constructor body.
      */
-    private List<OverridableMetCall> getOverridables(final DetailAST aParentAST)
+    private List<OverridableMetCall> getOverridables(final DetailAST parentAST)
     {
 
         final List<OverridableMetCall> result =
             new LinkedList<OverridableMetCall>();
-        final List<DetailAST> methodCallsList = getMethodCallsList(aParentAST);
+        final List<DetailAST> methodCallsList = getMethodCallsList(parentAST);
 
         for (DetailAST curNode : methodCallsList) {
-            mVisitedMethodCalls.clear();
+            visitedMethodCalls.clear();
             final DetailAST methodDef = getMethodDef(curNode);
             if (methodDef != null
                     && getMethodParamsCount(curNode)
@@ -353,7 +353,7 @@ public class OverridableMethodInConstructorCheck extends Check
                     && isOverridableMethodCall(curNode))
             {
                 result.add(new OverridableMetCall(curNode,
-                        mCurOverridableMetName));
+                        curOverridableMetName));
             }
         }
         return result;
@@ -363,21 +363,21 @@ public class OverridableMethodInConstructorCheck extends Check
      * Checks that current processed METHOD_CALL DetailAST is pointing to
      * overridable method call.
      *
-     * @param aMethodCallAST
+     * @param methodCallAST
      *            A METHOD_CALL DetailAST is currently being processed.
      * @return true if current processed METHOD_CALL node is pointing to the
      *         overridable method call and false otherwise.
      */
-    private boolean isOverridableMethodCall(final DetailAST aMethodCallAST)
+    private boolean isOverridableMethodCall(final DetailAST methodCallAST)
     {
 
         boolean result = false;
-        mVisitedMethodCalls.add(aMethodCallAST);
+        visitedMethodCalls.add(methodCallAST);
 
-        final String methodName = getMethodName(aMethodCallAST);
+        final String methodName = getMethodName(methodCallAST);
 
         if (methodName != null) {
-            final DetailAST methodDef = getMethodDef(aMethodCallAST);
+            final DetailAST methodDef = getMethodDef(methodCallAST);
             if (methodDef != null) {
 
                 if (hasModifier(methodDef, TokenTypes.LITERAL_STATIC)) {
@@ -389,7 +389,7 @@ public class OverridableMethodInConstructorCheck extends Check
                     final List<DetailAST> methodCallsList = getMethodCallsList(
                             methodDef);
                     for (DetailAST curNode : methodCallsList) {
-                        if (mVisitedMethodCalls.contains(curNode)) {
+                        if (visitedMethodCalls.contains(curNode)) {
                             result = false;
                             break;
                         }
@@ -400,7 +400,7 @@ public class OverridableMethodInConstructorCheck extends Check
                     }
                 }
                 else {
-                    mCurOverridableMetName = methodName;
+                    curOverridableMetName = methodName;
                     result = true;
                 }
             }
@@ -416,17 +416,17 @@ public class OverridableMethodInConstructorCheck extends Check
      * Gets all METHOD_CALL nodes which are below on the current parent
      * METHOD_DEF or CTOR_DEF node.
      *
-     * @param aParentAST
+     * @param parentAST
      *            The current parent METHOD_DEF or CTOR_DEF node.
      * @return List contains all METHOD_CALL nodes which are below on the
      *         current parent node.
      */
-    private List<DetailAST> getMethodCallsList(final DetailAST aParentAST)
+    private List<DetailAST> getMethodCallsList(final DetailAST parentAST)
     {
 
         final List<DetailAST> result = new LinkedList<DetailAST>();
 
-        for (DetailAST curNode : getChildren(aParentAST)) {
+        for (DetailAST curNode : getChildren(parentAST)) {
             if (curNode.getNumberOfChildren() > 0) {
                 if (curNode.getType() == TokenTypes.METHOD_CALL) {
                     result.add(curNode);
@@ -442,22 +442,22 @@ public class OverridableMethodInConstructorCheck extends Check
     /**
      * Gets the method name is related to the current METHOD_CALL DetailAST.
      *
-     * @param aMethodCallAST
+     * @param methodCallAST
      *            A METHOD_CALL DetailAST node is currently being processed.
      * @return The method name is related to the current METHOD_CALL DetailAST.
      */
-    private String getMethodName(final DetailAST aMethodCallAST)
+    private String getMethodName(final DetailAST methodCallAST)
     {
 
         String result = null;
 
-        final DetailAST ident = aMethodCallAST.findFirstToken(TokenTypes.IDENT);
+        final DetailAST ident = methodCallAST.findFirstToken(TokenTypes.IDENT);
 
         if (ident != null) {
             result = ident.getText();
         }
         else {
-            final DetailAST childAST = aMethodCallAST.getFirstChild();
+            final DetailAST childAST = methodCallAST.getFirstChild();
 
             if (childAST != null && childAST.getType() == TokenTypes.DOT) {
 
@@ -472,10 +472,10 @@ public class OverridableMethodInConstructorCheck extends Check
                 else if (firstChild.getType() == TokenTypes.IDENT
                         && lastChild.getType() == TokenTypes.IDENT)
                 {
-                    final String curClassName = getClassDef(aMethodCallAST)
+                    final String curClassName = getClassDef(methodCallAST)
                             .findFirstToken(TokenTypes.IDENT).getText();
                     if (firstChild.getText().equals(curClassName)
-                            || getClassDef(mTreeRootAST,
+                            || getClassDef(treeRootAST,
                                     firstChild.getText()) != null)
                     {
                         result = lastChild.getText();
@@ -489,59 +489,59 @@ public class OverridableMethodInConstructorCheck extends Check
     /**
      * Gets the method definition is related to the current METHOD_CALL
      * DetailAST node. If method definition doesn't find, will returned null.
-     * @param aMethodCallAST
+     * @param methodCallAST
      *            A METHOD_CALL DetailAST node is currently being processed.
      * @return the METHOD_DEF DetailAST node is pointing to the method
      *         definition which is related to the current METHOD_CALL DetailAST
      *         node.
      */
-    private DetailAST getMethodDef(final DetailAST aMethodCallAST)
+    private DetailAST getMethodDef(final DetailAST methodCallAST)
     {
 
         DetailAST result = null;
 
-        mCurMethodDef = null;
-        mCurMethodDefCount = 0;
+        curMethodDef = null;
+        curMethodDefCount = 0;
 
-        final String methodName = getMethodName(aMethodCallAST);
+        final String methodName = getMethodName(methodCallAST);
         if (methodName != null) {
 
-            final DetailAST curClassAST = getClassDef(aMethodCallAST);
-            final DetailAST callsChild = aMethodCallAST.getFirstChild();
+            final DetailAST curClassAST = getClassDef(methodCallAST);
+            final DetailAST callsChild = methodCallAST.getFirstChild();
             String variableTypeName;
 
             if (callsChild.getType() != TokenTypes.DOT ||
-                    (variableTypeName = getVariableType(aMethodCallAST)) == null
+                    (variableTypeName = getVariableType(methodCallAST)) == null
                     || (isItTypeOfCurrentClass(variableTypeName, curClassAST) ||
                     "this".equals(variableTypeName)))
             {
                 getMethodDef(curClassAST, methodName);
             }
 
-            if (mCurMethodDefCount == 0) {
+            if (curMethodDefCount == 0) {
 
                 final List<DetailAST> baseClasses = getBaseClasses(curClassAST);
 
                 for (DetailAST curBaseClass : baseClasses) {
-                    mCurMethodDef = null;
-                    mCurMethodDefCount = 0;
+                    curMethodDef = null;
+                    curMethodDefCount = 0;
                     getMethodDef(curBaseClass, methodName);
-                    if (mCurMethodDefCount == 1) {
-                        result = mCurMethodDef;
+                    if (curMethodDefCount == 1) {
+                        result = curMethodDef;
                         break;
                     }
                 }
             }
-            else if (mCurMethodDefCount == 1) {
-                result = mCurMethodDef;
+            else if (curMethodDefCount == 1) {
+                result = curMethodDef;
             }
             else
             {
-                if(mMatchMethodsByArgCount)
+                if(matchMethodsByArgCount)
                 {
                     int sameDefinitionCounter = 0;
                     int curMethodParamCount = 
-                            getMethodParamsCount(aMethodCallAST);
+                            getMethodParamsCount(methodCallAST);
                     for(DetailAST currentDefinition :
                         getMethodDef(curClassAST, methodName))
                     {
@@ -566,12 +566,12 @@ public class OverridableMethodInConstructorCheck extends Check
 
     /**
      * Return type of the variable, if it is declaration procedure.
-     * @param aMethodCall
+     * @param methodCall
      * @return variables type name
      */
-    private static String getVariableType(DetailAST aMethodCall)
+    private static String getVariableType(DetailAST methodCall)
     {
-        DetailAST callsChild = aMethodCall.getFirstChild();
+        DetailAST callsChild = methodCall.getFirstChild();
         String typeName = new String();
         if (callsChild.getType() == TokenTypes.DOT)
         {
@@ -596,27 +596,27 @@ public class OverridableMethodInConstructorCheck extends Check
      * Return true when usedIbjectName contains current class name or base class
      * name.
      * @param usedObjectName
-     * @param aClassDefNode
+     * @param classDefNode
      * @return
      */
     private static boolean
-            isItTypeOfCurrentClass(String aObjectTypeName, DetailAST aClassDefNode)
+            isItTypeOfCurrentClass(String objectTypeName, DetailAST classDefNode)
     {
-        DetailAST className = aClassDefNode.findFirstToken(TokenTypes.IDENT);
+        DetailAST className = classDefNode.findFirstToken(TokenTypes.IDENT);
         boolean result = false;
-        if (aObjectTypeName.equals(className.getText()))
+        if (objectTypeName.equals(className.getText()))
         {
             result = true;
         }
         else
         {
-            DetailAST baseClass = aClassDefNode.findFirstToken(
+            DetailAST baseClass = classDefNode.findFirstToken(
                     TokenTypes.EXTENDS_CLAUSE);
             if (baseClass != null)
             {
                 baseClass = baseClass.getFirstChild();
 
-                if (aObjectTypeName.equals(baseClass.getText()))
+                if (objectTypeName.equals(baseClass.getText()))
                 {
                     result = true;
                 }
@@ -630,29 +630,29 @@ public class OverridableMethodInConstructorCheck extends Check
      * DetailAST using the name of method to be searched. Ignores overloaded
      * methods (retrieves only one METHOD_DEF node).
      *
-     * @param aParentAST
+     * @param parentAST
      *            A parent CLASS_DEF DetailAST node which uses as a start point
      *            when searching.
-     * @param aMethodName
+     * @param methodName
      *            String containing the name of method is currently being
      *            searched.
      * @return a List of method definition
      */
-    private List<DetailAST> getMethodDef(final DetailAST aParentAST,
-            final String aMethodName)
+    private List<DetailAST> getMethodDef(final DetailAST parentAST,
+            final String methodName)
     {
         List<DetailAST> definitionsList = new LinkedList<DetailAST>();
         
-        for (DetailAST curNode : getChildren(aParentAST)) {
+        for (DetailAST curNode : getChildren(parentAST)) {
 
             if (curNode.getNumberOfChildren() > 0) {
                 if (curNode.getType() == TokenTypes.METHOD_DEF) {
                     final String curMethodName = curNode.findFirstToken(
                             TokenTypes.IDENT).getText();
-                    if (aMethodName.equals(curMethodName)) {
-                        mCurMethodDef = curNode;
+                    if (methodName.equals(curMethodName)) {
+                        curMethodDef = curNode;
                         definitionsList.add(0,curNode);
-                        mCurMethodDefCount++;
+                        curMethodDefCount++;
                     }
                 }
 
@@ -663,7 +663,7 @@ public class OverridableMethodInConstructorCheck extends Check
                         && type != TokenTypes.IMPLEMENTS_CLAUSE
                         && type != TokenTypes.METHOD_DEF)
                 {
-                    definitionsList = getMethodDef(curNode, aMethodName);
+                    definitionsList = getMethodDef(curNode, methodName);
                 }
             }
         }
@@ -673,22 +673,22 @@ public class OverridableMethodInConstructorCheck extends Check
     /**
      * Gets the count of parameters for current method definitioin or
      * method call.
-     * @param aMethodDefOrCallAST METHOD_DEF or METHOD_CALL
+     * @param methodDefOrCallAST METHOD_DEF or METHOD_CALL
      *     DetailAST node
      * @return the count of parameters for current method.
      */
-    private static int getMethodParamsCount(DetailAST aMethodDefOrCallAST)
+    private static int getMethodParamsCount(DetailAST methodDefOrCallAST)
     {
 
         int result = 0;
         DetailAST paramsParentAST = null;
 
-        if (aMethodDefOrCallAST.getType() == TokenTypes.METHOD_CALL) {
-            paramsParentAST = aMethodDefOrCallAST
+        if (methodDefOrCallAST.getType() == TokenTypes.METHOD_CALL) {
+            paramsParentAST = methodDefOrCallAST
                     .findFirstToken(TokenTypes.ELIST);
         }
-        else if (aMethodDefOrCallAST.getType() == TokenTypes.METHOD_DEF) {
-            paramsParentAST = aMethodDefOrCallAST
+        else if (methodDefOrCallAST.getType() == TokenTypes.METHOD_DEF) {
+            paramsParentAST = methodDefOrCallAST
                     .findFirstToken(TokenTypes.PARAMETERS);
         }
 
@@ -707,25 +707,25 @@ public class OverridableMethodInConstructorCheck extends Check
      * Checks that method or class is related to the current METHOD_DEF or
      * CLASS_DEF DetailAST node has a specified modifier (private, final etc).
      *
-     * @param aMethodOrClassDefAST
+     * @param methodOrClassDefAST
      *            A METHOD_DEF or CLASS_DEF DetailAST node is currently being
      *            processed.
-     * @param aModifierType
+     * @param modifierType
      *            desired modifier type.
      * @return true if method is related to current aMethodDefAST METHOD_DEF
      *         node has "private" or "final" modifier and false otherwise.
      */
-    private static boolean hasModifier(final DetailAST aMethodOrClassDefAST,
-        int aModifierType)
+    private static boolean hasModifier(final DetailAST methodOrClassDefAST,
+        int modifierType)
     {
 
         boolean result = false;
-        final DetailAST modifiers = aMethodOrClassDefAST
+        final DetailAST modifiers = methodOrClassDefAST
                 .findFirstToken(TokenTypes.MODIFIERS);
 
         if (modifiers != null && modifiers.getChildCount() != 0) {
             for (DetailAST curNode : getChildren(modifiers)) {
-                if (curNode.getType() == aModifierType) {
+                if (curNode.getType() == modifierType) {
                     result = true;
                     break;
                 }
@@ -739,15 +739,15 @@ public class OverridableMethodInConstructorCheck extends Check
      * Gets a parent CLASS_DEF DetailAST node for current METHOD_CALL DetailAST
      * node.
      *
-     * @param aMethodNode
+     * @param methodNode
      *            A METHOD_DEF or METHOD_CALL DetailAST node for current method.
      * @return The parent CLASS_DEF node for the class that owns a METHOD_CALL
      *         node named aMethodNode.
      * */
-    private static DetailAST getClassDef(final DetailAST aMethodNode)
+    private static DetailAST getClassDef(final DetailAST methodNode)
     {
 
-        DetailAST curNode = aMethodNode;
+        DetailAST curNode = methodNode;
 
         while (curNode != null && curNode.getType() != TokenTypes.CLASS_DEF) {
             curNode = curNode.getParent();
@@ -761,25 +761,25 @@ public class OverridableMethodInConstructorCheck extends Check
      * implements this interface or has at least one parent class which
      * implements this interface).
      *
-     * @param aClassDefNode
+     * @param classDefNode
      *            A CLASS_DEF DetailAST for class is currently being checked.
-     * @param aInterfaceName
+     * @param interfaceName
      *            The name of the interface to check.
      * @return true if class realizes "anInterfaceName" interface and false
      *         otherwise.
      */
-    private boolean realizesAnInterface(final DetailAST aClassDefNode,
-            final String aInterfaceName)
+    private boolean realizesAnInterface(final DetailAST classDefNode,
+            final String interfaceName)
     {
 
         boolean result = false;
         final List<DetailAST> classWithBaseClasses =
-                getBaseClasses(aClassDefNode);
+                getBaseClasses(classDefNode);
 
-        classWithBaseClasses.add(aClassDefNode);
+        classWithBaseClasses.add(classDefNode);
 
         for (DetailAST classAST : classWithBaseClasses) {
-            if (implementsAnInterface(classAST, aInterfaceName)) {
+            if (implementsAnInterface(classAST, interfaceName)) {
                 result = true;
                 break;
             }
@@ -790,25 +790,25 @@ public class OverridableMethodInConstructorCheck extends Check
     /**
      * Checks that class implements "anInterfaceName" interface.
      *
-     * @param aClassDefAST
+     * @param classDefAST
      *            A CLASS_DEF DetailAST for class is currently being checked.
-     * @param aInterfaceName
+     * @param interfaceName
      *            The name of the interface to check.
      * @return true if class is related to the current CLASS_DEF DetailAST is
      *         being processed implements "anInterfaceName" interface and false
      *         otherwise.
      */
-    private static boolean implementsAnInterface(final DetailAST aClassDefAST,
-            final String aInterfaceName)
+    private static boolean implementsAnInterface(final DetailAST classDefAST,
+            final String interfaceName)
     {
 
         boolean result = false;
-        final DetailAST implClause = aClassDefAST
+        final DetailAST implClause = classDefAST
                 .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
 
         if (implClause != null) {
             for (DetailAST ident : getChildren(implClause)) {
-                if (ident.getText().equals(aInterfaceName)) {
+                if (ident.getText().equals(interfaceName)) {
                     result = true;
                     break;
                 }
@@ -821,25 +821,25 @@ public class OverridableMethodInConstructorCheck extends Check
      * Gets the list of CLASS_DEF DetailAST nodes that are associated with class
      * is currently being processed and all it`s base classes.
      *
-     * @param aClassDefNode
+     * @param classDefNode
      *            A CLASS_DEF DetailAST is related to the class is currently
      *            being processed.
      * @return a list of CLASS_DEF DetailAST nodes for class is currently being
      *         processed and all it`s base classes.
      */
-    private List<DetailAST> getBaseClasses(final DetailAST aClassDefNode)
+    private List<DetailAST> getBaseClasses(final DetailAST classDefNode)
     {
 
         final List<DetailAST> result = new LinkedList<DetailAST>();
-        String baseClassName = getBaseClassName(aClassDefNode);
+        String baseClassName = getBaseClassName(classDefNode);
 
         if (baseClassName != null) {
-            DetailAST curClass = getClassDef(mTreeRootAST, baseClassName);
+            DetailAST curClass = getClassDef(treeRootAST, baseClassName);
             while (curClass != null) {
                 result.add(curClass);
                 baseClassName = getBaseClassName(curClass);
                 if (baseClassName != null) {
-                    curClass = getClassDef(mTreeRootAST, baseClassName);
+                    curClass = getClassDef(treeRootAST, baseClassName);
                 }
                 else {
                     break;
@@ -852,17 +852,17 @@ public class OverridableMethodInConstructorCheck extends Check
     /**
      * Gets the CLASS_DEF DetailAST node for the class is named "aClassName".
      *
-     * @param aRootNode
+     * @param rootNode
      *            A root node of synthax tree is being processed.
-     * @param aClassName
+     * @param className
      *            The name of class to search.
      * @return The CLASS_DEF DetailAST node which is related to the class is
      *         named "aClassName".
      */
-    private static DetailAST getClassDef(DetailAST aRootNode, String aClassName)
+    private static DetailAST getClassDef(DetailAST rootNode, String className)
     {
 
-        DetailAST curNode = aRootNode;
+        DetailAST curNode = rootNode;
 
         while (curNode != null) {
             DetailAST toVisit = curNode.getFirstChild();
@@ -881,7 +881,7 @@ public class OverridableMethodInConstructorCheck extends Check
 
             if (curNode.getType() == TokenTypes.CLASS_DEF
                     && curNode.findFirstToken(TokenTypes.IDENT).getText()
-                            .equals(aClassName))
+                            .equals(className))
             {
                 break;
             }
@@ -892,15 +892,15 @@ public class OverridableMethodInConstructorCheck extends Check
     /**
      * Gets the the base class name for current class.
      *
-     * @param aClassDefNode
+     * @param classDefNode
      *            A CLASS_DEF DetailAST.
      * @return The name of a base class for current class.
      */
-    private static String getBaseClassName(final DetailAST aClassDefNode)
+    private static String getBaseClassName(final DetailAST classDefNode)
     {
 
         String result = null;
-        final DetailAST extendsClause = aClassDefNode
+        final DetailAST extendsClause = classDefNode
                 .findFirstToken(TokenTypes.EXTENDS_CLAUSE);
 
         if (extendsClause != null) {
@@ -920,15 +920,15 @@ public class OverridableMethodInConstructorCheck extends Check
      * Gets all the children one level below on the current DetailAST parent
      * node.
      *
-     * @param aNode
+     * @param node
      *            Current parent node.
      * @return An array of children one level below on the current parent node
      *         aNode.
      */
-    private static List<DetailAST> getChildren(final DetailAST aNode)
+    private static List<DetailAST> getChildren(final DetailAST node)
     {
         final List<DetailAST> result = new LinkedList<DetailAST>();
-        DetailAST curNode = aNode.getFirstChild();
+        DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);
             curNode = curNode.getNextSibling();
@@ -947,26 +947,26 @@ public class OverridableMethodInConstructorCheck extends Check
          * DetailAST node is related to the method call that leads to
          *           call of the overridable method.
          */
-        private DetailAST mMetCallAST;
+        private DetailAST metCallAST;
         /**
          * The name of an overridable method.
          */
-        private String mOverridableMetName;
+        private String overridableMetName;
 
         /**
          * Creates an instance of OverridableMetCall and initializes fields.
-         * @param aMethodCallAST
+         * @param methodCallAST
          *            DetailAST node related to the method call that leads
          *            to call of the overridable method.
-         * @param aOverridableMetName
+         * @param overridableMetName
          *            The name of an overridable method.
          */
-        public OverridableMetCall(DetailAST aMethodCallAST,
-                String aOverridableMetName)
+        public OverridableMetCall(DetailAST methodCallAST,
+                String overridableMetName)
         {
             super();
-            this.mMetCallAST = aMethodCallAST;
-            this.mOverridableMetName = aOverridableMetName;
+            this.metCallAST = methodCallAST;
+            this.overridableMetName = overridableMetName;
         }
     }
 

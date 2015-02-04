@@ -94,14 +94,14 @@ public class FinalizeImplementationCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aMethodDefToken)
+    public void visitToken(DetailAST methodDefToken)
     {
-        if (isFinalizeMethodSignature(aMethodDefToken)) {
+        if (isFinalizeMethodSignature(methodDefToken)) {
         	
-        	String warningMessage = validateFinalizeMethod(aMethodDefToken);
+        	String warningMessage = validateFinalizeMethod(methodDefToken);
         	
         	if (warningMessage != null) {
-        		log(aMethodDefToken.getLineNo(), warningMessage);
+        		log(methodDefToken.getLineNo(), warningMessage);
         	}
         }
     }
@@ -109,15 +109,15 @@ public class FinalizeImplementationCheck extends Check
     /**
      * Checks, if finalize implementation is correct. If implementation is bad, 
      * this method will call log() with suitable warning message. 
-     * @param aFinalizeMethodToken 
+     * @param finalizeMethodToken 
      *        current finalize() token
      * @return warning message or null, if all is well. 
      */
-    private static String validateFinalizeMethod(DetailAST aFinalizeMethodToken)
+    private static String validateFinalizeMethod(DetailAST finalizeMethodToken)
     {
     	String warningMessage = null;
-        if (hasModifier(TokenTypes.LITERAL_PROTECTED, aFinalizeMethodToken)) {
-                DetailAST methodOpeningBrace = aFinalizeMethodToken.getLastChild();
+        if (hasModifier(TokenTypes.LITERAL_PROTECTED, finalizeMethodToken)) {
+                DetailAST methodOpeningBrace = finalizeMethodToken.getLastChild();
                 DetailAST literalTry = methodOpeningBrace.findFirstToken(TokenTypes.LITERAL_TRY);
                 
                 if (literalTry == null) {
@@ -144,87 +144,87 @@ public class FinalizeImplementationCheck extends Check
 
     /**
      * Checks, if current method is finalize().
-     * @param aMethodDefToken
+     * @param methodDefToken
      *        current method definition.
      * @return true, if method is finalize() method.
      */
-    public static boolean isFinalizeMethodSignature(DetailAST aMethodDefToken)
+    public static boolean isFinalizeMethodSignature(DetailAST methodDefToken)
     {
-        return !hasModifier(TokenTypes.LITERAL_STATIC ,aMethodDefToken)
-                && isFinalizeMethodName(aMethodDefToken) && isVoid(aMethodDefToken)
-                && getParamsCount(aMethodDefToken) == 0;
+        return !hasModifier(TokenTypes.LITERAL_STATIC ,methodDefToken)
+                && isFinalizeMethodName(methodDefToken) && isVoid(methodDefToken)
+                && getParamsCount(methodDefToken) == 0;
     }
     
     /**
      * Checks, if finalize() has "static" access modifier.
-     * @param aModifireType 
+     * @param modifierType 
      *        modifier type.
      * @param aMethodNToken
      *        MODIFIRES Token.
      * @return true, if finalize() has "protected" access modifier.
      */
-    public static boolean hasModifier(int aModifireType, DetailAST aMethodToken)
+    public static boolean hasModifier(int modifierType, DetailAST methodToken)
     {
-        DetailAST modifiersToken = aMethodToken.getFirstChild();
-        return modifiersToken.findFirstToken(aModifireType) != null;
+        DetailAST modifiersToken = methodToken.getFirstChild();
+        return modifiersToken.findFirstToken(modifierType) != null;
     }
 
     /**
      * Checks, if current method name is "finalize".
-     * @param aMethodDefToken
+     * @param methodDefToken
      *        method definition Token.
      * @return true, if current method name is "finalize".
      */
-    private static boolean isFinalizeMethodName(DetailAST aMethodDefToken)
+    private static boolean isFinalizeMethodName(DetailAST methodDefToken)
     {
-        DetailAST identToken = aMethodDefToken.findFirstToken(TokenTypes.IDENT);
+        DetailAST identToken = methodDefToken.findFirstToken(TokenTypes.IDENT);
         return FINALIZE_METHOD_NAME.equals(identToken.getText());
     }
 
     
     /**
      * Checks, if method is void.
-     * @param aMethodDefToken
+     * @param methodDefToken
      *        method definition Token.
      * @return true, if method is void.
      */
-    private static boolean isVoid(DetailAST aMethodDefToken)
+    private static boolean isVoid(DetailAST methodDefToken)
     {
-        DetailAST typeToken = aMethodDefToken.findFirstToken(TokenTypes.TYPE);
+        DetailAST typeToken = methodDefToken.findFirstToken(TokenTypes.TYPE);
         return typeToken.findFirstToken(TokenTypes.LITERAL_VOID) != null;
     }
     
     /**
      * Counts number of parameters.
-     * @param aMethodDefToken
+     * @param methodDefToken
      *        method definition Token.
      * @return number of parameters.
      */
-    private static int getParamsCount(DetailAST aMethodDefToken)
+    private static int getParamsCount(DetailAST methodDefToken)
     {
-        return aMethodDefToken.findFirstToken(TokenTypes.PARAMETERS).getChildCount();
+        return methodDefToken.findFirstToken(TokenTypes.PARAMETERS).getChildCount();
     }
 
     /**
      * Checks, if finalize() is empty.
-     * @param aMethodOpeningBraceToken
+     * @param methodOpeningBraceToken
      *        method opening brace.
      * @return true, if finalize() is empty.
      */
-    public static boolean isMethodEmpty(DetailAST aMethodOpeningBraceToken)
+    public static boolean isMethodEmpty(DetailAST methodOpeningBraceToken)
     {
-        return aMethodOpeningBraceToken.getFirstChild().getType() == TokenTypes.RCURLY;
+        return methodOpeningBraceToken.getFirstChild().getType() == TokenTypes.RCURLY;
     }
 
     /**
      * Checks, if current method has super.finalize() call.
-     * @param aOpeningBrace
+     * @param openingBrace
      *        current method definition.
      * @return true, if method has super.finalize() call.
      */
-    public static boolean containsSuperFinalizeCall(DetailAST aOpeningBrace)
+    public static boolean containsSuperFinalizeCall(DetailAST openingBrace)
     {
-        DetailAST methodCallToken = aOpeningBrace.getFirstChild().getFirstChild();
+        DetailAST methodCallToken = openingBrace.getFirstChild().getFirstChild();
         if (methodCallToken != null) {
             DetailAST dotToken = methodCallToken.getFirstChild();
             if (dotToken.findFirstToken(TokenTypes.LITERAL_SUPER) != null) {
@@ -236,13 +236,13 @@ public class FinalizeImplementationCheck extends Check
 
     /**
      * Checks, if current method has try-finally block.
-     * @param aMethodOpeningBrace
+     * @param methodOpeningBrace
      *        Method opening brace.
      * @return
      */
-    public static boolean hasTryFinallyBlock(DetailAST aMethodOpeningBrace)
+    public static boolean hasTryFinallyBlock(DetailAST methodOpeningBrace)
     {
-        DetailAST tryToken = aMethodOpeningBrace.findFirstToken(TokenTypes.LITERAL_TRY);  
+        DetailAST tryToken = methodOpeningBrace.findFirstToken(TokenTypes.LITERAL_TRY);  
         return tryToken != null && tryToken.getLastChild().getType() == TokenTypes.LITERAL_FINALLY;
     }
 }

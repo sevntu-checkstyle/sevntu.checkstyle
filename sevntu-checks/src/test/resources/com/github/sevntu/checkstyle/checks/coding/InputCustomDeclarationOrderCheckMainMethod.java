@@ -17,3 +17,8 @@ class C {
     private int t;
     public void method(){}
 }
+
+class D {
+    public void method(){}
+    public static void main(String[] agrs) {}
+}

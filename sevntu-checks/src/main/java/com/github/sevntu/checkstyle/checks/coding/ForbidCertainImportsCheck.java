@@ -67,33 +67,33 @@ public class ForbidCertainImportsCheck extends Check
      * Pattern for matching package fully qualified name
      * (sets the scope of affected packages).
      */
-    private Pattern mPackageNamesRegexp;
+    private Pattern packageNamesRegexp;
 
     /**
      * Pattern for matching forbidden imports.
      */
-    private Pattern mForbiddenImportsRegexp;
+    private Pattern forbiddenImportsRegexp;
 
     /**
      * Pattern for excluding imports from checking.
      */
-    private Pattern mForbiddenImportsExcludesRegexp;
+    private Pattern forbiddenImportsExcludesRegexp;
 
     /**
      * True, if currently processed package fully qualified name
      * matches regexp is provided by user.
      */
-    private boolean mPackageMatches;
+    private boolean packageMatches;
 
     /**
      * Sets the regexp for matching package fully qualified name.
-     * @param aPackageNameRegexp
+     * @param packageNameRegexp
      *        regexp for package fully qualified name matching.
      */
-    public void setPackageNameRegexp(String aPackageNameRegexp)
+    public void setPackageNameRegexp(String packageNameRegexp)
     {
-        if (aPackageNameRegexp != null) {
-            mPackageNamesRegexp = Pattern.compile(aPackageNameRegexp);
+        if (packageNameRegexp != null) {
+            packageNamesRegexp = Pattern.compile(packageNameRegexp);
         }
     }
 
@@ -103,18 +103,18 @@ public class ForbidCertainImportsCheck extends Check
      */
     public String getForbiddenImportRegexp()
     {
-        return mForbiddenImportsRegexp.toString();
+        return forbiddenImportsRegexp.toString();
     }
 
     /**
      * Sets the regexp for matching forbidden imports.
-     * @param aForbiddenImportsRegexp
+     * @param forbiddenImportsRegexp
      *        regexp for matching forbidden imports.
      */
-    public void setForbiddenImportsRegexp(String aForbiddenImportsRegexp)
+    public void setForbiddenImportsRegexp(String forbiddenImportsRegexp)
     {
-        if (aForbiddenImportsRegexp != null) {
-            mForbiddenImportsRegexp = Pattern.compile(aForbiddenImportsRegexp);
+        if (forbiddenImportsRegexp != null) {
+            this.forbiddenImportsRegexp = Pattern.compile(forbiddenImportsRegexp);
         }
     }
 
@@ -124,20 +124,20 @@ public class ForbidCertainImportsCheck extends Check
      */
     public String getForbiddenImportsExcludesRegexp()
     {
-        return mForbiddenImportsExcludesRegexp.toString();
+        return forbiddenImportsExcludesRegexp.toString();
     }
 
     /**
      * Sets the regexp for excluding imports from checking.
-     * @param aForbiddenImportsExcludesRegexp
+     * @param forbiddenImportsExcludesRegexp
      *        String contains a regexp for excluding imports from checking.
      */
     public void setForbiddenImportsExcludesRegexp(String
-            aForbiddenImportsExcludesRegexp)
+            forbiddenImportsExcludesRegexp)
     {
-        if (aForbiddenImportsExcludesRegexp != null) {
-            mForbiddenImportsExcludesRegexp = Pattern
-                    .compile(aForbiddenImportsExcludesRegexp);
+        if (forbiddenImportsExcludesRegexp != null) {
+            this.forbiddenImportsExcludesRegexp = Pattern
+                    .compile(forbiddenImportsExcludesRegexp);
         }
     }
 
@@ -145,8 +145,8 @@ public class ForbidCertainImportsCheck extends Check
     public int[] getDefaultTokens()
     {
         final int[] defaultTokens;
-        if (mPackageNamesRegexp == null || mForbiddenImportsRegexp == null
-            || mForbiddenImportsExcludesRegexp == null)
+        if (packageNamesRegexp == null || forbiddenImportsRegexp == null
+            || forbiddenImportsExcludesRegexp == null)
         {
             defaultTokens = new int[] {};
         }
@@ -158,89 +158,89 @@ public class ForbidCertainImportsCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAst)
+    public void visitToken(DetailAST ast)
     {
-        switch (aAst.getType()) {
-        case TokenTypes.PACKAGE_DEF:
-            if (mPackageNamesRegexp != null) {
-                final String packageQualifiedName = getText(aAst);
-                mPackageMatches = mPackageNamesRegexp.matcher(packageQualifiedName)
+        switch (ast.getType()) {
+            case TokenTypes.PACKAGE_DEF:
+                if (packageNamesRegexp != null) {
+                    final String packageQualifiedName = getText(ast);
+                    packageMatches = packageNamesRegexp.matcher(packageQualifiedName)
                         .matches();
-            }
-            break;
-        case TokenTypes.IMPORT:
-			if (mPackageMatches && mForbiddenImportsRegexp != null
-					&& mForbiddenImportsExcludesRegexp != null)
-			{
-				final String importQualifiedText = getText(aAst);
-				if (isImportForbidden(importQualifiedText)) {
-					log(aAst, importQualifiedText);
-				}
-			}
-            break;
-        case TokenTypes.LITERAL_NEW:
-			if (mForbiddenImportsRegexp != null
-					&& mForbiddenImportsExcludesRegexp != null
-					&& aAst.findFirstToken(TokenTypes.DOT) != null
-					&& mPackageMatches)
-			{
-				final String importQualifiedText = getText(aAst);
-				if (isImportForbidden(importQualifiedText)) {
-					log(aAst, importQualifiedText);
-				}
-			}
-            break;
-		default:
-			final String className = this.getClass().getSimpleName();
-			final String tokenType = TokenTypes.getTokenName(aAst.getType());
-			final String tokenDescription = aAst.toString();
-			final String message = String.format("%s got the wrong input token: %s (%s)",
+                }
+                break;
+            case TokenTypes.IMPORT:
+                if (packageMatches && forbiddenImportsRegexp != null
+					&& forbiddenImportsExcludesRegexp != null)
+                {
+                    final String importQualifiedText = getText(ast);
+                    if (isImportForbidden(importQualifiedText)) {
+                        log(ast, importQualifiedText);
+                    }
+                }
+                break;
+            case TokenTypes.LITERAL_NEW:
+                if (forbiddenImportsRegexp != null
+					&& forbiddenImportsExcludesRegexp != null
+					&& ast.findFirstToken(TokenTypes.DOT) != null
+					&& packageMatches)
+                {
+                    final String importQualifiedText = getText(ast);
+                    if (isImportForbidden(importQualifiedText)) {
+                        log(ast, importQualifiedText);
+                    }
+                }
+                break;
+            default:
+                final String className = this.getClass().getSimpleName();
+                final String tokenType = TokenTypes.getTokenName(ast.getType());
+                final String tokenDescription = ast.toString();
+                final String message = String.format("%s got the wrong input token: %s (%s)",
 					className, tokenType, tokenDescription);
-			throw new IllegalArgumentException(message);
+                throw new IllegalArgumentException(message);
         }
     }
 
     /**
      * Checks if given import both matches 'include' and not matches 'exclude' patterns.
-     * @param aImportText package fully qualified name
+     * @param importText package fully qualified name
      * @return true is given import is forbidden in current
      * classes package, false otherwise
      */
-    private boolean isImportForbidden(String aImportText)
+    private boolean isImportForbidden(String importText)
     {
-        return mForbiddenImportsRegexp.matcher(aImportText).matches()
-                && !mForbiddenImportsExcludesRegexp.matcher(aImportText).matches();
+        return forbiddenImportsRegexp.matcher(importText).matches()
+                && !forbiddenImportsExcludesRegexp.matcher(importText).matches();
     }
 
     /**
      * Logs message on the part of code.
-     * @param aNodeToWarn
+     * @param nodeToWarn
      *        A DetailAST node is pointing to the part of code to warn on.
-     * @param aImportText
+     * @param importText
      *        import to be warned.
      */
-    private void log(DetailAST aNodeToWarn, String aImportText)
+    private void log(DetailAST nodeToWarn, String importText)
     {
-        log(aNodeToWarn.getLineNo(), MSG_KEY,
-                getForbiddenImportRegexp(), aImportText);
+        log(nodeToWarn.getLineNo(), MSG_KEY,
+                getForbiddenImportRegexp(), importText);
     }
 
     /**
      * Gets package/import text representation from node of PACKAGE_DEF or IMPORT type.
-     * @param aPackageDefOrImportNode
+     * @param packageDefOrImportNode
      *        - DetailAST node is pointing to package or import definition
      *        (should be a PACKAGE_DEF or IMPORT type).
      * @return The fully qualified name of package or import without
      *         "package"/"import" words or semicolons.
      */
-    private static String getText(DetailAST aPackageDefOrImportNode)
+    private static String getText(DetailAST packageDefOrImportNode)
     {
         String result = null;
 
-        final DetailAST identNode = aPackageDefOrImportNode.findFirstToken(TokenTypes.IDENT);
+        final DetailAST identNode = packageDefOrImportNode.findFirstToken(TokenTypes.IDENT);
 
         if (identNode == null) {
-            final DetailAST parentDotAST = aPackageDefOrImportNode.findFirstToken(TokenTypes.DOT);
+            final DetailAST parentDotAST = packageDefOrImportNode.findFirstToken(TokenTypes.DOT);
             if (parentDotAST != null) {
                 final FullIdent dottedPathIdent = FullIdent
                         .createFullIdentBelow(parentDotAST);

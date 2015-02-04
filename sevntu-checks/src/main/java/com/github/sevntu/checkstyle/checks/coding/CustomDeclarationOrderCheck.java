@@ -80,12 +80,13 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * ATTENTION!
  * <p>
  * Use separator <code>' ', '.', '\s'</code> between declaration in the RegExp.
+ * Whitespace should be added after each modifier.
  * </p>
  * <pre>
  * Example:
- *      Field(public.*final.*)
- *      Field(public final.*)
- *      Field(public<code>\s*</code>final.*)
+ *      Field(public .*final .*)
+ *      Field(public final .*)
+ *      Field(public<code>\s*</code>final .*)
  * </pre>
  * NOTICE!
  * <p>
@@ -111,10 +112,10 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  * </p>
  * <p>
  * <code>Field(private static final long serialVersionUID) ###
- * Field(public static final.*) ### Field(.*private.*) ### Ctor(.*) ###
- * GetterSetter(.*) ### Method(.*public.*final.*|@Ignore.*public.*) ###
- * Method(public static.*(final|(new|edit|create).*).*) ###
- * InnerClass(public abstract.*) ### InnerInterface(.*) ### InnerEnum(.*)</code>
+ * Field(public static final .*) ### Field(.*private .*) ### Ctor(.*) ###
+ * GetterSetter(.*) ### Method(.*public .*final .*|@Ignore.*public .*) ###
+ * Method(public static .*(final|(new|edit|create).*).*) ###
+ * InnerClass(public abstract .*) ### InnerInterface(.*) ### InnerEnum(.*)</code>
  * </p>
  *
  * <p><b>What is group of getters and setters(<code>GetterSetter</code>)?</b></p>
@@ -156,20 +157,20 @@ import com.puppycrawl.tools.checkstyle.api.Utils;
  */
 public class CustomDeclarationOrderCheck extends Check
 {
-	public static final String MSG_KEY_FIELD = "custom.declaration.order.field";
-	
-	public static final String MSG_KEY_METHOD = "custom.declaration.order.method";
-	
-	public static final String MSG_KEY_CONSTRUCTOR = "custom.declaration.order.constructor";
-	
-	public static final String MSG_KEY_CLASS = "custom.declaration.order.class";
-	
-	public static final String MSG_KEY_INTERFACE = "custom.declaration.order.interface";
-	
-	public static final String MSG_KEY_ENUM = "custom.declaration.order.enum";
-	
-	public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
-	
+    public static final String MSG_KEY_FIELD = "custom.declaration.order.field";
+
+    public static final String MSG_KEY_METHOD = "custom.declaration.order.method";
+
+    public static final String MSG_KEY_CONSTRUCTOR = "custom.declaration.order.constructor";
+
+    public static final String MSG_KEY_CLASS = "custom.declaration.order.class";
+
+    public static final String MSG_KEY_INTERFACE = "custom.declaration.order.interface";
+
+    public static final String MSG_KEY_ENUM = "custom.declaration.order.enum";
+
+    public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
+
     private static final String INNER_ENUM_MACRO = "InnerEnum";
 
     private static final String INNER_INTERFACE_MACRO = "InnerInterface";
@@ -195,8 +196,8 @@ public class CustomDeclarationOrderCheck extends Check
     private static final String SETTER_PREFIX = "set";
 
     /** Default format for custom declaration check */
-    private static final String DEFAULT_DECLARATION = "Field(.*public.*) "
-            + "### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*) ### "
+    private static final String DEFAULT_DECLARATION = "Field(.*public .*) "
+            + "### Field(.*protected .*) ### Field(.*private .*) ### CTOR(.*) ### "
             + "MainMethod(.*) ### GetterSetter(.*) ### Method(.*) ### InnerClass(.*) "
             + "### InnerInterface(.*) ### InnerEnum(.*)";
 
@@ -213,31 +214,31 @@ public class CustomDeclarationOrderCheck extends Check
     };
 
     /** List of order declaration customizing by user */
-    private final List<FormatMatcher> mCustomOrderDeclaration =
+    private final List<FormatMatcher> customOrderDeclaration =
         new ArrayList<FormatMatcher>();
 
     /** save compile flags for further usage */
-    private int mCompileFlags;
+    private int compileFlags;
 
     /** allow check inner classes */
-    private boolean mCheckInnerClasses;
+    private boolean checkInnerClasses;
 
     /**
      * Allows to check getters and setters.
      */
-    private boolean mCheckGettersSetters;
+    private boolean checkGettersSetters;
 
     /**
      * Prefix of class fields.
      */
-    private String mFieldPrefix = "";
+    private String fieldPrefix = "";
 
 
     /**
      * Stack of GetterSetterContainer objects to keep all getters and all setters
      * of certain class.
      */
-    private final Deque<ClassDetail> mClassDetails = new LinkedList<ClassDetail>();
+    private final Deque<ClassDetail> classDetails = new LinkedList<ClassDetail>();
 
 
     /** Constructor to set default format. */
@@ -249,16 +250,16 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Set custom order declaration from string with user rules.
      *
-     * @param aInputOrderDeclaration The string line with the user custom
+     * @param inputOrderDeclaration The string line with the user custom
      *            declaration.
      */
-    public void setCustomDeclarationOrder(final String aInputOrderDeclaration)
+    public void setCustomDeclarationOrder(final String inputOrderDeclaration)
     {
-        mCustomOrderDeclaration.clear();
-        for (String currentState : aInputOrderDeclaration.split("\\s*###\\s*"))
+        customOrderDeclaration.clear();
+        for (String currentState : inputOrderDeclaration.split("\\s*###\\s*"))
         {
             try {
-                mCustomOrderDeclaration
+                customOrderDeclaration
                         .add(parseInputDeclarationRule(currentState));
             }
             catch (StringIndexOutOfBoundsException exp) {
@@ -271,43 +272,43 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Set prefix of class fields.
-     * @param aFieldPrefix string
+     * @param fieldPrefix string
      */
-    public void setFieldPrefix(String aFieldPrefix)
+    public void setFieldPrefix(String fieldPrefix)
     {
-        mFieldPrefix = aFieldPrefix;
+        this.fieldPrefix = fieldPrefix;
     }
 
     /**
      * Set whether or not the match is case sensitive.
      *
-     * @param aCaseSensitive true if the match is case sensitive.
+     * @param caseSensitive true if the match is case sensitive.
      */
-    public void setCaseSensitive(final boolean aCaseSensitive)
+    public void setCaseSensitive(final boolean caseSensitive)
     {
         // 0 - case sensitive flag
-        mCompileFlags = aCaseSensitive ? 0 : Pattern.CASE_INSENSITIVE;
+        compileFlags = caseSensitive ? 0 : Pattern.CASE_INSENSITIVE;
 
-        for (FormatMatcher currentRule : mCustomOrderDeclaration) {
-            currentRule.setCompileFlags(mCompileFlags);
+        for (FormatMatcher currentRule : customOrderDeclaration) {
+            currentRule.setCompileFlags(compileFlags);
         }
     }
 
     @Override
     public int[] getDefaultTokens()
     {
-        final int size = mCustomOrderDeclaration.size();
+        final int size = customOrderDeclaration.size();
         final int[] tokenTypes = new int[size + 1];
 
         for (int i = 0; i < size; i++) {
-            final FormatMatcher currentRule = mCustomOrderDeclaration.get(i);
+            final FormatMatcher currentRule = customOrderDeclaration.get(i);
             tokenTypes[i] = currentRule.getClassMember();
 
             if (currentRule.hasRule(INNER_CLASS_MACRO)) {
-                mCheckInnerClasses = true;
+                checkInnerClasses = true;
             }
             else if (currentRule.hasRule(GETTER_SETTER_MACRO)) {
-                mCheckGettersSetters = true;
+                checkGettersSetters = true;
             }
         }
 
@@ -317,70 +318,70 @@ public class CustomDeclarationOrderCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST aAST)
+    public void visitToken(DetailAST ast)
     {
-        switch (aAST.getType()) {
+        switch (ast.getType()) {
 
-        case TokenTypes.CLASS_DEF:
-            if (!isClassDefInMethodDef(aAST))
-            {
-                if (mCheckInnerClasses && !mClassDetails.isEmpty()) {
+            case TokenTypes.CLASS_DEF:
+                if (!isClassDefInMethodDef(ast))
+                {
+                    if (checkInnerClasses && !classDetails.isEmpty()) {
 
-                    final int position = getPositionInOrderDeclaration(aAST);
+                        final int position = getPositionInOrderDeclaration(ast);
 
-                    if (position != -1) {
-                        if (isWrongPosition(position)) {
-                            logWrongOrderedElement(aAST, position);
-                        }
-                        else {
-                            mClassDetails.peek().setCurrentPosition(position);
+                        if (position != -1) {
+                            if (isWrongPosition(position)) {
+                                logWrongOrderedElement(ast, position);
+                            }
+                            else {
+                                classDetails.peek().setCurrentPosition(position);
+                            }
                         }
                     }
+
+                    classDetails.push(new ClassDetail());
                 }
+                break;
 
-                mClassDetails.push(new ClassDetail());
-            }
-            break;
-
-        default:
-            final DetailAST objBlockAst = aAST.getParent();
-            if (objBlockAst != null
+            default:
+                final DetailAST objBlockAst = ast.getParent();
+                if (objBlockAst != null
                     && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
 
-                final DetailAST classDefAst = objBlockAst.getParent();
+                    final DetailAST classDefAst = objBlockAst.getParent();
 
-                if (classDefAst.getType() == TokenTypes.CLASS_DEF
+                    if (classDefAst.getType() == TokenTypes.CLASS_DEF
                         && !isClassDefInMethodDef(classDefAst))
-                {
-                    if (mCheckGettersSetters) {
-                        collectGetterSetter(aAST);
-                    }
-
-                    final int position = getPositionInOrderDeclaration(aAST);
-
-                    if (position != -1) {
-                        if (isWrongPosition(position)) {
-                            logWrongOrderedElement(aAST, position);
+                    {
+                        if (checkGettersSetters) {
+                            collectGetterSetter(ast);
                         }
-                        else {
-                            mClassDetails.peek().setCurrentPosition(position);
+
+                        final int position = getPositionInOrderDeclaration(ast);
+
+                        if (position != -1) {
+                            if (isWrongPosition(position)) {
+                                logWrongOrderedElement(ast, position);
+                            }
+                            else {
+                                classDetails.peek().setCurrentPosition(position);
+                            }
                         }
                     }
                 }
-            }
 
         }
     }
 
     @Override
-    public void leaveToken(DetailAST aAST)
+    public void leaveToken(DetailAST ast)
     {
-        if (aAST.getType() == TokenTypes.CLASS_DEF
-                && !isClassDefInMethodDef(aAST))
+        if (ast.getType() == TokenTypes.CLASS_DEF
+                && !isClassDefInMethodDef(ast))
         {
-            final ClassDetail classDetail = mClassDetails.pop();
+            final ClassDetail classDetail = classDetails.pop();
 
-            if (mCheckGettersSetters) {
+            if (checkGettersSetters) {
 
                 final Map<DetailAST, DetailAST> gettersSetters =
                         classDetail.getWrongOrderedGettersSetters();
@@ -394,14 +395,14 @@ public class CustomDeclarationOrderCheck extends Check
      * Parse input current declaration rule and create new instance of
      * FormatMather with matcher
      *
-     * @param aCurrentState input string with MemberDefinition and RegExp.
+     * @param currentState input string with MemberDefinition and RegExp.
      * @return new FormatMatcher with parsed and compile rule
      */
-    private FormatMatcher parseInputDeclarationRule(final String aCurrentState)
+    private FormatMatcher parseInputDeclarationRule(final String currentState)
     {
         // parse mClassMember
-        final String macro = aCurrentState.substring(0,
-                aCurrentState.indexOf('(')).trim();
+        final String macro = currentState.substring(0,
+                currentState.indexOf('(')).trim();
         final int classMember = convertMacroToTokenType(macro);
         if (classMember == -1) {
             // if Class Member has been specified wrong
@@ -409,15 +410,15 @@ public class CustomDeclarationOrderCheck extends Check
         }
 
         // parse regExp
-        String regExp = aCurrentState.substring(
-                aCurrentState.indexOf('(') + 1,
-                aCurrentState.lastIndexOf(')'));
+        String regExp = currentState.substring(
+                currentState.indexOf('(') + 1,
+                currentState.lastIndexOf(')'));
         if (regExp.isEmpty()) {
             regExp = "package"; // package level
         }
 
-        final FormatMatcher matcher = new FormatMatcher(aCurrentState, classMember);
-        matcher.updateRegexp(regExp, mCompileFlags);
+        final FormatMatcher matcher = new FormatMatcher(currentState, classMember);
+        matcher.updateRegexp(regExp, compileFlags);
 
         return matcher;
     }
@@ -426,35 +427,35 @@ public class CustomDeclarationOrderCheck extends Check
      * Finds correspondence between the reduced name of class member of and
      * its complete naming in system.
      *
-     * @param aInputMemberName a string name which must be normalize.
+     * @param inputMemberName a string name which must be normalize.
      * @return correct name of member or initial string if no matches was
      *         found.
      */
     private static int convertMacroToTokenType(
-            String aInputMemberName)
+            String inputMemberName)
     {
         int result = -1;
-        if (FIELD_MACRO.equalsIgnoreCase(aInputMemberName)
-                || ANNON_CLASS_FIELD_MACRO.equalsIgnoreCase(aInputMemberName))
+        if (FIELD_MACRO.equalsIgnoreCase(inputMemberName)
+                || ANNON_CLASS_FIELD_MACRO.equalsIgnoreCase(inputMemberName))
         {
             result = TokenTypes.VARIABLE_DEF;
         }
-        else if (GETTER_SETTER_MACRO.equalsIgnoreCase(aInputMemberName)
-                || METHOD_MACRO.equalsIgnoreCase(aInputMemberName)
-                || MAIN_METHOD_MACRO.equalsIgnoreCase(aInputMemberName))
+        else if (GETTER_SETTER_MACRO.equalsIgnoreCase(inputMemberName)
+                || METHOD_MACRO.equalsIgnoreCase(inputMemberName)
+                || MAIN_METHOD_MACRO.equalsIgnoreCase(inputMemberName))
         {
             result = TokenTypes.METHOD_DEF;
         }
-        else if (CTOR_MACRO.equalsIgnoreCase(aInputMemberName)) {
+        else if (CTOR_MACRO.equalsIgnoreCase(inputMemberName)) {
             result = TokenTypes.CTOR_DEF;
         }
-        else if (INNER_CLASS_MACRO.equalsIgnoreCase(aInputMemberName)) {
+        else if (INNER_CLASS_MACRO.equalsIgnoreCase(inputMemberName)) {
             result = TokenTypes.CLASS_DEF;
         }
-        else if (INNER_INTERFACE_MACRO.equalsIgnoreCase(aInputMemberName)) {
+        else if (INNER_INTERFACE_MACRO.equalsIgnoreCase(inputMemberName)) {
             result = TokenTypes.INTERFACE_DEF;
         }
-        else if (INNER_ENUM_MACRO.equalsIgnoreCase(aInputMemberName)) {
+        else if (INNER_ENUM_MACRO.equalsIgnoreCase(inputMemberName)) {
             result = TokenTypes.ENUM_DEF;
         }
         return result;
@@ -462,14 +463,14 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verify that class definition is in method definition.
-     * @param aClassDef
+     * @param classDef
      *        DetailAST of CLASS_DEF.
      * @return true if class definition is in method definition.
      */
-    private static boolean isClassDefInMethodDef(DetailAST aClassDef)
+    private static boolean isClassDefInMethodDef(DetailAST classDef)
     {
         boolean result = false;
-        DetailAST currentParentAst = aClassDef.getParent();
+        DetailAST currentParentAst = classDef.getParent();
         while (currentParentAst != null) {
             if (currentParentAst.getType() == TokenTypes.METHOD_DEF) {
                 result = true;
@@ -482,52 +483,52 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Logs wrong ordered element.
-     * @param aAST DetailAST of any class element.
+     * @param ast DetailAST of any class element.
      */
-    private void logWrongOrderedElement(final DetailAST aAST, final int aPosition)
+    private void logWrongOrderedElement(final DetailAST ast, final int position)
     {
         String token;
-        switch (aAST.getType()) {
-        case TokenTypes.VARIABLE_DEF:
-            token = MSG_KEY_FIELD;
-            break;
-        case TokenTypes.METHOD_DEF:
-            token = MSG_KEY_METHOD;
-            break;
-        case TokenTypes.CTOR_DEF:
-            token = MSG_KEY_CONSTRUCTOR;
-            break;
-        case TokenTypes.CLASS_DEF:
-            token = MSG_KEY_CLASS;
-            break;
-        case TokenTypes.INTERFACE_DEF:
-            token = MSG_KEY_INTERFACE;
-            break;
-        case TokenTypes.ENUM_DEF:
-            token = MSG_KEY_ENUM;
-            break;
-        default:
-            token = "Unknown element: " + aAST.getType();
+        switch (ast.getType()) {
+            case TokenTypes.VARIABLE_DEF:
+                token = MSG_KEY_FIELD;
+                break;
+            case TokenTypes.METHOD_DEF:
+                token = MSG_KEY_METHOD;
+                break;
+            case TokenTypes.CTOR_DEF:
+                token = MSG_KEY_CONSTRUCTOR;
+                break;
+            case TokenTypes.CLASS_DEF:
+                token = MSG_KEY_CLASS;
+                break;
+            case TokenTypes.INTERFACE_DEF:
+                token = MSG_KEY_INTERFACE;
+                break;
+            case TokenTypes.ENUM_DEF:
+                token = MSG_KEY_ENUM;
+                break;
+            default:
+                token = "Unknown element: " + ast.getType();
         }
 
-        final int expectedPosition = mClassDetails.peek().getCurrentPosition();
-        log(aAST,
+        final int expectedPosition = classDetails.peek().getCurrentPosition();
+        log(ast,
                 token,
-                mCustomOrderDeclaration.get(aPosition).getRule(),
-                mCustomOrderDeclaration.get(expectedPosition).getRule());
+                customOrderDeclaration.get(position).getRule(),
+                customOrderDeclaration.get(expectedPosition).getRule());
     }
 
     /**
      * Check that position is wrong in custom declaration order.
-     * @param aPosition position of class member.
+     * @param position position of class member.
      * @return true if position is wrong.
      */
-    private boolean isWrongPosition(final int aPosition)
+    private boolean isWrongPosition(final int position)
     {
         boolean result = false;
-        final ClassDetail classDetail = mClassDetails.peek();
+        final ClassDetail classDetail = classDetails.peek();
         final Integer classCurrentPosition = classDetail.getCurrentPosition();
-        if (classCurrentPosition > aPosition) {
+        if (classCurrentPosition > position) {
             result = true;
         }
         return result;
@@ -535,11 +536,11 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Log wrong ordered setters.
-     * @param aGettersSetters map that has getter as key and setter as value.
+     * @param gettersSetters map that has getter as key and setter as value.
      */
-    private void logWrongOrderedSetters(Map<DetailAST, DetailAST> aGettersSetters)
+    private void logWrongOrderedSetters(Map<DetailAST, DetailAST> gettersSetters)
     {
-        for (Entry<DetailAST, DetailAST> entry: aGettersSetters.entrySet()) {
+        for (Entry<DetailAST, DetailAST> entry: gettersSetters.entrySet()) {
 
             final DetailAST setterAst = entry.getKey();
             final DetailAST getterAst = entry.getValue();
@@ -554,26 +555,26 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * If method definition is getter or setter,
      * then adds this method to collection.
-     * @param aMethodDefAst DetailAST of method definition.
+     * @param methodDefAst DetailAST of method definition.
      */
-    private void collectGetterSetter(DetailAST aMethodDefAst)
+    private void collectGetterSetter(DetailAST methodDefAst)
     {
-        if (aMethodDefAst.getType() == TokenTypes.METHOD_DEF) {
-            final String methodName = getIdentifier(aMethodDefAst);
+        if (methodDefAst.getType() == TokenTypes.METHOD_DEF) {
+            final String methodName = getIdentifier(methodDefAst);
             if (isGetterName(methodName)) {
-                if (isGetterCorrect(aMethodDefAst, GETTER_PREFIX)) {
-                    mClassDetails.peek().addGetter(aMethodDefAst);
+                if (isGetterCorrect(methodDefAst, GETTER_PREFIX)) {
+                    classDetails.peek().addGetter(methodDefAst);
                 }
             }
             else if (isBooleanGetterName(methodName)) {
-                if (isGetterCorrect(aMethodDefAst, BOOLEAN_GETTER_PREFIX)) {
-                    mClassDetails.peek().addGetter(aMethodDefAst);
+                if (isGetterCorrect(methodDefAst, BOOLEAN_GETTER_PREFIX)) {
+                    classDetails.peek().addGetter(methodDefAst);
                 }
             }
             else if (isSetterName(methodName)
-                    && isSetterCorrect(aMethodDefAst, SETTER_PREFIX))
+                    && isSetterCorrect(methodDefAst, SETTER_PREFIX))
             {
-                mClassDetails.peek().addSetter(aMethodDefAst);
+                classDetails.peek().addSetter(methodDefAst);
             }
         }
     }
@@ -582,28 +583,28 @@ public class CustomDeclarationOrderCheck extends Check
      * Search in existing custom declaration order current aAST state. It's
      * necessary for getting order of declarations.
      *
-     * @param aAST current DetailAST state.
+     * @param ast current DetailAST state.
      * @return position in the list of the sequence declaration if
      *         correspondence has been found. Else -1.
      */
-    private int getPositionInOrderDeclaration(final DetailAST aAST)
+    private int getPositionInOrderDeclaration(final DetailAST ast)
     {
         int result = -1;
-        final String modifiers = getCombinedModifiersList(aAST);
-        for (int index = 0; index < mCustomOrderDeclaration.size(); index++) {
-            final FormatMatcher currentRule = mCustomOrderDeclaration.get(index);
-            if (currentRule.getClassMember() == aAST.getType()
+        final String modifiers = getCombinedModifiersList(ast);
+        for (int index = 0; index < customOrderDeclaration.size(); index++) {
+            final FormatMatcher currentRule = customOrderDeclaration.get(index);
+            if (currentRule.getClassMember() == ast.getType()
                     && currentRule.getRegexp().matcher(modifiers).find())
             {
                 if (currentRule.hasRule(ANNON_CLASS_FIELD_MACRO)) {
-                    if (isAnonymousClassField(aAST)) {
+                    if (isAnonymousClassField(ast)) {
                         result = index;
                         break;
                     }
                 }
                 else if (currentRule.hasRule(GETTER_SETTER_MACRO)) {
-                    final String methodName = getIdentifier(aAST);
-                    final ClassDetail classDetail = mClassDetails.peek();
+                    final String methodName = getIdentifier(ast);
+                    final ClassDetail classDetail = classDetails.peek();
                     if (classDetail.containsGetter(methodName)
                             || classDetail.containsSetter(methodName))
                     {
@@ -612,7 +613,7 @@ public class CustomDeclarationOrderCheck extends Check
                     }
                 }
                 else if (currentRule.hasRule(MAIN_METHOD_MACRO)) {
-                    if (isMainMethod(aAST)) {
+                    if (isMainMethod(ast)) {
                         result = index;
                         break;
                     }
@@ -620,8 +621,8 @@ public class CustomDeclarationOrderCheck extends Check
                 else {
                 	// if more than one rule matches current AST node, then keep first one
                     result = (result == -1) ? index : result;
-                    if (aAST.getType() == TokenTypes.METHOD_DEF
-                    		|| aAST.getType() == TokenTypes.VARIABLE_DEF)
+                    if (ast.getType() == TokenTypes.METHOD_DEF
+                    		|| ast.getType() == TokenTypes.VARIABLE_DEF)
                     {
                     	// continue to find more specific rule
                     	continue;
@@ -637,18 +638,18 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Verify that there is anonymous class in variable definition and this
      * variable is a field.
-     * @param aVarDefinitionAst
+     * @param varDefinitionAst
      *        DetailAST of variable definition.
      * @return true if there is anonymous class in variable definition and this
      *         variable is a field.
      */
-    private static boolean isAnonymousClassField(DetailAST aVarDefinitionAst)
+    private static boolean isAnonymousClassField(DetailAST varDefinitionAst)
     {
         boolean result = false;
         // ClassDef -> ObjBlock -> VarDef
-        final int parentType = aVarDefinitionAst.getParent().getParent().getType();
+        final int parentType = varDefinitionAst.getParent().getParent().getType();
         if (parentType == TokenTypes.CLASS_DEF) {
-            final DetailAST assignAst = aVarDefinitionAst
+            final DetailAST assignAst = varDefinitionAst
                     .findFirstToken(TokenTypes.ASSIGN);
             if (assignAst != null) {
                 final DetailAST expressionToAssignAst = assignAst
@@ -662,56 +663,56 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verify that method name starts with getter prefix (get).
-     * @param aMethodName method name
+     * @param methodName method name
      * @return true if method name starts with getter prefix.
      */
-    private static boolean isGetterName(String aMethodName)
+    private static boolean isGetterName(String methodName)
     {
-        return aMethodName.startsWith(GETTER_PREFIX);
+        return methodName.startsWith(GETTER_PREFIX);
     }
 
     /**
      * Verify that method name starts with boolean getter prefix (is).
-     * @param aMethodName method name
+     * @param methodName method name
      * @return true if method name starts with boolean getter prefix.
      */
-    private static boolean isBooleanGetterName(String aMethodName)
+    private static boolean isBooleanGetterName(String methodName)
     {
-        return aMethodName.startsWith(BOOLEAN_GETTER_PREFIX);
+        return methodName.startsWith(BOOLEAN_GETTER_PREFIX);
     }
 
     /**
      * Verify that method name starts with setter prefix (set).
-     * @param aMethodName method name
+     * @param methodName method name
      * @return true if method name starts with setter prefix.
      */
-    private static boolean isSetterName(String aMethodName)
+    private static boolean isSetterName(String methodName)
     {
-        return aMethodName.startsWith(SETTER_PREFIX);
+        return methodName.startsWith(SETTER_PREFIX);
     }
 
     /**
      * Returns true when getter is correct. Correct getter is method that has no parameters,
      * returns class field and has name 'get<i>FieldName</i>'.
-     * @param aMethodDef
+     * @param methodDef
      *        - DetailAST contains method definition.
-     * @param aMethodPrefix
+     * @param methodPrefix
      *          Prefix for method (get, set, is).
      * @return true when getter is correct.
      */
-    private boolean isGetterCorrect(DetailAST aMethodDef, String aMethodPrefix)
+    private boolean isGetterCorrect(DetailAST methodDef, String methodPrefix)
     {
         boolean result = false;
 
-        final String methodName = getIdentifier(aMethodDef);
-        final String methodNameWithoutPrefix = getNameWithoutPrefix(methodName, aMethodPrefix);
+        final String methodName = getIdentifier(methodDef);
+        final String methodNameWithoutPrefix = getNameWithoutPrefix(methodName, methodPrefix);
 
-        final DetailAST parameters = aMethodDef.findFirstToken(TokenTypes.PARAMETERS);
+        final DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
 
         // no parameters
         if (parameters.getChildCount() == 0) {
 
-            final DetailAST statementsAst = aMethodDef.findFirstToken(TokenTypes.SLIST);
+            final DetailAST statementsAst = methodDef.findFirstToken(TokenTypes.SLIST);
             if (statementsAst != null) {
                 final DetailAST returnStatementAst = statementsAst
                         .findFirstToken(TokenTypes.LITERAL_RETURN);
@@ -749,25 +750,25 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Returns true when setter is correct. Correct setter is method that has one parameter,
      * assigns this parameter to class field and has name 'set<i>FieldName</i>'.
-     * @param aMethodDefAst
+     * @param methodDefAst
      *        - DetailAST contains method definition.
-     * @param aMethodPrefix
+     * @param methodPrefix
      *          Prefix for method (get, set, is).
      * @return true when setter is correct.
      */
-    private boolean isSetterCorrect(DetailAST aMethodDefAst, String aMethodPrefix)
+    private boolean isSetterCorrect(DetailAST methodDefAst, String methodPrefix)
     {
         boolean result = false;
 
-        final String methodName = getIdentifier(aMethodDefAst);
-        final String setterFieldName = mFieldPrefix
-                + getNameWithoutPrefix(methodName, aMethodPrefix);
+        final String methodName = getIdentifier(methodDefAst);
+        final String setterFieldName = fieldPrefix
+                + getNameWithoutPrefix(methodName, methodPrefix);
 
-        final DetailAST methodTypeAst = aMethodDefAst.findFirstToken(TokenTypes.TYPE);
+        final DetailAST methodTypeAst = methodDefAst.findFirstToken(TokenTypes.TYPE);
 
         if (methodTypeAst.branchContains(TokenTypes.LITERAL_VOID)) {
 
-            final DetailAST statementsAst = aMethodDefAst.findFirstToken(TokenTypes.SLIST);
+            final DetailAST statementsAst = methodDefAst.findFirstToken(TokenTypes.SLIST);
 
             result = statementsAst != null
             		&& !localVariableHidesField(statementsAst, setterFieldName)
@@ -778,14 +779,14 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verify that expression is anonymous class.
-     * @param aExpressionAst
+     * @param expressionAst
      *        DetailAST of expression.
      * @return true if expression is anonymous class.
      */
-    private static boolean isAnonymousClass(DetailAST aExpressionAst)
+    private static boolean isAnonymousClass(DetailAST expressionAst)
     {
         boolean result = false;
-        final DetailAST literalNewAst = aExpressionAst
+        final DetailAST literalNewAst = expressionAst
                 .findFirstToken(TokenTypes.LITERAL_NEW);
         if (literalNewAst != null) {
             final DetailAST objBlockAst = literalNewAst.findFirstToken(TokenTypes.OBJBLOCK);
@@ -799,27 +800,27 @@ public class CustomDeclarationOrderCheck extends Check
      * name of member in single line. <br>
      * Contains TokenTypes parameters for entry in child. </br>
      *
-     * @param aAST current DetailAST state.
+     * @param ast current DetailAST state.
      * @return the unit annotations and modifiers and list.
      */
-    private static String getCombinedModifiersList(final DetailAST aAST)
+    private static String getCombinedModifiersList(final DetailAST ast)
     {
         final StringBuffer modifiers = new StringBuffer();
-        DetailAST ast = aAST.findFirstToken(TokenTypes.MODIFIERS);
-        if (ast.getFirstChild() == null) {
+        DetailAST astNode = ast.findFirstToken(TokenTypes.MODIFIERS);
+        if (astNode.getFirstChild() == null) {
             //if we met package level modifier
             modifiers.append("package ");
         }
 
-        while (ast.getType() != TokenTypes.IDENT) {
-            if (ast != null && ast.getFirstChild() != null) {
-                modifiers.append(getModifiersAsText(ast.getFirstChild()));
+        while (astNode.getType() != TokenTypes.IDENT) {
+            if (astNode != null && astNode.getFirstChild() != null) {
+                modifiers.append(getModifiersAsText(astNode.getFirstChild()));
                 modifiers.append(" ");
             }
-            ast = ast.getNextSibling();
+            astNode = astNode.getNextSibling();
         }
         // add IDENT(name)
-        modifiers.append(ast.getText());
+        modifiers.append(astNode.getText());
 
         return modifiers.toString();
     }
@@ -827,47 +828,47 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Get text representation of MODIFIERS node.
      *
-     * @param aAST current DetailAST node.
+     * @param ast current DetailAST node.
      * @return text representation of MODIFIERS node.
      */
-    private static String getModifiersAsText(final DetailAST aAST)
+    private static String getModifiersAsText(final DetailAST ast)
     {
-        DetailAST ast = aAST;
+        DetailAST astNode = ast;
         String separator = "";
         final StringBuffer modifiers = new StringBuffer();
 
-        if (ast.getParent().getType() == TokenTypes.MODIFIERS) {
+        if (astNode.getParent().getType() == TokenTypes.MODIFIERS) {
             // add separator between access modifiers and annotations
             separator = " ";
         }
-        while (ast != null) {
-            if (ast.getFirstChild() != null) {
-                modifiers.append(getModifiersAsText(ast.getFirstChild()));
+        while (astNode != null) {
+            if (astNode.getFirstChild() != null) {
+                modifiers.append(getModifiersAsText(astNode.getFirstChild()));
             }
             else {
-                if (ast.getType() == TokenTypes.RBRACK) {
+                if (astNode.getType() == TokenTypes.RBRACK) {
                     //if array
                     modifiers.append("[");
                 }
-                modifiers.append(ast.getText());
+                modifiers.append(astNode.getText());
             }
             modifiers.append(separator);
-            ast = ast.getNextSibling();
+            astNode = astNode.getNextSibling();
         }
         return modifiers.toString().trim();
     }
 
     /**
      * Get name without prefix.
-     * @param aName name
-     * @param aPrefix prefix
+     * @param name name
+     * @param prefix prefix
      * @return name without prefix or null if name does not have such prefix.
      */
-    private static String getNameWithoutPrefix(String aName, String aPrefix)
+    private static String getNameWithoutPrefix(String name, String prefix)
     {
         String result = null;
-        if (aName.startsWith(aPrefix)) {
-            result = aName.substring(aPrefix.length());
+        if (name.startsWith(prefix)) {
+            result = name.substring(prefix.length());
             result = Introspector.decapitalize(result);
         }
         return result;
@@ -876,13 +877,13 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Get identifier of AST. These can be names of types, subpackages,
      * fields, methods, parameters, and local variables.
-     * @param aAST
+     * @param ast
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
      */
-    private static String getIdentifier(final DetailAST aAST)
+    private static String getIdentifier(final DetailAST ast)
     {
-        final DetailAST ident = aAST.findFirstToken(TokenTypes.IDENT);
+        final DetailAST ident = ast.findFirstToken(TokenTypes.IDENT);
         if (ident != null) {
             return ident.getText();
         }
@@ -891,16 +892,16 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verify that exists updating of a field.
-     * @param aStatementsAst DetailAST of statements (SLIST).
-     * @param aFieldName name of target field.
+     * @param statementsAst DetailAST of statements (SLIST).
+     * @param fieldName name of target field.
      * @return true if there is updating of aFieldName in aStatementsAst.
      */
-    private static boolean isFieldUpdate(DetailAST aStatementsAst, String aFieldName)
+    private static boolean isFieldUpdate(DetailAST statementsAst, String fieldName)
     {
         boolean result = false;
-        DetailAST currentStatement = aStatementsAst.getFirstChild();
+        DetailAST currentStatement = statementsAst.getFirstChild();
 
-        while (currentStatement != null && currentStatement != aStatementsAst) {
+        while (currentStatement != null && currentStatement != statementsAst) {
             
             String nameOfSetterField = null;
             if (currentStatement.getType() == TokenTypes.ASSIGN) {
@@ -909,7 +910,7 @@ public class CustomDeclarationOrderCheck extends Check
                 nameOfSetterField = getNameOfSuperClassUpdatedField(currentStatement);
             }
             
-            if (aFieldName.equalsIgnoreCase(nameOfSetterField)) {
+            if (fieldName.equalsIgnoreCase(nameOfSetterField)) {
                 result = true;
                 break;
             }
@@ -996,32 +997,32 @@ public class CustomDeclarationOrderCheck extends Check
      * Compare name of the field and part of name of the method. Return true
      * when they are different.
      * </p>
-     * @param aFieldName
+     * @param fieldName
      *        - name of the field.
-     * @param aMethodName
+     * @param methodName
      *        - part of name of the method (without "set", "get" or "is").
      * @return true when names are different.
      */
-    private boolean verifyFieldAndMethodName(String aFieldName,
-            String aMethodName)
+    private boolean verifyFieldAndMethodName(String fieldName,
+            String methodName)
     {
-        return aFieldName.equalsIgnoreCase(mFieldPrefix + aMethodName);
+        return fieldName.equalsIgnoreCase(fieldPrefix + methodName);
     }
 
     /**
      * <p>
      * Return name of the field, that use in the getter.
      * </p>
-     * @param aExpr
+     * @param expr
      *        - DetailAST contains expression from getter.
      * @return name of the field, that use in getter.
      */
-    private static String getNameOfGetterField(DetailAST aExpr)
+    private static String getNameOfGetterField(DetailAST expr)
     {
         String nameOfGetterField = null;
 
-        if (aExpr.getChildCount() == 1) {
-            final DetailAST exprFirstChild = aExpr.getFirstChild();
+        if (expr.getChildCount() == 1) {
+            final DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
 
@@ -1042,18 +1043,18 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verifies that the given DetailAST is a main method.
-     * @param aMethodAST
+     * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST is a main method, false otherwise.
      */
-    private static boolean isMainMethod(final DetailAST aMethodAST)
+    private static boolean isMainMethod(final DetailAST methodAST)
     {
         boolean result = true;
-        final String methodName = getIdentifier(aMethodAST);
+        final String methodName = getIdentifier(methodAST);
         if ("main".equals(methodName)) {
-            result = isVoidType(aMethodAST)
-                    && isMainMethodModifiers(aMethodAST)
-                    && isMainMethodParameters(aMethodAST);
+            result = isVoidType(methodAST)
+                    && isMainMethodModifiers(methodAST)
+                    && isMainMethodParameters(methodAST);
         }
         else {
             result = false;
@@ -1064,17 +1065,17 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verifies that given AST has appropriate modifiers for main method.
-     * @param aMethodAST
+     * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST has (public & static & !abstract) modifiers,
      *         false otherwise.
      */
-    private static boolean isMainMethodModifiers(final DetailAST aMethodAST)
+    private static boolean isMainMethodModifiers(final DetailAST methodAST)
     {
         boolean result = false;
-        if (hasChildToken(aMethodAST, TokenTypes.MODIFIERS)) {
+        if (hasChildToken(methodAST, TokenTypes.MODIFIERS)) {
             final DetailAST modifiers =
-                    aMethodAST.findFirstToken(TokenTypes.MODIFIERS);
+                    methodAST.findFirstToken(TokenTypes.MODIFIERS);
             result = hasChildToken(modifiers, TokenTypes.LITERAL_PUBLIC)
                     && hasChildToken(modifiers, TokenTypes.LITERAL_STATIC);
         }
@@ -1083,16 +1084,16 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verifies that given AST has type and this type is void.
-     * @param aMethodAST
+     * @param methodAST
      *        DetailAST instance.
      * @return true if AST's type void, false otherwise.
      */
-    private static boolean isVoidType(final DetailAST aMethodAST)
+    private static boolean isVoidType(final DetailAST methodAST)
     {
         boolean result = true;
         DetailAST methodTypeAST = null;
-        if (hasChildToken(aMethodAST, TokenTypes.TYPE)) {
-            methodTypeAST = aMethodAST.findFirstToken(TokenTypes.TYPE);
+        if (hasChildToken(methodAST, TokenTypes.TYPE)) {
+            methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
             result = hasChildToken(methodTypeAST, TokenTypes.LITERAL_VOID);
         }
         return result;
@@ -1100,15 +1101,15 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Verifies that given AST has appropriate for main method parameters.
-     * @param aMethodAST
+     * @param methodAST
      *        instance of a method
      * @return true if parameters of aMethodAST are appropriate for main method,
      *         false otherwise.
      */
-    private static boolean isMainMethodParameters(final DetailAST aMethodAST)
+    private static boolean isMainMethodParameters(final DetailAST methodAST)
     {
         final DetailAST params =
-                aMethodAST.findFirstToken(TokenTypes.PARAMETERS);
+                methodAST.findFirstToken(TokenTypes.PARAMETERS);
         return hasOnlyStringArrayParameter(params)
                 || hasOnlyStringEllipsisParameter(params);
     }
@@ -1116,20 +1117,20 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Return true if AST of method parameters has String[] parameter child
      * token.
-     * @param aParametersAST
+     * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if AST has String[] parameter child token, false otherwise.
      */
     private static boolean
-    hasOnlyStringArrayParameter(final DetailAST aParametersAST)
+    hasOnlyStringArrayParameter(final DetailAST parametersAST)
     {
         boolean result = true;
-        if (aParametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
+        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
             result = false;
         }
         else { // there is one parameter
             final DetailAST parameterDefinitionAST =
-                    aParametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
+                    parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
             final DetailAST parameterTypeAST = parameterDefinitionAST
                     .findFirstToken(TokenTypes.TYPE);
             if (hasChildToken(parameterTypeAST, TokenTypes.ARRAY_DECLARATOR)) {
@@ -1149,22 +1150,22 @@ public class CustomDeclarationOrderCheck extends Check
     /**
      * Return true if AST of method parameters has String... parameter child
      * token.
-     * @param aParametersAST
+     * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if aParametersAST has String... parameter child token, false
      *         otherwise.
      */
     private static boolean
-    hasOnlyStringEllipsisParameter(final DetailAST aParametersAST)
+    hasOnlyStringEllipsisParameter(final DetailAST parametersAST)
     {
         boolean result = true;
-        if (aParametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
+        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
             result = false;
         }
         // there is one parameter
         else {
             final DetailAST parameterDefinitionAST =
-                    aParametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
+                    parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
             if (hasChildToken(parameterDefinitionAST, TokenTypes.ELLIPSIS)) {
                 final DetailAST parameterTypeAST =
                         parameterDefinitionAST.findFirstToken(TokenTypes.TYPE);
@@ -1181,15 +1182,15 @@ public class CustomDeclarationOrderCheck extends Check
 
     /**
      * Return true if aAST has token of aTokenType type.
-     * @param aAST
+     * @param ast
      *        DetailAST instance.
-     * @param aTokenType
+     * @param tokenType
      *        one of TokenTypes
      * @return true if aAST has token of given type, or false otherwise.
      */
-    private static boolean hasChildToken(DetailAST aAST, int aTokenType)
+    private static boolean hasChildToken(DetailAST ast, int tokenType)
     {
-        return aAST.findFirstToken(aTokenType) != null;
+        return ast.findFirstToken(tokenType) != null;
     }
 
     /**
@@ -1198,89 +1199,89 @@ public class CustomDeclarationOrderCheck extends Check
     private static class FormatMatcher
     {
         /** The regexp to match against */
-        private Pattern mRegExp;
+        private Pattern regExp;
         /** The Member of Class */
-        private final int mClassMember;
+        private final int classMember;
         /** The input full one rule with original names */
-        private final String mRule;
+        private final String rule;
         /** The string format of the RegExp */
-        private String mFormat;
+        private String format;
 
         /**
          * Creates a new <code>FormatMatcher</code> instance.
          *
-         * @param aInputRule input string with MemberDefinition and RegExp.
+         * @param inputRule input string with MemberDefinition and RegExp.
          * @param aClassMember the member of class
          * @param aCompileFlags the Pattern flags to compile the regexp with.
          *            See {@link Pattern#compile(java.lang.String, int)}
          */
-        public FormatMatcher(final String aInputRule,
-                final int aClassMember)
+        public FormatMatcher(final String inputRule,
+                final int classMember)
         {
-            mClassMember = aClassMember;
-            mRule = aInputRule;
+            this.classMember = classMember;
+            rule = inputRule;
         }
 
         /** @return the RegExp to match against */
         public final Pattern getRegexp()
         {
-            return mRegExp;
+            return regExp;
         }
 
         /** @return the original immutable input rule */
         public final String getRule()
         {
-            return mRule;
+            return rule;
         }
 
         /** @return the Class Member */
         public final int getClassMember()
         {
-            return mClassMember;
+            return classMember;
         }
 
         /**
          * Set the compile flags for the regular expression.
          *
-         * @param aCompileFlags the compile flags to use.
+         * @param compileFlags the compile flags to use.
          */
-        public final void setCompileFlags(final int aCompileFlags)
+        public final void setCompileFlags(final int compileFlags)
         {
-            updateRegexp(mFormat, aCompileFlags);
+            updateRegexp(format, compileFlags);
         }
 
         /**
          * Updates the regular expression using the supplied format and compiler
          * flags. Will also update the member variables.
          *
-         * @param aFormat the format of the regular expression.
-         * @param aCompileFlags the compiler flags to use.
+         * @param format the format of the regular expression.
+         * @param compileFlags the compiler flags to use.
          */
-        private void updateRegexp(final String aFormat, final int aCompileFlags)
+        private void updateRegexp(final String format, final int compileFlags)
         {
             try {
-                mRegExp = Utils.getPattern(aFormat, aCompileFlags);
-                mFormat = aFormat;
+                regExp = Utils.getPattern(format, compileFlags);
+                this.format = format;
             }
             catch (final PatternSyntaxException e) {
-                throw new ConversionException("unable to parse " + aFormat, e);
+                throw new ConversionException("unable to parse " + format, e);
             }
         }
 
         /**
          * Check that format matcher contains rule.
-         * @param aRule string
+         * @param rule string
          * @return true if format matcher contains rule.
          */
-        public boolean hasRule(String aRule)
+        public boolean hasRule(String rule)
         {
-            return mRule.indexOf(aRule) > -1;
+            return this.rule.indexOf(rule) > -1;
         }
 
         @Override
         public String toString()
         {
-            return mRule;
+            return rule;
         }
     }
 
@@ -1291,42 +1292,42 @@ public class CustomDeclarationOrderCheck extends Check
         /**
          * Current position in custom order declaration
          */
-        private int mCurrentPosition;
+        private int currentPosition;
         /**
          * List of getter ASTs
          */
-        private final List<DetailAST> mGetters = new LinkedList<DetailAST>();
+        private final List<DetailAST> getters = new LinkedList<DetailAST>();
         /**
          * List of setter ASTs
          */
-        private final List<DetailAST> mSetters = new LinkedList<DetailAST>();
+        private final List<DetailAST> setters = new LinkedList<DetailAST>();
 
         public int getCurrentPosition()
         {
-            return mCurrentPosition;
+            return currentPosition;
         }
 
-        public void setCurrentPosition(int aPosition)
+        public void setCurrentPosition(int position)
         {
-            mCurrentPosition = aPosition;
+            currentPosition = position;
         }
 
         /**
          * Add getter.
-         * @param aGetterAst DetailAST of getter.
+         * @param getterAst DetailAST of getter.
          */
-        public void addGetter(DetailAST aGetterAst)
+        public void addGetter(DetailAST getterAst)
         {
-            mGetters.add(aGetterAst);
+            getters.add(getterAst);
         }
 
         /**
          * Add setter.
-         * @param aSetterAst DetailAST of setter.
+         * @param setterAst DetailAST of setter.
          */
-        public void addSetter(DetailAST aSetterAst)
+        public void addSetter(DetailAST setterAst)
         {
-            mSetters.add(aSetterAst);
+            setters.add(setterAst);
         }
 
         /**
@@ -1337,10 +1338,10 @@ public class CustomDeclarationOrderCheck extends Check
         public Map<DetailAST, DetailAST> getWrongOrderedGettersSetters()
         {
             final Map<DetailAST, DetailAST> result = new LinkedHashMap<DetailAST, DetailAST>();
-            if (!mGetters.isEmpty() & !mSetters.isEmpty()) {
+            if (!getters.isEmpty() & !setters.isEmpty()) {
                 //  all getters and setters
-                final List<DetailAST> allGettersSetters = new ArrayList<DetailAST>(mGetters);
-                allGettersSetters.addAll(mSetters);
+                final List<DetailAST> allGettersSetters = new ArrayList<DetailAST>(getters);
+                allGettersSetters.addAll(setters);
                 // sort by line numbers
                 Collections.sort(allGettersSetters, AST_LINE_COMPARATOR);
 
@@ -1387,15 +1388,15 @@ public class CustomDeclarationOrderCheck extends Check
 
         /**
          * Verify that specified method was saved as getter.
-         * @param aMethodName name of method.
+         * @param methodName name of method.
          * @return true if specified method was saved as getter.
          */
-        private boolean containsGetter(String aMethodName)
+        private boolean containsGetter(String methodName)
         {
             boolean result = false;
-            for (DetailAST methodAst: mGetters) {
-                final String methodName = getIdentifier(methodAst);
-                if (methodName.equals(aMethodName)) {
+            for (DetailAST methodAst: getters) {
+                final String name = getIdentifier(methodAst);
+                if (name.equals(methodName)) {
                     result = true;
                 }
             }
@@ -1404,15 +1405,15 @@ public class CustomDeclarationOrderCheck extends Check
 
         /**
          * Verify that specified method was saved as setter.
-         * @param aMethodName name of method.
+         * @param methodName name of method.
          * @return true if specified method was saved as setter.
          */
-        private boolean containsSetter(String aMethodName)
+        private boolean containsSetter(String methodName)
         {
             boolean result = false;
-            for (DetailAST methodAst: mSetters) {
-                final String methodName = getIdentifier(methodAst);
-                if (methodName.equals(aMethodName)) {
+            for (DetailAST methodAst: setters) {
+                final String name = getIdentifier(methodAst);
+                if (name.equals(methodName)) {
                     result = true;
                 }
             }
