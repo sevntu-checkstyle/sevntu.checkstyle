@@ -1,5 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FastStack;
@@ -59,7 +60,8 @@ public class ReturnNullInsteadOfBoolean extends Check {
                 }
                 break;
             default:
-                throw new IllegalStateException(ast.toString());
+                Utils.reportInvalidToken(ast.getType());
+                break;
         }
     }
 
@@ -73,7 +75,8 @@ public class ReturnNullInsteadOfBoolean extends Check {
                 // Do nothing
                 break;
             default:
-                throw new IllegalStateException(ast.toString());
+                Utils.reportInvalidToken(ast.getType());
+                break;
         }
     }
 }

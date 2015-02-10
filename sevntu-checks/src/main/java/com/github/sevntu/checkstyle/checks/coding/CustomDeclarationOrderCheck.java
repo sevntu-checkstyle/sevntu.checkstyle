@@ -487,7 +487,7 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private void logWrongOrderedElement(final DetailAST ast, final int position)
     {
-        String token;
+        String token = null;
         switch (ast.getType()) {
             case TokenTypes.VARIABLE_DEF:
                 token = MSG_KEY_FIELD;
@@ -508,7 +508,8 @@ public class CustomDeclarationOrderCheck extends Check
                 token = MSG_KEY_ENUM;
                 break;
             default:
-                token = "Unknown element: " + ast.getType();
+                com.github.sevntu.checkstyle.Utils.reportInvalidToken(ast.getType());
+                break;
         }
 
         final int expectedPosition = classDetails.peek().getCurrentPosition();

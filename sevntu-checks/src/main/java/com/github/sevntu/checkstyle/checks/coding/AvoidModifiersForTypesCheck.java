@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -183,7 +184,7 @@ public class AvoidModifiersForTypesCheck extends Check
                         }
                         break;
                     default:
-                        // no code (unreachable block for current Java spec)
+                        Utils.reportInvalidToken(modifierType);
                         break;
                 }
             }

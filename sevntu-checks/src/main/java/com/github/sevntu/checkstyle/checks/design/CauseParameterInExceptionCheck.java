@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -160,13 +161,8 @@ public class CauseParameterInExceptionCheck extends Check
                 }
                 break;
             default:
-                final String className = this.getClass().getSimpleName();
-                final String tokenType = TokenTypes.getTokenName(ast.getType());
-                final String tokenDescription = ast.toString();
-                final String message =
-                    String.format("%s got the wrong input token: %s (%s)",
-                        className, tokenType, tokenDescription);
-                throw new IllegalArgumentException(message);
+                Utils.reportInvalidToken(ast.getType());
+                break;
         }
     }
 

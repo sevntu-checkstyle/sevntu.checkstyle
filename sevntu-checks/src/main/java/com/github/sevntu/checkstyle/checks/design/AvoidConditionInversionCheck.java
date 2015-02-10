@@ -20,6 +20,7 @@ package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.Set;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.google.common.collect.ImmutableSet;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -171,11 +172,8 @@ public class AvoidConditionInversionCheck extends Check {
 				}
 				break;
 			default:
-				
-				final String exceptionMsg = "Unexpected Token Type - "
-					+ TokenTypes.getTokenName(ast.getType());
-				
-				throw new IllegalStateException(exceptionMsg);
+				Utils.reportInvalidToken(ast.getType());
+				break;
 		}
 	}
 
