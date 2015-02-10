@@ -148,7 +148,7 @@ public class ConfusingConditionCheck extends Check {
 	 * @see ConfusingConditionCheck#MultiplyFactorForElseBlocks
 	 */
 	public void setMultiplyFactorForElseBlocks(int multiplyFactorForElseBlocks) {
-		multiplyFactorForElseBlocks = multiplyFactorForElseBlocks;
+		this.multiplyFactorForElseBlocks = multiplyFactorForElseBlocks;
 	}
 
 	@Override
