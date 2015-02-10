@@ -74,6 +74,73 @@
         </execution>
        </executions>
     </plugin>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+            <check>
+                <haltOnFailure>true</haltOnFailure>
+
+                <!-- only integer values are accepted -->
+                <branchRate>100</branchRate>
+                <lineRate>100</lineRate>
+                <totalBranchRate>88</totalBranchRate>
+                <totalLineRate>97</totalLineRate>
+                <regexes>
+                    <regex><pattern>.*.checks.annotation.ForbidAnnotationCheck</pattern><branchRate>70</branchRate><lineRate>96</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</pattern><branchRate>80</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.AvoidDefaultSerializableInInnerClasses.*</pattern><branchRate>93</branchRate><lineRate>92</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.AvoidHidingCauseExceptionCheck</pattern><branchRate>87</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.AvoidModifiersForTypesCheck</pattern><branchRate>96</branchRate><lineRate>98</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck</pattern><branchRate>86</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ConfusingConditionCheck</pattern><branchRate>84</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.CustomDeclarationOrderCheck.*</pattern><branchRate>81</branchRate><lineRate>83</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.DiamondOperatorForVariableDefinitionCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.EitherLogOrThrowCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.EmptyPublicCtorInClassCheck</pattern><branchRate>89</branchRate><lineRate>95</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.FinalizeImplementationCheck</pattern><branchRate>69</branchRate><lineRate>92</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ForbidCertainImportsCheck</pattern><branchRate>61</branchRate><lineRate>84</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ForbidInstantiationCheck</pattern><branchRate>94</branchRate><lineRate>91</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ForbidThrowAnonymousExceptionsCheck</pattern><branchRate>81</branchRate><lineRate>97</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.IllegalCatchExtendedCheck</pattern><branchRate>92</branchRate><lineRate>97</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.MapIterationInForEachLoopCheck</pattern><branchRate>90</branchRate><lineRate>98</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.MultipleStringLiteralsExtendedCheck</pattern><branchRate>92</branchRate><lineRate>96</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.MultipleVariableDeclarationsExtendedCheck</pattern><branchRate>95</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.NameConventionForJunit4TestClassesCheck</pattern><branchRate>86</branchRate><lineRate>96</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.RedundantReturnCheck</pattern><branchRate>98</branchRate><lineRate>97</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ReturnBooleanFromTernary</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ReturnCountExtendedCheck</pattern><branchRate>74</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.ReturnNullInsteadOfBoolean</pattern><branchRate>80</branchRate><lineRate>88</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.UnnecessaryParenthesesExtendedCheck</pattern><branchRate>90</branchRate><lineRate>97</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.UselessSingleCatchCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.design.AvoidConditionInversionCheck</pattern><branchRate>97</branchRate><lineRate>96</lineRate></regex>
+                    <regex><pattern>.*.checks.design.CauseParameterInExceptionCheck</pattern><branchRate>91</branchRate><lineRate>92</lineRate></regex>
+                    <regex><pattern>.*.checks.design.ChildBlockLengthCheck</pattern><branchRate>89</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.design.ForbidWildcardAsReturnTypeCheck</pattern><branchRate>98</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>95</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.design.InnerClassCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.design.NoMainMethodInAbstractClassCheck</pattern><branchRate>92</branchRate><lineRate>98</lineRate></regex>
+                    <regex><pattern>.*.checks.design.PublicReferenceToPrivateTypeCheck</pattern><branchRate>97</branchRate><lineRate>98</lineRate></regex>
+                    <regex><pattern>.*.checks.naming.EnumValueNameCheck</pattern><branchRate>86</branchRate><lineRate>100</lineRate></regex>
+                    <regex><pattern>.*.checks.naming.InterfaceTypeParameterNameCheck</pattern><branchRate>50</branchRate><lineRate>85</lineRate></regex>
+                    <regex><pattern>.*.checks.sizes.LineLengthExtendedCheck</pattern><branchRate>100</branchRate><lineRate>6</lineRate></regex>
+                    <regex><pattern>com.github.sevntu.checkstyle.Utils</pattern><branchRate>0</branchRate><lineRate>0</lineRate></regex>
+                </regexes>
+            </check>
+        </configuration>
+        <executions>
+            <execution>
+                <goals>
+                    <!-- validation triggered with check goal -->
+                    <goal>check</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
       </plugins>
     </build>
 
