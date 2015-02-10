@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -141,13 +142,8 @@ public class ForbidInstantiationCheck extends Check
                 break;
 
             default:
-                final String className = this.getClass().getSimpleName();
-                final String tokenType = TokenTypes.getTokenName(ast.getType());
-                final String tokenDescription = ast.toString();
-                final String message =
-                    String.format("%s got the wrong input token: %s (%s)",
-                        className, tokenType, tokenDescription);
-                throw new IllegalArgumentException(message);
+                Utils.reportInvalidToken(ast.getType());
+                break;
         }
 
     }

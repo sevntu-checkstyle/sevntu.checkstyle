@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -310,8 +311,8 @@ public class MapIterationInForEachLoopCheck extends Check
                 break;
 
             default:
-                throw new IllegalArgumentException("MapIterationInForEachLoopCheck: Argument of type "
-                    + ast.getType() + "is not supported");
+                Utils.reportInvalidToken(ast.getType());
+                break;
         }
     }
 

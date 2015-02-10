@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -92,8 +93,8 @@ public class ForbidThrowAnonymousExceptionsCheck extends Check
                 lookForAnonymousExceptionDefinition(literalThrowOrVariableDefAst);
                 break;
             default:
-                throw new IllegalArgumentException("Unsupported token type: "
-                    + TokenTypes.getTokenName(literalThrowOrVariableDefAst.getType()));
+                Utils.reportInvalidToken(literalThrowOrVariableDefAst.getType());
+                break;
         }
     }
 

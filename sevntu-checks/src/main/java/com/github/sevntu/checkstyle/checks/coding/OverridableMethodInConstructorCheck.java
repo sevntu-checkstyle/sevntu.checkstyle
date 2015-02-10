@@ -22,6 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -288,6 +289,7 @@ public class OverridableMethodInConstructorCheck extends Check
                     break;
 
                 default:
+                    Utils.reportInvalidToken(detailAST.getType());
                     break;
             }
         }

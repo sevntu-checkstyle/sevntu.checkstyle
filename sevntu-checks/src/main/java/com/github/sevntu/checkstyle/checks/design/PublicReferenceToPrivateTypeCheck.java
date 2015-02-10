@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -128,8 +129,8 @@ public class PublicReferenceToPrivateTypeCheck extends Check
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Unsupported token type: "
-                    + defAst.getType());
+                Utils.reportInvalidToken(defAst.getType());
+                break;
         }
     }
 

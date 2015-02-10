@@ -19,6 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -115,9 +116,8 @@ public class RedundantReturnCheck extends Check {
 				break;
 
 			default:
-				final String exceptionMsg = "Unexpected TokenType - " 
-						+ TokenTypes.getTokenName(ast.getType());
-				throw new IllegalStateException(exceptionMsg);
+				Utils.reportInvalidToken(ast.getType());
+				break;
 			}
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -200,6 +201,9 @@ public class EmptyPublicCtorInClassCheck extends Check
 
             case TokenTypes.PACKAGE_DEF:
                 filePackageName = getIdentifierName(node);
+                break;
+            default:
+                Utils.reportInvalidToken(node.getType());
                 break;
         }
     }

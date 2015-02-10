@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -246,7 +247,8 @@ public class EitherLogOrThrowCheck extends Check
                 processCatchNode(ast);
                 break;
             default:
-			throw new IllegalArgumentException("Non-correct AST node: " + ast.getType());
+                Utils.reportInvalidToken(ast.getType());
+                break;
         }
     }
 
@@ -397,6 +399,10 @@ public class EitherLogOrThrowCheck extends Check
                             break;
                         }
                     }
+                    break;
+                default:
+                    // rest tokens shall be skipped
+                    break;
             }
             currentStatementAst = currentStatementAst.getNextSibling();
         }
