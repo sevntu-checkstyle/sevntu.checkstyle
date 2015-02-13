@@ -82,6 +82,10 @@ public class InputUnnecessaryParentheses {
         TypeD<String> d = ((TypeD<String>) a);
     }
 
+    private void f7() {
+        assert (2 == 3);
+    }
+
     private void print(int arg)
     {
         System.out.println("arg = " + arg);

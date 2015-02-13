@@ -115,7 +115,7 @@
                     <regex><pattern>.*.checks.coding.ReturnCountExtendedCheck</pattern><branchRate>74</branchRate><lineRate>100</lineRate></regex>
                     <regex><pattern>.*.checks.coding.ReturnNullInsteadOfBoolean</pattern><branchRate>80</branchRate><lineRate>88</lineRate></regex>
                     <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
-                    <regex><pattern>.*.checks.coding.UnnecessaryParenthesesExtendedCheck</pattern><branchRate>90</branchRate><lineRate>97</lineRate></regex>
+                    <regex><pattern>.*.checks.coding.UnnecessaryParenthesesExtendedCheck</pattern><branchRate>93</branchRate><lineRate>100</lineRate></regex>
                     <regex><pattern>.*.checks.coding.UselessSingleCatchCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
                     <regex><pattern>.*.checks.design.AvoidConditionInversionCheck</pattern><branchRate>97</branchRate><lineRate>96</lineRate></regex>
                     <regex><pattern>.*.checks.design.CauseParameterInExceptionCheck</pattern><branchRate>91</branchRate><lineRate>92</lineRate></regex>

@@ -97,6 +97,7 @@ public class testUBV {
 		f = b != true;
 		f = (f != b);
 		assert (1 == 1);
+		assert ((1 == 1));
 		if(f)
 		{
 			return b = ( b != f );
@@ -105,7 +106,7 @@ public class testUBV {
 		{
 			return f != false;
 		}
-    	}
+    }
 
     boolean test (int y, boolean flag, TypeA x)	{
 		boolean b = (x == null);

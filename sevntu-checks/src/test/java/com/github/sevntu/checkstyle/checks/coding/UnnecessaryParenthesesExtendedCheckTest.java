@@ -18,7 +18,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_ASSIGN;
+import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_EXPR;
+import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_IDENT;
+import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_LITERAL;
+import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_RETURN;
+import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_STRING;
 
 import org.junit.Test;
 
@@ -33,8 +38,6 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  */
 public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSupport
 {
-	private static final String TEST_FILE = "InputUnnecessaryParentheses.java";
-
 	@Test
 	public void testDefault() throws Exception
 	{
@@ -88,9 +91,10 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
 				"81:11: " + getCheckMessage(MSG_KEY_ASSIGN),
 				"81:16: " + getCheckMessage(MSG_KEY_LITERAL, "3"),
 				"82:27: " + getCheckMessage(MSG_KEY_ASSIGN),
+				"86:16: " + getCheckMessage(MSG_KEY_EXPR),
 		};
 
-		verify(checkConfig, getPath(TEST_FILE), expected);
+		verify(checkConfig, getPath("InputUnnecessaryParentheses.java"), expected);
 	}
 
 	@Test
@@ -154,6 +158,7 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
 				"81:16: " + getCheckMessage(MSG_KEY_LITERAL, "3"),
 				"82:27: " + getCheckMessage(MSG_KEY_ASSIGN),
 				"96:19: " + getCheckMessage(MSG_KEY_ASSIGN),
+				"100:24: " + getCheckMessage(MSG_KEY_EXPR),
 				};
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");

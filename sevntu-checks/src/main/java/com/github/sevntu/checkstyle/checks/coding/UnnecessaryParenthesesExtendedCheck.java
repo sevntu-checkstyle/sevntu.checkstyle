@@ -300,9 +300,6 @@ public class UnnecessaryParenthesesExtendedCheck extends Check
      */
     private static boolean exprSurrounded(DetailAST ast)
     {
-        if (ast.getType() != TokenTypes.EXPR) {
-            throw new IllegalArgumentException("Not an expression node.");
-        }
         boolean surrounded = false;
         if (ast.getChildCount() >= MIN_CHILDREN_FOR_MATCH) {
             final AST n1 = ast.getFirstChild();
