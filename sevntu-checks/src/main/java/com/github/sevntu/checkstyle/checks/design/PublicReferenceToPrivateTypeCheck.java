@@ -136,16 +136,14 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     @Override
     public void finishTree(DetailAST rootAst)
     {
-        if (!privateTypes.isEmpty()) {
-            for (DetailAST privateType : privateTypes) {
-                for (DetailAST outReturnedType : externallyReferencedTypes) {
-                    if (privateType.getText().equals(
-                            outReturnedType.getText())
-                            && !isExtendsOrImplementsSmth(privateType
-                                    .getParent())) {
-                        log(outReturnedType.getLineNo(), MSG_KEY,
-                                outReturnedType.getText());
-                    }
+        for (DetailAST privateType : privateTypes) {
+            for (DetailAST outReturnedType : externallyReferencedTypes) {
+                if (privateType.getText().equals(
+                        outReturnedType.getText())
+                        && !isExtendsOrImplementsSmth(privateType
+                                .getParent())) {
+                    log(outReturnedType.getLineNo(), MSG_KEY,
+                            outReturnedType.getText());
                 }
             }
         }
