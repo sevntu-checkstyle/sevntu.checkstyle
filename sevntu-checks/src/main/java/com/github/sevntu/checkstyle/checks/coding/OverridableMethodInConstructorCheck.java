@@ -19,6 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -275,13 +276,13 @@ public class OverridableMethodInConstructorCheck extends Check
                         TokenTypes.IDENT).getText();
 
                     if (checkCloneMethod && "clone".equals(methodName)
-                        && realizesAnInterface(classDef, "Cloneable"))
+                        && realizesAnInterface(classDef, Cloneable.class.getSimpleName()))
                     {
                         logWarnings(detailAST, keyClone);
                     }
                     else if (checkReadObjectMethod
                         && "readObject".equals(methodName)
-                        && realizesAnInterface(classDef, "Serializable"))
+                        && realizesAnInterface(classDef, Serializable.class.getSimpleName()))
                     {
                         logWarnings(detailAST, keyReadObject);
                     }

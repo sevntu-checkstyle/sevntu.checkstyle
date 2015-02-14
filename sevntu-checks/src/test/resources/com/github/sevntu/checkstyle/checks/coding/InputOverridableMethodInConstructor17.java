@@ -26,4 +26,10 @@ public class InputOverridableMethodInConstructor17 {
 		}
 	}
 
+	private class Object2 {
+
+		public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		}
+	}
+
 }

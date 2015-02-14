@@ -64,4 +64,15 @@ public class InputOverridableMethodInConstructor13 {
 		}
 	}
 
+	static class Object4 {
+
+		public void doSmth() {
+		}
+
+		protected Object clone() throws CloneNotSupportedException {
+			Object clone = super.clone();
+			((Object2) clone).doSmth(); // ! no warning here
+			return clone;
+		}
+	}
 }

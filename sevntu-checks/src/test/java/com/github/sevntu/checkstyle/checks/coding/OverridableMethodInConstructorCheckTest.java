@@ -18,13 +18,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck.MSG_KEY;
+import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck.MSG_KEY_LEADS;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSupport
@@ -35,17 +34,12 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     private static final String cloneKey = "'clone()' method";
     private static final String readObjectKey = "'readObject()' method";
 
-    @Before
-    public void setTestinputsDir()
-    {
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
-    }
-
     @Test
     public final void revereCodeTest() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "false");
+        checkConfig.addAttribute("checkReadObjectMethod", "false");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"11:17: " + getCheckMessage(MSG_KEY_LEADS, "init", ctorKey, "getPart"), 
@@ -57,6 +51,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void newFeauture() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"14:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
@@ -65,10 +62,27 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
     }
-    
+
+    @Test
+    public final void newFeautureWithoutMethodsByArgCount() throws Exception
+    {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "false");
+
+        String[] expected = {
+                "15:21: " + getCheckMessage(MSG_KEY, "init", ctorKey),
+            };
+
+        verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
+    }
+
     @Test
     public final void testNoWarnings() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -78,6 +92,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testWarning() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "false");
 
         String[] expected = {
         	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
@@ -89,6 +106,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void test2WarningsIn2Ctors() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+
         String[] expected = {
         	"10:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
         	"15:27: " + getCheckMessage(MSG_KEY, "overrideMe", ctorKey),
@@ -100,6 +121,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testWarningInSecondDepth() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         		"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", ctorKey, "overrideMe2"),
@@ -111,6 +135,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testWarningsInThirdDepth() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", ctorKey, "overrideMe3"),
@@ -123,6 +150,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCloneNoWarningsSimple() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -132,6 +162,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCloneNoWarnings() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -141,6 +174,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCloneWarnings() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"20:37: " + getCheckMessage(MSG_KEY, "doSmth", cloneKey),
@@ -153,6 +189,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCloneSecondDepth() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"25:37: " + getCheckMessage(MSG_KEY_LEADS, "doSmth", cloneKey, "doSmth2"),
@@ -165,6 +204,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCloneThirdDepthImplementation() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"25:37: " + getCheckMessage(MSG_KEY, "doSmth", cloneKey),
@@ -179,6 +221,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testSerializableNoWarnings() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -188,6 +233,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testSerializableWarning() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"31:20: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
@@ -199,6 +247,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testStaticModifiers() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         };
@@ -210,6 +261,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     public final void testSerializableThirdDepthImplementation()
         throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"34:20: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
@@ -229,6 +283,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCtorOverloadedMethods() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -238,6 +295,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void test2EqualMethodNamesWithNoWarning() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -247,6 +307,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void test2EqualMethodNamesWithoutWarning2() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"17:32: " + getCheckMessage(MSG_KEY, "doSmth", readObjectKey),
@@ -258,6 +321,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCallMethodIsNotInBuildPath2() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -267,6 +333,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testCallMethodIsNotInBuildPath() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -276,6 +345,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testReadObjectInInterface() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -285,6 +357,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testStackOverFlowError() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -294,6 +369,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testStackOverFlowErrorWithWarning() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"5:15: " + getCheckMessage(MSG_KEY_LEADS, "doSMTH", ctorKey, "doPublic"),
@@ -305,6 +383,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testStackOverFlowErrorWithoutWarning() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
@@ -314,6 +395,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testAbstractMethodCall() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {
         	"11:22: " + getCheckMessage(MSG_KEY, "buildGetter", ctorKey),
@@ -325,6 +409,9 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testFinalClass() throws Exception
     {
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
 
         String[] expected = {};
 
