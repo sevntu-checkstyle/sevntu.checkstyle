@@ -82,7 +82,7 @@
             <check>
                 <haltOnFailure>true</haltOnFailure>
 
-                <!-- only integer values are accepted -->
+                <!-- only integer values are accepted, all values should 100 after all whole regexes group is removed -->
                 <branchRate>100</branchRate>
                 <lineRate>100</lineRate>
                 <totalBranchRate>88</totalBranchRate>
