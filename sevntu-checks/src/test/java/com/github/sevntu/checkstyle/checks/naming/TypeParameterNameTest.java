@@ -21,7 +21,6 @@ package com.github.sevntu.checkstyle.checks.naming;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class TypeParameterNameTest
@@ -38,8 +37,10 @@ public class TypeParameterNameTest
                 createCheckConfig(InterfaceTypeParameterNameCheck.class);
 
         final String[] expected = {
-        	"2:51: " + getCheckMessage(MSG_KEY, "it", "^[A-Z]$"),
-        	"6:27: " + getCheckMessage(MSG_KEY, "foo", "^[A-Z]$"),
+        	"5:51: " + getCheckMessage(MSG_KEY, "it", "^[A-Z]$"),
+        	"9:27: " + getCheckMessage(MSG_KEY, "foo", "^[A-Z]$"),
+        	"18:34: " + getCheckMessage(MSG_KEY, "Taa", "^[A-Z]$"),
+        	"18:52: " + getCheckMessage(MSG_KEY, "Vaa", "^[A-Z]$"),
         };
         verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
     }
@@ -52,8 +53,10 @@ public class TypeParameterNameTest
                 createCheckConfig(InterfaceTypeParameterNameCheck.class);
         checkConfig.addAttribute("format", "^foo$");
         final String[] expected = {
-        	"2:51: " + getCheckMessage(MSG_KEY, "it", "^foo$"),
-        	"10:27: " + getCheckMessage(MSG_KEY, "A", "^foo$"),
+        	"5:51: " + getCheckMessage(MSG_KEY, "it", "^foo$"),
+        	"13:27: " + getCheckMessage(MSG_KEY, "A", "^foo$"),
+        	"18:34: " + getCheckMessage(MSG_KEY, "Taa", "^foo$"),
+        	"18:52: " + getCheckMessage(MSG_KEY, "Vaa", "^foo$"),
         };
         verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
     }
