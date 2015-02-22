@@ -166,12 +166,14 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 	 */
 	private boolean isInIgnoreOccurrenceContext(DetailAST ast)
 	{
-		for (DetailAST token = ast; token.getParent() != null; token = token.getParent())
+		DetailAST token = ast.getParent();
+		while (token != null)
 		{
 			final int type = token.getType();
 			if (ignoreOccurrenceContext.get(type)) {
 				return true;
 			}
+			token = token.getParent();
 		}
 		return false;
 	}

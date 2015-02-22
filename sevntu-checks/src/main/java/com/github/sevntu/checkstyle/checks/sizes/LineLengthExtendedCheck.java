@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.sizes;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -169,7 +170,7 @@ public class LineLengthExtendedCheck extends Check
 	public int[] getDefaultTokens()
 	{
 		/* array of tokens */
-		final ArrayList<Integer> tokens = new ArrayList<Integer>();
+		final List<Integer> tokens = new ArrayList<Integer>();
 
 		/*disable checking field, method, constructor
 		 * or class declaration length

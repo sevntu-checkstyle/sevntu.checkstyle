@@ -84,9 +84,9 @@ public class AvoidHidingCauseExceptionCheck extends Check
                 .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
                 .getText();
         
-        LinkedList<DetailAST> throwList = makeThrowList(detailAST);
+        List<DetailAST> throwList = makeThrowList(detailAST);
         
-        LinkedList<String> wrapExcNames = new LinkedList<String>();
+        List<String> wrapExcNames = new LinkedList<String>();
         wrapExcNames.add(originExcName);
         wrapExcNames.addAll(makeExceptionsList(detailAST, detailAST, 
                             originExcName));
@@ -115,7 +115,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      */
     private static boolean 
                     isContainsCaughtExc(List<DetailAST> throwParamNamesList, 
-                                    LinkedList<String> wrapExcNames)
+                                    List<String> wrapExcNames)
     {
         boolean result = false;
         for(DetailAST currentNode : throwParamNamesList)
@@ -168,10 +168,10 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * </code> searching.
      * @return list of throw literals
      */
-    private LinkedList<DetailAST> makeThrowList(DetailAST parentAST)
+    private List<DetailAST> makeThrowList(DetailAST parentAST)
     {
 
-        LinkedList<DetailAST> throwList = new LinkedList<DetailAST>();    
+        List<DetailAST> throwList = new LinkedList<DetailAST>();
         for (DetailAST currentNode : getChildNodes(parentAST)) {
 
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
@@ -198,13 +198,13 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @param parentAST Current parent node to start search.
      * @param currentExcName The name of exception handled by
      * current "catch" block.
-     * @return LinkedList<String> contains exceptions that wraps the original 
+     * @return List<String> contains exceptions that wraps the original 
      * exception object.
      */
-    private LinkedList<String> makeExceptionsList(DetailAST currentCatchAST,
+    private List<String> makeExceptionsList(DetailAST currentCatchAST,
             DetailAST parentAST, String currentExcName)
     {
-        LinkedList<String> wrapExcNames = new LinkedList<String>();
+        List<String> wrapExcNames = new LinkedList<String>();
 
         for (DetailAST currentNode : getChildNodes(parentAST)) {
 
@@ -264,9 +264,9 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @return List of children one level below on the current
      *         parent node (aNode).
      */
-    private static LinkedList<DetailAST> getChildNodes(DetailAST node)
+    private static List<DetailAST> getChildNodes(DetailAST node)
     {
-        final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<DetailAST>();
 
         DetailAST currNode = node.getFirstChild();
 

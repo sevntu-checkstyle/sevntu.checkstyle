@@ -274,7 +274,7 @@ public class NoNullForCollectionReturnCheck extends Check
         DetailAST blockBody = getBlockBody(blockDef);
         LinkedList<DetailAST> subblocks = new LinkedList<DetailAST>();
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_IF));
-        LinkedList<DetailAST> elseBlocks = new LinkedList<DetailAST>();
+        List<DetailAST> elseBlocks = new LinkedList<DetailAST>();
         for (DetailAST currentIf : subblocks)
         {
             if (currentIf.getChildCount(TokenTypes.LITERAL_ELSE) > 0)
@@ -290,7 +290,7 @@ public class NoNullForCollectionReturnCheck extends Check
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_DO));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_FOR));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_TRY));
-        LinkedList<DetailAST> nestedSubblocks = new LinkedList<DetailAST>();
+        List<DetailAST> nestedSubblocks = new LinkedList<DetailAST>();
         for (DetailAST currentSubblock : subblocks)
         {
             if (currentSubblock.branchContains(TokenTypes.SLIST))

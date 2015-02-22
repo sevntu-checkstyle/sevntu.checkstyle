@@ -92,7 +92,7 @@ public class EnumValueNameCheck extends Check
     /**
      * Default exclusions value.
      */
-    public static final String[] DEFAULT_EXCLUSION = { "toString" };
+    private static final String[] DEFAULT_EXCLUSION = { "toString" };
 
     /**
      * Regular expression to test Class Enumeration names against.

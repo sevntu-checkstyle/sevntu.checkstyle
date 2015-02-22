@@ -19,6 +19,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -94,8 +95,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * A list contains all names of operands, which are used in the current
      * expression, which calculates with using "|", "&", "|=", "&=" operators.
      * */
-    private final LinkedList<String> supportedOperands =
-        new LinkedList<String>();
+    private final List<String> supportedOperands = new LinkedList<String>();
 
     /**
      * Variable, that indicates keywords "true" or "false" in current
@@ -163,10 +163,8 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
 
         DetailAST curNode = node;
 
-        final LinkedList<String> childNames =
-            getSupportedOperandsNames(curNode);
-        final LinkedList<String> booleanVariablesNames =
-            new LinkedList<String>();
+        final List<String> childNames = getSupportedOperandsNames(curNode);
+        final List<String> booleanVariablesNames = new LinkedList<String>();
 
         while (curNode != null
                 && curNode.getType() != TokenTypes.CTOR_DEF
@@ -207,7 +205,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @param exprParentAST - the current TokenTypes.EXPR parent node.
      * @return List of supported operands contained in current expression.
      */
-    public final LinkedList<String> getSupportedOperandsNames(
+    public final List<String> getSupportedOperandsNames(
             final DetailAST exprParentAST)
     {
 
@@ -274,9 +272,9 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @return an array of children one level below on the current parent node
      *         aNode.
      */
-    public final static LinkedList<DetailAST> getChildren(final DetailAST node)
+    public final static List<DetailAST> getChildren(final DetailAST node)
     {
-        final LinkedList<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<DetailAST>();
 
         DetailAST currNode = node.getFirstChild();
 
