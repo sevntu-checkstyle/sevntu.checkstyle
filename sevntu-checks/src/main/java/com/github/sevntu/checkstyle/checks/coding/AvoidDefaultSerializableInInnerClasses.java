@@ -18,8 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.util.Iterator;
-
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -38,7 +36,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class AvoidDefaultSerializableInInnerClasses extends Check
 {
 
-    public static final String MSG_KEY  = "avoid.default.serializable.in.inner.classes";
+    public static final String MSG_KEY = "avoid.default.serializable.in.inner.classes";
 
     /**
     *<b>
@@ -92,12 +90,10 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
     {
         boolean result = false;
         DetailAST modifiers = classNode.findFirstToken(TokenTypes.MODIFIERS);
-        if (modifiers != null) {
-            modifiers = modifiers.getFirstChild();
-            while (!result && modifiers != null) {
-                result = "static".equals(modifiers.getText());
-                modifiers = modifiers.getNextSibling();
-            }
+        modifiers = modifiers.getFirstChild();
+        while (!result && modifiers != null) {
+            result = "static".equals(modifiers.getText());
+            modifiers = modifiers.getNextSibling();
         }
         return result;
     }
@@ -116,11 +112,11 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         final DetailAST objectBody =
                 classNode.findFirstToken(TokenTypes.OBJBLOCK);
         int numberOfSerializationMethods = 0;
-        for (final Iterator<DetailAST> methodsIter =
-                ChildrenIterator.methodsIterator(objectBody);
-                    methodsIter.hasNext();)
+
+        final SiblingIterator methodsIter = new SiblingIterator(objectBody);
+        while (methodsIter.hasNextSibling())
         {
-            final DetailAST methodNode = methodsIter.next();
+            final DetailAST methodNode = methodsIter.nextSibling();
             if (isPrivateMethod(methodNode)
                         && isVoidMethod(methodNode)
                         && (hasCorrectParameter(methodNode, "ObjectInputStream")
@@ -144,15 +140,8 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
      * Nested class, that implements custom iterator for DetailAST method nodes.
      *</b>
      */
-    private static class ChildrenIterator implements Iterator<DetailAST>
+    private class SiblingIterator
     {
-        /**
-        *<b>
-        *Type of child.
-        *</b>
-        */
-
-        private final int childType;
         /**
         *<b>
         *Next
@@ -167,22 +156,9 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         *@param parent - child parent.
         *@param childType - type of child.
         */
-        public ChildrenIterator(DetailAST parent, int childType)
+        public SiblingIterator(DetailAST parent)
         {
-            this.childType = childType;
-            next = parent.findFirstToken(childType);
-        }
-
-        /**
-        *<b>
-        *Method iterator.
-        *</b>
-        *@param parent - parent.
-        *@return method iterator.
-        */
-        public static ChildrenIterator methodsIterator(DetailAST parent)
-        {
-            return new ChildrenIterator(parent, TokenTypes.METHOD_DEF);
+            next = parent.findFirstToken(TokenTypes.METHOD_DEF);
         }
 
         /**
@@ -191,8 +167,7 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         *</b>
         *@return boolean value
         */
-
-        public boolean hasNext()
+        public boolean hasNextSibling()
         {
             return next != null;
         }
@@ -204,27 +179,16 @@ public class AvoidDefaultSerializableInInnerClasses extends Check
         *@return next DetailAST.
         */
 
-        public DetailAST next()
+        public DetailAST nextSibling()
         {
             final DetailAST result = next;
             while (next != null) {
                 next = next.getNextSibling();
-                if (next != null && next.getType() == childType) {
+                if (next != null && next.getType() == TokenTypes.METHOD_DEF) {
                     break;
                 }
             }
             return result;
-        }
-
-        /**
-        *<b>
-        *Not implemented method.
-        *</b>
-        */
-
-        public void remove()
-        {
-            throw new IllegalStateException("Not implemented");
         }
     }
 
