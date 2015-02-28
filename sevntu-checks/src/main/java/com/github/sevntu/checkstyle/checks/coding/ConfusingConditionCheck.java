@@ -320,13 +320,10 @@ public class ConfusingConditionCheck extends Check {
 			while (detAst != null) {
 				count += detAst.getChildCount(type);
 				final DetailAST detAstChild = detAst.getFirstChild();
-				if (detAstChild == null) {
-					detAst = detAst.getNextSibling();
-				} else {
+				if (detAstChild != null) {
 					count += getCountOfToken(detAstChild, type);
-					detAst = detAst.getNextSibling();
 				}
-
+				detAst = detAst.getNextSibling();
 			}
 		}
 		return count;

@@ -264,7 +264,7 @@ public class CustomDeclarationOrderCheck extends Check
             }
             catch (StringIndexOutOfBoundsException exp) {
                 //if the structure of the input rule isn't correct
-                throw new RuntimeException("Unable to parse input rule: "
+                throw new IllegalArgumentException("Unable to parse input rule: "
                         + currentState, exp);
             }
         }
@@ -806,7 +806,7 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private static String getCombinedModifiersList(final DetailAST ast)
     {
-        final StringBuffer modifiers = new StringBuffer();
+        final StringBuilder modifiers = new StringBuilder();
         DetailAST astNode = ast.findFirstToken(TokenTypes.MODIFIERS);
         if (astNode.getFirstChild() == null) {
             //if we met package level modifier

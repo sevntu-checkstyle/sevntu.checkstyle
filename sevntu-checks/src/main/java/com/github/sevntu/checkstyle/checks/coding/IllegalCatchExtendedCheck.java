@@ -105,14 +105,12 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
         // For warnings disable first lvl child must be an EXPR and
         // second lvl child must be IDENT or LITERAL_NEW with
         // appropriate boolean flags.
-        final boolean noWarning = (throwAST != null
+        final boolean noWarning = throwAST != null
                 && firstLvlChild != null
                 && secondLvlChild != null
              && firstLvlChild.getType() == TokenTypes.EXPR
-             && ((allowThrow && secondLvlChild.getType()
-                     == TokenTypes.IDENT)
-             || (allowRethrow && secondLvlChild.getType()
-                     == TokenTypes.LITERAL_NEW)));
+             && ((allowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
+             || (allowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW));
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
         final FullIdent ident = CheckUtils.createFullType(excType);
@@ -137,7 +135,7 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getNumberOfChildren() > 0)
             {
-                final DetailAST astResult = (getThrowAST(currentNode));
+                final DetailAST astResult = getThrowAST(currentNode);
                 if (astResult != null) {
                     return astResult;
                 }

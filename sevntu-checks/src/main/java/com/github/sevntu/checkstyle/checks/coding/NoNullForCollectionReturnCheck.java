@@ -140,15 +140,13 @@ public class NoNullForCollectionReturnCheck extends Check
         switch (detailAST.getType())
         {
             case TokenTypes.METHOD_DEF:
-            {
                 if (isReturnCollection(detailAST))
                 {
                     methodDefs.push(detailAST);
                 }
                 break;
-            }
+
             case TokenTypes.LITERAL_RETURN:
-            {
                 if (!methodDefs.isEmpty())
                 {
                     DetailAST currentMethodDef = getMethodDef(detailAST);
@@ -161,7 +159,7 @@ public class NoNullForCollectionReturnCheck extends Check
                     }
                 }
                 break;
-            }
+
             default:
                 Utils.reportInvalidToken(detailAST.getType());
                 break;

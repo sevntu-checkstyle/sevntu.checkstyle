@@ -247,8 +247,7 @@ public class TernaryPerExpressionCountCheck extends Check {
                 currentNode = currentNode.getParent();
             }
         }
-        currentNode = toVisit;
         
-        return currentNode;
+        return toVisit;
     }
 }

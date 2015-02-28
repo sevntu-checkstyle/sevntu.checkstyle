@@ -433,7 +433,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     private static boolean matches(String string, Collection<String> patterns) {
         boolean result = false;
-        if (string != null && patterns != null && patterns.size() > 0) {
+        if (string != null && patterns != null && !patterns.isEmpty()) {
             for (String pattern : patterns) {
                 if (string.matches(pattern)) {
                     result = true;
