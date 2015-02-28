@@ -50,8 +50,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class SimpleAccessorNameNotationCheck extends Check
 {
-	public static final String MSG_KEY_GETTER = "incorrect.getter.name";
-	public static final String MSG_KEY_SETTER = "incorrect.setter.name";
+    public static final String MSG_KEY_GETTER = "incorrect.getter.name";
+    public static final String MSG_KEY_SETTER = "incorrect.setter.name";
     private static final String BOOLEAN_GETTER_PREFIX = "is";
     private static final String GETTER_PREFIX = "get";
     private static final String SETTER_PREFIX = "set";

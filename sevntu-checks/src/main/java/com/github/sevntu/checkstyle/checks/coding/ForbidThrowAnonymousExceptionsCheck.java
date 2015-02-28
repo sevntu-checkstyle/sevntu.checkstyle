@@ -35,7 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * <code><pre>
  * catch (Exception e) {
- * 	   throw new RuntimeException()  { //WARNING 
+ *        throw new RuntimeException()  { //WARNING 
  *          //some code
  *     };
  * }

@@ -32,11 +32,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class InnerClassCheck extends Check
 {
-	/**
-	 * Warning message key.
-	 */
-	public final static String MSG_KEY = "arrangement.members.before.inner";
-	
+    /**
+     * Warning message key.
+     */
+    public final static String MSG_KEY = "arrangement.members.before.inner";
+
     @Override
     public int[] getDefaultTokens()
     {

@@ -620,15 +620,15 @@ public class CustomDeclarationOrderCheck extends Check
                     }
                 }
                 else {
-                	// if more than one rule matches current AST node, then keep first one
+                    // if more than one rule matches current AST node, then keep first one
                     result = (result == -1) ? index : result;
                     if (ast.getType() == TokenTypes.METHOD_DEF
-                    		|| ast.getType() == TokenTypes.VARIABLE_DEF)
+                            || ast.getType() == TokenTypes.VARIABLE_DEF)
                     {
-                    	// continue to find more specific rule
-                    	continue;
+                        // continue to find more specific rule
+                        continue;
                     } else {
-                    	break;
+                        break;
                     }
                 }
             }
@@ -722,7 +722,7 @@ public class CustomDeclarationOrderCheck extends Check
                     final DetailAST exprAst = returnStatementAst.getFirstChild();
                     final String returnedFieldName = getNameOfGetterField(exprAst);
                     if (returnedFieldName != null
-                    		&& !localVariableHidesField(statementsAst, returnedFieldName)
+                            && !localVariableHidesField(statementsAst, returnedFieldName)
                             && verifyFieldAndMethodName(returnedFieldName, methodNameWithoutPrefix))
                     {
                         result = true;
@@ -733,20 +733,20 @@ public class CustomDeclarationOrderCheck extends Check
         return result;
     }
 
-	private static boolean localVariableHidesField(DetailAST slist,
-			String fieldName) {
-		boolean result = false;
-		DetailAST currNode = slist.getFirstChild();
-		while (currNode != null) {
-			if (currNode.getType() == TokenTypes.VARIABLE_DEF
-					&& fieldName.equals(getIdentifier(currNode))) {
-				result = true;
-				break;
-			}
-			currNode = currNode.getNextSibling();
-		}
-		return result;
-	}
+    private static boolean localVariableHidesField(DetailAST slist,
+            String fieldName) {
+        boolean result = false;
+        DetailAST currNode = slist.getFirstChild();
+        while (currNode != null) {
+            if (currNode.getType() == TokenTypes.VARIABLE_DEF
+                    && fieldName.equals(getIdentifier(currNode))) {
+                result = true;
+                break;
+            }
+            currNode = currNode.getNextSibling();
+        }
+        return result;
+    }
 
     /**
      * Returns true when setter is correct. Correct setter is method that has one parameter,
@@ -772,7 +772,7 @@ public class CustomDeclarationOrderCheck extends Check
             final DetailAST statementsAst = methodDefAst.findFirstToken(TokenTypes.SLIST);
 
             result = statementsAst != null
-            		&& !localVariableHidesField(statementsAst, setterFieldName)
+                    && !localVariableHidesField(statementsAst, setterFieldName)
                     && isFieldUpdate(statementsAst, setterFieldName);
         }
         return result;

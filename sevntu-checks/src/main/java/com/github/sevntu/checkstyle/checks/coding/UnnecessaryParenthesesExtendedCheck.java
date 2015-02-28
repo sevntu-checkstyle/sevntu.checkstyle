@@ -54,18 +54,18 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class UnnecessaryParenthesesExtendedCheck extends Check
 {
-	/**Warning message key.*/
-	public static final String MSG_KEY_ASSIGN = "unnecessary.paren.assign";
-	/**Warning message key.*/
-	public static final String MSG_KEY_EXPR = "unnecessary.paren.expr";
-	/**Warning message key.*/
-	public static final String MSG_KEY_IDENT = "unnecessary.paren.ident";
-	/**Warning message key.*/
-	public static final String MSG_KEY_LITERAL = "unnecessary.paren.literal";
-	/**Warning message key.*/
-	public static final String MSG_KEY_RETURN = "unnecessary.paren.return";
-	/**Warning message key.*/
-	public static final String MSG_KEY_STRING = "unnecessary.paren.string";
+    /**Warning message key.*/
+    public static final String MSG_KEY_ASSIGN = "unnecessary.paren.assign";
+    /**Warning message key.*/
+    public static final String MSG_KEY_EXPR = "unnecessary.paren.expr";
+    /**Warning message key.*/
+    public static final String MSG_KEY_IDENT = "unnecessary.paren.ident";
+    /**Warning message key.*/
+    public static final String MSG_KEY_LITERAL = "unnecessary.paren.literal";
+    /**Warning message key.*/
+    public static final String MSG_KEY_RETURN = "unnecessary.paren.return";
+    /**Warning message key.*/
+    public static final String MSG_KEY_STRING = "unnecessary.paren.string";
     /** The minimum number of child nodes to consider for a match. */
     private static final int MIN_CHILDREN_FOR_MATCH = 3;
     /** The maximum string length before we chop the string. */

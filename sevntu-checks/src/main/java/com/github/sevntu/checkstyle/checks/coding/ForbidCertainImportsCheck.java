@@ -171,7 +171,7 @@ public class ForbidCertainImportsCheck extends Check
                 break;
             case TokenTypes.IMPORT:
                 if (packageMatches && forbiddenImportsRegexp != null
-					&& forbiddenImportsExcludesRegexp != null)
+                    && forbiddenImportsExcludesRegexp != null)
                 {
                     final String importQualifiedText = getText(ast);
                     if (isImportForbidden(importQualifiedText)) {
@@ -181,9 +181,9 @@ public class ForbidCertainImportsCheck extends Check
                 break;
             case TokenTypes.LITERAL_NEW:
                 if (forbiddenImportsRegexp != null
-					&& forbiddenImportsExcludesRegexp != null
-					&& ast.findFirstToken(TokenTypes.DOT) != null
-					&& packageMatches)
+                    && forbiddenImportsExcludesRegexp != null
+                    && ast.findFirstToken(TokenTypes.DOT) != null
+                    && packageMatches)
                 {
                     final String importQualifiedText = getText(ast);
                     if (isImportForbidden(importQualifiedText)) {

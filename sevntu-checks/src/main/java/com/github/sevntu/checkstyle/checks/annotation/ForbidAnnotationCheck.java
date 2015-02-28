@@ -40,12 +40,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ForbidAnnotationCheck extends Check
 {
-	
-	/**
-	 * A key is used to retrieve check message from 'messages.properties' file
-	 */
+
+    /**
+     * A key is used to retrieve check message from 'messages.properties' file
+     */
     public static final String MSG_KEY = "annotation.incorrect.target";
-	
+
     /**
      * annotationNames is set of annotation's names.
      */
@@ -110,14 +110,14 @@ public class ForbidAnnotationCheck extends Check
     }
     
     private static String getAnnotationName(DetailAST annotation){
-    	DetailAST directname = annotation.findFirstToken(TokenTypes.IDENT);
+        DetailAST directname = annotation.findFirstToken(TokenTypes.IDENT);
 
-    	if(directname != null){
-    		return directname.getText();
-    	}else{
-    		//This means that annotation is specified with the full package name
-    		return annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
-    	}
+        if(directname != null){
+            return directname.getText();
+        }else{
+            //This means that annotation is specified with the full package name
+            return annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
+        }
     }
     
 

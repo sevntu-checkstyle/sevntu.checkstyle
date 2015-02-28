@@ -68,7 +68,7 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  */
 public class AvoidHidingCauseExceptionCheck extends Check
 { 
-	public static final String MSG_KEY = "avoid.hiding.cause.exception";
+    public static final String MSG_KEY = "avoid.hiding.cause.exception";
 
     @Override
     public int[] getDefaultTokens()

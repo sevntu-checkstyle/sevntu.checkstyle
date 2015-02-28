@@ -55,7 +55,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class FinalizeImplementationCheck extends Check
 {
-	
+
     /**
      * The key is pointing to the warning message text in "messages.properties"
      * file.
@@ -97,12 +97,12 @@ public class FinalizeImplementationCheck extends Check
     public void visitToken(DetailAST methodDefToken)
     {
         if (isFinalizeMethodSignature(methodDefToken)) {
-        	
-        	String warningMessage = validateFinalizeMethod(methodDefToken);
-        	
-        	if (warningMessage != null) {
-        		log(methodDefToken.getLineNo(), warningMessage);
-        	}
+
+            String warningMessage = validateFinalizeMethod(methodDefToken);
+            
+            if (warningMessage != null) {
+                log(methodDefToken.getLineNo(), warningMessage);
+            }
         }
     }
 
@@ -115,7 +115,7 @@ public class FinalizeImplementationCheck extends Check
      */
     private static String validateFinalizeMethod(DetailAST finalizeMethodToken)
     {
-    	String warningMessage = null;
+        String warningMessage = null;
         if (hasModifier(TokenTypes.LITERAL_PROTECTED, finalizeMethodToken)) {
                 DetailAST methodOpeningBrace = finalizeMethodToken.getLastChild();
                 DetailAST literalTry = methodOpeningBrace.findFirstToken(TokenTypes.LITERAL_TRY);

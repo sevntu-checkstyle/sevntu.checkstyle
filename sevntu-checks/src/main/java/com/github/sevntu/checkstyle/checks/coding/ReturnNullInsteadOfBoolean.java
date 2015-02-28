@@ -16,11 +16,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class ReturnNullInsteadOfBoolean extends Check {
 
-	/**
-	 * Warning message key
-	 */
-	public final static String MSG_KEY = "return.null.Boolean";
-	
+    /**
+     * Warning message key
+     */
+    public final static String MSG_KEY = "return.null.Boolean";
+
     /** Stack of states of the need in exploring the methods. */
     private final FastStack<Boolean> methodStack = FastStack.newInstance();
     /** Should we explore current method or not. */

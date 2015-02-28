@@ -31,10 +31,10 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
  */
 public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
 {
-	/**
-	 * Warning message key.
-	 */
-	public static final String MSG_KEY = "illegal.catch";
+    /**
+     * Warning message key.
+     */
+    public static final String MSG_KEY = "illegal.catch";
 
     /** disable warnings for "catch" blocks containing
      * throwing an exception. */

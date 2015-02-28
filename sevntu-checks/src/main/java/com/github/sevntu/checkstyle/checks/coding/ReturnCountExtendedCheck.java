@@ -101,8 +101,8 @@ public class ReturnCountExtendedCheck extends Check
     private static final int DEFAULT_TOP_LINES_TO_IGNORE_COUNT = 5;
 
     /**
-	 * List contains RegExp patterns for methods' names which would be ignored by check.
-	 */
+     * List contains RegExp patterns for methods' names which would be ignored by check.
+     */
     private Set<String> ignoreMethodsNames = new HashSet<String>();
 
     /**
@@ -134,11 +134,11 @@ public class ReturnCountExtendedCheck extends Check
     private int topLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
     /**
-	 * Sets the RegExp patterns for methods' names which would be ignored by check.
-	 * 
-	 * @param ignoreMethodNames
-	 *            list of the RegExp patterns for methods' names which should be ignored by check
-	 */
+     * Sets the RegExp patterns for methods' names which would be ignored by check.
+     * 
+     * @param ignoreMethodNames
+     *            list of the RegExp patterns for methods' names which should be ignored by check
+     */
     public void setIgnoreMethodsNames(String [] ignoreMethodNames)
     {
         ignoreMethodsNames.clear();
@@ -423,15 +423,15 @@ public class ReturnCountExtendedCheck extends Check
     }
     
     /**
-	 * Matches string to given list of RegExp patterns.
-	 * 
-	 * @param string
-	 *            String to be matched.
-	 * @param patterns
-	 *            Collection of RegExp patterns to match with.
-	 * @return true if given string could be fully matched by one of given patterns, false otherwise
-	 */
-	private static boolean matches(String string, Collection<String> patterns) {
+     * Matches string to given list of RegExp patterns.
+     * 
+     * @param string
+     *            String to be matched.
+     * @param patterns
+     *            Collection of RegExp patterns to match with.
+     * @return true if given string could be fully matched by one of given patterns, false otherwise
+     */
+    private static boolean matches(String string, Collection<String> patterns) {
         boolean result = false;
         if (string != null && patterns != null && patterns.size() > 0) {
             for (String pattern : patterns) {

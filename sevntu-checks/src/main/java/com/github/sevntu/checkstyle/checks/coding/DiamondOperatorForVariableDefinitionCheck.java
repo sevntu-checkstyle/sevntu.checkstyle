@@ -56,16 +56,16 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
         
         if (assignNode != null) {
         
-        	DetailAST newNode = assignNode.getFirstChild().getFirstChild();
+            DetailAST newNode = assignNode.getFirstChild().getFirstChild();
             
-        	if (newNode.getType() == TokenTypes.LITERAL_NEW
-        			&& newNode.getLastChild().getType() != TokenTypes.OBJBLOCK) {
-            	
-        		DetailAST typeArgs = newNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
-        		if (typeArgs != null && isSameTypeArgsInVariableDef(variableDefNode, typeArgs)) {
-        			log(typeArgs, MSG_KEY);
-        		}
-        	}
+            if (newNode.getType() == TokenTypes.LITERAL_NEW
+                    && newNode.getLastChild().getType() != TokenTypes.OBJBLOCK) {
+
+                DetailAST typeArgs = newNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
+                if (typeArgs != null && isSameTypeArgsInVariableDef(variableDefNode, typeArgs)) {
+                    log(typeArgs, MSG_KEY);
+                }
+            }
         }
     }
 

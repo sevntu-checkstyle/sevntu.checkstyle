@@ -46,8 +46,8 @@ import java.util.Arrays;
  */
 public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
 
-	public final static String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
-	
+    public final static String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
+
     /**
      * targetConstantTypes is array of default target constant types.
      */

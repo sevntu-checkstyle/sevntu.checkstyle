@@ -35,7 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class LogicConditionNeedOptimizationCheck extends Check
 {
-	public static final String MSG_KEY = "logic.condition.need.optimization";
+    public static final String MSG_KEY = "logic.condition.need.optimization";
 
     @Override
     public int[] getDefaultTokens()

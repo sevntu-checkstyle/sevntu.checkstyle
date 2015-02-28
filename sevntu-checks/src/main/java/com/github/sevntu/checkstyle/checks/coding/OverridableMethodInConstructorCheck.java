@@ -319,12 +319,12 @@ public class OverridableMethodInConstructorCheck extends Check
             if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
                     || hasModifier(methodDef, TokenTypes.FINAL))
             {
-            	log(om.metCallAST, MSG_KEY_LEADS, getMethodName(om.metCallAST),
+                log(om.metCallAST, MSG_KEY_LEADS, getMethodName(om.metCallAST),
                         key, om.overridableMetName);
             } else {
-            	log(om.metCallAST, MSG_KEY, getMethodName(om.metCallAST),
+                log(om.metCallAST, MSG_KEY, getMethodName(om.metCallAST),
                     key, om.overridableMetName);
-           	}
+               }
         }
     }
 
