@@ -83,26 +83,20 @@ public class AvoidHidingCauseExceptionCheck extends Check
         final String originExcName = detailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
                 .getText();
-        
+
         List<DetailAST> throwList = makeThrowList(detailAST);
-        
+
         List<String> wrapExcNames = new LinkedList<String>();
         wrapExcNames.add(originExcName);
         wrapExcNames.addAll(makeExceptionsList(detailAST, detailAST, 
                             originExcName));
 
         for (DetailAST throwAST : throwList) {
-
-            if (throwAST.getType() == TokenTypes.LITERAL_THROW) {
-                
-                List<DetailAST> throwParamNamesList = 
-                        new LinkedList<DetailAST>();
-                getThrowParamNamesList(throwAST, throwParamNamesList);
-                if (!isContainsCaughtExc(throwParamNamesList, wrapExcNames))
-                {
-                    log(throwAST, MSG_KEY,
-                            originExcName);
-                }
+            List<DetailAST> throwParamNamesList = new LinkedList<DetailAST>();
+            buildThrowParamNamesList(throwAST, throwParamNamesList);
+            if (!isContainsCaughtExc(throwParamNamesList, wrapExcNames))
+            {
+                log(throwAST, MSG_KEY, originExcName);
             }
         }
     }
@@ -120,8 +114,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
         boolean result = false;
         for(DetailAST currentNode : throwParamNamesList)
         {
-            if (currentNode != null
-                    && currentNode.getParent().getType() != TokenTypes.DOT
+            if (currentNode.getParent().getType() != TokenTypes.DOT
                     && wrapExcNames.contains(currentNode.getText()))
             {
                 result = true;
@@ -137,10 +130,10 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @param startNode The start node for exception name searching.
      * @param paramNamesAST The list, that will be contain names of the 
      * parameters 
-     * @return A List of tokens (<code>DetailAST</code>) contains the
+     * @return A null-safe list of tokens (<code>DetailAST</code>) contains the
      * thrown exception name if it was found or null otherwise.
      */
-    private List<DetailAST> getThrowParamNamesList(DetailAST startNode, 
+    private List<DetailAST> buildThrowParamNamesList(DetailAST startNode, 
                             List<DetailAST> paramNamesAST)
     {
         for (DetailAST currentNode : getChildNodes(startNode)) {
@@ -153,7 +146,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
                     && currentNode.getNumberOfChildren() > 0)
             {
-                getThrowParamNamesList(currentNode, paramNamesAST);
+                buildThrowParamNamesList(currentNode, paramNamesAST);
             }
 
         }
@@ -210,7 +203,6 @@ public class AvoidHidingCauseExceptionCheck extends Check
 
             if (currentNode.getType() == TokenTypes.IDENT
                     && currentNode.getText().equals(currentExcName)
-                    && currentNode.getParent() != null
                     && currentNode.getParent().getType() != TokenTypes.DOT)
             {
 
@@ -225,26 +217,13 @@ public class AvoidHidingCauseExceptionCheck extends Check
                 if (temp.getType() == TokenTypes.ASSIGN) {
                     DetailAST convertedExc = null;
                     if (temp.getParent().getType() == TokenTypes.VARIABLE_DEF) {
-                        convertedExc = temp.getParent().findFirstToken(
-                                TokenTypes.IDENT);
+                        convertedExc = temp.getParent().findFirstToken(TokenTypes.IDENT);
                     }
                     else {
                         convertedExc = temp.findFirstToken(TokenTypes.IDENT);
                     }
-
-                    if (convertedExc != null
-                            && !convertedExc.getText().equals(currentExcName))
-                    {
-                        if (!wrapExcNames.contains(convertedExc
-                                .getText()))
-                        {
-                            wrapExcNames.add(convertedExc
-                                    .getText());
-                        }
-                    }
-
+                    wrapExcNames.add(convertedExc.getText());
                 }
-
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
