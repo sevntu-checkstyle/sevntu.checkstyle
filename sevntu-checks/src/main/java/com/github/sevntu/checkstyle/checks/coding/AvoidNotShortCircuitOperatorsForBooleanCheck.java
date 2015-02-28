@@ -115,27 +115,18 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     {
 
         DetailAST currentNode = detailAST;
-        while (currentNode != null
-                && currentNode.getType() != TokenTypes.EXPR
-                && currentNode.getType() != TokenTypes.METHOD_DEF
-                && currentNode.getType() != TokenTypes.CTOR_DEF
-                && currentNode.getType() != TokenTypes.CLASS_DEF)
+        // look for EXPR which is always around BOR/BAND... operators
+        while (currentNode.getType() != TokenTypes.EXPR)
         {
             currentNode = currentNode.getParent();
         }
 
-        final int type = currentNode.getType();
-
-        if (type == TokenTypes.EXPR) {
-
-            if (isBooleanExpression(currentNode)) {
-                log(detailAST, MSG_KEY, detailAST.getText());
-            }
-
-            supportedOperands.clear();
-            hasTrueOrFalseLiteral = false;
+        if (isBooleanExpression(currentNode)) {
+            log(detailAST, MSG_KEY, detailAST.getText());
         }
 
+        supportedOperands.clear();
+        hasTrueOrFalseLiteral = false;
     }
 
     /**
@@ -160,14 +151,12 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      */
     public final boolean isBooleanExpression(final DetailAST node)
     {
-
         DetailAST curNode = node;
 
         final List<String> childNames = getSupportedOperandsNames(curNode);
         final List<String> booleanVariablesNames = new LinkedList<String>();
 
-        while (curNode != null
-                && curNode.getType() != TokenTypes.CTOR_DEF
+        while (curNode.getType() != TokenTypes.CTOR_DEF
                 && curNode.getType() != TokenTypes.METHOD_DEF
                 && curNode.getType() != TokenTypes.CLASS_DEF)
         {
@@ -218,7 +207,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
             }
 
             if (currentNode.getType() == TokenTypes.IDENT
-                    && currentNode.getParent() != null
                     && currentNode.getParent().getType() != TokenTypes.DOT)
             {
                 supportedOperands.add(currentNode.getText());
