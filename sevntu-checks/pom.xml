@@ -90,7 +90,6 @@
                 <regexes>
                     <regex><pattern>.*.checks.annotation.ForbidAnnotationCheck</pattern><branchRate>70</branchRate><lineRate>96</lineRate></regex>
                     <regex><pattern>.*.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</pattern><branchRate>80</branchRate><lineRate>100</lineRate></regex>
-                    <regex><pattern>.*.checks.coding.AvoidHidingCauseExceptionCheck</pattern><branchRate>87</branchRate><lineRate>100</lineRate></regex>
                     <regex><pattern>.*.checks.coding.AvoidModifiersForTypesCheck</pattern><branchRate>96</branchRate><lineRate>98</lineRate></regex>
                     <regex><pattern>.*.checks.coding.ConfusingConditionCheck</pattern><branchRate>84</branchRate><lineRate>100</lineRate></regex>
                     <regex><pattern>.*.checks.coding.CustomDeclarationOrderCheck.*</pattern><branchRate>81</branchRate><lineRate>83</lineRate></regex>
