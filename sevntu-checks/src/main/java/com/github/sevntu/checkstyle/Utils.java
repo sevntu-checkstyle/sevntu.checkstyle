@@ -19,6 +19,7 @@
 package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public final class Utils
@@ -41,5 +42,29 @@ public final class Utils
     {
         throw new IllegalArgumentException("Found unsupported token: "
                 + TokenTypes.getTokenName(token));
+    }
+
+    /**
+     * Gets the next node of a syntactical tree (child of a current node or sibling of a current node, or sibling of a
+     * parent of a current node)
+     * 
+     * @param currentNode
+     *            Current node in considering
+     * @return Current node after bypassing, if current node reached the root of a subtree method returns null
+     */
+    public static DetailAST getNextSubTreeNode(DetailAST currentNode, DetailAST subTreeRoot)
+    {
+        DetailAST toVisitAst = currentNode.getFirstChild();
+
+        while (toVisitAst == null) {
+            toVisitAst = currentNode.getNextSibling();
+            if (toVisitAst == null) {
+                if (currentNode.getParent().equals(subTreeRoot)) {
+                    break;
+                }
+                currentNode = currentNode.getParent();
+            }
+        }
+        return toVisitAst;
     }
 }

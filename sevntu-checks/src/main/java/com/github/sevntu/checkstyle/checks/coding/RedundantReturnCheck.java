@@ -318,7 +318,7 @@ public class RedundantReturnCheck extends Check {
 		DetailAST returnAst = null;
 		while (toVisitAst != null) {
 			
-			toVisitAst = getNextSubTreeNode(toVisitAst, currentNodeAst);
+			toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
 			
 			if (toVisitAst != null 
 					&& (toVisitAst.getParent().getParent().getNextSibling() == null 
@@ -343,34 +343,7 @@ public class RedundantReturnCheck extends Check {
 			}
 		}
 		
-		currentNodeAst = getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
+		currentNodeAst = Utils.getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
 		return redundantReturnAst;
-			
 	}
-
-	/**
-	 * Gets the next node of a syntactical tree (child of a current node or
-	 * sibling of a current node, or sibling of a parent of a current node)
-	 * @param currentNodeAst
-	 *        Current node in considering
-	 * @return Current node after bypassing, if current node reached the root of a subtree
-	 * 		  method returns null
-	 */
-	private static DetailAST 
-		getNextSubTreeNode(DetailAST currentNodeAst, DetailAST subTreeRootAst) {
-		
-		DetailAST toVisitAst = currentNodeAst.getFirstChild();
-		while (toVisitAst == null) {
-			toVisitAst = currentNodeAst.getNextSibling();
-			if (toVisitAst == null) {
-				if (currentNodeAst.getParent().equals(subTreeRootAst)) {
-					break;
-				}
-				currentNodeAst = currentNodeAst.getParent();
-			}
-		}
-		currentNodeAst = toVisitAst;
-		return currentNodeAst;
-	}
-
 }

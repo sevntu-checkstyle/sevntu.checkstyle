@@ -207,7 +207,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
                 returnedType = currentNode;
                 returnedTypes.add(returnedType);
             }
-            currentNode = getNextSubTreeNode(currentNode, typeAst);
+            currentNode = Utils.getNextSubTreeNode(currentNode, typeAst);
         }
         return returnedTypes;
     }
@@ -230,7 +230,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
                     parameterType = currentNode;
 
                     while (parameterType != null) {
-                        parameterType = getNextSubTreeNode(parameterType,
+                        parameterType = Utils.getNextSubTreeNode(parameterType,
                                 currentNode);
                         if (parameterType != null
                                 && parameterType.getType() == TokenTypes.IDENT) {
@@ -239,7 +239,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
                     }
 
                 }
-                currentNode = getNextSubTreeNode(currentNode, parametersDefAst);
+                currentNode = Utils.getNextSubTreeNode(currentNode, parametersDefAst);
             }
 
         }
@@ -283,7 +283,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
                 DetailAST implementingOrExtendingAst = currentNode;
 
                 while (implementingOrExtendingAst != null) {
-                    implementingOrExtendingAst = getNextSubTreeNode(
+                    implementingOrExtendingAst = Utils.getNextSubTreeNode(
                             implementingOrExtendingAst, currentNode);
                     if (implementingOrExtendingAst != null
                             && implementingOrExtendingAst.getType() == TokenTypes.IDENT) {
@@ -293,8 +293,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
                 }
 
             }
-            currentNode = getNextSubTreeNode(currentNode,
-                    classOrInterfaceDefAst);
+            currentNode = Utils.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
         }
 
         Set<String> existingPrivateTypes = new HashSet<String>();
@@ -330,30 +329,6 @@ public class PublicReferenceToPrivateTypeCheck extends Check
             isDefinedInTopLevelClass(DetailAST methodOrFieldDefAst)
     {
         return methodOrFieldDefAst.getParent().getParent().getParent() == null;
-    }
-
-    /**
-     * Gets the next node of a syntactical tree (child of a current node or
-     * sibling of a current node, or sibling of a parent of a current node)
-     * @param currentNode
-     *        Current node in considering
-     * @return Current node after bypassing
-     */
-    private static DetailAST
-            getNextSubTreeNode(DetailAST currentNode, DetailAST subTreeRoot)
-    {
-        DetailAST toVisit = currentNode.getFirstChild();
-        while (toVisit == null) {
-            toVisit = currentNode.getNextSibling();
-            if (toVisit == null) {
-                if (currentNode.getParent().equals(subTreeRoot)) {
-                    break;
-                }
-                currentNode = currentNode.getParent();
-            }
-        }
-        currentNode = toVisit;
-        return currentNode;
     }
 
 }
