@@ -35,11 +35,12 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
     {
 
         String[] expected = {
-        	"6:17: " + getCheckMessage(MSG_KEY, "|"),
+            "6:23: " + getCheckMessage(MSG_KEY, "|"),
             "25:20: " + getCheckMessage(MSG_KEY, "|"),
-            "35:25: " + getCheckMessage(MSG_KEY, "|"),
-            "48:25: " + getCheckMessage(MSG_KEY, "|"),
-            "53:16: " + getCheckMessage(MSG_KEY, "&"),
+            "35:30: " + getCheckMessage(MSG_KEY, "|"),
+            "43:21: " + getCheckMessage(MSG_KEY, "|"),
+            "48:29: " + getCheckMessage(MSG_KEY, "|"),
+            "53:17: " + getCheckMessage(MSG_KEY, "&"),
             "64:17: " + getCheckMessage(MSG_KEY, "|"),
             "71:9: " + getCheckMessage(MSG_KEY, "|"),
             "79:9: " + getCheckMessage(MSG_KEY, "|"),
