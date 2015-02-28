@@ -144,26 +144,26 @@ public class OverridableMethodInConstructorCheck extends Check
      * A key is using to build a warning message about calls of an overridable
      * methods from any constructor body.
      * */
-    private final String keyCtor = "constructor";
+    private static final String KEY_CTOR = "constructor";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any clone() method is implemented from Cloneable interface.
      * */
-    private final String keyClone = "'clone()' method";
+    private static final String KEY_CLONE = "'clone()' method";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any readObject() method is implemented from Serializable
      * interface.
      * */
-    private final String keyReadObject = "'readObject()' method";
+    private static final String KEY_READ_OBJECT = "'readObject()' method";
 
     /**
      * A list contains all METHOD_CALL DetailAST nodes that have been already
      * visited by check.
      * */
-    private List<DetailAST> visitedMethodCalls = new LinkedList<DetailAST>();
+    private final List<DetailAST> visitedMethodCalls = new LinkedList<DetailAST>();
 
     /**
      * A current MethodDef AST is being processed by check.
@@ -268,7 +268,7 @@ public class OverridableMethodInConstructorCheck extends Check
             switch (detailAST.getType()) {
 
                 case TokenTypes.CTOR_DEF:
-                    logWarnings(detailAST, keyCtor);
+                logWarnings(detailAST, KEY_CTOR);
                     break;
 
                 case TokenTypes.METHOD_DEF:
@@ -279,13 +279,13 @@ public class OverridableMethodInConstructorCheck extends Check
                     if (checkCloneMethod && "clone".equals(methodName)
                         && realizesAnInterface(classDef, Cloneable.class.getSimpleName()))
                     {
-                        logWarnings(detailAST, keyClone);
+                    logWarnings(detailAST, KEY_CLONE);
                     }
                     else if (checkReadObjectMethod
                         && "readObject".equals(methodName)
                         && realizesAnInterface(classDef, Serializable.class.getSimpleName()))
                     {
-                        logWarnings(detailAST, keyReadObject);
+                    logWarnings(detailAST, KEY_READ_OBJECT);
                     }
                     break;
 

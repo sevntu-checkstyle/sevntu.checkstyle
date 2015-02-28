@@ -230,7 +230,8 @@ public class RedundantReturnCheck extends Check {
 		
 		// look for redundant returns in all catches
 		for (DetailAST catchBlockAst = getNextCatchBlock(blockAst);
-				catchBlockAst != null;) {
+				catchBlockAst != null;
+		                catchBlockAst = getNextCatchBlock(blockAst)) {
 			DetailAST lastStatementOfCatchBlockAst = catchBlockAst
 				.getLastChild().getLastChild().getPreviousSibling();
 				
@@ -243,7 +244,6 @@ public class RedundantReturnCheck extends Check {
 				}
 			}
 			blockAst = blockAst.getNextSibling();
-			catchBlockAst = getNextCatchBlock(blockAst);
 		}
 
 		// if redundant return is in finally block

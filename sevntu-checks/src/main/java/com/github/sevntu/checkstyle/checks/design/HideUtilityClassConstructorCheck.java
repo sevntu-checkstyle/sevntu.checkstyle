@@ -99,7 +99,7 @@ public class HideUtilityClassConstructorCheck extends Check
             child = child.getNextSibling();
         }
 
-        final boolean hasAccessibleCtor = (hasDefaultCtor || hasPublicCtor);
+        final boolean hasAccessibleCtor = hasDefaultCtor || hasPublicCtor;
 
         // figure out if class extends java.lang.object directly
         // keep it simple for now and get a 99% solution

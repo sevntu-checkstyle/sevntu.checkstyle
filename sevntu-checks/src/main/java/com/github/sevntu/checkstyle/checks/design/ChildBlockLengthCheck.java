@@ -152,7 +152,7 @@ public class ChildBlockLengthCheck extends Check
                 final List<DetailAST> badChildBlocks = getBadChildBlocks(
                         childBlocks, parentBlockSize);
 
-                if (badChildBlocks.size() == 0) {
+                if (badChildBlocks.isEmpty()) {
                     for (DetailAST childBlock : childBlocks) {
                         visitToken(childBlock);
                     }

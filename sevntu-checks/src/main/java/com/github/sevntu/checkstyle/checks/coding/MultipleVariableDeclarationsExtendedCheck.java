@@ -106,8 +106,8 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 	{
 
 		DetailAST nextNode = ast.getNextSibling();
-		final boolean isCommaSeparated = ((nextNode != null) && (nextNode
-				.getType() == TokenTypes.COMMA));
+		final boolean isCommaSeparated = (nextNode != null) && (nextNode
+				.getType() == TokenTypes.COMMA);
 
 		if (nextNode == null) {
 			// no nextMethods statement - no check
@@ -144,10 +144,8 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 	{
 
 		final DetailAST token = ast;
-		final boolean inFor = (ast.getParent().getType()
-				== TokenTypes.FOR_INIT);
-		final boolean inClass = (ast.getParent().getParent().getType()
-				== TokenTypes.CLASS_DEF);
+		final boolean inFor = ast.getParent().getType() == TokenTypes.FOR_INIT;
+		final boolean inClass = ast.getParent().getParent().getType() == TokenTypes.CLASS_DEF;
 
 		if (inClass) {
 			work(token);

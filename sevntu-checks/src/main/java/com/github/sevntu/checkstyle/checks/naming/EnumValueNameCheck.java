@@ -218,7 +218,7 @@ public class EnumValueNameCheck extends Check
             hasMembers(DetailAST ast, List<Pattern> excludes)
     {
         final DetailAST objBlock = ast.getParent();
-        assert (objBlock.getType() == TokenTypes.OBJBLOCK);
+        assert objBlock.getType() == TokenTypes.OBJBLOCK;
         boolean memberFound = false;
         for (DetailAST member = objBlock.getFirstChild(); member != null; member = member
                 .getNextSibling()) {
@@ -226,7 +226,7 @@ public class EnumValueNameCheck extends Check
                     || member.getType() == TokenTypes.VARIABLE_DEF) {
                 final DetailAST memberIdent = member
                         .findFirstToken(TokenTypes.IDENT);
-                assert (memberIdent != null);
+                assert memberIdent != null;
                 final String identifierStr = memberIdent.getText();
                 if (!isAnyMatched(excludes, identifierStr)) {
                     memberFound = true;
