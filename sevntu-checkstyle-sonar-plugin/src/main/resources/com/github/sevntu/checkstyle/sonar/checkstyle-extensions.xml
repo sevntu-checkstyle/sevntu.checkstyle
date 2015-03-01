@@ -599,6 +599,13 @@
         <description>Checks for the presence of useless single catch blocks.</description>
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck</configKey>
     </rule>
+	<rule>
+        <key>com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck</key>
+        <name>Nested switch should be avoided</name>
+        <category name="design"/>
+        <description>Nested switch should be avoided, extract nested switch block into separate method.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck</configKey>
+    </rule>
     <rule>
         <key>com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck</key>
         <name>Useless super constructor call</name>
