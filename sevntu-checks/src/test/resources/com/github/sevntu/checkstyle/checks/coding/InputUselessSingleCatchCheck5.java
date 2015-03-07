@@ -16,4 +16,13 @@ public class InputUselessSingleCatchCheck5
             throw e;
         }
     }
+
+    public void expressionHasMoreNodes() throws IOException {
+        try {
+            File f = new File("asd");
+            FileReader w = new FileReader(f);
+        } catch (IOException e) {
+            throw (e);
+        }
+    }
 }
