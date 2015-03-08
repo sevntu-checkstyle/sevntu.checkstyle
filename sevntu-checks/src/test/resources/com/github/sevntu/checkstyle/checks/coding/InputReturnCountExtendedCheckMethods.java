@@ -102,4 +102,40 @@ public class InputReturnCountExtendedCheckMethods
         return a;
     }
 
+    public void returnFromLiteral() {
+        if (true) {
+            return;
+        }
+
+        switch (hashCode()) {
+        case 0:
+            return;
+        }
+
+        if (false) {
+            for (;;) {
+                return;
+            }
+        }
+
+        if (false) {
+            do {
+                return;
+            } while (false);
+        }
+
+        if (false)
+            while (true) {
+                return;
+            }
+
+        try {
+            return;
+        } catch (Exception e) {
+        }
+    }
+
+    public void doNothing() {
+        return;
+    }
 }
