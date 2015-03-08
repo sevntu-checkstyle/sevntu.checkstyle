@@ -203,7 +203,7 @@ public class ChildBlockLengthCheck extends Check
             DetailAST nextNode = curNode.getFirstChild();
 
             final int type = curNode.getType();
-            // skip anonimous classes and nested methods
+            // skip anonymous classes and nested methods
             if (type == TokenTypes.METHOD_DEF
                     || type == TokenTypes.CLASS_DEF)
             {

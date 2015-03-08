@@ -126,10 +126,8 @@ public class CauseParameterInExceptionCheck extends Check
     public void setAllowedCauseTypes(final String[] allowedCauseTypes)
     {
         this.allowedCauseTypes.clear();
-        if (allowedCauseTypes != null) {
-            for (String name : allowedCauseTypes) {
-                this.allowedCauseTypes.add(name);
-            }
+        for (String name : allowedCauseTypes) {
+            this.allowedCauseTypes.add(name);
         }
     }
 
@@ -243,7 +241,7 @@ public class CauseParameterInExceptionCheck extends Check
     private static DetailAST getClassDef(final DetailAST node)
     {
         DetailAST curNode = node;
-        while (curNode != null && curNode.getType() != TokenTypes.CLASS_DEF) {
+        while (curNode.getType() != TokenTypes.CLASS_DEF) {
             curNode = curNode.getParent();
         }
         return curNode;

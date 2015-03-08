@@ -21,7 +21,7 @@ public class InputAvoidConstantAsFirstOperandInConditionCheck {
         float testConst = 5.0f;
         boolean testBool = true;
 
-        if (null == someVariable) {} //!!
+        if ((null) == someVariable) {} //!!
         if (5 == testInt) {} //!!
         if (constant == testInt) {}
         if (5.0d == (Double) someVariable) {} //!!
