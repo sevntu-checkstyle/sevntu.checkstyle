@@ -102,7 +102,9 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
 
         final int constantType = firstOperand.getType();
 
-        return isTargetConstantType(constantType) && firstOperand.branchContains(constantType) && !secondOperand.branchContains(constantType);
+        return isTargetConstantType(constantType)
+                && firstOperand.branchContains(constantType)
+                && !secondOperand.branchContains(constantType);
     }
 
     /**

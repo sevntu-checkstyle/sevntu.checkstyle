@@ -107,8 +107,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * @param wrapExcNames
      * @return true when aThrowParamNamesList contains caught exception
      */
-    private static boolean 
-                    isContainsCaughtExc(List<DetailAST> throwParamNamesList, 
+    private static boolean isContainsCaughtExc(List<DetailAST> throwParamNamesList, 
                                     List<String> wrapExcNames)
     {
         boolean result = false;
@@ -159,7 +158,7 @@ public class AvoidHidingCauseExceptionCheck extends Check
      * without entering into nested try/catch blocks.
      * @param parentAST A start node for "throw" keyword <code>DetailASTs
      * </code> searching.
-     * @return list of throw literals
+     * @return null-safe list of <code>LITERAL_THROW</code> literals
      */
     private List<DetailAST> makeThrowList(DetailAST parentAST)
     {
