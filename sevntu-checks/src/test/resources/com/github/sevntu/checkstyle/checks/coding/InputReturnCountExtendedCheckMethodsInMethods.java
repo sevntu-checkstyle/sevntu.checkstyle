@@ -155,8 +155,8 @@ public class InputReturnCountExtendedCheckMethodsInMethods {
     private class TableViewer {
 
         public TableViewer(String composite, int i)
-        {
-        }
+        { return;}
+
 
         public String getSelection()
         {

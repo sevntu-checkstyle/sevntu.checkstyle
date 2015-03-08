@@ -227,8 +227,8 @@ public class ReturnCountExtendedCheck extends Check
         final DetailAST openingBrace = methodDefNode
                 .findFirstToken(TokenTypes.SLIST);
         String methodName = getMethodName(methodDefNode);
-        if (openingBrace != null && (methodName == null 
-                || !matches(methodName, ignoreMethodsNames)))
+        if (openingBrace != null
+                && !matches(methodName, ignoreMethodsNames))
         {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
@@ -305,7 +305,7 @@ public class ReturnCountExtendedCheck extends Check
             final int type = curNode.getType();
             // skip nested methods (UI listeners, Runnable.run(), etc.)
             if (type == TokenTypes.METHOD_DEF
-                  || type == TokenTypes.CLASS_DEF) // skip anonimous classes
+                  || type == TokenTypes.CLASS_DEF) // skip anonymous classes
             {
                 nextNode = curNode.getNextSibling();
             }
@@ -334,7 +334,7 @@ public class ReturnCountExtendedCheck extends Check
     private boolean shouldEmptyReturnStatementBeCounted(DetailAST returnNode)
     {
         final DetailAST returnChildNode = returnNode.getFirstChild();
-        return !(ignoreEmptyReturns && returnChildNode != null
+        return !(ignoreEmptyReturns
                 && returnChildNode.getType() == TokenTypes.SEMI);
     }
 
@@ -433,7 +433,7 @@ public class ReturnCountExtendedCheck extends Check
      */
     private static boolean matches(String string, Collection<String> patterns) {
         boolean result = false;
-        if (string != null && patterns != null && !patterns.isEmpty()) {
+        if (!patterns.isEmpty()) {
             for (String pattern : patterns) {
                 if (string.matches(pattern)) {
                     result = true;
