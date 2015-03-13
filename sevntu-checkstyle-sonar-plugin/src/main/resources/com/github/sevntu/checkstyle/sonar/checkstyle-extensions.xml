@@ -649,5 +649,19 @@
 			<description>Array of type forbidden annotation's target.</description>
     	</param>
 	</rule>
+	
+	<rule>
+        <key>com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck</key>
+        <name>Required Parameters Annotation</name>
+        <category name="annotation"/>
+        <description>Enforce the use of configured parameters on a given annotation.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck</configKey>
+        <param key="annotationName" type="STRING">
+            <description>he name of the annotation where we are enforcing the parameter</description>
+        </param>
+        <param key="requiredParameters" type="STRING">
+            <description>Set of parameters that are required on the configured annotation. They can be specified on any order and you may use additional parameters, but these parameters need to be filled</description>
+        </param>
+    </rule>
 
 </rules>

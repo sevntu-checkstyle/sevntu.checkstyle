@@ -29,6 +29,19 @@
 		    </property-metadata>
 		    <message-key key="annotation.incorrect.target" />   
         </rule-metadata>
+        
+        <rule-metadata name="%RequiredParameterForAnnotation.name" internal-name="RequiredParameterForAnnotation" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck"/>
+            <description>%RequiredParameterForAnnotation.desc</description>
+
+            <property-metadata name="annotationName" datatype="String" default-value="">
+                    <description>%RequiredParameterForAnnotation.annotationName</description>
+            </property-metadata>
+            <property-metadata name="requiredParameters" datatype="String" default-value="">
+                    <description>%RequiredParameterForAnnotation.requiredParameters</description>
+            </property-metadata>
+            <message-key key="annotation.missing.required.parameter" />   
+        </rule-metadata>
 
     </rule-group-metadata>
 </checkstyle-metadata>
