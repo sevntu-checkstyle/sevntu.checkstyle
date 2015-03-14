@@ -150,11 +150,11 @@ public class MultipleVariableDeclarationsExtendedCheck extends Check
 		if (inClass) {
 			work(token);
 		}
-		else if (!ignoreCycles & inFor) {
+		else if (!ignoreCycles && inFor) {
 			work(token);
 		}
 
-		else if (!ignoreMethods & !inClass & !inFor) {
+		else if (!ignoreMethods && !inClass && !inFor) {
 			work(token);
 		}
 

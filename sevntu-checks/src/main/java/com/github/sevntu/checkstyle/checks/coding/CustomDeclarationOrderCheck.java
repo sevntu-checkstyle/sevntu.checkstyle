@@ -1339,7 +1339,7 @@ public class CustomDeclarationOrderCheck extends Check
         public Map<DetailAST, DetailAST> getWrongOrderedGettersSetters()
         {
             final Map<DetailAST, DetailAST> result = new LinkedHashMap<DetailAST, DetailAST>();
-            if (!getters.isEmpty() & !setters.isEmpty()) {
+            if (!getters.isEmpty() && !setters.isEmpty()) {
                 //  all getters and setters
                 final List<DetailAST> allGettersSetters = new ArrayList<DetailAST>(getters);
                 allGettersSetters.addAll(setters);
