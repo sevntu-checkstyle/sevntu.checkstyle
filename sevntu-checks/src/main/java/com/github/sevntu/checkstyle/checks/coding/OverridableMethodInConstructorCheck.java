@@ -468,7 +468,8 @@ public class OverridableMethodInConstructorCheck extends Check
                 final DetailAST lastChild = childAST.getLastChild();
 
                 if (firstChild.getType() == TokenTypes.LITERAL_THIS
-                        || firstChild.getType() == TokenTypes.LPAREN)
+                        || firstChild.getType() == TokenTypes.LPAREN
+                        || firstChild.getType() == TokenTypes.DOT)
                 {
                     result = lastChild.getText();
                 }
@@ -516,7 +517,7 @@ public class OverridableMethodInConstructorCheck extends Check
             if (callsChild.getType() != TokenTypes.DOT ||
                     (variableTypeName = getVariableType(methodCallAST)) == null
                     || (isItTypeOfCurrentClass(variableTypeName, curClassAST) ||
-                    "this".equals(variableTypeName)))
+                    isItCallMethodViaKeywordThis(variableTypeName, curClassAST)))
             {
                 getMethodDef(curClassAST, methodName);
             }
@@ -590,6 +591,11 @@ public class OverridableMethodInConstructorCheck extends Check
                 DetailAST type = typeCast.getFirstChild().getFirstChild();
                 typeName = type.getText();
             }
+            else if (dotChild.getType() == TokenTypes.DOT)
+            {
+                typeName = dotChild.getFirstChild().getText() +
+                        "." + dotChild.getLastChild().getText();
+            }
 
         }
         return typeName;
@@ -627,7 +633,22 @@ public class OverridableMethodInConstructorCheck extends Check
         }
         return result;
     }
-
+    
+    /**
+     * Return true when the method called via keyword "this" (this.methodName 
+     * or ClassName.this.methodName)
+     * @param firstPartOfTheMethodCall
+     * @param classDefNode
+     * @return
+     */
+    private static boolean
+            isItCallMethodViaKeywordThis(String firstPartOfTheMethodCall, DetailAST classDefNode)
+    {
+        String className = classDefNode.findFirstToken(TokenTypes.IDENT).getText();
+        return "this".equals(firstPartOfTheMethodCall) 
+                || (className + ".this").equals(firstPartOfTheMethodCall);
+    }
+    
     /**
      * Gets the method definition is related to the current METHOD_CALL
      * DetailAST using the name of method to be searched. Ignores overloaded

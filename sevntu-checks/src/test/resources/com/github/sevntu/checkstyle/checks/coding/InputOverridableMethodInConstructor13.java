@@ -25,6 +25,7 @@ public class InputOverridableMethodInConstructor13 {
             ((Object1) clone).doSmth(); // ! a warning here
             accept(new File("1.txt")); // ! a warning here
             this.accept(new File("1.txt")); // ! a warning here
+            Object1.this.accept(new File("1.txt")); // ! a warning here
             accept2(new File("1.txt")); // no warnings here
             return clone;
 		}
