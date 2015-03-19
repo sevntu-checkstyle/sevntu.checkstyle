@@ -15,6 +15,7 @@ public class InputOverridableMethodInConstructor17 {
 
 		public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 			 doSmth(); //!!
+			 Object1.this.doSmth(); //!!
 		}
 
 		public final void doSmth(String value) {

@@ -29,6 +29,7 @@ public class InputOverridableMethodInConstructor12 {
         	 System.out.println("1"); // no warnings here
              doSmth(); // no warnings here
              this.doSmth(); // no warnings here
+             Object1.this.doSmth(); // no warnings here
              Object1.doSmth(); // no warnings here
              Object2.doSmth3(); // no warnings here
         }
