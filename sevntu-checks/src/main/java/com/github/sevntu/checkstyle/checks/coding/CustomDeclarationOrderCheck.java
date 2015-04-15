@@ -36,7 +36,7 @@ import org.apache.commons.beanutils.ConversionException;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.api.Utils;
+import com.puppycrawl.tools.checkstyle.Utils;
 
 /**
  * <p>
@@ -1261,7 +1261,7 @@ public class CustomDeclarationOrderCheck extends Check
         private void updateRegexp(final String format, final int compileFlags)
         {
             try {
-                regExp = Utils.getPattern(format, compileFlags);
+                regExp = Pattern.compile(format, compileFlags);
                 this.format = format;
             }
             catch (final PatternSyntaxException e) {

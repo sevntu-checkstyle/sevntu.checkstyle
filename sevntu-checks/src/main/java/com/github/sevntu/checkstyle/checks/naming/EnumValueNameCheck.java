@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.api.Utils;
+import com.puppycrawl.tools.checkstyle.Utils;
 
 /**
  * Check forces enum values to match the specific pattern. According to
@@ -122,7 +122,7 @@ public class EnumValueNameCheck extends Check
     private final List<Pattern> excludes;
 
     /**
-     * Constructs check with the default pattern.
+     * Constructs check with the default pattern.compile
      */
     public EnumValueNameCheck()
     {
@@ -138,7 +138,7 @@ public class EnumValueNameCheck extends Check
      */
     public final void setConstFormat(String constRegexp)
     {
-        this.constRegexp = Utils.getPattern(constRegexp, 0);
+        this.constRegexp = Pattern.compile(constRegexp, 0);
         constFormat = constRegexp;
     }
 
@@ -148,7 +148,7 @@ public class EnumValueNameCheck extends Check
      */
     public final void setObjFormat(String objectRegexp)
     {
-        objRegexp = Utils.getPattern(objectRegexp, 0);
+        objRegexp = Pattern.compile(objectRegexp, 0);
         objFormat = objectRegexp;
     }
 
@@ -161,7 +161,7 @@ public class EnumValueNameCheck extends Check
     {
         this.excludes.clear();
         for (String exclude: excludes) {
-            this.excludes.add(Utils.getPattern(exclude));
+            this.excludes.add(Pattern.compile(exclude));
         }
     }
 

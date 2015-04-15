@@ -29,7 +29,7 @@ import org.apache.commons.beanutils.ConversionException;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.api.Utils;
+import com.puppycrawl.tools.checkstyle.Utils;
 
 /**
  * Checks for long lines.
@@ -265,7 +265,7 @@ public class LineLengthExtendedCheck extends Check
 	public void setIgnorePattern(String format) throws ConversionException
 	{
 		try {
-			ignorePattern = Utils.getPattern(format);
+			ignorePattern = Pattern.compile(format);
 		} catch (final PatternSyntaxException e) {
 			throw new ConversionException("unable to parse " + format, e);
 		}
