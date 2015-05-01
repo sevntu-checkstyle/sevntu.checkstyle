@@ -154,9 +154,9 @@
 			<description>%ForbidCCommentsInMethods.desc</description>
 		</rule-metadata>
 		
-		<rule-metadata name="%ForbidReturnInFinalBlockCheck.name" internal-name="ForbidReturnInFinalBlockCheck" parent="TreeWalker">
-			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck"/>
-			<description>%ForbidReturnInFinalBlockCheck.desk</description>
+		<rule-metadata name="%ForbidReturnInFinallyBlockCheck.name" internal-name="ForbidReturnInFinallyBlockCheck" parent="TreeWalker">
+			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck"/>
+			<description>%ForbidReturnInFinallyBlockCheck.desk</description>
 		</rule-metadata>
 		
 		<rule-metadata name="%ForbidThrowAnonymousExceptionsCheck.name" internal-name="ForbidThrowAnonymousExceptionsCheck" parent="TreeWalker">

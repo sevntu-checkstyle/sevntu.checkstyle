@@ -326,11 +326,11 @@
     	</param>
 	</rule>
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck</key>
+		<key>com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck</key>
 		<name>Forbid return statement in finally block</name>
 		<category name="coding"/>
 		<description>Verifies the finally block design.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck</configKey>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck</key>
