@@ -29,7 +29,7 @@
       <property name="caseSensitive" value="true"/>
       <property name="fieldPrefix" value=""/>
     </module>
-    <module name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinalBlockCheck">
+    <module name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck">
       <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck">
