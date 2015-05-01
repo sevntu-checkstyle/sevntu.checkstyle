@@ -110,7 +110,7 @@ deployMavenPlugin()
 deploySonar()
 	{
 		cd $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/
-		mvn install wagon:upload-single
+		mvn clean install wagon:upload-single
 		cd $REPO_HOME_DIR/gh-pages
 		echo "$manualDeploy"
 		return
