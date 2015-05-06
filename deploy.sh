@@ -42,9 +42,9 @@ prepareForDeploy()
 
 deployAll()
 	{
-		deployIdea
-		deployEclipse
 		deployMaven
+		deployEclipse
+		deployIdea
 		deploySonar
 		echo "$manualDeploy"
 		return
