@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="501">
+        <rule-metadata name="%PrimitiveLiteralsCaseCheck.name" internal-name="PrimitiveLiteralsCaseCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.misc.PrimitiveLiteralsCaseCheck" />
+            <description>%PrimitiveLiteralsCaseCheck.desc</description>
+            <property-metadata name="requiredCase" datatype="String" default-value="upper">
+                 <description>%PrimitiveLiteralsCaseCheck.requiredCase</description>
+            </property-metadata>
+            <!--
+            TODO: switch to SingleSelect, when check migratest to main project
+            <property-metadata name="option" datatype="SingleSelect" default-value="UPPER">
+                <description>%PrimitiveLiteralsCaseCheck.option</description>
+                <enumeration option-provider="com.github.sevntu.checkstyle.CharacterCase"/>
+            </property-metadata>
+            -->
+            <property-metadata name="tokens" datatype="MultiCheck"
+                default-value="NUM_LONG,NUM_FLOAT,NUM_DOUBLE">
+                <description>%PrimitiveLiteralsCaseCheck.tokens</description>
+                <enumeration>
+                    <property-value-option value="NUM_LONG"/>
+                    <property-value-option value="NUM_FLOAT"/>
+                    <property-value-option value="NUM_DOUBLE"/>
+                </enumeration>
+            </property-metadata>
+        </rule-metadata>
+    </rule-group-metadata>
+</checkstyle-metadata>

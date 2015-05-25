@@ -725,6 +725,20 @@
         </param>
     </rule>
 
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.misc.PrimitiveLiteralsCaseCheck</key>
+        <name>Primitive literals case check</name>
+        <category name="misc"/>
+        <description>Checks for the same case of primitive literals, for example: 50.0f and 50.0F</description>
+        <configKey>com.github.sevntu.checkstyle.checks.misc.PrimitiveLiteralsCaseCheck</configKey>
+        <param key="requiredCase" type="STRING">
+            <description>Whether to use uppercase ("upper" value) or lowercase ("lower" value) for primitive literals</description>
+        </param>
+        <param key="tokens" type="STRING">
+            <description>Tokens to restrict</description>
+        </param>
+    </rule>
+
     <!-- 'whitespace' checks -->
     <rule>
         <key>com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck</key>
