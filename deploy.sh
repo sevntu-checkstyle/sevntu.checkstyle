@@ -19,113 +19,113 @@ manualDeploy="
 For new version deploy please do:
 
     cd gh-pages && git add . && git commit -m \"new version deploy\" && git push origin gh-pages
-		"
+        "
 
 prepareForDeploy()
-	{
-		#clean
-		rm -rf $REPO_HOME_DIR/gh-pages
+    {
+        #clean
+        rm -rf $REPO_HOME_DIR/gh-pages
 
-		#prepare folders for update-site and our release maven repository
-		mkdir $REPO_HOME_DIR/gh-pages
-		cd $REPO_HOME_DIR/gh-pages
+        #prepare folders for update-site and our release maven repository
+        mkdir $REPO_HOME_DIR/gh-pages
+        cd $REPO_HOME_DIR/gh-pages
 
-		git init
-		git remote add origin https://github.com/sevntu-checkstyle/sevntu.checkstyle.git
-		git fetch origin gh-pages:refs/remotes/origin/gh-pages
-		git checkout gh-pages
+        git init
+        git remote add origin https://github.com/sevntu-checkstyle/sevntu.checkstyle.git
+        git fetch origin gh-pages:refs/remotes/origin/gh-pages
+        git checkout gh-pages
 
-		cd $REPO_HOME_DIR
+        cd $REPO_HOME_DIR
 
-		return
-	}		
+        return
+    }        
 
 deployIdea()
-	{
-		cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
-		mvn deploy
-		if [ "$?" != "0" ]
-		then
+    {
+        cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
+        mvn deploy
+        if [ "$?" != "0" ]
+        then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
             exit 1
-		fi
-		
-		cd $REPO_HOME_DIR/gh-pages
-		echo "$manualDeploy"
-		return
-	}
+        fi
+        
+        cd $REPO_HOME_DIR/gh-pages
+        echo "$manualDeploy"
+        return
+    }
 
 deployEclipse()
-	{
-		cd $REPO_HOME_DIR
+    {
+        cd $REPO_HOME_DIR
                 #echo -n "Enter version number: "
                 #read version
                 #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
-		mvn clean install -f eclipse-pom.xml
-		if [ "$?" != "0" ]
-		then
+        mvn clean install -f eclipse-pom.xml
+        if [ "$?" != "0" ]
+        then
             echo "build for eclipse-pom.xml."
             exit 1
-		fi
+        fi
 
-		cd $REPO_HOME_DIR/update-site
-		mvn wagon:upload
-		cd ../gh-pages
-		echo "$manualDeploy"
-		return
-	}
+        cd $REPO_HOME_DIR/update-site
+        mvn wagon:upload
+        cd ../gh-pages
+        echo "$manualDeploy"
+        return
+    }
 
 deployMavenLibrary()
-	{
-		# As we do not use SNAPSHOT qualifier for developemnt in pom.xml
-		# we have to deploy library sevntu-checks always even it overides existing binaries in maven repository
-		# for relase build - it will not override binaries 
-		# for test build - it will override as we need to be sure that in repository, 
-		#                  we have previous release version but compiled with from new code
-		cd $REPO_HOME_DIR/sevntu-checks
-		mvn deploy
-		if [ "$?" != "0" ]
-		then
+    {
+        # As we do not use SNAPSHOT qualifier for developemnt in pom.xml
+        # we have to deploy library sevntu-checks always even it overides existing binaries in maven repository
+        # for relase build - it will not override binaries 
+        # for test build - it will override as we need to be sure that in repository, 
+        #                  we have previous release version but compiled with from new code
+        cd $REPO_HOME_DIR/sevntu-checks
+        mvn deploy
+        if [ "$?" != "0" ]
+        then
             echo "build for $REPO_HOME_DIR/sevntu-checks."
             exit 1
-		fi
+        fi
 
-		cd $REPO_HOME_DIR
+        cd $REPO_HOME_DIR
 
-		# no need push to repository only library it should be done together with IDE plugins release
-		#cd ../gh-pages
-		#echo "$manualDeploy"
-		return
-	}
+        # no need push to repository only library it should be done together with IDE plugins release
+        #cd ../gh-pages
+        #echo "$manualDeploy"
+        return
+    }
 
 deployMavenPlugin()
-	{
-		cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
-		mvn deploy
-		if [ "$?" != "0" ]
-		then
+    {
+        cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
+        mvn deploy
+        if [ "$?" != "0" ]
+        then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/."
             exit 1
-		fi
+        fi
 
-		cd $REPO_HOME_DIR/gh-pages
-		echo "$manualDeploy"
-		return
-	}
+        cd $REPO_HOME_DIR/gh-pages
+        echo "$manualDeploy"
+        return
+    }
 
 deploySonar()
-	{
-		cd $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/
-		mvn clean install wagon:upload-single
-		if [ "$?" != "0" ]
-		then
+    {
+        cd $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/
+        mvn clean install wagon:upload-single
+        if [ "$?" != "0" ]
+        then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/"
             exit 1
-		fi
-		cd $REPO_HOME_DIR/gh-pages
-		echo "$manualDeploy"
-		return
-	}
+        fi
+        cd $REPO_HOME_DIR/gh-pages
+        echo "$manualDeploy"
+        return
+    }
 
 if [ $# -eq 0 ]
   then
