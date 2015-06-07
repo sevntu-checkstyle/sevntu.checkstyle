@@ -26,7 +26,6 @@ import com.google.common.collect.Lists;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.Utils;
 
 /**
  * Check forces enum values to match the specific pattern. According to

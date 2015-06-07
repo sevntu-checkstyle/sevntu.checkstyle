@@ -29,7 +29,6 @@ import com.google.common.collect.Maps;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.Utils;
 
 /**
  * Checks for multiple occurrences of the same string literal within a single file.

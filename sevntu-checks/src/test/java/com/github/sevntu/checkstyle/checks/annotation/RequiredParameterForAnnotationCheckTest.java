@@ -21,6 +21,7 @@ package com.github.sevntu.checkstyle.checks.annotation;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.sun.tools.javac.util.Assert;
 
 public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSupport
 {
@@ -198,7 +199,8 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
             throws Exception
     {
         RequiredParameterForAnnotationCheck check = new RequiredParameterForAnnotationCheck();
-        int[] token = check.getRequiredTokens();
+        int[] tokens = check.getRequiredTokens();
+        Assert.checkNonNull(tokens);
     }
    
 }
