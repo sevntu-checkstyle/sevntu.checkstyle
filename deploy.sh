@@ -54,6 +54,12 @@ deployIdea()
 	{
 		cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
 		mvn deploy
+		if [ "$?" != "0" ]
+		then
+			echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
+			exit 1
+		fi
+		
 		cd $REPO_HOME_DIR/gh-pages
 		echo "$manualDeploy"
 		return
@@ -66,6 +72,12 @@ deployEclipse()
                 #read version
                 #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
 		mvn clean install -f eclipse-pom.xml
+		if [ "$?" != "0" ]
+		then
+			echo "build for eclipse-pom.xml."
+			exit 1
+		fi
+
 		cd $REPO_HOME_DIR/update-site
 		mvn wagon:upload
 		cd ../gh-pages
@@ -90,6 +102,12 @@ deployMavenLibrary()
 		#                  we have previous release version but compiled with from new code
 		cd $REPO_HOME_DIR/sevntu-checks
 		mvn deploy
+		if [ "$?" != "0" ]
+		then
+			echo "build for $REPO_HOME_DIR/sevntu-checks."
+			exit 1
+		fi
+
 		cd $REPO_HOME_DIR
 
 		# no need push to repository only library it should be done together with IDE plugins release
@@ -102,6 +120,12 @@ deployMavenPlugin()
 	{
 		cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
 		mvn deploy
+		if [ "$?" != "0" ]
+		then
+			echo "build for $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/."
+			exit 1
+		fi
+
 		cd $REPO_HOME_DIR/gh-pages
 		echo "$manualDeploy"
 		return
@@ -111,6 +135,11 @@ deploySonar()
 	{
 		cd $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/
 		mvn clean install wagon:upload-single
+		if [ "$?" != "0" ]
+		then
+			echo "build for $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/"
+			exit 1
+		fi
 		cd $REPO_HOME_DIR/gh-pages
 		echo "$manualDeploy"
 		return
