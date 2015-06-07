@@ -35,7 +35,8 @@ public class DiamondOperatorForVariableDefinitionCheckTest extends BaseCheckTest
                 "28:50: " + getCheckMessage(MSG_KEY),
                 "29:41: " + getCheckMessage(MSG_KEY),
                 "59:40: " + getCheckMessage(MSG_KEY),
-                "60:83: " + getCheckMessage(MSG_KEY)
+                "60:83: " + getCheckMessage(MSG_KEY),
+                "79:48: " + getCheckMessage(MSG_KEY)
                 };
         verify(checkConfig,
                 getPath("InputDiamondOperatorForVariableDefinitionCheck.java"), expected);

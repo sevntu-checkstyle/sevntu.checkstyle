@@ -18,6 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -55,34 +59,58 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
         DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);
         
         if (assignNode != null) {
-        
-            DetailAST newNode = assignNode.getFirstChild().getFirstChild();
-            
-            if (newNode.getType() == TokenTypes.LITERAL_NEW
-                    && newNode.getLastChild().getType() != TokenTypes.OBJBLOCK) {
 
-                DetailAST typeArgs = newNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
-                if (typeArgs != null && isSameTypeArgsInVariableDef(variableDefNode, typeArgs)) {
-                    log(typeArgs, MSG_KEY);
+            DetailAST newNode = assignNode.getFirstChild().getFirstChild();
+
+            // we checking only creation by NEW
+            if (newNode.getType() == TokenTypes.LITERAL_NEW) {
+
+                DetailAST variableDefNodeType =
+                        variableDefNode.findFirstToken(TokenTypes.TYPE);
+                DetailAST varDefArguments =
+                        getFirstChildTokenOfType(variableDefNodeType,TokenTypes.TYPE_ARGUMENTS);
+
+                // generics has to be on left side
+                if (varDefArguments != null
+                        && newNode.getLastChild().getType() != TokenTypes.OBJBLOCK
+                        // arrays can not be generics
+                        && newNode.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
+
+                        DetailAST typeArgs =
+                                getFirstChildTokenOfType(newNode, TokenTypes.TYPE_ARGUMENTS);
+
+                        if (typeArgs != null && varDefArguments.equalsTree(typeArgs)) {
+                            log(typeArgs, MSG_KEY);
+                        }
                 }
             }
         }
     }
 
     /**
-     * Checks if type arguments of left and right side of assignment are equals
-     * @param variableDefNode
-     *          current variable definition
-     * @param typeArgs
-     *          right type arguments of assignment
-     * @return true or false
+     * Gets the return type of method or field type.
+     * @param typeAst
+     *        AST subtree to process.
      */
-    private static boolean isSameTypeArgsInVariableDef(DetailAST variableDefNode,
-            DetailAST typeArgs) {
-
-        DetailAST typeNode = variableDefNode.findFirstToken(TokenTypes.TYPE);
-        DetailAST variableDefTypeArgs = typeNode.findFirstToken(TokenTypes.TYPE_ARGUMENTS);
+    private static DetailAST getFirstChildTokenOfType(DetailAST rootToken, int tokenType) {
         
-        return variableDefTypeArgs.equalsTree(typeArgs);            
+        DetailAST resultNode = null;
+        DetailAST currentNode = rootToken.getFirstChild();
+        while (currentNode != null) {
+            if (currentNode.getType() == tokenType) {
+                resultNode = currentNode;
+                break;
+            }
+            DetailAST childNode = getFirstChildTokenOfType(currentNode, tokenType);
+            if (childNode == null) {
+                currentNode = currentNode.getNextSibling();
+            }
+            else {
+                resultNode = childNode;
+                break;
+            }
+        }
+        return resultNode;
     }
+
 }

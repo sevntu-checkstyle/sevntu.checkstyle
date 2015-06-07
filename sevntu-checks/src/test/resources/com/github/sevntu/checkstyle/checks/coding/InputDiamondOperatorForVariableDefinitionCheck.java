@@ -70,6 +70,23 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
     
     Object obj;
     
+    Class<?>[] resolvedInterfaces = new Class<?>[5];
+    Class<?> resolvedInterfacesDif[] = new Class<?>[5];
+    // Class<?>[] resolvedInterfaces2 = new Class<>[5]; // does not compile
+    // Class<Integer>[] resolvedInterfaces2 = new Class<Integer>[5]; // does not compile
+
+    private Object[] statusArray;
+    List<Object> ruleViolations = new ArrayList<Object>(Arrays.asList(statusArray));
+
+    interface RuleViolation {
+       void doSmth();
+    }
+    class ParametricRuleViolation<T> implements RuleViolation {
+        public void doSmth() {
+            // no code
+        }
+    }
+    RuleViolation ruleViolation = new ParametricRuleViolation<Object>();
 }
     
     
