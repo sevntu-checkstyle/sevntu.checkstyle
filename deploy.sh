@@ -43,7 +43,7 @@ prepareForDeploy()
 deployIdea()
     {
         cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
-        mvn deploy
+        mvn clean deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
@@ -83,7 +83,7 @@ deployMavenLibrary()
         # for test build - it will override as we need to be sure that in repository, 
         #                  we have previous release version but compiled with from new code
         cd $REPO_HOME_DIR/sevntu-checks
-        mvn deploy
+        mvn clean deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checks."
@@ -101,7 +101,7 @@ deployMavenLibrary()
 deployMavenPlugin()
     {
         cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
-        mvn deploy
+        mvn clean deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/."
