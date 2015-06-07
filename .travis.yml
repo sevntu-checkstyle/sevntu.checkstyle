@@ -5,8 +5,11 @@ jdk:
   - openjdk7
   - oraclejdk8
 
-before_install: cd sevntu-checks
-install: mvn clean verify
+install: cd sevntu-checks && mvn clean verify
+      && cd ../eclipsecs-sevntu-plugin && mvn verify
+      && cd ../sevntu-checkstyle-maven-plugin && mvn verify
+      && cd ../sevntu-checkstyle-idea-extension && mvn verify
+      && cd ../sevntu-checkstyle-sonar-plugin && mvn verify
 
 after_success:
   - mvn jacoco:report coveralls:jacoco 
