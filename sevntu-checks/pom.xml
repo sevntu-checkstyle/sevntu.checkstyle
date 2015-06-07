@@ -86,7 +86,7 @@
                 <branchRate>100</branchRate>
                 <lineRate>100</lineRate>
                 <totalBranchRate>88</totalBranchRate>
-                <totalLineRate>97</totalLineRate>
+                <totalLineRate>96</totalLineRate>
                 <regexes>
                     <regex><pattern>.*.checks.annotation.ForbidAnnotationCheck</pattern><branchRate>70</branchRate><lineRate>96</lineRate></regex>
                     <regex><pattern>.*.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</pattern><branchRate>87</branchRate><lineRate>100</lineRate></regex>
