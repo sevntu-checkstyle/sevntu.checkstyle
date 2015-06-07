@@ -40,24 +40,14 @@ prepareForDeploy()
 		return
 	}		
 
-deployAll()
-	{
-		deployMaven
-		deployEclipse
-		deployIdea
-		deploySonar
-		echo "$manualDeploy"
-		return
-	}
-
 deployIdea()
 	{
 		cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
 		mvn deploy
 		if [ "$?" != "0" ]
 		then
-			echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
-			exit 1
+            echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
+            exit 1
 		fi
 		
 		cd $REPO_HOME_DIR/gh-pages
@@ -74,21 +64,13 @@ deployEclipse()
 		mvn clean install -f eclipse-pom.xml
 		if [ "$?" != "0" ]
 		then
-			echo "build for eclipse-pom.xml."
-			exit 1
+            echo "build for eclipse-pom.xml."
+            exit 1
 		fi
 
 		cd $REPO_HOME_DIR/update-site
 		mvn wagon:upload
 		cd ../gh-pages
-		echo "$manualDeploy"
-		return
-	}
-
-deployMaven()
-	{
-		deployMavenLibrary
-		deployMavenPlugin
 		echo "$manualDeploy"
 		return
 	}
@@ -104,8 +86,8 @@ deployMavenLibrary()
 		mvn deploy
 		if [ "$?" != "0" ]
 		then
-			echo "build for $REPO_HOME_DIR/sevntu-checks."
-			exit 1
+            echo "build for $REPO_HOME_DIR/sevntu-checks."
+            exit 1
 		fi
 
 		cd $REPO_HOME_DIR
@@ -122,8 +104,8 @@ deployMavenPlugin()
 		mvn deploy
 		if [ "$?" != "0" ]
 		then
-			echo "build for $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/."
-			exit 1
+            echo "build for $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/."
+            exit 1
 		fi
 
 		cd $REPO_HOME_DIR/gh-pages
@@ -137,8 +119,8 @@ deploySonar()
 		mvn clean install wagon:upload-single
 		if [ "$?" != "0" ]
 		then
-			echo "build for $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/"
-			exit 1
+            echo "build for $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/"
+            exit 1
 		fi
 		cd $REPO_HOME_DIR/gh-pages
 		echo "$manualDeploy"
@@ -159,7 +141,12 @@ do
             ;;
         --all)
             prepareForDeploy
-            deployAll
+            deployMavenLibrary
+            deployMavenPlugin
+            deployEclipse
+            deployIdea
+            deploySonar
+            echo "$manualDeploy"
             shift 1
             ;;
         --eclipse-cs)
