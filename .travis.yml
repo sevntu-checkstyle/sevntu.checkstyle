@@ -5,6 +5,10 @@ jdk:
   - openjdk7
   - oraclejdk8
 
+before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
+      && cd eclipse-cs-git/ && git checkout 6.5.0
+      && cd net.sf.eclipsecs.parent/ && mvn install
+
 install: cd sevntu-checks && mvn clean verify
       && cd ../eclipsecs-sevntu-plugin && mvn verify
       && cd ../sevntu-checkstyle-maven-plugin && mvn verify
