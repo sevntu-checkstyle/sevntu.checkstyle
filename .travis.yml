@@ -1,11 +1,23 @@
 language: java
+sudo: false
 
 jdk:
   - openjdk7
-  - oraclejdk7
-  
+  - oraclejdk8
+
 before_install: cd sevntu-checks
 install: mvn clean verify
 
 after_success:
   - mvn jacoco:report coveralls:jacoco 
+
+cache:
+  directories:
+  - ~/.m2
+
+branches:
+  only:
+    - master
+
+matrix:
+  fast_finish: true
