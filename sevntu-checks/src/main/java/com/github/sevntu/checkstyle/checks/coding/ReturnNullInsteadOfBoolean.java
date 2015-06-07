@@ -1,9 +1,11 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
-import com.puppycrawl.tools.checkstyle.api.FastStack;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
@@ -22,7 +24,7 @@ public class ReturnNullInsteadOfBoolean extends Check {
     public final static String MSG_KEY = "return.null.Boolean";
 
     /** Stack of states of the need in exploring the methods. */
-    private final FastStack<Boolean> methodStack = FastStack.newInstance();
+    private final Deque<Boolean> methodStack = new ArrayDeque<Boolean>();
     /** Should we explore current method or not. */
     private boolean exploreMethod = false;
 
