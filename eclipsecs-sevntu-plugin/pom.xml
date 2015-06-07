@@ -79,7 +79,7 @@
 		    <overWrite>true</overWrite>
 		    <outputDirectory>${basedir}/target/classes</outputDirectory>
 		    <includes>
-		      com/github/sevntu/checkstyle/checks/**/*.class, 
+		      com/github/sevntu/checkstyle/**/*.class,
 		      com/github/sevntu/checkstyle/**/m*.properties
 		    </includes>
 		  </artifactItem>
