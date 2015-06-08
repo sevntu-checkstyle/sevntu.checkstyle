@@ -15,10 +15,9 @@ install: cd sevntu-checks && mvn clean install
       && cd ../sevntu-checkstyle-maven-plugin && mvn verify
       && cd ../sevntu-checkstyle-idea-extension && mvn verify
       && cd ../sevntu-checkstyle-sonar-plugin && mvn verify
-      && cd ../
+      && cd ../ && pwd
 
-after_success:
-  - cd sevntu-checks && mvn jacoco:report coveralls:jacoco
+after_success: cd sevntu-checks && mvn jacoco:report coveralls:jacoco
 
 cache:
   directories:
