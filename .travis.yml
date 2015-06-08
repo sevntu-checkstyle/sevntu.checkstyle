@@ -10,7 +10,7 @@ before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
       && cd net.sf.eclipsecs.parent/ && mvn install
       && cd ../../
 
-install: cd sevntu-checks && mvn clean verify
+install: cd sevntu-checks && mvn clean install
       && cd ../eclipsecs-sevntu-plugin && mvn verify
       && cd ../sevntu-checkstyle-maven-plugin && mvn verify
       && cd ../sevntu-checkstyle-idea-extension && mvn verify
