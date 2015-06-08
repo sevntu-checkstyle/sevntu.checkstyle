@@ -18,7 +18,7 @@ install: cd sevntu-checks && mvn clean install
       && cd ../
 
 after_success:
-  - mvn jacoco:report coveralls:jacoco 
+  - cd sevntu-checks && mvn jacoco:report coveralls:jacoco
 
 cache:
   directories:
