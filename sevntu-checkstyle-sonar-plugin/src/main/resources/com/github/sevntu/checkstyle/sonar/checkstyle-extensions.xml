@@ -338,7 +338,7 @@
 		<category name="coding"/>
 		<description>This Check warns on throwing anonymous exception.</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck</configKey>
-		<param key="exceptionClassNameRegex" type="REGEX">
+		<param key="exceptionClassNameRegex" type="REGULAR_EXPRESSION">
 			<defaultValue>^.Exception</defaultValue>
 			<description>Regex for exception class name matching</description>
     	</param>
@@ -428,15 +428,15 @@
         <category name="coding"/>
         <description>This check verifies the name of JUnit4 test class for compliance with user defined naming convention(by default Check expects test classes names matching ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*" regex ).Class is considered to be a test if its definition or one of its method definitions annotated with user defined annotations. By default Check looks for classes which contain methods annotated with "Test" or "org.junit."Test.</description>
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck</configKey>
-        <param key="expectedClassNameRegex" type="REGEX">
+        <param key="expectedClassNameRegex" type="REGULAR_EXPRESSION">
             <defaultValue>.+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*</defaultValue>
             <description>Regular expression which matches expected test class names.</description>
         </param>
-        <param key="classAnnotationNameRegex" type="REGEX">
+        <param key="classAnnotationNameRegex" type="REGULAR_EXPRESSION">
             <defaultValue></defaultValue>
             <description>Regular expression which matches test annotation names on classes.</description>
         </param>
-        <param key="methodAnnotationNameRegex" type="REGEX">
+        <param key="methodAnnotationNameRegex" type="REGULAR_EXPRESSION">
             <defaultValue>Test|org.junit.Test</defaultValue>
             <description>Regular expression which matches test annotation names on methods.</description>
         </param>
