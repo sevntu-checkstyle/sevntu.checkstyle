@@ -116,12 +116,12 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
 
         DetailAST currentNode = detailAST;
         // look for EXPR which is always around BOR/BAND... operators
-        while (currentNode.getType() != TokenTypes.EXPR)
+        while (currentNode != null && currentNode.getType() != TokenTypes.EXPR)
         {
             currentNode = currentNode.getParent();
         }
 
-        if (isBooleanExpression(currentNode)) {
+        if (currentNode != null && isBooleanExpression(currentNode)) {
             log(detailAST, MSG_KEY, detailAST.getText());
         }
 
