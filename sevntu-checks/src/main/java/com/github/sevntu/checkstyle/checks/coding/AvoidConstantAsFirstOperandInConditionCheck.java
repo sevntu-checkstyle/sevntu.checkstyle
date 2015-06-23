@@ -18,6 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
+import com.puppycrawl.tools.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -70,7 +71,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
         if (targets != null) {
             targetConstantTypes = new int[targets.length];
             for (int i = 0; i < targets.length; i++) {
-                targetConstantTypes[i] = TokenTypes.getTokenId(targets[i]);
+                targetConstantTypes[i] = Utils.getTokenId(targets[i]);
             }
             Arrays.sort(targetConstantTypes);
         }

@@ -41,7 +41,7 @@ public final class Utils
     public static void reportInvalidToken(int token)
     {
         throw new IllegalArgumentException("Found unsupported token: "
-                + TokenTypes.getTokenName(token));
+                + com.puppycrawl.tools.checkstyle.Utils.getTokenName(token));
     }
 
     /**
