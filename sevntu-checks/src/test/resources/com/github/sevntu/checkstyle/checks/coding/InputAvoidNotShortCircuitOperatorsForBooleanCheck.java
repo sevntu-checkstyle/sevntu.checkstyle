@@ -140,6 +140,18 @@ public class InputAvoidNotShortCircuitOperatorsForBooleanCheck {
     {
         return !value;
     }
+    
+    public void multiCatch()
+    {
+        try
+        {
+          
+        }
+        catch (NullPointerException | IndexOutOfBoundsException ex)
+        {
+          
+        } 
+    }
 }
 
 class MyConstructor
