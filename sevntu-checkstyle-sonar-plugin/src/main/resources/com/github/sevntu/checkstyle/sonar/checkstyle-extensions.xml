@@ -93,7 +93,7 @@
 		<name>Diamond Operator For Variable Definition</name>
 		<category name="design"/>
 		<description>Highlights variable definition statements where diamond operator could be used</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.DiamondOperatorForVariableDefinitionCheck</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck</configKey>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck</key>
@@ -309,10 +309,13 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck</configKey>
 		<param key="packageNameRegexp" type="REGULAR_EXPRESSION">
 			<description>Package name regexp.</description>
-    	</param>
-    	<param key="forbiddenImportRegexp" type="REGULAR_EXPRESSION">
+		</param>
+		<param key="forbiddenImportsRegexp" type="REGULAR_EXPRESSION">
 			<description>Forbidden import name regexp.</description>
-    	</param>
+		</param>
+		<param key="forbiddenImportsExcludesRegexp" type="REGULAR_EXPRESSION">
+			<description>Regexp for excluding imports from checking.</description>
+		</param>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</key>
@@ -370,7 +373,7 @@
 		<name>Map Iteration In For Each Loop</name>
 		<category name="coding"/>
 		<description>This check can help you to write the whole for-each map iteration more correctly.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck</configKey>
 		<param key="proposeValuesUsage" type="BOOLEAN">
 			<defaultValue>true</defaultValue>
 			<description>If this checkbox is checked, Check will propose to replace wrong usage to value().</description>
