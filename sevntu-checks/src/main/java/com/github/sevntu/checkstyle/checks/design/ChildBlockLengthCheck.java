@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.puppycrawl.tools.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -102,7 +103,7 @@ public class ChildBlockLengthCheck extends Check
     {
         this.blockTypes = new int[blockTypes.length];
         for (int i = 0; i < blockTypes.length; i++) {
-            this.blockTypes[i] = TokenTypes.getTokenId(blockTypes[i]);
+            this.blockTypes[i] = Utils.getTokenId(blockTypes[i]);
         }
     }
 
