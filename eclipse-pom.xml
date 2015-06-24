@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.sevntu.checkstyle</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.13.4</version>
+	<version>1.13.5</version>
 	<packaging>pom</packaging>
 	<modules>
  		<module>eclipsecs-sevntu-plugin</module>
