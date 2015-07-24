@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="500">
+        <rule-metadata name="%SingleSpaceSeparatorCheck.name" internal-name="SingleSpaceSeparatorCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck" />
+            <description>%SingleSpaceSeparatorCheck.desc</description>
+            <property-metadata name="validateCommentNodes" datatype="Boolean" default-value="false">
+                <description>%SingleSpaceSeparatorCheck.validateCommentNodes</description>
+            </property-metadata>
+        </rule-metadata>
+    </rule-group-metadata>
+</checkstyle-metadata>

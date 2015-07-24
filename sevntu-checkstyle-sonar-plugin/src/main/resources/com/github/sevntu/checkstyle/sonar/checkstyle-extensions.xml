@@ -668,4 +668,17 @@
         </param>
     </rule>
 
+    <!-- 'whitespace' checks -->
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck</key>
+        <name>Single space separator</name>
+        <category name="whitespace"/>
+        <description>Checks that if tokens are separated by whitespaces, it has to be a single space.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck</configKey>
+        <param key="validateCommentNodes" type="BOOLEAN">
+            <defaultValue>false</defaultValue>
+            <description>If set to true, the surrounding whitespaces at comments will be ignored. In case of single-line comments, whitespaces before // will be ignored. In case of block comments, whitespaces before /* and after */ will be ignored.</description>
+        </param>
+    </rule>
+
 </rules>
