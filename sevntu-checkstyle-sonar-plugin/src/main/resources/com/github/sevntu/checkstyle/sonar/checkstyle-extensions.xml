@@ -713,6 +713,18 @@
 		</param>
 	</rule>
 
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck</key>
+        <name>Check for enum constants name</name>
+        <category name="coding"/>
+        <description>Check forces enum constants to match one of the specified patterns and forces all the values to follow only one of the specified patterns.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck</configKey>
+        <param key="formats" type="STRING">
+            <description>Regex for Enumeration constants name to conform</description>
+            <defaultValue>^[A-Z][a-zA-Z0-9]*$,^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$</defaultValue>
+        </param>
+    </rule>
+
 	<!-- 'annotation' checks -->
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</key>

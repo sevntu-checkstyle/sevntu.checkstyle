@@ -25,5 +25,13 @@
                 <description>%EnumValueName.excludes</description>
             </property-metadata>
         </rule-metadata>
+
+        <rule-metadata name="%UniformEnumConstantNameCheck.name" internal-name="UniformEnumConstantNameCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck" />
+            <description>%UniformEnumConstantNameCheck.desc</description>
+            <property-metadata name="formats" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$,^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
+                <description>%UniformEnumConstantNameCheck.formats</description>
+             </property-metadata>
+        </rule-metadata>
     </rule-group-metadata>
 </checkstyle-metadata>
