@@ -215,5 +215,6 @@
       <property name="classNameFormat" value=".*Exception"/>
       <property name="ignoredClassNameFormat" value="UnsupportedOperationException"/>
     </module>
+    <module name="com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck" />
   </module>
 </module>
