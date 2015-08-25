@@ -460,6 +460,37 @@
     	</param>
 	</rule>
 	<rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck</key>
+		<name>Numeric literal needs underscore</name>
+		<category name="coding"/>
+		<description>Warn that long numeric literals should be spaced by underscores.</description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck</configKey>
+    	<param key="minDecimalSymbolLength" type="INTEGER">
+			<defaultValue>7</defaultValue>
+			<description>The minimum number of symbols in a decimal literal before the check begins to look for underscores</description>
+    	</param>
+    	<param key="maxDecimalSymbolsUntilUnderscore" type="INTEGER">
+			<defaultValue>3</defaultValue>
+			<description>The maximum number of symbols in a decimal literal allowed before the check demands an underscore</description>
+    	</param>
+    	<param key="minHexSymbolLength" type="INTEGER">
+			<defaultValue>5</defaultValue>
+			<description>The minimum number of symbols in a hex literal before the check begins to look for underscores</description>
+    	</param>
+    	<param key="maxHexSymbolsUntilUnderscore" type="INTEGER">
+			<defaultValue>4</defaultValue>
+			<description>The maximum number of symbols in a hex literal allowed before the check demands an underscore</description>
+    	</param>
+    	<param key="minBinarySymbolLength" type="INTEGER">
+			<defaultValue>9</defaultValue>
+			<description>The minimum number of symbols in a binary literal before the check begins to look for underscores</description>
+    	</param>
+    	<param key="maxBinarySymbolsUntilUnderscore" type="INTEGER">
+			<defaultValue>8</defaultValue>
+			<description>The maximum number of symbols in a binary literal allowed before the check demands an underscore</description>
+    	</param>
+	</rule>
+	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck</key>
 		<name>Overridable Method In Constructor</name>
 		<category name="coding"/>
