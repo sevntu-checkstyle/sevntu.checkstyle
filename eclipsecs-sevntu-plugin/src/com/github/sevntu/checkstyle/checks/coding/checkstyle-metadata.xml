@@ -294,7 +294,31 @@
                 <description>%NoNullForCollectionReturnCheck.searchThroughMethodBody</description>
             </property-metadata>
             <message-key key="no.null.for.collections"/>
-        </rule-metadata>       
+        </rule-metadata>     
+
+        <rule-metadata name="%NumericLiteralNeedsUnderscore.name" internal-name="NumericLiteralNeedsUnderscoreCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck" />
+            <description>%NumericLiteralNeedsUnderscore.desc</description>
+            <property-metadata name="minDecimalSymbolLength" datatype="Integer" default-value="7">
+                <description>%NumericLiteralNeedsUnderscore.minDecimalSymbolLength</description>
+            </property-metadata>
+            <property-metadata name="maxDecimalSymbolsUntilUnderscore" datatype="Integer" default-value="3">
+                <description>%NumericLiteralNeedsUnderscore.maxDecimalSymbolsUntilUnderscore</description>
+            </property-metadata>
+            <property-metadata name="minHexSymbolLength" datatype="Integer" default-value="5">
+                <description>%NumericLiteralNeedsUnderscore.minHexSymbolLength</description>
+            </property-metadata>
+            <property-metadata name="maxHexSymbolsUntilUnderscore" datatype="Integer" default-value="4">
+                <description>%NumericLiteralNeedsUnderscore.maxHexSymbolsUntilUnderscore</description>
+            </property-metadata>
+            <property-metadata name="minBinarySymbolLength" datatype="Integer" default-value="9">
+                <description>%NumericLiteralNeedsUnderscore.minBinarySymbolLength</description>
+            </property-metadata>
+            <property-metadata name="maxBinarySymbolsUntilUnderscore" datatype="Integer" default-value="8">
+                <description>%NumericLiteralNeedsUnderscore.maxBinarySymbolsUntilUnderscore</description>
+            </property-metadata>
+            <message-key key="numeric.literal.need.underscore" />
+        </rule-metadata>
 
         <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
