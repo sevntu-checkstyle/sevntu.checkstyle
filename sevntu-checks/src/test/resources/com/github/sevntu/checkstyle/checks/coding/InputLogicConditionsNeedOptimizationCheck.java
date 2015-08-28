@@ -86,4 +86,11 @@ public class InputLogicConditionsNeedOptimizationCheck
         String x = "test";
         boolean y = x.length() == 3 ? true : false;
     }
+    private void methodInParentheses(){
+      Object elem = null;
+      java.util.ArrayList lst = new java.util.ArrayList();
+      boolean found = lst.remove(elem);
+      found = (lst.remove(elem)) || found;
+      found = found || (lst.remove(elem));
+    }
 }
