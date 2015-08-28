@@ -63,10 +63,9 @@ public class LogicConditionNeedOptimizationCheck extends Check
      */
     private static boolean needOptimization(DetailAST logicNode)
     {
-        final DetailAST firstOperand = logicNode.getFirstChild();
         final DetailAST secondOperand = getSecondOperand(logicNode);
         return !secondOperand.branchContains(TokenTypes.METHOD_CALL)
-                && firstOperand.branchContains(TokenTypes.METHOD_CALL);
+                && logicNode.branchContains(TokenTypes.METHOD_CALL);
     }
     /**
      * <p>
