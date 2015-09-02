@@ -1,4 +1,4 @@
-﻿<rules>
+<rules>
 	<!-- 'sizes' checks -->
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck</key>
@@ -45,7 +45,7 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck</configKey>
 		<param key="format" type="REGULAR_EXPRESSION">
 			<defaultValue>^[A-Z]$</defaultValue>
-			<description>Regex that interface type parameter names must to conform.</description>
+			<description>Regex that interface type parameter names must conform to.</description>
     	</param>
 	</rule>
 
