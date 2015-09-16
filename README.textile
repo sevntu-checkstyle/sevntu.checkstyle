@@ -10,7 +10,7 @@ Additional(non-standard) checks for Checkstyle that are compiled as:
 
 h3. Related Projects
 
-"Checkstyle":http://checkstyle.sourceforge.net/, "EclipseCS":http://eclipse-cs.sourceforge.net/, "Maven Checkstyle Plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/, "Checkstyle IDEA":https://github.com/jshiell/checkstyle-idea, "Sonar Checkstyle Plugin":https://github.com/SonarSource/sonar-java/tree/master/sonar-checkstyle-plugin, "Checkstyle Beans to NetBeans":http://plugins.netbeans.org/plugin/3413/checkstyle-beans
+"Checkstyle":http://checkstyle.sourceforge.net/, "EclipseCS":http://eclipse-cs.sourceforge.net/, "Checkstyle IDEA":https://github.com/jshiell/checkstyle-idea, "Checkstyle Beans to NetBeans":http://plugins.netbeans.org/plugin/3413/checkstyle-beans, "Checkstyle Addons":http://checkstyle-addons.thomasjensen.com/, "Maven Checkstyle Plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/, "Gradle Checkstyle Plugin":https://docs.gradle.org/current/userguide/checkstyle_plugin.html, "Sonar Checkstyle Plugin":http://redirect.sonarsource.com/plugins/checkstyle.html
 
 h3. Contributors
 
