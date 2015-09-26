@@ -6,7 +6,7 @@ jdk:
   - oraclejdk8
 
 before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
-      && cd eclipse-cs-git/ && git checkout 6.5.0
+      && cd eclipse-cs-git/ && git checkout 6.9.0
       && cd net.sf.eclipsecs.parent/ && mvn install
       && cd ../../
 
