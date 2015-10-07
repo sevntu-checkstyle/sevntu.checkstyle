@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- we use eclipse-cs parent to ease our compilation and always be up-to-date-->
+
  <parent>
 		<relativePath>../eclipse-pom.xml</relativePath>
 		<groupId>com.github.sevntu.checkstyle</groupId>
@@ -25,12 +26,12 @@
       <dependency>
 	<groupId>net.sf.eclipsecs</groupId>
         <artifactId>net.sf.eclipsecs.ui</artifactId>
-        <version>6.9.0-SNAPSHOT</version>
+        <version>6.11.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>net.sf.eclipsecs</groupId>
         <artifactId>net.sf.eclipsecs.core</artifactId>
-        <version>6.9.0-SNAPSHOT</version>
+        <version>6.11.0-SNAPSHOT</version>
       </dependency>	
     </dependencies>
     
