@@ -241,7 +241,7 @@ public class CauseParameterInExceptionCheck extends Check
     private static DetailAST getClassDef(final DetailAST node)
     {
         DetailAST curNode = node;
-        while (curNode.getType() != TokenTypes.CLASS_DEF) {
+        while (curNode != null && curNode.getType() != TokenTypes.CLASS_DEF) {
             curNode = curNode.getParent();
         }
         return curNode;

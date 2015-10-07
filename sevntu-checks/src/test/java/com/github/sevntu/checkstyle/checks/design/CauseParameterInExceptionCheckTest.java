@@ -130,4 +130,17 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
 
         verify(checkConfig, getPath("InputCauseParameterInException4.java"), expected);
     }
+    
+    @Test
+    public void testStrangeSituation4() throws Exception
+    {
+        checkConfig.addAttribute("classNamesRegexp", null);
+        checkConfig.addAttribute("ignoredClassNamesRegexp", null);
+        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+
+        String[] expected = {
+        };
+
+        verify(checkConfig, getPath("InputCauseParameterInException5.java"), expected);
+    }    
 }
