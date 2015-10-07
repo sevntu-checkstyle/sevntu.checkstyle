@@ -21,8 +21,8 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.checks.CheckUtils;
 import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
+import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
 
 /**
  * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException

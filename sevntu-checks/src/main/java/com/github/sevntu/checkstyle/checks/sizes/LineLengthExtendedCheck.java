@@ -29,7 +29,7 @@ import org.apache.commons.beanutils.ConversionException;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.Utils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 /**
  * Checks for long lines.
@@ -236,7 +236,7 @@ public class LineLengthExtendedCheck extends Check
 			}
 
 			final String line = lines[i];
-			final int realLength = Utils.lengthExpandedTabs(line,
+			final int realLength = CommonUtils.lengthExpandedTabs(line,
 					line.length(), getTabWidth());
 
 			if ((realLength > max) && !ignorePattern.matcher(line).find()) {

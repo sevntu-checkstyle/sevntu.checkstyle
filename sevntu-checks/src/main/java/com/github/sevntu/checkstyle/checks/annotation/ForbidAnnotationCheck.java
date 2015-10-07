@@ -22,10 +22,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.puppycrawl.tools.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 /**
  * Forbid specific annotation of variable,methods,class,package and other. If
@@ -77,7 +77,7 @@ public class ForbidAnnotationCheck extends Check
         if (targets != null) {
             annotationTargets = new int[targets.length];
             for (int i = 0; i < targets.length; i++) {
-                annotationTargets[i] = Utils.getTokenId(targets[i]);
+                annotationTargets[i] = TokenUtils.getTokenId(targets[i]);
             }
             Arrays.sort(annotationTargets);
         }

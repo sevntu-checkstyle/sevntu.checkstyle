@@ -34,7 +34,7 @@ public abstract class BaseCheckTestSupport extends Assert
 
 		public BriefLogger(OutputStream out) throws UnsupportedEncodingException
 		{
-			super(out, true);
+			super(out, true,out, false, false);
 		}
 
 		@Override

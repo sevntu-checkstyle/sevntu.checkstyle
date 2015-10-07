@@ -82,9 +82,8 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
         } catch (CheckstyleException e) {
             String errorMsg = e.getMessage();
             Assert.assertTrue(errorMsg
-                    .contains("Cannot set property 'maxTernaryPerExpressionCount' in module "
-                            + "com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck "
-                            + "to '-1'"));
+                    .contains("Cannot set property 'maxTernaryPerExpressionCount' to '-1' in module "
+                            + "com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck"));
         }
     }
 
