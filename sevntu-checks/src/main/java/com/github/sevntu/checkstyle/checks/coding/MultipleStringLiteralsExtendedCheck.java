@@ -26,10 +26,10 @@ import java.util.regex.Pattern;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.puppycrawl.tools.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 /**
  * Checks for multiple occurrences of the same string literal within a single file.
@@ -125,7 +125,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 	{
 		ignoreOccurrenceContext.clear();
 		for (final String s : strRep) {
-			final int type = Utils.getTokenId(s);
+			final int type = TokenUtils.getTokenId(s);
 			ignoreOccurrenceContext.set(type);
 		}
 	}

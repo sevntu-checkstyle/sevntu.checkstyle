@@ -20,7 +20,7 @@ package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
-import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 public final class Utils
 {
@@ -41,7 +41,7 @@ public final class Utils
     public static void reportInvalidToken(int token)
     {
         throw new IllegalArgumentException("Found unsupported token: "
-                + com.puppycrawl.tools.checkstyle.Utils.getTokenName(token));
+                + TokenUtils.getTokenName(token));
     }
 
     /**
