@@ -12,12 +12,6 @@
       <property name="severity" value="warning"/>
       <property name="format" value="^[A-Z]$"/>
     </module>
-    <module name="com.github.sevntu.checkstyle.checks.design.VariableDeclarationUsageDistanceCheck">
-      <property name="severity" value="warning"/>
-      <property name="allowedDistance" value="3"/>
-      <property name="validateBetweenScopes" value="false"/>
-      <property name="ignoreFinal" value="true"/>
-    </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck">
       <property name="severity" value="warning"/>
       <property name="collectionList" value="AbstractCollection AbstractList AbstractQueue AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque ArrayList AttributeList BeanContextServicesSupport BeanContextSupport ConcurrentLinkedDeque ConcurrentLinkedQueue ConcurrentSkipListSet CopyOnWriteArrayList CopyOnWriteArraySet DelayQueue EnumSet HashSet JobStateReasons LinkedBlockingDeque LinkedBlockingQueue LinkedHashSet LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue RoleList RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set"/>
@@ -50,15 +44,6 @@
       <property name="ignoreSequentialIf" value="true"/>
       <property name="ignoreNullCaseInIf" value="true"/>
       <property name="ignoreThrowInElse" value="true"/>
-    </module>
-    <module name="com.github.sevntu.checkstyle.checks.naming.AbbreviationAsWordInNameCheck">
-      <property name="severity" value="warning"/>
-      <property name="allowedAbbreviationLength" value="3"/>
-      <property name="allowedAbbreviations" value="XML,URL,IT,I"/>
-      <property name="targets" value="CLASS_DEF"/>
-      <property name="ignoreFinal" value="true"/>
-      <property name="ignoreStatic" value="true"/>
-      <property name="ignoreOverriddenMethods" value="true"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck">
       <property name="severity" value="warning"/>
