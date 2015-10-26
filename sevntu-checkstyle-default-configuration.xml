@@ -179,6 +179,10 @@
     <module name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck">
 	  <property name="severity" value="warning"/>
     </module>
+    <module name="com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck">
+	  <property name="severity" value="warning"/>
+	  <property name="validateCommentNodes" value="false"/>
+    </module>
     
   </module>
 </module>
