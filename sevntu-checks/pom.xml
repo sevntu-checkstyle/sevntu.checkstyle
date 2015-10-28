@@ -90,6 +90,7 @@
           <groupId>com.github.sevntu.checkstyle</groupId>
           <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
           <version>${project.version}</version>
+          <optional>true</optional>
         </dependency>
       </dependencies>
       <executions>
