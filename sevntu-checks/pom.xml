@@ -11,6 +11,7 @@
       <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
       <checkstyle.version>6.11.2</checkstyle.version>
       <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+      <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     </properties>
     
     <dependencies>
@@ -89,8 +90,7 @@
         <dependency>
           <groupId>com.github.sevntu.checkstyle</groupId>
           <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
-          <version>${project.version}</version>
-          <optional>true</optional>
+          <version>${sevntu.maven.plugin}</version>
         </dependency>
       </dependencies>
       <executions>
@@ -216,5 +216,13 @@
       </build>
     </profile>
   </profiles>
-  
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>sevntu-maven</id>
+      <name>sevntu-maven</name>
+      <url>http://sevntu-checkstyle.github.io/sevntu.checkstyle/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
 </project>
