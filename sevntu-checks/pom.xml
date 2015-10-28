@@ -9,6 +9,8 @@
         
     <properties>
       <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
+      <checkstyle.version>6.11.2</checkstyle.version>
+      <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     </properties>
     
     <dependencies>
@@ -73,6 +75,40 @@
         </configuration>
         </execution>
        </executions>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-checkstyle-plugin</artifactId>
+      <version>${checkstyle.plugin.version}</version>
+      <dependencies>
+        <dependency>
+          <groupId>com.puppycrawl.tools</groupId>
+          <artifactId>checkstyle</artifactId>
+          <version>${checkstyle.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.github.sevntu.checkstyle</groupId>
+          <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+      <executions>
+        <execution>
+          <phase>validate</phase>
+          <goals>
+            <goal>check</goal>
+          </goals>
+          <!--  Specifying configuration here will take effect on the execution of "mvn checkstyle:checkstyle",
+             but will not take effect on the execution of "mvn site"  -->
+          <configuration>
+            <configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/checkstyle_checks.xml</configLocation>
+            <failOnViolation>true</failOnViolation>
+            <linkXRef>false</linkXRef>
+            <propertiesLocation>checkstyle.properties</propertiesLocation>
+          </configuration>
+
+        </execution>
+      </executions>
     </plugin>
     <plugin>
         <groupId>org.codehaus.mojo</groupId>
