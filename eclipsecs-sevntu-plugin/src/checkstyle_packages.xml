@@ -17,6 +17,7 @@
       <package name="design"/>
       <package name="naming"/>
       <package name="sizes"/>
+      <package name="whitespace"/>
     </package>
     <package name="grammars"/>
   </package>
