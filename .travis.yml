@@ -9,6 +9,10 @@ before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
       && cd eclipse-cs-git/ && git checkout 6.11.0
       && cd net.sf.eclipsecs.parent/ && mvn install
       && cd ../../
+      && cd sevntu-checks && mvn clean install -DskipTests -Dcobertura.skip=true -Dcheckstyle.skip=true
+      && cd ../
+      && cd sevntu-checkstyle-maven-plugin && mvn clean install -DskipTests
+      && cd ../
 
 install: cd sevntu-checks && mvn clean install
       && cd ../eclipsecs-sevntu-plugin && mvn verify
