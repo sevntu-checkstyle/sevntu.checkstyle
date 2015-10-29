@@ -87,11 +87,6 @@
           <artifactId>checkstyle</artifactId>
           <version>${checkstyle.version}</version>
         </dependency>
-        <dependency>
-          <groupId>com.github.sevntu.checkstyle</groupId>
-          <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
-          <version>${sevntu.maven.plugin}</version>
-        </dependency>
       </dependencies>
       <executions>
         <execution>
