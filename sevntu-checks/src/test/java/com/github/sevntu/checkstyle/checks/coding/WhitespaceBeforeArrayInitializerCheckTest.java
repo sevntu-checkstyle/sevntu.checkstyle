@@ -16,7 +16,8 @@ public class WhitespaceBeforeArrayInitializerCheckTest extends BaseCheckTestSupp
                 "5:28: " + getCheckMessage(MSG_KEY),
                 "13:32: " + getCheckMessage(MSG_KEY),
                 "16:32: " + getCheckMessage(MSG_KEY),
-                "17:21: " + getCheckMessage(MSG_KEY)
+                "17:21: " + getCheckMessage(MSG_KEY),
+                "24:56: " + getCheckMessage(MSG_KEY),
         };
         verify(mDefaultConfig, getPath("InputWhitespaceBeforeArrayIntializer.java"), expected);
     }

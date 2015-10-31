@@ -54,7 +54,7 @@ public class WhitespaceBeforeArrayInitializerCheck extends Check {
     @Override
     public void visitToken(DetailAST ast) {
         DetailAST previousAst = getPreviousAst(ast);
-        if (!areTokensSeparatedByWhitespace(previousAst, ast)) {
+        if (!areTokensSeparatedByWhitespace(previousAst, ast) && isNestedArrayInitializer(ast)) {
             log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY);
         }
     }
@@ -75,6 +75,15 @@ public class WhitespaceBeforeArrayInitializerCheck extends Check {
             }
         }
         return isDistanceValid;
+    }
+
+    /**
+     * Checks whether inspected array initializer is nested in other array initializer.
+     * @param ast {@link TokenTypes#ARRAY_INIT} token to inspect
+     * @return true when this array initializer is nested in other initializer; false otherwise
+     */
+    private static boolean isNestedArrayInitializer(DetailAST ast) {
+        return ast.getParent().getType() != TokenTypes.ARRAY_INIT;
     }
 
     /**
