@@ -21,6 +21,8 @@ public class InputWhitespaceBeforeArrayIntializer {
                 {1, 2, 3, 4, 5},
                 {6, 7, 8, 9, 10}
         };
+        int[][] nestedIntOneLineViolation = new int[][]{{1}};
+        int[][] nestedIntOneLine = new int[][] {{1}};
     }
     private int calculate(int[] tab) {
         return tab.length;
