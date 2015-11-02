@@ -107,5 +107,11 @@
             <description>%PublicReferenceToPrivateTypeCheck.desc</description>
         </rule-metadata>
 
+        <rule-metadata name="%StaticMethodCandidate.name" internal-name="StaticMethodCandidate" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck"/>
+            <description>%StaticMethodCandidate.desc</description>
+            <message-key key="static.method.candidate"/>   
+        </rule-metadata>
+
     </rule-group-metadata>
 </checkstyle-metadata>

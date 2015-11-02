@@ -681,4 +681,12 @@
         </param>
     </rule>
 
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</key>
+        <name>Static Method Candidate</name>
+        <category name="design"/>
+        <description>Check whether <code>private</code> methods should be declared as <code>static</code>.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</configKey>
+    </rule>
+
 </rules>
