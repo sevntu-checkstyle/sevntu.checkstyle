@@ -3,7 +3,7 @@
     "-//Puppy Crawl//DTD Import Control 1.1//EN"
     "http://www.puppycrawl.com/dtds/import_control_1_1.dtd">
 
-<import-control pkg="com.puppycrawl.tools.checkstyle">
+<import-control pkg="com.github.sevntu.checkstyle.checks">
 
   <allow pkg="antlr"/>
   <allow pkg="org.antlr.v4.runtime"/>
@@ -45,7 +45,7 @@
   </subpackage>
 
   <subpackage name="checks">
-    <allow pkg="com.puppycrawl.tools.checkstyle.checks"/>
+    <allow pkg="com.github.sevntu.checkstyle.checks"/>
     <allow class="com.puppycrawl.tools.checkstyle.Definitions"/>
     <allow pkg="java.math"/>
 
