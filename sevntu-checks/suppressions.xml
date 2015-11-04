@@ -67,4 +67,6 @@
     <!-- Until https://github.com/checkstyle/checkstyle/issues/2405 is fixed -->
     <suppress checks="FinalLocalVariable" files="StaticMethodCandidateCheck.java"/>
 
+    <!-- ??? -->
+    <suppress checks="HeaderCheck" files="StaticMethodCandidateCheck.java"/>
 </suppressions>
