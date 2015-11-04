@@ -59,5 +59,9 @@
     <!-- END of legacy code -->
 
     <suppress checks="Translation" files=".*"/>
-    
+
+    <!-- Until https://github.com/checkstyle/checkstyle/issues/2229 is fixed
+         as visitToken() has cyclomatic complexity 14 now because of SWITCH  -->
+    <suppress checks="CyclomaticComplexity" files="StaticMethodCandidateCheck.java"/>
+
 </suppressions>
