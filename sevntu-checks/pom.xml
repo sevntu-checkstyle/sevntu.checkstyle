@@ -97,7 +97,7 @@
           <!--  Specifying configuration here will take effect on the execution of "mvn checkstyle:checkstyle",
              but will not take effect on the execution of "mvn site"  -->
           <configuration>
-            <configLocation>https://github.com/checkstyle/checkstyle/blob/753bc06c7aa24cb6be8d23afb6b4dc5cf4b5caea/config/checkstyle_checks.xml</configLocation>
+            <configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/753bc06c7aa24cb6be8d23afb6b4dc5cf4b5caea/config/checkstyle_checks.xml</configLocation>
             <failOnViolation>true</failOnViolation>
             <linkXRef>false</linkXRef>
             <propertiesLocation>checkstyle.properties</propertiesLocation>
