@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.sevntu.checkstyle</groupId>
     <artifactId>sevntu-checks</artifactId>
-    <version>1.16.1</version>
+    <version>1.17.0</version>
         
     <properties>
       <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
