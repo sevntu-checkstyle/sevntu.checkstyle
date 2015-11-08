@@ -179,10 +179,16 @@
     <module name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck">
       <property name="severity" value="warning"/>
     </module>
+    <!-- 1.16.0 -->
     <module name="com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck">
       <property name="severity" value="warning"/>
       <property name="validateCommentNodes" value="false"/>
     </module>
-    
+    <!-- 1.17.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck">
+      <property name="severity" value="warning"/>
+      <property name="skippedMethods" value="readObject, writeObject, readObjectNoData, readResolve, writeReplace"/>
+    </module>
+
   </module>
 </module>
