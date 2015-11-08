@@ -147,41 +147,41 @@
     </module>
     <!-- since 1.11 --> 
     <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
-	  <property name="severity" value="warning"/>
+    <property name="severity" value="warning"/>
       <property name="objFormat" value="^[A-Z][a-zA-Z0-9]*$"/>
       <property name="constFormat" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
       <property name="excludes" value="toString"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck">
-	  <property name="severity" value="warning"/>
+    <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck">
-	  <property name="severity" value="warning"/>
-	  <property name="exceptionClassNameRegex" value="^.*Exception"/>
+    <property name="severity" value="warning"/>
+    <property name="exceptionClassNameRegex" value="^.*Exception"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck">
-	  <property name="severity" value="warning"/>
+    <property name="severity" value="warning"/>
       <property name="proposeValuesUsage" value="true"/>
       <property name="proposeKeySetUsage" value="false"/>
       <property name="proposeEntrySetUsage" value="false"/>
     </module>
     <!-- since 1.12 -->
     <module name="com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck">
-	  <property name="severity" value="warning"/>
+    <property name="severity" value="warning"/>
       <property name="maxTernaryPerExpressionCount" value="1"/>
       <property name="ignoreTernaryOperatorsInBraces" value="true"/>
       <property name="ignoreIsolatedTernaryOnLine" value="true"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck">
-	  <property name="severity" value="warning"/>
-	  <property name="allowReturnInEmptyMethodsAndConstructors" value="false"/>
+      <property name="severity" value="warning"/>
+      <property name="allowReturnInEmptyMethodsAndConstructors" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck">
-	  <property name="severity" value="warning"/>
+      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck">
-	  <property name="severity" value="warning"/>
-	  <property name="validateCommentNodes" value="false"/>
+      <property name="severity" value="warning"/>
+      <property name="validateCommentNodes" value="false"/>
     </module>
     
   </module>
