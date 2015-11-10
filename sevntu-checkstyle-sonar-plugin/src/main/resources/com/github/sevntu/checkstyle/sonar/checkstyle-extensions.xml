@@ -222,7 +222,7 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck</configKey>
 		<param key="multiplyFactorForElseBlocks" type="INTEGER">
 			<defaultValue>4</defaultValue>
-			<description>Disable warnings if "else" block length is in "multiplyFactorForElseBlocks"  time less then "if" block.</description>
+			<description>Disable warnings if "else" block length is "multiplyFactorForElseBlocks" times shorter than "if" block.</description>
     	</param>
     	<param key="ignoreInnerIf" type="BOOLEAN">
 			<defaultValue>true</defaultValue>

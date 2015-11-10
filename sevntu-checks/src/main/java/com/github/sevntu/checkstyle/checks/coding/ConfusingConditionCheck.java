@@ -75,8 +75,8 @@ public class ConfusingConditionCheck extends Check {
 	private static final int MULTIPLY_FACTOR_FOR_ELSE_BLOCK = 4;
 
 	/**
-	 * Allow to ignore "else" block if its length is in
-	 * "multiplyFactorForElseBlocks" time less then "if" block.
+	 * Allow to ignore "else" block if its length is
+	 * "multiplyFactorForElseBlocks" times shorter than "if" block.
 	 */
 	private int multiplyFactorForElseBlocks = MULTIPLY_FACTOR_FOR_ELSE_BLOCK;
 
