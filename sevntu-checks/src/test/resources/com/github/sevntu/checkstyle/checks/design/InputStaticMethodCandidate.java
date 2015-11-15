@@ -256,3 +256,17 @@ class Issue393Child extends Issue393 {
         return (Issue393) super.foo(null);
     }
 }
+
+class Issue397 {
+
+    private void bar(int id, String status) {
+        foo(1, id, status);
+    }
+
+    private void foo(int a, Object... params) {
+        this.hashCode();
+    }
+
+    private static void foo(int a, String b, Object... params) {
+    }
+}

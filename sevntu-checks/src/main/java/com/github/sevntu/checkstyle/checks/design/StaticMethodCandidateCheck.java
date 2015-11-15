@@ -639,7 +639,8 @@ public class StaticMethodCandidateCheck extends Check {
                 final DetailAST parametersAst = method.findFirstToken(TokenTypes.PARAMETERS);
 
                 if (checkedMethodName.equals(getIdentText(method))
-                        && parametersAst.getChildCount() == argsNumber) {
+                        && (parametersAst.getChildCount() == argsNumber
+                            || parametersAst.branchContains(TokenTypes.ELLIPSIS))) {
                     final DetailAST modifiersAst = method.findFirstToken(TokenTypes.MODIFIERS);
 
                     if (modifiersAst.branchContains(TokenTypes.LITERAL_STATIC)) {
