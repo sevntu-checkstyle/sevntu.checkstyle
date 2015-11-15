@@ -239,3 +239,20 @@ class TestSkippedMethods extends TestTypeVariablesAndInnerClasses {
 
     private void readObjectNoData() {}
 }
+
+class Issue393 {
+    protected Object foo(Object[] arguments) {
+        return this;
+    }
+}
+
+class Issue393Child extends Issue393 {
+    @Override
+    protected Object foo(Object[] arguments) {
+        return this;
+    }
+
+    private Issue393 bar() {
+        return (Issue393) super.foo(null);
+    }
+}

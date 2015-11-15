@@ -80,6 +80,24 @@ public class StaticMethodCandidateCheck extends Check {
         "writeReplace",
     };
 
+    /** Array of tokens which are frames. */
+    private static final int[] FRAME_TOKENS = new int[] {
+        TokenTypes.CLASS_DEF,
+        TokenTypes.METHOD_DEF,
+        TokenTypes.LITERAL_IF,
+        TokenTypes.LITERAL_FOR,
+        TokenTypes.LITERAL_WHILE,
+        TokenTypes.LITERAL_DO,
+        TokenTypes.LITERAL_CATCH,
+        TokenTypes.LITERAL_TRY,
+        TokenTypes.ENUM_DEF,
+        TokenTypes.ENUM_CONSTANT_DEF,
+        TokenTypes.STATIC_INIT,
+        TokenTypes.INSTANCE_INIT,
+        TokenTypes.CTOR_DEF,
+        TokenTypes.INTERFACE_DEF,
+    };
+
     /** Method names to skip during the check. */
     private List<String> skippedMethods = Arrays.asList(DEFAULT_SKIPPED_METHODS);
 
@@ -124,6 +142,7 @@ public class StaticMethodCandidateCheck extends Check {
             TokenTypes.TYPE_ARGUMENT,
             TokenTypes.TYPE_PARAMETER,
             TokenTypes.INTERFACE_DEF,
+            TokenTypes.LITERAL_SUPER,
         };
     }
 
@@ -140,6 +159,8 @@ public class StaticMethodCandidateCheck extends Check {
     @Override
     public void beginTree(DetailAST rootAST) {
         currentFrame = new Frame(null);
+
+        Arrays.sort(FRAME_TOKENS);
     }
 
     @Override
@@ -152,8 +173,9 @@ public class StaticMethodCandidateCheck extends Check {
             case TokenTypes.EXPR:
                 currentFrame.addExpr(ast);
                 break;
+            case TokenTypes.LITERAL_SUPER:
             case TokenTypes.LITERAL_THIS:
-                currentFrame.hasLiteralThis = true;
+                currentFrame.hasLiteralThisOrSuper = true;
                 break;
             case TokenTypes.TYPE:
             case TokenTypes.TYPE_ARGUMENT:
@@ -288,14 +310,7 @@ public class StaticMethodCandidateCheck extends Check {
      */
     private static boolean isFrame(DetailAST ast) {
         final int astType = ast.getType();
-        return astType != TokenTypes.VARIABLE_DEF
-                && astType != TokenTypes.PARAMETER_DEF
-                && astType != TokenTypes.LITERAL_NEW
-                && astType != TokenTypes.EXPR
-                && astType != TokenTypes.LITERAL_THIS
-                && astType != TokenTypes.TYPE
-                && astType != TokenTypes.TYPE_ARGUMENT
-                && astType != TokenTypes.TYPE_PARAMETER;
+        return Arrays.binarySearch(FRAME_TOKENS, astType) >= 0;
     }
 
     /**
@@ -312,7 +327,7 @@ public class StaticMethodCandidateCheck extends Check {
                 isStaticCandidate = checkFrame(frame);
                 if (!frame.isClassOrEnum) {
                     isStaticCandidate = isStaticCandidate
-                            && !frame.hasLiteralThis
+                            && !frame.hasLiteralThisOrSuper
                             && isFrameExpressionsAcceptable(frame)
                             && isFrameTypesAcceptable(frame);
                     if (frame.isPrivateMethod) {
@@ -720,8 +735,8 @@ public class StaticMethodCandidateCheck extends Check {
          */
         private boolean isShouldBeChecked = true;
 
-        /** Whether the frame has LITERAL_THIS. */
-        private boolean hasLiteralThis;
+        /** Whether the frame has LITERAL_THIS or LITERAL_SUPER. */
+        private boolean hasLiteralThisOrSuper;
 
         /** Number of the line where the frame is declared. */
         private int lineNo;
