@@ -84,12 +84,13 @@
         </dependencies>
         <executions>
           <execution>
-            <phase>validate</phase>
+            <!-- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference
+                 to run checkstyle validation in terminal please use command "mvn process-classes"
+            -->
+            <phase>process-classes</phase>
             <goals>
               <goal>check</goal>
             </goals>
-            <!--  Specifying configuration here will take effect on the execution of "mvn checkstyle:checkstyle",
-             but will not take effect on the execution of "mvn site"  -->
             <configuration>
               <configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</configLocation>
               <failOnViolation>true</failOnViolation>
