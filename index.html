@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title>sevntu-checkstyle/sevntu.checkstyle @ GitHub</title>
-	
+
 	<script type="text/Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
 <style type="text/css">
@@ -53,7 +53,7 @@ a {
   -moz-transition:.01s;
   -webkit-transition:.01s;
   transition:.01s;
-  
+
   /* Micro shadow in all sides */
   text-shadow: 0 0 1px #79848F;
   transform: scale(1.01);
@@ -69,7 +69,7 @@ a:hover {
 }
 
 .download {
-  float: right;  
+  float: right;
 }
 
 pre {
@@ -107,7 +107,7 @@ img.jumpingImage {
     -moz-transition: margin 0.2s ease-out;
     -o-transition: margin 0.2s ease-out;
 }
- 
+
 img.jumpingImage:hover {
     margin-top: 3px;
 }
@@ -123,7 +123,7 @@ img.darkShadowed {
 }
 
 </style>
-	
+
 </head>
 
 <script type="text/javascript">
@@ -142,8 +142,8 @@ img.darkShadowed {
 
 <script type="text/Javascript">
 		$(document).ready(function() {
-			
-			// Configure spoilers. Spoilers are configured by their classes: 
+
+			// Configure spoilers. Spoilers are configured by their classes:
 			// openOnHover color_on_hover pre_opened_spoiler
 			var fadeTime = 300;
 
@@ -153,29 +153,29 @@ img.darkShadowed {
 				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeIn(fadeTime);
 			}
 			,function() {
-				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeOut(fadeTime);	
+				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeOut(fadeTime);
 			});
 
 			// Set mouseOver operations (coloring/opening on hover)
-			$("div.spoiler div.name span").mouseover(function() {	
+			$("div.spoiler div.name span").mouseover(function() {
 
 			    var openOnHover = $(this).parent("div.name").parent("div.spoiler").hasClass("openOnHower");
 		        var color_on_hover = $(this).parent("div.name").parent("div.spoiler").hasClass("color_on_hover");
-		    
+
 				if (color_on_hover) {
 				    $(this).children().css("color", "#1D4875");
-			    }			
+			    }
 				if (openOnHover) {
 					 $(this).parent("div.name").parent("div.spoiler").children("div.text").fadeIn(fadeTime);
 				}
 
-			}).mouseout(function() {			
+			}).mouseout(function() {
 				var color_on_hover = $(this).parent("div.name").parent("div.spoiler").hasClass("color_on_hover");
 				if (color_on_hover) {
 					$(this).children().css("color", "#242630");
-	 		    }			    
+	 		    }
 			});
-			
+
 		    // Open spoilers with 'pre-opened' class
 			$(".pre_opened_spoiler").children("div.text").fadeIn(fadeTime);
 			// End configure spoilers
@@ -198,17 +198,17 @@ img.darkShadowed {
     <h2>Description</h2>
 
     <div class="description">
-      Main idea of <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> project is to automate and to ease code-review process; to assist developers in complying with the company's Code-standard, and allow them to fix and eliminate any minor problem upon just saving the file. 
+      Main idea of <a href="http://checkstyle.sourceforge.net/">Checkstyle</a> project is to automate and to ease code-review process; to assist developers in complying with the company's Code-standard, and allow them to fix and eliminate any minor problem upon just saving the file.
 We are strongly convinced that it is much more easier and convenient to catch minor traps in code during writing than after committing/pushing. This project contains a number of Checks that can help program engineers to write code in a uniform style, which makes it easier for the whole team of programmers to review the code, also significantly improves the low threshold of understanding for new developers.
       <br/>
       <br/>
-This project is additional(non-standard) checks for Checkstyle that are compiled as extension to maven-checkstyle-plugin, Sonar Checkstyle Plugin, CheckStyle-IDEA, Checkstyle Eclipse plugin, see <a href="#distribution">Distribution</a> chapter for more details. 
+This project is additional(non-standard) checks for Checkstyle that are compiled as extension to maven-checkstyle-plugin, Sonar Checkstyle Plugin, CheckStyle-IDEA, Checkstyle Eclipse plugin, see <a href="#distribution">Distribution</a> chapter for more details.
 <br/>
-<br/> 
+<br/>
       This project is incubator for Checkstyle checks that are not present in main stream of Checkstyle project.
       If you have a check and need place to be build-in, let us know.
       <br/>
-      If you want to study Java(with mentoring) and help us develop some Checks let us know, 
+      If you want to study Java(with mentoring) and help us develop some Checks let us know,
       we are looking for new maintainers and level of Java experience does not matter.
       <br/>
       <br/>
@@ -236,6 +236,12 @@ This project is additional(non-standard) checks for Checkstyle that are compiled
 <span id="eclipsecs-update-site">- extension to <a href="http://eclipse-cs.sourceforge.net/">Checkstyle Eclipse plugin</a> how to use: install from EclipseCS “update site” or use our update site http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/ (do not use this link in Browser, it will return 404 code, it is expected, but it will work well through Eclipse menu "Help"->"Install New Software ...") </span>
 </p>
 
+<h2 id="ExamplesOfUsage">Examples of usage</h2>
+<p>
+Full list of Checks and examples of usage could be found at
+<a href="https://github.com/checkstyle/checkstyle/blob/master/config/checkstyle_sevntu_checks.xml">cofig</a>
+ that <a href="http://checkstyle.sourceforge.net/">checkstyle</a> project use.
+</p>
 
 <h2> New and noteworthy</h2>
 <!--
@@ -491,31 +497,31 @@ This project is additional(non-standard) checks for Checkstyle that are compiled
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/258">More</a>
    <br/>
    <br/>
-   
+
    <br/>
      <b>Update in ForbidThrowAnonymousExceptionsCheck</b> -&nbsp; Reduced ForbidThrowAnonymousExceptionsCheck's limitation. Now this Check puts violation on throwing anonymous exception even in case if it is defined before throwing. Done by Alexey Nesterenko.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/248">More</a>
    <br/>
    <br/>
-   
+
    <br/>
      <b>Update in LineLengthCheck</b> -&nbsp; Updated LineLengthCheck to print the current line length in it's warnings. Done by Alexey Nesterenko.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/245">More</a>
    <br/>
    <br/>
-   
+
    <br/>
      <b>DiamondOperatorForVariableDefinitionCheck</b> -&nbsp; This Check highlights variable definition statements where diamond operator could be used. Done by Alexey Nesterenko.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/194">More</a>
    <br/>
    <br/>
-   
+
    <br/>
      <b>PublicReferenceToPrivateTypeCheck</b> -&nbsp; This Check warns on propagation of inner private types to outer classes:<br>- Externally accessible method if it returns private inner type.<br>- Externally accessible field if it's type is a private inner type.<br>These types could be <a href='http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html'>private inner classes</a>, interfaces or enumerations. Done by Alexey Nesterenko.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/201">More</a>
    <br/>
    <br/>
-   
+
    <br/>
      <b>TernaryPerExpressionCountCheck</b> -&nbsp; Replaced existing NestedTernaryCheck with more general TernaryPerExpressionCountCheck.<br/>
       New Check provides options to ignore ternary sequences with explicitly set priority level (expressions in braces) and also to force Check to ignore ternary operators which are isolated inside a single line.
@@ -632,7 +638,7 @@ macros for "main()" method. Done by Baratali Izmailov.
   <br/>
      <b>AvoidConstantAsFirstOperandInConditionCheck</b> -&nbsp; Avoid Constant As First Operand In Condition. If comparing values, C(C++) developers prefer to put the constant first in the equality check, to prevent situations of assignment rather than equality checking. But in Java, in IF condition it is impossible to use assignment, so that habit become unnecessary and do damage readability of code.
      <br/>Example:<br/>
-     <code>if (null == varialble)"</code> 
+     <code>if (null == varialble)"</code>
      <br/> should be <br/>
      <code>if (varialble == null)"</code>
      <br/>Done by Sergey Burtsev.&nbsp;
@@ -646,7 +652,7 @@ macros for "main()" method. Done by Baratali Izmailov.
           LOG.error("Blah", e);
           throw e;
       }
-     </code> 
+     </code>
      <br/>Done by Baratali Izmailov.&nbsp;
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/82">More</a>
    <br/>
@@ -675,7 +681,7 @@ macros for "main()" method. Done by Baratali Izmailov.
      <br>For example, rephrase:<br/>
      <code>if (x != y) smth1(); else smth2(); </code>
      <br/> as: <br/>
-     <code>if (x == y) smth2(); else smth1(); </code> 
+     <code>if (x == y) smth2(); else smth1(); </code>
      <br/>Done by Vadim Panasiuk.&nbsp;
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/90">More</a>.
      <br/>
@@ -693,7 +699,7 @@ macros for "main()" method. Done by Baratali Izmailov.
    <br/>
    <br/>
    <br/>
-     <b>SimpleAccessorNameNotationCheck</b> -&nbsp; Check only direct fields and setter and getter. Options: 1) member prefix "m_" 2) check only simple getter/setter XXXType getXXXName(); void setXXXName(XXXType). 
+     <b>SimpleAccessorNameNotationCheck</b> -&nbsp; Check only direct fields and setter and getter. Options: 1) member prefix "m_" 2) check only simple getter/setter XXXType getXXXName(); void setXXXName(XXXType).
      <br/>Example:<br/>
      <code>private String value; </code><br/>
      <code>void setValue(String val) { this.value = val;} </code>
@@ -701,7 +707,7 @@ macros for "main()" method. Done by Baratali Izmailov.
      <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/74">More</a>
    <br/>
    <br/>
-     <b>AbbreviationAsWordInNameCheck</b> -&nbsp; problem detection of 2 char abbreviation with length limit 1 was fixed. 
+     <b>AbbreviationAsWordInNameCheck</b> -&nbsp; problem detection of 2 char abbreviation with length limit 1 was fixed.
      <br/>Example:<br/>
      <code>int scaleX;</code>
      <br/>Done by Baratali Izmailov.&nbsp;
@@ -718,23 +724,23 @@ macros for "main()" method. Done by Baratali Izmailov.
 	<br/>Done by Daniil Yaroslavtsev.&nbsp;
 	(<a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/98">issue</a>)
     <br/>
-    <br/>     
+    <br/>
     <b>ForbidReturnInFinallyBlockCheck</b> -&nbsp; This check reports if the finally block contains a return statement.
     <br/>Done by Vadim Panasiuk.&nbsp;
     (<a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/78">issue</a>).
     <br/>
     <br/>
-	 Update for ChildBlockLengthCheck to show current sizes of 'bad' blocks, not only allowed sizes for it. 
+	 Update for ChildBlockLengthCheck to show current sizes of 'bad' blocks, not only allowed sizes for it.
    <br/>Done by Daniil Yaroslavtsev.&nbsp;
 	 <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/pull/97">More</a>
      <br/>
      <br/>
-	 Fixed bugs in AvoidHidingCauseExceptionCheck -&nbsp; More information: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/52">issue</a>. 
-   <br/>Done by Ilja Dubinin.&nbsp;	
+	 Fixed bugs in AvoidHidingCauseExceptionCheck -&nbsp; More information: <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/52">issue</a>.
+   <br/>Done by Ilja Dubinin.&nbsp;
     <br/>
     <br/>
     Fixed bugs in OverridableMethodInConstructorCheck -&nbsp; More information: <a 	href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/51">issue</a>. Also added new option
-    that allow compare methods by number of their parameters. 
+    that allow compare methods by number of their parameters.
     <br/>Done by Ilja Dubinin. &nbsp;
 
 	<br/>
@@ -815,12 +821,12 @@ main project and ease code managment and ease new developers unserstanding of pr
 <div id="1.0.5" class="spoiler color_on_hover">
 <div class="name"><span><h3>Release 1.0.5 (14/Apr/2012)</h3></span></div>
 <div class="text">
-    <b>ChildBlockLengthCheck</b> -&nbsp;Length of child block that is more then 90% of parent block is hard to read 
+    <b>ChildBlockLengthCheck</b> -&nbsp;Length of child block that is more then 90% of parent block is hard to read
 		  in case child block is long(few display screens). Done by Daniil Yaroslavtsev.&nbsp;
 <a href="https://sourceforge.net/tracker/?func=detail&aid=3197024&group_id=29721&atid=397081">issue</a>
 <br/>
 <br/>
-    <b>AvoidModifiersForTypesCheck</b> -&nbsp;Disallow some set of modifiers (Only 4 types according to Java Spec:static,final, transient, volatile) 
+    <b>AvoidModifiersForTypesCheck</b> -&nbsp;Disallow some set of modifiers (Only 4 types according to Java Spec:static,final, transient, volatile)
 		  for specified types, caused by static for ULCComponents. Done by Daniil Yaroslavtsev.&nbsp;
 <a href="https://sourceforge.net/tracker/?func=detail&aid=3156495&group_id=29721&atid=397081">issue</a>
 <br/>
@@ -835,19 +841,19 @@ main project and ease code managment and ease new developers unserstanding of pr
 <a href="https://sourceforge.net/tracker/?func=detail&aid=3413148&group_id=29721&atid=397081">issue</a>
 <br/>
 <br/>
-    <b>ForbidInstantiationCheck</b> -&nbsp;Forbids instantiation of certain object types by their full classname. 
+    <b>ForbidInstantiationCheck</b> -&nbsp;Forbids instantiation of certain object types by their full classname.
 		    For example: "java.lang.NullPointerException" will forbid the NPE instantiation.
 		    Done by Daniil Yaroslavtsev.&nbsp;
 <a href="https://sourceforge.net/tracker/?func=detail&aid=3182213&group_id=29721&atid=397081">issue</a>
 <br/>
 <br/>
-    <b>ReturnCountExtendedCheck</b> -&nbsp;Checks that method/ctor "return" literal count is not greater than 
+    <b>ReturnCountExtendedCheck</b> -&nbsp;Checks that method/ctor "return" literal count is not greater than
 		    the given value ("maxReturnCount" property). has many useful ignore options.
 		    Done by Daniil Yaroslavtsev.&nbsp;
 <a href="https://sourceforge.net/tracker/index.php?func=detail&aid=3413511&group_id=29721&atid=397081">issue</a>
 <br/>
 <br/>
-    <b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader. 
+    <b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader.
 		    Issue for ignoring methods with annotation @Override was fixed. Done by Daniil Yaroslavtsev.&nbsp;
 <a href="http://sourceforge.net/tracker/index.php?func=detail&aid=3300836&group_id=29721&atid=397081">issue</a>
 <br/>
@@ -871,40 +877,40 @@ annotation for private field. Done by&nbsp;Victor Hidoyatov.&nbsp;
 <a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156070&amp;group_id=29721&amp;atid=397081">issue</a>.
 <br/>
 <br/>
-<b>AvoidNotShortCircuitOperatorsForBooleanCheck</b> -&nbsp;Forbid to use "|", "|=", "&amp;" for boolean/Boolean variables, 
-and force to use "||", .... , explanation link. Example: "boolean b |= returnBoolean()". 
+<b>AvoidNotShortCircuitOperatorsForBooleanCheck</b> -&nbsp;Forbid to use "|", "|=", "&amp;" for boolean/Boolean variables,
+and force to use "||", .... , explanation link. Example: "boolean b |= returnBoolean()".
 Done by Daniil Yaroslavtsev.&nbsp;
 <a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156065&amp;group_id=29721&amp;atid=397081" >issue</a>.
 <br/>
 <br/>
-<b>IllegalCatchCheck</b> -&nbsp;Options to ignore 1) exact re-throw after logging 
+<b>IllegalCatchCheck</b> -&nbsp;Options to ignore 1) exact re-throw after logging
 2) creation and throw of other Exception base on current exception. Done by Daniil Yaroslavtsev.&nbsp;
 <a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3156067&amp;group_id=29721&amp;atid=397081" >issue</a>.
 <br/>
 <br/>
-<b>OverridableMethodInConstructorCheck</b> -&nbsp;Do not use protected/public method in C-tor. 
-Use only private and final.&nbsp;Check all call hierarchy from c-tor to avoid: c-tor -&gt; private -&gt; public/protected. 
+<b>OverridableMethodInConstructorCheck</b> -&nbsp;Do not use protected/public method in C-tor.
+Use only private and final.&nbsp;Check all call hierarchy from c-tor to avoid: c-tor -&gt; private -&gt; public/protected.
 Done by Daniil Yaroslavtsev. (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3103877&amp;group_id=29721&amp;atid=397081">issue</a>.
 <br/>
 <br/>
-<b>ReturnBooleanFromTernary</b> -&nbsp;It is a bad practice to return boolean values from ternary operations. 
+<b>ReturnBooleanFromTernary</b> -&nbsp;It is a bad practice to return boolean values from ternary operations.
 Just use the value inside branch instead. Done by Ivan Sopov.
 <br/>
 <br/>
-<b>ReturnNullInsteadOfBoolean</b> - Arguably it is the matter of style to use Boolean for ternary logic or enum. 
-And since all the information is in the single file and even in the single method, 
-I think that checkstyle is capable of doing this. Done by Ivan Sopov. 
+<b>ReturnNullInsteadOfBoolean</b> - Arguably it is the matter of style to use Boolean for ternary logic or enum.
+And since all the information is in the single file and even in the single method,
+I think that checkstyle is capable of doing this. Done by Ivan Sopov.
 (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3189246&amp;group_id=29721&amp;atid=397081">issue</a>)
 <br/>
 <br/>
-<b>VariableDeclarationUsageDistanceCheck</b> - check distance between declaration of variable 
-and its first usage of it. Options: Allowed distance (in rows); Ignore variable names (regexp). 
+<b>VariableDeclarationUsageDistanceCheck</b> - check distance between declaration of variable
+and its first usage of it. Options: Allowed distance (in rows); Ignore variable names (regexp).
 Done by Ruslan Diachenko.&nbsp;
 <a class="external-link" href="https://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>
 <br/>
 <br/>
-<b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader. 
-Checks names for fields, methods , ....... . Few ignore options. Done by Roman Ivanov. 
+<b>AbbreviationAsWordInNameCheck</b> -&nbsp;XMLReader should be names like XmlReader.
+Checks names for fields, methods , ....... . Few ignore options. Done by Roman Ivanov.
 (<a href="http://sourceforge.net/tracker/?func=detail&amp;aid=3300836&amp;group_id=29721&amp;atid=397081">issue</a>).
 <br/>
 </div>
@@ -935,7 +941,7 @@ UnnecessaryParenthesesExtendedCheck - standart check + option to ignore some arg
 <div id="1.0.1" class="spoiler color_on_hover">
 <div class="name"><span><h3>Release 1.0.1 (21/Sept/2010)</h3></span></div>
 <div class="text">
-CustomDeclarationOrderCheck - check to adjust class structure to make it more predictable. 
+CustomDeclarationOrderCheck - check to adjust class structure to make it more predictable.
 Done by Danil Lopatin. <a href="http://habrahabr.ru/blogs/java/111739/">acticle in russian</a>
 <a href="http://sourceforge.net/tracker/?func=detail&aid=3044455&group_id=29721&atid=397080">patch and example of config</a>
 <br/>
@@ -957,12 +963,12 @@ LineLengthExtendedCheck - extension of standard check with a lot of ignore optio
 	Examples of how to use SevNTU-Checkstyle with Maven, Ant or Gradle you can find at <a href="https://github.com/sevntu-checkstyle/checkstyle-samples">checkstyle-samples</a> repo.
     <p><a href="http://sevntu-checkstyle.github.com/sevntu.checkstyle/gsoc-2013-ideas.html">GSOC 2013 ideas</a>
 
-    <h2>Download</h2>    
+    <h2>Download</h2>
     <p>
       You can download this project in either
       <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle/zipball/master">zip</a> or
       <a href="http://github.com/sevntu-checkstyle/sevntu.checkstyle/tarball/master">tar</a> formats.
-    </p>  
+    </p>
     <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
       by running:
       <pre style="border-bottom-style: dashed; border-top-style: dashed; border-left-color: #E8F2FC; border-top-color: #E8F2FC; border-left-style: dashed; border-right-color: #E8F2FC; border-right-style: dashed; border-bottom-color: #E8F2FC; border-bottom-width: medium; border-right-width: medium; border-left-width: medium; border-top-width: medium; width:85%;">$ git clone git://github.com/sevntu-checkstyle/sevntu.checkstyle</pre>
@@ -974,6 +980,6 @@ LineLengthExtendedCheck - extension of standard check with a lot of ignore optio
     <br/>
   </div>
 
-  
+
 </body>
 </html>
