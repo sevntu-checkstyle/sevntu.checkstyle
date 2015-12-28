@@ -52,10 +52,10 @@
     <suppress checks=".*" files="EnumValueNameCheck.java"/>
     <suppress checks=".*" files="InterfaceTypeParameterNameCheck.java"/>
     <suppress checks=".*" files="Utils.java"/>
-    <suppress checks=".*" files="AvoidDefaultSerializableInInnerClasses.java"/>
-    <suppress checks=".*" files="ForbidCCommentsInMethods.java"/>
-    <suppress checks=".*" files="ReturnBooleanFromTernary.java"/>
-    <suppress checks=".*" files="ReturnNullInsteadOfBoolean.java"/>
+    <suppress checks=".*" files="AvoidDefaultSerializableInInnerClassesCheck.java"/>
+    <suppress checks=".*" files="ForbidCCommentsInMethodsCheck.java"/>
+    <suppress checks=".*" files="ReturnBooleanFromTernaryCheck.java"/>
+    <suppress checks=".*" files="ReturnNullInsteadOfBooleanCheck.java"/>
     <!-- END of legacy code -->
 
     <suppress checks="Translation" files=".*"/>

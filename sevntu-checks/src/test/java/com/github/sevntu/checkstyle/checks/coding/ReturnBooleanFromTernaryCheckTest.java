@@ -1,21 +1,20 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary.*;
+import static com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck.*;
 
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ReturnBooleanFromTernaryTest extends BaseCheckTestSupport {
+public class ReturnBooleanFromTernaryCheckTest extends BaseCheckTestSupport {
 	
 	private final String warninigMessage = getCheckMessage(MSG_KEY);
 	
 	@Test
 	public void testDefault() throws Exception {
 		final DefaultConfiguration checkConfig =
-				createCheckConfig(ReturnBooleanFromTernary.class);
+				createCheckConfig(ReturnBooleanFromTernaryCheck.class);
 		final String[] expected = {
 				"6:35: " + warninigMessage,
 				"7:38: " + warninigMessage,

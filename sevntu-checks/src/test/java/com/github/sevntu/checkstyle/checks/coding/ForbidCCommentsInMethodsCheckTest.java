@@ -18,15 +18,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods.*; 
+import static com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck.*;
 
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidCCommentsInMethodsTest extends
+public class ForbidCCommentsInMethodsCheckTest extends
         BaseCheckTestSupport
 {
 	private final String warningMessage = getCheckMessage(MSG_KEY);
@@ -36,7 +35,7 @@ public class ForbidCCommentsInMethodsTest extends
             throws Exception
     {
 
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethods.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {
                 "10: " + warningMessage,
                 "17: " + warningMessage,
@@ -54,7 +53,7 @@ public class ForbidCCommentsInMethodsTest extends
     public void testFileWithoutComments()
             throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethods.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethods2.java"), expected);
     }
@@ -63,7 +62,7 @@ public class ForbidCCommentsInMethodsTest extends
     public void testInterface()
             throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethods.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethods3.java"), expected);
     }
