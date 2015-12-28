@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class ForbidCCommentsInMethods extends Check
+public class ForbidCCommentsInMethodsCheck extends Check
 {
     /**
      * Warning message key

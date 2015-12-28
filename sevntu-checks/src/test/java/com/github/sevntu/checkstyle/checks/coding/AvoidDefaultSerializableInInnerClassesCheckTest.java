@@ -18,15 +18,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses.*;
+import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck.*;
 
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class AvoidDefaultSerializableInInnerClassesTest extends
+public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     BaseCheckTestSupport
 {
 	private final String warningMessage = getCheckMessage(MSG_KEY);
@@ -34,7 +33,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
     public void testWithAllowPartiaFalse()
         throws Exception
         {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {
             "33: " + warningMessage,
@@ -59,7 +58,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
     public void testPrivateNotRealReadObject()
         throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
@@ -72,7 +71,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
     public void testRealReadObjectNotRealReadObjectRealPrivate()
         throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {};
 
@@ -83,7 +82,7 @@ public class AvoidDefaultSerializableInInnerClassesTest extends
     public void testWithAllowPartiaTrue()
         throws Exception
     {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClasses.class);
+        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
             "33: " + warningMessage,

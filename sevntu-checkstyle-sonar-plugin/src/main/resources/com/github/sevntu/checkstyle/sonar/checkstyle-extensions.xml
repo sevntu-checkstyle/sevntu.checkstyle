@@ -170,11 +170,11 @@
     	</param>
 	</rule>
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses</key>
+		<key>com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck</key>
 		<name>Avoid default implementation of serializable interface</name>
 		<category name="coding"/>
 		<description>This check prevents the default implementation Serializable interface in inner classes (Serializable interface are default if methods readObject() or writeObject() are not override in class). Check has option, that allow implementation only one method, if it true, but if it false - class must implement both methods. For more information read 'Effective Java (2nd edition)' chapter 11, item 74, page 294.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck</configKey>
 		<param key="allowPartialImplementation" type="BOOLEAN">
 			<defaultValue>false</defaultValue>
 			<description>Allow partial implementation for serializable interface.</description>
@@ -295,11 +295,11 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</configKey>
 	</rule>
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods</key>
+		<key>com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck</key>
 		<name>Forbid C comments in method body</name>
 		<category name="coding"/>
 		<description>Forbid C-style comments (/* ... */) in method body.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck</configKey>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck</key>
@@ -497,11 +497,11 @@
 		</param>
 	</rule>
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary</key>
+		<key>com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck</key>
 		<name>Returning Boolean from Ternary Operator</name>
 		<category name="coding"/>
 		<description>Avoid returning boolean values from ternary operator - use the boolean value from the inside directly.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck</configKey>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck</key>
@@ -535,11 +535,11 @@
     	</param>
 	</rule>
 	<rule>
-		<key>com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean</key>
+		<key>com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck</key>
 		<name>Returning Null Instead of Boolean</name>
 		<category name="coding"/>
 		<description>Method declares to return Boolean, but returns null.</description>
-		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean</configKey>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck</configKey>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck</key>

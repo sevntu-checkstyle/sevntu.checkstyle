@@ -16,7 +16,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * 
  * @author Ivan Sopov
  */
-public class ReturnNullInsteadOfBoolean extends Check {
+public class ReturnNullInsteadOfBooleanCheck extends Check {
 
     /**
      * Warning message key

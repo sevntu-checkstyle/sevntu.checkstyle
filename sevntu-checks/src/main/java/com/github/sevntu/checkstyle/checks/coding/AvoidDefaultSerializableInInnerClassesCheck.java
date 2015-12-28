@@ -33,7 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class AvoidDefaultSerializableInInnerClasses extends Check
+public class AvoidDefaultSerializableInInnerClassesCheck extends Check
 {
 
     public static final String MSG_KEY = "avoid.default.serializable.in.inner.classes";
