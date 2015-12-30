@@ -6,7 +6,7 @@
   <version>1.17.1</version>
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
-    <checkstyle.version>6.14</checkstyle.version>
+    <checkstyle.version>6.14.1</checkstyle.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
   </properties>
