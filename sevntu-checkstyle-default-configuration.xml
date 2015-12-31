@@ -197,6 +197,7 @@
     <module name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck">
 	  <property name="severity" value="warning"/>
     </module>
-    
+    <module name="com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck" />
+
   </module>
 </module>
