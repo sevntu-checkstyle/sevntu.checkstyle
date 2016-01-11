@@ -555,22 +555,17 @@ public class EitherLogOrThrowCheck extends Check
     {
         boolean result = false;
         DetailAST parameterAst = parametersAst.getFirstChild();
+
         while (parameterAst != null) {
-            if (exceptionVariableName.equals(getIdentifier(parameterAst)))
-            {
+            if (exceptionVariableName.equals(getIdentifier(parameterAst))
+                    || isInstanceMethodCall(exceptionVariableName,
+                            parameterAst.getFirstChild())) {
                 result = true;
-                break;
+                parameterAst = null;
             }
             else {
-                final DetailAST methodCallAst = parameterAst.getFirstChild();
-                if (isInstanceMethodCall(exceptionVariableName,
-                        methodCallAst))
-                {
-                    result = true;
-                    break;
-                }
+                parameterAst = parameterAst.getNextSibling();
             }
-            parameterAst = parameterAst.getNextSibling();
         }
         return result;
     }

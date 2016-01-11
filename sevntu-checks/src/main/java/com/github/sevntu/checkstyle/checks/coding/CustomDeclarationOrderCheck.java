@@ -205,7 +205,7 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private static final Comparator<DetailAST> AST_LINE_COMPARATOR = new Comparator<DetailAST>()
     {
-        
+
         public int compare(DetailAST aObj1, DetailAST aObj2)
         {
             return aObj1.getLineNo() - aObj2.getLineNo();
@@ -591,44 +591,28 @@ public class CustomDeclarationOrderCheck extends Check
     {
         int result = -1;
         final String modifiers = getCombinedModifiersList(ast);
-        for (int index = 0; index < customOrderDeclaration.size(); index++) {
+        for (int index = 0; index < customOrderDeclaration.size() && result != 1; index++) {
             final FormatMatcher currentRule = customOrderDeclaration.get(index);
             if (currentRule.getClassMember() == ast.getType()
                     && currentRule.getRegexp().matcher(modifiers).find())
             {
-                if (currentRule.hasRule(ANNON_CLASS_FIELD_MACRO)) {
-                    if (isAnonymousClassField(ast)) {
-                        result = index;
-                        break;
-                    }
-                }
-                else if (currentRule.hasRule(GETTER_SETTER_MACRO)) {
+                if (currentRule.hasRule(ANNON_CLASS_FIELD_MACRO)
+                        || currentRule.hasRule(GETTER_SETTER_MACRO)
+                        || currentRule.hasRule(MAIN_METHOD_MACRO)) {
+
                     final String methodName = getIdentifier(ast);
                     final ClassDetail classDetail = classDetails.peek();
-                    if (classDetail.containsGetter(methodName)
-                            || classDetail.containsSetter(methodName))
-                    {
+
+                    if (isAnonymousClassField(ast)
+                            || classDetail.containsGetter(methodName)
+                            || classDetail.containsSetter(methodName)
+                            || isMainMethod(ast)) {
                         result = index;
-                        break;
-                    }
-                }
-                else if (currentRule.hasRule(MAIN_METHOD_MACRO)) {
-                    if (isMainMethod(ast)) {
-                        result = index;
-                        break;
                     }
                 }
                 else {
                     // if more than one rule matches current AST node, then keep first one
-                    result = (result == -1) ? index : result;
-                    if (ast.getType() == TokenTypes.METHOD_DEF
-                            || ast.getType() == TokenTypes.VARIABLE_DEF)
-                    {
-                        // continue to find more specific rule
-                        continue;
-                    } else {
-                        break;
-                    }
+                    result = result == -1 ? index : result;
                 }
             }
         }
@@ -902,14 +886,14 @@ public class CustomDeclarationOrderCheck extends Check
         DetailAST currentStatement = statementsAst.getFirstChild();
 
         while (currentStatement != null && currentStatement != statementsAst) {
-            
+
             String nameOfSetterField = null;
             if (currentStatement.getType() == TokenTypes.ASSIGN) {
                 nameOfSetterField = getNameOfAssignedField(currentStatement);
             } else if (currentStatement.getType() == TokenTypes.METHOD_CALL) {
                 nameOfSetterField = getNameOfSuperClassUpdatedField(currentStatement);
             }
-            
+
             if (fieldName.equalsIgnoreCase(nameOfSetterField)) {
                 result = true;
                 break;
@@ -917,7 +901,7 @@ public class CustomDeclarationOrderCheck extends Check
 
             DetailAST nextStatement = currentStatement.getFirstChild();
 
-            while ((currentStatement != null) && (nextStatement == null)) {
+            while (currentStatement != null && nextStatement == null) {
                 nextStatement = currentStatement.getNextSibling();
                 if (nextStatement == null) {
                     currentStatement = currentStatement.getParent();
@@ -941,20 +925,20 @@ public class CustomDeclarationOrderCheck extends Check
     {
         String nameOfSettingField = null;
 
-        if (assignAst.getChildCount() > 0 
+        if (assignAst.getChildCount() > 0
                         && (assignAst.getLastChild().getType() == TokenTypes.IDENT
                         || assignAst.getLastChild().getType() == TokenTypes.METHOD_CALL)) {
 
             final DetailAST methodCallDot = assignAst.getFirstChild();
-            if (methodCallDot.getChildCount() == 2 
-                    && "this".equals(methodCallDot.getFirstChild().getText())) { 
+            if (methodCallDot.getChildCount() == 2
+                    && "this".equals(methodCallDot.getFirstChild().getText())) {
                     nameOfSettingField = methodCallDot.getLastChild().getText();
             }
         }
-        
+
         return nameOfSettingField;
     }
-    
+
     /**
      * <p>
      * Return name of the field of a super class, that was assigned in setter.
@@ -965,13 +949,13 @@ public class CustomDeclarationOrderCheck extends Check
      */
     private static String getNameOfSuperClassUpdatedField(DetailAST methodCallAst) {
         String nameOfSettingField = null;
-        
+
         final DetailAST methodCallDot = methodCallAst.getFirstChild();
-        if (methodCallDot.getChildCount() == 2 
+        if (methodCallDot.getChildCount() == 2
                 && "super".equals(methodCallDot.getFirstChild().getText())) {
                 nameOfSettingField = getFieldName(methodCallDot);
         }
-        
+
         return nameOfSettingField;
     }
 
@@ -1374,7 +1358,7 @@ public class CustomDeclarationOrderCheck extends Check
                             }
                             // if fields are same and setter is sibling with getter
                             if (getterField.equals(setterField)
-                                    && j != (i + 1))
+                                    && j != i + 1)
                             {
                                 result.put(setterAst, getterAst);
                                 break;

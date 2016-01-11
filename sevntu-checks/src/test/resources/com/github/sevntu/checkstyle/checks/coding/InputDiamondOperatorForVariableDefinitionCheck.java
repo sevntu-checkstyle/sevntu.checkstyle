@@ -87,6 +87,7 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
         }
     }
     RuleViolation ruleViolation = new ParametricRuleViolation<Object>();
+    ParametricRuleViolation<? extends Object> parametricRule = new ParametricRuleViolation<String>(); // OK: no violation
 }
     
     
