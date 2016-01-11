@@ -378,39 +378,31 @@ public class OverridableMethodInConstructorCheck extends Check
         visitedMethodCalls.add(methodCallAST);
 
         final String methodName = getMethodName(methodCallAST);
+        final DetailAST methodDef = getMethodDef(methodCallAST);
 
-        if (methodName != null) {
-            final DetailAST methodDef = getMethodDef(methodCallAST);
-            if (methodDef != null) {
-
-                if (hasModifier(methodDef, TokenTypes.LITERAL_STATIC)) {
-                    // do nothing
-                }
-                else if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
-                        || hasModifier(methodDef, TokenTypes.FINAL))
-                {
-                    final List<DetailAST> methodCallsList = getMethodCallsList(
-                            methodDef);
-                    for (DetailAST curNode : methodCallsList) {
-                        if (visitedMethodCalls.contains(curNode)) {
-                            result = false;
-                            break;
-                        }
-                        else if (isOverridableMethodCall(curNode)) {
-                            result = true;
-                            break;
-                        }
+        if (methodName != null
+                && methodDef != null)
+        {
+            if (hasModifier(methodDef, TokenTypes.LITERAL_STATIC)) {
+                // do nothing
+            }
+            else if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
+                    || hasModifier(methodDef, TokenTypes.FINAL))
+            {
+                final List<DetailAST> methodCallsList = getMethodCallsList(
+                        methodDef);
+                for (DetailAST curNode : methodCallsList) {
+                    if (!visitedMethodCalls.contains(curNode)
+                            && isOverridableMethodCall(curNode)) {
+                        result = true;
+                        break;
                     }
                 }
-                else {
-                    curOverridableMetName = methodName;
-                    result = true;
-                }
             }
-        }
-        else
-        {
-            result = false;
+            else {
+                curOverridableMetName = methodName;
+                result = true;
+            }
         }
         return result;
     }
@@ -890,7 +882,7 @@ public class OverridableMethodInConstructorCheck extends Check
 
         while (curNode != null) {
             DetailAST toVisit = curNode.getFirstChild();
-            while ((curNode != null) && (toVisit == null)) {
+            while (curNode != null && toVisit == null) {
                 toVisit = curNode.getNextSibling();
                 if (toVisit == null) {
                     curNode = curNode.getParent();
@@ -899,11 +891,8 @@ public class OverridableMethodInConstructorCheck extends Check
 
             curNode = toVisit;
 
-            if (curNode == null) {
-                break;
-            }
-
-            if (curNode.getType() == TokenTypes.CLASS_DEF
+            if (curNode != null
+                    && curNode.getType() == TokenTypes.CLASS_DEF
                     && curNode.findFirstToken(TokenTypes.IDENT).getText()
                             .equals(className))
             {

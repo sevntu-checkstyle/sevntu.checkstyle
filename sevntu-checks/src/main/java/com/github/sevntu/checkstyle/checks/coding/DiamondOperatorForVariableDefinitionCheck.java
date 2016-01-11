@@ -75,7 +75,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
                         DetailAST typeArgs =
                                 getFirstChildTokenOfType(newNode, TokenTypes.TYPE_ARGUMENTS);
 
-                        if (typeArgs != null && varDefArguments.equalsTree(typeArgs)) {
+                        if (varDefArguments.equalsTree(typeArgs)) {
                             log(typeArgs, MSG_KEY);
                         }
                 }
@@ -89,23 +89,17 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
      *        AST subtree to process.
      */
     private static DetailAST getFirstChildTokenOfType(DetailAST rootToken, int tokenType) {
-        
-        DetailAST resultNode = null;
-        DetailAST currentNode = rootToken.getFirstChild();
-        while (currentNode != null) {
-            if (currentNode.getType() == tokenType) {
-                resultNode = currentNode;
-                break;
-            }
-            DetailAST childNode = getFirstChildTokenOfType(currentNode, tokenType);
+        DetailAST resultNode = rootToken.getFirstChild();
+
+        if (resultNode != null
+                && resultNode.getType() != tokenType) {
+            DetailAST childNode = getFirstChildTokenOfType(resultNode, tokenType);
+
             if (childNode == null) {
-                currentNode = currentNode.getNextSibling();
-            }
-            else {
-                resultNode = childNode;
-                break;
+                resultNode = resultNode.getNextSibling();
             }
         }
+
         return resultNode;
     }
 

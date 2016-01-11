@@ -164,24 +164,55 @@ public class ForbidInstantiationCheck extends Check
         boolean result = false;
 
         for (String importText : importsList) {
-            if (importText.endsWith("*")) {
-                final String importTextWithoutAsterisk =
-                        importText.substring(0, importText.length() - 1);
-                if (forbiddenClassNameAndPath.equals(
-                        importTextWithoutAsterisk + className))
-                {
-                    result = true;
-                    break;
-                }
-            }
-            else if (importText.equals(forbiddenClassNameAndPath)
-                    && importText.endsWith(className))
-            {
+            if (isWildcardForbiddenImported(importText, forbiddenClassNameAndPath, className)
+                    || isForbiddenImported(importText, forbiddenClassNameAndPath, className)) {
                 result = true;
                 break;
             }
         }
+
         return result;
+    }
+
+    /**
+     * Tests if the class with given className is imported with the forbidden
+     * import and false otherwise.
+     *
+     * @param importText
+     *        - String representation of imports from the processed class.
+     * @param className
+     *        - the name of the class to check.
+     * @param forbiddenClassNameAndPath
+     *        - full name&path of the given forbidden class.
+     * @return true if the class with given className is imported with the
+     *         forbidden import and false otherwise.
+     */
+    private boolean isWildcardForbiddenImported(String importText, String forbiddenClassNameAndPath,
+            String className) {
+        final String importTextWithoutAsterisk =
+                importText.substring(0, importText.length() - 1);
+
+        return importText.endsWith("*")
+                && forbiddenClassNameAndPath.equals(importTextWithoutAsterisk + className);
+    }
+
+    /**
+     * Tests if the class with given className is imported with the forbidden
+     * import and false otherwise.
+     *
+     * @param importText
+     *        - String representation of imports from the processed class.
+     * @param className
+     *        - the name of the class to check.
+     * @param forbiddenClassNameAndPath
+     *        - full name&path of the given forbidden class.
+     * @return true if the class with given className is imported with the
+     *         forbidden import and false otherwise.
+     */
+    private boolean isForbiddenImported(String importText, String forbiddenClassNameAndPath,
+            String className) {
+        return importText.equals(forbiddenClassNameAndPath)
+                && importText.endsWith(className);
     }
 
     /**
