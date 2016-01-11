@@ -552,6 +552,13 @@
     	</param>
 	</rule>
 	<rule>
+		<key>com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck</key>
+		<name>Single break or continue inside a loop</name>
+		<category name="coding"/>
+		<description>Restricts the number of break and continue statements inside cycle body (only one is allowed).</description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck</configKey>
+	</rule>
+	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</key>
 		<name>Ternary Per Expression Count</name>
 		<category name="coding" />

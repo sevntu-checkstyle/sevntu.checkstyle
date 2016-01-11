@@ -404,6 +404,11 @@
             <message-key key="incorrect.setter.name" />
         </rule-metadata>
 
+        <rule-metadata name="%SingleBreakOrContinueCheck.name" internal-name="SingleBreakOrContinueCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.SingleBreakOrContinueCheck"/>
+            <description>%SingleBreakOrContinueCheck.desc</description>
+        </rule-metadata>
+
         <rule-metadata name="%NestedSwitchCheck.name" internal-name="NestedSwitchCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck"/>
             <description>%NestedSwitchCheck.desc</description>
