@@ -145,7 +145,7 @@
     <module name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck">
       <property name="severity" value="warning"/>
     </module>
-    <!-- since 1.11 --> 
+    <!-- since 1.11 -->
     <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
     <property name="severity" value="warning"/>
       <property name="objFormat" value="^[A-Z][a-zA-Z0-9]*$"/>
@@ -189,6 +189,7 @@
       <property name="severity" value="warning"/>
       <property name="skippedMethods" value="readObject, writeObject, readObjectNoData, readResolve, writeReplace"/>
     </module>
-
+    <!-- 1.18.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck" />
   </module>
 </module>
