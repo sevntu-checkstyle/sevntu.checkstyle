@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2015  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractNestedDepthCheck;
  * block should be exposed into new method.
  * </p>
  * Assuming following block:
- * 
+ *
  * <pre>
  * <code>
  *      switch (color) {
@@ -40,7 +40,7 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractNestedDepthCheck;
  *      }
  * </code>
  * </pre>
- * 
+ *
  * Nested switch block that checks <code>type</code> parameter should be converted into separate
  * method.<br>
  * To enable this check use following configuration:<br>

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //checkstyle: Checks Java source code for adherence to a set of rules.
-//Copyright (C) 2001-2015 the original author or authors.
+//Copyright (C) 2001-2016 the original author or authors.
 //
 //This library is free software; you can redistribute it and/or
 //modify it under the terms of the GNU Lesser General Public
@@ -404,7 +404,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
                 getPath("InputForbidWildcardAsReturnType.java"),
                 expected);
     }
-    
+
     /**
      * Don't check deprecated methods.
      * @throws Exception
@@ -429,7 +429,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
                 new TreeSet<Integer>(LINES);
         exceptOverride.removeAll(LINES_WITH_DEPRECATED);
         final String[] expected = createExpectedMessages(exceptOverride);
-        
+
         verify(checkConfig,
                 getPath("InputForbidWildcardAsReturnType.java"),
                 expected);
