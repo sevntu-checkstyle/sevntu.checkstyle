@@ -44,6 +44,9 @@
         <rule-metadata name="%AvoidModifiersForTypes.name" internal-name="AvoidModifiersForTypes" parent="TreeWalker">
             <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.AvoidModifiersForTypesCheck"/>
             <description>%AvoidModifiersForTypes.desc</description>
+            <property-metadata name="forbiddenClassesRegexpAnnotation" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpAnnotation</description>
+            </property-metadata>
             <property-metadata name="forbiddenClassesRegexpFinal" datatype="Regex" default-value="">
                 <description>%AvoidModifiersForTypes.forbiddenClassesRegexpFinal</description>
             </property-metadata>
@@ -55,6 +58,18 @@
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpVolatile" datatype="Regex" default-value="">
                 <description>%AvoidModifiersForTypes.forbiddenClassesRegexpVolatile</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpPrivate" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpPrivate</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpPackagePrivate" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpPackagePrivate</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpProtected" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpProtected</description>
+            </property-metadata>
+            <property-metadata name="forbiddenClassesRegexpPublic" datatype="Regex" default-value="">
+                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpPublic</description>
             </property-metadata>
             <message-key key="avoid.modifiers.for.types"/>
         </rule-metadata>

@@ -193,6 +193,9 @@
 		<category name="coding"/>
 		<description>Disallow some set of modifiers for Java types specified by regexp.</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck</configKey>
+        <param key="forbiddenClassesRegexpAnnotation" type="REGULAR_EXPRESSION">
+            <description>The regexp defines the names of classes, that could not have 'annotation' modifier.</description>
+        </param>
 		<param key="forbiddenClassesRegexpFinal" type="REGULAR_EXPRESSION">
 			<description>The regexp defines the names of classes, that could not have 'final' modifier.</description>
     	</param>
@@ -206,6 +209,18 @@
     	<param key="forbiddenClassesRegexpVolatile" type="REGULAR_EXPRESSION">
 			<description>The regexp defines the names of classes, that could not have 'volatile' modifier.</description>
     	</param>
+    	<param key="forbiddenClassesRegexpPrivate" type="REGULAR_EXPRESSION">
+            <description>The regexp defines the names of classes, that could not have 'private' modifier.</description>
+        </param>
+    	<param key="forbiddenClassesRegexpPackagePrivate" type="REGULAR_EXPRESSION">
+            <description>The regexp defines the names of classes, that could not have 'package-private' modifier.</description>
+        </param>
+    	<param key="forbiddenClassesRegexpProtected" type="REGULAR_EXPRESSION">
+            <description>The regexp defines the names of classes, that could not have 'protected' modifier.</description>
+        </param>
+    	<param key="forbiddenClassesRegexpPublic" type="REGULAR_EXPRESSION">
+            <description>The regexp defines the names of classes, that could not have 'public' modifier.</description>
+        </param>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck</key>
