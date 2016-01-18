@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.sevntu.checkstyle</groupId>
 	<artifactId>sevntu-checkstyle-sonar-plugin</artifactId>
-    <version>1.17.1</version>
+    <version>1.18.0</version>
 	<packaging>sonar-plugin</packaging>
 
 	<name>SevNTU Checkstyle Sonar Extension Plugin</name>
@@ -101,7 +101,7 @@
 
 	<!--  That profile is from https://github.com/SonarSource/sonar-developer-toolset/tree/master/eclipse/m2e-error-disabler-plugin
 	      to avoid errors in Eclipse
-	 -->	
+	 -->
     <profiles>
 		<profile>
 		  <id>m2e</id>

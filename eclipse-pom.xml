@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.sevntu.checkstyle</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.17.1</version>
+	<version>1.18.0</version>
 	<packaging>pom</packaging>
 	<modules>
  		<module>eclipsecs-sevntu-plugin</module>
 		<module>eclipsecs-sevntu-plugin-feature</module>
-		<module>update-site</module> 
+		<module>update-site</module>
 	</modules>
 
 	<properties>
@@ -21,7 +21,7 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/juno</url>
 		</repository>
-	</repositories> 
+	</repositories>
 
 <build>
   <plugins>
