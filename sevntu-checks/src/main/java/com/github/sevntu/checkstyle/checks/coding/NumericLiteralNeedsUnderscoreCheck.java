@@ -353,7 +353,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      * @return minimum length before checking
      */
     private int minSymbolsBeforeChecking(Type type) {
-        int minLength;
+        final int minLength;
         switch (type) {
             case DECIMAL:
                 minLength = minDecimalSymbolLength;
@@ -379,7 +379,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      * @return maximum number of characters between underscores
      */
     private int maxSymbolsUntilUnderscore(Type type) {
-        int maxSymbols;
+        final int maxSymbols;
         switch (type) {
             case DECIMAL:
                 maxSymbols = maxDecimalSymbolsUntilUnderscore;
@@ -413,7 +413,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
     private String[] getNumericSegments(String rawLiteral) {
         final Type type = getNumericType(rawLiteral);
         final String strippedLiteral = removePrePostfixByType(rawLiteral, type);
-        String[] numericSegments;
+        final String[] numericSegments;
         switch (type) {
             case DECIMAL:
                 numericSegments = DECIMAL_SPLITTER.split(strippedLiteral);
@@ -450,7 +450,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      * @return the type of literal (either decimal, hex, or binary)
      */
     private Type getNumericType(String rawLiteral) {
-        Type type;
+        final Type type;
         if (rawLiteral.length() < PREFIX_LENGTH) {
             type = Type.DECIMAL;
         }
@@ -552,7 +552,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      */
     private static String removeLetterPostfix(String text) {
         final char lastchar = text.charAt(text.length() - 1);
-        String noPostfixText;
+        final String noPostfixText;
         if (Character.isDigit(lastchar)) {
             noPostfixText = text;
         }
@@ -580,7 +580,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
             // Example: 0x1.0p1f (Hex Float)
             hasPostfix = true;
         }
-        String noPostfixText;
+        final String noPostfixText;
         if (hasPostfix) {
             noPostfixText = text.substring(0, text.length() - 1);
         }

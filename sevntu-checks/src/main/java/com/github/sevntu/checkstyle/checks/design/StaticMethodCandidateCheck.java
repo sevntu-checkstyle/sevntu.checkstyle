@@ -523,7 +523,7 @@ public class StaticMethodCandidateCheck extends Check {
      * @return true if the field is {@code static} or local.
      */
     private static boolean isStaticFieldOrLocalVariable(Frame frame, DetailAST identAst) {
-        boolean result;
+        final boolean result;
         final int parentType = identAst.getParent().getType();
         if (parentType == TokenTypes.DOT) {
             if (identAst.getNextSibling() != null) {
