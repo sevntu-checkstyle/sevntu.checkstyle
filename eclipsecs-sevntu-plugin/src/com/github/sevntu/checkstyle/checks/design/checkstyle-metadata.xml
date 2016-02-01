@@ -113,5 +113,17 @@
             <message-key key="static.method.candidate"/>   
         </rule-metadata>
 
+
+        <rule-metadata name="%ConstructorWithoutParams.name" internal-name="ConstructorWithoutParams" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck"/>
+            <description>%ConstructorWithoutParams.desc</description>
+            <property-metadata name="classNameFormat" datatype="Regex" default-value=".*Exception">
+                <description>%ConstructorWithoutParams.classNameFormat</description>
+            </property-metadata>
+            <property-metadata name="ignoredClassNameFormat" datatype="Regex" default-value="UnsupportedOperationException">
+                <description>%ConstructorWithoutParams.ignoredClassNameFormat</description>
+            </property-metadata>
+        </rule-metadata>
+
     </rule-group-metadata>
 </checkstyle-metadata>

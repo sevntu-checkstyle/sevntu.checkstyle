@@ -157,6 +157,24 @@
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</configKey>
 	</rule>
 
+	<rule>
+		<key>com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck</key>
+		<name>Constructor Without Params</name>
+		<category name="design"/>
+		<description>Forbids usage of parameterless constructors including the default ones. Rationale: constructors of certain classes must always take arguments
+			to properly instantiate objects. Exception classes are the primary example.
+		</description>
+		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck</configKey>
+		<param key="classNameFormat" type="REGULAR_EXPRESSION">
+			<defaultValue>.*Exception</defaultValue>
+			<description>Regex for class names for a check to apply to.</description>
+		</param>
+		<param key="ignoredClassNameFormat" type="REGULAR_EXPRESSION">
+			<defaultValue>UnsupportedOperationException</defaultValue>
+			<description>Regexp for class names to ignore.</description>
+		</param>
+	</rule>
+
 	<!-- 'coding' checks -->
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</key>
