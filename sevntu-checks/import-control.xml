@@ -3,7 +3,7 @@
     "-//Puppy Crawl//DTD Import Control 1.1//EN"
     "http://www.puppycrawl.com/dtds/import_control_1_1.dtd">
 
-<import-control pkg="com.github.sevntu.checkstyle.checks">
+<import-control pkg="com.github.sevntu.checkstyle">
 
   <allow pkg="antlr"/>
   <allow pkg="org.antlr.v4.runtime"/>
@@ -67,6 +67,7 @@
 
   <subpackage name="filters">
     <allow pkg="java.lang.ref"/>
+    <allow class="com.github.sevntu.checkstyle.checks.DetailAstRootHolder" local-only="true"/>
   </subpackage>
 
   <subpackage name="gui">

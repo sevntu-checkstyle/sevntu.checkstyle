@@ -20,5 +20,6 @@
       <package name="whitespace"/>
     </package>
     <package name="grammars"/>
+    <package name="filters"/>
   </package>
 </checkstyle-packages>

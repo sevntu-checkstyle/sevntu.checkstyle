@@ -53,6 +53,11 @@ public abstract class BaseCheckTestSupport extends Assert
 	private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	private final PrintStream printStream = new PrintStream(baos);
 
+	protected PrintStream getPrintStream()
+  {
+    return printStream;
+  }
+
 	public static DefaultConfiguration createCheckConfig(Class<?> clazz)
 	{
 		return new DefaultConfiguration(clazz.getName());

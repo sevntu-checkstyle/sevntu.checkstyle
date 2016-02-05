@@ -1,0 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+// Test case file for checkstyle.
+////////////////////////////////////////////////////////////////////////////////
+
+package com.github.sevntu.checkstyle.checks.test;
+
+//this file is added to achieve compilation of 
+//filters/InputSuppressionAnnotationFilter
+
+
+public @interface InputSuppressionAnnotation{   
+}
+
+
