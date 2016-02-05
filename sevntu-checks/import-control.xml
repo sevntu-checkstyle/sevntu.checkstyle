@@ -114,6 +114,7 @@
     <allow class="com.google.common.base.CaseFormat" local-only="true"/>
     <allow class="com.google.common.collect.ImmutableCollection" local-only="true"/>
     <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
+    <allow class="com.github.sevntu.checkstyle.checks.DetailAstRootHolder" local-only="true"/>
     <!-- check's subpackages -->
     <disallow pkg="com\.puppycrawl\.tools\.checkstyle\.checks\.[^.]+" regex="true"/>
     <disallow pkg="com\.puppycrawl\.tools\.checkstyle\.(ant|doclets|gui)" regex="true"/>
