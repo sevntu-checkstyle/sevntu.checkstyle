@@ -150,7 +150,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
     /**
      * Type of numeric literal.
      */
-    private enum Type {
+    protected enum NumericType {
         /**
          * Denotes a decimal literal. For example, 1.2f
          */
@@ -196,6 +196,12 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      * Default maximum symbols for a binary literal before it demands an underscore.
      */
     private static final int DEFAULT_MAX_BINARY_SYMBOLS_UNTIL_UNDERSCORE = 8;
+
+    /**
+     * Default regexp for fields to ignore for this check.
+     */
+    private static final Pattern DEFAULT_IGNORE_FIELD_NAME_PATTERN =
+            Pattern.compile("serialVersionUID");
 
     /**
      * Regex for splitting a decimal literal into checkable substrings.
@@ -246,6 +252,11 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      * Maximum symbols for a binary literal before it demands an underscore.
      */
     private int maxBinarySymbolsUntilUnderscore = DEFAULT_MAX_BINARY_SYMBOLS_UNTIL_UNDERSCORE;
+
+    /**
+     * Regexp for fields to ignore.
+     */
+    private Pattern ignoreFieldNamePattern = DEFAULT_IGNORE_FIELD_NAME_PATTERN;
 
     /**
      * Sets how many characters in a decimal literal there must be before it checks for an
@@ -307,6 +318,15 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
         maxBinarySymbolsUntilUnderscore = amount;
     }
 
+    /**
+     * Sets the regexp pattern for field names to ignore.
+     * @param pattern
+     *        the regexp pattern of fields to ignore
+     */
+    public void setIgnoreFieldNamePattern(String pattern) {
+        ignoreFieldNamePattern = Pattern.compile(pattern);
+    }
+
     @Override
     public int[] getDefaultTokens() {
         return new int[] {
@@ -319,28 +339,70 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
 
     @Override
     public void visitToken(final DetailAST ast) {
-        if (!passesCheck(ast.getText())) {
+        if (!passesCheck(ast)) {
             log(ast.getLineNo(), MSG_KEY);
         }
     }
 
     /**
-     * Returns true if the numeric literal passes the check.
-     * @param rawLiteral
-     *        numeric literal
+     * Checks if the provided token is a field.
+     * @param ast
+     *        the token to check
+     * @return whether or not the token is a field
+     */
+    private static boolean isField(final DetailAST ast) {
+        DetailAST current = ast;
+        while (current.getParent() != null && current.getType() != TokenTypes.VARIABLE_DEF) {
+            current = current.getParent();
+        }
+        return current.getType() == TokenTypes.VARIABLE_DEF
+                && current.branchContains(TokenTypes.LITERAL_STATIC)
+                && current.branchContains(TokenTypes.FINAL);
+    }
+
+    /**
+     * Returns the provided field's name.
+     * @param ast
+     *        the field for which the function looks for a name
+     * @return the field's name
+     */
+    private static String getFieldName(final DetailAST ast) {
+        DetailAST current = ast;
+        while (current.getType() != TokenTypes.VARIABLE_DEF) {
+            current = current.getParent();
+        }
+        current = current.getFirstChild();
+        while (current.getType() != TokenTypes.IDENT) {
+            current = current.getNextSibling();
+        }
+        return current.getText();
+    }
+
+    /**
+     * Returns true if the ast passes the check.
+     * @param ast
+     *        the numeric literal to check
      * @return if the numeric literal passes the check
      */
-    private boolean passesCheck(String rawLiteral) {
-        final Type type = getNumericType(rawLiteral);
-        final int minCheckingLength = minSymbolsBeforeChecking(type);
-        final int symbolsUntilUnderscore = maxSymbolsUntilUnderscore(type);
-        final String[] numericSegments = getNumericSegments(rawLiteral);
-        boolean passing = true;
-        for (String numericSegment : numericSegments) {
-            if (!numericSegmentPassesRequirement(numericSegment,
-                    minCheckingLength, symbolsUntilUnderscore)) {
-                passing = false;
-                break;
+    private boolean passesCheck(final DetailAST ast) {
+        boolean passing;
+        if (isField(ast) && ignoreFieldNamePattern.matcher(getFieldName(ast)).find()) {
+            passing = true;
+        }
+        else {
+            final String rawLiteral = ast.getText();
+            final NumericType type = getNumericType(rawLiteral);
+            final int minCheckingLength = minSymbolsBeforeChecking(type);
+            final int symbolsUntilUnderscore = maxSymbolsUntilUnderscore(type);
+            final String strippedLiteral = removePrePostfixByType(rawLiteral, type);
+            final String[] numericSegments = getNumericSegments(strippedLiteral, type);
+            passing = true;
+            for (String numericSegment : numericSegments) {
+                if (!numericSegmentPassesRequirement(numericSegment,
+                        minCheckingLength, symbolsUntilUnderscore)) {
+                    passing = false;
+                    break;
+                }
             }
         }
         return passing;
@@ -352,21 +414,20 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      *        the type of numerical literal
      * @return minimum length before checking
      */
-    private int minSymbolsBeforeChecking(Type type) {
+    private int minSymbolsBeforeChecking(NumericType type) {
         final int minLength;
-        switch (type) {
-            case DECIMAL:
-                minLength = minDecimalSymbolLength;
-                break;
-            case HEX:
-                minLength = minHexSymbolLength;
-                break;
-            case BINARY:
-                minLength = minBinarySymbolLength;
-                break;
-            default:
-                throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
-                        + type.toString());
+        if (type.equals(NumericType.DECIMAL)) {
+            minLength = minDecimalSymbolLength;
+        }
+        else if (type.equals(NumericType.HEX)) {
+            minLength = minHexSymbolLength;
+        }
+        else if (type.equals(NumericType.BINARY)) {
+            minLength = minBinarySymbolLength;
+        }
+        else {
+            throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
+                    + type.toString());
         }
         return minLength;
     }
@@ -378,56 +439,55 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      *        the type of numerical literal
      * @return maximum number of characters between underscores
      */
-    private int maxSymbolsUntilUnderscore(Type type) {
+    private int maxSymbolsUntilUnderscore(NumericType type) {
         final int maxSymbols;
-        switch (type) {
-            case DECIMAL:
-                maxSymbols = maxDecimalSymbolsUntilUnderscore;
-                break;
-            case HEX:
-                maxSymbols = maxHexSymbolsUntilUnderscore;
-                break;
-            case BINARY:
-                maxSymbols = maxBinarySymbolsUntilUnderscore;
-                break;
-            default:
-                throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
-                        + type.toString());
+        if (type.equals(NumericType.DECIMAL)) {
+            maxSymbols = maxDecimalSymbolsUntilUnderscore;
+        }
+        else if (type.equals(NumericType.HEX)) {
+            maxSymbols = maxHexSymbolsUntilUnderscore;
+        }
+        else if (type.equals(NumericType.BINARY)) {
+            maxSymbols = maxBinarySymbolsUntilUnderscore;
+        }
+        else {
+            throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
+                    + type.toString());
         }
         return maxSymbols;
     }
 
     /**
      * <p>
-     * Generates easily checkable numeric tokens from the raw literal text.
+     * Generates easily checkable numeric tokens from the raw literal text, assuming
+     * the numeric type provided.
      * </p>
      * <p>
      * For example: 123.4567 passes because each section itself is not too long and is
      * perfectly readable.
      * </p>
      * Additionally, Java will not compile underscores next to decimal points etc.
-     * @param rawLiteral
-     *        numeric literal
+     * @param strippedLiteral
+     *        numeric literal stripped of any prefixes and postfixes
+     * @param type
+     *        the numeric type of the literal
      * @return numeric tokens (segments) without non-numeric characters
      */
-    private String[] getNumericSegments(String rawLiteral) {
-        final Type type = getNumericType(rawLiteral);
-        final String strippedLiteral = removePrePostfixByType(rawLiteral, type);
+    private static String[] getNumericSegments(String strippedLiteral, NumericType type) {
         final String[] numericSegments;
-        switch (type) {
-            case DECIMAL:
-                numericSegments = DECIMAL_SPLITTER.split(strippedLiteral);
-                break;
-            case HEX:
-                numericSegments = HEX_SPLITTER.split(strippedLiteral);
-                break;
-            case BINARY:
-                numericSegments = new String[1];
-                numericSegments[0] = strippedLiteral;
-                break;
-            default:
-                throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
-                        + type.toString());
+        if (type.equals(NumericType.DECIMAL)) {
+            numericSegments = DECIMAL_SPLITTER.split(strippedLiteral);
+        }
+        else if (type.equals(NumericType.HEX)) {
+            numericSegments = HEX_SPLITTER.split(strippedLiteral);
+        }
+        else if (type.equals(NumericType.BINARY)) {
+            numericSegments = new String[1];
+            numericSegments[0] = strippedLiteral;
+        }
+        else {
+            throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
+                    + type.toString());
         }
         return numericSegments;
     }
@@ -449,21 +509,21 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      *        numeric literal
      * @return the type of literal (either decimal, hex, or binary)
      */
-    private Type getNumericType(String rawLiteral) {
-        final Type type;
+    private static NumericType getNumericType(String rawLiteral) {
+        final NumericType type;
         if (rawLiteral.length() < PREFIX_LENGTH) {
-            type = Type.DECIMAL;
+            type = NumericType.DECIMAL;
         }
         else {
             final String prefix = rawLiteral.substring(0, PREFIX_LENGTH);
             if ("0x".equals(prefix)) {
-                type = Type.HEX;
+                type = NumericType.HEX;
             }
             else if ("0b".equals(prefix)) {
-                type = Type.BINARY;
+                type = NumericType.BINARY;
             }
             else {
-                type = Type.DECIMAL;
+                type = NumericType.DECIMAL;
             }
         }
         return type;
@@ -512,23 +572,22 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
      *        the type of the literal being passed in
      * @return a stripped version of the raw literal
      */
-    private static String removePrePostfixByType(String rawLiteral, Type literalType) {
+    private static String removePrePostfixByType(String rawLiteral, NumericType literalType) {
         String processedLiteral;
-        switch (literalType) {
-            case DECIMAL:
-                processedLiteral = removeLetterPostfix(rawLiteral);
-                break;
-            case HEX:
-                processedLiteral = removePrefix(rawLiteral);
-                processedLiteral = removePostfixHex(processedLiteral);
-                break;
-            case BINARY:
-                processedLiteral = removePrefix(rawLiteral);
-                processedLiteral = removeLetterPostfix(processedLiteral);
-                break;
-            default:
-                processedLiteral = rawLiteral;
-                break;
+        if (literalType.equals(NumericType.DECIMAL)) {
+            processedLiteral = removeLetterPostfix(rawLiteral);
+        }
+        else if (literalType.equals(NumericType.HEX)) {
+            processedLiteral = removePrefix(rawLiteral);
+            processedLiteral = removePostfixHex(processedLiteral);
+        }
+        else if (literalType.equals(NumericType.BINARY)) {
+            processedLiteral = removePrefix(rawLiteral);
+            processedLiteral = removeLetterPostfix(processedLiteral);
+        }
+        else {
+            throw new IllegalStateException(UNEXPECTED_NUMERIC_TYPE_ERROR
+                    + literalType.toString());
         }
         return processedLiteral;
     }

@@ -23,6 +23,18 @@
       <version>4.10</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-mockito</artifactId>
+      <version>1.6.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>1.6.4</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <distributionManagement>
     <repository>
@@ -131,7 +143,6 @@
               <regex><pattern>.*.checks.coding.MultipleVariableDeclarationsExtendedCheck</pattern><branchRate>95</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.NameConventionForJunit4TestClassesCheck</pattern><branchRate>86</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
-              <regex><pattern>.*.checks.coding.NumericLiteralNeedsUnderscoreCheck</pattern><branchRate>95</branchRate><lineRate>93</lineRate></regex>
               <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
               <regex><pattern>.*.checks.coding.RedundantReturnCheck</pattern><branchRate>98</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.ReturnBooleanFromTernaryCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
