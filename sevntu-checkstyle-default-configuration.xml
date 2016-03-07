@@ -198,6 +198,7 @@
       <property name="maxHexSymbolsUntilUnderscore" value="4"/>
       <property name="minBinarySymbolLength" value="9"/>
       <property name="maxBinarySymbolsUntilUnderscore" value="8"/>
+      <property name="ignoreFieldNamePattern" value="serialVersionUID"/>
     </module>
   </module>
 </module>
