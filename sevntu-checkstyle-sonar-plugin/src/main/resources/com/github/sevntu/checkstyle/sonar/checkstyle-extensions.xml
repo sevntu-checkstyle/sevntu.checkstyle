@@ -489,6 +489,10 @@
 			<defaultValue>8</defaultValue>
 			<description>The maximum number of symbols in a binary literal allowed before the check demands an underscore</description>
     	</param>
+    	<param key="ignoreFieldNamePattern" type="STRING">
+			<defaultValue>serialVersionUID</defaultValue>
+			<description>Regexp for fields to ignore</description>
+    	</param>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck</key>

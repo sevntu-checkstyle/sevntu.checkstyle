@@ -4,6 +4,8 @@ import static com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnde
 
 import java.io.File;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -20,6 +22,8 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+    
+    private static final String EXCEPTION_MESSAGE = "Unexpected numeric type "; 
 
     @Test
     public void test() throws Exception {
@@ -152,32 +156,48 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
                 expected);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testMinSymbolsBeforeCheckingSwitchReflection() throws Exception {
-        final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
-        final NumericType mockType = PowerMockito.mock(NumericType.class);
-        WhiteboxImpl.invokeMethod(check, "minSymbolsBeforeChecking", mockType);
+        try {
+            final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
+            final NumericType mockType = PowerMockito.mock(NumericType.class);
+            WhiteboxImpl.invokeMethod(check, "minSymbolsBeforeChecking", mockType);
+        } catch (IllegalStateException e) {
+            Assert.assertTrue(e.getMessage().startsWith(EXCEPTION_MESSAGE));
+        }
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testMaxSymbolsUntilUnderscoreSwitchReflection() throws Exception {
-        final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
-        final NumericType mockType = PowerMockito.mock(NumericType.class);
-        WhiteboxImpl.invokeMethod(check, "maxSymbolsUntilUnderscore", mockType);
+        try {
+            final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
+            final NumericType mockType = PowerMockito.mock(NumericType.class);
+            WhiteboxImpl.invokeMethod(check, "maxSymbolsUntilUnderscore", mockType);
+        } catch (IllegalStateException e) {
+            Assert.assertTrue(e.getMessage().startsWith(EXCEPTION_MESSAGE));
+        }
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testGetNumericSegmentsSwitchReflection() throws Exception {
-        final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
-        final NumericType mockType = PowerMockito.mock(NumericType.class);
-        WhiteboxImpl.invokeMethod(check, "getNumericSegments", "", mockType);
+        try {
+            final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
+            final NumericType mockType = PowerMockito.mock(NumericType.class);
+            WhiteboxImpl.invokeMethod(check, "getNumericSegments", "", mockType);
+        } catch (IllegalStateException e) {
+            Assert.assertTrue(e.getMessage().startsWith(EXCEPTION_MESSAGE));
+        }
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testRemovePrePostfixByTypeSwitchReflection() throws Exception {
-        final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
-        final NumericType mockType = PowerMockito.mock(NumericType.class);
-        WhiteboxImpl.invokeMethod(check, "removePrePostfixByType", "", mockType);
+        try {
+            final NumericLiteralNeedsUnderscoreCheck check = new NumericLiteralNeedsUnderscoreCheck();
+            final NumericType mockType = PowerMockito.mock(NumericType.class);
+            WhiteboxImpl.invokeMethod(check, "removePrePostfixByType", "", mockType);
+        } catch (IllegalStateException e) {
+            Assert.assertTrue(e.getMessage().startsWith(EXCEPTION_MESSAGE));
+        }
     }
 
 }

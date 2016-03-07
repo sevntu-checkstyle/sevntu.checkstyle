@@ -317,6 +317,9 @@
             <property-metadata name="maxBinarySymbolsUntilUnderscore" datatype="Integer" default-value="8">
                 <description>%NumericLiteralNeedsUnderscore.maxBinarySymbolsUntilUnderscore</description>
             </property-metadata>
+            <property-metadata name="ignoreFieldNamePattern" datatype="String" default-value="serialVersionUID">
+                <description>%NumericLiteralNeedsUnderscore.ignoreFieldNamePattern</description>
+            </property-metadata>
             <message-key key="numeric.literal.need.underscore" />
         </rule-metadata>
 
