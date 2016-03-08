@@ -19,6 +19,7 @@ import java.util.Properties;
 import org.junit.Assert;
 
 import com.google.common.collect.Lists;
+import com.puppycrawl.tools.checkstyle.AuditEventUtFormatter;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.DefaultLogger;
@@ -34,7 +35,7 @@ public abstract class BaseCheckTestSupport extends Assert
 
 		public BriefLogger(OutputStream out) throws UnsupportedEncodingException
 		{
-			super(out, true,out, false, false);
+			super(out, true, out, false, new AuditEventUtFormatter());
 		}
 
 		@Override
