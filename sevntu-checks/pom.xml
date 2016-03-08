@@ -14,8 +14,8 @@
     <dependency>
       <groupId>com.puppycrawl.tools</groupId>
       <artifactId>checkstyle</artifactId>
-      <!-- this version has to be the same as eclispe-cs support -->
-      <version>6.11.2</version>
+      <!-- this version has to be the same as eclispe-cs depends on -->
+      <version>6.16.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

@@ -26,12 +26,12 @@
       <dependency>
 	<groupId>net.sf.eclipsecs</groupId>
         <artifactId>net.sf.eclipsecs.ui</artifactId>
-        <version>6.11.0-SNAPSHOT</version>
+        <version>6.16.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>net.sf.eclipsecs</groupId>
         <artifactId>net.sf.eclipsecs.core</artifactId>
-        <version>6.11.0-SNAPSHOT</version>
+        <version>6.16.0-SNAPSHOT</version>
       </dependency>
     </dependencies>
 
