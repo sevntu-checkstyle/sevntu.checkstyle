@@ -261,11 +261,11 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
     /**
      * Sets how many characters in a decimal literal there must be before it checks for an
      * underscore.
-     * @param len
+     * @param length
      *        minimum checking length of the literal
      */
-    public void setMinDecimalSymbolLen(int len) {
-        minDecimalSymbolLength = len;
+    public void setMinDecimalSymbolLength(int length) {
+        minDecimalSymbolLength = length;
     }
 
     /**
@@ -281,11 +281,11 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
     /**
      * Sets how many characters in a hex literal there must be before it checks for an
      * underscore.
-     * @param len
+     * @param length
      *        minimum checking length of the literal
      */
-    public void setMinHexSymbolLen(int len) {
-        minHexSymbolLength = len;
+    public void setMinHexSymbolLength(int length) {
+        minHexSymbolLength = length;
     }
 
     /**
@@ -301,11 +301,11 @@ public class NumericLiteralNeedsUnderscoreCheck extends Check {
     /**
      * Sets how many characters in a byte literal there must be before it checks for an
      * underscore.
-     * @param len
+     * @param length
      *        minimum checking length of the literal
      */
-    public void setMinBinarySymbolLen(int len) {
-        minBinarySymbolLength = len;
+    public void setMinBinarySymbolLength(int length) {
+        minBinarySymbolLength = length;
     }
 
     /**
