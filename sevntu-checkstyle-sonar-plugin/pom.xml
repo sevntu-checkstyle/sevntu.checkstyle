@@ -23,6 +23,12 @@
 			<artifactId>sevntu-checks</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>15.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
