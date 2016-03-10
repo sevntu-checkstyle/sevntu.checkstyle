@@ -69,11 +69,11 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
     @Test
     public void testWithConfig() throws Exception {
         DefaultConfiguration checkConfig = createCheckConfig(NumericLiteralNeedsUnderscoreCheck.class);
-        checkConfig.addAttribute("minDecimalSymbolLen", "1");
+        checkConfig.addAttribute("minDecimalSymbolLength", "1");
         checkConfig.addAttribute("maxDecimalSymbolsUntilUnderscore", "3");
-        checkConfig.addAttribute("minHexSymbolLen", "1");
+        checkConfig.addAttribute("minHexSymbolLength", "1");
         checkConfig.addAttribute("maxHexSymbolsUntilUnderscore", "2");
-        checkConfig.addAttribute("minBinarySymbolLen", "1");
+        checkConfig.addAttribute("minBinarySymbolLength", "1");
         checkConfig.addAttribute("maxBinarySymbolsUntilUnderscore", "4");
         final String[] expected = {
                 "23: " + warningMessage,
@@ -135,7 +135,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
         final DefaultConfiguration checkConfig =
                 createCheckConfig(NumericLiteralNeedsUnderscoreCheck.class);
         checkConfig.addAttribute("ignoreFieldNamePattern", "RED");
-        checkConfig.addAttribute("minDecimalSymbolLen", "1");
+        checkConfig.addAttribute("minDecimalSymbolLength", "1");
         final String[] expected = {
                 "7: " + warningMessage,
                 "8: " + warningMessage,
