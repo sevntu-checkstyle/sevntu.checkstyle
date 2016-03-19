@@ -26,7 +26,6 @@
     <suppress checks=".*" files="AvoidHidingCauseExceptionCheck.java"/>
     <suppress checks=".*" files="ConfusingConditionCheck.java"/>
     <suppress checks=".*" files="WhitespaceBeforeArrayInitializerCheck.java"/>
-    <suppress checks=".*" files="DiamondOperatorForVariableDefinitionCheck.java"/>
     <suppress checks=".*" files="FinalizeImplementationCheck.java"/>
     <suppress checks=".*" files="ForbidReturnInFinallyBlockCheck.java"/>
     <suppress checks=".*" files="OverridableMethodInConstructorCheck.java"/>

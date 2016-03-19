@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -30,9 +31,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * and better code readability. It is suggested by Oracle that the diamond primarily using<br>
  * for variable declarations.<br><br>
  * E.g. of statements:
- * <p>
- * <b>Without diamond operator:</b><br><code>
- * Map&ltString, Map&ltString, Integer&gt&gt someMap = new HashMap&ltString, Map&ltString, Integer&gt&gt();</code><br>
+ *
+ * <p><b>Without diamond operator:</b><br><code>
+ * Map&ltString, Map&ltString, Integer&gt&gt someMap =
+ *     new HashMap&ltString, Map&ltString, Integer&gt&gt();</code><br>
  * <b>With diamond operator:</b><br>
  * <code>
  * Map&ltString, Map&ltString, Integer&gt&gt someMap = new HashMap&lt&gt();
@@ -42,29 +44,29 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class DiamondOperatorForVariableDefinitionCheck extends Check {
 
+    /** A key is pointing to the warning message text in "messages.properties" file. */
     public static final String MSG_KEY = "diamond.operator.for.variable.definition";
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[] { TokenTypes.VARIABLE_DEF };
+        return new int[] {TokenTypes.VARIABLE_DEF};
     }
 
     @Override
     public void visitToken(DetailAST variableDefNode) {
 
-        DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);
-        
+        final DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);
+
         if (assignNode != null) {
 
-            DetailAST newNode = assignNode.getFirstChild().getFirstChild();
+            final DetailAST newNode = assignNode.getFirstChild().getFirstChild();
 
             // we check only creation by NEW
             if (newNode.getType() == TokenTypes.LITERAL_NEW) {
 
-                DetailAST variableDefNodeType =
+                final DetailAST variableDefNodeType =
                         variableDefNode.findFirstToken(TokenTypes.TYPE);
-                DetailAST varDefArguments =
-                        getFirstTypeArgumentsToken(variableDefNodeType);
+                final DetailAST varDefArguments = getFirstTypeArgumentsToken(variableDefNodeType);
 
                 // generics has to be on left side
                 if (varDefArguments != null
@@ -72,12 +74,11 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
                         // arrays can not be generics
                         && newNode.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
 
-                        DetailAST typeArgs =
-                                getFirstTypeArgumentsToken(newNode);
+                    final DetailAST typeArgs = getFirstTypeArgumentsToken(newNode);
 
-                        if (varDefArguments.equalsTree(typeArgs)) {
-                            log(typeArgs, MSG_KEY);
-                        }
+                    if (varDefArguments.equalsTree(typeArgs)) {
+                        log(typeArgs, MSG_KEY);
+                    }
                 }
             }
         }
@@ -85,6 +86,8 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
 
     /**
      * Get first occurrence of TYPE_ARGUMENTS if exists.
+     * @param rootToken the token to start search from.
+     * @return TYPE_ARGUMENTS token if found.
      */
     private static DetailAST getFirstTypeArgumentsToken(DetailAST rootToken) {
         DetailAST resultNode = rootToken.getFirstChild();
@@ -94,7 +97,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
                 resultNode = resultNode.getFirstChild().getNextSibling();
             }
             if (resultNode.getType() != TokenTypes.TYPE_ARGUMENTS) {
-                DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
+                final DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
 
                 if (childNode == null) {
                     resultNode = resultNode.getNextSibling();
