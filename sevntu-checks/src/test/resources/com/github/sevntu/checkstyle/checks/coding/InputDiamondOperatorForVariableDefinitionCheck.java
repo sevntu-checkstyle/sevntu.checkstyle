@@ -88,6 +88,9 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
     }
     RuleViolation ruleViolation = new ParametricRuleViolation<Object>();
     ParametricRuleViolation<? extends Object> parametricRule = new ParametricRuleViolation<String>(); // OK: no violation
+    java.util.Date date = new java.util.Date();
+    static java.util.Map<List<String>, String> myMap2 = new java.util.TreeMap<List<String>, String>();
+    static java.util.Map<List<String>, String> myMap3 = new TreeMap<List<String>, String>();
 }
     
     

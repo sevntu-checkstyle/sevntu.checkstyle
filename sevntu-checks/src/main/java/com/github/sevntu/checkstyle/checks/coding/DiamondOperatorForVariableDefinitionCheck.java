@@ -58,13 +58,13 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
 
             DetailAST newNode = assignNode.getFirstChild().getFirstChild();
 
-            // we checking only creation by NEW
+            // we check only creation by NEW
             if (newNode.getType() == TokenTypes.LITERAL_NEW) {
 
                 DetailAST variableDefNodeType =
                         variableDefNode.findFirstToken(TokenTypes.TYPE);
                 DetailAST varDefArguments =
-                        getFirstChildTokenOfType(variableDefNodeType,TokenTypes.TYPE_ARGUMENTS);
+                        getFirstTypeArgumentsToken(variableDefNodeType);
 
                 // generics has to be on left side
                 if (varDefArguments != null
@@ -73,7 +73,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
                         && newNode.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
 
                         DetailAST typeArgs =
-                                getFirstChildTokenOfType(newNode, TokenTypes.TYPE_ARGUMENTS);
+                                getFirstTypeArgumentsToken(newNode);
 
                         if (varDefArguments.equalsTree(typeArgs)) {
                             log(typeArgs, MSG_KEY);
@@ -84,19 +84,21 @@ public class DiamondOperatorForVariableDefinitionCheck extends Check {
     }
 
     /**
-     * Gets the return type of method or field type.
-     * @param typeAst
-     *        AST subtree to process.
+     * Get first occurrence of TYPE_ARGUMENTS if exists.
      */
-    private static DetailAST getFirstChildTokenOfType(DetailAST rootToken, int tokenType) {
+    private static DetailAST getFirstTypeArgumentsToken(DetailAST rootToken) {
         DetailAST resultNode = rootToken.getFirstChild();
 
-        if (resultNode != null
-                && resultNode.getType() != tokenType) {
-            DetailAST childNode = getFirstChildTokenOfType(resultNode, tokenType);
+        if (resultNode != null) {
+            if (resultNode.getType() == TokenTypes.DOT) {
+                resultNode = resultNode.getFirstChild().getNextSibling();
+            }
+            if (resultNode.getType() != TokenTypes.TYPE_ARGUMENTS) {
+                DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
 
-            if (childNode == null) {
-                resultNode = resultNode.getNextSibling();
+                if (childNode == null) {
+                    resultNode = resultNode.getNextSibling();
+                }
             }
         }
 
