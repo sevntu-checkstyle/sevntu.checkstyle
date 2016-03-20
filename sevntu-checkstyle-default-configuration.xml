@@ -75,7 +75,15 @@
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck">
       <property name="severity" value="warning"/>
+      <property name="forbiddenClassesRegexpAnnotation" value=""/>
+      <property name="forbiddenClassesRegexpFinal" value=""/>
       <property name="forbiddenClassesRegexpStatic" value="ULC.+"/>
+      <property name="forbiddenClassesRegexpTransient" value=""/>
+      <property name="forbiddenClassesRegexpVolatile" value=""/>
+      <property name="forbiddenClassesRegexpPrivate" value=""/>
+      <property name="forbiddenClassesRegexpPackagePrivate" value=""/>
+      <property name="forbiddenClassesRegexpProtected" value=""/>
+      <property name="forbiddenClassesRegexpPublic" value=""/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck">
       <property name="severity" value="warning"/>
