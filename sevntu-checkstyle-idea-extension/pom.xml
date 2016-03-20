@@ -4,7 +4,7 @@
 
 	<groupId>com.github.sevntu.checkstyle</groupId>
 	<artifactId>sevntu-checkstyle-idea-extension</artifactId>
-	<version>1.19.1</version>
+	<version>1.19.2</version>
 	<packaging>jar</packaging>
 
 	<name>Sevntu Checkstyle Idea extension</name>
