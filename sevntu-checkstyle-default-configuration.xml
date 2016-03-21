@@ -75,11 +75,12 @@
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck">
       <property name="severity" value="warning"/>
-      <property name="forbiddenClassesRegexpAnnotation" value=""/>
       <property name="forbiddenClassesRegexpFinal" value=""/>
       <property name="forbiddenClassesRegexpStatic" value="ULC.+"/>
       <property name="forbiddenClassesRegexpTransient" value=""/>
       <property name="forbiddenClassesRegexpVolatile" value=""/>
+      <!-- 1.20.0 -->
+      <property name="forbiddenClassesRegexpAnnotation" value=""/>
       <property name="forbiddenClassesRegexpPrivate" value=""/>
       <property name="forbiddenClassesRegexpPackagePrivate" value=""/>
       <property name="forbiddenClassesRegexpProtected" value=""/>
@@ -206,7 +207,13 @@
       <property name="maxHexSymbolsUntilUnderscore" value="4"/>
       <property name="minBinarySymbolLength" value="9"/>
       <property name="maxBinarySymbolsUntilUnderscore" value="8"/>
+      <!-- 1.19.1 -->
       <property name="ignoreFieldNamePattern" value="serialVersionUID"/>
+    </module>
+    <!-- 1.20.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck" >
+      <property name="classNameFormat" value=".*Exception"/>
+      <property name="ignoredClassNameFormat" value="UnsupportedOperationException"/>
     </module>
   </module>
 </module>
