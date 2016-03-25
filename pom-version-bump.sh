@@ -11,7 +11,7 @@ update-site/pom.xml)
 for i in "${POM_FILES[@]}"
 do
 	echo $i
-	#xsltproc -o $i --stringparam version $NEW_VERSION pom-version-bump.xsl $i
+	xsltproc -o $i --stringparam version $NEW_VERSION pom-version-bump.xsl $i
 done
 
 
