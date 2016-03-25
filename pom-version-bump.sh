@@ -21,5 +21,5 @@ done
 #sevntu-checkstyle-maven-plugin/pom.xml
 
 #special
-#eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
-#eclipsecs-sevntu-plugin-feature/feature.xml
+sed -i "s/Bundle-Version: 1.19.2/Bundle-Version: $NEW_VERSION/" eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
+sed -i "s/1.19.2/$NEW_VERSION/" eclipsecs-sevntu-plugin-feature/feature.xml

@@ -12,4 +12,10 @@
         <xsl:value-of select="$version" />
     </xsl:template>
 
+    <!-- replace the version -->
+    <!--
+    <xsl:template match="/pom:project/pom:dependencies/pom:dependency[artifactId="sevntu-checks"]/pom:version/text()">
+        <xsl:value-of select="$version" />
+    </xsl:template>
+    -->
 </xsl:stylesheet>
