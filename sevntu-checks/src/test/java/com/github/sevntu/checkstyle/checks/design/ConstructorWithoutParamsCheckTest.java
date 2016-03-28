@@ -47,9 +47,9 @@ public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
     public void testUserDefinedConfigProhibitsCustomClasses() throws Exception {
         defaultConfig.addAttribute("classNameFormat", "Clazz[1-9]");
         defaultConfig.addAttribute("ignoredClassNameFormat", "Clazz4");
-        String[] expectedViolationMsg = {"60:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
-                                         "63:27: " + getCheckMessage(MSG_KEY, "Clazz2")};
-        verify( defaultConfig , getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        String[] expectedViolationMsg = {"64:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
+                                         "67:27: " + getCheckMessage(MSG_KEY, "Clazz2")};
+        verify(defaultConfig , getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
     }
 
     /*

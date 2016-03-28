@@ -47,7 +47,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  *     <b>Default configuration:</b>
  *     <pre>
  *         &ltmodule name="ConstructorWithoutParamsCheck"&gt
- *           &ltproperty name="classNameFormat" value=".*Exception"/&gt
+ *           &ltproperty name="classNameFormat" value=".*Exception$"/&gt
  *           &ltproperty name="ignoredClassNameFormat" value="UnsupportedOperationException"/&gt
  *         &lt/module&gt
  *     </pre>
@@ -104,7 +104,7 @@ public class ConstructorWithoutParamsCheck extends Check {
     /**
      * The format string of the regexp for a check to apply to.
      */
-    private String classNameFormat = ".*Exception";
+    private String classNameFormat = ".*Exception$";
 
     /**
      * The format string of the regexp of class names to ignore.
