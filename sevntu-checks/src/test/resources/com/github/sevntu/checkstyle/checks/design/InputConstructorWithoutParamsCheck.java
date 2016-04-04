@@ -24,12 +24,15 @@ import java.util.List;
 
 public class InputConstructorWithoutParamsCheck {
 
-    public static void inputToTestDefaultConfig() {
+    public void inputToTestDefaultConfig() {
 
-        // the default prohibits constructors without parameters if a class name matches ".*Exception"
+        // the default config prohibits constructors without parameters if a class name matches ".*Exception$"
         final RuntimeException ex = new RuntimeException(); // violation expected
 
-        // the default ignores UnsupportedOperationException
+        // the default config applies only to classes that have the word "Exception" at the end of the class name
+        final MockExceptionHandler mockExceptionHandler = new MockExceptionHandler(); // no violation expected
+
+        // the default config ignores UnsupportedOperationException
         final UnsupportedOperationException ex2 = new UnsupportedOperationException(); // no violation expected
 
         // the check allows empty String parameters
@@ -46,9 +49,10 @@ public class InputConstructorWithoutParamsCheck {
         // hence it is not a violation, even though it matches the regexp in the default config
         final Exception[] arrayOfExceptions = new Exception[1]; // no violation expected
 
-        // ELIST may occur within array declaration, e.g. in size()
+        // ELIST may occur within array declaration, e.g., in size()
         final List<Exception> dummyList = Arrays.asList(arrayOfExceptions);
         final Exception[] arrayOfExceptions2 = new Exception[dummyList.size()]; // no violation expected
+
     }
 
     public void inputToTestCustomConfig() {
@@ -100,6 +104,10 @@ public class InputConstructorWithoutParamsCheck {
     }
 
     class Clazz4 {
+
+    }
+
+    class MockExceptionHandler {
 
     }
 
