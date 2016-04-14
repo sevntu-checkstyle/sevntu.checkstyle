@@ -50,10 +50,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <pre>
  * ClassMember(RegExp)
  * </pre>
- * </p>
  * To set class order use the following notation of the class members (case
  * insensitive):
- * <p>
  * <ol>
  * <li>"Field" to denote the Fields</li>
  * <li>"DeclareAnnonClassField" to denote the fields keeping objects of anonymous classes</li>
@@ -65,9 +63,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li>"InnerInterface" to denote the Inner Interfaces</li>
  * <li>"InnerEnum" to denote the Inner Enums</li>
  * </ol>
- * </p>
  * RegExp can include:
- * <p>
  * <ol>
  * <li>Annotations</li>
  * <li>Modifiers(public, protected, private, abstract, static,
@@ -75,7 +71,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li>Type</li>
  * <li>Name</li>
  * </ol>
- * </p>
  * ATTENTION!
  * <p>
  * Use separator <code>' ', '.', '\s'</code> between declaration in the RegExp.
@@ -144,7 +139,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * ...
  * </pre>
- * </p>
  * <p>Getter is public method that returns class field. Name of getter should be
  * 'get<i>FieldName</i>' in camel case.</p>
  * <p>Setter is public method with one parameter that assigns this parameter to class field.

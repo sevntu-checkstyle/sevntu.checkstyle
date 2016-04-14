@@ -48,7 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <pre>
- * for (Map.Entry<String, String>; entry : map.entrySet())
+ * for (Map.Entry&lt;String, String&gt; entry : map.entrySet())
  * {
  *     System.out.println(entry.getValue());
  * }
@@ -79,7 +79,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <pre>
- * for (Map.Entry<String, String> entry : map.entrySet())
+ * for (Map.Entry&lt;String, String&gt; entry : map.entrySet())
  * {
  *     System.out.println(entry.getKey());
  * }
@@ -114,7 +114,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <pre>
- * for (Map.Entry<String, String> entry : map.entrySet())
+ * for (Map.Entry&lt;String, String&gt;S entry : map.entrySet())
  * {
  *     System.out.println(entry.getValue() + "   " + entry.getKey());
  * }

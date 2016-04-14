@@ -27,40 +27,33 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
 
 /**
- * <p>
  * This check limits using of not short-circuit operators
- * ("|", "&", "|=", "&=") in boolean expressions.<br>
+ * ("|", "&amp;", "|=", "&amp;=") in boolean expressions.
  * <br>
  * Reason: <br>
- * &nbsp&nbsp&nbsp&nbsp&nbsp Short-circuit operators ("||", "&&") are more
+ * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Short-circuit operators ("||", "&amp;&amp;") are more
  * safer and can accelerate the evaluation of complex boolean expressions.
  * Check identifies an expression as a boolean if it contains at least one
  * boolean operand or if result of expression evaluation sets the value of a
  * boolean variable.
- * <br><br>&nbsp&nbsp&nbsp&nbsp&nbsp Using boolean variables that do not belong
+ * <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Using boolean variables that do not belong
  * to the current class and all calls to boolean methods are not handled by
  * this check. <br><br> Examples: <br>
  * <br>
- * <ol>
- * <li>Using of not short-circuit operators while determining a Boolean variable
- * </li> <samp>
+ * 1. Using of not short-circuit operators while determining a Boolean variable
  * <pre>
  * boolean x = true;
  * boolean result = true | x || false; // a warning here
  * </pre>
- * </samp>
- * <li>Using of not short-circuit operators while overriding a Boolean variable.
- * </li> <samp>
+ * 2. Using of not short-circuit operators while overriding a Boolean variable.
  * <pre>
  * boolean x = true;
  * boolean result = false;
  * // any code
  * result &amp;= true | x || false; // a warning here
  * </pre>
- * </samp>
- * <li>Expression calculated with not short-circuit operators contains at least
- * one boolean operand.</li>
- * <samp>
+ * 3. Expression calculated with not short-circuit operators contains at least
+ * one boolean operand.
  * <pre>
  * public boolean isTrue() {
  *     return this.z | MyObject.is() // no warnings here
@@ -69,12 +62,10 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * ...
  * boolean r=true;
  * public boolean isTrue() {
- *     return this.z | true && r // a warning here
+ *     return this.z | true &amp;&amp; r // a warning here
  *             || isModifier() &amp;&amp; isNotTrue();
  * }
  * </pre>
- * </samp>
- * </ol>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
@@ -142,11 +133,11 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     }
 
     /**
-     * Checks that current expression is calculated using "|", "&", "|=", "&="
+     * Checks that current expression is calculated using "|", "&amp;", "|=", "&amp;="
      * operators contains at least one Boolean operand.
      * @param node - current TokenTypes.EXPR node to check.
-     * @return "true" if current expression is calculated using "|", "&",
-     * "|=". "&=" operators contains at least one Boolean operand or false
+     * @return "true" if current expression is calculated using "|", "&amp;",
+     * "|=". "&amp;=" operators contains at least one Boolean operand or false
      * otherwise.
      */
     public final boolean isBooleanExpression(final DetailAST node)

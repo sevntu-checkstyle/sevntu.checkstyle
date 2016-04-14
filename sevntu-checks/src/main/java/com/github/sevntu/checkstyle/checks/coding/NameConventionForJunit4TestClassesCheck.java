@@ -61,8 +61,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </code>
  * </pre>
- * 
- * </p>
+ *
  * <p>
  * "methodAnnotationNameRegex" - regular expression which matches test
  * annotation names on methods. If class contains a method annotated with
@@ -82,7 +81,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </code>
  * </pre>
  * 
- * </p>
  * <p>
  * Annotation names must be specified exactly the same way it specified in code,
  * thus if Check must match annotation with fully qualified name, corresponding
@@ -98,13 +96,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * that classes names end with "Test" or "Tests".
  * 
  * <pre>
- *     &ltmodule name="NameConventionForJUnit4TestClassesCheck"&gt
- *       &ltproperty name="expectedClassNameRegex" value=".+Tests|.+Test"/&gt
- *       &ltproperty name="classAnnotationNameRegex" value="RunWith"/&gt
- *       &ltproperty name="methodAnnotationNameRegex" value="Test"/&gt
- *     &lt/module&gt
+ *     &lt;module name="NameConventionForJUnit4TestClassesCheck"&gt;
+ *       &lt;property name="expectedClassNameRegex" value=".+Tests|.+Test"/&gt;
+ *       &lt;property name="classAnnotationNameRegex" value="RunWith"/&gt;
+ *       &lt;property name="methodAnnotationNameRegex" value="Test"/&gt;
+ *     &lt;/module&gt;
  * </pre>
- * </p>
  * 
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */

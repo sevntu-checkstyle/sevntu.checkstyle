@@ -37,10 +37,8 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  * </p>
  * Examples:
  * <br> <br>
- * <ol>
- * <li>Cause exception will be lost because current catch block
- * contains another exception throwing.</li>
- * <code>
+ * 1. Cause exception will be lost because current catch block
+ * contains another exception throwing.
  *      <pre>
  *       public void foo() {
  *          RuntimeException r;
@@ -48,10 +46,10 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  *           //your code
  *           throw r;
  *         }
- *       }</pre> </code>
- * <li>Cause exception will be lost because current catch block
- * doesn`t contains another exception throwing.</li>
- * <code> <pre>
+ *       }</pre>
+ * 2. Cause exception will be lost because current catch block
+ * doesn`t contains another exception throwing.
+ * <pre>
  *      catch (IllegalStateException e) {
  *        //your code
  *        throw new RuntimeException();
@@ -60,8 +58,7 @@ import com.puppycrawl.tools.checkstyle.api.Check;
  *        //your code
  *        throw new RuntimeException("Runtime Exception!");
  *      }
- *       </pre> </code>
- * </ol>
+ * </pre>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>

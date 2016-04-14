@@ -41,7 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <pre>
- * for (int i = 1; i <= 10; i++)
+ * for (int i = 1; i &lt;= 10; i++)
  * { // violation - 2 continue - one might be tempted to add some logic in between
  *     if (i % 2 == 0)
  *     {
@@ -65,7 +65,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <pre>
- * for (int i = 1; i <= 10; i++)// OK - Outer loop
+ * for (int i = 1; i &lt;= 10; i++)// OK - Outer loop
  * {
  *     while (true) // violation - Inner loop: 1 continue and 1 break
  *     {
@@ -89,19 +89,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *  {
  *      final char chr = value.charAt(i);
  *      switch (chr) {
- *      case '<':
+ *      case '&lt;':
  *          sb.append("&lt;");
  *          break;
- *      case '>':
+ *      case '&gt;':
  *          sb.append("&gt;");
- *          break;
- *      case '\'':
- *          sb.append("&apos;");
  *          break;
  *      case '\"':
  *          sb.append("&quot;");
  *          break;
- *      case '&':
+ *      case '&amp;':
  *          sb.append(chr);
  *          break;
  *      default:

@@ -37,7 +37,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * appropriate in cases where the lower-level exception might be helpful to
  * someone debugging the problem that caused the higher-level exception. The
  * lower-level exception (the cause) is passed to the higher-level.."
- * <p align=right>
  * <i>[Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 61]</i>
  * </p><p> Parameters: </p><ol>
  * <li>Exception classNames regexp. ("classNamesRegexp" option).</li>

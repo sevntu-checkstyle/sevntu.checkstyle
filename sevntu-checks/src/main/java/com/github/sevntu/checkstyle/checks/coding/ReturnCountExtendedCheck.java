@@ -37,10 +37,10 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
  * One return per method is a good practice as its ease understanding of method logic. <br>
  * <br>
  * Reasoning is that:
- * <dl>
+ * <ul>
  * <li>It is easier to understand control flow when you know exactly where the method returns.
  * <li>Methods with 2-3 or many "return" statements are much more difficult to understand, debug and refactor.
- * </dl>
+ * </ul>
  * Setting up the check options will make it to ignore:
  * <ol>
  * <li>Methods by name ("ignoreMethodsNames" property). Note, that the "ignoreMethodsNames" property type is a RegExp:
@@ -176,7 +176,6 @@ public class ReturnCountExtendedCheck extends Check
      * check.
      * @param minIgnoreReturnDepth
      *        - the new "minIgnoreReturnDepth" property value.
-     * @see ReturnDepthCheck#minIgnoreReturnDepth
      */
     public void setMinIgnoreReturnDepth(int minIgnoreReturnDepth)
     {

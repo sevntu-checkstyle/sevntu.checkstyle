@@ -30,25 +30,25 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * 1. Negates effect of superclass finalize:
- * </p><br/>
- * <code><pre>
+ * </p>
+ * <pre>
  * protected void finalize() { }
  * protected void finalize() { doSomething(); }
- * </pre></code>
+ * </pre>
  * <p>
  * 2. Useless (or worse) finalize:
- * </p><br/>
- * <code><pre>
+ * </p>
+ * <pre>
  * protected void finalize() { super.finalize(); }
- * </pre></code>
+ * </pre>
  * <p>
  * 3. Public finalize:
- * </p><br/>
- * <code><pre>
+ * </p>
+ * <pre>
  * public void finalize(){ 
  *     try {doSomething();} 
  *     finally {super.finalize()}
- * }</pre></code>
+ * }</pre>
  * 
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  *
@@ -159,7 +159,7 @@ public class FinalizeImplementationCheck extends Check
      * Checks, if finalize() has "static" access modifier.
      * @param modifierType 
      *        modifier type.
-     * @param aMethodNToken
+     * @param methodToken
      *        MODIFIRES Token.
      * @return true, if finalize() has "protected" access modifier.
      */
@@ -238,7 +238,7 @@ public class FinalizeImplementationCheck extends Check
      * Checks, if current method has try-finally block.
      * @param methodOpeningBrace
      *        Method opening brace.
-     * @return
+     * @return true if current method has try-finally block
      */
     public static boolean hasTryFinallyBlock(DetailAST methodOpeningBrace)
     {

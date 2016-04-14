@@ -115,6 +115,7 @@ public class RequiredParameterForAnnotationCheck extends Check
 
     /**  
      * The annotation name we are interested in.
+     * @param annotationName set annotation name
      */
     public void setAnnotationName(String annotationName)
     {
@@ -123,6 +124,7 @@ public class RequiredParameterForAnnotationCheck extends Check
 
     /** 
      * The required list of parameters we have to use. 
+     * @param requiredPropertiesParameter set required list of parameters
      */
     public void setRequiredParameters(String[] requiredPropertiesParameter)
     {

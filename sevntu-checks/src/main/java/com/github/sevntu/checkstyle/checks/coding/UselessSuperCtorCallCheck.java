@@ -58,7 +58,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * so there is no need to call super ctor explicitly. Check has options "allowCallToNoArgsSuperCtor"
  * and "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" to adjust check behavior for such cases(
  * see Check`s options description for details).
- * </p>
+ *
  * <p>
  * Check has following options:
  * </p>
@@ -81,7 +81,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </code>
  * </pre>
- * </p>
+ *
  * <p>
  * "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" - if this option set to "true", then
  * Check will not generate violation when "super()" called inside class ctor when class
@@ -124,17 +124,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </code>
  * </pre>
- * </p>
+ *
  * <p>
  * Checkstyle configuration example with options "allowCallToNoArgsSuperCtor" and
  * "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" set to true.
  * <pre> 
- *   &ltmodule name="UselessSuperCtorCallCheck"&gt
- *     &ltproperty name="allowCallToNoArgsSuperCtor" value="true"/&gt
- *     &ltproperty name="allowCallToNoArgsSuperCtorIfMultiplePublicCtor" value="true"/&gt
- *   &lt/module&gt
+ *   &lt;module name="UselessSuperCtorCallCheck"&gt;
+ *     &lt;property name="allowCallToNoArgsSuperCtor" value="true"/&gt;
+ *     &lt;property name="allowCallToNoArgsSuperCtorIfMultiplePublicCtor" value="true"/&gt;
+ *   &lt;/module&gt;
  * </pre>
- * </p>
  * 
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */

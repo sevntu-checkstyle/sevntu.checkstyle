@@ -65,7 +65,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
     /**
      * Set target constant types
      *
-     * @param targets
+     * @param targets target constant types
      */
     public void setTargetConstantTypes(String[] targets) {
         if (targets != null) {

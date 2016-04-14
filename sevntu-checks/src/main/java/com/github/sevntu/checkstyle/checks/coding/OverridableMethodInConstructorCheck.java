@@ -39,25 +39,24 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * interface and readObject() method from Serializable interface (you can
  * individually switch on/off these methods verification by changing
  * CheckCloneMethod and CheckReadObjectMethod properties).</li>
- * </ol><p>
+ * </ol>
  * Rationale:
  * <ol>
- * <li><q>Constructors must not invoke overridable methods, directly or
+ * <li>Constructors must not invoke overridable methods, directly or
  * indirectly. If you violate this rule, program failure will result. The
  * superclass constructor runs before the subclass constructor, so the
  * overriding method in the subclass will be invoked before the subclass
  * constructor has run. If the overriding method depends on any
  * initialization performed by the subclass constructor, the method will
- * not behave as expected.</q>
- * <li><q>If you do decide to implement Cloneable or Serializable in a class
+ * not behave as expected.
+ * <li>If you do decide to implement Cloneable or Serializable in a class
  * designed for inheritance, you should be aware that because the clone and
  * readObject methods behave a lot like constructors, a similar restriction
  * applies: neither clone nor readObject may invoke an overridable method,
- * directly or indirectly.</q>
- * </ol></p>
- * <p align="right">[Joshua Bloch - Effective Java 2nd Edition,
- * Chapter 4, Item 17]</p>
- * <br> Here's an example to illustrate: <code> <pre>
+ * directly or indirectly.
+ * </ol>
+ * [Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 17]
+ * <br> Here's an example to illustrate: <pre>
  * public class Example {
  *    public static void main(String[] args) {
  *        abstract class Base {
@@ -73,7 +72,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *        }
  *        new Child(42); // prints "0"
  *    }
- * }</pre> </code>
+ * }</pre>
  * <p>
  * Here, when Base constructor calls overrideMe, Child has not finished
  * initializing the final int x, and the method gets the wrong value. This will
@@ -83,7 +82,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <i><b>Notes:</b><br><br>This check doesn`t handle the situation when there
  * is a call to an overloaded method(s).</i><br>Here`s an example:
  *
- * <code> <pre> public class Test {
+ * <pre> public class Test {
  *
  *   public static void main(String[] args) {
  *
@@ -110,15 +109,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *       }
  *     new Child(999);
  *   }
- * } </pre> </code>
+ * } </pre>
  *
  *<p><br>
  * <i>Some specific method call types that aren`t supported by check:</i>
  * </p>
+ * <ul>
  * <li>BaseClass.InnerClass.this.methodName();</li>
  * <li>InnerClass.this.methodName();</li>
  * <li>and so on, using a similar hierarchy</li>
- * </p>
+ * </ul>
  *<br>
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil

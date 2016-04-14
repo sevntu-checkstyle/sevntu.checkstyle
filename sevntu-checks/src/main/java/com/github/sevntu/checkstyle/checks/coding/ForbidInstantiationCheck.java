@@ -72,7 +72,7 @@ public class ForbidInstantiationCheck extends Check
     }
 
     /**
-     * Sets a classNames&Paths for objects that are forbidden to instantiate.
+     * Sets a classNames&amp;Paths for objects that are forbidden to instantiate.
      * @param classNames
      *        - the list of classNames separated by a comma. ClassName should be
      *        full, such as "java.lang.NullpointerException", do not use short

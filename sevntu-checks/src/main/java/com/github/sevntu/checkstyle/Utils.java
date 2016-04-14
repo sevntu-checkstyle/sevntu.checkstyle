@@ -50,6 +50,8 @@ public final class Utils
      * 
      * @param currentNode
      *            Current node in considering
+     * @param subTreeRoot
+     *            The root node of the subtree. Can be a top level root node
      * @return Current node after bypassing, if current node reached the root of a subtree method returns null
      */
     public static DetailAST getNextSubTreeNode(DetailAST currentNode, DetailAST subTreeRoot)
