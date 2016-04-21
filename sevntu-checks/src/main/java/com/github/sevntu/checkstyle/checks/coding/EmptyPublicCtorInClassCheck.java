@@ -20,45 +20,36 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Example 1. Check will generate violation for this code:
  * 
  * <pre>
- * <code>
  * class Dummy {
  *     public Dummy() {
  *     }
  * }
- * </code>
  * </pre>
- * 
- * </p>
+ *
  * <p>
  * Example 2. Check will not generate violation for this code:
  * 
  * <pre>
- * <code>
  * class Dummy {
  *     private Dummy() {
  *     }
  * }
- * </code>
  * </pre>
  * 
  * class Dummy has only one ctor, which is not public.
- * </p>
  * <p>
  * Example 3. Check will not generate violation for this code:
  * 
  * <pre>
- * <code>
  * class Dummy {
  *     public Dummy() {
  *     }
  *     public Dummy(int i) {
  *     }
  * }
- * </code>
  * </pre>
  * 
  * class Dummy has multiple ctors.
- * </p>
  * <p>
  * Check has two properties:
  * </p>
@@ -77,10 +68,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * "com\.google\.inject\.Inject".
  * 
  * <pre>
- *   &ltmodule name="EmptyPublicCtorInClassCheck"&gt
- *     &ltproperty name="classAnnotationNames" value="javax\.persistence\.Entity"/&gt
- *     &ltproperty name="ctorAnnotationNames" value="com\.google\.inject\.Inject"/&gt
- *   &lt/module&gt
+ *   &lt;module name="EmptyPublicCtorInClassCheck"&gt;
+ *     &lt;property name="classAnnotationNames" value="javax\.persistence\.Entity"/&gt;
+ *     &lt;property name="ctorAnnotationNames" value="com\.google\.inject\.Inject"/&gt;
+ *   &lt;/module&gt;
  * </pre>
  * 
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>

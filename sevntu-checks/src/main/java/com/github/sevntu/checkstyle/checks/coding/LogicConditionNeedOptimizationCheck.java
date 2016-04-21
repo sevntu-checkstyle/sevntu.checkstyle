@@ -25,10 +25,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * <p>
  * This check prevents the placement of local variables and fields after calling
- * methods in '&&' and '||' conditions.
+ * methods in '&amp;&amp;' and '||' conditions.
  * </p>
  * <p>
- * For example: if(getProperty() && property) ==> if(property && getProperty()),
+ * For example: if(getProperty() &amp;&amp; property) ==&gt; if(property &amp;&amp; getProperty()),
  * and similarly for any expression.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>

@@ -33,11 +33,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * E.g. of statements:
  *
  * <p><b>Without diamond operator:</b><br><code>
- * Map&ltString, Map&ltString, Integer&gt&gt someMap =
- *     new HashMap&ltString, Map&ltString, Integer&gt&gt();</code><br>
+ * Map&lt;String, Map&lt;String, Integer&gt;&gt; someMap =
+ *     new HashMap&lt;String, Map&lt;String, Integer&gt;&gt;();</code><br>
  * <b>With diamond operator:</b><br>
  * <code>
- * Map&ltString, Map&ltString, Integer&gt&gt someMap = new HashMap&lt&gt();
+ * Map&lt;String, Map&lt;String, Integer&gt;&gt; someMap = new HashMap&lt;&gt;();
  * </code>
  * </p>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>

@@ -34,9 +34,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * value) { this.XXXName = value} void setXXXName(XXXType value) { XXXName =
  * value}
  * </p>
- * <p>
- * If name of field contains prefix,then must to be define parameter 'prefix',
- * for example:
+ * <p>If name of field contains prefix,then must to be define parameter 'prefix'
+ * , for example:</p>
  * 
  * <pre>
  * &lt;module name="SimpleAccesorNameNotationCheck"&gt; &lt;
@@ -44,7 +43,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * &lt;/module&gt;
  * </pre>
  * 
- * </p>
+ * 
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  * @author <a href="mailto:iliadubinin91@gmail.com">Ilja Dubinin</a>
  */

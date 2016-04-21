@@ -27,31 +27,32 @@ import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * Forbids certain imports usage in certain packages. <br/>
- * <br/>
+ * <p>Forbids certain imports usage in certain packages.
+ * </p>
  * You can configure this check using the following parameters:
  * <ol>
  * <li>Package qualified name regexp;</li>
  * <li>Forbidden imports regexp;</li>
  * <li>Forbidden imports excludes regexp.</li>
  * </ol>
+ * <p>
  * This check loads packages qualified names without 
  * words "package","import" and semicolons, so, please, do NOT include "package" or
- * "import" words (or semicolons) into config regexps.<br/>
- * <br/>
+ * "import" words (or semicolons) into config regexps.</p>
+ * <p>
  * Real-life example of usage: forbid to use all "*.ui.*" packages in "*.dao.*" packages,
  * but ignore all Exception imports (such as 
  * <b>org.springframework.dao.InvalidDataAccessResourceUsageException</b>).
- * For doing that, you should to use the following check parameters: <br/>
- * <br/>
- * <dl>
+ * For doing that, you should to use the following check parameters:
+ * </p>
+ * <ul>
  * <li>Package name regexp = ".*ui.*"</li>
  * <li>Forbidden imports regexp = ".*dao.*"</li>
  * <li>Forbidden imports excludes regexp = "^.+Exception$"</li>
- * </dl>
- * <br/>
- * You can cover more sophisticated rules by means of few check instances.<br/>
- * <br/>
+ * </ul>
+ * <p>
+ * You can cover more sophisticated rules by means of few check instances.
+ * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */

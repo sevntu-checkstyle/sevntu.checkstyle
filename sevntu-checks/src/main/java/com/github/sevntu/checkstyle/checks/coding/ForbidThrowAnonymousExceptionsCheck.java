@@ -32,8 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * This Check warns on throwing anonymous exception.<br>
  * Examples:
- * <p>
- * <code><pre>
+ * <pre>
  * catch (Exception e) {
  *        throw new RuntimeException()  { //WARNING 
  *          //some code
@@ -46,7 +45,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     };
  *     throw run;  //WARNING
  * }
- * </code></pre> The distinguishing of <b>exception</b> types occurs by
+ * </pre> The distinguishing of <b>exception</b> types occurs by
  * analyzing variable's class's name.<br>
  * Check has an option which contains the regular expression for exception class name matching<br>
  * Default value is "^.*Exception" because usually exception type ends with suffix "Exception".<br>

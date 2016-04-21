@@ -37,8 +37,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * 'http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html'>private
  * inner classes</a>, interfaces or enumerations.<br>
  * <br>
- * Examples: <code>
- * <pre> 
+ * Examples:
+ * <pre>
  * class OuterClass {
  *  public InnerClass innerFromMain = new InnerClass(); //WARNING
  *  private class InnerClass { ... } 
@@ -47,8 +47,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *  }
  *  <br> 
  *  private interface InnerInterface { ... }
- *  public Set&ltInnerInterface&gt getValue() { //WARNING
- *      return new TreeSet&ltInnerInterface&gt;;
+ *  public Set&lt;InnerInterface&gt; getValue() { //WARNING
+ *      return new TreeSet&lt;InnerInterface&gt;
  *  }
  *  <br>
  *  private Enum Fruit {Apple, Pear}
@@ -60,7 +60,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *  <br>
  * }
  * </pre>
- * </code>
  * <b>Rationale:</b> it is possible to return<br>
  * private inner type or use it as the parameter of non-private method, but it
  * is impossible<br>
@@ -69,7 +68,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * interface.<br>
  * Such situation usually happens after bulk refactoring and usually means
  * dead/useless code<br>
- * </p>
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
@@ -308,10 +306,12 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     }
 
     /**
-     * Checks, class, interface, enumeration, method or field has "private"
-     * access modifier.
-     * @param modifierType
-     * @param defAst
+     * Checks if class, interface, enumeration, method or field definition has an 
+     * access modifier of specified type
+     * @param modifierType modifier type
+     * @param defAst definition ast (METHOD_DEF, FIELD_DEF, etc.)
+     * @return true if class, interface, enumeration, method or field definition has an 
+     * access modifier of specified type
      */
     public static boolean
             hasModifier(int modifierType, DetailAST defAst)

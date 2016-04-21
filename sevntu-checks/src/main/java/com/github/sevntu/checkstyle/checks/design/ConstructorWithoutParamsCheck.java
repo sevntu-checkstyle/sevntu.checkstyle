@@ -30,32 +30,26 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * This check prohibits usage of parameterless constructors,
  * including the default ones.
  *
- * <p>
- * <b>Rationale:</b> constructors of certain classes must always take arguments
+ * <p><b>Rationale:</b> constructors of certain classes must always take arguments
  * to properly instantiate objects. Exception classes are the primary example:
  * their objects must contain enough info to find out why an exception occurred
  * (see "Effective Java", item 63). Constructing an exception without a cause exception
  * or an exception message leaves out such info and thus should be prohibited.
  * </p>
  *
- * <p>
- *     This check prohibits classes which simple names match the RegExp
+ * <p>This check prohibits classes which simple names match the RegExp
  *     defined in 'classNameFormat' property.
  * </p>
  *
- * <p>
- *     <b>Default configuration:</b>
+ * <p><b>Default configuration:</b>
  *     <pre>
- *         &ltmodule name="ConstructorWithoutParamsCheck"&gt
- *           &ltproperty name="classNameFormat" value=".*Exception$"/&gt
- *           &ltproperty name="ignoredClassNameFormat" value="UnsupportedOperationException"/&gt
- *         &lt/module&gt
+ *         &lt;module name="ConstructorWithoutParamsCheck"&gt;
+ *           &lt;property name="classNameFormat" value=".*Exception$"/&gt;
+ *           &lt;property name="ignoredClassNameFormat" value="UnsupportedOperationException"/&gt;
+ *         &lt;/module&gt;
  *     </pre>
- * </p>
  *
- * <p>
- * <b>Examples:</b>
- *
+ * <p><b>Examples:</b>
  * <pre>
  * // Assume a RegExp in classNameFormat catches example class names
  * // the check can prohibit default constructors of built-in classes
@@ -84,15 +78,12 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * }
  *
  * Clazz2 o2 = new Clazz2(); // violation expected
- *
  * </pre>
- *
- * </p>
- * For more examples , see InputConstructorWithoutParamsCheck.
+ * <p>For more examples, see InputConstructorWithoutParamsCheck.
  * For discussion, see the sevntu-checkstyle
- * <a href=https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/412> issue 412</a>.
+ * <a href=https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/412> issue 412</a></p>.
  *
- * @author <a href="mailto:Sergey Dudoladov@gmail.com">Sergey Dudoladov</a>
+ * @author <a href="mailto:Sergey.Dudoladov@gmail.com">Sergey Dudoladov</a>
  */
 public class ConstructorWithoutParamsCheck extends Check {
 

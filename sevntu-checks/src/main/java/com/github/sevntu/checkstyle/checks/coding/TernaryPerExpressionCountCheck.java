@@ -35,17 +35,15 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * - Complicated ternary expressions are not easy to read.<br>
  * - Complicated ternary expressions could lead to ambiguous result if user<br>
  * does not know Java's operators priority well, e.g.:<br>
- * <p>
- * <code>
+ *
  * <pre>
  * String str = null;
  * String x = str != null ? "A" : "B" + str == null ? "C" : "D";
  * System.out.println(x);
  * </pre>
- * </code>
- * </p>
+ *
  * Output for code above is "D", but more obvious would be "BC".<br>
- * </p>
+ *
  * Check has following properties:<br>
  * <ul>
  * <li><b>maxTernaryPerExpressionCount</b> - limit of ternary operators per
@@ -62,8 +60,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * make Check less strict, e.g.:<br>
  * Using <b>ignoreTernaryOperatorsInBraces</b> option (value = <b>true</b>)<br>
  * does not put violation on code below:<br>
- * <p>
- * <code>
+ *
  * <pre>
  * callString = "{? = call " +
  *   (StringUtils.hasLength(catalogNameToUse) 
@@ -72,19 +69,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *   ? schemaNameToUse + "." : "") +
  *   procedureNameToUse + "(";
  * </pre>
- * </code>
- * </p>
+ *
  * When using <b>ignoreIsolatedTernaryOnLine</b> (value = <b>true</b>), even without<br>
  * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:<br> 
- * <p>
- * <code>
+ *
  * <pre>
  * int a = (d == 5) ? d : f
  *   +
  *   ((d == 6) ? g : k);
  * </pre>
- * </code>
- * </p>
+ *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
 
@@ -122,7 +116,7 @@ public class TernaryPerExpressionCountCheck extends Check {
      * Sets parameter to ignore ternary operators in braces, default value =
      * true
      * 
-     * @param ignoreTernaryOperatorsInBraces
+     * @param ignoreTernaryOperatorsInBraces ignore ternary operators in braces
      */
     public void setIgnoreTernaryOperatorsInBraces(boolean ignoreTernaryOperatorsInBraces) {
         this.ignoreTernaryOperatorsInBraces = ignoreTernaryOperatorsInBraces;
@@ -131,7 +125,7 @@ public class TernaryPerExpressionCountCheck extends Check {
     /**
      * Sets parameter to ignore expressions in case if ternary operator is isolated in line
      * 
-     * @param ignoreIsolatedTernaryOnLine
+     * @param ignoreIsolatedTernaryOnLine ignore expressions in case if ternary operator is isolated in line
      */
     public void setIgnoreIsolatedTernaryOnLine(boolean ignoreIsolatedTernaryOnLine) {
         this.ignoreIsolatedTernaryOnLine = ignoreIsolatedTernaryOnLine;

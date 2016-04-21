@@ -66,9 +66,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * By default <code>toString</code> is used as an exclusion.
  *
- * @see <a
- *      href=" http://www.scribd.com/doc/15884743/Java-Coding-Style-by-Achut-Reddy">"Java Coding Style"
- *      by Achut Reddy</a>
+ * @see <a href="http://www.scribd.com/doc/15884743/Java-Coding-Style-by-Achut-Reddy">
+ * Java Coding Style</a>
  *
  * @author Pavel Baranchikov
  */

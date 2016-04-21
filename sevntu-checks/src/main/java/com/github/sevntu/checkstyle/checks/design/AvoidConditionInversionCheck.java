@@ -33,7 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * the main logic. E.g.:
  * <p>
  * <code>
- * if (!(( a >= 8) && ( b >= 5))) { ... }
+ * if (!(( a &gt;= 8) &amp;&amp; ( b &gt;= 5))) { ... }
  * </code>
  * </p>
  * <p>
@@ -41,7 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * <code>
- * if ((a < 8) && (b < 5)) { ... }
+ * if ((a &lt; 8) &amp;&amp; (b &lt; 5)) { ... }
  * </code>
  * </p>
  * <p>
@@ -55,7 +55,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <code>
  * if (a == b) { ... } 
  * </code>
- * </p>
  * Sure, there're cases where we can't get rid of inversion without changing the main logic, e.g.:
  * <p>
  * <code>

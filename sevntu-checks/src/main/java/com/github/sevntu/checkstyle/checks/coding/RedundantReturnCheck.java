@@ -38,19 +38,19 @@ import java.util.List;
  * <p>
  * 1. Non-empty constructor
  * </p>
- * <code><pre>
+ * <pre>
  *    public HelloWorld(){
  *        doStuff();
  *        return;
- *    }</pre></code>
+ *    }</pre>
  * <p>
  * 2. Method with void result
  * </p>
- * <code><pre>
+ * <pre>
  *    public void testMethod1(){
  *        doStuff();
  *        return;
- *    }</pre></code>
+ *    }</pre>
  * <p>
  * However, if your IDE does not support breakpoints on the method entry, you
  * can allow the use of redundant returns in constructors and methods with void
@@ -62,17 +62,17 @@ import java.util.List;
  * <p>
  * 1. Empty constructor
  * </p>
- * <code><pre>
+ * <pre>
  *    public HelloWorld(){
  *        return;
- *    }</pre></code>
+ *    }</pre>
  * <p>
  * 2. Method with void result and empty body
  * </p>
- * <code><pre>
+ * <pre>
  *    public void testMethod1(){
  *        return;
- *    }</pre></code>
+ *    }</pre>
  * @author <a href="mailto:fishh1991@gmail.com">Troshin Sergey</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Alexey Nesterenko</a>

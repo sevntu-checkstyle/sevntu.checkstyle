@@ -67,7 +67,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  * 
- * </p>
  * <p>
  * <b>What check can detect:</b> <br>
  * <b>Loggers</b>
@@ -85,7 +84,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * exception</li>
  * <li>printStackTrace was called on <code>catch</code> parameter exception</li>
  * </ul>
- * </p>
  * <p>
  * <b>What check can not detect:</b> <br>
  * <ul>
@@ -103,7 +101,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  * </li>
  * </ul>
- * </p>
  * <p>
  * Default parameters are:
  * <ul>
@@ -112,7 +109,6 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li><b>loggingMethodNames</b> - comma separated names of logging methods.
  * Default value is <i>"error, warn, info, debug"</i>.</li>
  * </ul>
- * </p>
  * <p>
  * Note that check works with only one logger type. If you have multiple
  * different loggers, then create another instance of this check.

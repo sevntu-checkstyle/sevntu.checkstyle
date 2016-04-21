@@ -32,9 +32,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Examples:<br>
  * "if" expression contains negation<br>
- * <code>
- *  <pre>
- *  if (a != b && c != d)
+ * <pre>
+ *  if (a != b &amp;&amp; c != d)
  *      {
  *          smth1();
  *      }
@@ -42,12 +41,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *      {
  *          smth2();
  *      }
- *  </pre>
- * </code> You can escape of negation in "if" expression<br>
+ * </pre>
+ * You can escape of negation in "if" expression<br>
  * and swapped code in "if" and "else" block:<br>
- * <code>
- *  <pre>
- *  if (a == b && c == d)
+ * <pre>
+ *  if (a == b &amp;&amp; c == d)
  *      {
  *          smth2();
  *      }
@@ -55,9 +53,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *      {
  *          smth1();
  *      }
- *  </pre>
- * </code>
- * </p>
+ * </pre>
  * 
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
  */
@@ -89,7 +85,7 @@ public class ConfusingConditionCheck extends Check {
 	/**
 	 * Enable(true) | Disable(false) warnings for all inner "if".
 	 * 
-	 * @param aIgnoreInnerIf
+	 * @param aIgnoreInnerIf ignore inner if
 	 */
 	public void setIgnoreInnerIf(final boolean aIgnoreInnerIf) {
 		ignoreInnerIf = aIgnoreInnerIf;
@@ -104,7 +100,7 @@ public class ConfusingConditionCheck extends Check {
 	 * Enable(true) | Disable(false) warnings for all "if" that follows the
 	 * "else".
 	 * 
-	 * @param ignoreSequentialIf
+	 * @param ignoreSequentialIf ignore sequential if
 	 */
 	public void setIgnoreSequentialIf(final boolean ignoreSequentialIf) {
 		this.ignoreSequentialIf = ignoreSequentialIf;
@@ -143,9 +139,9 @@ public class ConfusingConditionCheck extends Check {
 	/**
 	 * Sets multiplyFactorForElseBlocks field.
 	 * 
-	 * @param aMultiplyFactorForElseBlocks
+	 * @param multiplyFactorForElseBlocks
 	 *            define multiplyFactorForElseBlocks field.
-	 * @see ConfusingConditionCheck#MultiplyFactorForElseBlocks
+	 * @see ConfusingConditionCheck#multiplyFactorForElseBlocks
 	 */
 	public void setMultiplyFactorForElseBlocks(int multiplyFactorForElseBlocks) {
 		this.multiplyFactorForElseBlocks = multiplyFactorForElseBlocks;

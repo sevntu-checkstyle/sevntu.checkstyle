@@ -10,32 +10,26 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * Examples:
  * This code is perfectly valid:
- * <p>
- * <code>
+ *
  * <pre>
  * int[] ints = new int[] {
  *     0, 1, 2, 3
  * };
  * </pre>
- * </code>
- * </p>
+ *
  * This example is valid too:
- * <p>
- * <code>
+ *
  * <pre>
  * int[] tab = new int[]
  *                 {0, 1, 2, 3}
  * </pre>
- * </code>
- * </p>
+ *
  * But this violates check:
- * <p>
- * <code>
+ *
  * <pre>
  * int[] ints = new int[]{0, 1, 2, 3};
  * </pre>
- * </code>
- * </p>
+ *
  *
  * @author <a href="mailto:piotr.listkiewicz@gmail.com">liscju</a>
  */
