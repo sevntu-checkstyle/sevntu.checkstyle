@@ -11,10 +11,10 @@ before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
       && cd ../../
 
 install: cd sevntu-checks && mvn clean install && mvn javadoc:javadoc
-      && cd ../eclipsecs-sevntu-plugin && mvn verify
-      && cd ../sevntu-checkstyle-maven-plugin && mvn verify
-      && cd ../sevntu-checkstyle-idea-extension && mvn verify
-      && cd ../sevntu-checkstyle-sonar-plugin && mvn verify
+      && cd ../eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc
+      && cd ../sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc
+      && cd ../sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc
+      && cd ../sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc
       && cd ../sevntu-checks && mvn jacoco:report coveralls:jacoco
 
 after_success:
