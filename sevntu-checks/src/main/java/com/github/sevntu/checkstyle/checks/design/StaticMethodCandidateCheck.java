@@ -445,7 +445,7 @@ public class StaticMethodCandidateCheck extends Check {
     private static Optional<Frame> findFrameByName(Frame frame, String frameName) {
         Optional<Frame> result = Optional.absent();
         Optional<Frame> parentFrame = Optional.of(frame.parent);
-        while (parentFrame.isPresent()  && !result.isPresent()) {
+        while (parentFrame.isPresent() && !result.isPresent()) {
             for (Frame child: parentFrame.get().children) {
                 if (child.isClassOrEnum
                         && frameName.equals(child.frameName)) {
