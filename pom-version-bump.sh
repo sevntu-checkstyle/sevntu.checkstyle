@@ -11,7 +11,8 @@ update-site/pom.xml)
 for i in "${POM_FILES[@]}"
 do
 	echo $i
-	xsltproc -o $i --stringparam version $NEW_VERSION pom-version-bump.xsl $i
+	xmlstarlet ed -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $NEW_VERSION $i > $i.new
+	mv $i.new $i
 done
 
 
