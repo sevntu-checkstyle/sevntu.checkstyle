@@ -45,7 +45,6 @@
     <suppress checks=".*" files="CauseParameterInExceptionCheck.java"/>
     <suppress checks=".*" files="ForbidWildcardAsReturnTypeCheck.java"/>
     <suppress checks=".*" files="AvoidConditionInversionCheck.java"/>
-    <suppress checks=".*" files="SingleSpaceSeparatorCheck.java"/>
     <suppress checks=".*" files="ForbidAnnotationCheck.java"/>
     <suppress checks=".*" files="RequiredParameterForAnnotationCheck.java"/>
     <suppress checks=".*" files="EnumValueNameCheck.java"/>

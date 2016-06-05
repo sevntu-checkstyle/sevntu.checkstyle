@@ -630,7 +630,7 @@
 		<key>com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</key>
 		<name>Ternary Per Expression Count</name>
 		<category name="coding" />
-		<description>Restricts the number of ternary operators in expression to a specified limit</description> 
+		<description>Restricts the number of ternary operators in expression to a specified limit</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</configKey>
 		<param key="maxTernaryPerExpressionCount" type="INTEGER">
 			<defaultValue>1</defaultValue>
@@ -740,7 +740,7 @@
 			<description>Array of type forbidden annotation's target.</description>
     	</param>
 	</rule>
-	
+
 	<rule>
         <key>com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck</key>
         <name>Required Parameters Annotation</name>
@@ -752,19 +752,6 @@
         </param>
         <param key="requiredParameters" type="STRING">
             <description>Set of parameters that are required on the configured annotation. They can be specified on any order and you may use additional parameters, but these parameters need to be filled</description>
-        </param>
-    </rule>
-
-    <!-- 'whitespace' checks -->
-    <rule>
-        <key>com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck</key>
-        <name>Single space separator</name>
-        <category name="whitespace"/>
-        <description>Checks that if tokens are separated by whitespaces, it has to be a single space.</description>
-        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck</configKey>
-        <param key="validateCommentNodes" type="BOOLEAN">
-            <defaultValue>false</defaultValue>
-            <description>If set to true, the surrounding whitespaces at comments will be ignored. In case of single-line comments, whitespaces before // will be ignored. In case of block comments, whitespaces before /* and after */ will be ignored.</description>
         </param>
     </rule>
 
