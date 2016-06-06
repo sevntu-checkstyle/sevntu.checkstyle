@@ -22,6 +22,8 @@ done
 
 #aditional version reference
 #sevntu-checkstyle-maven-plugin/pom.xml
+#xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" -u '//pom:project/pom:dependencies/pom:dependency[artifactId="sevntu-checks"]/pom:version' -v 1.21.0 sevntu-checkstyle-maven-plugin/pom.xml
+#xmlstarlet sel -N pom="http://maven.apache.org/POM/4.0.0" -t -v  '//pom:project/pom:dependencies/pom:dependency[artifactId="sevntu-checks"]' sevntu-checkstyle-maven-plugin/pom.xml
 
 #special
 sed -i "s/Bundle-Version: $OLD_VERSION/Bundle-Version: $NEW_VERSION/" eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
