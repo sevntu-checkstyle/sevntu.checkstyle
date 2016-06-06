@@ -1,5 +1,10 @@
 #!/usr/bin/bash
-NEW_VERSION=$1
+
+# Example of commit that should be created base on this script:
+# https://github.com/sevntu-checkstyle/sevntu.checkstyle/commit/9d90193ba0e47de11b536f3744bc14d28dfb21f7
+
+OLD_VERSION=$1
+NEW_VERSION=$2
 POM_FILES=(eclipse-pom.xml
 eclipsecs-sevntu-plugin-feature/pom.xml
 eclipsecs-sevntu-plugin/pom.xml
@@ -15,12 +20,9 @@ do
 	mv $i.new $i
 done
 
-
-#https://github.com/sevntu-checkstyle/sevntu.checkstyle/commit/9d90193ba0e47de11b536f3744bc14d28dfb21f7
-
 #aditional version reference
 #sevntu-checkstyle-maven-plugin/pom.xml
 
 #special
-sed -i "s/Bundle-Version: 1.19.2/Bundle-Version: $NEW_VERSION/" eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
-sed -i "s/1.19.2/$NEW_VERSION/" eclipsecs-sevntu-plugin-feature/feature.xml
+sed -i "s/Bundle-Version: $OLD_VERSION/Bundle-Version: $NEW_VERSION/" eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
+sed -i "s/$OLD_VERSION/$NEW_VERSION/" eclipsecs-sevntu-plugin-feature/feature.xml
