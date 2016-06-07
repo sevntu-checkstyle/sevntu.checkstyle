@@ -15,16 +15,22 @@ sevntu-checkstyle-sonar-plugin/pom.xml
 update-site/pom.xml)
 for i in "${POM_FILES[@]}"
 do
-	echo $i
-	xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" -u "/pom:project/pom:version" -v $NEW_VERSION $i > $i.new
+	echo "Updating: "$i
+	xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
+	    -u "/pom:project/pom:version" -v $NEW_VERSION $i > $i.new
 	mv $i.new $i
 done
 
 #aditional version reference
-#sevntu-checkstyle-maven-plugin/pom.xml
-#xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" -u '//pom:project/pom:dependencies/pom:dependency[artifactId="sevntu-checks"]/pom:version' -v 1.21.0 sevntu-checkstyle-maven-plugin/pom.xml
-#xmlstarlet sel -N pom="http://maven.apache.org/POM/4.0.0" -t -v  '//pom:project/pom:dependencies/pom:dependency[artifactId="sevntu-checks"]' sevntu-checkstyle-maven-plugin/pom.xml
+POM_FILE=sevntu-checkstyle-maven-plugin/pom.xml
+echo "Updating: "$POM_FILE
+xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
+    -u '//pom:project/pom:dependencies/pom:dependency[pom:artifactId="sevntu-checks"]/pom:version' \
+    -v $NEW_VERSION $POM_FILE > $POM_FILE.new
+mv $POM_FILE.new $POM_FILE
 
 #special
+echo "Updating: MANIFEST.MF"
 sed -i "s/Bundle-Version: $OLD_VERSION/Bundle-Version: $NEW_VERSION/" eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
+echo "Updating: feature.xml"
 sed -i "s/$OLD_VERSION/$NEW_VERSION/" eclipsecs-sevntu-plugin-feature/feature.xml
