@@ -40,7 +40,7 @@ do
 	mv $i.new $i
 done
 
-#aditional version reference
+#aditional version reference in dependency
 FILE=sevntu-checkstyle-maven-plugin/pom.xml
 echo "Updating: "$FILE
 xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
@@ -48,11 +48,7 @@ xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
     $FILE > $FILE.new
 mv $FILE.new $FILE
 
-#special
-FILE=eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
-echo "Updating: "$FILE
-sed -i "s/Bundle-Version: $OLD_VERSION/Bundle-Version: $NEW_VERSION/" $FILE
-
+#aditional version reference, eclipse file 
 FILE=eclipsecs-sevntu-plugin-feature/feature.xml
 echo "Updating: "$FILE
 xmlstarlet ed --ps \
@@ -60,5 +56,9 @@ xmlstarlet ed --ps \
     -u "/feature/plugin[@version='$OLD_VERSION']/@version" -v $NEW_VERSION \
     $FILE > $FILE.new
 mv $FILE.new $FILE
-#sed -i "s/$OLD_VERSION/$NEW_VERSION/" eclipsecs-sevntu-plugin-feature/feature.xml
-#xmlstarlet ed --ps -u "/feature[@version="$OLD_VERSION"]/@version" -v $NEW_VERSION eclipsecs-sevntu-plugin-feature/feature.xml
+
+#special, non xml file
+FILE=eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
+echo "Updating: "$FILE
+sed -i "s/Bundle-Version: $OLD_VERSION/Bundle-Version: $NEW_VERSION/" $FILE
+
