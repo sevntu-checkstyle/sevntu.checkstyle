@@ -1,0 +1,6 @@
+com.github.sevntu.checkstyle
+com.github.sevntu.checkstyle.checks.annotation
+com.github.sevntu.checkstyle.checks.coding
+com.github.sevntu.checkstyle.checks.design
+com.github.sevntu.checkstyle.checks.naming
+com.github.sevntu.checkstyle.checks.sizes
