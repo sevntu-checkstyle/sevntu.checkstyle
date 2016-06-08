@@ -90,7 +90,7 @@ deployMavenLibrary()
             exit 1
         fi
         # deployment of Javadoc to static site
-        mv target/site/apidocs ../gh-pages
+        cp -rf target/site/apidocs ../gh-pages
 
         cd $REPO_HOME_DIR
 
