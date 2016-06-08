@@ -38,7 +38,7 @@ prepareForDeploy()
         cd $REPO_HOME_DIR
 
         return
-    }        
+    }
 
 deployIdea()
     {
@@ -49,7 +49,7 @@ deployIdea()
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
             exit 1
         fi
-        
+
         cd $REPO_HOME_DIR/gh-pages
         echo "$manualDeploy"
         return
@@ -79,16 +79,18 @@ deployMavenLibrary()
     {
         # As we do not use SNAPSHOT qualifier for developemnt in pom.xml
         # we have to deploy library sevntu-checks always even it overides existing binaries in maven repository
-        # for relase build - it will not override binaries 
-        # for test build - it will override as we need to be sure that in repository, 
+        # for relase build - it will not override binaries
+        # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $REPO_HOME_DIR/sevntu-checks
-        mvn clean deploy
+        mvn clean javadoc:javadoc deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checks."
             exit 1
         fi
+        # deployment of Javadoc to static site
+        mv target/site/apidocs ../gh-pages
 
         cd $REPO_HOME_DIR
 
