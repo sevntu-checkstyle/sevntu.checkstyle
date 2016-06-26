@@ -6,7 +6,7 @@
   <version>1.21.0</version>
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
-    <checkstyle.version>6.19</checkstyle.version>
+    <checkstyle.version>7.0</checkstyle.version>
     <!-- this version has to be the same as eclispe-cs depends on -->
     <checkstyle.eclipse-cs.version>6.16.1</checkstyle.eclipse-cs.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
