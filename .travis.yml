@@ -2,7 +2,6 @@ language: java
 sudo: false
 
 jdk:
-  - openjdk7
   - oraclejdk8
 
 before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
