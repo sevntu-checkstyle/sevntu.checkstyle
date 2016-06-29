@@ -21,6 +21,9 @@ package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.FullIdent;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 /**
@@ -74,4 +77,77 @@ public final class Utils {
         }
         return toVisitAst;
     }
+
+    /**
+     * Obtain full type name of first token in node.
+     * @param ast an AST node
+     * @return fully qualified name (FQN) of type, or null if none was found
+     */
+    public static String getTypeNameOfFirstToken(final DetailAST ast) {
+        String fqTypeName = null;
+        final DetailAST findFirstToken = ast.findFirstToken(TokenTypes.TYPE);
+        if (findFirstToken != null) {
+            final FullIdent ident = CheckUtils.createFullType(findFirstToken);
+            if (ident != null) {
+                fqTypeName = ident.getText();
+            }
+        }
+        return fqTypeName;
+    }
+
+    /**
+     * Check node for matching class, taken both FQN and short name into account.
+     *
+     * @param ast
+     *            an AST node
+     * @param fqClassName
+     *            fully qualified class name
+     * @return true if type name of first token in node is fqnClassName, or its short name; false
+     *         otherwise
+     */
+    public static boolean matchesFullyQualifiedName(final DetailAST ast,
+            final String fqClassName) {
+        final String typeName = getTypeNameOfFirstToken(ast);
+        final int lastDotPosition = fqClassName.lastIndexOf('.');
+        boolean isMatched = false;
+        if (lastDotPosition == -1) {
+            isMatched = typeName.equals(fqClassName);
+        }
+        else {
+            final String shortClassName = fqClassName.substring(lastDotPosition + 1);
+            isMatched = typeName.equals(fqClassName) || typeName.equals(shortClassName);
+        }
+        return isMatched;
+    }
+
+    /**
+     * Returns the name of the closest enclosing class of the passed-in abstract syntax tree node
+     * (AST).
+     *
+     * @param ast
+     *            an AST node
+     * @return the name of the closest enclosing class, or null if there is none
+     */
+    public static String getEnclosingTypeDefinitionName(final DetailAST ast) {
+        DetailAST parent = ast.getParent();
+        while (!isTypeDefinition(parent)) {
+            parent = parent.getParent();
+        }
+        return parent.findFirstToken(TokenTypes.IDENT).getText();
+    }
+
+    /**
+     * Checks if abstract syntax tree node (AST) is a top level type.
+     *
+     * @param ast
+     *            an AST node
+     * @return true if ast is either a Class, Interface, Enum or Annotation definition
+     */
+    public static boolean isTypeDefinition(DetailAST ast) {
+        return ast.getType() == TokenTypes.CLASS_DEF
+            || ast.getType() == TokenTypes.ENUM_DEF
+            || ast.getType() == TokenTypes.INTERFACE_DEF
+            || ast.getType() == TokenTypes.ANNOTATION_DEF;
+    }
+
 }

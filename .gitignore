@@ -7,6 +7,7 @@ gh-pages/
 
 # No Eclipse settings
 .settings/
+# No temporary files created by eclipsecs
 .checkstyle
 
 # No IntelliJ Idea project files

@@ -46,7 +46,6 @@
     </rule>
 
     <!-- 'design' checks -->
-
     <rule>
         <key>com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck</key>
         <name>Cause Parameter In Exception</name>
@@ -314,6 +313,16 @@
         <param key="ctorAnnotationNames" type="REGULAR_EXPRESSION">
             <defaultValue>com\.google\.inject\.Inject</defaultValue>
             <description>Regex which matches names of ctor annotations which make empty public ctor essential.</description>
+        </param>
+    </rule>
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.coding.FieldSingleDeclarationCheck</key>
+        <name>Field Single Declaration Check</name>
+        <category name="coding"/>
+        <description>This checks ensures that classes have at most 1 field of the given className.  This can be useful for example to ensure that only one Logger is used.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.FieldSingleDeclarationCheck</configKey>
+        <param key="className" type="STRING">
+            <description>Fully qualified name of class of which there should only be max. 1 field per class. Example: "org.slf4j.Logger".</description>
         </param>
     </rule>
     <rule>
