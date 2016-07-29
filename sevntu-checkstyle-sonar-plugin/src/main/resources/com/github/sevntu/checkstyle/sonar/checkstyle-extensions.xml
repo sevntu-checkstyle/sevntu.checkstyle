@@ -898,6 +898,14 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaCheck</key>
+    <name>Enum Trailing Comma</name>
+    <category name="coding"/>
+    <description>This checks enforces a trailing comma at the end of a line in an enum constant definition.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaCheck</configKey>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.design.InnerClassCheck</key>
     <name>Inner Class</name>
     <category name="design"/>

@@ -36,7 +36,12 @@ public class CheckstyleRegressionTest {
 
     /** List of checks to suppress if we dynamically add it to the configuration. */
     private static final List<String> ADD_CHECK_SUPPRESSIONS = Arrays
-            .asList("ReturnCountExtendedCheck");
+            .asList(
+                    // conflicting with NoWhitespaceBefore, SeparatorWrap
+                    "EnumTrailingCommaCheck",
+
+                    "ReturnCountExtendedCheck"
+            );
 
     // -@cs[CyclomaticComplexity] Can't split
     @Test
