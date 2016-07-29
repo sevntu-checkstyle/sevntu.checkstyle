@@ -157,6 +157,7 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
+    <module name="com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck" />
     <module name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck" />
 

@@ -556,5 +556,12 @@
       <message-key key="require.fail"/>
     </rule-metadata>
 
+    <rule-metadata name="%EnumTrailingCommaCheck.name" internal-name="EnumTrailingCommaCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaCheck"/>
+      <description>%EnumTrailingCommaCheck.desc</description>
+
+      <message-key key="enum.trailing.comma"/>
+    </rule-metadata>
+
   </rule-group-metadata>
 </checkstyle-metadata>
