@@ -121,17 +121,16 @@ public class EnumTrailingCommaCheck extends AbstractCheck {
 
             final DetailAST next = lastComma.getNextSibling();
             final int type = next.getType();
-            switch (type) {
-                case TokenTypes.SEMI:
-                    if (next.getLineNo() == lastComma.getLineNo()) {
-                        // semi on the same line as last comma
-                        log(next.getLineNo(), MSG_KEY_SEMI);
-                    }
-                    break;
-                case TokenTypes.ENUM_CONSTANT_DEF:
-                    log(next.getLineNo(), MSG_KEY);
-                    break;
-                default:
+
+            if (type == TokenTypes.SEMI) {
+                if (next.getLineNo() == lastComma.getLineNo()) {
+                    // semi on the same line as last comma
+                    log(next.getLineNo(), MSG_KEY_SEMI);
+                }
+
+            }
+            else if (type == TokenTypes.ENUM_CONSTANT_DEF) {
+                log(next.getLineNo(), MSG_KEY);
             }
         }
     }
