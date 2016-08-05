@@ -24,16 +24,60 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * <p>
- * Checks if enum constant contains optional trailing comma.
- * </p>
- * <p>
- * Rationale: Putting this comma in make is easier to change the
- * order of the elements or add new elements on the end.
- * </p>
- * <p>
- * An example of how to configure the check is:
- * </p>
+ * Checks if enum constant contains an optional trailing comma.
+ *
+ * <p>Rationale: Putting this comma in makes is easier to change the order of the elements or add
+ * new elements at the end of the list.
+ *
+ * <p>The following is a valid enum type declaration:
+ * <pre>
+ * enum Type {
+ *     ALPHA,
+ *     BETA,
+ *     GAMMA
+ * }
+ * </pre>
+ *
+ * <p>However, if you want to append something to the list, you would need to change the line
+ * containing the last enum constant:
+ *
+ * <pre>
+ * enum Type {
+ *     ALPHA,
+ *     BETA,
+ *     GAMMA,   // changed due to the ','
+ *     DELTA    // new line
+ * }
+ * </pre>
+ *
+ * <p>This check makes sure that also the last enum constant has a trailing comma, which is
+ * valid according to the Java Spec (see <a
+ * href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html#jls-8.9.1">Enum Constants</a>)
+ *
+ * <pre>
+ * enum Type {
+ *     ALPHA,
+ *     BETA,
+ *     GAMMA,
+ *     DELTA, // removing this comma will result in a violation with the check activated
+ * }
+ * </pre>
+ *
+ * <p>However, you could also add a semicolon behind that comma on the same line, which would raise
+ * a violation
+ *
+ * <pre>
+ * enum Type {
+ *     ALPHA,
+ *     BETA,
+ *     GAMMA,
+ *     DELTA,; // violation
+ * }
+ * </pre>
+ * In this case the semicolon should be removed. However, if there is more in the enum body, the
+ * semicolon should be placed on a line by itself.
+ *
+ * <p>An example of how to configure the check is:
  * <pre>
  * &lt;module name="EnumTrailingComma"/&gt;
  * </pre>
