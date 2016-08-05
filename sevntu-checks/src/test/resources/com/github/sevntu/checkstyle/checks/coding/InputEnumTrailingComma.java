@@ -11,19 +11,19 @@ public interface InputEnumTrailingComma
     enum E2 {
         ONE,
         TWO,
-        THREE
+        THREE   // violation
     }
 
     enum E3 {
         ONE,
         TWO,
-        THREE;
+        THREE;  // violation
     }
 
     enum E4 {
         ONE,
         TWO,
-        THREE,;
+        THREE,; // violation
     }
 
     enum E5 {
