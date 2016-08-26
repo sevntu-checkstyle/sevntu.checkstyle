@@ -29,7 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>Rationale: Putting this comma in makes is easier to change the order of the elements or add
  * new elements at the end of the list.
  *
- * <p>The following is a valid enum type declaration:
+ * <p>The following is a normal enum type declaration:
  * <pre>
  * enum Type {
  *     ALPHA,
