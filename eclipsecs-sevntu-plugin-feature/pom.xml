@@ -5,7 +5,7 @@
     <relativePath>../eclipse-pom.xml</relativePath>
     <groupId>com.github.sevntu.checkstyle</groupId>
     <artifactId>parent</artifactId>
-    <version>1.21.0</version>
+    <version>1.21.1</version>
   </parent>
   <groupId>com.github.sevntu.checkstyle</groupId>
   <artifactId>com.github.sevntu.checkstyle.checks.feature</artifactId>
