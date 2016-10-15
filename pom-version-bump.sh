@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Example of commit that should be created base on this script:
 # https://github.com/sevntu-checkstyle/sevntu.checkstyle/commit/9d90193ba0e47de11b536f3744bc14d28dfb21f7
