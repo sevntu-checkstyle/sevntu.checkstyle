@@ -279,6 +279,11 @@
            		 </property-metadata>
 	    </rule-metadata>
 
+        <rule-metadata name="%TryWithResourcesCheck.name" internal-name="TryWithResources" parent="TreeWalker">
+                <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.TryWithResourcesCheck"/>
+                <description>%TryWithResourcesCheck.desc</description>
+        </rule-metadata>
+
         <rule-metadata name="%NameConventionForJunit4TestClassesCheck.name"
             internal-name="NameConventionForJunit4TestClassesCheck" parent="TreeWalker">
             <alternative-name

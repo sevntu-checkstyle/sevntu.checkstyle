@@ -6,7 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" path="src/test/resources-noncompilable">
+	<classpathentry kind="src" path="src/test/resources-noncompilable">
 		<attributes>
 			<attribute name="ignore_optional_problems" value="true"/>
 		</attributes>
