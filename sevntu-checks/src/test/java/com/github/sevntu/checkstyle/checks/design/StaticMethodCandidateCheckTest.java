@@ -23,7 +23,6 @@ import static com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCh
 
 import java.io.File;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -57,7 +56,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(StaticMethodCandidateCheck.class);
         checkConfig.addAttribute("skippedMethods", "foo, bar,foobar");
-        final String[] expected = ArrayUtils.EMPTY_STRING_ARRAY;
+        final String[] expected = {};
         verify(checkConfig, getPath("InputStaticMethodCandidateSkippedMethods.java"), expected);
     }
 
