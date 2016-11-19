@@ -17,6 +17,10 @@
 
     <name>eclipse-cs Sevntu Checkstyle Plugin</name>
 
+    <properties>
+      <eclipsecs.version>7.2.0-SNAPSHOT</eclipsecs.version>
+    </properties>
+
     <dependencies>
       <dependency>
 	  	<groupId>com.github.sevntu.checkstyle</groupId>
@@ -26,12 +30,12 @@
       <dependency>
 	<groupId>net.sf.eclipsecs</groupId>
         <artifactId>net.sf.eclipsecs.ui</artifactId>
-        <version>6.19.1-SNAPSHOT</version>
+        <version>${eclipsecs.version}</version>
       </dependency>
       <dependency>
         <groupId>net.sf.eclipsecs</groupId>
         <artifactId>net.sf.eclipsecs.core</artifactId>
-        <version>6.19.1-SNAPSHOT</version>
+        <version>${eclipsecs.version}</version>
       </dependency>
     </dependencies>
 
