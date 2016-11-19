@@ -41,32 +41,32 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * <b>Examples:</b>
- * 
+ *
  * <pre>
  * catch (NoSuchMethodException e) {
  *     LOG.error("Message", e);
  *     throw e;
  * }
  * </pre>
- * 
+ *
  * <b>or</b>
- * 
+ *
  * <pre>
  * catch (NoSuchMethodException e) {
  *     LOG.error("Message", e);
  *     throw new MyServiceException("AnotherMessage", e);
  * }
  * </pre>
- * 
+ *
  * <b>or</b>
- * 
+ *
  * <pre>
  * catch (NoSuchMethodException e) {
  *      e.printStackTrace();
  *      throw new MyServiceException("Message", e);
  * }
  * </pre>
- * 
+ *
  * <p>
  * <b>What check can detect:</b> <br>
  * <b>Loggers</b>
@@ -88,14 +88,14 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <b>What check can not detect:</b> <br>
  * <ul>
  * <li>loggers that is used like method's return value. Example:
- * 
+ *
  * <pre>
  * getLogger().error(&quot;message&quot;, e)
  * </pre>
- * 
+ *
  * </li>
  * <li>loggers that is used like static fields from another classes:
- * 
+ *
  * <pre>
  * MyAnotherClass.LOGGER.error("message", e);
  * </pre>
@@ -115,12 +115,17 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
-public class EitherLogOrThrowCheck extends Check
-{
+public class EitherLogOrThrowCheck extends Check {
     /**
      * Key for error message.
      */
     public static final String MSG_KEY = "either.log.or.throw";
+
+    /**
+     * Regexp of printStackTrace method.
+     */
+    private static final Pattern PRINT_STACK_TRACE_METHOD_PATTERN = Pattern
+            .compile(".+\\.printStackTrace");
 
     /**
      * Logger fully qualified class name.
@@ -149,12 +154,6 @@ public class EitherLogOrThrowCheck extends Check
     private boolean hasLoggerClassInImports;
 
     /**
-     * Regexp of printStackTrace method.
-     */
-    private static final Pattern PRINT_STACK_TRACE_METHOD_PATTERN = Pattern
-            .compile(".+\\.printStackTrace");
-
-    /**
      * Considered class definition.
      */
     private DetailAST currentClassDefAst;
@@ -176,8 +175,7 @@ public class EitherLogOrThrowCheck extends Check
      *        Logger full class name. Example: org.slf4j.Logger.
      */
     public void setLoggerFullyQualifiedClassName(
-            String loggerFullyQualifiedClassName)
-    {
+            String loggerFullyQualifiedClassName) {
         this.loggerFullyQualifiedClassName = loggerFullyQualifiedClassName;
         loggerSimpleClassName = loggerFullyQualifiedClassName;
         final int lastDotIndex =
@@ -188,14 +186,16 @@ public class EitherLogOrThrowCheck extends Check
         }
     }
 
-    public void setLoggingMethodNames(String[] loggingMethodNames)
-    {
+    /**
+     * Set logging method names.
+     * @param loggingMethodNames Logger method names.
+     */
+    public void setLoggingMethodNames(String[] loggingMethodNames) {
         this.loggingMethodNames = Arrays.asList(loggingMethodNames);
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {
             TokenTypes.IMPORT,
             TokenTypes.CLASS_DEF,
@@ -205,13 +205,11 @@ public class EitherLogOrThrowCheck extends Check
     }
 
     @Override
-    public void visitToken(final DetailAST ast)
-    {
+    public void visitToken(final DetailAST ast) {
         switch (ast.getType()) {
             case TokenTypes.IMPORT:
                 if (!hasLoggerClassInImports
-                    && isLoggerImport(ast))
-                {
+                    && isLoggerImport(ast)) {
                     hasLoggerClassInImports = true;
                 }
                 break;
@@ -234,8 +232,7 @@ public class EitherLogOrThrowCheck extends Check
                 final DetailAST methodDefAst = ast.getParent().getParent();
                 if (methodDefAst.getType() == TokenTypes.METHOD_DEF
                     && methodDefAst == currentMethodDefAst
-                    && isLoggerVariableDefinition(ast))
-                {
+                    && isLoggerVariableDefinition(ast)) {
                     currentLocalLoggerVariableNames.add(getIdentifier(ast));
                 }
                 break;
@@ -253,8 +250,7 @@ public class EitherLogOrThrowCheck extends Check
      *        DetailAST of import statement.
      * @return true if import equals logger full class name.
      */
-    private boolean isLoggerImport(final DetailAST importAst)
-    {
+    private boolean isLoggerImport(final DetailAST importAst) {
         final String importIdentifier =
                 FullIdent.createFullIdent(importAst.getFirstChild()).getText();
         return loggerFullyQualifiedClassName.equals(importIdentifier);
@@ -266,8 +262,7 @@ public class EitherLogOrThrowCheck extends Check
      *        DetailAST of class definition.
      * @return true if class is inner, false otherwise.
      */
-    private boolean isInnerClass(final DetailAST classDefAst)
-    {
+    private boolean isInnerClass(final DetailAST classDefAst) {
         boolean result = false;
         DetailAST parentAst = classDefAst.getParent();
         while (parentAst != null) {
@@ -285,8 +280,7 @@ public class EitherLogOrThrowCheck extends Check
      * @param parametersAst
      *        DetailAST of parameters.
      */
-    private void collectLoggersFromParameters(final DetailAST parametersAst)
-    {
+    private void collectLoggersFromParameters(final DetailAST parametersAst) {
         DetailAST currentParameterAst = parametersAst
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
         while (currentParameterAst != null) {
@@ -306,8 +300,7 @@ public class EitherLogOrThrowCheck extends Check
      * @param methodDefAst DetailAST of METHOD_DEF.
      * @return true if method's parent is class, stored in mCurrentClassDefAst.
      */
-    private boolean isMethodOfCurrentClass(final DetailAST methodDefAst)
-    {
+    private boolean isMethodOfCurrentClass(final DetailAST methodDefAst) {
         final DetailAST classDefAst = methodDefAst.getParent().getParent();
         return classDefAst == currentClassDefAst;
     }
@@ -317,16 +310,14 @@ public class EitherLogOrThrowCheck extends Check
      * @param classDefAst
      *        DetailAST of class definition.
      */
-    private void collectLoggerFieldNames(final DetailAST classDefAst)
-    {
+    private void collectLoggerFieldNames(final DetailAST classDefAst) {
         final DetailAST objBlockAst =
                 classDefAst.findFirstToken(TokenTypes.OBJBLOCK);
         DetailAST variableDefAst =
                 objBlockAst.findFirstToken(TokenTypes.VARIABLE_DEF);
         while (variableDefAst != null) {
             if (variableDefAst.getType() == TokenTypes.VARIABLE_DEF
-                    && isLoggerVariableDefinition(variableDefAst))
-            {
+                    && isLoggerVariableDefinition(variableDefAst)) {
                 loggerFieldNames.add(getIdentifier(variableDefAst));
             }
             variableDefAst = variableDefAst.getNextSibling();
@@ -340,8 +331,7 @@ public class EitherLogOrThrowCheck extends Check
      * @param catchAst
      *        DetailAST of catch block.
      */
-    private void processCatchNode(final DetailAST catchAst)
-    {
+    private void processCatchNode(final DetailAST catchAst) {
         boolean isLoggingExceptionFound = false;
         int loggingExceptionLineNumber = 0;
         final List<String> exceptionVariableNames = new LinkedList<String>();
@@ -363,8 +353,7 @@ public class EitherLogOrThrowCheck extends Check
                         if (assignAst != null
                             && isInstanceCreationBasedOnException(
                                 assignAst.getFirstChild(),
-                                 catchParameterName))
-                        {
+                                 catchParameterName)) {
                             exceptionVariableNames
                                 .add(getIdentifier(currentStatementAst));
                         }
@@ -374,24 +363,21 @@ public class EitherLogOrThrowCheck extends Check
                 case TokenTypes.EXPR:
                     if (!isLoggingExceptionFound
                         && (isLoggingExceptionArgument(currentStatementAst, catchParameterName)
-                        || isPrintStackTrace(currentStatementAst, catchParameterName)))
-                    {
+                        || isPrintStackTrace(currentStatementAst, catchParameterName))) {
                         isLoggingExceptionFound = true;
                         loggingExceptionLineNumber = currentStatementAst.getLineNo();
                     }
                     break;
                     // throw exception
                 case TokenTypes.LITERAL_THROW:
-                    if (isLoggingExceptionFound)
-                    {
+                    if (isLoggingExceptionFound) {
                         exceptionVariableNames.add(catchParameterName);
                         final DetailAST thrownExceptionAst = currentStatementAst
                             .getFirstChild();
                         if (exceptionVariableNames.contains(getIdentifier(thrownExceptionAst))
                             || isInstanceCreationBasedOnException(
-                                thrownExceptionAst, catchParameterName))
-                        {
-                            log(loggingExceptionLineNumber, "either.log.or.throw");
+                                thrownExceptionAst, catchParameterName)) {
+                            log(loggingExceptionLineNumber, MSG_KEY);
                             break;
                         }
                     }
@@ -410,8 +396,7 @@ public class EitherLogOrThrowCheck extends Check
      *        DetailAST of variable definition.
      * @return true if variable is of logger type.
      */
-    private boolean isLoggerVariableDefinition(final DetailAST variableDefAst)
-    {
+    private boolean isLoggerVariableDefinition(final DetailAST variableDefAst) {
         final DetailAST variableTypeAst =
                 variableDefAst.findFirstToken(TokenTypes.TYPE).getFirstChild();
         final String variableTypeName =
@@ -424,8 +409,7 @@ public class EitherLogOrThrowCheck extends Check
      * @param className name of checked class.
      * @return true aClassName is class name of logger type.
      */
-    private boolean isLoggerClassName(String className)
-    {
+    private boolean isLoggerClassName(String className) {
         return (hasLoggerClassInImports
                 && className.equals(loggerSimpleClassName))
                 || className.equals(loggerFullyQualifiedClassName);
@@ -437,8 +421,7 @@ public class EitherLogOrThrowCheck extends Check
      *        DetailAST of catch block.
      * @return name of parameter.
      */
-    private static String getCatchParameterName(final DetailAST catchAst)
-    {
+    private static String getCatchParameterName(final DetailAST catchAst) {
         final DetailAST parameterDefAst =
                 catchAst.findFirstToken(TokenTypes.PARAMETER_DEF);
         return getIdentifier(parameterDefAst);
@@ -451,8 +434,7 @@ public class EitherLogOrThrowCheck extends Check
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
      */
-    private static String getIdentifier(final DetailAST ast)
-    {
+    private static String getIdentifier(final DetailAST ast) {
         String result = null;
         if (ast != null) {
             final DetailAST identAst = ast.findFirstToken(TokenTypes.IDENT);
@@ -474,8 +456,7 @@ public class EitherLogOrThrowCheck extends Check
      *         another exception object named aExeceptionParameterName.
      */
     private static boolean isInstanceCreationBasedOnException(
-            final DetailAST expressionAst, final String exceptionArgumentName)
-    {
+            final DetailAST expressionAst, final String exceptionArgumentName) {
         boolean result = false;
         final DetailAST literalNewAst =
                 expressionAst.findFirstToken(TokenTypes.LITERAL_NEW);
@@ -497,8 +478,7 @@ public class EitherLogOrThrowCheck extends Check
      * @return true if expression is logging exception.
      */
     private boolean isLoggingExceptionArgument(
-            final DetailAST expressionAst, final String exceptionVariableName)
-    {
+            final DetailAST expressionAst, final String exceptionVariableName) {
         boolean result = false;
         if (isLoggingExpression(expressionAst)) {
             final DetailAST loggingMethodCallAst =
@@ -517,13 +497,11 @@ public class EitherLogOrThrowCheck extends Check
      *        DetailAST of expression.
      * @return true if aExpressionAst is a logging expression.
      */
-    private boolean isLoggingExpression(final DetailAST expressionAst)
-    {
+    private boolean isLoggingExpression(final DetailAST expressionAst) {
         boolean result = false;
         final DetailAST methodCallAst = expressionAst.getFirstChild();
         if (methodCallAst.getType() == TokenTypes.METHOD_CALL
-                && hasChildToken(methodCallAst, TokenTypes.DOT))
-        {
+                && hasChildToken(methodCallAst, TokenTypes.DOT)) {
             final DetailAST dotAst = methodCallAst.getFirstChild();
             final DetailAST loggerObjectAst = dotAst.getFirstChild();
             final DetailAST invokedMethodAst = loggerObjectAst.getNextSibling();
@@ -547,8 +525,7 @@ public class EitherLogOrThrowCheck extends Check
      * @return true if aExceptionVariableName is in aParametersAst.
      */
     private static boolean containsExceptionParameter(
-            final DetailAST parametersAst, final String exceptionVariableName)
-    {
+            final DetailAST parametersAst, final String exceptionVariableName) {
         boolean result = false;
         DetailAST parameterAst = parametersAst.getFirstChild();
 
@@ -575,8 +552,7 @@ public class EitherLogOrThrowCheck extends Check
      * @return true if expression is call of exception's printStackTrace method.
      */
     private static boolean isPrintStackTrace(final DetailAST expressionAst,
-            final String exceptionVariableName)
-    {
+            final String exceptionVariableName) {
         boolean result = false;
         final DetailAST methodCallAst = expressionAst.getFirstChild();
         if (isInstanceMethodCall(exceptionVariableName, methodCallAst)) {
@@ -596,12 +572,10 @@ public class EitherLogOrThrowCheck extends Check
      * @return true if method is invoked on aUsedInstanceName.
      */
     private static boolean isInstanceMethodCall(final String usedInstanseName,
-            final DetailAST methodCallAst)
-    {
+            final DetailAST methodCallAst) {
         boolean result = false;
         if (methodCallAst != null
-                && methodCallAst.getType() == TokenTypes.METHOD_CALL)
-        {
+                && methodCallAst.getType() == TokenTypes.METHOD_CALL) {
             final String methodCallIdent =
                     FullIdent.createFullIdentBelow(methodCallAst).getText();
             final int firstDotIndex = methodCallIdent.indexOf('.');
@@ -624,8 +598,7 @@ public class EitherLogOrThrowCheck extends Check
      *        one of TokenTypes
      * @return true if aAST has token of given type, or false otherwise.
      */
-    private static boolean hasChildToken(final DetailAST ast, int tokenType)
-    {
+    private static boolean hasChildToken(final DetailAST ast, int tokenType) {
         return ast.findFirstToken(tokenType) != null;
     }
 

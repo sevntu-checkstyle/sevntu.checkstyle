@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2010  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -35,41 +35,43 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *      throw e;
  *  }
  *  </pre>
- *  
+ *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class UselessSingleCatchCheck extends Check
-{
-    public final static String MSG_KEY = "useless.single.catch.check";
+public class UselessSingleCatchCheck extends Check {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    public static final String MSG_KEY = "useless.single.catch.check";
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.LITERAL_TRY };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.LITERAL_TRY,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST tryBlockNode)
-    {
-        int catchBlocksCount = tryBlockNode.getChildCount(TokenTypes.LITERAL_CATCH);
+    public void visitToken(DetailAST tryBlockNode) {
+        final int catchBlocksCount = tryBlockNode.getChildCount(TokenTypes.LITERAL_CATCH);
 
-        if (catchBlocksCount == 1)
-        {
-            DetailAST catchNode = tryBlockNode.findFirstToken(TokenTypes.LITERAL_CATCH);
+        if (catchBlocksCount == 1) {
+            final DetailAST catchNode = tryBlockNode.findFirstToken(TokenTypes.LITERAL_CATCH);
 
-            DetailAST catchStatementListNode= catchNode.findFirstToken(TokenTypes.SLIST);
+            final DetailAST catchStatementListNode = catchNode.findFirstToken(TokenTypes.SLIST);
 
-            DetailAST firstStatementNode = catchStatementListNode.getFirstChild();
+            final DetailAST firstStatementNode = catchStatementListNode.getFirstChild();
 
             if (firstStatementNode.getType() == TokenTypes.LITERAL_THROW
-                    && isSimpleRethrow(firstStatementNode))
-            {
-                String catchParameterName = getCatchParameterName(catchNode);
+                    && isSimpleRethrow(firstStatementNode)) {
+                final String catchParameterName = getCatchParameterName(catchNode);
 
-                String throwParameterName = getThrowParameterName(firstStatementNode);
+                final String throwParameterName = getThrowParameterName(firstStatementNode);
 
-                if (catchParameterName.equals(throwParameterName))
+                if (catchParameterName.equals(throwParameterName)) {
                     log(catchNode, MSG_KEY);
+                }
             }
         }
     }
@@ -81,9 +83,8 @@ public class UselessSingleCatchCheck extends Check
      *        node of type TokenTypes.LITERAL_THROW
      * @return wheather this throw node is of specified form
      */
-    private static boolean isSimpleRethrow(DetailAST throwNode)
-    {
-        DetailAST exprNode = throwNode.findFirstToken(TokenTypes.EXPR);
+    private static boolean isSimpleRethrow(DetailAST throwNode) {
+        final DetailAST exprNode = throwNode.findFirstToken(TokenTypes.EXPR);
 
         return exprNode.getChildCount() == 1
                 && exprNode.getFirstChild().getType() == TokenTypes.IDENT;
@@ -95,9 +96,8 @@ public class UselessSingleCatchCheck extends Check
      *        node of type TokenTypes.LITERAL_CATCH
      * @return catch parameter name
      */
-    private static String getCatchParameterName(DetailAST catchNode)
-    {
-        DetailAST parameterDefNode = catchNode.findFirstToken(TokenTypes.PARAMETER_DEF);
+    private static String getCatchParameterName(DetailAST catchNode) {
+        final DetailAST parameterDefNode = catchNode.findFirstToken(TokenTypes.PARAMETER_DEF);
 
         return parameterDefNode.findFirstToken(TokenTypes.IDENT).getText();
     }
@@ -109,8 +109,7 @@ public class UselessSingleCatchCheck extends Check
      *        node of type TokenTypes.LITERAL_THROW
      * @return throw parameter name
      */
-    private static String getThrowParameterName(DetailAST throwNode)
-    {
+    private static String getThrowParameterName(DetailAST throwNode) {
         return throwNode.findFirstToken(TokenTypes.EXPR).getFirstChild().getText();
     }
 

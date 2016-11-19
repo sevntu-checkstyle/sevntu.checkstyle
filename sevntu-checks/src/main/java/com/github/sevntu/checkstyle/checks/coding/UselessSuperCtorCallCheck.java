@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2014 Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -9,12 +9,12 @@
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
 
 package com.github.sevntu.checkstyle.checks.coding;
@@ -73,7 +73,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     public Base() {
  *     }
  * }
- * 
+ *
  * class Derived extends Base {
  *     public Derived() {
  *         super();
@@ -94,24 +94,24 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <code>
  * class Base {
  *     public Base() {
- *     }         
- *     
+ *     }
+ *
  *     public Base(int i) {
  *     }
  * }
- * 
+ *
  * class Derived extends Base {
  *     public Derived() {
  *         super(); // this "super()" will not be considered useless if option is set to true,
- *                  // because "Derived" has multiple public ctors. 
+ *                  // because "Derived" has multiple public ctors.
  *     }
- *     
+ *
  *     public Derived(int i) {
  *         super(i); // this "super()" will not be considered useless if option is set to true,
  *                   // because "Derived" has multiple public ctors.
  *     }
  * }
- * 
+ *
  * class NotDerived {
  *     public NotDerived() {
  *         super(); // this "super()" will be considered useless regardless of option value,
@@ -128,13 +128,13 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Checkstyle configuration example with options "allowCallToNoArgsSuperCtor" and
  * "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" set to true.
- * <pre> 
+ * <pre>
  *   &lt;module name="UselessSuperCtorCallCheck"&gt;
  *     &lt;property name="allowCallToNoArgsSuperCtor" value="true"/&gt;
  *     &lt;property name="allowCallToNoArgsSuperCtorIfMultiplePublicCtor" value="true"/&gt;
  *   &lt;/module&gt;
  * </pre>
- * 
+ *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
 public class UselessSuperCtorCallCheck extends Check
@@ -155,13 +155,13 @@ public class UselessSuperCtorCallCheck extends Check
      * Used to allow calls to no-arguments super constructor from derived class.
      * By default check will log this case.
      */
-    private boolean mAllowCallToNoArgsSuperCtor = false;
-    
+    private boolean mAllowCallToNoArgsSuperCtor;
+
     /**
      * Used to allow calls to no-arguments super constructor from derived class
      * if it has multiple public constructors.
      */
-    private boolean mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor = false;
+    private boolean mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor;
 
     /**
      * Sets flag to allowCallToNoArgsSuperCtor.
@@ -172,7 +172,7 @@ public class UselessSuperCtorCallCheck extends Check
     {
         mAllowCallToNoArgsSuperCtor = aAllowCallToNoArgsSuperCtor;
     }
-    
+
     /**
      * Sets flag to allowCallToNoArgsSuperCtorIfMultiplePublicCtor.
      * @param aAllowCall
@@ -187,7 +187,9 @@ public class UselessSuperCtorCallCheck extends Check
     @Override
     public int[] getDefaultTokens()
     {
-        return new int[] { TokenTypes.SUPER_CTOR_CALL };
+        return new int[] {
+            TokenTypes.SUPER_CTOR_CALL,
+        };
     }
 
     @Override
@@ -257,7 +259,7 @@ public class UselessSuperCtorCallCheck extends Check
 
         return result;
     }
-    
+
     /**
      * Calculates public constructor count for given class.
      * @param aClassDefNode
@@ -268,20 +270,20 @@ public class UselessSuperCtorCallCheck extends Check
     {
         int publicCtorCount = 0;
         DetailAST classMemberNode = aClassDefNode.findFirstToken(TokenTypes.OBJBLOCK).getFirstChild();
-        
+
         while(classMemberNode != null)
         {
             if(classMemberNode.getType() == TokenTypes.CTOR_DEF && isCtorPublic(classMemberNode))
             {
                 ++publicCtorCount;
             }
-            
+
             classMemberNode = classMemberNode.getNextSibling();
         }
-        
+
         return publicCtorCount;
     }
-    
+
     /**
      * Checks whether given ctor is public
      * @param aCtorDefNode

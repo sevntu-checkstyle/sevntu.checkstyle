@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2012 Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -9,12 +9,12 @@
 //
 // This library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
 
 package com.github.sevntu.checkstyle.checks.coding;
@@ -34,7 +34,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Examples:
  * <pre>
  * catch (Exception e) {
- *        throw new RuntimeException()  { //WARNING 
+ *        throw new RuntimeException()  { //WARNING
  *          //some code
  *     };
  * }
@@ -64,13 +64,13 @@ public class ForbidThrowAnonymousExceptionsCheck extends Check
      * Warning message key.
      */
     public static final String MSG_KEY = "forbid.throw.anonymous.exception";
-    
+
     private static final String DEFAULT_EXCEPTION_CLASS_NAME_REGEX = "^.*Exception";
-    
+
     private Pattern pattern = Pattern.compile(DEFAULT_EXCEPTION_CLASS_NAME_REGEX);
 
     private List<String> anonymousExceptions = new ArrayList<String>();
-    
+
     public void setExceptionClassNameRegex(String exceptionClassNameRegex) {
         this.pattern = Pattern.compile(exceptionClassNameRegex);
     }

@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.BitSet;
@@ -33,13 +34,13 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 /**
  * Checks for multiple occurrences of the same string literal within a single file.
- * 
+ *
  * @author Daniel Grenner
  */
 public class MultipleStringLiteralsExtendedCheck extends Check
 {
 	public static final String MSG_KEY = "multiple.string.literal";
-	
+
 	/**
 	 * The found strings and their positions. <String, ArrayList>, with the ArrayList containing StringInfo objects.
 	 */
@@ -62,7 +63,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 	/**
 	 * Sets the maximum allowed duplicates of a string.
-	 * 
+	 *
 	 * @param allowedDuplicates
 	 *            The maximum number of duplicates.
 	 */
@@ -87,7 +88,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 	/**
 	 * Sets regexp pattern for ignored strings.
-	 * 
+	 *
 	 * @param ignoreStringsRegexp
 	 *            regexp pattern for ignored strings
 	 */
@@ -105,7 +106,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 	/**
 	 * Sets highlight for all duplicates or only first.
-	 * 
+	 *
 	 * @param highlightAllDuplicates
 	 *            if true show all duplicates
 	 */
@@ -117,7 +118,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 	/**
 	 * Adds a set of tokens the check is interested in.
-	 * 
+	 *
 	 * @param strRep
 	 *            the string representation of the tokens interested in
 	 */
@@ -158,7 +159,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 	/**
 	 * Analyses the path from the AST root to a given AST for occurrences of the token types in
 	 * {@link #ignoreOccurrenceContext}.
-	 * 
+	 *
 	 * @param ast
 	 *            the node from where to start searching towards the root node
 	 * @return whether the path from the root node to aAST contains one of the token type in
@@ -223,7 +224,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 		/**
 		 * Creates information about a string position.
-		 * 
+		 *
 		 * @param line
 		 *            int
 		 * @param col
@@ -237,7 +238,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 		/**
 		 * The line where a string was found.
-		 * 
+		 *
 		 * @return int Line of the string.
 		 */
 		private int getLine()
@@ -247,7 +248,7 @@ public class MultipleStringLiteralsExtendedCheck extends Check
 
 		/**
 		 * The column where a string was found.
-		 * 
+		 *
 		 * @return int Column of the string.
 		 */
 		private int getCol()

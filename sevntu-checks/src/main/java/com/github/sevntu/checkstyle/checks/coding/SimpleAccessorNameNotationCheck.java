@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -36,69 +37,77 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>If name of field contains prefix,then must to be define parameter 'prefix'
  * , for example:</p>
- * 
+ *
  * <pre>
  * &lt;module name="SimpleAccesorNameNotationCheck"&gt; &lt;
- * property name="prefix" value="m_"/&gt; 
+ * property name="prefix" value="m_"/&gt;
  * &lt;/module&gt;
  * </pre>
- * 
- * 
+ *
+ *
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  * @author <a href="mailto:iliadubinin91@gmail.com">Ilja Dubinin</a>
  */
-public class SimpleAccessorNameNotationCheck extends Check
-{
+public class SimpleAccessorNameNotationCheck extends Check {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY_GETTER = "incorrect.getter.name";
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY_SETTER = "incorrect.setter.name";
+    /** Prefix for boolean getter methods. */
     private static final String BOOLEAN_GETTER_PREFIX = "is";
+    /** Prefix for non-boolean getter methods. */
     private static final String GETTER_PREFIX = "get";
+    /** Prefix for setter methods. */
     private static final String SETTER_PREFIX = "set";
+    /**
+     * Number of children in expression only block. Expecting three children:
+     * EXPR, SEMI and RCURLY.
+     */
+    private static final int EXPRESSION_BLOCK_CHILD_COUNT = 3;
     /**
      * Prefix of field's name.
      */
     private String prefix = "";
 
     /**
-     * setPrefix is a setter for prefix.
+     * Setter for prefix.
      * @param prefix
      *        - prefix of field's name
      */
-    public void setPrefix(String prefix)
-    {
+    public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.METHOD_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.METHOD_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST methodDef)
-    {
-        String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
-        if (hasBody(methodDef) && !isMethodAtAnonymousClass(methodDef))
-        {
-            if (methodName.startsWith(BOOLEAN_GETTER_PREFIX))
-            {
-                if (!isGetterCorrect(methodDef, methodName.substring(BOOLEAN_GETTER_PREFIX.length())))
-                {
+    public void visitToken(DetailAST methodDef) {
+        final String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
+        if (hasBody(methodDef) && !isMethodAtAnonymousClass(methodDef)) {
+            if (methodName.startsWith(BOOLEAN_GETTER_PREFIX)) {
+                if (!isGetterCorrect(methodDef,
+                        methodName.substring(BOOLEAN_GETTER_PREFIX.length()))) {
                     log(methodDef.getLineNo(), MSG_KEY_GETTER);
                 }
             }
-            else if (methodName.startsWith(SETTER_PREFIX))
-            {
-                if (!isSetterCorrect(methodDef, methodName.substring(SETTER_PREFIX.length())))
-                {
+            else if (methodName.startsWith(SETTER_PREFIX)) {
+                if (!isSetterCorrect(methodDef, methodName.substring(SETTER_PREFIX.length()))) {
                     log(methodDef.getLineNo(), MSG_KEY_SETTER);
                 }
             }
-            else if (methodName.startsWith(GETTER_PREFIX))
-            {
-                if (!isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length())))
-                {
+            else if (methodName.startsWith(GETTER_PREFIX)) {
+                if (!isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length()))) {
                     log(methodDef.getLineNo(), MSG_KEY_GETTER);
                 }
             }
@@ -113,10 +122,10 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - DetailAST contains method definition.
      * @param methodName
      *        - name of setter without "set".
+     * @return true when setter is correct.
      */
-    private boolean isSetterCorrect(DetailAST methodDef, String methodName)
-    {
-        DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
+    private boolean isSetterCorrect(DetailAST methodDef, String methodName) {
+        final DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
         boolean result = true;
         if (methodType.branchContains(TokenTypes.LITERAL_VOID)) {
 
@@ -125,14 +134,14 @@ public class SimpleAccessorNameNotationCheck extends Check
             if (containsOnlyExpression(currentVerifiedTop)) {
 
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
-                boolean containsOnlyOneAssignment = currentVerifiedTop.getChildCount() == 1 &&
-                        currentVerifiedTop.getFirstChild().getType() == TokenTypes.ASSIGN;
+                final boolean containsOnlyOneAssignment = currentVerifiedTop.getChildCount() == 1
+                        && currentVerifiedTop.getFirstChild().getType() == TokenTypes.ASSIGN;
                 if (containsOnlyOneAssignment) {
 
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
-                    DetailAST parameters =
+                    final DetailAST parameters =
                             methodDef.findFirstToken(TokenTypes.PARAMETERS);
-                    String nameOfSettingField = getNameOfSettingField(
+                    final String nameOfSettingField = getNameOfSettingField(
                             currentVerifiedTop, parameters);
 
                     if (nameOfSettingField != null
@@ -156,10 +165,10 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - DetailAST contains method definition.
      * @param methodName
      *        - name of getter without "get" or "is".
+     * @return true when getter is correct.
      */
-    private boolean isGetterCorrect(DetailAST methodDef, String methodName)
-    {
-        DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
+    private boolean isGetterCorrect(DetailAST methodDef, String methodName) {
+        final DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
         boolean result = true;
         if (parameters.getChildCount() == 0) {
 
@@ -172,7 +181,7 @@ public class SimpleAccessorNameNotationCheck extends Check
                 if (isCorrectReturn(currentVerifiedTop)) {
 
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
-                    String nameOfGettingField = getNameOfGettingField(currentVerifiedTop);
+                    final String nameOfGettingField = getNameOfGettingField(currentVerifiedTop);
 
                     if (nameOfGettingField != null
                             && verifyFieldAndMethodName(nameOfGettingField,
@@ -195,10 +204,9 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - is a link to checked block
      * @return true if object block is correct
      */
-    private static boolean containsOnlyExpression(DetailAST objectBlock)
-    {
+    private static boolean containsOnlyExpression(DetailAST objectBlock) {
         //three child: EXPR, SEMI and RCURLY
-        return objectBlock.getChildCount() == 3
+        return objectBlock.getChildCount() == EXPRESSION_BLOCK_CHILD_COUNT
                 && objectBlock.getFirstChild().getType() == TokenTypes.EXPR
                 && objectBlock.findFirstToken(TokenTypes.SEMI) != null;
     }
@@ -214,11 +222,10 @@ public class SimpleAccessorNameNotationCheck extends Check
      * @return name of field, that use in setter.
      */
     private static String getNameOfSettingField(DetailAST assign,
-            DetailAST parameters)
-    {
+            DetailAST parameters) {
         String nameOfSettingField = null;
 
-        DetailAST assigningFirstChild = assign.getFirstChild();
+        final DetailAST assigningFirstChild = assign.getFirstChild();
 
         if (assign.getChildCount() == 2
                 && assign.getLastChild().getType() == TokenTypes.IDENT) {
@@ -263,9 +270,8 @@ public class SimpleAccessorNameNotationCheck extends Check
      * @return true when names are different.
      */
     private boolean verifyFieldAndMethodName(String fieldName,
-            String methodName)
-    {
-        String name = prefix + methodName;
+            String methodName) {
+        final String name = prefix + methodName;
         return !fieldName.equalsIgnoreCase(name);
     }
 
@@ -277,8 +283,7 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - DetailAST contains object block of the getter.
      * @return true when object block correct.
      */
-    private static boolean containsOnlyReturn(DetailAST methodBody)
-    {
+    private static boolean containsOnlyReturn(DetailAST methodBody) {
         return methodBody.getFirstChild().getType() == TokenTypes.LITERAL_RETURN;
     }
 
@@ -290,8 +295,7 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - DeailAST contains LITERAL_RETURN
      * @return - true when getter has correct return.
      */
-    private static boolean isCorrectReturn(DetailAST literalReturn)
-    {
+    private static boolean isCorrectReturn(DetailAST literalReturn) {
         //two child: EXPR and SEMI
         return literalReturn.getChildCount() == 2
                 && literalReturn.getFirstChild().getType() == TokenTypes.EXPR
@@ -306,12 +310,11 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - DetailAST contains expression from getter.
      * @return name of the field, that use in getter.
      */
-    private static String getNameOfGettingField(DetailAST expr)
-    {
+    private static String getNameOfGettingField(DetailAST expr) {
         String nameOfGettingField = null;
 
         if (expr.getChildCount() == 1) {
-            DetailAST exprFirstChild = expr.getFirstChild();
+            final DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
 
@@ -344,18 +347,18 @@ public class SimpleAccessorNameNotationCheck extends Check
      * @return true when name of the field is not contained in parameters.
      */
     private static boolean checkNameOfParameters(DetailAST paramrters,
-            String fieldName)
-    {
+            String fieldName) {
 
         boolean isNameOfParameter = false;
-        int parametersChildCount = paramrters.getChildCount();
+        final int parametersChildCount = paramrters.getChildCount();
 
-        DetailAST parameterDef = paramrters
+        final DetailAST parameterDef = paramrters
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
 
         for (int i = 0; i < parametersChildCount && !isNameOfParameter; i++) {
 
-            isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText().equals(fieldName);
+            isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText()
+                    .equals(fieldName);
 
         }
 
@@ -366,12 +369,11 @@ public class SimpleAccessorNameNotationCheck extends Check
      * <p>
      * Returns true when method has contained into an anonymous class.
      * </p>
-     * @param methodDef
-     * @return
+     * @param methodDef the METHOD_DEF token.
+     * @return true when method has contained into an anonymous class.
      */
-    private static boolean isMethodAtAnonymousClass(DetailAST methodDef)
-    {
-        DetailAST classObjBlock = methodDef.getParent();
+    private static boolean isMethodAtAnonymousClass(DetailAST methodDef) {
+        final DetailAST classObjBlock = methodDef.getParent();
         return classObjBlock.getParent().getType() == TokenTypes.LITERAL_NEW;
     }
 
@@ -383,9 +385,8 @@ public class SimpleAccessorNameNotationCheck extends Check
      *        - method definition node
      * @return true when method or other block has a body.
      */
-    private static boolean hasBody(DetailAST methodDef)
-    {
-        DetailAST body = methodDef.findFirstToken(TokenTypes.SLIST);
+    private static boolean hasBody(DetailAST methodDef) {
+        final DetailAST body = methodDef.findFirstToken(TokenTypes.SLIST);
         return body != null;
     }
 }

@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.LinkedList;
@@ -29,8 +30,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Restricts the number of ternary operators in expression to a specific limit.<br><br>
  * <b>Rationale:</b> This Check helps to improve code readability by pointing developer on<br>
  * expressions which contain more than user-defined count of ternary operators.<br><br>
- * It points to complicated ternary 
- * <a href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/expressions.html">expressions</a>. 
+ * It points to complicated ternary
+ * <a href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/expressions.html">
+ * expressions</a>.
  * Reason:<br>
  * - Complicated ternary expressions are not easy to read.<br>
  * - Complicated ternary expressions could lead to ambiguous result if user<br>
@@ -52,8 +54,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li><b>ignoreTernaryOperatorsInBraces</b> - if true Check will ignore ternary operators<br>
  * in braces (braces explicitly set priority level)<br>
  * </li>
- * <li><b>ignoreIsolatedTernaryOnLine</b> - if true Check will ignore one line ternary operators,<br>
- * if only it is places in line alone.<br> 
+ * <li><b>ignoreIsolatedTernaryOnLine</b> - if true Check will ignore one line ternary operators,
+ * <br>
+ * if only it is places in line alone.<br>
  * </li>
  * </ul>
  * Options <b>ignoreTernaryOperatorsInBraces</b> and <b>ignoreIsolatedTernaryOnLine</b> can<br>
@@ -63,15 +66,15 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * <pre>
  * callString = "{? = call " +
- *   (StringUtils.hasLength(catalogNameToUse) 
+ *   (StringUtils.hasLength(catalogNameToUse)
  *   ? catalogNameToUse + "." : "") +
- *   (StringUtils.hasLength(schemaNameToUse) 
+ *   (StringUtils.hasLength(schemaNameToUse)
  *   ? schemaNameToUse + "." : "") +
  *   procedureNameToUse + "(";
  * </pre>
  *
  * When using <b>ignoreIsolatedTernaryOnLine</b> (value = <b>true</b>), even without<br>
- * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:<br> 
+ * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:<br>
  *
  * <pre>
  * int a = (d == 5) ? d : f
@@ -84,6 +87,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class TernaryPerExpressionCountCheck extends Check {
 
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY = "ternary.per.expression.count";
 
     private static final int DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT = 1;
@@ -91,17 +98,19 @@ public class TernaryPerExpressionCountCheck extends Check {
     private int maxTernaryPerExpressionCount = DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT;
 
     private boolean ignoreTernaryOperatorsInBraces = true;
-    
+
     private boolean ignoreIsolatedTernaryOnLine = true;
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[] { TokenTypes.EXPR };
+        return new int[] {
+            TokenTypes.EXPR,
+        };
     }
 
     /**
-     * Sets the maximum number of ternary operators, default value = 1
-     * 
+     * Sets the maximum number of ternary operators, default value = 1.
+     *
      * @param maxTernaryPerExpressionCount
      *            Number of ternary operators per expression
      */
@@ -114,8 +123,8 @@ public class TernaryPerExpressionCountCheck extends Check {
 
     /**
      * Sets parameter to ignore ternary operators in braces, default value =
-     * true
-     * 
+     * true.
+     *
      * @param ignoreTernaryOperatorsInBraces ignore ternary operators in braces
      */
     public void setIgnoreTernaryOperatorsInBraces(boolean ignoreTernaryOperatorsInBraces) {
@@ -123,9 +132,10 @@ public class TernaryPerExpressionCountCheck extends Check {
     }
 
     /**
-     * Sets parameter to ignore expressions in case if ternary operator is isolated in line
-     * 
-     * @param ignoreIsolatedTernaryOnLine ignore expressions in case if ternary operator is isolated in line
+     * Sets parameter to ignore expressions in case if ternary operator is isolated in line.
+     *
+     * @param ignoreIsolatedTernaryOnLine ignore expressions in case if ternary
+     *     operator is isolated in line
      */
     public void setIgnoreIsolatedTernaryOnLine(boolean ignoreIsolatedTernaryOnLine) {
         this.ignoreIsolatedTernaryOnLine = ignoreIsolatedTernaryOnLine;
@@ -134,16 +144,16 @@ public class TernaryPerExpressionCountCheck extends Check {
     @Override
     public void visitToken(DetailAST expressionNode) {
 
-        List<DetailAST> questionNodes = getQuestionNodes(expressionNode);
+        final List<DetailAST> questionNodes = getQuestionNodes(expressionNode);
 
         if (questionNodes.size() > maxTernaryPerExpressionCount) {
-            DetailAST firstQuestionNode = questionNodes.get(0);
+            final DetailAST firstQuestionNode = questionNodes.get(0);
             log(firstQuestionNode, MSG_KEY, maxTernaryPerExpressionCount);
         }
     }
 
     /**
-     * Puts question nodes from current expression node into the list
+     * Puts question nodes from current expression node into the list.
      * @param expressionNode
      *          Globally considering expression node
      * @return
@@ -151,7 +161,7 @@ public class TernaryPerExpressionCountCheck extends Check {
      */
     private List<DetailAST> getQuestionNodes(DetailAST expressionNode) {
 
-        List<DetailAST> questionNodes = new LinkedList<DetailAST>();
+        final List<DetailAST> questionNodes = new LinkedList<DetailAST>();
 
         DetailAST currentNode = expressionNode;
 
@@ -164,15 +174,16 @@ public class TernaryPerExpressionCountCheck extends Check {
             }
 
         } while (currentNode != null);
-        
+
         return questionNodes;
     }
 
     /**
      * Checks if options <b>ignoreTernaryInBraces</b> or
      * <b>ignoreOneTernaryPerLine</b> were set, hence, count ternary
-     * operators in current expression or not
-     * @param questionAST
+     * operators in current expression or not.
+     * @param questionAST The token to examine.
+     * @return true if can skip ternary operator.
      */
     private boolean isSkipTernaryOperator(DetailAST questionAST) {
         return (ignoreTernaryOperatorsInBraces && isTernaryOperatorInBraces(questionAST))
@@ -181,35 +192,38 @@ public class TernaryPerExpressionCountCheck extends Check {
 
     /**
      * Checks ternary operator if it is in braces, which are explicitly setting
-     * the priority level
-     * @param questionAST
+     * the priority level.
+     * @param questionAST The token to examine.
+     * @return true if ternary operator is in braces.
      */
     private static boolean isTernaryOperatorInBraces(DetailAST questionAST) {
         return questionAST.getPreviousSibling() != null
                 && questionAST.getPreviousSibling().getType() == TokenTypes.LPAREN;
     }
 
-
     /**
-     * Checks if there's one ternary operator per line
-     * @param questionAST
+     * Checks if there's one ternary operator per line.
+     * @param questionAST The token to examine.
+     * @return true if ternary is isolated on line.
      */
     private boolean isIsolatedTernaryOnLine(DetailAST questionAST) {
-        int lineNo = questionAST.getLineNo() - 1;
-        String line = getFileContents().getText().get(lineNo);
-        
-        return isSingleTernaryLine(line, lineNo); 
+        final int lineNo = questionAST.getLineNo() - 1;
+        final String line = getFileContents().getText().get(lineNo);
+
+        return isSingleTernaryLine(line, lineNo);
     }
 
     /**
-     * Checks line parameter on containing more than 1 ternary operator
-     * @param line
+     * Checks line parameter on containing more than 1 ternary operator.
+     * @param line The line to examine.
+     * @param lineNo The line number of the line.
+     * @return true if line is single ternary.
      */
     private boolean isSingleTernaryLine(String line, int lineNo) {
         int questionsPerLine = 0;
-        char[] charArrayFromLine = line.toCharArray();
+        final char[] charArrayFromLine = line.toCharArray();
         for (int i = 0; i < line.length(); i++) {
-            char currentSymbol = charArrayFromLine[i];
+            final char currentSymbol = charArrayFromLine[i];
             if (currentSymbol == '?' && !getFileContents().hasIntersectionWithComment(lineNo + 1,
                     i, lineNo + 1, i)) {
                 questionsPerLine++;
@@ -218,22 +232,23 @@ public class TernaryPerExpressionCountCheck extends Check {
                 break;
             }
         }
-        
+
         return questionsPerLine == 1;
     }
 
     /**
      * Gets the next node of a syntactical tree (child of a current node or
-     * sibling of a current node, or sibling of a parent of a current node)
-     * 
+     * sibling of a current node, or sibling of a parent of a current node).
+     *
      * @param expressionNode
      *            Globally considering expression node
-     * @param currentNode
+     * @param node
      *            Current node of syntactical tree
      * @return Next node after bypassing
      */
     private static DetailAST getNextNode(DetailAST expressionNode,
-            DetailAST currentNode) {
+            DetailAST node) {
+        DetailAST currentNode = node;
         DetailAST toVisit = currentNode.getFirstChild();
         while (toVisit == null && currentNode != expressionNode) {
             toVisit = currentNode.getNextSibling();
@@ -241,7 +256,7 @@ public class TernaryPerExpressionCountCheck extends Check {
                 currentNode = currentNode.getParent();
             }
         }
-        
+
         return toVisit;
     }
 }
