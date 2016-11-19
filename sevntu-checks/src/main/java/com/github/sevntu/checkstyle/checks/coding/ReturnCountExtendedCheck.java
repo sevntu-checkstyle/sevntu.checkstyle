@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.Collection;
@@ -30,7 +31,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
 
 /**
- * Checks that method/ctor "return" literal count is not greater than the given value ("maxReturnCount" property).<br>
+ * Checks that method/ctor "return" literal count is not greater than the given value
+ * ("maxReturnCount" property).<br>
  * <br>
  * Rationale:<br>
  * <br>
@@ -39,29 +41,30 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
  * Reasoning is that:
  * <ul>
  * <li>It is easier to understand control flow when you know exactly where the method returns.
- * <li>Methods with 2-3 or many "return" statements are much more difficult to understand, debug and refactor.
+ * <li>Methods with 2-3 or many "return" statements are much more difficult to understand,
+ * debug and refactor.
  * </ul>
  * Setting up the check options will make it to ignore:
  * <ol>
- * <li>Methods by name ("ignoreMethodsNames" property). Note, that the "ignoreMethodsNames" property type is a RegExp:
- * using this property you can list the names of ignored methods separated by comma (but you can also use '|' to
- * separate different method names in usual for RegExp style).</li>
+ * <li>Methods by name ("ignoreMethodsNames" property). Note, that the "ignoreMethodsNames"
+ * property type is a RegExp:
+ * using this property you can list the names of ignored methods separated by comma (but you
+ * can also use '|' to separate different method names in usual for RegExp style).</li>
  * <li>Methods which linelength less than given value ("linesLimit" property).
- * <li>"return" statements which depth is greater or equal to the given value ("returnDepthLimit" property). There are
- * few supported <br>
+ * <li>"return" statements which depth is greater or equal to the given value ("returnDepthLimit"
+ * property). There are few supported <br>
  * coding blocks when depth counting: "if-else", "for", "while"/"do-while" and "switch".
- * <li>"Empty" return statements = return statements in void methods and ctors that have not any expression
- * ("ignoreEmptyReturns" property).
- * <li>Return statements, which are located in the top lines of method/ctor (you can specify the count of top
- * method/ctor lines that will be ignored using "rowsToIgnoreCount" property).
+ * <li>"Empty" return statements = return statements in void methods and ctors that have not
+ * any expression ("ignoreEmptyReturns" property).
+ * <li>Return statements, which are located in the top lines of method/ctor (you can specify
+ * the count of top method/ctor lines that will be ignored using "rowsToIgnoreCount" property).
  * </ol>
  * So, this is much improved version of the existing {@link ReturnCountCheck}. <br>
  * <br>
- * 
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
-public class ReturnCountExtendedCheck extends Check
-{
+public class ReturnCountExtendedCheck extends Check {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
@@ -134,13 +137,19 @@ public class ReturnCountExtendedCheck extends Check
     private int topLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
     /**
+     * Creates the new check instance.
+     */
+    public ReturnCountExtendedCheck() {
+        ignoreMethodsNames.add("equals");
+    }
+
+    /**
      * Sets the RegExp patterns for methods' names which would be ignored by check.
-     * 
+     *
      * @param ignoreMethodNames
      *            list of the RegExp patterns for methods' names which should be ignored by check
      */
-    public void setIgnoreMethodsNames(String [] ignoreMethodNames)
-    {
+    public void setIgnoreMethodsNames(String[] ignoreMethodNames) {
         ignoreMethodsNames.clear();
         if (ignoreMethodNames != null) {
             for (String name : ignoreMethodNames) {
@@ -154,8 +163,7 @@ public class ReturnCountExtendedCheck extends Check
      * @param maxReturnCount - the new "maxReturnCount" property value.
      * @see ReturnCountExtendedCheck#maxReturnCount
      */
-    public void setMaxReturnCount(int maxReturnCount)
-    {
+    public void setMaxReturnCount(int maxReturnCount) {
         this.maxReturnCount = maxReturnCount;
     }
 
@@ -166,8 +174,7 @@ public class ReturnCountExtendedCheck extends Check
      *        - the new value of "ignoreMethodLinesCount" property.
      * @see ReturnCountExtendedCheck#ignoreMethodLinesCount
      */
-    public void setIgnoreMethodLinesCount(int ignoreMethodLinesCount)
-    {
+    public void setIgnoreMethodLinesCount(int ignoreMethodLinesCount) {
         this.ignoreMethodLinesCount = ignoreMethodLinesCount;
     }
 
@@ -177,8 +184,7 @@ public class ReturnCountExtendedCheck extends Check
      * @param minIgnoreReturnDepth
      *        - the new "minIgnoreReturnDepth" property value.
      */
-    public void setMinIgnoreReturnDepth(int minIgnoreReturnDepth)
-    {
+    public void setMinIgnoreReturnDepth(int minIgnoreReturnDepth) {
         this.minIgnoreReturnDepth = minIgnoreReturnDepth;
     }
 
@@ -189,8 +195,7 @@ public class ReturnCountExtendedCheck extends Check
      *        the new "allowEmptyReturns" property value.
      * @see ReturnCountExtendedCheck#ignoreEmptyReturns
      */
-    public void setIgnoreEmptyReturns(boolean ignoreEmptyReturns)
-    {
+    public void setIgnoreEmptyReturns(boolean ignoreEmptyReturns) {
         this.ignoreEmptyReturns = ignoreEmptyReturns;
     }
 
@@ -201,34 +206,22 @@ public class ReturnCountExtendedCheck extends Check
      *        the new "rowsToIgnoreCount" property value.
      * @see ReturnCountExtendedCheck#topLinesToIgnoreCount
      */
-    public void setTopLinesToIgnoreCount(int topLinesToIgnoreCount)
-    {
+    public void setTopLinesToIgnoreCount(int topLinesToIgnoreCount) {
         this.topLinesToIgnoreCount = topLinesToIgnoreCount;
     }
 
-    /**
-     * Creates the new check instance.
-     */
-    public ReturnCountExtendedCheck()
-    {
-        ignoreMethodsNames.add("equals");
-    }
-
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {TokenTypes.METHOD_DEF, TokenTypes.CTOR_DEF, };
     }
 
     @Override
-    public void visitToken(final DetailAST methodDefNode)
-    {
+    public void visitToken(final DetailAST methodDefNode) {
         final DetailAST openingBrace = methodDefNode
                 .findFirstToken(TokenTypes.SLIST);
-        String methodName = getMethodName(methodDefNode);
+        final String methodName = getMethodName(methodDefNode);
         if (openingBrace != null
-                && !matches(methodName, ignoreMethodsNames))
-        {
+                && !matches(methodName, ignoreMethodsNames)) {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
             int curMethodLinesCount = getLinesCount(openingBrace,
@@ -244,9 +237,14 @@ public class ReturnCountExtendedCheck extends Check
                         openingBrace);
 
                 if (mCurReturnCount > maxReturnCount) {
-                    final String mKey = (methodDefNode.getType()
-                            == TokenTypes.METHOD_DEF)
-                            ? WARNING_MSG_KEY_METHOD : WARNING_MSG_KEY_CTOR;
+                    final String mKey;
+
+                    if (methodDefNode.getType() == TokenTypes.METHOD_DEF) {
+                        mKey = WARNING_MSG_KEY_METHOD;
+                    }
+                    else {
+                        mKey = WARNING_MSG_KEY_CTOR;
+                    }
 
                     final DetailAST methodNameToken = methodDefNode
                             .findFirstToken(TokenTypes.IDENT);
@@ -272,8 +270,7 @@ public class ReturnCountExtendedCheck extends Check
      * @return "return" literals count for given method.
      */
     private int getReturnCount(final DetailAST methodDefNode,
-            final DetailAST methodOpeningBrace)
-    {
+            final DetailAST methodOpeningBrace) {
         int result = 0;
 
         DetailAST curNode = methodOpeningBrace;
@@ -282,18 +279,16 @@ public class ReturnCountExtendedCheck extends Check
 
             // before node visiting
             if (curNode.getType() == TokenTypes.RCURLY
-                    && curNode.getParent() == methodOpeningBrace)
-            {
-                break; // stop at closing brace
+                    && curNode.getParent() == methodOpeningBrace) {
+                // stop at closing brace
+                break;
             }
             else {
                 if (curNode.getType() == TokenTypes.LITERAL_RETURN
-                        && getDepth(methodDefNode
-                                , curNode) < minIgnoreReturnDepth
+                        && getDepth(methodDefNode, curNode) < minIgnoreReturnDepth
                         && shouldEmptyReturnStatementBeCounted(curNode)
                         && getLinesCount(methodOpeningBrace,
-                                curNode) > topLinesToIgnoreCount)
-                {
+                                curNode) > topLinesToIgnoreCount) {
                     result++;
                 }
             }
@@ -304,8 +299,8 @@ public class ReturnCountExtendedCheck extends Check
             final int type = curNode.getType();
             // skip nested methods (UI listeners, Runnable.run(), etc.)
             if (type == TokenTypes.METHOD_DEF
-                  || type == TokenTypes.CLASS_DEF) // skip anonymous classes
-            {
+                  // skip anonymous classes
+                  || type == TokenTypes.CLASS_DEF) {
                 nextNode = curNode.getNextSibling();
             }
 
@@ -330,8 +325,7 @@ public class ReturnCountExtendedCheck extends Check
      * @return true if current processed "return" statement is empty or if
      *         mIgnoreEmptyReturns option has "false" value.
      */
-    private boolean shouldEmptyReturnStatementBeCounted(DetailAST returnNode)
-    {
+    private boolean shouldEmptyReturnStatementBeCounted(DetailAST returnNode) {
         final DetailAST returnChildNode = returnNode.getFirstChild();
         return !(ignoreEmptyReturns
                 && returnChildNode.getType() == TokenTypes.SEMI);
@@ -348,8 +342,7 @@ public class ReturnCountExtendedCheck extends Check
      * @return the depth of given
      */
     private static int getDepth(DetailAST methodDefNode,
-            DetailAST returnStmtNode)
-    {
+            DetailAST returnStmtNode) {
         int result = 0;
 
         DetailAST curNode = returnStmtNode;
@@ -362,8 +355,7 @@ public class ReturnCountExtendedCheck extends Check
                     || type == TokenTypes.LITERAL_FOR
                     || type == TokenTypes.LITERAL_DO
                     || type == TokenTypes.LITERAL_WHILE
-                    || type == TokenTypes.LITERAL_TRY)
-            {
+                    || type == TokenTypes.LITERAL_TRY) {
                 result++;
             }
         }
@@ -377,8 +369,7 @@ public class ReturnCountExtendedCheck extends Check
      *        a DetailAST node that points to the current method`s definition.
      * @return the method name.
      */
-    private static String getMethodName(DetailAST methodDefNode)
-    {
+    private static String getMethodName(DetailAST methodDefNode) {
         String result = null;
         for (DetailAST curNode : getChildren(methodDefNode)) {
             if (curNode.getType() == TokenTypes.IDENT) {
@@ -398,8 +389,7 @@ public class ReturnCountExtendedCheck extends Check
      *        the "end" token AST node.
      * @return the line count between "begin" and "end" tokens.
      */
-    private static int getLinesCount(DetailAST beginAst, DetailAST endAST)
-    {
+    private static int getLinesCount(DetailAST beginAst, DetailAST endAST) {
         return endAST.getLineNo() - beginAst.getLineNo();
     }
 
@@ -410,8 +400,7 @@ public class ReturnCountExtendedCheck extends Check
      *        Current parent node.
      * @return The list of children one level below on the current parent node.
      */
-    private static List<DetailAST> getChildren(final DetailAST node)
-    {
+    private static List<DetailAST> getChildren(final DetailAST node) {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
@@ -420,10 +409,10 @@ public class ReturnCountExtendedCheck extends Check
         }
         return result;
     }
-    
+
     /**
      * Matches string to given list of RegExp patterns.
-     * 
+     *
      * @param string
      *            String to be matched.
      * @param patterns

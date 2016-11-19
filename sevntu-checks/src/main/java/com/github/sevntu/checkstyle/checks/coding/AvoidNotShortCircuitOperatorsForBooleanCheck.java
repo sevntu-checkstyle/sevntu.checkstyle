@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.LinkedList;
@@ -69,18 +70,17 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
-{
-
-    /**
-     * A "boolean" String.
-     * */
-    private static final String BOOLEAN = "boolean";
+public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check {
 
     /**
      * A key to search the warning message text in "messages.properties" file.
      * */
     public static final String MSG_KEY = "avoid.not.short.circuit.operators.for.boolean";
+
+    /**
+     * A "boolean" String.
+     * */
+    private static final String BOOLEAN = "boolean";
 
     /**
      * A list contains all names of operands, which are used in the current
@@ -95,20 +95,17 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
     private boolean hasTrueOrFalseLiteral;
 
     @Override
-    public final int[] getDefaultTokens()
-    {
+    public final int[] getDefaultTokens() {
         return new int[] {TokenTypes.BOR, TokenTypes.BAND,
             TokenTypes.BOR_ASSIGN, TokenTypes.BAND_ASSIGN, };
     }
 
     @Override
-    public final void visitToken(final DetailAST detailAST)
-    {
+    public final void visitToken(final DetailAST detailAST) {
 
         DetailAST currentNode = detailAST;
         // look for EXPR which is always around BOR/BAND... operators
-        while (currentNode != null && currentNode.getType() != TokenTypes.EXPR)
-        {
+        while (currentNode != null && currentNode.getType() != TokenTypes.EXPR) {
             currentNode = currentNode.getParent();
         }
 
@@ -126,8 +123,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @param node - current method or variable definition node.
      * @return "true" if current method or variable has a Boolean type.
      */
-    public final static boolean isBooleanType(final DetailAST node)
-    {
+    public static final boolean isBooleanType(final DetailAST node) {
         return BOOLEAN.equals(CheckUtils.createFullType(
                 node.findFirstToken(TokenTypes.TYPE)).getText());
     }
@@ -137,11 +133,10 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * operators contains at least one Boolean operand.
      * @param node - current TokenTypes.EXPR node to check.
      * @return "true" if current expression is calculated using "|", "&amp;",
-     * "|=". "&amp;=" operators contains at least one Boolean operand or false
-     * otherwise.
+     *     "|=". "&amp;=" operators contains at least one Boolean operand or false
+     *     otherwise.
      */
-    public final boolean isBooleanExpression(final DetailAST node)
-    {
+    public final boolean isBooleanExpression(final DetailAST node) {
         DetailAST curNode = node;
 
         final List<String> childNames = getSupportedOperandsNames(curNode);
@@ -149,16 +144,14 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
 
         while (curNode.getType() != TokenTypes.CTOR_DEF
                 && curNode.getType() != TokenTypes.METHOD_DEF
-                && curNode.getType() != TokenTypes.CLASS_DEF)
-        {
+                && curNode.getType() != TokenTypes.CLASS_DEF) {
             curNode = curNode.getParent();
         }
 
         final int line = node.getLineNo();
         for (DetailAST currentNode : getChildren(curNode.getLastChild())) {
             if (currentNode.getLineNo() < line
-                    && currentNode.getType() == TokenTypes.VARIABLE_DEF)
-            {
+                    && currentNode.getType() == TokenTypes.VARIABLE_DEF) {
 
                 if (isBooleanType(currentNode)) {
                     booleanVariablesNames.add(currentNode.findFirstToken(
@@ -186,20 +179,17 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @return List of supported operands contained in current expression.
      */
     public final List<String> getSupportedOperandsNames(
-            final DetailAST exprParentAST)
-    {
+            final DetailAST exprParentAST) {
 
         for (DetailAST currentNode : getChildren(exprParentAST)) {
 
             if (currentNode.getNumberOfChildren() > 0
-                    && currentNode.getType() != TokenTypes.METHOD_CALL)
-            {
+                    && currentNode.getType() != TokenTypes.METHOD_CALL) {
                 getSupportedOperandsNames(currentNode);
             }
 
             if (currentNode.getType() == TokenTypes.IDENT
-                    && currentNode.getParent().getType() != TokenTypes.DOT)
-            {
+                    && currentNode.getParent().getType() != TokenTypes.DOT) {
                 supportedOperands.add(currentNode.getText());
             }
 
@@ -210,16 +200,14 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
         return supportedOperands;
     }
 
-
     /**
      * Checks is the current expression has
      * keywords "true" or "false".
      * @param parentAST - the current TokenTypes.EXPR parent node.
      * @return true if the current processed expression contains
-     * "true" or "false" keywords and false otherwise.
+     *     "true" or "false" keywords and false otherwise.
      */
-    public final boolean hasTrueOrFalseLiteral(final DetailAST parentAST)
-    {
+    public final boolean hasTrueOrFalseLiteral(final DetailAST parentAST) {
 
         for (DetailAST currentNode : getChildren(parentAST)) {
 
@@ -229,8 +217,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
 
             final int type = currentNode.getType();
             if (type == TokenTypes.LITERAL_TRUE
-                    || type == TokenTypes.LITERAL_FALSE)
-            {
+                    || type == TokenTypes.LITERAL_FALSE) {
                 hasTrueOrFalseLiteral = true;
             }
 
@@ -251,8 +238,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check
      * @return an array of children one level below on the current parent node
      *         aNode.
      */
-    public final static List<DetailAST> getChildren(final DetailAST node)
-    {
+    public static final List<DetailAST> getChildren(final DetailAST node) {
         final List<DetailAST> result = new LinkedList<DetailAST>();
 
         DetailAST currNode = node.getFirstChild();

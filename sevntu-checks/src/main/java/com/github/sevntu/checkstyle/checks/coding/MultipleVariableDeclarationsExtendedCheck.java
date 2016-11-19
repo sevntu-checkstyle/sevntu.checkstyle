@@ -29,160 +29,147 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * Checks that each variable declaration is in its own statement and on its own line.
  * </p>
  * <p>
- * Rationale: <a href= "http://java.sun.com/docs/codeconv/html/CodeConventions.doc5.html#2991"> the SUN Code conventions
- * chapter 6.1</a> recommends that declarations should be one per line.
+ * Rationale: <a href= "http://java.sun.com/docs/codeconv/html/CodeConventions.doc5.html#2991">
+ * the SUN Code conventions chapter 6.1</a> recommends that declarations should be one per line.
  * </p>
  * <p>
  * An example of how to configure the check is:
  * </p>
- * 
+ *
  * <pre>
  * &lt;module name="MultipleVariableDeclarations"/&gt;
  * </pre>
- * 
+ *
  * *
- * 
+ *
  * @author o_sukhodolsky
  */
 
-public class MultipleVariableDeclarationsExtendedCheck extends Check
-{
-	/**
-	 * Warning message key.
-	 */
-	public static final String MSG_VAR_DECLARATIONS_COMMA = "multiple.variable.declarations.comma";
+public class MultipleVariableDeclarationsExtendedCheck extends Check {
+    /**
+     * Warning message key.
+     */
+    public static final String MSG_VAR_DECLARATIONS_COMMA = "multiple.variable.declarations.comma";
 
-	/**
-	 * Warning message key.
-	 */
-	public static final String MSG_VAR_DECLARATIONS = "multiple.variable.declarations";
-	
-	/** check declaration in cycles. */
-	private boolean ignoreCycles;
+    /**
+     * Warning message key.
+     */
+    public static final String MSG_VAR_DECLARATIONS = "multiple.variable.declarations";
 
-	/** check declaration in methods. */
-	private boolean ignoreMethods;
+    /** Check declaration in cycles. */
+    private boolean ignoreCycles;
 
-	/**
-	 * Enable|Disable declaration checking in cycles.
-	 * 
-	 * @param value
-	 *            check declaration in Methods
-	 */
-	public void setIgnoreCycles(final boolean value)
-	{
-		ignoreCycles = value;
-	}
+    /** Check declaration in methods. */
+    private boolean ignoreMethods;
 
-	/**
-	 * Enable|Disable declaration checking in Methods. *
-	 * 
-	 * @param value
-	 *            check declaration in Methods
-	 */
-	public void setIgnoreMethods(final boolean value)
-	{
-		ignoreMethods = value;
-	}
+    /** Creates new instance of the check. */
+    public MultipleVariableDeclarationsExtendedCheck() {
+    }
 
-	/** Creates new instance of the check. */
-	public MultipleVariableDeclarationsExtendedCheck()
-	{
-	}
+    /**
+     * Enable|Disable declaration checking in cycles.
+     *
+     * @param value
+     *            check declaration in Methods
+     */
+    public void setIgnoreCycles(final boolean value) {
+        ignoreCycles = value;
+    }
 
-	@Override
-	public int[] getDefaultTokens()
-	{
-		return new int[] { TokenTypes.VARIABLE_DEF };
-	}
+    /**
+     * Enable|Disable declaration checking in Methods. *
+     *
+     * @param value
+     *            check declaration in Methods
+     */
+    public void setIgnoreMethods(final boolean value) {
+        ignoreMethods = value;
+    }
 
-	/**
-	 * Searches for wrong declarations and checks the their type.
-	 * 
-	 * @param ast
-	 *            uses to get the parent or previous sibling token.
-	 */
-	public void work(DetailAST ast)
-	{
+    @Override
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.VARIABLE_DEF,
+        };
+    }
 
-		DetailAST nextNode = ast.getNextSibling();
-		final boolean isCommaSeparated = (nextNode != null) && (nextNode
-				.getType() == TokenTypes.COMMA);
+    /**
+     * Searches for wrong declarations and checks the their type.
+     *
+     * @param ast
+     *            uses to get the parent or previous sibling token.
+     */
+    public void work(DetailAST ast) {
 
-		if (nextNode == null) {
-			// no nextMethods statement - no check
-			return;
-		}
+        DetailAST nextNode = ast.getNextSibling();
+        final boolean isCommaSeparated = (nextNode != null)
+                && (nextNode.getType() == TokenTypes.COMMA);
 
-		if ((nextNode.getType() == TokenTypes.COMMA)
-				|| (nextNode.getType() == TokenTypes.SEMI))
-		{
-			nextNode = nextNode.getNextSibling();
-		}
+        if (nextNode != null) {
+            if ((nextNode.getType() == TokenTypes.COMMA)
+                    || (nextNode.getType() == TokenTypes.SEMI)) {
+                nextNode = nextNode.getNextSibling();
+            }
 
-		if ((nextNode != null)
-				&& (nextNode.getType() == TokenTypes.VARIABLE_DEF))
-		{
-			final DetailAST firstNode = CheckUtils.getFirstNode(ast);
-			if (isCommaSeparated) {
-				log(firstNode, MSG_VAR_DECLARATIONS_COMMA);
-				return;
-			}
+            if ((nextNode != null)
+                    && (nextNode.getType() == TokenTypes.VARIABLE_DEF)) {
+                final DetailAST firstNode = CheckUtils.getFirstNode(ast);
+                if (isCommaSeparated) {
+                    log(firstNode, MSG_VAR_DECLARATIONS_COMMA);
+                }
+                else {
+                    final DetailAST lastNode = getLastNode(ast);
+                    final DetailAST firstNextNode = CheckUtils.getFirstNode(nextNode);
 
-			final DetailAST lastNode = getLastNode(ast);
-			final DetailAST firstNextNode = CheckUtils.getFirstNode(nextNode);
+                    if (firstNextNode.getLineNo() == lastNode.getLineNo()) {
+                        log(firstNode, MSG_VAR_DECLARATIONS);
+                    }
+                }
+            }
+        }
+    }
 
-			if (firstNextNode.getLineNo() == lastNode.getLineNo()) {
-				log(firstNode, MSG_VAR_DECLARATIONS);
-			}
-		}
+    @Override
+    public void visitToken(DetailAST ast) {
 
-	}
+        final DetailAST token = ast;
+        final boolean inFor = ast.getParent().getType() == TokenTypes.FOR_INIT;
+        final boolean inClass = ast.getParent().getParent().getType() == TokenTypes.CLASS_DEF;
 
-	@Override
-	public void visitToken(DetailAST ast)
-	{
+        if (inClass) {
+            work(token);
+        }
+        else if (!ignoreCycles && inFor) {
+            work(token);
+        }
 
-		final DetailAST token = ast;
-		final boolean inFor = ast.getParent().getType() == TokenTypes.FOR_INIT;
-		final boolean inClass = ast.getParent().getParent().getType() == TokenTypes.CLASS_DEF;
+        else if (!ignoreMethods && !inClass && !inFor) {
+            work(token);
+        }
 
-		if (inClass) {
-			work(token);
-		}
-		else if (!ignoreCycles && inFor) {
-			work(token);
-		}
+    }
 
-		else if (!ignoreMethods && !inClass && !inFor) {
-			work(token);
-		}
+    /**
+     * Finds sub-node for given node maximum (line, column) pair.
+     *
+     * @param node
+     *            the root of tree for search.
+     * @return sub-node with maximum (line, column) pair.
+     */
+    private static DetailAST getLastNode(final DetailAST node) {
+        DetailAST currentNode = node;
+        DetailAST child = node.getFirstChild();
+        while (child != null) {
+            final DetailAST newNode = getLastNode(child);
+            if ((newNode.getLineNo() > currentNode.getLineNo())
+                    || ((newNode.getLineNo()
+                        == currentNode.getLineNo()) && (newNode
+                            .getColumnNo() > currentNode.getColumnNo()))) {
+                currentNode = newNode;
+            }
+            child = child.getNextSibling();
+        }
 
-	}
-
-	/**
-	 * Finds sub-node for given node maximum (line, column) pair.
-	 * 
-	 * @param node
-	 *            the root of tree for search.
-	 * @return sub-node with maximum (line, column) pair.
-	 */
-	private static DetailAST getLastNode(final DetailAST node)
-	{
-		DetailAST currentNode = node;
-		DetailAST child = node.getFirstChild();
-		while (child != null) {
-			final DetailAST newNode = getLastNode(child);
-			if ((newNode.getLineNo() > currentNode.getLineNo())
-					|| ((newNode.getLineNo()
-						== currentNode.getLineNo()) && (newNode
-							.getColumnNo() > currentNode.getColumnNo())))
-			{
-				currentNode = newNode;
-			}
-			child = child.getNextSibling();
-		}
-
-		return currentNode;
-	}
+        return currentNode;
+    }
 }

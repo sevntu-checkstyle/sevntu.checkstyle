@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.ArrayList;
@@ -18,7 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * Example 1. Check will generate violation for this code:
- * 
+ *
  * <pre>
  * class Dummy {
  *     public Dummy() {
@@ -28,18 +47,18 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * <p>
  * Example 2. Check will not generate violation for this code:
- * 
+ *
  * <pre>
  * class Dummy {
  *     private Dummy() {
  *     }
  * }
  * </pre>
- * 
+ *
  * class Dummy has only one ctor, which is not public.
  * <p>
  * Example 3. Check will not generate violation for this code:
- * 
+ *
  * <pre>
  * class Dummy {
  *     public Dummy() {
@@ -48,7 +67,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     }
  * }
  * </pre>
- * 
+ *
  * class Dummy has multiple ctors.
  * <p>
  * Check has two properties:
@@ -66,18 +85,17 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Following configuration will adjust Check to skip classes which annotated with
  * "javax.persistence.Entity" and classes which has empty public ctor with
  * "com\.google\.inject\.Inject".
- * 
+ *
  * <pre>
  *   &lt;module name="EmptyPublicCtorInClassCheck"&gt;
  *     &lt;property name="classAnnotationNames" value="javax\.persistence\.Entity"/&gt;
  *     &lt;property name="ctorAnnotationNames" value="com\.google\.inject\.Inject"/&gt;
  *   &lt;/module&gt;
  * </pre>
- * 
+ *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class EmptyPublicCtorInClassCheck extends Check
-{
+public class EmptyPublicCtorInClassCheck extends Check {
     /**
      * Violation message key.
      */
@@ -116,8 +134,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @param regex
      *        regex to match annotation names.
      */
-    public void setClassAnnotationNames(String regex)
-    {
+    public void setClassAnnotationNames(String regex) {
         if (regex != null && !regex.isEmpty()) {
             classAnnotationNames = Pattern.compile(regex);
         }
@@ -131,8 +148,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @param regex
      *        regex to match annotation names.
      */
-    public void setCtorAnnotationNames(String regex)
-    {
+    public void setCtorAnnotationNames(String regex) {
         if (regex != null && !regex.isEmpty()) {
             ctorAnnotationNames = Pattern.compile(regex);
         }
@@ -142,48 +158,45 @@ public class EmptyPublicCtorInClassCheck extends Check
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.CLASS_DEF, TokenTypes.PACKAGE_DEF, TokenTypes.IMPORT };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.PACKAGE_DEF,
+            TokenTypes.IMPORT,
+        };
     }
 
     @Override
-    public void beginTree(DetailAST aRootNode)
-    {
+    public void beginTree(DetailAST aRootNode) {
         singleTypeImports.clear();
         onDemandImports.clear();
         filePackageName = "";
     }
 
     @Override
-    public void visitToken(DetailAST node)
-    {
+    public void visitToken(DetailAST node) {
         switch (node.getType()) {
 
             case TokenTypes.IMPORT:
-                {
-                    String packageMemberName = getIdentifierName(node);
-        
-                    if (isOnDemandImport(packageMemberName)) {
-                        onDemandImports.add(packageMemberName);
-                    }
-                    else {
-                        singleTypeImports.add(packageMemberName);
-                    }
+                final String packageMemberName = getIdentifierName(node);
+
+                if (isOnDemandImport(packageMemberName)) {
+                    onDemandImports.add(packageMemberName);
+                }
+                else {
+                    singleTypeImports.add(packageMemberName);
                 }
                 break;
 
             case TokenTypes.CLASS_DEF:
                 if (getClassCtorCount(node) == 1) {
-                    DetailAST ctorDef = getFirstCtorDefinition(node);
-    
-                    if (isCtorPublic(ctorDef) &&
-                            isCtorHasNoParameters(ctorDef) &&
-                            isCtorHasNoStatements(ctorDef))
-                    {
-                        if (!isClassHasRegisteredAnnotation(node) &&
-                                !isCtorHasRegisteredAnnotation(ctorDef))
-                        {
+                    final DetailAST ctorDef = getFirstCtorDefinition(node);
+
+                    if (isCtorPublic(ctorDef)
+                            && isCtorHasNoParameters(ctorDef)
+                            && isCtorHasNoStatements(ctorDef)) {
+                        if (!isClassHasRegisteredAnnotation(node)
+                                && !isCtorHasRegisteredAnnotation(ctorDef)) {
                             log(ctorDef, MSG_KEY);
                         }
                     }
@@ -205,8 +218,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        a class definition node.
      * @return ctor count for given class definition.
      */
-    private static int getClassCtorCount(DetailAST classDefNode)
-    {
+    private static int getClassCtorCount(DetailAST classDefNode) {
         return classDefNode.findFirstToken(TokenTypes.OBJBLOCK).getChildCount(TokenTypes.CTOR_DEF);
     }
 
@@ -216,8 +228,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        a class definition node.
      * @return first ctor definition node for class or null if class has no ctor.
      */
-    private static DetailAST getFirstCtorDefinition(DetailAST classDefNode)
-    {
+    private static DetailAST getFirstCtorDefinition(DetailAST classDefNode) {
         return classDefNode
                 .findFirstToken(TokenTypes.OBJBLOCK)
                 .findFirstToken(TokenTypes.CTOR_DEF);
@@ -229,8 +240,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        a ctor definition node(TokenTypes.CTOR_DEF).
      * @return true, if given ctor is public.
      */
-    private static boolean isCtorPublic(DetailAST ctorDefNode)
-    {
+    private static boolean isCtorPublic(DetailAST ctorDefNode) {
         return ctorDefNode
                 .findFirstToken(TokenTypes.MODIFIERS)
                 .findFirstToken(TokenTypes.LITERAL_PUBLIC) != null;
@@ -242,8 +252,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        a ctor definition node(TokenTypes.CTOR_DEF).
      * @return true, if ctor has no parameters.
      */
-    private static boolean isCtorHasNoParameters(DetailAST ctorDefNode)
-    {
+    private static boolean isCtorHasNoParameters(DetailAST ctorDefNode) {
         return ctorDefNode.findFirstToken(TokenTypes.PARAMETERS).getChildCount() == 0;
     }
 
@@ -251,10 +260,9 @@ public class EmptyPublicCtorInClassCheck extends Check
      * Checks whether ctor body has no statements.
      * @param ctorDefNode
      *        a ctor definition node(TokenTypes.CTOR_DEF).
-     * @return
+     * @return true if ctor body has no statements.
      */
-    private static boolean isCtorHasNoStatements(DetailAST ctorDefNode)
-    {
+    private static boolean isCtorHasNoStatements(DetailAST ctorDefNode) {
         return ctorDefNode.findFirstToken(TokenTypes.SLIST).getChildCount() == 1;
     }
 
@@ -265,9 +273,8 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        the node of type TokenTypes.CLASS_DEF.
      * @return true, if class definition has annotation with name specified in regexp.
      */
-    private boolean isClassHasRegisteredAnnotation(DetailAST classDefNode)
-    {
-        List<String> annotationNames = getAnnotationCanonicalNames(classDefNode);
+    private boolean isClassHasRegisteredAnnotation(DetailAST classDefNode) {
+        final List<String> annotationNames = getAnnotationCanonicalNames(classDefNode);
         return isAnyOfNamesMatches(annotationNames, classAnnotationNames);
     }
 
@@ -278,9 +285,8 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        the node of type TokenTypes.CTOR_DEF.
      * @return true, if ctor definition has annotation with name specified in regexp.
      */
-    private boolean isCtorHasRegisteredAnnotation(DetailAST ctorDefNode)
-    {
-        List<String> annotationNames = getAnnotationCanonicalNames(ctorDefNode);
+    private boolean isCtorHasRegisteredAnnotation(DetailAST ctorDefNode) {
+        final List<String> annotationNames = getAnnotationCanonicalNames(ctorDefNode);
         return isAnyOfNamesMatches(annotationNames, ctorAnnotationNames);
     }
 
@@ -293,20 +299,19 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @return false, if pattern object is null, otherwise true, if any name from the list matches
      *         regex.
      */
-    private static boolean isAnyOfNamesMatches(List<String> annotationNames, Pattern pattern)
-    {
-        if (pattern == null) {
-            return false;
-        }
-        else {
+    private static boolean isAnyOfNamesMatches(List<String> annotationNames, Pattern pattern) {
+        boolean result = false;
+
+        if (pattern != null) {
             for (String annotationName : annotationNames) {
                 if (pattern.matcher(annotationName).matches()) {
-                    return true;
+                    result = true;
+                    break;
                 }
             }
         }
 
-        return false;
+        return result;
     }
 
     /**
@@ -315,18 +320,17 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        annotated node.
      * @return list of canonical annotation names for given node.
      */
-    private List<String> getAnnotationCanonicalNames(DetailAST node)
-    {
-        List<String> annotationNames = new ArrayList<String>();
+    private List<String> getAnnotationCanonicalNames(DetailAST node) {
+        final List<String> annotationNames = new ArrayList<String>();
 
         DetailAST modifierNode =
                 node.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
 
         while (modifierNode != null) {
             if (modifierNode.getType() == TokenTypes.ANNOTATION) {
-                String annotationName = getIdentifierName(modifierNode);
+                final String annotationName = getIdentifierName(modifierNode);
 
-                List<String> annotationPossibleCanonicalNames =
+                final List<String> annotationPossibleCanonicalNames =
                         generateAnnotationPossibleCanonicalNames(annotationName);
 
                 annotationNames.add(annotationName);
@@ -345,8 +349,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        target of import statement.
      * @return true, if import is on demand import import.
      */
-    private static boolean isOnDemandImport(String importTargetName)
-    {
+    private static boolean isOnDemandImport(String importTargetName) {
         return importTargetName.endsWith(".*");
     }
 
@@ -359,12 +362,11 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @return list of possible canonical annotation names.
      */
     private List<String>
-            generateAnnotationPossibleCanonicalNames(String annotationName)
-    {
-        List<String> annotationPossibleCanonicalNames = new ArrayList<String>();
+            generateAnnotationPossibleCanonicalNames(String annotationName) {
+        final List<String> annotationPossibleCanonicalNames = new ArrayList<String>();
 
         for (String importEntry : singleTypeImports) {
-            String annotationCanonicalName =
+            final String annotationCanonicalName =
                     joinSingleTypeImportWithIdentifier(importEntry, annotationName);
 
             if (annotationCanonicalName != null) {
@@ -373,15 +375,14 @@ public class EmptyPublicCtorInClassCheck extends Check
             }
         }
 
-        for (String importEntry : onDemandImports)
-        {
-            String annotationCanonicalName =
+        for (String importEntry : onDemandImports) {
+            final String annotationCanonicalName =
                     joinOnDemandImportWithIdentifier(importEntry, annotationName);
 
             annotationPossibleCanonicalNames.add(annotationCanonicalName);
         }
 
-        String annotationCanonicalName =
+        final String annotationCanonicalName =
                 joinFilePackageNameWithIdentifier(filePackageName, annotationName);
 
         annotationPossibleCanonicalNames.add(annotationCanonicalName);
@@ -406,10 +407,9 @@ public class EmptyPublicCtorInClassCheck extends Check
      *         null.
      */
     private static String
-            joinSingleTypeImportWithIdentifier(String importEntry, String identifierName)
-    {
-        String importEntryLastPart = getSimpleIdentifierNameFromQualifiedName(importEntry);
-        String annotationNameFirstPart = getQualifiedNameFirstPart(identifierName);
+            joinSingleTypeImportWithIdentifier(String importEntry, String identifierName) {
+        final String importEntryLastPart = getSimpleIdentifierNameFromQualifiedName(importEntry);
+        final String annotationNameFirstPart = getQualifiedNameFirstPart(identifierName);
 
         if (importEntryLastPart.equals(annotationNameFirstPart)) {
             return importEntry + identifierName.substring(annotationNameFirstPart.length());
@@ -434,8 +434,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @return fully qualified identifier name.
      */
     private static String
-            joinOnDemandImportWithIdentifier(String importEntry, String identifierName)
-    {
+            joinOnDemandImportWithIdentifier(String importEntry, String identifierName) {
         return importEntry.substring(0, importEntry.length() - 1) + identifierName;
     }
 
@@ -454,8 +453,7 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @return fully qualified identifier name.
      */
     private static String
-            joinFilePackageNameWithIdentifier(String packageName, String identifierName)
-    {
+            joinFilePackageNameWithIdentifier(String packageName, String identifierName) {
         return packageName + "." + identifierName;
     }
 
@@ -466,9 +464,8 @@ public class EmptyPublicCtorInClassCheck extends Check
      * @return first part of identifier name if name is qualified, otherwise returns identifier name
      *         argument.
      */
-    private static String getQualifiedNameFirstPart(String canonicalName)
-    {
-        int firstDotIndex = canonicalName.indexOf('.');
+    private static String getQualifiedNameFirstPart(String canonicalName) {
+        final int firstDotIndex = canonicalName.indexOf('.');
 
         if (firstDotIndex == -1) {
             return canonicalName;
@@ -489,28 +486,26 @@ public class EmptyPublicCtorInClassCheck extends Check
      *        qualified identifier name.
      * @return simple identifier name.
      */
-    private static String getSimpleIdentifierNameFromQualifiedName(String qualifiedName)
-    {
+    private static String getSimpleIdentifierNameFromQualifiedName(String qualifiedName) {
         return qualifiedName.substring(qualifiedName.lastIndexOf('.') + 1);
     }
 
     /**
      * Returns name of identifier contained in specified node.
-     * @param aNodeWithIdent
+     * @param identifierNode
      *        a node containing identifier or qualified identifier.
      * @return identifier name for specified node. If node contains qualified name then method
      *         returns its text representation.
      */
-    private static String getIdentifierName(DetailAST identifierNode)
-    {
-        DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
-        String result;
+    private static String getIdentifierName(DetailAST identifierNode) {
+        final DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
+        final String result;
 
         if (identNode != null) {
             result = identNode.getText();
         }
         else {
-            StringBuilder builder = new StringBuilder(40);
+            final StringBuilder builder = new StringBuilder(40);
             DetailAST node = identifierNode.findFirstToken(TokenTypes.DOT);
 
             while (node.getType() == TokenTypes.DOT) {

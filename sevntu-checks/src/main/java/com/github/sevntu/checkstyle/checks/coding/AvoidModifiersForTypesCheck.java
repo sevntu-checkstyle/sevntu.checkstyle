@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.HashSet;
@@ -51,53 +52,49 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * <p>
  * <b>Example 1:</b> Forbid use of 'static' modifiers for 'ULCComponents'
  * (http://ulc.canoo.com/ulccommunity/Contributions/Extensions/GoodPractices.html)
- * 
+ *
  * <p>
  * Never keep instances of ULC classes in static variables (ULCIcons neither!). They cannot be
  * shared between different sessions.
  * <p>
  * So we can disallow "static" modifier for all ULC* components by setting up an
  * "forbiddenClassesRegexpStatic" option to "ULC.+" regexp String.
- * 
+ *
  * <p>
  * <b>Configuration:</b>
  * <pre>
- * {@code
- * <module name="TreeWalker">
- *      <module name="AvoidModifiersForTypesCheck">
- *          <property name="forbiddenClassesRegexpStatic" value="ULC.+"/>
- *      </module>
- * </module>
- * }
+ * &lt;module name="TreeWalker"&gt;
+ *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
+ *          &lt;property name="forbiddenClassesRegexpStatic" value="ULC.+"/&gt;
+ *      &lt;/module&gt;
+ * &lt;/module&gt;
  * </pre>
- * 
+ *
  * <p>
  * <b>Example 2:</b> Forbid using annotation for fields: (e.g. <code>&#64;Autowired</code> ). This
  * can be done by setting up the "forbiddenClassesRegexpAnnotation" option to "Person" regexp
  * String.
- * 
+ *
  * <p>
  * <b>Configuration:</b>
  * <pre>
- * {@code
- * <module name="TreeWalker"> 
- *      <module name="AvoidModifiersForTypesCheck">
- *          <property name="forbiddenClassesRegexpAnnotation" value="Person"/>
- *      </module> 
- * </module>
- * }
+ * &lt;module name="TreeWalker"&gt;
+ *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
+ *          &lt;property name="forbiddenClassesRegexpAnnotation" value="Person"/&gt;
+ *      &lt;/module&gt;
+ * &lt;module&gt;
  * </pre>
- * 
+ *
  * <pre>
  * public class Customer {
- * 
+ *
  *     &#64;Autowired
  *     private Person person; // Violation
- * 
+ *
  *     private int type; // OK
- * 
+ *
  *     private String action; // OK
- * 
+ *
  * }
  * </pre>
  * <p>
@@ -109,40 +106,37 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * This check can be activated by setting up the "forbiddenClassesRegexpPublic",
  * "forbiddenClassesRegexpPackagePrivate" and "forbiddenClassesRegexpProtected" options to "Logger"
  * regexp String.
- * 
+ *
  * <p>
  * <b>Configuration:</b>
  * <pre>
- * {@code
- * <module name="TreeWalker"> 
- *      <module name="AvoidModifiersForTypesCheck">
- *          <property name="forbiddenClassesRegexpProtected" value="Logger"/>
- *          <property name="forbiddenClassesRegexpPublic" value="Logger"/>
- *          <property name="forbiddenClassesRegexpPackagePrivate" value="Logger"/>
- *      </module>
- * </module>
- * }
+ * &lt;module name="TreeWalker"&gt;
+ *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
+ *          &lt;property name="forbiddenClassesRegexpProtected" value="Logger"/&gt;
+ *          &lt;property name="forbiddenClassesRegexpPublic" value="Logger"/&gt;
+ *          &lt;property name="forbiddenClassesRegexpPackagePrivate" value="Logger"/&gt;
+ *      &lt;module&gt;
+ * &lt;module&gt;
  * </pre>
- * 
+ *
  * <pre>
  * public class Check {
- * 
+ *
  *     private Logger log1 = Logger.getLogger(getClass().getName()); // OK
- * 
+ *
  *     protected Logger log2 = Logger.getLogger(getClass().getName()); // Violation
- * 
+ *
  *     public Logger log3 = Logger.getLogger(getClass().getName()); // Violation
- * 
+ *
  *     Logger log4 = Logger.getLogger(getClass().getName()); // Violation
- * 
+ *
  * }
  * </pre>
  * <p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
  */
-public class AvoidModifiersForTypesCheck extends Check
-{
+public class AvoidModifiersForTypesCheck extends Check {
 
     /**
      * The key is pointing to the message text String in
@@ -211,10 +205,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'annotation' modifier.
      */
-    public void setForbiddenClassesRegexpAnnotation(String forbiddenClassesRegexpAnnotation)
-    {
-        final String regexp = forbiddenClassesRegexpAnnotation == null ? ""
-                : forbiddenClassesRegexpAnnotation;
+    public void setForbiddenClassesRegexpAnnotation(String forbiddenClassesRegexpAnnotation) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpAnnotation == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpAnnotation;
+        }
+
         this.forbiddenClassesRegexpAnnotation = Pattern.compile(regexp);
     }
 
@@ -225,10 +225,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'final' modifier.
      */
-    public void setForbiddenClassesRegexpFinal(String forbiddenClassesRegexpFinal)
-    {
-        final String regexp = forbiddenClassesRegexpFinal == null ? ""
-                : forbiddenClassesRegexpFinal;
+    public void setForbiddenClassesRegexpFinal(String forbiddenClassesRegexpFinal) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpFinal == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpFinal;
+        }
+
         this.forbiddenClassesRegexpFinal = Pattern.compile(regexp);
     }
 
@@ -239,10 +245,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'static' modifier.
      */
-    public void setForbiddenClassesRegexpStatic(String forbiddenClassesRegexpStatic)
-    {
-        final String regexp = forbiddenClassesRegexpStatic == null ? ""
-                : forbiddenClassesRegexpStatic;
+    public void setForbiddenClassesRegexpStatic(String forbiddenClassesRegexpStatic) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpStatic == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpStatic;
+        }
+
         this.forbiddenClassesRegexpStatic = Pattern.compile(regexp);
     }
 
@@ -253,10 +265,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'transient' modifier.
      */
-    public void setForbiddenClassesRegexpTransient(String forbiddenClassesRegexpTransient)
-    {
-        final String regexp = forbiddenClassesRegexpTransient == null ? ""
-                : forbiddenClassesRegexpTransient;
+    public void setForbiddenClassesRegexpTransient(String forbiddenClassesRegexpTransient) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpTransient == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpTransient;
+        }
+
         this.forbiddenClassesRegexpTransient = Pattern.compile(regexp);
     }
 
@@ -267,10 +285,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'volatile' modifier.
      */
-    public void setForbiddenClassesRegexpVolatile(String forbiddenClassesRegexpVolatile)
-    {
-        final String regexp = forbiddenClassesRegexpVolatile == null ? ""
-                : forbiddenClassesRegexpVolatile;
+    public void setForbiddenClassesRegexpVolatile(String forbiddenClassesRegexpVolatile) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpVolatile == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpVolatile;
+        }
+
         this.forbiddenClassesRegexpVolatile = Pattern.compile(regexp);
     }
 
@@ -281,10 +305,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'private' modifier.
      */
-    public void setForbiddenClassesRegexpPrivate(String forbiddenClassesRegexpPrivate)
-    {
-        final String regexp = forbiddenClassesRegexpPrivate == null ? ""
-                : forbiddenClassesRegexpPrivate;
+    public void setForbiddenClassesRegexpPrivate(String forbiddenClassesRegexpPrivate) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpPrivate == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpPrivate;
+        }
+
         this.forbiddenClassesRegexpPrivate = Pattern.compile(regexp);
     }
 
@@ -295,10 +325,17 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have no modifier ('package-private').
      */
-    public void setForbiddenClassesRegexpPackagePrivate(String forbiddenClassesRegexpPackagePrivate)
-    {
-        final String regexp = forbiddenClassesRegexpPackagePrivate == null ? ""
-                : forbiddenClassesRegexpPackagePrivate;
+    public void setForbiddenClassesRegexpPackagePrivate(
+            String forbiddenClassesRegexpPackagePrivate) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpPackagePrivate == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpPackagePrivate;
+        }
+
         this.forbiddenClassesRegexpPackagePrivate = Pattern.compile(regexp);
     }
 
@@ -309,10 +346,16 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'protected' modifier.
      */
-    public void setForbiddenClassesRegexpProtected(String forbiddenClassesRegexpProtected)
-    {
-        final String regexp = forbiddenClassesRegexpProtected == null ? ""
-                : forbiddenClassesRegexpProtected;
+    public void setForbiddenClassesRegexpProtected(String forbiddenClassesRegexpProtected) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpProtected == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpProtected;
+        }
+
         this.forbiddenClassesRegexpProtected = Pattern.compile(regexp);
     }
 
@@ -323,42 +366,44 @@ public class AvoidModifiersForTypesCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        could not have 'public' modifier.
      */
-    public void setForbiddenClassesRegexpPublic(String forbiddenClassesRegexpPublic)
-    {
-        final String regexp = forbiddenClassesRegexpPublic == null ? ""
-                : forbiddenClassesRegexpPublic;
+    public void setForbiddenClassesRegexpPublic(String forbiddenClassesRegexpPublic) {
+        final String regexp;
+
+        if (forbiddenClassesRegexpPublic == null) {
+            regexp = "";
+        }
+        else {
+            regexp = forbiddenClassesRegexpPublic;
+        }
+
         this.forbiddenClassesRegexpPublic = Pattern.compile(regexp);
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {TokenTypes.VARIABLE_DEF };
     }
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public void visitToken(DetailAST ast) {
         final String classNameAndPath = getClassNameAndPath(ast);
 
         if (classNameAndPath != null) {
 
             final String className = getClassName(classNameAndPath);
 
-            Set<Integer> modifiersSet = getModifiers(ast);
+            final Set<Integer> modifiersSet = getModifiers(ast);
 
             if (ast.getParent().getType() == TokenTypes.OBJBLOCK
                     && !modifiersSet.contains(TokenTypes.LITERAL_PUBLIC)
                     && !modifiersSet.contains(TokenTypes.LITERAL_PROTECTED)
                     && !modifiersSet.contains(TokenTypes.LITERAL_PRIVATE)
-                    && forbiddenClassesRegexpPackagePrivate.matcher(className).matches())
-            {
+                    && forbiddenClassesRegexpPackagePrivate.matcher(className).matches()) {
                 log(ast, MSG_KEY, className, "package-private");
             }
 
             for (int modifierType : modifiersSet) {
-                if (match(modifierType, className))
-                {
+                if (match(modifierType, className)) {
                     String tokenName = TokenUtils.getTokenName(modifierType);
 
                     // Remove literal prefix and switch to lower case for better readability
@@ -372,15 +417,14 @@ public class AvoidModifiersForTypesCheck extends Check
 
     /**
      * Checks whether a specific Java modifier is used in a given class with
-     * the specified regular expression
+     * the specified regular expression.
      * @param modifierType the modifier type
      * @param className the class name
      * @return either <code>true</code> if the regexp match the className,
-     * else <code>false</code>
+     *     else <code>false</code>
      */
-    private boolean match(int modifierType, String className)
-    {
-        Pattern pattern = mapToRegExp(modifierType);
+    private boolean match(int modifierType, String className) {
+        final Pattern pattern = mapToRegExp(modifierType);
         return pattern.matcher(className).matches();
     }
 
@@ -388,15 +432,14 @@ public class AvoidModifiersForTypesCheck extends Check
      * Maps the modifierType to a regular expression.
      * @param modifierType the modifier type
      * @return the Pattern object storing the regexp for the names of classes,
-     * that must not have the modifierType.
+     *     that must not have the modifierType.
      */
-    private Pattern mapToRegExp(int modifierType)
-    {
+    private Pattern mapToRegExp(int modifierType) {
         Pattern result = null;
 
         switch (modifierType) {
             case TokenTypes.ANNOTATION:
-                    result = forbiddenClassesRegexpAnnotation;
+                result = forbiddenClassesRegexpAnnotation;
                 break;
             case TokenTypes.FINAL:
                 result = forbiddenClassesRegexpFinal;
@@ -435,8 +478,7 @@ public class AvoidModifiersForTypesCheck extends Check
      * @return String contains the className of the defined variable or null if
      *         the current processed object is an array of primitive types
      */
-    private static String getClassNameAndPath(DetailAST variableDefNode)
-    {
+    private static String getClassNameAndPath(DetailAST variableDefNode) {
         String result = null;
         final DetailAST type = variableDefNode.findFirstToken(TokenTypes.TYPE);
         final DetailAST textWithoutDots = type.findFirstToken(TokenTypes.IDENT);
@@ -451,13 +493,13 @@ public class AvoidModifiersForTypesCheck extends Check
                 result = dottedPathIdent.getText() + "." + nameAST.getText();
             }
         }
-        else { // if subtree doesn`t contain dots.
+        // if subtree doesn`t contain dots.
+        else {
             result = textWithoutDots.getText();
         }
 
         return result;
     }
-
 
     /**
      * Gets the class name from full (dotted) classPath.
@@ -466,21 +508,19 @@ public class AvoidModifiersForTypesCheck extends Check
      * @return the name of the class is specified by the current full name&path.
      *         Guaranteed to not be null if aClassNameAndPath is not null.
      */
-    private static String getClassName(final String classNameAndPath)
-    {
+    private static String getClassName(final String classNameAndPath) {
         return classNameAndPath.replaceAll(".+\\.", "");
     }
 
     /**
-     * Gets the modifiers of the defined variable (annotation, public, private, final, static, 
+     * Gets the modifiers of the defined variable (annotation, public, private, final, static,
      * transient or volatile).
      * @param variableDefAst
      *        A DeatilAST node is related to the variable definition
      *        (VARIABLE_DEF type)
      * @return List of token types is related to the given variable modifiers.
      */
-    private static Set<Integer> getModifiers(DetailAST variableDefAst)
-    {
+    private static Set<Integer> getModifiers(DetailAST variableDefAst) {
         final Set<Integer> modifiersSet = new HashSet<Integer>();
         final DetailAST modifiersAST = variableDefAst
                 .findFirstToken(TokenTypes.MODIFIERS);
@@ -498,8 +538,7 @@ public class AvoidModifiersForTypesCheck extends Check
      *        The parent node.
      * @return The list of children one level below on the current parent node.
      */
-    private static List<DetailAST> getChildren(final DetailAST node)
-    {
+    private static List<DetailAST> getChildren(final DetailAST node) {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {

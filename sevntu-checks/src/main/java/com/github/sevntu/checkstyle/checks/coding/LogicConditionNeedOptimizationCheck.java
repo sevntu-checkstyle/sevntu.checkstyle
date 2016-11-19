@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -33,19 +34,20 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class LogicConditionNeedOptimizationCheck extends Check
-{
+public class LogicConditionNeedOptimizationCheck extends Check {
+    /**
+     * The key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY = "logic.condition.need.optimization";
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {TokenTypes.LAND, TokenTypes.LOR };
     }
 
     @Override
-    public void visitToken(DetailAST detailAST)
-    {
+    public void visitToken(DetailAST detailAST) {
         if (needOptimization(detailAST)) {
             log(detailAST.getLineNo(), MSG_KEY,
                     detailAST.getText(), detailAST.getLineNo(),
@@ -61,12 +63,12 @@ public class LogicConditionNeedOptimizationCheck extends Check
      *        - current logic operator node
      * @return - boolean variable
      */
-    private static boolean needOptimization(DetailAST logicNode)
-    {
+    private static boolean needOptimization(DetailAST logicNode) {
         final DetailAST secondOperand = getSecondOperand(logicNode);
         return !secondOperand.branchContains(TokenTypes.METHOD_CALL)
                 && logicNode.branchContains(TokenTypes.METHOD_CALL);
     }
+
     /**
      * <p>
      * Return second operand of current logic operator.
@@ -74,8 +76,7 @@ public class LogicConditionNeedOptimizationCheck extends Check
      * @param logicNode - current logic operator
      * @return second operand
      */
-    private static DetailAST getSecondOperand(DetailAST logicNode)
-    {
+    private static DetailAST getSecondOperand(DetailAST logicNode) {
         DetailAST child = logicNode.getLastChild();
         if (child.getType() == TokenTypes.RPAREN) {
             child = child.getPreviousSibling();

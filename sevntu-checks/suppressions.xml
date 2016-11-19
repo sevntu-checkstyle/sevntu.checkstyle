@@ -6,20 +6,15 @@
 
 <suppressions>
     <!-- START of legacy code, all violations will be resolved during transition to main project -->
-    <suppress checks=".*" files="LogicConditionNeedOptimizationCheck.java"/>
-    <suppress checks=".*" files="SimpleAccessorNameNotationCheck.java"/>
-    <suppress checks=".*" files="AvoidNotShortCircuitOperatorsForBooleanCheck.java"/>
-    <suppress checks=".*" files="ReturnCountExtendedCheck.java"/>
-    <suppress checks=".*" files="EitherLogOrThrowCheck.java"/>
-    <suppress checks=".*" files="UselessSingleCatchCheck.java"/>
-    <suppress checks=".*" files="EmptyPublicCtorInClassCheck.java"/>
-    <suppress checks=".*" files="AvoidModifiersForTypesCheck.java"/>
-    <suppress checks=".*" files="RedundantReturnCheck.java"/>
-    <suppress checks=".*" files="TernaryPerExpressionCountCheck.java"/>
-    <suppress checks=".*" files="MultipleVariableDeclarationsExtendedCheck.java"/>
+    <suppress checks="ImportControl" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|EmptyPublicCtorInClassCheck|RedundantReturnCheck).java"/>    
+    <suppress checks="JavadocParagraph" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|MultipleVariableDeclarationsExtendedCheck|EmptyPublicCtorInClassCheck|TernaryPerExpressionCountCheck).java"/>
+    <suppress checks="CyclomaticComplexity" files="(AvoidNotShortCircuitOperatorsForBooleanCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|ReturnCountExtendedCheck).java"/>
+    <suppress checks="JavadocVariable" files="(TernaryPerExpressionCountCheck|CustomDeclarationOrderCheck).java"/>
+    <suppress checks="MultipleStringLiterals" files="CustomDeclarationOrderCheck.java"/>
+    <suppress checks="MethodCount" files="CustomDeclarationOrderCheck.java"/>
+    <suppress checks="ModifiedControlVariable" files="AvoidNotShortCircuitOperatorsForBooleanCheck.java"/>
     <suppress checks=".*" files="ForbidInstantiationCheck.java"/>
     <suppress checks=".*" files="ForbidThrowAnonymousExceptionsCheck.java"/>
-    <suppress checks=".*" files="CustomDeclarationOrderCheck.java"/>
     <suppress checks=".*" files="UselessSuperCtorCallCheck.java"/>
     <suppress checks=".*" files="ForbidCertainImportsCheck.java"/>
     <suppress checks=".*" files="MultipleStringLiteralsExtendedCheck.java"/>

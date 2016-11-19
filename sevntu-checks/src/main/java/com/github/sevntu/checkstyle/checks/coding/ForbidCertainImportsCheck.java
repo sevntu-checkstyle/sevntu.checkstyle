@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.regex.Pattern;
@@ -36,12 +37,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li>Forbidden imports excludes regexp.</li>
  * </ol>
  * <p>
- * This check loads packages qualified names without 
+ * This check loads packages qualified names without
  * words "package","import" and semicolons, so, please, do NOT include "package" or
  * "import" words (or semicolons) into config regexps.</p>
  * <p>
  * Real-life example of usage: forbid to use all "*.ui.*" packages in "*.dao.*" packages,
- * but ignore all Exception imports (such as 
+ * but ignore all Exception imports (such as
  * <b>org.springframework.dao.InvalidDataAccessResourceUsageException</b>).
  * For doing that, you should to use the following check parameters:
  * </p>
@@ -202,7 +203,7 @@ public class ForbidCertainImportsCheck extends Check
      * Checks if given import both matches 'include' and not matches 'exclude' patterns.
      * @param importText package fully qualified name
      * @return true is given import is forbidden in current
-     * classes package, false otherwise
+     *     classes package, false otherwise
      */
     private boolean isImportForbidden(String importText)
     {
