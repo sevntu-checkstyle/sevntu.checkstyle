@@ -763,4 +763,30 @@
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</configKey>
     </rule>
 
+    <rule>
+        <key>com.github.sevntu.checkstyle.com.github.sevntu.checkstyle.checks.DetailASTHolder</key>
+        <name>AST root holder.</name>
+        <category name="annotation"/>
+        <description>Holds AST root for exterior usage.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.com.github.sevntu.checkstyle.checks.DetailASTHolder</configKey>
+    </rule>
+    
+    <rule>
+        <key>com.github.sevntu.checkstyle.filters.SuppressionAnnotationFilter</key>
+        <name>Suppress Annotated Elements</name>
+        <category name="annotation"/>
+        <description>Suppress all reports from elements annotated by user defined annotations. Depends on DetailASTHolder.</description>
+        <configKey>Checker/com.github.sevntu.checkstyle.filters.SuppressionAnnotationFilter</configKey>
+        <param key="annotationName" type="s{}">
+            <description>Names of suppressive annotations. Can be either simple or fully-qualified.</description>
+        </param>
+        <param key="permittedChecks" type="s{}">
+            <description>Regular expressions that matches checks, which should bypass the filter.</description>
+        </param>
+                <param key="modifiersExcluded" type="BOOLEAN">
+                <defaultValue>true</defaultValue>
+            <description>Excludes modifiers of an annotated element from filtered area. Javadocs are included in modifiers.</description>
+        </param>
+    </rule>
+
 </rules>
