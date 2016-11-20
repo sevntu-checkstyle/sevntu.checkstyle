@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.HashSet;
@@ -28,8 +47,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
-public class ForbidWildcardAsReturnTypeCheck extends Check
-{
+public class ForbidWildcardAsReturnTypeCheck extends Check {
     /**
      * Key for error message.
      */
@@ -86,79 +104,101 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
     private Pattern returnTypeClassNamesIgnoreRegex = Pattern.compile(
             "^(Comparator|Comparable)$");
 
-    public void setCheckPublicMethods(boolean checkPublicMethods)
-    {
+    /**
+     * Setter for checkPublicMethods.
+     * @param checkPublicMethods New value for the field.
+     */
+    public void setCheckPublicMethods(boolean checkPublicMethods) {
         this.checkPublicMethods = checkPublicMethods;
     }
 
-    public void setCheckProtectedMethods(boolean checkProtectedMethods)
-    {
+    /**
+     * Setter for checkProtectedMethods.
+     * @param checkProtectedMethods New value for the field.
+     */
+    public void setCheckProtectedMethods(boolean checkProtectedMethods) {
         this.checkProtectedMethods = checkProtectedMethods;
     }
 
-    public void setCheckPackageMethods(boolean checkPackageMethods)
-    {
+    /**
+     * Setter for checkPackageMethods.
+     * @param checkPackageMethods New value for the field.
+     */
+    public void setCheckPackageMethods(boolean checkPackageMethods) {
         this.checkPackageMethods = checkPackageMethods;
     }
 
-    public void setCheckPrivateMethods(boolean checkPrivateMethods)
-    {
+    /**
+     * Setter for checkPrivateMethods.
+     * @param checkPrivateMethods New value for the field.
+     */
+    public void setCheckPrivateMethods(boolean checkPrivateMethods) {
         this.checkPrivateMethods = checkPrivateMethods;
     }
 
-    public void setCheckOverrideMethods(boolean checkOverrideMethods)
-    {
+    /**
+     * Setter for checkOverrideMethods.
+     * @param checkOverrideMethods New value for the field.
+     */
+    public void setCheckOverrideMethods(boolean checkOverrideMethods) {
         this.checkOverrideMethods = checkOverrideMethods;
     }
-    
-    public void setCheckDeprecatedMethods(boolean checkDeprecatedMethods)
-    {
+
+    /**
+     * Setter for checkDeprecatedMethods.
+     * @param checkDeprecatedMethods New value for the field.
+     */
+    public void setCheckDeprecatedMethods(boolean checkDeprecatedMethods) {
         this.checkDeprecatedMethods = checkDeprecatedMethods;
     }
 
-    public void
-    setAllowReturnWildcardWithSuper(boolean allowReturnWildcardWithSuper)
-    {
+    /**
+     * Setter for allowReturnWildcardWithSuper.
+     * @param allowReturnWildcardWithSuper New value for the field.
+     */
+    public void setAllowReturnWildcardWithSuper(boolean allowReturnWildcardWithSuper) {
         this.allowReturnWildcardWithSuper = allowReturnWildcardWithSuper;
     }
 
-    public void
-    setAllowReturnWildcardWithExtends(boolean allowReturnWildcardWithExtends)
-    {
+    /**
+     * Setter for allowReturnWildcardWithExtends.
+     * @param allowReturnWildcardWithExtends New value for the field.
+     */
+    public void setAllowReturnWildcardWithExtends(boolean allowReturnWildcardWithExtends) {
         this.allowReturnWildcardWithExtends = allowReturnWildcardWithExtends;
     }
 
-    public void
-    setReturnTypeClassNamesIgnoreRegex(String returnTypeClassNamesIgnoreRegex)
-    {
+    /**
+     * Setter for returnTypeClassNamesIgnoreRegex.
+     * @param returnTypeClassNamesIgnoreRegex New value for the field.
+     */
+    public void setReturnTypeClassNamesIgnoreRegex(String returnTypeClassNamesIgnoreRegex) {
         this.returnTypeClassNamesIgnoreRegex = Pattern.compile(
                 returnTypeClassNamesIgnoreRegex);
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.METHOD_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.METHOD_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST methodDefAst)
-    {
+    public void visitToken(DetailAST methodDefAst) {
         final String methodScope = getVisibilityScope(methodDefAst);
         if (((checkPublicMethods && "public".equals(methodScope))
                 || (checkPrivateMethods && "private".equals(methodScope))
                 || (checkProtectedMethods && "protected".equals(methodScope))
                 || (checkPackageMethods && "package".equals(methodScope)))
-                && (checkOverrideMethods 
+                && (checkOverrideMethods
                         || !hasAnnotation(methodDefAst, "Override"))
                 && (checkDeprecatedMethods
-                        || !hasAnnotation(methodDefAst, "Deprecated")))
-        {
+                        || !hasAnnotation(methodDefAst, "Deprecated"))) {
             final List<DetailAST> wildcardTypeArguments =
                     getWildcardArgumentsAsMethodReturnType(methodDefAst);
             if (!wildcardTypeArguments.isEmpty()
-                    && !isIgnoreCase(methodDefAst, wildcardTypeArguments))
-            {
+                    && !isIgnoreCase(methodDefAst, wildcardTypeArguments)) {
                 log(methodDefAst.getLineNo(), MSG_KEY);
             }
         }
@@ -169,8 +209,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @param methodDefAst DetailAST of method definition.
      * @return one of "public", "private", "protected", "package"
      */
-    private static String getVisibilityScope(DetailAST methodDefAst)
-    {
+    private static String getVisibilityScope(DetailAST methodDefAst) {
         String result = "package";
         if (isInsideInterfaceDefinition(methodDefAst)) {
             result = "public";
@@ -194,8 +233,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @param methodDefAst DetailAST of method definition.
      * @return true if method definition is inside interface definition.
      */
-    private static boolean isInsideInterfaceDefinition(DetailAST methodDefAst)
-    {
+    private static boolean isInsideInterfaceDefinition(DetailAST methodDefAst) {
         boolean result = false;
         final DetailAST objBlock = methodDefAst.getParent();
         final DetailAST interfaceDef = objBlock.getParent();
@@ -210,8 +248,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @param methodDefAst AST for a method definition
      * @return the set of modifier Strings for aMethodDefAST
      */
-    private static Set<String> getModifiers(DetailAST methodDefAst)
-    {
+    private static Set<String> getModifiers(DetailAST methodDefAst) {
         final AST modifiersAst = methodDefAst.getFirstChild();
         final Set<String> modifiersSet = new HashSet<String>();
         AST modifierAst = modifiersAst.getFirstChild();
@@ -228,8 +265,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      *        DetailAST instance
      * @return identifier of aAST, null if AST does not have identifier.
      */
-    private static String getIdentifier(final DetailAST ast)
-    {
+    private static String getIdentifier(final DetailAST ast) {
         String result = null;
         final DetailAST identifier = ast.findFirstToken(TokenTypes.IDENT);
         if (identifier != null) {
@@ -245,12 +281,11 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @return true if method definition contains specified annotation.
      */
     private static boolean hasAnnotation(DetailAST methodDefAst,
-            String annotationTitle)
-    {
+            String annotationTitle) {
         boolean result = false;
         final DetailAST modifiersAst = methodDefAst.getFirstChild();
         if (hasChildToken(modifiersAst, TokenTypes.ANNOTATION)) {
-            DetailAST modifierAst  = modifiersAst.getFirstChild();
+            DetailAST modifierAst = modifiersAst.getFirstChild();
             while (modifierAst != null) {
                 if (modifierAst.getType() == TokenTypes.ANNOTATION
                         && annotationTitle.equals(getIdentifier(modifierAst))) {
@@ -269,9 +304,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      *        DetailAST of method definition.
      * @return list of arguments which have wildcard.
      */
-    private static List<DetailAST>
-    getWildcardArgumentsAsMethodReturnType(DetailAST methodDefAst)
-    {
+    private static List<DetailAST> getWildcardArgumentsAsMethodReturnType(DetailAST methodDefAst) {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         final DetailAST methodTypeAst =
                 methodDefAst.findFirstToken(TokenTypes.TYPE);
@@ -291,8 +324,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      *        DetailAST of type definition.
      * @return array of type arguments.
      */
-    private static DetailAST[] getGenericTypeArguments(DetailAST typeAst)
-    {
+    private static DetailAST[] getGenericTypeArguments(DetailAST typeAst) {
         DetailAST[] result = EMPTY_DETAILAST_ARRAY;
         if (hasChildToken(typeAst, TokenTypes.TYPE_ARGUMENTS)) {
             final DetailAST typeArguments = typeAst
@@ -322,8 +354,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      *        one of TokenTypes
      * @return true if aAST has token of given type, or false otherwise.
      */
-    private static boolean hasChildToken(DetailAST ast, int tokenType)
-    {
+    private static boolean hasChildToken(DetailAST ast, int tokenType) {
         return ast.findFirstToken(tokenType) != null;
     }
 
@@ -335,8 +366,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @return true if method is allowed by current check configuration.
      */
     private boolean isIgnoreCase(DetailAST methodDefAst,
-            List<DetailAST> wildcardTypeArguments)
-    {
+            List<DetailAST> wildcardTypeArguments) {
         boolean result = false;
         if (matchesIgnoreClassNames(methodDefAst)) {
             result = true;
@@ -376,8 +406,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @return true if aMethodDefAST's name matches ignore regexp.
      *      false otherwise.
      */
-    private boolean matchesIgnoreClassNames(DetailAST methodDefAst)
-    {
+    private boolean matchesIgnoreClassNames(DetailAST methodDefAst) {
         final DetailAST methodTypeAst =
                 methodDefAst.findFirstToken(TokenTypes.TYPE);
         final String typeIdentifier = getIdentifier(methodTypeAst);
@@ -392,8 +421,7 @@ public class ForbidWildcardAsReturnTypeCheck extends Check
      * @return true if aTypeArgumentsList contains bounded wildcard.
      */
     private static boolean hasBoundedWildcardAsReturnType(
-            final List<DetailAST> typeArgumentsList, int boundedWildcardType)
-    {
+            final List<DetailAST> typeArgumentsList, int boundedWildcardType) {
         boolean result = false;
         for (DetailAST typeArgumentAst: typeArgumentsList) {
             if (hasChildToken(typeArgumentAst, boundedWildcardType)) {

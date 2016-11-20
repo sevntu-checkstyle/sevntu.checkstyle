@@ -179,12 +179,12 @@ public class AvoidHidingCauseExceptionCheck extends Check {
      * Searches for all exceptions that wraps the original exception
      * object (only in current "catch" block).
      * @param currentCatchAST A LITERAL_CATCH node of the
-     * current "catch" block.
+     *     current "catch" block.
      * @param parentAST Current parent node to start search.
      * @param currentExcName The name of exception handled by
-     * current "catch" block.
-     * @return List<String> contains exceptions that wraps the original
-     * exception object.
+     *     current "catch" block.
+     * @return List contains exceptions that wraps the original
+     *     exception object.
      */
     private List<String> makeExceptionsList(DetailAST currentCatchAST,
             DetailAST parentAST, String currentExcName) {

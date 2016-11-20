@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -48,30 +49,34 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractNestedDepthCheck;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class NestedSwitchCheck extends AbstractNestedDepthCheck {
-
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY = "avoid.nested.switch";
 
     /** Default allowed nesting depth. */
     private static final int DEFAULT_MAX = 0;
 
+    /** The default constructor. */
     public NestedSwitchCheck() {
         super(DEFAULT_MAX);
     }
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[] { TokenTypes.LITERAL_SWITCH };
+        return new int[] {
+            TokenTypes.LITERAL_SWITCH,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST aAST)
-    {
+    public void visitToken(DetailAST aAST) {
         nestIn(aAST, MSG_KEY);
     }
 
     @Override
-    public void leaveToken(DetailAST aAST)
-    {
+    public void leaveToken(DetailAST aAST) {
         nestOut();
     }
 }

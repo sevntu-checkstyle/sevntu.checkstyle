@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.naming;
 
 import java.util.Collection;
@@ -48,7 +49,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * enum SimpleErrorEnum
  *   {
  *       FIRST_SIMPLE, SECOND_SIMPLE, THIRD_SIMPLE;
- * 
+ *
  *       public String toString() {
  *           return Integer.toString(ordinal() + 10);
  *       }
@@ -66,14 +67,21 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * By default <code>toString</code> is used as an exclusion.
  *
+ * @author Pavel Baranchikov
+ *
  * @see <a href="http://www.scribd.com/doc/15884743/Java-Coding-Style-by-Achut-Reddy">
  * Java Coding Style</a>
- *
- * @author Pavel Baranchikov
  */
-public class EnumValueNameCheck extends Check
-{
+public class EnumValueNameCheck extends Check {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_CONST = "enum.name.const.invalidPattern";
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_OBJ = "enum.name.obj.invalidPattern";
 
     /**
@@ -90,7 +98,9 @@ public class EnumValueNameCheck extends Check
     /**
      * Default exclusions value.
      */
-    private static final String[] DEFAULT_EXCLUSION = { "toString" };
+    private static final String[] DEFAULT_EXCLUSION = {
+        "toString",
+    };
 
     /**
      * Regular expression to test Class Enumeration names against.
@@ -120,10 +130,9 @@ public class EnumValueNameCheck extends Check
     private final List<Pattern> excludes;
 
     /**
-     * Constructs check with the default pattern.compile
+     * Constructs check with the default pattern.compile.
      */
-    public EnumValueNameCheck()
-    {
+    public EnumValueNameCheck() {
         setConstFormat(DEFAULT_CONST_PATTERN);
         setObjFormat(DEFAULT_OBJ_PATTERN);
         excludes = Lists.newArrayList();
@@ -132,20 +141,18 @@ public class EnumValueNameCheck extends Check
 
     /**
      * Method sets format to match Class Enumeration names.
-     * @param constRegexp format to check against
+     * @param newConstRegexp format to check against
      */
-    public final void setConstFormat(String constRegexp)
-    {
-        this.constRegexp = Pattern.compile(constRegexp, 0);
-        constFormat = constRegexp;
+    public final void setConstFormat(String newConstRegexp) {
+        this.constRegexp = Pattern.compile(newConstRegexp, 0);
+        constFormat = newConstRegexp;
     }
 
     /**
      * Method sets format to match Values Enumeration names.
      * @param objectRegexp format to check against
      */
-    public final void setObjFormat(String objectRegexp)
-    {
+    public final void setObjFormat(String objectRegexp) {
         objRegexp = Pattern.compile(objectRegexp, 0);
         objFormat = objectRegexp;
     }
@@ -155,8 +162,7 @@ public class EnumValueNameCheck extends Check
      * @param excludes
      *        comma separated list or regular expressions
      */
-    public void setExcludes(String[] excludes)
-    {
+    public void setExcludes(String[] excludes) {
         this.excludes.clear();
         for (String exclude: excludes) {
             this.excludes.add(Pattern.compile(exclude));
@@ -164,22 +170,38 @@ public class EnumValueNameCheck extends Check
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.ENUM_CONSTANT_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.ENUM_CONSTANT_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public void visitToken(DetailAST ast) {
         final DetailAST nameAST = ast.findFirstToken(TokenTypes.IDENT);
         final boolean enumIsClass = isClassEnumeration(ast);
-        final Pattern pattern = enumIsClass ? objRegexp
-                : constRegexp;
+        final Pattern pattern;
+        if (enumIsClass) {
+            pattern = objRegexp;
+        }
+        else {
+            pattern = constRegexp;
+        }
         if (!pattern.matcher(nameAST.getText()).find()) {
-            final String format = enumIsClass ? objFormat
-                    : constFormat;
-            final String msg = enumIsClass ? MSG_OBJ : MSG_CONST;
+            final String format;
+            if (enumIsClass) {
+                format = objFormat;
+            }
+            else {
+                format = constFormat;
+            }
+            final String msg;
+            if (enumIsClass) {
+                msg = MSG_OBJ;
+            }
+            else {
+                msg = MSG_CONST;
+            }
             log(nameAST.getLineNo(),
                     nameAST.getColumnNo(),
                     msg,
@@ -197,15 +219,14 @@ public class EnumValueNameCheck extends Check
      *        ast to check
      * @return <code>true</code> if enum is a class enumeration
      */
-    private boolean isClassEnumeration(DetailAST ast)
-    {
+    private boolean isClassEnumeration(DetailAST ast) {
         return hasMembers(ast, excludes);
     }
 
     /**
      * Method determines whether the specified enum is a constant or is an
      * object.
-     * 
+     *
      * @param ast
      *        token of a enum value definition
      * @param excludes
@@ -213,8 +234,7 @@ public class EnumValueNameCheck extends Check
      * @return <code>true</code> if enum is a class enumeration
      */
     private static boolean
-            hasMembers(DetailAST ast, List<Pattern> excludes)
-    {
+            hasMembers(DetailAST ast, List<Pattern> excludes) {
         final DetailAST objBlock = ast.getParent();
         assert objBlock.getType() == TokenTypes.OBJBLOCK;
         boolean memberFound = false;
@@ -246,8 +266,7 @@ public class EnumValueNameCheck extends Check
      *         matched.
      */
     private static boolean
-            isAnyMatched(Collection<Pattern> patterns, String value)
-    {
+            isAnyMatched(Collection<Pattern> patterns, String value) {
         for (Pattern pattern : patterns) {
             if (pattern.matcher(value).find()) {
                 return true;

@@ -16,11 +16,13 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -39,7 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * List of collections set by default:
  * AbstractCollection, AbstractList, AbstractQueue, AbstractSequentialList, AbstractSet,
- * ArrayBlockingQueue, ArrayDeque, ArrayList, AttributeList, BeanContextServicesSupport, 
+ * ArrayBlockingQueue, ArrayDeque, ArrayList, AttributeList, BeanContextServicesSupport,
  * BeanContextSupport, ConcurrentLinkedDeque, ConcurrentLinkedQueue, ConcurrentSkipListSet,
  * CopyOnWriteArrayList, CopyOnWriteArraySet, DelayQueue, EnumSet, HashSet, JobStateReasons,
  * LinkedBlockingDeque, LinkedBlockingQueue, LinkedHashSet, LinkedList, LinkedTransferQueue,
@@ -48,8 +50,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  */
-public class NoNullForCollectionReturnCheck extends Check
-{
+public class NoNullForCollectionReturnCheck extends Check {
     /**
      * Warning message key.
      */
@@ -60,26 +61,27 @@ public class NoNullForCollectionReturnCheck extends Check
      * Default list of collection implementing classes.
      * <p>
      */
-    private static final String DEFAULT_COLLECTIONS = "AbstractCollection AbstractList AbstractQueue " +
-            "AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque ArrayList " +
-            "AttributeList BeanContextServicesSupport BeanContextSupport ConcurrentLinkedDeque " +
-            "ConcurrentLinkedQueue ConcurrentSkipListSet CopyOnWriteArrayList CopyOnWriteArraySet " +
-            "DelayQueue EnumSet HashSet JobStateReasons LinkedBlockingDeque LinkedBlockingQueue " +
-            "LinkedHashSet LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue " +
-            "RoleList RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set";
+    private static final String DEFAULT_COLLECTIONS = "AbstractCollection AbstractList "
+            + "AbstractQueue AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque "
+            + "ArrayList AttributeList BeanContextServicesSupport BeanContextSupport "
+            + "ConcurrentLinkedDeque ConcurrentLinkedQueue ConcurrentSkipListSet "
+            + "CopyOnWriteArrayList CopyOnWriteArraySet DelayQueue EnumSet HashSet "
+            + "JobStateReasons LinkedBlockingDeque LinkedBlockingQueue LinkedHashSet "
+            + "LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue RoleList "
+            + "RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set";
     /**
      * <p>
      * List of collection, that will be check.
      * </p>
      */
-    private HashSet<String> collectionList = new HashSet<String>();
+    private Set<String> collectionList = new HashSet<String>();
 
     /**
      * <p>
      * Search not only in return line.
      * </p>
      */
-    private boolean searchThroughMethodBody = false;
+    private boolean searchThroughMethodBody;
 
     /**
      * <p>
@@ -88,12 +90,12 @@ public class NoNullForCollectionReturnCheck extends Check
      */
     private LinkedList<DetailAST> methodDefs = new LinkedList<DetailAST>();
 
-    public NoNullForCollectionReturnCheck()
-    {
+    /** Default constructor. */
+    public NoNullForCollectionReturnCheck() {
         super();
         setCollectionList(DEFAULT_COLLECTIONS);
     }
-    
+
     /**
      * <p>
      * Setter for list of known collections.
@@ -101,11 +103,9 @@ public class NoNullForCollectionReturnCheck extends Check
      * @param collectionList
      *        - line contains all collection names.
      */
-    public void setCollectionList(String collectionList)
-    {
+    public void setCollectionList(String collectionList) {
         this.collectionList.clear();
-        for (String currentCollection : collectionList.split("\\s+"))
-        {
+        for (String currentCollection : collectionList.split("\\s+")) {
             this.collectionList.add(currentCollection);
         }
     }
@@ -117,44 +117,39 @@ public class NoNullForCollectionReturnCheck extends Check
      * @param searchThroughMethodBody
      *        - deep search value.
      */
-    public void setSearchThroughMethodBody(boolean searchThroughMethodBody)
-    {
+    public void setSearchThroughMethodBody(boolean searchThroughMethodBody) {
         this.searchThroughMethodBody = searchThroughMethodBody;
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.METHOD_DEF, TokenTypes.LITERAL_RETURN };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.METHOD_DEF,
+            TokenTypes.LITERAL_RETURN,
+        };
     }
-    
+
     @Override
-    public void beginTree(DetailAST rootAST)
-    {
+    public void beginTree(DetailAST rootAST) {
         methodDefs.clear();
     }
 
     @Override
-    public void visitToken(DetailAST detailAST)
-    {
-        switch (detailAST.getType())
-        {
+    public void visitToken(DetailAST detailAST) {
+        switch (detailAST.getType()) {
             case TokenTypes.METHOD_DEF:
-                if (isReturnCollection(detailAST))
-                {
+                if (isReturnCollection(detailAST)) {
                     methodDefs.push(detailAST);
                 }
                 break;
 
             case TokenTypes.LITERAL_RETURN:
-                if (!methodDefs.isEmpty())
-                {
-                    DetailAST currentMethodDef = getMethodDef(detailAST);
+                if (!methodDefs.isEmpty()) {
+                    final DetailAST currentMethodDef = getMethodDef(detailAST);
                     if (methodDefs.contains(currentMethodDef)
                         && (hasNullLiteralInReturn(detailAST)
                             || (searchThroughMethodBody
-                                && isReturnedValueBeNull(detailAST))))
-                    {
+                                && isReturnedValueBeNull(detailAST)))) {
                         log(detailAST.getLineNo(), MSG_KEY);
                     }
                 }
@@ -174,8 +169,7 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - DetailAST contains method definition node.
      * @return true, when method return collection.
      */
-    private boolean isReturnCollection(DetailAST methodDef)
-    {
+    private boolean isReturnCollection(DetailAST methodDef) {
         DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
         methodType = methodType.getFirstChild();
         return methodType.getType() == TokenTypes.ARRAY_DECLARATOR
@@ -190,15 +184,12 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - DetailAST contains return literal
      * @return true when null literal has in return expression.
      */
-    private static boolean hasNullLiteralInReturn(DetailAST returnLit)
-    {
+    private static boolean hasNullLiteralInReturn(DetailAST returnLit) {
         DetailAST returnExpression = returnLit.findFirstToken(TokenTypes.EXPR);
-        boolean result = false; 
-        if (returnExpression != null)
-        {
-            DetailAST ternary = returnExpression.getFirstChild(); 
-            if (TokenTypes.QUESTION == ternary.getType())
-            {
+        boolean result = false;
+        if (returnExpression != null) {
+            final DetailAST ternary = returnExpression.getFirstChild();
+            if (TokenTypes.QUESTION == ternary.getType()) {
                 returnExpression = ternary;
             }
             result = returnExpression.getChildCount(TokenTypes.LITERAL_NULL) > 0;
@@ -214,42 +205,35 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - DetailAST contains LITERAL_RETURN
      * @return true, when variable may be null.
      */
-    private static boolean isReturnedValueBeNull(DetailAST returnLit)
-    {
+    private static boolean isReturnedValueBeNull(DetailAST returnLit) {
         boolean result = false;
-        DetailAST returnedExpression = returnLit.getFirstChild();
-        if (returnedExpression.getType() != TokenTypes.SEMI)
-        {
-            DetailAST variable = returnedExpression.findFirstToken(TokenTypes.IDENT);
-            if (variable != null)
-            {
-                String variableName = variable.getText();
-                DetailAST methodDef = getMethodDef(returnLit);
-                LinkedList<DetailAST> subblocks = getAllSubblocks(methodDef);
+        final DetailAST returnedExpression = returnLit.getFirstChild();
+        if (returnedExpression.getType() != TokenTypes.SEMI) {
+            final DetailAST variable = returnedExpression.findFirstToken(TokenTypes.IDENT);
+            if (variable != null) {
+                final String variableName = variable.getText();
+                final DetailAST methodDef = getMethodDef(returnLit);
+                final LinkedList<DetailAST> subblocks = getAllSubblocks(methodDef);
                 subblocks.addFirst(methodDef);
 
                 result = hasNullInDefinition(subblocks, variableName);
 
                 //searching for not a null value into variable assignment
-                if (result)
-                {
-                    for (DetailAST subblock : subblocks)
-                    {
-                        List<DetailAST> expressions =
+                if (result) {
+                    for (DetailAST subblock : subblocks) {
+                        final List<DetailAST> expressions =
                                 getChildren(getBlockBody(subblock), TokenTypes.EXPR);
-                        for (DetailAST expression : expressions)
-                        {
-                            DetailAST assign = expression.findFirstToken(TokenTypes.ASSIGN);
+                        for (DetailAST expression : expressions) {
+                            final DetailAST assign = expression.findFirstToken(TokenTypes.ASSIGN);
                             if (assign != null
-                                    && variableName.equals(assign.findFirstToken(TokenTypes.IDENT).getText()) 
-                                        && !assign.branchContains(TokenTypes.LITERAL_NULL))
-                            {
+                                    && variableName.equals(assign.findFirstToken(TokenTypes.IDENT)
+                                            .getText())
+                                    && !assign.branchContains(TokenTypes.LITERAL_NULL)) {
                                 result = false;
                                 break;
                             }
                         }
-                        if (!result)
-                        {
+                        if (!result) {
                             break;
                         }
                     }
@@ -267,32 +251,26 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - node of the block.
      * @return all the nested subblocks in block.
      */
-    private static LinkedList<DetailAST> getAllSubblocks(DetailAST blockDef)
-    {
-        DetailAST blockBody = getBlockBody(blockDef);
-        LinkedList<DetailAST> subblocks = new LinkedList<DetailAST>();
+    private static LinkedList<DetailAST> getAllSubblocks(DetailAST blockDef) {
+        final DetailAST blockBody = getBlockBody(blockDef);
+        final LinkedList<DetailAST> subblocks = new LinkedList<DetailAST>();
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_IF));
-        List<DetailAST> elseBlocks = new LinkedList<DetailAST>();
-        for (DetailAST currentIf : subblocks)
-        {
-            if (currentIf.getChildCount(TokenTypes.LITERAL_ELSE) > 0)
-            {
+        final List<DetailAST> elseBlocks = new LinkedList<DetailAST>();
+        for (DetailAST currentIf : subblocks) {
+            if (currentIf.getChildCount(TokenTypes.LITERAL_ELSE) > 0) {
                 elseBlocks.add(currentIf.findFirstToken(TokenTypes.LITERAL_ELSE));
             }
         }
-        if (!elseBlocks.isEmpty())
-        {
+        if (!elseBlocks.isEmpty()) {
             subblocks.addAll(elseBlocks);
         }
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_WHILE));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_DO));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_FOR));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_TRY));
-        List<DetailAST> nestedSubblocks = new LinkedList<DetailAST>();
-        for (DetailAST currentSubblock : subblocks)
-        {
-            if (currentSubblock.branchContains(TokenTypes.SLIST))
-            {
+        final List<DetailAST> nestedSubblocks = new LinkedList<DetailAST>();
+        for (DetailAST currentSubblock : subblocks) {
+            if (currentSubblock.branchContains(TokenTypes.SLIST)) {
                 nestedSubblocks.addAll(getAllSubblocks(currentSubblock));
             }
         }
@@ -310,37 +288,30 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - name of returned variable.
      * @return true when variable is null into the variable definition.
      */
-    private static boolean hasNullInDefinition(List<DetailAST> subBlocks, String variableName)
-    {
+    private static boolean hasNullInDefinition(List<DetailAST> subBlocks, String variableName) {
         boolean result = false;
-        for (DetailAST subblock : subBlocks)
-        {
-            List<DetailAST> variableDefs =
+        for (DetailAST subblock : subBlocks) {
+            final List<DetailAST> variableDefs =
                     getChildren(getBlockBody(subblock), TokenTypes.VARIABLE_DEF);
             boolean isFinded = false;
-            for (DetailAST currentDef : variableDefs)
-            {
-                DetailAST variable = currentDef.findFirstToken(TokenTypes.IDENT);
+            for (DetailAST currentDef : variableDefs) {
+                final DetailAST variable = currentDef.findFirstToken(TokenTypes.IDENT);
 
-                if (variableName.equals(variable.getText()))
-                {
-                    DetailAST variableDef = currentDef;
+                if (variableName.equals(variable.getText())) {
+                    final DetailAST variableDef = currentDef;
                     DetailAST variableValue = variableDef.findFirstToken(TokenTypes.ASSIGN);
-                    if (variableValue != null)
-                    {
+                    if (variableValue != null) {
                         variableValue = variableValue.findFirstToken(TokenTypes.EXPR);
                         result = variableValue.getFirstChild().getType() == TokenTypes.LITERAL_NULL;
                     }
-                    else
-                    {
+                    else {
                         result = true;
                     }
                     isFinded = true;
                     break;
                 }
             }
-            if (isFinded)
-            {
+            if (isFinded) {
                 break;
             }
         }
@@ -357,19 +328,15 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - type of children
      * @return all children of that have the specified type.
      */
-    private static List<DetailAST> getChildren(DetailAST root, int type)
-    {
-        List<DetailAST> children = new LinkedList<DetailAST>();
+    private static List<DetailAST> getChildren(DetailAST root, int type) {
+        final List<DetailAST> children = new LinkedList<DetailAST>();
         DetailAST currentChild = root.findFirstToken(type);
-        if (currentChild != null)
-        {
+        if (currentChild != null) {
             children.add(currentChild);
         }
-        while (children.size() < root.getChildCount(type))
-        {
+        while (children.size() < root.getChildCount(type)) {
             currentChild = currentChild.getNextSibling();
-            if (currentChild.getType() == type)
-            {
+            if (currentChild.getType() == type) {
                 children.add(currentChild);
             }
         }
@@ -384,11 +351,9 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - DetailAST contains LITERAL_RETURN.
      * @return DetailAST contains METHOD_DEF
      */
-    private static DetailAST getMethodDef(DetailAST returnLit)
-    {
+    private static DetailAST getMethodDef(DetailAST returnLit) {
         DetailAST methodDef = returnLit;
-        while (methodDef.getType() != TokenTypes.METHOD_DEF)
-        {
+        while (methodDef.getType() != TokenTypes.METHOD_DEF) {
             methodDef = methodDef.getParent();
         }
         return methodDef;
@@ -402,11 +367,9 @@ public class NoNullForCollectionReturnCheck extends Check
      *        - block definition node
      * @return body of the block.
      */
-    private static DetailAST getBlockBody(DetailAST blockDef)
-    {
+    private static DetailAST getBlockBody(DetailAST blockDef) {
         DetailAST blockBody = blockDef.findFirstToken(TokenTypes.SLIST);
-        if (blockBody == null)
-        {
+        if (blockBody == null) {
             blockBody = blockDef;
         }
         return blockBody;

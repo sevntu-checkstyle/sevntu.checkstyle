@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -29,28 +30,40 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * is almost never acceptable.
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
  */
-public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
-{
+public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
     /**
      * Warning message key.
      */
     public static final String MSG_KEY = "illegal.catch";
 
-    /** disable warnings for "catch" blocks containing
+    /** Disable warnings for "catch" blocks containing
      * throwing an exception. */
     private boolean allowThrow = true;
 
-    /** disable warnings for "catch" blocks containing
+    /** Disable warnings for "catch" blocks containing
      * rethrowing an exception. */
     private boolean allowRethrow = true;
+
+    /** Creates new instance of the check. */
+    public IllegalCatchExtendedCheck() {
+        super(new String[] {
+            "Exception",
+            "Error",
+            "RuntimeException",
+            "Throwable",
+            "java.lang.Error",
+            "java.lang.Exception",
+            "java.lang.RuntimeException",
+            "java.lang.Throwable",
+        });
+    }
 
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * throwing an exception.
      * @param value Disable warning for throwing
      */
-    public void setAllowThrow(final boolean value)
-    {
+    public void setAllowThrow(final boolean value) {
         allowThrow = value;
     }
 
@@ -59,38 +72,25 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
      * rethrowing an exception.
      * @param value Disable warnings for rethrowing
      */
-    public void setAllowRethrow(final boolean value)
-    {
+    public void setAllowRethrow(final boolean value) {
         allowRethrow = value;
     }
 
-    /** Creates new instance of the check. */
-    public IllegalCatchExtendedCheck()
-    {
-        super(new String[]{"Exception", "Error", "RuntimeException",
-            "Throwable", "java.lang.Error", "java.lang.Exception",
-            "java.lang.RuntimeException", "java.lang.Throwable", });
-    }
-
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[]{TokenTypes.LITERAL_CATCH};
     }
 
     @Override
-    public int[] getRequiredTokens()
-    {
+    public int[] getRequiredTokens() {
         return getDefaultTokens();
     }
 
     @Override
-    public void visitToken(DetailAST detailAST)
-    {
+    public void visitToken(DetailAST detailAST) {
         final DetailAST paramDef = detailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
         final DetailAST throwAST = getThrowAST(detailAST);
-
 
         DetailAST firstLvlChild = null;
         if (throwAST != null) {
@@ -120,44 +120,41 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck
         }
     }
 
-    /** Looking for the keyword "throw" among current (aParentAST) node childs.
+    /**
+     * Looking for the keyword "throw" among current (aParentAST) node childs.
      * @param parentAST - the current parent node.
      * @return null if the "throw" keyword was not found
-     * or the LITERAL_THROW DetailAST otherwise
+     *     or the LITERAL_THROW DetailAST otherwise
      */
-    public DetailAST getThrowAST(DetailAST parentAST)
-    {
-
-        final DetailAST asts[] = getChilds(parentAST);
+    public DetailAST getThrowAST(DetailAST parentAST) {
+        DetailAST result = null;
+        final DetailAST[] asts = getChilds(parentAST);
 
         for (DetailAST currentNode : asts) {
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getNumberOfChildren() > 0)
-            {
+                    && currentNode.getNumberOfChildren() > 0) {
                 final DetailAST astResult = getThrowAST(currentNode);
                 if (astResult != null) {
-                    return astResult;
+                    result = astResult;
+                    break;
                 }
             }
 
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
-                return currentNode;
-            }
-
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
+                result = currentNode;
+                break;
             }
         }
-        return null;
+        return result;
     }
 
-    /** Gets all the children one level below on the current top node.
+    /**
+     * Gets all the children one level below on the current top node.
      * @param node - current parent node.
      * @return an array of childs one level below
-     * on the current parent node aNode. */
-    public static DetailAST[] getChilds(DetailAST node)
-    {
+     *     on the current parent node aNode. */
+    public static DetailAST[] getChilds(DetailAST node) {
         final DetailAST[] result = new DetailAST[node.getChildCount()];
 
         DetailAST currNode = node.getFirstChild();

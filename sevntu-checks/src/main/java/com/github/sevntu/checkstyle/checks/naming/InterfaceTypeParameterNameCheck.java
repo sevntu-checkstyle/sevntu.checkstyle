@@ -50,27 +50,23 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
 * @version 1.0
 */
 public class InterfaceTypeParameterNameCheck
-        extends AbstractNameCheck
-{
-    
+        extends AbstractNameCheck {
+
     /** Creates a new <code>InterfaceTypeParameterNameCheck</code> instance. */
-    public InterfaceTypeParameterNameCheck()
-    {
+    public InterfaceTypeParameterNameCheck() {
         super("^[A-Z]$");
     }
-    
+
     @Override
-    public final int[] getDefaultTokens()
-    {
+    public final int[] getDefaultTokens() {
         return new int[] {
             TokenTypes.TYPE_PARAMETER,
         };
     }
-    
+
     @Override
-    protected final boolean mustCheckName(DetailAST ast)
-    {
-        DetailAST location = ast.getParent().getParent();
+    protected final boolean mustCheckName(DetailAST ast) {
+        final DetailAST location = ast.getParent().getParent();
 
         return location.getType() == TokenTypes.INTERFACE_DEF;
     }

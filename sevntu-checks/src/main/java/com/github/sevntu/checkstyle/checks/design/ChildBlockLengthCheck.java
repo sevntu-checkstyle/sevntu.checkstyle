@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.LinkedList;
@@ -45,20 +46,19 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ChildBlockLengthCheck extends Check
-{
-
-    /**
-     * The constant is used in percantage arifmethic operations. Represents
-     * '100%'
-     */
-    private static final double PERCENTS_FACTOR = 100.0;
+public class ChildBlockLengthCheck extends Check {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
     public static final String MSG_KEY = "child.block.length";
+
+    /**
+     * The constant is used in percantage arifmethic operations. Represents
+     * '100%'
+     */
+    private static final double PERCENTS_FACTOR = 100.0;
 
     /**
      * Default value of maximum percentage ratio between the child and the
@@ -82,8 +82,7 @@ public class ChildBlockLengthCheck extends Check
     /**
      * Maximum percentage ratio between the child block and the parent block.
      */
-    private double maxChildBlockPercentage
-        = DEFAULT_MAX_CHILD_BLOCK_PERCENTAGE;
+    private double maxChildBlockPercentage = DEFAULT_MAX_CHILD_BLOCK_PERCENTAGE;
 
     /**
      * Maximum number of lines of which block body may consist to be skipped by
@@ -99,8 +98,7 @@ public class ChildBlockLengthCheck extends Check
      *        - DetailAST tokenTypes that are related to the types which are
      *        allowed by user in check preferences.
      **/
-    public void setBlockTypes(final String[] blockTypes)
-    {
+    public void setBlockTypes(final String[] blockTypes) {
         this.blockTypes = new int[blockTypes.length];
         for (int i = 0; i < blockTypes.length; i++) {
             this.blockTypes[i] = TokenUtils.getTokenId(blockTypes[i]);
@@ -113,8 +111,7 @@ public class ChildBlockLengthCheck extends Check
      * @param maxChildBlockPercentage
      *        the new "maxChildBlockPercentage" option value.
      */
-    public void setMaxChildBlockPercentage(int maxChildBlockPercentage)
-    {
+    public void setMaxChildBlockPercentage(int maxChildBlockPercentage) {
         this.maxChildBlockPercentage = maxChildBlockPercentage;
     }
 
@@ -123,23 +120,21 @@ public class ChildBlockLengthCheck extends Check
      * @param ignoreBlockLinesCount
      *        the maximum linelength of the block to be ignored.
      */
-    public void setIgnoreBlockLinesCount(int ignoreBlockLinesCount)
-    {
+    public void setIgnoreBlockLinesCount(int ignoreBlockLinesCount) {
         this.ignoreBlockLinesCount = ignoreBlockLinesCount;
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return blockTypes;
     }
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public void visitToken(DetailAST ast) {
         final DetailAST aOpeningBrace = openingBrace(ast);
 
-        if (aOpeningBrace != null) { // if the block has braces at all
+        // if the block has braces at all
+        if (aOpeningBrace != null) {
 
             final DetailAST aClosingBrace = closingBrace(ast);
             final int parentBlockSize =
@@ -184,8 +179,7 @@ public class ChildBlockLengthCheck extends Check
      * @return all child blocks that have braces.
      */
     private List<DetailAST> getChildBlocks(DetailAST blockOpeningBrace,
-            DetailAST blockClosingBrace)
-    {
+            DetailAST blockClosingBrace) {
         final List<DetailAST> childBlocks = Lists.newLinkedList();
 
         DetailAST curNode = blockOpeningBrace;
@@ -193,7 +187,8 @@ public class ChildBlockLengthCheck extends Check
         while (curNode != null) {
             // before node visiting
             if (curNode == blockClosingBrace) {
-                break; // stop at closing brace
+                // stop at closing brace
+                break;
             }
             else {
                 if (isAllowedBlockType(curNode.getType())) {
@@ -206,8 +201,7 @@ public class ChildBlockLengthCheck extends Check
             final int type = curNode.getType();
             // skip anonymous classes and nested methods
             if (type == TokenTypes.METHOD_DEF
-                    || type == TokenTypes.CLASS_DEF)
-            {
+                    || type == TokenTypes.CLASS_DEF) {
                 nextNode = curNode.getNextSibling();
             }
 
@@ -229,8 +223,7 @@ public class ChildBlockLengthCheck extends Check
      *        the token type ID for the given block.
      * @return true, if the given child block type is allowed.
      */
-    private boolean isAllowedBlockType(int blockType)
-    {
+    private boolean isAllowedBlockType(int blockType) {
         boolean result = false;
         for (int type : blockTypes) {
             if (type == blockType) {
@@ -251,8 +244,7 @@ public class ChildBlockLengthCheck extends Check
      * @return the wrong child blocks
      */
     private List<DetailAST> getBadChildBlocks(List<DetailAST> blocksList,
-            int parentBlockSize)
-    {
+            int parentBlockSize) {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         for (DetailAST block : blocksList) {
             if (isChildBlockBad(block, parentBlockSize)) {
@@ -272,8 +264,7 @@ public class ChildBlockLengthCheck extends Check
      * @return true, if is child block wrong
      */
     private boolean isChildBlockBad(DetailAST childBlock,
-            int parentBlockSize)
-    {
+            int parentBlockSize) {
         boolean result = false;
         final DetailAST openingBrace = openingBrace(childBlock);
         if (openingBrace != null) {
@@ -294,8 +285,7 @@ public class ChildBlockLengthCheck extends Check
      * @return the percentage value.
      */
     private boolean getPercentage(int parentBlockSize,
-            final int childBlockSize)
-    {
+            final int childBlockSize) {
         final double percentage =
                 ((double) childBlockSize / (double) parentBlockSize) * 100.0;
         return percentage > maxChildBlockPercentage;
@@ -307,11 +297,15 @@ public class ChildBlockLengthCheck extends Check
      *        the DetailAST node is related to the given parent block.
      * @return the DetailAST node is related to the given block opening brace
      */
-    private static DetailAST openingBrace(final DetailAST parentBlock)
-    {
-        return (parentBlock.getType() == TokenTypes.LITERAL_SWITCH)
-                ? parentBlock.findFirstToken(TokenTypes.LCURLY)
-                : parentBlock.findFirstToken(TokenTypes.SLIST);
+    private static DetailAST openingBrace(final DetailAST parentBlock) {
+        final int searchType;
+        if (parentBlock.getType() == TokenTypes.LITERAL_SWITCH) {
+            searchType = TokenTypes.LCURLY;
+        }
+        else {
+            searchType = TokenTypes.SLIST;
+        }
+        return parentBlock.findFirstToken(searchType);
     }
 
     /**
@@ -320,12 +314,16 @@ public class ChildBlockLengthCheck extends Check
      *        the DetailAST node is related to the given parent block.
      * @return the DetailAST node is related to the given block closing brace
      */
-    private static DetailAST closingBrace(DetailAST parentBlockNode)
-    {
+    private static DetailAST closingBrace(DetailAST parentBlockNode) {
         final int aParentBlockType = parentBlockNode.getType();
-        return (aParentBlockType == TokenTypes.LITERAL_SWITCH)
-                ? parentBlockNode.getLastChild()
-                : openingBrace(parentBlockNode).getLastChild();
+        final DetailAST result;
+        if (aParentBlockType == TokenTypes.LITERAL_SWITCH) {
+            result = parentBlockNode.getLastChild();
+        }
+        else {
+            result = openingBrace(parentBlockNode).getLastChild();
+        }
+        return result;
     }
 
     /**
@@ -335,8 +333,7 @@ public class ChildBlockLengthCheck extends Check
      *        should have braces!).
      * @return the lines count between the given block braces.
      */
-    private static int linesCount(DetailAST blockAst)
-    {
+    private static int linesCount(DetailAST blockAst) {
         return linesCount(openingBrace(blockAst), closingBrace(blockAst));
     }
 
@@ -349,8 +346,7 @@ public class ChildBlockLengthCheck extends Check
      * @return the lines count between the given block braces.
      */
     private static int linesCount(DetailAST openingBrace,
-            DetailAST closingBrace)
-    {
+            DetailAST closingBrace) {
         int result = closingBrace.getLineNo() - openingBrace.getLineNo();
         if (result != 0) {
             result--;

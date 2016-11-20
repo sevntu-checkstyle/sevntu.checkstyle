@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2010  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -30,25 +31,24 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
-public class InnerClassCheck extends Check
-{
+public class InnerClassCheck extends Check {
     /**
      * Warning message key.
      */
-    public final static String MSG_KEY = "arrangement.members.before.inner";
-
-    @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[]{TokenTypes.CLASS_DEF, };
-    }
+    public static final String MSG_KEY = "arrangement.members.before.inner";
 
     /** Meet a root class. */
     private boolean rootClass = true;
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+        };
+    }
+
+    @Override
+    public void visitToken(DetailAST ast) {
         /** First root class */
         if (rootClass) {
             rootClass = false;
@@ -56,11 +56,9 @@ public class InnerClassCheck extends Check
         else {
             DetailAST nextSibling = ast.getNextSibling();
             while (null != nextSibling
-                    && nextSibling.getType() != TokenTypes.CLASS_DEF)
-            {
+                    && nextSibling.getType() != TokenTypes.CLASS_DEF) {
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
-                        || nextSibling.getType() == TokenTypes.METHOD_DEF)
-                {
+                        || nextSibling.getType() == TokenTypes.METHOD_DEF) {
                     log(nextSibling.getLineNo(), nextSibling.getColumnNo(), MSG_KEY);
                 }
                 nextSibling = nextSibling.getNextSibling();
@@ -69,8 +67,7 @@ public class InnerClassCheck extends Check
     }
 
     @Override
-    public void leaveToken(DetailAST ast)
-    {
+    public void leaveToken(DetailAST ast) {
         /** Is this a root class */
         if (null == ast.getParent()) {
             rootClass = true;

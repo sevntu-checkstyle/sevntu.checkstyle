@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.HashSet;
@@ -46,8 +47,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class CauseParameterInExceptionCheck extends Check
-{
+public class CauseParameterInExceptionCheck extends Check {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -82,8 +82,7 @@ public class CauseParameterInExceptionCheck extends Check
     /**
      * Creates the new check instance.
      */
-    public CauseParameterInExceptionCheck()
-    {
+    public CauseParameterInExceptionCheck() {
         allowedCauseTypes.add("Exception");
         allowedCauseTypes.add("Throwable");
     }
@@ -94,10 +93,14 @@ public class CauseParameterInExceptionCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        should be checked.
      */
-    public void setClassNamesRegexp(String classNamesRegexp)
-    {
-        final String regexp = classNamesRegexp == null ? ""
-                : classNamesRegexp;
+    public void setClassNamesRegexp(String classNamesRegexp) {
+        final String regexp;
+        if (classNamesRegexp == null) {
+            regexp = "";
+        }
+        else {
+            regexp = classNamesRegexp;
+        }
         this.classNamesRegexp = Pattern.compile(regexp);
     }
 
@@ -108,10 +111,14 @@ public class CauseParameterInExceptionCheck extends Check
      *        String contains the regex to set for the names of classes, that
      *        should be ignored by check.
      */
-    public void setIgnoredClassNamesRegexp(String ignoredClassNamesRegexp)
-    {
-        final String regexp = ignoredClassNamesRegexp == null ? ""
-                : ignoredClassNamesRegexp;
+    public void setIgnoredClassNamesRegexp(String ignoredClassNamesRegexp) {
+        final String regexp;
+        if (ignoredClassNamesRegexp == null) {
+            regexp = "";
+        }
+        else {
+            regexp = ignoredClassNamesRegexp;
+        }
         this.ignoredClassNamesRegexp = Pattern.compile(regexp);
     }
 
@@ -122,8 +129,7 @@ public class CauseParameterInExceptionCheck extends Check
      *        short, such as "NullpointerException", do not use full name -
      *        java.lang.NullpointerException;
      */
-    public void setAllowedCauseTypes(final String[] allowedCauseTypes)
-    {
+    public void setAllowedCauseTypes(final String[] allowedCauseTypes) {
         this.allowedCauseTypes.clear();
         for (String name : allowedCauseTypes) {
             this.allowedCauseTypes.add(name);
@@ -131,29 +137,28 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int []{TokenTypes.CLASS_DEF, TokenTypes.CTOR_DEF, };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.CTOR_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
             case TokenTypes.CLASS_DEF:
                 final String exceptionClassName = getName(ast);
                 if (classNamesRegexp.matcher(exceptionClassName).matches()
                     && !ignoredClassNamesRegexp.matcher(exceptionClassName)
-                        .matches())
-                {
+                        .matches()) {
                     exceptionClassesToWarn.add(ast);
                 }
                 break;
             case TokenTypes.CTOR_DEF:
                 final DetailAST exceptionClass = getClassDef(ast);
                 if (exceptionClassesToWarn.contains(exceptionClass)
-                    && hasCauseAsParameter(ast))
-                { // if current class is not ignored
+                    && hasCauseAsParameter(ast)) {
                     exceptionClassesToWarn.remove(exceptionClass);
                 }
                 break;
@@ -164,8 +169,7 @@ public class CauseParameterInExceptionCheck extends Check
     }
 
     @Override
-    public void finishTree(DetailAST treeRootAST)
-    {
+    public void finishTree(DetailAST treeRootAST) {
         for (DetailAST classDefNode : exceptionClassesToWarn) {
             log(classDefNode, MSG_KEY, getName(classDefNode));
         }
@@ -181,8 +185,7 @@ public class CauseParameterInExceptionCheck extends Check
      * @return true if the given ctor contains exception cause as a parameter
      *         and false otherwise.
      */
-    private boolean hasCauseAsParameter(DetailAST ctorDefNode)
-    {
+    private boolean hasCauseAsParameter(DetailAST ctorDefNode) {
         boolean result = false;
         final DetailAST parameters =
                 ctorDefNode.findFirstToken(TokenTypes.PARAMETERS);
@@ -200,8 +203,7 @@ public class CauseParameterInExceptionCheck extends Check
      * @param parametersAST - A PARAMETERS DetailAST.
      * @return the list of classNames for given constructor parameters types.
      */
-    private static List<String> getParameterTypes(DetailAST parametersAST)
-    {
+    private static List<String> getParameterTypes(DetailAST parametersAST) {
         final List<String> result = new LinkedList<String>();
         for (DetailAST parametersChild : getChildren(parametersAST)) {
             if (parametersChild.getType() == TokenTypes.PARAMETER_DEF) {
@@ -222,8 +224,7 @@ public class CauseParameterInExceptionCheck extends Check
      * @return the name of class or constructor is related to CLASS_DEF or
      *         CTOR_DEF node.
      */
-    private static String getName(final DetailAST classOrCtorDefNode)
-    {
+    private static String getName(final DetailAST classOrCtorDefNode) {
         final DetailAST classNameIdent = classOrCtorDefNode
                 .findFirstToken(TokenTypes.IDENT);
         return classNameIdent.getText();
@@ -237,8 +238,7 @@ public class CauseParameterInExceptionCheck extends Check
      *         related to the given DetailAST node or null if given token is not
      *         located in any class.
      */
-    private static DetailAST getClassDef(final DetailAST node)
-    {
+    private static DetailAST getClassDef(final DetailAST node) {
         DetailAST curNode = node;
         while (curNode != null && curNode.getType() != TokenTypes.CLASS_DEF) {
             curNode = curNode.getParent();
@@ -253,8 +253,7 @@ public class CauseParameterInExceptionCheck extends Check
      *        Current parent node.
      * @return The list of children one level below on the current parent node.
      */
-    private static List<DetailAST> getChildren(final DetailAST node)
-    {
+    private static List<DetailAST> getChildren(final DetailAST node) {
         final List<DetailAST> result = new LinkedList<DetailAST>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
