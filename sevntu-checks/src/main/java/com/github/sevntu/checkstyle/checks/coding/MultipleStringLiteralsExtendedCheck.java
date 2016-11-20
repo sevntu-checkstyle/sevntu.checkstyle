@@ -37,224 +37,213 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *
  * @author Daniel Grenner
  */
-public class MultipleStringLiteralsExtendedCheck extends Check
-{
-	public static final String MSG_KEY = "multiple.string.literal";
+public class MultipleStringLiteralsExtendedCheck extends Check {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    public static final String MSG_KEY = "multiple.string.literal";
 
-	/**
-	 * The found strings and their positions. <String, ArrayList>, with the ArrayList containing StringInfo objects.
-	 */
-	private final Map<String, List<StringInfo>> stringMap = Maps.newHashMap();
+    /**
+     * The found strings and their positions. &lt;String, ArrayList&gt;, with
+     * the ArrayList containing StringInfo objects.
+     */
+    private final Map<String, List<StringInfo>> stringMap = Maps.newHashMap();
 
-	/**
-	 * Marks the TokenTypes where duplicate strings should be ignored.
-	 */
-	private final BitSet ignoreOccurrenceContext = new BitSet();
+    /**
+     * Marks the TokenTypes where duplicate strings should be ignored.
+     */
+    private final BitSet ignoreOccurrenceContext = new BitSet();
 
-	/**
-	 * The allowed number of string duplicates in a file before an error is generated.
-	 */
-	private int allowedDuplicates = 1;
+    /**
+     * The allowed number of string duplicates in a file before an error is generated.
+     */
+    private int allowedDuplicates = 1;
 
-	/**
-	 * Highlight all duplicates in a file if set true
-	 */
-	private boolean highlightAllDuplicates = false;
+    /**
+     * Highlight all duplicates in a file if set true.
+     */
+    private boolean highlightAllDuplicates;
 
-	/**
-	 * Sets the maximum allowed duplicates of a string.
-	 *
-	 * @param allowedDuplicates
-	 *            The maximum number of duplicates.
-	 */
-	public void setAllowedDuplicates(int allowedDuplicates)
-	{
-		this.allowedDuplicates = allowedDuplicates;
-	}
+    /**
+     * Pattern for matching ignored strings.
+     */
+    private Pattern pattern;
 
-	/**
-	 * Pattern for matching ignored strings.
-	 */
-	private Pattern pattern;
+    /**
+     * Construct an instance with default values.
+     */
+    public MultipleStringLiteralsExtendedCheck() {
+        setIgnoreStringsRegexp("^\"\"$");
+        ignoreOccurrenceContext.set(TokenTypes.ANNOTATION);
+    }
 
-	/**
-	 * Construct an instance with default values.
-	 */
-	public MultipleStringLiteralsExtendedCheck()
-	{
-		setIgnoreStringsRegexp("^\"\"$");
-		ignoreOccurrenceContext.set(TokenTypes.ANNOTATION);
-	}
+    /**
+     * Sets the maximum allowed duplicates of a string.
+     *
+     * @param allowedDuplicates
+     *            The maximum number of duplicates.
+     */
+    public void setAllowedDuplicates(int allowedDuplicates) {
+        this.allowedDuplicates = allowedDuplicates;
+    }
 
-	/**
-	 * Sets regexp pattern for ignored strings.
-	 *
-	 * @param ignoreStringsRegexp
-	 *            regexp pattern for ignored strings
-	 */
-	public void setIgnoreStringsRegexp(String ignoreStringsRegexp)
-	{
-		if ((ignoreStringsRegexp != null)
-				&& (ignoreStringsRegexp.length() > 0))
-		{
-			pattern = Pattern.compile(ignoreStringsRegexp);
-		}
-		else {
-			pattern = null;
-		}
-	}
+    /**
+     * Sets regexp pattern for ignored strings.
+     *
+     * @param ignoreStringsRegexp
+     *            regexp pattern for ignored strings
+     */
+    public void setIgnoreStringsRegexp(String ignoreStringsRegexp) {
+        if ((ignoreStringsRegexp != null)
+                && (ignoreStringsRegexp.length() > 0)) {
+            pattern = Pattern.compile(ignoreStringsRegexp);
+        }
+        else {
+            pattern = null;
+        }
+    }
 
-	/**
-	 * Sets highlight for all duplicates or only first.
-	 *
-	 * @param highlightAllDuplicates
-	 *            if true show all duplicates
-	 */
-	public final void setHighlightAllDuplicates(
-			final boolean highlightAllDuplicates)
-	{
-		this.highlightAllDuplicates = highlightAllDuplicates;
-	}
+    /**
+     * Sets highlight for all duplicates or only first.
+     *
+     * @param highlightAllDuplicates
+     *            if true show all duplicates
+     */
+    public final void setHighlightAllDuplicates(
+            final boolean highlightAllDuplicates) {
+        this.highlightAllDuplicates = highlightAllDuplicates;
+    }
 
-	/**
-	 * Adds a set of tokens the check is interested in.
-	 *
-	 * @param strRep
-	 *            the string representation of the tokens interested in
-	 */
-	public final void setIgnoreOccurrenceContext(String[] strRep)
-	{
-		ignoreOccurrenceContext.clear();
-		for (final String s : strRep) {
-			final int type = TokenUtils.getTokenId(s);
-			ignoreOccurrenceContext.set(type);
-		}
-	}
+    /**
+     * Adds a set of tokens the check is interested in.
+     *
+     * @param strRep
+     *            the string representation of the tokens interested in
+     */
+    public final void setIgnoreOccurrenceContext(String[] strRep) {
+        ignoreOccurrenceContext.clear();
+        for (final String s : strRep) {
+            final int type = TokenUtils.getTokenId(s);
+            ignoreOccurrenceContext.set(type);
+        }
+    }
 
-	@Override
-	public int[] getDefaultTokens()
-	{
-		return new int[] { TokenTypes.STRING_LITERAL };
-	}
+    @Override
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.STRING_LITERAL,
+        };
+    }
 
-	@Override
-	public void visitToken(DetailAST ast)
-	{
-		if (isInIgnoreOccurrenceContext(ast)) {
-			return;
-		}
-		final String currentString = ast.getText();
-		if ((pattern == null) || !pattern.matcher(currentString).find()) {
-			List<StringInfo> hitList = stringMap.get(currentString);
-			if (hitList == null) {
-				hitList = Lists.newArrayList();
-				stringMap.put(currentString, hitList);
-			}
-			final int line = ast.getLineNo();
-			final int col = ast.getColumnNo();
-			hitList.add(new StringInfo(line, col));
-		}
-	}
+    @Override
+    public void visitToken(DetailAST ast) {
+        if (!isInIgnoreOccurrenceContext(ast)) {
+            final String currentString = ast.getText();
+            if ((pattern == null) || !pattern.matcher(currentString).find()) {
+                List<StringInfo> hitList = stringMap.get(currentString);
+                if (hitList == null) {
+                    hitList = Lists.newArrayList();
+                    stringMap.put(currentString, hitList);
+                }
+                final int line = ast.getLineNo();
+                final int col = ast.getColumnNo();
+                hitList.add(new StringInfo(line, col));
+            }
+        }
+    }
 
-	/**
-	 * Analyses the path from the AST root to a given AST for occurrences of the token types in
-	 * {@link #ignoreOccurrenceContext}.
-	 *
-	 * @param ast
-	 *            the node from where to start searching towards the root node
-	 * @return whether the path from the root node to aAST contains one of the token type in
-	 *         {@link #ignoreOccurrenceContext}.
-	 */
-	private boolean isInIgnoreOccurrenceContext(DetailAST ast)
-	{
-		DetailAST token = ast.getParent();
-		while (token != null)
-		{
-			final int type = token.getType();
-			if (ignoreOccurrenceContext.get(type)) {
-				return true;
-			}
-			token = token.getParent();
-		}
-		return false;
-	}
+    /**
+     * Analyses the path from the AST root to a given AST for occurrences of the token types in
+     * {@link #ignoreOccurrenceContext}.
+     *
+     * @param ast
+     *            the node from where to start searching towards the root node
+     * @return whether the path from the root node to aAST contains one of the token type in
+     *         {@link #ignoreOccurrenceContext}.
+     */
+    private boolean isInIgnoreOccurrenceContext(DetailAST ast) {
+        DetailAST token = ast.getParent();
+        while (token != null) {
+            final int type = token.getType();
+            if (ignoreOccurrenceContext.get(type)) {
+                return true;
+            }
+            token = token.getParent();
+        }
+        return false;
+    }
 
-	@Override
-	public void beginTree(DetailAST rootAST)
-	{
-		super.beginTree(rootAST);
-		stringMap.clear();
-	}
+    @Override
+    public void beginTree(DetailAST rootAST) {
+        super.beginTree(rootAST);
+        stringMap.clear();
+    }
 
-	@Override
-	public void finishTree(DetailAST rootAST)
-	{
-		final Set<String> keys = stringMap.keySet();
-		for (String key : keys) {
-			final List<StringInfo> hits = stringMap.get(key);
-			if (hits.size() > allowedDuplicates) {
-				int hitsSize = 1;
-				if (highlightAllDuplicates) {
-					hitsSize = hits.size();
-				}
-				for (int index = 0; index < hitsSize; index++) {
-					final StringInfo firstFinding = hits.get(index);
-					final int line = firstFinding.getLine();
-					final int col = firstFinding.getCol();
-					log(line, col,
-							MSG_KEY, key, hits.size());
-				}
-			}
-		}
-	}
+    @Override
+    public void finishTree(DetailAST rootAST) {
+        final Set<String> keys = stringMap.keySet();
+        for (String key : keys) {
+            final List<StringInfo> hits = stringMap.get(key);
+            if (hits.size() > allowedDuplicates) {
+                int hitsSize = 1;
+                if (highlightAllDuplicates) {
+                    hitsSize = hits.size();
+                }
+                for (int index = 0; index < hitsSize; index++) {
+                    final StringInfo firstFinding = hits.get(index);
+                    final int line = firstFinding.getLine();
+                    final int col = firstFinding.getCol();
+                    log(line, col,
+                            MSG_KEY, key, hits.size());
+                }
+            }
+        }
+    }
 
-	/**
-	 * This class contains information about where a string was found.
-	 */
-	private static final class StringInfo
-	{
-		/**
-		 * Line of finding
-		 */
-		private final int line;
-		/**
-		 * Column of finding
-		 */
-		private final int col;
+    /**
+     * This class contains information about where a string was found.
+     */
+    private static final class StringInfo {
+        /**
+         * Line of finding.
+         */
+        private final int line;
+        /**
+         * Column of finding.
+         */
+        private final int col;
 
-		/**
-		 * Creates information about a string position.
-		 *
-		 * @param line
-		 *            int
-		 * @param col
-		 *            int
-		 */
-		private StringInfo(int line, int col)
-		{
-			this.line = line;
-			this.col = col;
-		}
+        /**
+         * Creates information about a string position.
+         *
+         * @param line
+         *            int
+         * @param col
+         *            int
+         */
+        private StringInfo(int line, int col) {
+            this.line = line;
+            this.col = col;
+        }
 
-		/**
-		 * The line where a string was found.
-		 *
-		 * @return int Line of the string.
-		 */
-		private int getLine()
-		{
-			return line;
-		}
+        /**
+         * The line where a string was found.
+         *
+         * @return int Line of the string.
+         */
+        private int getLine() {
+            return line;
+        }
 
-		/**
-		 * The column where a string was found.
-		 *
-		 * @return int Column of the string.
-		 */
-		private int getCol()
-		{
-			return col;
-		}
-	}
+        /**
+         * The column where a string was found.
+         *
+         * @return int Column of the string.
+         */
+        private int getCol() {
+            return col;
+        }
+    }
 
 }

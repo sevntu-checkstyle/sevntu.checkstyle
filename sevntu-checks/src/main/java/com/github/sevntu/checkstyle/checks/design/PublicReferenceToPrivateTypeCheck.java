@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2012 Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.ArrayList;
@@ -41,11 +42,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <pre>
  * class OuterClass {
  *  public InnerClass innerFromMain = new InnerClass(); //WARNING
- *  private class InnerClass { ... } 
+ *  private class InnerClass { ... }
  *  public InnerClass  getValue() { //WARNING
- *      return new InnerClass(); 
+ *      return new InnerClass();
  *  }
- *  <br> 
+ *  <br>
  *  private interface InnerInterface { ... }
  *  public Set&lt;InnerInterface&gt; getValue() { //WARNING
  *      return new TreeSet&lt;InnerInterface&gt;
@@ -71,12 +72,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
-public class PublicReferenceToPrivateTypeCheck extends Check
-{
+public class PublicReferenceToPrivateTypeCheck extends Check {
     /**
-     * Check message key for private types
+     * Check message key for private types.
      */
-    public final static String MSG_KEY = "public.reference.to.private.type";
+    public static final String MSG_KEY = "public.reference.to.private.type";
 
     /**
      * List containing names of private types (classes, interfaces or enums).
@@ -89,23 +89,24 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     private final Set<DetailAST> externallyReferencedTypes = new HashSet<DetailAST>();
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.CLASS_DEF, TokenTypes.METHOD_DEF,
-                TokenTypes.INTERFACE_DEF, TokenTypes.ENUM_DEF,
-                TokenTypes.VARIABLE_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+            TokenTypes.METHOD_DEF,
+            TokenTypes.INTERFACE_DEF,
+            TokenTypes.ENUM_DEF,
+            TokenTypes.VARIABLE_DEF,
+        };
     }
 
     @Override
-    public void beginTree(DetailAST rootAST)
-    {
+    public void beginTree(DetailAST rootAST) {
         privateTypes.clear();
         externallyReferencedTypes.clear();
     }
 
     @Override
-    public void visitToken(DetailAST defAst)
-    {
+    public void visitToken(DetailAST defAst) {
         switch (defAst.getType()) {
             case TokenTypes.CLASS_DEF:
             case TokenTypes.INTERFACE_DEF:
@@ -133,8 +134,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     }
 
     @Override
-    public void finishTree(DetailAST rootAst)
-    {
+    public void finishTree(DetailAST rootAst) {
         for (DetailAST privateType : privateTypes) {
             for (DetailAST outReturnedType : externallyReferencedTypes) {
                 if (privateType.getText().equals(
@@ -153,8 +153,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
      * @param classOrInterfaceOrEnumDefAst
      *        AST subtree that represent inner private type definition.
      */
-    private void addPrivateTypes(DetailAST classOrInterfaceOrEnumDefAst)
-    {
+    private void addPrivateTypes(DetailAST classOrInterfaceOrEnumDefAst) {
         final DetailAST definitionAst = classOrInterfaceOrEnumDefAst
                 .findFirstToken(TokenTypes.IDENT);
         privateTypes.add(definitionAst);
@@ -166,11 +165,10 @@ public class PublicReferenceToPrivateTypeCheck extends Check
      * @param methodDefAst
      *        AST subtree that represent method definition.
      */
-    private void addExternallyAccessibleMethodTypes(DetailAST methodDefAst)
-    {
-        DetailAST typeDefAst = methodDefAst
+    private void addExternallyAccessibleMethodTypes(DetailAST methodDefAst) {
+        final DetailAST typeDefAst = methodDefAst
                 .findFirstToken(TokenTypes.TYPE);
-        DetailAST parametersDefAst = methodDefAst
+        final DetailAST parametersDefAst = methodDefAst
                 .findFirstToken(TokenTypes.PARAMETERS);
         externallyReferencedTypes.addAll(getMethodOrFieldReferencedTypes(typeDefAst));
         externallyReferencedTypes.addAll(getMethodParameterTypes(parametersDefAst));
@@ -182,9 +180,8 @@ public class PublicReferenceToPrivateTypeCheck extends Check
      * @param fieldDefAst
      *        AST subtree that represent field definition.
      */
-    private void addExternallyAccessibleFieldTypes(DetailAST fieldDefAst)
-    {
-        DetailAST typeDefAst = fieldDefAst.findFirstToken(TokenTypes.TYPE);
+    private void addExternallyAccessibleFieldTypes(DetailAST fieldDefAst) {
+        final DetailAST typeDefAst = fieldDefAst.findFirstToken(TokenTypes.TYPE);
         externallyReferencedTypes.addAll(getMethodOrFieldReferencedTypes(typeDefAst));
     }
 
@@ -192,13 +189,13 @@ public class PublicReferenceToPrivateTypeCheck extends Check
      * Gets the return type of method or field type.
      * @param typeAst
      *        AST subtree to process.
+     * @return the return types of the token.
      */
     private static List<DetailAST>
-            getMethodOrFieldReferencedTypes(DetailAST typeAst)
-    {
+            getMethodOrFieldReferencedTypes(DetailAST typeAst) {
 
         DetailAST returnedType = null;
-        List<DetailAST> returnedTypes = new ArrayList<DetailAST>();
+        final List<DetailAST> returnedTypes = new ArrayList<DetailAST>();
         DetailAST currentNode = typeAst;
         while (currentNode != null) {
             if (currentNode.getType() == TokenTypes.IDENT) {
@@ -211,14 +208,14 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     }
 
     /**
-     * Gets method's parameters types
-     * @param parametersDefAst
+     * Gets method's parameters types.
+     * @param parametersDefAst The token to examine.
+     * @return The parameter types of the method.
      */
     private static List<DetailAST>
-            getMethodParameterTypes(DetailAST parametersDefAst)
-    {
+            getMethodParameterTypes(DetailAST parametersDefAst) {
         DetailAST parameterType = null;
-        List<DetailAST> parameterTypes = new ArrayList<DetailAST>();
+        final List<DetailAST> parameterTypes = new ArrayList<DetailAST>();
 
         if (parametersDefAst.getFirstChild() != null) {
             DetailAST currentNode = parametersDefAst;
@@ -248,11 +245,10 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     /**
      * Checks if defined type or interface extends or implements any
      * <u>non-private type</u>.
-     * @param classOrInterfaceDefAst
+     * @param classOrInterfaceDefAst The token to examine.
      * @return Method returns true if class extends or implements something.
      */
-    private boolean isExtendsOrImplementsSmth(DetailAST classOrInterfaceDefAst)
-    {
+    private boolean isExtendsOrImplementsSmth(DetailAST classOrInterfaceDefAst) {
         return (classOrInterfaceDefAst
                 .branchContains(TokenTypes.EXTENDS_CLAUSE)
                 || classOrInterfaceDefAst
@@ -262,17 +258,16 @@ public class PublicReferenceToPrivateTypeCheck extends Check
 
     /**
      * Checks if inner class or interface extends or implements <u>inner private
-     * type</u>
-     * @param classOrInterfaceDefAst
+     * type</u>.
+     * @param classOrInterfaceDefAst The token to examine.
      * @return true if extending or implementing type is in collection of inner
      *         private types
      */
     private boolean
-            isExtendsOrImplementsPrivate(DetailAST classOrInterfaceDefAst)
-    {
+            isExtendsOrImplementsPrivate(DetailAST classOrInterfaceDefAst) {
         boolean result = false;
 
-        Set<String> inheritedTypesNamesSet = new HashSet<String>();
+        final Set<String> inheritedTypesNamesSet = new HashSet<String>();
         DetailAST currentNode = classOrInterfaceDefAst;
 
         while (currentNode != null) {
@@ -294,7 +289,7 @@ public class PublicReferenceToPrivateTypeCheck extends Check
             currentNode = Utils.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
         }
 
-        Set<String> existingPrivateTypes = new HashSet<String>();
+        final Set<String> existingPrivateTypes = new HashSet<String>();
         for (DetailAST privateType : privateTypes) {
             existingPrivateTypes.add(privateType.getText());
         }
@@ -306,28 +301,26 @@ public class PublicReferenceToPrivateTypeCheck extends Check
     }
 
     /**
-     * Checks if class, interface, enumeration, method or field definition has an 
-     * access modifier of specified type
+     * Checks if class, interface, enumeration, method or field definition has an
+     * access modifier of specified type.
      * @param modifierType modifier type
      * @param defAst definition ast (METHOD_DEF, FIELD_DEF, etc.)
-     * @return true if class, interface, enumeration, method or field definition has an 
-     * access modifier of specified type
+     * @return true if class, interface, enumeration, method or field definition has an
+     *     access modifier of specified type
      */
     public static boolean
-            hasModifier(int modifierType, DetailAST defAst)
-    {
-        DetailAST modifiersToken = defAst.getFirstChild();
+            hasModifier(int modifierType, DetailAST defAst) {
+        final DetailAST modifiersToken = defAst.getFirstChild();
         return modifiersToken.findFirstToken(modifierType) != null;
     }
 
     /**
-     * Checks if method or field is defined in top-level class
-     * @param methodOrFieldDefAst
+     * Checks if method or field is defined in top-level class.
+     * @param methodOrFieldDefAst The token to examine.
      * @return true if method is defined in top-level class
      */
     private static boolean
-            isDefinedInTopLevelClass(DetailAST methodOrFieldDefAst)
-    {
+            isDefinedInTopLevelClass(DetailAST methodOrFieldDefAst) {
         return methodOrFieldDefAst.getParent().getParent().getParent() == null;
     }
 

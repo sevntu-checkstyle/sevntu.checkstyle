@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -33,9 +34,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class AvoidDefaultSerializableInInnerClassesCheck extends Check
-{
-
+public class AvoidDefaultSerializableInInnerClassesCheck extends Check {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY = "avoid.default.serializable.in.inner.classes";
 
     /**
@@ -52,25 +55,21 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
      * @param allow - Option, that allow partial implementation
      *        of serializable interface.
      */
-    public void setAllowPartialImplementation(boolean allow)
-    {
+    public void setAllowPartialImplementation(boolean allow) {
         this.allowPartialImplementation = allow;
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {TokenTypes.CLASS_DEF };
     }
 
     @Override
-    public void visitToken(DetailAST detailAST)
-    {
+    public void visitToken(DetailAST detailAST) {
         final boolean topLevelClass = detailAST.getParent() == null;
         if (!topLevelClass && isSerializable(detailAST)
                 && !isStatic(detailAST)
-                && !hasSerialazableMethods(detailAST))
-        {
+                && !hasSerialazableMethods(detailAST)) {
             final DetailAST implementsBlock = detailAST
                     .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
             log(implementsBlock.getLineNo(),
@@ -86,8 +85,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
      * @param classNode - class node
      * @return - boolean variable
      */
-    private static boolean isStatic(DetailAST classNode)
-    {
+    private static boolean isStatic(DetailAST classNode) {
         boolean result = false;
         DetailAST modifiers = classNode.findFirstToken(TokenTypes.MODIFIERS);
         modifiers = modifiers.getFirstChild();
@@ -107,28 +105,24 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
      *        the start node of class definition.
      * @return The boolean value. True, if method was override.
      */
-    private boolean hasSerialazableMethods(DetailAST classNode)
-    {
+    private boolean hasSerialazableMethods(DetailAST classNode) {
         final DetailAST objectBody =
                 classNode.findFirstToken(TokenTypes.OBJBLOCK);
         int numberOfSerializationMethods = 0;
 
         final SiblingIterator methodsIter = new SiblingIterator(objectBody);
-        while (methodsIter.hasNextSibling())
-        {
+        while (methodsIter.hasNextSibling()) {
             final DetailAST methodNode = methodsIter.nextSibling();
             if (isPrivateMethod(methodNode)
                         && isVoidMethod(methodNode)
                         && (hasCorrectParameter(methodNode, "ObjectInputStream")
                         || hasCorrectParameter(methodNode, "ObjectOutputStream")
-                        ))
-            {
+                        )) {
                 numberOfSerializationMethods++;
             }
             if (numberOfSerializationMethods == 1
                 && allowPartialImplementation
-                || numberOfSerializationMethods == 2)
-            {
+                || numberOfSerializationMethods == 2) {
                 return true;
             }
         }
@@ -136,73 +130,15 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
     }
 
     /**
-     *<b>
-     * Nested class, that implements custom iterator for DetailAST method nodes.
-     *</b>
-     */
-    private class SiblingIterator
-    {
-        /**
-        *<b>
-        *Next
-        *</b>
-        */
-        private DetailAST next;
-
-        /**
-        *<b>
-        *Children Iterator constructor.
-        *</b>
-        *@param parent - child parent.
-        *@param childType - type of child.
-        */
-        public SiblingIterator(DetailAST parent)
-        {
-            next = parent.findFirstToken(TokenTypes.METHOD_DEF);
-        }
-
-        /**
-        *<b>
-        *Return boolean value, if has next element.
-        *</b>
-        *@return boolean value
-        */
-        public boolean hasNextSibling()
-        {
-            return next != null;
-        }
-
-        /**
-        *<b>
-        *Return next DetailAST element.
-        *</b>
-        *@return next DetailAST.
-        */
-
-        public DetailAST nextSibling()
-        {
-            final DetailAST result = next;
-            while (next != null) {
-                next = next.getNextSibling();
-                if (next != null && next.getType() == TokenTypes.METHOD_DEF) {
-                    break;
-                }
-            }
-            return result;
-        }
-    }
-
-    /**
      * <p>
      * Return true, if methods readObject() and writeObject() have correct
-     * modifiers;
+     * modifiers.
      * </p>
      * @param methodNode
      *        - current method node;
      * @return boolean value;
      */
-    private static boolean isPrivateMethod(DetailAST methodNode)
-    {
+    private static boolean isPrivateMethod(DetailAST methodNode) {
         DetailAST modifiers = methodNode.findFirstToken(TokenTypes.MODIFIERS);
         modifiers = modifiers.getFirstChild();
         boolean isPrivate = false;
@@ -220,8 +156,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
      * @param methodNode - method node
      * @return boolean variable
      */
-    private static boolean isVoidMethod(DetailAST methodNode)
-    {
+    private static boolean isVoidMethod(DetailAST methodNode) {
         DetailAST type = methodNode.findFirstToken(TokenTypes.TYPE);
         type = type.getFirstChild();
         return TokenTypes.LITERAL_VOID == type.getType();
@@ -237,8 +172,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
      * @return boolean variable.
      */
     private static boolean hasCorrectParameter(DetailAST methodNode,
-            String parameterText)
-    {
+            String parameterText) {
         DetailAST parameters =
             methodNode.findFirstToken(TokenTypes.PARAMETERS);
         boolean result = false;
@@ -259,8 +193,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
      *        - the start node for class definition.
      * @return boolean value. True, if class implements Serializable interface.
      */
-    private static boolean isSerializable(DetailAST classDefNode)
-    {
+    private static boolean isSerializable(DetailAST classDefNode) {
         DetailAST implementationsDef = classDefNode
                 .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
         boolean result = false;
@@ -275,5 +208,57 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends Check
             }
         }
         return result;
+    }
+
+    /**
+     *<b>
+     * Nested class, that implements custom iterator for DetailAST method nodes.
+     *</b>
+     */
+    private final class SiblingIterator {
+        /**
+        *<b>
+        *Next.
+        *</b>
+        */
+        private DetailAST next;
+
+        /**
+        *<b>
+        *Children Iterator constructor.
+        *</b>
+        *@param parent - child parent.
+        */
+        private SiblingIterator(DetailAST parent) {
+            next = parent.findFirstToken(TokenTypes.METHOD_DEF);
+        }
+
+        /**
+        *<b>
+        *Return boolean value, if has next element.
+        *</b>
+        *@return boolean value
+        */
+        public boolean hasNextSibling() {
+            return next != null;
+        }
+
+        /**
+        *<b>
+        *Return next DetailAST element.
+        *</b>
+        *@return next DetailAST.
+        */
+
+        public DetailAST nextSibling() {
+            final DetailAST result = next;
+            while (next != null) {
+                next = next.getNextSibling();
+                if (next != null && next.getType() == TokenTypes.METHOD_DEF) {
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }

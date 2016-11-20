@@ -19,23 +19,28 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.Arrays;
+
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
-import java.util.Arrays;
-
 /**
  * If comparing values, C(C++) developers prefer to put the constant first in the equality check,
  * to prevent situations of assignment rather than equality checking.
  *
+ * <p>
  * But in Java, in IF condition it is impossible to use assignment,
  * so that habit become unnecessary and do damage readability of code.
+ * </p>
  *
+ * <p>
  * In C(C++), comparison for null is tricky, and it is easy to write "=" instead of "==",
  * and no complication error will be but condition will work in different way
+ * </p>
  *
+ * <p>
  * Example:
  * <code>if (null == variable)</code>
  * rather than
@@ -43,28 +48,32 @@ import java.util.Arrays;
  * because if you forget one (typo mistake) of the equal sign, you end up with
  * <code>if (variable = null)</code>
  * which assigns null to variable and IF always evaluate to true.
+ * </p>
  *
  * @author Sergey Burtsev
  */
 public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
-
-    public final static String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    public static final String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
 
     /**
-     * targetConstantTypes is array of default target constant types.
+     * Field is array of default target constant types.
      */
-    private int[] targetConstantTypes = new int[]{
-            TokenTypes.LITERAL_TRUE,
-            TokenTypes.LITERAL_FALSE,
-            TokenTypes.LITERAL_NULL,
-            TokenTypes.NUM_INT,
-            TokenTypes.NUM_FLOAT,
-            TokenTypes.NUM_LONG,
-            TokenTypes.NUM_DOUBLE,
+    private int[] targetConstantTypes = new int[] {
+        TokenTypes.LITERAL_TRUE,
+        TokenTypes.LITERAL_FALSE,
+        TokenTypes.LITERAL_NULL,
+        TokenTypes.NUM_INT,
+        TokenTypes.NUM_FLOAT,
+        TokenTypes.NUM_LONG,
+        TokenTypes.NUM_DOUBLE,
     };
 
     /**
-     * Set target constant types
+     * Set target constant types.
      *
      * @param targets target constant types
      */
@@ -117,10 +126,11 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
      */
     private static DetailAST[] getBothChildren(DetailAST logicNode) {
         final DetailAST[] children = new DetailAST[2];
-        int i = 0;
-        for (DetailAST child = logicNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+        int index = 0;
+        for (DetailAST child = logicNode.getFirstChild(); child != null; child = child
+                .getNextSibling()) {
             if (child.getType() != TokenTypes.LPAREN && child.getType() != TokenTypes.RPAREN) {
-                children[i++] = child;
+                children[index++] = child;
             }
         }
 

@@ -137,8 +137,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class UselessSuperCtorCallCheck extends Check
-{
+public class UselessSuperCtorCallCheck extends Check {
     /**
      * Violation message key.
      */
@@ -168,8 +167,7 @@ public class UselessSuperCtorCallCheck extends Check
      * @param aAllowCallToNoArgsSuperCtor
      *        if true, check will allow super() calls without arguments
      */
-    public void setAllowCallToNoArgsSuperCtor(boolean aAllowCallToNoArgsSuperCtor)
-    {
+    public void setAllowCallToNoArgsSuperCtor(boolean aAllowCallToNoArgsSuperCtor) {
         mAllowCallToNoArgsSuperCtor = aAllowCallToNoArgsSuperCtor;
     }
 
@@ -179,40 +177,32 @@ public class UselessSuperCtorCallCheck extends Check
      *        if true, check will allow super() calls without arguments if class
      *        has multiple public constructors
      */
-    public void setAllowCallToNoArgsSuperCtorIfMultiplePublicCtor(boolean aAllowCall)
-    {
+    public void setAllowCallToNoArgsSuperCtorIfMultiplePublicCtor(boolean aAllowCall) {
         mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor = aAllowCall;
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {
             TokenTypes.SUPER_CTOR_CALL,
         };
     }
 
     @Override
-    public void visitToken(DetailAST aSuperCallNode)
-    {
-        if (getSuperCallArgsCount(aSuperCallNode) == 0)
-        {
-            DetailAST classDefNode = getClassDefinitionNode(aSuperCallNode);
-            String className = getClassName(classDefNode);
+    public void visitToken(DetailAST aSuperCallNode) {
+        if (getSuperCallArgsCount(aSuperCallNode) == 0) {
+            final DetailAST classDefNode = getClassDefinitionNode(aSuperCallNode);
+            final String className = getClassName(classDefNode);
 
-            if (isClassDerived(classDefNode))
-            {
-                if (!mAllowCallToNoArgsSuperCtor)
-                {
-                    if( !(mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor
-                            && getClassPublicCtorCount(classDefNode) > 1) )
-                    {
+            if (isClassDerived(classDefNode)) {
+                if (!mAllowCallToNoArgsSuperCtor) {
+                    if (!(mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor
+                            && getClassPublicCtorCount(classDefNode) > 1)) {
                         log(aSuperCallNode, MSG_WITHOUT_ARGS, className);
                     }
                 }
             }
-            else
-            {
+            else {
                 log(aSuperCallNode, MSG_IN_NOT_DERIVED_CLASS, className);
             }
         }
@@ -224,8 +214,7 @@ public class UselessSuperCtorCallCheck extends Check
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return class name for given class definition
      */
-    private String getClassName(DetailAST aClassDefNode)
-    {
+    private String getClassName(DetailAST aClassDefNode) {
         return aClassDefNode.findFirstToken(TokenTypes.IDENT).getText();
     }
 
@@ -235,9 +224,8 @@ public class UselessSuperCtorCallCheck extends Check
      *        a super ctor call node(TokenTypes.SUPER_CTOR_CALL)
      * @return arguments count for super ctor call
      */
-    private static int getSuperCallArgsCount(DetailAST aMethodCallNode)
-    {
-        DetailAST argsListNode = aMethodCallNode.findFirstToken(TokenTypes.ELIST);
+    private static int getSuperCallArgsCount(DetailAST aMethodCallNode) {
+        final DetailAST argsListNode = aMethodCallNode.findFirstToken(TokenTypes.ELIST);
 
         return argsListNode.getChildCount();
     }
@@ -248,12 +236,10 @@ public class UselessSuperCtorCallCheck extends Check
      *        AST node inside class
      * @return class definition node
      */
-    private static DetailAST getClassDefinitionNode(DetailAST aNode)
-    {
+    private static DetailAST getClassDefinitionNode(DetailAST aNode) {
         DetailAST result = aNode;
 
-        while (result.getType() != TokenTypes.CLASS_DEF)
-        {
+        while (result.getType() != TokenTypes.CLASS_DEF) {
             result = result.getParent();
         }
 
@@ -266,15 +252,13 @@ public class UselessSuperCtorCallCheck extends Check
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return public constructor count for given class
      */
-    private static int getClassPublicCtorCount(DetailAST aClassDefNode)
-    {
+    private static int getClassPublicCtorCount(DetailAST aClassDefNode) {
         int publicCtorCount = 0;
-        DetailAST classMemberNode = aClassDefNode.findFirstToken(TokenTypes.OBJBLOCK).getFirstChild();
+        DetailAST classMemberNode = aClassDefNode.findFirstToken(TokenTypes.OBJBLOCK)
+                .getFirstChild();
 
-        while(classMemberNode != null)
-        {
-            if(classMemberNode.getType() == TokenTypes.CTOR_DEF && isCtorPublic(classMemberNode))
-            {
+        while (classMemberNode != null) {
+            if (classMemberNode.getType() == TokenTypes.CTOR_DEF && isCtorPublic(classMemberNode)) {
                 ++publicCtorCount;
             }
 
@@ -290,8 +274,7 @@ public class UselessSuperCtorCallCheck extends Check
      *          a ctor definition node(TokenTypes.CTOR_DEF)
      * @return true, if given ctor is public
      */
-    private static boolean isCtorPublic(DetailAST aCtorDefNode)
-    {
+    private static boolean isCtorPublic(DetailAST aCtorDefNode) {
         return aCtorDefNode
                 .findFirstToken(TokenTypes.MODIFIERS)
                 .findFirstToken(TokenTypes.LITERAL_PUBLIC) != null;
@@ -303,8 +286,7 @@ public class UselessSuperCtorCallCheck extends Check
      *        class definition node
      * @return true, if this class extends anything
      */
-    private static boolean isClassDerived(DetailAST aClassDefNode)
-    {
+    private static boolean isClassDerived(DetailAST aClassDefNode) {
         return aClassDefNode.findFirstToken(TokenTypes.EXTENDS_CLAUSE) != null;
     }
 

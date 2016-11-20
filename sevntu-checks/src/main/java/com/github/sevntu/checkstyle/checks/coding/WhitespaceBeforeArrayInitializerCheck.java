@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
@@ -6,7 +25,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * This checks enforces whitespace before array initializer
+ * This checks enforces whitespace before array initializer.
  * </p>
  * Examples:
  * This code is perfectly valid:
@@ -47,23 +66,23 @@ public class WhitespaceBeforeArrayInitializerCheck extends Check {
 
     @Override
     public void visitToken(DetailAST ast) {
-        DetailAST previousAst = getPreviousAst(ast);
+        final DetailAST previousAst = getPreviousAst(ast);
         if (!areTokensSeparatedByWhitespace(previousAst, ast) && isNestedArrayInitializer(ast)) {
             log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY);
         }
     }
 
     /**
-     * Checks if firstAst and secondAst are separated by whitespace
+     * Checks if firstAst and secondAst are separated by whitespace.
      * @param firstAST DetailAST
      * @param secondAST DetailAST
      * @return true if firstAST and secondAST are separated by whitespace,false otherwise
      */
     private static boolean areTokensSeparatedByWhitespace(DetailAST firstAST, DetailAST secondAST) {
         boolean isDistanceValid = true;
-        int columnDistance = secondAST.getColumnNo() - firstAST.getColumnNo();
+        final int columnDistance = secondAST.getColumnNo() - firstAST.getColumnNo();
         if (columnDistance == 1) {
-            int lineDistance = secondAST.getLineNo() - firstAST.getLineNo();
+            final int lineDistance = secondAST.getLineNo() - firstAST.getLineNo();
             if (lineDistance == 0) {
                 isDistanceValid = false;
             }
@@ -81,20 +100,22 @@ public class WhitespaceBeforeArrayInitializerCheck extends Check {
     }
 
     /**
-     * Calculate previous ast from given
+     * Calculate previous ast from given.
      * @param ast given ast
      * @return previous ast
      */
     private static DetailAST getPreviousAst(DetailAST ast) {
-        DetailAST previousAst;
+        final DetailAST previousAst;
         if (ast.getPreviousSibling() != null) {
-            DetailAST previousSibling = ast.getPreviousSibling();
+            final DetailAST previousSibling = ast.getPreviousSibling();
             if (previousSibling.getChildCount() > 0) {
                 previousAst = previousSibling.getLastChild();
-            } else {
+            }
+            else {
                 previousAst = previousSibling;
             }
-        } else {
+        }
+        else {
             previousAst = ast.getParent();
         }
         return previousAst;

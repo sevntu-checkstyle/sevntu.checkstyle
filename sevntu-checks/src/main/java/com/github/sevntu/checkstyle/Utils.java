@@ -16,16 +16,21 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
-public final class Utils
-{
-    private Utils()
-    {
+/**
+ * Simple utility class for all sevntu checks.
+ *
+ * @author Damian Szczepanik
+ */
+public final class Utils {
+    /** Prevent instances. */
+    private Utils() {
     }
 
     /**
@@ -38,25 +43,25 @@ public final class Utils
      * @throws IllegalArgumentException
      *         always
      */
-    public static void reportInvalidToken(int token)
-    {
+    public static void reportInvalidToken(int token) {
         throw new IllegalArgumentException("Found unsupported token: "
                 + TokenUtils.getTokenName(token));
     }
 
     /**
-     * Gets the next node of a syntactical tree (child of a current node or sibling of a current node, or sibling of a
-     * parent of a current node)
-     * 
-     * @param currentNode
+     * Gets the next node of a syntactical tree (child of a current node or sibling of a current
+     * node, or sibling of a parent of a current node).
+     *
+     * @param node
      *            Current node in considering
      * @param subTreeRoot
      *            The root node of the subtree. Can be a top level root node
-     * @return Current node after bypassing, if current node reached the root of a subtree method returns null
+     * @return Current node after bypassing, if current node reached the root of a subtree
+     *     method returns null
      */
-    public static DetailAST getNextSubTreeNode(DetailAST currentNode, DetailAST subTreeRoot)
-    {
-        DetailAST toVisitAst = currentNode.getFirstChild();
+    public static DetailAST getNextSubTreeNode(DetailAST node, DetailAST subTreeRoot) {
+        DetailAST toVisitAst = node.getFirstChild();
+        DetailAST currentNode = node;
 
         while (toVisitAst == null) {
             toVisitAst = currentNode.getNextSibling();

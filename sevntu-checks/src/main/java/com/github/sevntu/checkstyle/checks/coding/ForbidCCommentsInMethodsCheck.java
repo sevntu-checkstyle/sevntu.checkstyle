@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.Set;
@@ -31,46 +32,42 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class ForbidCCommentsInMethodsCheck extends Check
-{
+public class ForbidCCommentsInMethodsCheck extends Check {
     /**
-     * Warning message key
+     * Warning message key.
      */
-    public final static String MSG_KEY = "forbid.c.comments.in.the.method.body";
+    public static final String MSG_KEY = "forbid.c.comments.in.the.method.body";
 
     /**
-     * Set contains C style comments from current file
+     * Set contains C style comments from current file.
      */
     private Set<Integer> clangComments;
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] {TokenTypes.METHOD_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.METHOD_DEF,
+        };
     }
 
     @Override
-    public void beginTree(DetailAST rootAST)
-    {
+    public void beginTree(DetailAST rootAST) {
         clangComments = getFileContents().getCComments().keySet();
     }
 
     @Override
-    public void visitToken(DetailAST methodNode)
-    {
+    public void visitToken(DetailAST methodNode) {
         if (!clangComments.isEmpty()) {
             final DetailAST borders =
                     methodNode.findFirstToken(TokenTypes.SLIST);
-            //Could be null when aMethodNode doesn't have body 
+            //Could be null when aMethodNode doesn't have body
             //(into interface for example)
-            if (borders != null)    
-            {
+            if (borders != null) {
                 final int methodBodyBegin = borders.getLineNo();
                 final int methodBodyEnd = borders.getLastChild().getLineNo();
                 for (final int commentLineNo : clangComments) {
                     if (commentLineNo > methodBodyBegin
-                            && commentLineNo < methodBodyEnd)
-                    {
+                            && commentLineNo < methodBodyEnd) {
                         log(commentLineNo, MSG_KEY);
                     }
                 }

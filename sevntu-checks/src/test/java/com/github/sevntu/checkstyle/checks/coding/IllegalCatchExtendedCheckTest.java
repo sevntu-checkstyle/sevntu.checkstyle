@@ -7,7 +7,7 @@ import com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
 
-public class IllegalCatchCheckTest extends BaseCheckTestSupport
+public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport
 {
     
     private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchExtendedCheck.class);

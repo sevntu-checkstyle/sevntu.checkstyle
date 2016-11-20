@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright(C) 2001-2012  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
+//
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
 // License as published by the Free Software Foundation; either
@@ -52,7 +53,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * considered to be a test. This option defaults to empty regex(one that matches
  * nothing). If for example this option set to "RunWith", then class "SomeClass"
  * is considered to be a test:
- * 
+ *
  * <pre>
  * <code>
  * {@literal @}RunWith(Parameterized.class)
@@ -68,19 +69,19 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * matching annotation, it is considered to be a test. This option defaults to
  * "Test|org.junit.Test". For example, if this option set to "Test", then class
  * "SomeClass" is considered to be a test.
- * 
+ *
  * <pre>
  * <code>
  * class SomeClass
  * {
  *      {@literal @}Test
  *      void method() {
- *      
+ *
  *      }
  * }
  * </code>
  * </pre>
- * 
+ *
  * <p>
  * Annotation names must be specified exactly the same way it specified in code,
  * thus if Check must match annotation with fully qualified name, corresponding
@@ -94,7 +95,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Following configuration will adjust Check to look for classes annotated with
  * annotation "RunWith" or classes with methods annotated with "Test" and verify
  * that classes names end with "Test" or "Tests".
- * 
+ *
  * <pre>
  *     &lt;module name="NameConventionForJUnit4TestClassesCheck"&gt;
  *       &lt;property name="expectedClassNameRegex" value=".+Tests|.+Test"/&gt;
@@ -102,11 +103,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *       &lt;property name="methodAnnotationNameRegex" value="Test"/&gt;
  *     &lt;/module&gt;
  * </pre>
- * 
+ *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class NameConventionForJunit4TestClassesCheck extends Check
-{
+public class NameConventionForJunit4TestClassesCheck extends Check {
     /**
      * Violation message key.
      */
@@ -122,7 +122,8 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * </p>
      */
     private Pattern expectedClassNameRegex =
-            Pattern.compile(".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*");
+            Pattern.compile(".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*"
+                    + "|.+TestCases\\d*");
 
     /**
      * <p>
@@ -150,8 +151,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @param expectedClassNameRegex
      *        regexp to match 'correct' JUnit test class names.
      */
-    public void setExpectedClassNameRegex(String expectedClassNameRegex)
-    {
+    public void setExpectedClassNameRegex(String expectedClassNameRegex) {
         if (expectedClassNameRegex != null && !expectedClassNameRegex.isEmpty()) {
             this.expectedClassNameRegex = Pattern.compile(expectedClassNameRegex);
         }
@@ -165,8 +165,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @param annotationNameRegex
      *        regexp to match annotations for unit test classes.
      */
-    public void setClassAnnotationNameRegex(String annotationNameRegex)
-    {
+    public void setClassAnnotationNameRegex(String annotationNameRegex) {
         if (annotationNameRegex != null && !annotationNameRegex.isEmpty()) {
             classAnnotationNameRegex = Pattern.compile(annotationNameRegex);
         }
@@ -180,8 +179,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @param annotationNameRegex
      *        regexp to match annotations for unit test classes.
      */
-    public void setMethodAnnotationNameRegex(String annotationNameRegex)
-    {
+    public void setMethodAnnotationNameRegex(String annotationNameRegex) {
         if (annotationNameRegex != null && !annotationNameRegex.isEmpty()) {
             methodAnnotationNameRegex = Pattern.compile(annotationNameRegex);
         }
@@ -191,14 +189,14 @@ public class NameConventionForJunit4TestClassesCheck extends Check
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.CLASS_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.CLASS_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST classDefNode)
-    {
+    public void visitToken(DetailAST classDefNode) {
         if ((isClassDefinitionAnnotated(classDefNode) || isAtleastOneMethodAnnotated(classDefNode))
                 && hasUnexpectedName(classDefNode)) {
             logUnexpectedClassName(classDefNode);
@@ -211,8 +209,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      *        a class definition node
      * @return true, if class definition annotated with user defined annotation
      */
-    private boolean isClassDefinitionAnnotated(DetailAST classDefNode)
-    {
+    private boolean isClassDefinitionAnnotated(DetailAST classDefNode) {
         return hasAnnotation(classDefNode, classAnnotationNameRegex);
     }
 
@@ -224,15 +221,13 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @return true, if class contains at least one method annotated with user
      *         defined annotation
      */
-    private boolean isAtleastOneMethodAnnotated(DetailAST classDefNode)
-    {
+    private boolean isAtleastOneMethodAnnotated(DetailAST classDefNode) {
         DetailAST classMemberNode =
                 classDefNode.findFirstToken(TokenTypes.OBJBLOCK).getFirstChild();
 
         while (classMemberNode != null) {
-            if (classMemberNode.getType() == TokenTypes.METHOD_DEF &&
-                    hasAnnotation(classMemberNode, methodAnnotationNameRegex))
-            {
+            if (classMemberNode.getType() == TokenTypes.METHOD_DEF
+                    && hasAnnotation(classMemberNode, methodAnnotationNameRegex)) {
                 return true;
             }
 
@@ -248,8 +243,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      *        a class definition node
      * @return true, if class has unexpected name
      */
-    private boolean hasUnexpectedName(final DetailAST classDefNode)
-    {
+    private boolean hasUnexpectedName(final DetailAST classDefNode) {
         final String className = getIdentifierName(classDefNode);
         return !isMatchesRegex(expectedClassNameRegex, className);
     }
@@ -264,8 +258,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @return true, if the class or method contains one of the annotations,
      *         specified in the regexp
      */
-    private boolean hasAnnotation(DetailAST methodOrClassDefNode, Pattern annotationNamesRegexp)
-    {
+    private boolean hasAnnotation(DetailAST methodOrClassDefNode, Pattern annotationNamesRegexp) {
         DetailAST modifierNode =
                 methodOrClassDefNode.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
 
@@ -273,7 +266,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
 
         while (modifierNode != null) {
             if (modifierNode.getType() == TokenTypes.ANNOTATION) {
-                String annotationName = getIdentifierName(modifierNode);
+                final String annotationName = getIdentifierName(modifierNode);
 
                 if (isMatchesRegex(annotationNamesRegexp, annotationName)) {
                     result = true;
@@ -292,21 +285,19 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @param classDef
      *        the node of type TokenTypes.CLASS_DEF
      */
-    private void logUnexpectedClassName(DetailAST classDef)
-    {
+    private void logUnexpectedClassName(DetailAST classDef) {
         log(classDef.findFirstToken(TokenTypes.IDENT), MSG_KEY, expectedClassNameRegex);
     }
 
     /**
      * Returns name of identifier contained in specified node.
-     * @param aNodeWithIdent
+     * @param identifierNode
      *        a node containing identifier or qualified identifier.
      * @return identifier name for specified node. If node contains qualified
      *         name then method returns its text representation.
      */
-    private static String getIdentifierName(DetailAST identifierNode)
-    {
-        DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
+    private static String getIdentifierName(DetailAST identifierNode) {
+        final DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
         String result;
 
         if (identNode != null) {
@@ -338,8 +329,7 @@ public class NameConventionForJunit4TestClassesCheck extends Check
      * @return false if regex is null, otherwise result of matching string
      *         against regex.
      */
-    private static boolean isMatchesRegex(Pattern regexPattern, String str)
-    {
+    private static boolean isMatchesRegex(Pattern regexPattern, String str) {
         if (regexPattern != null) {
             return regexPattern.matcher(str).matches();
         }

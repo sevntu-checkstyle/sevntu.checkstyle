@@ -58,32 +58,39 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  */
-public class ForbidThrowAnonymousExceptionsCheck extends Check
-{
+public class ForbidThrowAnonymousExceptionsCheck extends Check {
     /**
      * Warning message key.
      */
     public static final String MSG_KEY = "forbid.throw.anonymous.exception";
 
+    /** Regular expression of exception naming. */
     private static final String DEFAULT_EXCEPTION_CLASS_NAME_REGEX = "^.*Exception";
 
+    /** User set expression for exception names. */
     private Pattern pattern = Pattern.compile(DEFAULT_EXCEPTION_CLASS_NAME_REGEX);
 
+    /** List of anonymous exceptions to ignore. */
     private List<String> anonymousExceptions = new ArrayList<String>();
 
+    /**
+     * Setter for pattern.
+     * @param exceptionClassNameRegex The regular expression to set.
+     */
     public void setExceptionClassNameRegex(String exceptionClassNameRegex) {
         this.pattern = Pattern.compile(exceptionClassNameRegex);
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.LITERAL_THROW, TokenTypes.VARIABLE_DEF };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.LITERAL_THROW,
+            TokenTypes.VARIABLE_DEF,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST literalThrowOrVariableDefAst)
-    {
+    public void visitToken(DetailAST literalThrowOrVariableDefAst) {
         switch (literalThrowOrVariableDefAst.getType()) {
             case TokenTypes.LITERAL_THROW:
                 identifyThrowingAnonymousException(literalThrowOrVariableDefAst);
@@ -98,20 +105,18 @@ public class ForbidThrowAnonymousExceptionsCheck extends Check
     }
 
     /**
-     * Warns on throwing anonymous exception
+     * Warns on throwing anonymous exception.
+     * @param throwDefAst The token to examine.
      */
-    private void
-            identifyThrowingAnonymousException(DetailAST throwDefAst)
-    {
-        DetailAST throwingLiteralNewAst = getLiteralNew(throwDefAst);
+    private void identifyThrowingAnonymousException(DetailAST throwDefAst) {
+        final DetailAST throwingLiteralNewAst = getLiteralNew(throwDefAst);
 
         if (throwingLiteralNewAst != null
                 && hasObjectBlock(throwingLiteralNewAst)) {
             log(throwDefAst.getLineNo(), MSG_KEY);
         }
-
         else if (throwingLiteralNewAst == null) {
-            DetailAST throwingExceptionNameAst = getThrowingExceptionNameAst(throwDefAst
+            final DetailAST throwingExceptionNameAst = getThrowingExceptionNameAst(throwDefAst
                     .getFirstChild());
             if (throwingExceptionNameAst != null
                     && anonymousExceptions.contains(throwingExceptionNameAst
@@ -122,22 +127,22 @@ public class ForbidThrowAnonymousExceptionsCheck extends Check
     }
 
     /**
-     * Analyzes variable definition for anonymous exception definition, if found
+     * Analyzes variable definition for anonymous exception definition. if found
      * - adds it to list of anonymous exceptions
+     * @param variableDefAst The token to exmaine.
      */
     private void
-            lookForAnonymousExceptionDefinition(DetailAST variableDefAst)
-    {
+            lookForAnonymousExceptionDefinition(DetailAST variableDefAst) {
         DetailAST variableLiteralNewAst = null;
-        DetailAST variableAssignment = variableDefAst.findFirstToken(TokenTypes.ASSIGN);
+        final DetailAST variableAssignment = variableDefAst.findFirstToken(TokenTypes.ASSIGN);
         if (variableAssignment != null && variableAssignment.getFirstChild() != null) {
             variableLiteralNewAst = getLiteralNew(variableAssignment);
         }
 
-        DetailAST variableNameAst = variableDefAst
+        final DetailAST variableNameAst = variableDefAst
                 .findFirstToken(TokenTypes.TYPE).getNextSibling();
         if (isExceptionName(variableNameAst)) {
-            String exceptionName = variableNameAst.getText();
+            final String exceptionName = variableNameAst.getText();
 
             if (anonymousExceptions.contains(exceptionName)) {
                 anonymousExceptions.remove(exceptionName);
@@ -151,40 +156,44 @@ public class ForbidThrowAnonymousExceptionsCheck extends Check
     }
 
     /**
-     * Gets the literal new node from variable definition node or throw node
+     * Gets the literal new node from variable definition node or throw node.
+     * @param literalThrowOrVariableDefAst The token to exmaine.
+     * @return the specified node.
      */
     private static DetailAST
-            getLiteralNew(DetailAST literalThrowOrVariableDefAst)
-    {
+            getLiteralNew(DetailAST literalThrowOrVariableDefAst) {
         return literalThrowOrVariableDefAst.getFirstChild().findFirstToken(
                 TokenTypes.LITERAL_NEW);
     }
 
     /**
-     * Retrieves the AST node which contains the name of throwing exception
+     * Retrieves the AST node which contains the name of throwing exception.
+     * @param expressionAst The token to exmaine.
+     * @return the specified node.
      */
     private static DetailAST
-            getThrowingExceptionNameAst(DetailAST expressionAst)
-    {
+            getThrowingExceptionNameAst(DetailAST expressionAst) {
         return expressionAst.findFirstToken(TokenTypes.IDENT);
     }
 
     /**
-     * Checks if definition with a literal new has an ObjBlock
+     * Checks if definition with a literal new has an ObjBlock.
+     * @param literalNewAst The token to exmaine.
+     * @return true if the new has an object block.
      */
-    private static boolean hasObjectBlock(DetailAST literalNewAst)
-    {
+    private static boolean hasObjectBlock(DetailAST literalNewAst) {
         return literalNewAst.getLastChild().getType() == TokenTypes.OBJBLOCK;
     }
 
     /**
      * Checks if variable name is definitely an exception name. It is so if
      * variable type ends with "Exception" suffix
+     * @param variableNameAst The token to exmaine.
+     * @return true if the name is an exception.
      */
-    private boolean isExceptionName(DetailAST variableNameAst)
-    {
-        DetailAST typeAst = variableNameAst.getPreviousSibling();
-        String typeName = typeAst.getFirstChild().getText();
+    private boolean isExceptionName(DetailAST variableNameAst) {
+        final DetailAST typeAst = variableNameAst.getPreviousSibling();
+        final String typeName = typeAst.getFirstChild().getText();
         return pattern.matcher(typeName).matches();
     }
 

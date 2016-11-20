@@ -6,49 +6,19 @@
 
 <suppressions>
     <!-- START of legacy code, all violations will be resolved during transition to main project -->
-    <suppress checks="ImportControl" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|EmptyPublicCtorInClassCheck|RedundantReturnCheck).java"/>    
-    <suppress checks="JavadocParagraph" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|MultipleVariableDeclarationsExtendedCheck|EmptyPublicCtorInClassCheck|TernaryPerExpressionCountCheck).java"/>
-    <suppress checks="CyclomaticComplexity" files="(AvoidNotShortCircuitOperatorsForBooleanCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|ReturnCountExtendedCheck).java"/>
+    <suppress checks="ImportControl" files="CustomDeclarationOrderCheck.java"/>    
+    <suppress checks="JavadocParagraph" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|MultipleVariableDeclarationsExtendedCheck|EmptyPublicCtorInClassCheck|TernaryPerExpressionCountCheck|RequiredParameterForAnnotationCheck|ConfusingConditionCheck|ForbidInstantiationCheck|ForbidThrowAnonymousExceptionsCheck|MapIterationInForEachLoopCheck|NameConventionForJunit4TestClassesCheck|NoNullForCollectionReturnCheck|OverridableMethodInConstructorCheck|UselessSuperCtorCallCheck|WhitespaceBeforeArrayInitializerCheck|EnumValueNameCheck|CauseParameterInExceptionCheck|ChildBlockLengthCheck|NestedSwitchCheck|PublicReferenceToPrivateTypeCheck).java"/>
+    <suppress checks="CyclomaticComplexity" files="(AvoidNotShortCircuitOperatorsForBooleanCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|ReturnCountExtendedCheck|AvoidHidingCauseExceptionCheck|ConfusingConditionCheck|ForbidCertainImportsCheck|ForbidWildcardAsReturnTypeCheck|HideUtilityClassConstructorCheck|UnnecessaryParenthesesExtendedCheck|OverridableMethodInConstructorCheck|MapIterationInForEachLoopCheck|IllegalCatchExtendedCheck).java"/>
     <suppress checks="JavadocVariable" files="(TernaryPerExpressionCountCheck|CustomDeclarationOrderCheck).java"/>
-    <suppress checks="MultipleStringLiterals" files="CustomDeclarationOrderCheck.java"/>
+    <suppress checks="MultipleStringLiterals" files="(CustomDeclarationOrderCheck|ForbidWildcardAsReturnTypeCheck).java"/>
     <suppress checks="MethodCount" files="CustomDeclarationOrderCheck.java"/>
     <suppress checks="ModifiedControlVariable" files="AvoidNotShortCircuitOperatorsForBooleanCheck.java"/>
-    <suppress checks=".*" files="ForbidInstantiationCheck.java"/>
-    <suppress checks=".*" files="ForbidThrowAnonymousExceptionsCheck.java"/>
-    <suppress checks=".*" files="UselessSuperCtorCallCheck.java"/>
-    <suppress checks=".*" files="ForbidCertainImportsCheck.java"/>
-    <suppress checks=".*" files="MultipleStringLiteralsExtendedCheck.java"/>
-    <suppress checks=".*" files="AvoidHidingCauseExceptionCheck.java"/>
-    <suppress checks=".*" files="ConfusingConditionCheck.java"/>
-    <suppress checks=".*" files="WhitespaceBeforeArrayInitializerCheck.java"/>
-    <suppress checks=".*" files="FinalizeImplementationCheck.java"/>
-    <suppress checks=".*" files="ForbidReturnInFinallyBlockCheck.java"/>
-    <suppress checks=".*" files="OverridableMethodInConstructorCheck.java"/>
-    <suppress checks=".*" files="NameConventionForJunit4TestClassesCheck.java"/>
-    <suppress checks=".*" files="IllegalCatchExtendedCheck.java"/>
-    <suppress checks=".*" files="AvoidConstantAsFirstOperandInConditionCheck.java"/>
-    <suppress checks=".*" files="NoNullForCollectionReturnCheck.java"/>
-    <suppress checks=".*" files="MapIterationInForEachLoopCheck.java"/>
-    <suppress checks=".*" files="UnnecessaryParenthesesExtendedCheck.java"/>
-    <suppress checks=".*" files="LineLengthExtendedCheck.java"/>
-    <suppress checks=".*" files="PublicReferenceToPrivateTypeCheck.java"/>
-    <suppress checks=".*" files="NoMainMethodInAbstractClassCheck.java"/>
-    <suppress checks=".*" files="InnerClassCheck.java"/>
-    <suppress checks=".*" files="HideUtilityClassConstructorCheck.java"/>
-    <suppress checks=".*" files="NestedSwitchCheck.java"/>
-    <suppress checks=".*" files="ChildBlockLengthCheck.java"/>
-    <suppress checks=".*" files="CauseParameterInExceptionCheck.java"/>
-    <suppress checks=".*" files="ForbidWildcardAsReturnTypeCheck.java"/>
-    <suppress checks=".*" files="AvoidConditionInversionCheck.java"/>
-    <suppress checks=".*" files="ForbidAnnotationCheck.java"/>
-    <suppress checks=".*" files="RequiredParameterForAnnotationCheck.java"/>
-    <suppress checks=".*" files="EnumValueNameCheck.java"/>
-    <suppress checks=".*" files="InterfaceTypeParameterNameCheck.java"/>
-    <suppress checks=".*" files="Utils.java"/>
-    <suppress checks=".*" files="AvoidDefaultSerializableInInnerClassesCheck.java"/>
-    <suppress checks=".*" files="ForbidCCommentsInMethodsCheck.java"/>
-    <suppress checks=".*" files="ReturnBooleanFromTernaryCheck.java"/>
-    <suppress checks=".*" files="ReturnNullInsteadOfBooleanCheck.java"/>
+    <suppress checks="TodoComment" files="HideUtilityClassConstructorCheck.java"/>
+    <suppress checks="NPathComplexity" files="MapIterationInForEachLoopCheck.java"/>
+    <suppress checks="NestedIfDepth|ReturnCount" files="UnnecessaryParenthesesExtendedCheck.java"/>
+    <suppress checks="InnerAssignment" files="OverridableMethodInConstructorCheck.java"/>
+    <suppress checks="BooleanExpressionComplexity" files="ForbidWildcardAsReturnTypeCheck.java"/>
+    <suppress checks="JavadocPackage" files="(LineLengthExtendedCheck|Utils).java"/>
     <!-- END of legacy code -->
 
     <suppress checks="Translation" files=".*"/>

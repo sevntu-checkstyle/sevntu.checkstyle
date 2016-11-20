@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2011  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,14 @@
 
 package com.github.sevntu.checkstyle.checks.annotation;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * <p>
@@ -34,9 +34,9 @@ import java.util.TreeSet;
  * </p>
  * <p>
  * Parameters:<br>
- * <b>annotationName</b> - The name of the target annotation where enforcement of parameter 
+ * <b>annotationName</b> - The name of the target annotation where enforcement of parameter
  * should happen.<br>
- * <b>requiredParameters</b> - Set of parameter names that are required on the target 
+ * <b>requiredParameters</b> - Set of parameter names that are required on the target
  * annotation. Names can be specified on any order in target annotation.
  * </p>
  * <p>
@@ -44,9 +44,9 @@ import java.util.TreeSet;
  * Configuration:
  * </p>
  * <pre>
- * &lt;module name="RequiredParameterForAnnotation"&gt; 
- *     &lt;property name="annotationName" value="TheAnnotation"/&gt; 
- *     &lt;property name="requiredParameters" value="ThePropertyName1"/&gt; 
+ * &lt;module name="RequiredParameterForAnnotation"&gt;
+ *     &lt;property name="annotationName" value="TheAnnotation"/&gt;
+ *     &lt;property name="requiredParameters" value="ThePropertyName1"/&gt;
  * &lt;/module&gt;
  * </pre>
  * <p>
@@ -56,17 +56,17 @@ import java.util.TreeSet;
  * <code>
  * {@literal @}TheAnnotation() //Violation. ThePropertyName1 missing.
  * someMethod() {}
- * 
+ *
  * {@literal @}TheAnnotation(ThePropertyName2=2) //Violation. ThePropertyName1 missing.
  * class SomeClass {}
- * 
+ *
  * {@literal @}TheAnnotation(ThePropertyName1=1) //Correct.
  * class SomeClass {}
- * 
+ *
  * {@literal @}TheAnnotation(ThePropertyName2=2, ThePropertyName3=3, ThePropertyName1=1) //Correct.
  * class SomeClass {}
- * </code> 
- * </pre> 
+ * </code>
+ * </pre>
  <p>
  * <b>Example 2.</b><br>
  * Configuration:
@@ -74,7 +74,8 @@ import java.util.TreeSet;
  * <pre>
  * &lt;module name="RequiredParameterForAnnotation"&gt;
  *     &lt;property name="annotationName" value="TheAnnotation"/&gt;
- *     &lt;property name="requiredParameters" value="ThePropertyName1,ThePropertyName2,ThePropertyName3"/&gt;
+ *     &lt;property name="requiredParameters" value="ThePropertyName1,ThePropertyName2,
+ *         ThePropertyName3"/&gt;
  * &lt;/module&gt;
  * </pre>
  * <p>
@@ -82,22 +83,21 @@ import java.util.TreeSet;
  * </p>
  * <pre>
  * <code>
- * {@literal @}TheAnnotation() //Violation. ThePropertyName1, ThePropertyName2, ThePropertyName3 missing.
+ * {@literal @}TheAnnotation() //Violation. ThePropertyName 1, 2, 3 missing.
  * someMethod() {}
- * 
- * {@literal @}TheAnnotation(ThePropertyName2=2) //Violation. ThePropertyName1, ThePropertyName3 missing.
+ *
+ * {@literal @}TheAnnotation(ThePropertyName2=2) //Violation. ThePropertyName 1 and 3 missing.
  * class SomeClass {}
- * 
+ *
  * {@literal @}TheAnnotation(ThePropertyName3=3, ThePropertyName2=2, ThePropertyName1=1) //Correct.
  * class SomeClass {}
- * </code> 
- * </pre> 
- * 
+ * </code>
+ * </pre>
+ *
  * @author <a href="mailto:andrew.uljanenko@gmail.com">Andrew Uljanenko</a>
  */
 
-public class RequiredParameterForAnnotationCheck extends Check
-{
+public class RequiredParameterForAnnotationCheck extends Check {
     /**
      * Key for error message.
      */
@@ -113,70 +113,68 @@ public class RequiredParameterForAnnotationCheck extends Check
      */
     private Set<String> requiredParameters = new TreeSet<String>();
 
-    /**  
+    /**
      * The annotation name we are interested in.
      * @param annotationName set annotation name
      */
-    public void setAnnotationName(String annotationName)
-    {
+    public void setAnnotationName(String annotationName) {
         this.annotationName = annotationName;
     }
 
-    /** 
-     * The required list of parameters we have to use. 
+    /**
+     * The required list of parameters we have to use.
      * @param requiredPropertiesParameter set required list of parameters
      */
-    public void setRequiredParameters(String[] requiredPropertiesParameter)
-    {
+    public void setRequiredParameters(String[] requiredPropertiesParameter) {
         for (String item : requiredPropertiesParameter) {
             this.requiredParameters.add(item);
         }
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.ANNOTATION };
+    public int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.ANNOTATION,
+        };
     }
-    
-    @Override
-    public int[] getRequiredTokens()
-    {
-        return new int[] { TokenTypes.ANNOTATION };
-    };
-    
-    @Override
-    public void visitToken(DetailAST annotationNode)
-    {
-        String annotationName = getAnnotationName(annotationNode);
 
-        if (annotationName.equals(this.annotationName)) {
-        
-            Set<String> missingParameters = 
+    @Override
+    public int[] getRequiredTokens() {
+        return new int[] {
+            TokenTypes.ANNOTATION,
+        };
+    }
+
+    @Override
+    public void visitToken(DetailAST annotationNode) {
+        final String annotationNameCheck = getAnnotationName(annotationNode);
+
+        if (annotationNameCheck.equals(this.annotationName)) {
+
+            final Set<String> missingParameters =
                     Sets.difference(requiredParameters, getAnnotationParameters(annotationNode));
-            
+
             if (!missingParameters.isEmpty()) {
-                String missingParametersAsString = Joiner.on(", ").join(missingParameters);
+                final String missingParametersAsString = Joiner.on(", ").join(missingParameters);
                 log(annotationNode, MSG_KEY, this.annotationName, missingParametersAsString);
             }
         }
     }
-    
+
     /**
      * Returns full name of an annotation.
-     * @param aAnnotation
+     * @param annotationNode The node to examine.
      * @return name of an annotation.
      */
-    private static String getAnnotationName(DetailAST annotationNode)
-    {
-        DetailAST identNode = annotationNode.findFirstToken(TokenTypes.IDENT);
-        String result;
+    private static String getAnnotationName(DetailAST annotationNode) {
+        final DetailAST identNode = annotationNode.findFirstToken(TokenTypes.IDENT);
+        final String result;
 
         if (identNode != null) {
             result = identNode.getText();
         }
         else {
-            StringBuilder builder = new StringBuilder();
+            final StringBuilder builder = new StringBuilder();
             DetailAST separationDotNode = annotationNode.findFirstToken(TokenTypes.DOT);
             while (separationDotNode.getType() == TokenTypes.DOT) {
                 builder.insert(0, '.').insert(1, separationDotNode.getLastChild().getText());
@@ -187,17 +185,16 @@ public class RequiredParameterForAnnotationCheck extends Check
         }
         return result;
     }
-    
+
     /**
      * Returns the name of annotations properties.
-     * @param aAnnotation
+     * @param annotationNode The node to examine.
      * @return name of annotation properties.
      */
-    private static Set<String> getAnnotationParameters(DetailAST annotationNode)
-    {
-        Set<String> annotationParameters = new TreeSet<String>();
+    private static Set<String> getAnnotationParameters(DetailAST annotationNode) {
+        final Set<String> annotationParameters = new TreeSet<String>();
         DetailAST annotationChildNode = annotationNode.getFirstChild();
-        
+
         while (annotationChildNode != null) {
             if (annotationChildNode.getType() == TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR) {
                 annotationParameters.add(annotationChildNode.getFirstChild().getText());

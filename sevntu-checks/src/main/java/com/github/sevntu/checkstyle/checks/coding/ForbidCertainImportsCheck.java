@@ -57,8 +57,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ForbidCertainImportsCheck extends Check
-{
+public class ForbidCertainImportsCheck extends Check {
 
     /**
      * The key is pointing to the warning message text in "messages.properties"
@@ -93,8 +92,7 @@ public class ForbidCertainImportsCheck extends Check
      * @param packageNameRegexp
      *        regexp for package fully qualified name matching.
      */
-    public void setPackageNameRegexp(String packageNameRegexp)
-    {
+    public void setPackageNameRegexp(String packageNameRegexp) {
         if (packageNameRegexp != null) {
             packageNamesRegexp = Pattern.compile(packageNameRegexp);
         }
@@ -104,8 +102,7 @@ public class ForbidCertainImportsCheck extends Check
      * Gets the regexp is used for matching forbidden imports.
      * @return regexp for forbidden imports matching.
      */
-    public String getForbiddenImportRegexp()
-    {
+    public String getForbiddenImportRegexp() {
         return forbiddenImportsRegexp.toString();
     }
 
@@ -114,8 +111,7 @@ public class ForbidCertainImportsCheck extends Check
      * @param forbiddenImportsRegexp
      *        regexp for matching forbidden imports.
      */
-    public void setForbiddenImportsRegexp(String forbiddenImportsRegexp)
-    {
+    public void setForbiddenImportsRegexp(String forbiddenImportsRegexp) {
         if (forbiddenImportsRegexp != null) {
             this.forbiddenImportsRegexp = Pattern.compile(forbiddenImportsRegexp);
         }
@@ -125,8 +121,7 @@ public class ForbidCertainImportsCheck extends Check
      * Gets the regexp for excluding imports from checking.
      * @return regexp for excluding imports from checking.
      */
-    public String getForbiddenImportsExcludesRegexp()
-    {
+    public String getForbiddenImportsExcludesRegexp() {
         return forbiddenImportsExcludesRegexp.toString();
     }
 
@@ -136,8 +131,7 @@ public class ForbidCertainImportsCheck extends Check
      *        String contains a regexp for excluding imports from checking.
      */
     public void setForbiddenImportsExcludesRegexp(String
-            forbiddenImportsExcludesRegexp)
-    {
+            forbiddenImportsExcludesRegexp) {
         if (forbiddenImportsExcludesRegexp != null) {
             this.forbiddenImportsExcludesRegexp = Pattern
                     .compile(forbiddenImportsExcludesRegexp);
@@ -145,12 +139,10 @@ public class ForbidCertainImportsCheck extends Check
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         final int[] defaultTokens;
         if (packageNamesRegexp == null || forbiddenImportsRegexp == null
-            || forbiddenImportsExcludesRegexp == null)
-        {
+            || forbiddenImportsExcludesRegexp == null) {
             defaultTokens = new int[] {};
         }
         else {
@@ -161,8 +153,7 @@ public class ForbidCertainImportsCheck extends Check
     }
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
             case TokenTypes.PACKAGE_DEF:
                 if (packageNamesRegexp != null) {
@@ -173,8 +164,7 @@ public class ForbidCertainImportsCheck extends Check
                 break;
             case TokenTypes.IMPORT:
                 if (packageMatches && forbiddenImportsRegexp != null
-                    && forbiddenImportsExcludesRegexp != null)
-                {
+                    && forbiddenImportsExcludesRegexp != null) {
                     final String importQualifiedText = getText(ast);
                     if (isImportForbidden(importQualifiedText)) {
                         log(ast, importQualifiedText);
@@ -185,8 +175,7 @@ public class ForbidCertainImportsCheck extends Check
                 if (forbiddenImportsRegexp != null
                     && forbiddenImportsExcludesRegexp != null
                     && ast.findFirstToken(TokenTypes.DOT) != null
-                    && packageMatches)
-                {
+                    && packageMatches) {
                     final String importQualifiedText = getText(ast);
                     if (isImportForbidden(importQualifiedText)) {
                         log(ast, importQualifiedText);
@@ -205,8 +194,7 @@ public class ForbidCertainImportsCheck extends Check
      * @return true is given import is forbidden in current
      *     classes package, false otherwise
      */
-    private boolean isImportForbidden(String importText)
-    {
+    private boolean isImportForbidden(String importText) {
         return forbiddenImportsRegexp.matcher(importText).matches()
                 && !forbiddenImportsExcludesRegexp.matcher(importText).matches();
     }
@@ -218,8 +206,7 @@ public class ForbidCertainImportsCheck extends Check
      * @param importText
      *        import to be warned.
      */
-    private void log(DetailAST nodeToWarn, String importText)
-    {
+    private void log(DetailAST nodeToWarn, String importText) {
         log(nodeToWarn.getLineNo(), MSG_KEY,
                 getForbiddenImportRegexp(), importText);
     }
@@ -232,8 +219,7 @@ public class ForbidCertainImportsCheck extends Check
      * @return The fully qualified name of package or import without
      *         "package"/"import" words or semicolons.
      */
-    private static String getText(DetailAST packageDefOrImportNode)
-    {
+    private static String getText(DetailAST packageDefOrImportNode) {
         String result = null;
 
         final DetailAST identNode = packageDefOrImportNode.findFirstToken(TokenTypes.IDENT);

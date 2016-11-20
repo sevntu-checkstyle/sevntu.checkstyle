@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2012 Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.ArrayList;
@@ -33,24 +34,26 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * from within the finnally block will override the value returned prior to execution of the finally
  * block. This check reports if the finally block contains a return statement.
  * </p>
- * 
+ *
  * @author <a href="mailto:andrew.uljanenko@gmail.com">Andrew Uljanenko</a>
  */
 
-public class ForbidReturnInFinallyBlockCheck extends Check
-{
-
+public class ForbidReturnInFinallyBlockCheck extends Check {
+    /**
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
     public static final String MSG_KEY = "forbid.return.in.finally.block";
 
     @Override
-    public final int[] getDefaultTokens()
-    {
-        return new int[] { TokenTypes.LITERAL_FINALLY };
+    public final int[] getDefaultTokens() {
+        return new int[] {
+            TokenTypes.LITERAL_FINALLY,
+        };
     }
 
     @Override
-    public void visitToken(DetailAST finallyNode)
-    {
+    public void visitToken(DetailAST finallyNode) {
         final DetailAST firstSlistNode = finallyNode.findFirstToken(TokenTypes.SLIST);
 
         final List<DetailAST> listOfReturnNodes = getReturnNodes(firstSlistNode);
@@ -62,8 +65,13 @@ public class ForbidReturnInFinallyBlockCheck extends Check
         }
     }
 
-    private List<DetailAST> getReturnNodes(DetailAST node)
-    {
+    /**
+     * Retrieves the list of return nodes inside the given node.
+     *
+     * @param node The token to examine.
+     * @return The list of return nodes.
+     */
+    private List<DetailAST> getReturnNodes(DetailAST node) {
         final List<DetailAST> result = new ArrayList<DetailAST>();
         DetailAST child = node.getFirstChild();
         while (child != null) {
@@ -76,8 +84,12 @@ public class ForbidReturnInFinallyBlockCheck extends Check
         return result;
     }
 
-    private boolean isReturnInMethodDefinition(DetailAST returnNode)
-    {
+    /**
+     * Checks if there is a method definition in the node.
+     * @param returnNode The token to examine.
+     * @return true if a method definition was found.
+     */
+    private boolean isReturnInMethodDefinition(DetailAST returnNode) {
         Boolean result = false;
         DetailAST node = returnNode;
         while (node.getType() != TokenTypes.LITERAL_FINALLY) {

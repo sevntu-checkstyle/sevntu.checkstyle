@@ -43,14 +43,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ForbidInstantiationCheck extends Check
-{
+public class ForbidInstantiationCheck extends Check {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
     public static final String MSG_KEY = "forbid.instantiation";
+
+    /** Path string to separate layers of packages. */
+    private static final String PATH_SEPARATOR = ".";
 
     /**
      * Set which contains classNames for objects that are forbidden to
@@ -67,8 +69,7 @@ public class ForbidInstantiationCheck extends Check
     /**
      * Creates the check instance.
      */
-    public ForbidInstantiationCheck()
-    {
+    public ForbidInstantiationCheck() {
         forbiddenClasses.add("java.lang.NullPointerException");
     }
 
@@ -79,8 +80,7 @@ public class ForbidInstantiationCheck extends Check
      *        full, such as "java.lang.NullpointerException", do not use short
      *        name - NullpointerException;
      */
-    public void setForbiddenClasses(final String[] classNames)
-    {
+    public void setForbiddenClasses(final String[] classNames) {
         forbiddenClasses.clear();
         if (classNames != null) {
             for (String name : classNames) {
@@ -90,20 +90,17 @@ public class ForbidInstantiationCheck extends Check
     }
 
     @Override
-    public void beginTree(final DetailAST rootAST)
-    {
+    public void beginTree(final DetailAST rootAST) {
         importsList.clear();
     }
 
     @Override
-    public int[] getDefaultTokens()
-    {
+    public int[] getDefaultTokens() {
         return new int[] {TokenTypes.IMPORT, TokenTypes.LITERAL_NEW };
     }
 
     @Override
-    public void visitToken(DetailAST ast)
-    {
+    public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
 
             case TokenTypes.IMPORT:
@@ -114,18 +111,19 @@ public class ForbidInstantiationCheck extends Check
 
                 final String instanceClass = getText(ast);
 
-                if (instanceClass != null) { // non-primitive instance
+                if (instanceClass != null) {
+                    // non-primitive instance
 
                     final String instanceClassName = getClassName(instanceClass);
 
                     for (String forbiddenClass : forbiddenClasses) {
 
                         if (forbiddenClass.startsWith("java.lang.")
-                            && forbiddenClass.endsWith(instanceClassName))
-                        { // java.lang.*
+                            && forbiddenClass.endsWith(instanceClassName)) {
                             log(ast, MSG_KEY, instanceClassName);
                         }
-                        else if (instanceClass.contains(".")) { // className is full
+                        else if (instanceClass.contains(PATH_SEPARATOR)) {
+                            // className is full
 
                             if (instanceClass.equals(forbiddenClass)) {
                                 // the full path is forbidden
@@ -133,8 +131,7 @@ public class ForbidInstantiationCheck extends Check
                             }
                         }
                         else if (addedUsingForbiddenImport(instanceClass,
-                            forbiddenClass))
-                        {
+                            forbiddenClass)) {
                             // className is short and exists in imports
                             log(ast, MSG_KEY, instanceClass);
                         }
@@ -160,8 +157,7 @@ public class ForbidInstantiationCheck extends Check
      *         forbidden import and false otherwise.
      */
     private boolean addedUsingForbiddenImport(final String className,
-            String forbiddenClassNameAndPath)
-    {
+            String forbiddenClassNameAndPath) {
         boolean result = false;
 
         for (String importText : importsList) {
@@ -194,7 +190,7 @@ public class ForbidInstantiationCheck extends Check
                 importText.substring(0, importText.length() - 1);
 
         return importText.endsWith("*")
-                && forbiddenClassNameAndPath.equals(importTextWithoutAsterisk + className);
+                && (importTextWithoutAsterisk + className).equals(forbiddenClassNameAndPath);
     }
 
     /**
@@ -222,8 +218,7 @@ public class ForbidInstantiationCheck extends Check
      *        - the full (dotted) classPath
      * @return the name of the class is specified by the current full name&path.
      */
-    private static String getClassName(final String classNameAndPath)
-    {
+    private static String getClassName(final String classNameAndPath) {
         return classNameAndPath.replaceAll(".+\\.", "");
     }
 
@@ -236,8 +231,7 @@ public class ForbidInstantiationCheck extends Check
      *         "IMPORT" node or instanstiated class Name&Path for given
      *         "LITERAL_NEW" node.
      */
-    private static String getText(final DetailAST ast)
-    {
+    private static String getText(final DetailAST ast) {
         String result = null;
 
         final DetailAST textWithoutDots = ast.findFirstToken(TokenTypes.IDENT);
@@ -249,10 +243,11 @@ public class ForbidInstantiationCheck extends Check
                 final FullIdent dottedPathIdent = FullIdent
                         .createFullIdentBelow(parentDotAST);
                 final DetailAST nameAST = parentDotAST.getLastChild();
-                result = dottedPathIdent.getText() + "." + nameAST.getText();
+                result = dottedPathIdent.getText() + PATH_SEPARATOR + nameAST.getText();
             }
         }
-        else { // if subtree doesn`t contain dots.
+        // if subtree doesn`t contain dots.
+        else {
             result = textWithoutDots.getText();
         }
         return result;
