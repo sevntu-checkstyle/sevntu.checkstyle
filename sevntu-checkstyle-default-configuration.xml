@@ -220,5 +220,11 @@
     <module name="com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck" >
       <property name="format" value="^[A-Z][a-zA-Z0-9]*$,^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
     </module>
+    <!-- 1.22.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck" >
+      <property name="annotationName" value="Test"/>
+      <property name="elementName" value="expected"/>
+      <property name="forbiddenElementValueRegexp" value=".*"/>
+    </module>
   </module>
 </module>
