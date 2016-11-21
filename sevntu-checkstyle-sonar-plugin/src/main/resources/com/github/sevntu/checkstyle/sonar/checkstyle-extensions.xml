@@ -14,10 +14,6 @@
 			<defaultValue>80</defaultValue>
 			<description>Maximum allowed line length.</description>
 		</param>
-		<param key="tabWidth" type="INTEGER">
-			<defaultValue>8</defaultValue>
-			<description>Number of characters to count for each tab character.</description>
-		</param>
 		<param key="ignoreClass" type="BOOLEAN">
 			<defaultValue>false</defaultValue>
 			<description>Check class declaration length.</description>
@@ -91,7 +87,7 @@
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck</key>
 		<name>Diamond Operator For Variable Definition</name>
-		<category name="design"/>
+		<category name="coding"/>
 		<description>Highlights variable definition statements where diamond operator could be used</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck</configKey>
 	</rule>
@@ -393,6 +389,10 @@
 			<defaultValue>false</defaultValue>
 			<description>Allow catching when re-throwing exception.</description>
     	</param>
+        <param key="illegalClassNames" type="STRING">
+            <defaultValue>Exception, Error, RuntimeException, Throwable</defaultValue>
+            <description>Illegal class names.</description>
+        </param>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck</key>
@@ -419,6 +419,10 @@
 			<defaultValue>false</defaultValue>
 			<description>If this checkbox is checked, Check will propose to replace wrong usage to entrySet().</description>
     	</param>
+        <param key="supportedMapImplQualifiedNames" type="STRING">
+            <defaultValue></defaultValue>
+            <description>Set of allowable map implementations.</description>
+        </param>
 	</rule>
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck</key>
@@ -677,6 +681,10 @@
         <category name="design"/>
         <description>Nested switch should be avoided, extract nested switch block into separate method.</description>
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck</configKey>
+        <param key="max" type="INTEGER">
+            <defaultValue>0</defaultValue>
+            <description>Maximum allowed switch nesting.</description>
+        </param>
     </rule>
     <rule>
         <key>com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck</key>
@@ -696,7 +704,7 @@
 	<rule>
 		<key>com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</key>
 		<name>Check for enum values name</name>
-		<category name="coding"/>
+		<category name="naming"/>
 		<description>Check forces enum values to match the specific pattern</description>
 		<configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</configKey>
 		<param key="constFormat" type="STRING">
@@ -716,7 +724,7 @@
     <rule>
         <key>com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck</key>
         <name>Check for enum constants name</name>
-        <category name="coding"/>
+        <category name="naming"/>
         <description>Check forces enum constants to match one of the specified patterns and forces all the values to follow only one of the specified patterns.</description>
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck</configKey>
         <param key="formats" type="STRING">
@@ -761,6 +769,53 @@
         <category name="design"/>
         <description>Check whether <code>private</code> methods should be declared as <code>static</code>.</description>
         <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</configKey>
+        <param key="skippedMethods" type="STRING">
+            <defaultValue>writeObject, readObject, readObjectNoData, readResolve, writeReplace</defaultValue>
+            <description>Method names to skip during the check.</description>
+        </param>
     </rule>
 
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck</key>
+        <name>Forbid Annotation Element Value</name>
+        <category name="annotation"/>
+        <description>Forbids specific element value for specific annotation.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck</configKey>
+        <param key="annotationName" type="STRING">
+            <defaultValue>Test</defaultValue>
+            <description>Forbidden annotation name.</description>
+        </param>
+        <param key="elementName" type="STRING">
+            <defaultValue>expected</defaultValue>
+            <description>Forbidden annotation element name.</description>
+        </param>
+        <param key="forbiddenElementValueRegexp" type="STRING">
+            <defaultValue>.*</defaultValue>
+            <description>Forbidden annotation element value pattern.</description>
+        </param>
+    </rule>
+
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck</key>
+        <name>Hide Utility Class Constructor</name>
+        <category name="design"/>
+        <description>Make sure that utility classes (classes that contain only static methods) do not have a public constructor.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck</configKey>
+    </rule>
+
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck</key>
+        <name>Whitespace Before Array Initializer</name>
+        <category name="coding"/>
+        <description>This checks enforces whitespace before array initializer.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck</configKey>
+    </rule>
+
+    <rule>
+        <key>com.github.sevntu.checkstyle.checks.design.InnerClassCheck</key>
+        <name>Inner Class</name>
+        <category name="design"/>
+        <description>Check nested (internal) classes to be declared at the bottom of the class after all methods (fields) declaration.</description>
+        <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.InnerClassCheck</configKey>
+    </rule>
 </rules>
