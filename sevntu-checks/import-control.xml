@@ -7,7 +7,6 @@
 
   <allow pkg="antlr"/>
   <allow pkg="org.antlr.v4.runtime"/>
-  <allow pkg="com.google.common"/>
   <allow pkg="com.puppycrawl.tools.checkstyle.api"/>
   <allow pkg="com.puppycrawl.tools.checkstyle.checks"/>
   <allow pkg="java.io"/>
@@ -17,7 +16,6 @@
   <allow pkg="javax.xml.parsers"/>
   <allow pkg="org.apache.commons.beanutils"/>
   <allow pkg="org.apache.commons.logging"/>
-  <allow pkg="org.apache.commons.lang3"/>
   <allow pkg="org.xml.sax"/>
   <allow pkg="com.puppycrawl.tools.checkstyle"/>
   <allow pkg="java.lang.reflect"/>
@@ -27,28 +25,98 @@
   <!-- The local ones -->
   <allow class="java.security.MessageDigest" local-only="true"/>
   <allow class="java.security.NoSuchAlgorithmException" local-only="true"/>
+  <allow class="javax.xml.bind.DatatypeConverter" local-only="true"/>
+  <allow class="com.google.common.base.CaseFormat" local-only="true"/>
+  <allow class="com.google.common.io.Closeables" local-only="true"/>
+  <allow class="com.google.common.io.Flushables" local-only="true"/>
+  <allow class="com.google.common.collect.HashMultimap" local-only="true"/>
+  <allow class="com.google.common.collect.ImmutableCollection" local-only="true"/>
+  <allow class="com.google.common.collect.ImmutableList" local-only="true"/>
+  <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
+  <allow class="com.google.common.collect.MapDifference" local-only="true"/>
+  <allow class="com.google.common.collect.Maps" local-only="true"/>
+  <allow class="com.google.common.collect.Multimap" local-only="true"/>
   <allow pkg="com.puppycrawl.tools.checkstyle.grammars" local-only="true"/>
   <allow pkg="org.apache.commons.cli" local-only="true"/>
+
+  <subpackage name="utils">
+    <allow class="com.google.common.base.CharMatcher" local-only="true"/>
+    <allow class="com.google.common.collect.ImmutableCollection" local-only="true"/>
+    <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
+  </subpackage>
 
   <subpackage name="checks">
     <allow pkg="com.github.sevntu.checkstyle.checks"/>
     <allow class="com.puppycrawl.tools.checkstyle.Definitions"/>
+    <allow class="com.google.common.io.Closeables" local-only="true"/>
+    <allow class="com.google.common.collect.HashMultiset" local-only="true"/>
+    <allow class="com.google.common.collect.HashMultimap" local-only="true"/>
+    <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
+    <allow class="com.google.common.collect.ImmutableMultiset" local-only="true"/>
+    <allow class="com.google.common.collect.Multimap" local-only="true"/>
+    <allow class="com.google.common.collect.Multiset" local-only="true"/>
+    <allow class="com.google.common.collect.Multiset.Entry" local-only="true"/>
+    <allow class="com.google.common.collect.SetMultimap" local-only="true"/>
     <allow pkg="java.math"/>
 
     <subpackage name="indentation">
       <allow pkg="java.lang.reflect"/>
+      <allow class="com.google.common.collect.Range" local-only="true"/>
+      <allow class="com.google.common.collect.RangeMap" local-only="true"/>
     </subpackage>
     <subpackage name="header">
       <allow class="java.nio.charset.Charset" local-only="true"/>
+      <allow class="com.google.common.io.Closeables" local-only="true"/>
     </subpackage>
     <subpackage name="javadoc">
       <allow pkg="com.puppycrawl.tools.checkstyle.grammars.javadoc"/>
       <allow pkg="java.lang.reflect"/>
+      <allow class="com.google.common.base.CharMatcher" local-only="true"/>
+      <allow class="com.google.common.collect.Multiset" local-only="true"/>
+    </subpackage>
+    <subpackage name="design">
+      <allow class="com.google.common.annotations.VisibleForTesting" local-only="true"/>
+      <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
+      <!-- following allows donot exists in main proejcts -->
+      <allow class="com.google.common.collect.ImmutableSet" local-only="true"/>
+      <allow class="com.google.common.base.Optional" local-only="true"/>
+      <allow class="com.google.common.base.Predicate" local-only="true"/>
+      <allow class="com.google.common.collect.Iterables" local-only="true"/>
+      <allow class="com.google.common.collect.Sets" local-only="true"/>
+      <allow class="com.google.common.collect.Lists" local-only="true"/>
+
+    </subpackage>
+    <subpackage name="imports">
+      <allow class="com.google.common.collect.HashMultimap" local-only="true"/>
+    </subpackage>
+    <subpackage name="coding">
+      <allow class="com.google.common.collect.ImmutableCollection" local-only="true"/>
+      <!-- following allows donot exists in main proejcts -->
+      <allow class="com.google.common.collect.Maps" local-only="true"/>
+      <allow class="com.google.common.collect.Lists" local-only="true"/>
+    </subpackage>
+    <subpackage name="naming">
+      <!-- following allows donot exists in main proejcts -->
+      <allow class="com.google.common.collect.Lists" local-only="true"/>
+    </subpackage>
+    <subpackage name="annotation">
+      <!-- following allows donot exists in main proejcts -->
+      <allow class="com.google.common.collect.Lists" local-only="true"/>
+      <allow class="com.google.common.base.CharMatcher" local-only="true"/>
+      <allow class="com.google.common.collect.Sets" local-only="true"/>
+      <allow class="com.google.common.base.Joiner" local-only="true"/>
     </subpackage>
   </subpackage>
 
   <subpackage name="filters">
     <allow pkg="java.lang.ref"/>
+    <allow class="com.google.common.io.Closeables" local-only="true"/>
+    <allow class="com.google.common.base.CaseFormat" local-only="true"/>
+    <allow class="com.google.common.collect.ImmutableCollection" local-only="true"/>
+    <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
+    <!-- check's subpackages -->
+    <disallow pkg="com\.puppycrawl\.tools\.checkstyle\.checks\.[^.]+" regex="true"/>
+    <disallow pkg="com\.puppycrawl\.tools\.checkstyle\.(ant|doclets|gui)" regex="true"/>
   </subpackage>
 
 </import-control>
