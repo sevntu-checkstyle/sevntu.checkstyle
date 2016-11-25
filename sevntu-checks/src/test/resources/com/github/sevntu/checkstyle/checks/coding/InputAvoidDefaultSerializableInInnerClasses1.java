@@ -114,7 +114,7 @@ public class InputAvoidDefaultSerializableInInnerClasses1 implements Serializabl
 		}
 	}
 
-	public interface EmptyInterface
+	private interface EmptyInterface
 	{
 	}
 

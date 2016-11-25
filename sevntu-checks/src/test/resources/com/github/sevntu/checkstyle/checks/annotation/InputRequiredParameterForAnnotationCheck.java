@@ -138,14 +138,14 @@ public class InputRequiredParameterForAnnotationCheck
    }
 
    
-   public @interface testAnnotation1
+   @interface testAnnotation1
    {
        String firstParameter() default "1";
        String secondParameter() default "2";
        String thirdParameter() default "3";
    }
    
-   public @interface testAnnotation2
+   @interface testAnnotation2
    {
        int par1() default 1;
        int par2() default 2;

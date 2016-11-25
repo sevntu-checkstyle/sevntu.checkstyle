@@ -2,10 +2,10 @@ package com.github.sevntu.checkstyle.checks.design;
 
 import java.io.Serializable;
 
-public class HideUtilityClassContructor3 implements Serializable {
+public class InputHideUtilityClassContructor3 implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public HideUtilityClassContructor3(int i) {
+    public InputHideUtilityClassContructor3(int i) {
         // no code
     }
 

@@ -60,7 +60,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("HideUtilityClassContructor1.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassContructor1.java"), expected);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("HideUtilityClassContructor2.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassContructor2.java"), expected);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("HideUtilityClassContructor3.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassContructor3.java"), expected);
     }
 
 }

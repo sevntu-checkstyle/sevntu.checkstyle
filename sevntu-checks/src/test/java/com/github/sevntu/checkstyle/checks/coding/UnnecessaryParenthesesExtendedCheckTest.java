@@ -163,6 +163,6 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");
 		checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "true");
-		verify(checkConfig, getPath("testUBV.java"), expected);
+		verify(checkConfig, getPath("InputUnnecessaryParenthesesUbv.java"), expected);
 	}
 }

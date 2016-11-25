@@ -20,7 +20,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "47:12: " + getCheckMessage(MSG_KEY, "str", "Anno1")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "52:12: " + getCheckMessage(MSG_KEY, "intVal", "Anno2")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "57:12: " + getCheckMessage(MSG_KEY, "floatVal", "Anno3")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "63:12: " + getCheckMessage(MSG_KEY, "boolVal", "Anno4")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "62:11: " + getCheckMessage(MSG_KEY, "name", "Bean")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "69:47: " + getCheckMessage(MSG_KEY, "stringValue", "Anno5")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "68:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
 
         String[] expected = {};
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "79:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -163,7 +163,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "96:34: " + getCheckMessage(MSG_KEY, "last", "Name")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -175,7 +175,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "114:11: " + getCheckMessage(MSG_KEY, "expected", "Test")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheckInput.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
 
     @Test
@@ -191,6 +191,6 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
             "8:33: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings")
         };
 
-        verify(checkConfig, getPath("ForbidAnnotationElementValueCheck2Input.java"), expected);
+        verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck2.java"), expected);
     }
 }

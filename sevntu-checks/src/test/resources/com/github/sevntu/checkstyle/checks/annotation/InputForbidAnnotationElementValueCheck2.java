@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.annotation;
 
-public class ForbidAnnotationElementValueCheck2Input {
+public class InputForbidAnnotationElementValueCheck2 {
     @org.junit.Test
     public void test1() {
     }
