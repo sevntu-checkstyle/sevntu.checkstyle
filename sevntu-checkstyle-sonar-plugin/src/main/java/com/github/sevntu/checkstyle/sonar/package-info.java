@@ -17,21 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
 
-package com.github.sevntu.checkstyle.sonar;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.sonar.api.SonarPlugin;
-
 /**
- * Sonar Plugin with {@link CheckstyleExtensionRepository} extension.
- * @author rdiachenko
+ * Sonar plugin.
  */
-public final class CheckstyleExtensionPlugin extends SonarPlugin {
-
-    @Override
-    public List<?> getExtensions() {
-        return Arrays.asList(CheckstyleExtensionRepository.class);
-    }
-}
+package com.github.sevntu.checkstyle.sonar;
