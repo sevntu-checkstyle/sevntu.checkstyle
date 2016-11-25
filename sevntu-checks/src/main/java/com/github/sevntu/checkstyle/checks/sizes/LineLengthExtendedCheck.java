@@ -26,7 +26,7 @@ import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.beanutils.ConversionException;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
@@ -89,7 +89,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * @author Lars Kühne
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
-public class LineLengthExtendedCheck extends Check {
+public class LineLengthExtendedCheck extends AbstractCheck {
     /** Warning message key. */
     public static final String MSG_KEY = "maxLineLen";
 

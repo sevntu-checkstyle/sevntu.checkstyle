@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.regex.Pattern;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -106,7 +106,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class NameConventionForJunit4TestClassesCheck extends Check {
+public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     /**
      * Violation message key.
      */

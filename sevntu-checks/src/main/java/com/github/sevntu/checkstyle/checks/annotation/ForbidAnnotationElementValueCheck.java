@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.base.CharMatcher;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -111,7 +111,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:drozzds@gmail.com"> Sergey Drozd </a>
  * @author Richard Veach
  */
-public class ForbidAnnotationElementValueCheck extends Check {
+public class ForbidAnnotationElementValueCheck extends AbstractCheck {
     /** Message key. */
     public static final String MSG_KEY = "annotation.forbid.element.value";
 

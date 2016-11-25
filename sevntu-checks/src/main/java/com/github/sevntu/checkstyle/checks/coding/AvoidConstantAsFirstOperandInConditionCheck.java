@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.Arrays;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
@@ -52,7 +52,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *
  * @author Sergey Burtsev
  */
-public class AvoidConstantAsFirstOperandInConditionCheck extends Check {
+public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.

@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.regex.Pattern;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -57,7 +57,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ForbidCertainImportsCheck extends Check {
+public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * The key is pointing to the warning message text in "messages.properties"

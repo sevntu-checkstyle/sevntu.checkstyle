@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.google.common.collect.Lists;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -72,7 +72,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @see <a href="http://www.scribd.com/doc/15884743/Java-Coding-Style-by-Achut-Reddy">
  * Java Coding Style</a>
  */
-public class EnumValueNameCheck extends Check {
+public class EnumValueNameCheck extends AbstractCheck {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.

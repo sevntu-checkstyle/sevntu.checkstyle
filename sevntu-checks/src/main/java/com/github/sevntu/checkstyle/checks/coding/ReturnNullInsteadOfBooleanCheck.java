@@ -23,7 +23,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -35,7 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author Ivan Sopov
  */
-public class ReturnNullInsteadOfBooleanCheck extends Check {
+public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
 
     /**
      * Warning message key.

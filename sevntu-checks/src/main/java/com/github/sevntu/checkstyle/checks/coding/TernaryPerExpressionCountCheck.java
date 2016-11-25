@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -85,7 +85,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
 
-public class TernaryPerExpressionCountCheck extends Check {
+public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"

@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -125,7 +125,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  */
-public class OverridableMethodInConstructorCheck extends Check {
+public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"

@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
@@ -70,7 +70,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class AvoidNotShortCircuitOperatorsForBooleanCheck extends Check {
+public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck {
 
     /**
      * A key to search the warning message text in "messages.properties" file.

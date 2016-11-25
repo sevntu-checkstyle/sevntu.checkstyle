@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -52,7 +52,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  *
  */
-public class FinalizeImplementationCheck extends Check {
+public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * The key is pointing to the warning message text in "messages.properties"

@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -34,7 +34,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author lkuehne
  * @version $Revision: 1.12 $
  */
-public class HideUtilityClassConstructorCheck extends Check {
+public class HideUtilityClassConstructorCheck extends AbstractCheck {
     /**
      * Warning message key.
      */

@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author Ivan Sopov
  */
-public class ReturnBooleanFromTernaryCheck extends Check {
+public class ReturnBooleanFromTernaryCheck extends AbstractCheck {
 
     /**
      * Warning message key.

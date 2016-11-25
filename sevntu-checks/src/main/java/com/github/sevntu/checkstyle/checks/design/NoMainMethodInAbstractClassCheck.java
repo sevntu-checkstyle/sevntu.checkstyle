@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.design;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * mislead a developer to consider this class as a ready-to-use implementation.
  * @author Baratali Izmailov <a href="mailto:barataliba@gmail.com">email</a>
  */
-public class NoMainMethodInAbstractClassCheck extends Check {
+public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     /**
      * Key for error message.
      */

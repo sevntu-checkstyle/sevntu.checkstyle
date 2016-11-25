@@ -20,7 +20,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import antlr.collections.AST;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -52,7 +52,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Eric Roe
  * @author Antonenko Dmitriy
  */
-public class UnnecessaryParenthesesExtendedCheck extends Check {
+public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     /**Warning message key.*/
     public static final String MSG_KEY_ASSIGN = "unnecessary.paren.assign";
     /**Warning message key.*/

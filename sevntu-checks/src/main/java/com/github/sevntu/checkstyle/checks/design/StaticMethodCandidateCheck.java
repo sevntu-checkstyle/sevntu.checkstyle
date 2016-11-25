@@ -29,7 +29,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
@@ -63,7 +63,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * </ul>
  * @author Vladislav Lisetskiy
  */
-public class StaticMethodCandidateCheck extends Check {
+public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /** Warning message key. */
     public static final String MSG_KEY = "static.method.candidate";

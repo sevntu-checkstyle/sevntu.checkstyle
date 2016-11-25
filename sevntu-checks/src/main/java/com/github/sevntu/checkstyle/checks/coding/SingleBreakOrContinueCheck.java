@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -110,7 +110,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
  */
-public class SingleBreakOrContinueCheck extends Check {
+public class SingleBreakOrContinueCheck extends AbstractCheck {
 
     /**
      * Warning message key.

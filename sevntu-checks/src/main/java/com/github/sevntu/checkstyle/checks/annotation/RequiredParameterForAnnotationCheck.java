@@ -24,7 +24,7 @@ import java.util.TreeSet;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Sets;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -97,7 +97,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:andrew.uljanenko@gmail.com">Andrew Uljanenko</a>
  */
 
-public class RequiredParameterForAnnotationCheck extends Check {
+public class RequiredParameterForAnnotationCheck extends AbstractCheck {
     /**
      * Key for error message.
      */

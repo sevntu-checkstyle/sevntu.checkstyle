@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -77,7 +77,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Alexey Nesterenko</a>
  */
-public class RedundantReturnCheck extends Check {
+public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"

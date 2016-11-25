@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -60,7 +60,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
  */
-public class ConfusingConditionCheck extends Check {
+public class ConfusingConditionCheck extends AbstractCheck {
     /**
      * The key is pointing to the message text String in
      * "messages.properties file".This message used for common cases.

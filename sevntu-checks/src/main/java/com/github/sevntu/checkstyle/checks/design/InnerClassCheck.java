@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
-public class InnerClassCheck extends Check {
+public class InnerClassCheck extends AbstractCheck {
     /**
      * Warning message key.
      */
