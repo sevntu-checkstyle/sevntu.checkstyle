@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -58,7 +58,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  */
-public class ForbidThrowAnonymousExceptionsCheck extends Check {
+public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Warning message key.
      */

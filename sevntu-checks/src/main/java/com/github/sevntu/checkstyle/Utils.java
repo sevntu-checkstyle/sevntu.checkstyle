@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
@@ -36,8 +36,8 @@ public final class Utils {
     /**
      * Reports passed token as unsupported by throwing {@link IllegalArgumentException} exception.
      * This utility method if used to mark that token passed to
-     * {@link Check#visitToken(com.puppycrawl.tools.checkstyle.api.DetailAST)} is not supported by
-     * this method.
+     * {@link AbstractCheck#visitToken(com.puppycrawl.tools.checkstyle.api.DetailAST)} is not
+     * supported by this method.
      * @param token
      *        token/type that is not supported
      * @throws IllegalArgumentException

@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.regex.Pattern;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -140,7 +140,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Cheng-Yu Pai
  */
 
-public class NumericLiteralNeedsUnderscoreCheck extends Check {
+public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Key for error message.

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -72,7 +72,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
-public class PublicReferenceToPrivateTypeCheck extends Check {
+public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * Check message key for private types.
      */

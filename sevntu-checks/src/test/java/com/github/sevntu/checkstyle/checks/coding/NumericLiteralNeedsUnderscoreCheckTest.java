@@ -4,8 +4,7 @@ import static com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnde
 
 import java.io.File;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;

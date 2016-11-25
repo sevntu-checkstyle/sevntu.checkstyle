@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.regex.Pattern;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
@@ -85,7 +85,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  *
  * @author <a href="mailto:Sergey.Dudoladov@gmail.com">Sergey Dudoladov</a>
  */
-public class ConstructorWithoutParamsCheck extends Check {
+public class ConstructorWithoutParamsCheck extends AbstractCheck {
 
     /**
      * This key points to the warning message in the  "messages.properties" file.

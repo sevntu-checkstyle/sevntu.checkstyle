@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -115,7 +115,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
-public class EitherLogOrThrowCheck extends Check {
+public class EitherLogOrThrowCheck extends AbstractCheck {
     /**
      * Key for error message.
      */

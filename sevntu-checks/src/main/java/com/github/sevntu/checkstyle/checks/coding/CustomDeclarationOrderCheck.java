@@ -34,7 +34,7 @@ import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.beanutils.ConversionException;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -151,7 +151,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
-public class CustomDeclarationOrderCheck extends Check {
+public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.

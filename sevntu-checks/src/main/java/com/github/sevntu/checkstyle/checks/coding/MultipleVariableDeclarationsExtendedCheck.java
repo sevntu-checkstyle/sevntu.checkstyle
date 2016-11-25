@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
@@ -45,7 +45,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * @author o_sukhodolsky
  */
 
-public class MultipleVariableDeclarationsExtendedCheck extends Check {
+public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
     /**
      * Warning message key.
      */

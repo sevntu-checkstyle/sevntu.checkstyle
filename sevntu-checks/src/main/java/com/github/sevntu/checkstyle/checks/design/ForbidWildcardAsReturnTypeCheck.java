@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 import antlr.collections.AST;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -47,7 +47,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
-public class ForbidWildcardAsReturnTypeCheck extends Check {
+public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     /**
      * Key for error message.
      */

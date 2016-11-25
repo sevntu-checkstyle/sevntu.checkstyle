@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -95,7 +95,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class EmptyPublicCtorInClassCheck extends Check {
+public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     /**
      * Violation message key.
      */

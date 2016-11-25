@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -136,7 +136,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
  */
-public class AvoidModifiersForTypesCheck extends Check {
+public class AvoidModifiersForTypesCheck extends AbstractCheck {
 
     /**
      * The key is pointing to the message text String in

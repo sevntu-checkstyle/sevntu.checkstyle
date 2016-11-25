@@ -23,7 +23,7 @@ import java.util.Set;
 
 import com.github.sevntu.checkstyle.Utils;
 import com.google.common.collect.ImmutableSet;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -82,7 +82,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
-public class AvoidConditionInversionCheck extends Check {
+public class AvoidConditionInversionCheck extends AbstractCheck {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"

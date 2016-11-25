@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -42,7 +42,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
-public class DiamondOperatorForVariableDefinitionCheck extends Check {
+public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
 
     /** A key is pointing to the warning message text in "messages.properties" file. */
     public static final String MSG_KEY = "diamond.operator.for.variable.definition";

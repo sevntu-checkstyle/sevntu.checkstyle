@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
@@ -64,7 +64,7 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  */
-public class ReturnCountExtendedCheck extends Check {
+public class ReturnCountExtendedCheck extends AbstractCheck {
 
     /**
      * A key is pointing to the warning message text in "messages.properties"

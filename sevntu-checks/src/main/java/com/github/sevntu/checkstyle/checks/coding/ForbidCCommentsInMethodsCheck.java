@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.Set;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -32,7 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
-public class ForbidCCommentsInMethodsCheck extends Check {
+public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
     /**
      * Warning message key.
      */

@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -52,7 +52,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:piotr.listkiewicz@gmail.com">liscju</a>
  */
-public class WhitespaceBeforeArrayInitializerCheck extends Check {
+public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
 
     /**
      * Violation message key.

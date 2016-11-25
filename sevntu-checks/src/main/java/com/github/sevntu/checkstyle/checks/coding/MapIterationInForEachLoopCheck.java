@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.github.sevntu.checkstyle.Utils;
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -122,7 +122,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  */
 
-public class MapIterationInForEachLoopCheck extends Check {
+public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * The key is pointing to the warning message text in "messages.properties"
