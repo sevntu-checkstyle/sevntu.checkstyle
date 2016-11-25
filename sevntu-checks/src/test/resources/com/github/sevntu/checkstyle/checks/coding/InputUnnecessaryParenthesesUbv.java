@@ -1,5 +1,5 @@
 package com.github.sevntu.checkstyle.checks.coding;
-public class testUBV {
+public class InputUnnecessaryParenthesesUbv {
     int f1() {
         int x = 0;
         for (int i = (0+1); ((i) < (6+6)); i += (1+0)) {

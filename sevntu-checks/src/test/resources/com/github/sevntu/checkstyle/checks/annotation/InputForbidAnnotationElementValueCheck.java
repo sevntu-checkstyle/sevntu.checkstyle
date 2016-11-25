@@ -3,7 +3,7 @@ package com.github.sevntu.checkstyle.checks.annotation;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ForbidAnnotationElementValueCheckInput
+public class InputForbidAnnotationElementValueCheck
 {
     public static class AnnotationConfigUtils
     {

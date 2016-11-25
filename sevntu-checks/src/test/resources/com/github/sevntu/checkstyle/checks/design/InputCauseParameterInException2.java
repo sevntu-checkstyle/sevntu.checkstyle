@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.design;
-import com.github.sevntu.checkstyle.checks.coding.ParentException;
-public class InputCauseParameterInException2 extends ParentException
+
+public class InputCauseParameterInException2 extends Exception
 {
 
     public InputCauseParameterInException2(String str)

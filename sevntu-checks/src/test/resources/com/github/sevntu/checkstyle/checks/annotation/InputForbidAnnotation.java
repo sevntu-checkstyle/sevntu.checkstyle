@@ -4,10 +4,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 @Test
-public class ForbiAnnotationInput {
+public class InputForbidAnnotation {
     @ctor
     @ctor2
-    ForbiAnnotationInput(){
+    InputForbidAnnotation(){
         
     }
     @Edible(true)
@@ -68,3 +68,17 @@ public class ForbiAnnotationInput {
           
       }
 }
+@interface A {}
+@interface B {}
+@interface C {}
+@interface ctor {}
+@interface ctor2 {}
+@interface Author2 {}
+@interface One {}
+@interface Two {}
+@interface Three {}
+@interface int1 { int numericValue(); }
+@interface int2 { int numericValue(); }
+@interface int3 { int numericValue(); }
+@interface Test {}
+@interface MyAnnotation { String name(); String value(); }
