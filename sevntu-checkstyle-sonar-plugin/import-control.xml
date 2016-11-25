@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE import-control PUBLIC
+    "-//Puppy Crawl//DTD Import Control 1.2//EN"
+    "http://checkstyle.sourceforge.net/dtds/import_control_1_2.dtd">
+
+<import-control pkg="com.github.sevntu.checkstyle.sonar">
+
+  <allow pkg="java.util"/>
+  <allow pkg="java.io"/>
+
+  <allow pkg="org.apache.commons.io"/>
+
+  <allow pkg="org.sonar.api"/>
+
+</import-control>
