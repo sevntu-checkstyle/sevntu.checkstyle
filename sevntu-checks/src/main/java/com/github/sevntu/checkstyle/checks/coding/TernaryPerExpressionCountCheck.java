@@ -116,7 +116,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      */
     public void setMaxTernaryPerExpressionCount(int maxTernaryPerExpressionCount) {
         if (maxTernaryPerExpressionCount < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Value should be 0 or more then 0");
         }
         this.maxTernaryPerExpressionCount = maxTernaryPerExpressionCount;
     }
