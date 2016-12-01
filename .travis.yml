@@ -15,6 +15,7 @@ install: cd sevntu-checks && mvn clean install && mvn javadoc:javadoc
       && cd ../sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc
       && cd ../sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc
       && cd ../sevntu-checks && mvn jacoco:report coveralls:jacoco
+      && cd ../sevntu-checks && mvn verify -Pselftesting
 
 after_success:
 
