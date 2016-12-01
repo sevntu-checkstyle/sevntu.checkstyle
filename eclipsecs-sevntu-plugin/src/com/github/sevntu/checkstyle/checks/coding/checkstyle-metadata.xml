@@ -5,12 +5,12 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="1600">
 
-        <rule-metadata name="%AvoidConstantAsFirstOperandInCondition.name" internal-name="AvoidConstantAsFirstOperandInConditionCheck" parent="TreeWalker">
+        <rule-metadata name="%AvoidConstantAsFirstOperandInConditionCheck.name" internal-name="AvoidConstantAsFirstOperandInConditionCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck"/>
-            <description>%AvoidConstantAsFirstOperandInCondition.desc</description>
+            <description>%AvoidConstantAsFirstOperandInConditionCheck.desc</description>
             <property-metadata name="targetConstantTypes" datatype="MultiCheck" 
                                default-value="LITERAL_NULL, LITERAL_TRUE, LITERAL_FALSE, NUM_INT, NUM_DOUBLE, NUM_LONG, NUM_FLOAT">
-                <description>%AvoidConstantAsFirstOperandInCondition.targetConstantTypes</description>
+                <description>%AvoidConstantAsFirstOperandInConditionCheck.targetConstantTypes</description>
                 <enumeration>
                     <property-value-option value="LITERAL_NULL"/>
                     <property-value-option value="LITERAL_TRUE"/>
@@ -21,85 +21,94 @@
                     <property-value-option value="NUM_FLOAT"/>
 	        </enumeration>	                
             </property-metadata>
+            <message-key key="avoid.constant.as.first.operand.in.condition"/>
         </rule-metadata>
 
-       	<rule-metadata name="%AvoidDefaultSerializableInInnerClasses.name" internal-name="AvoidDefaultSerializableInInnerClasses" parent="TreeWalker">
+       	<rule-metadata name="%AvoidDefaultSerializableInInnerClassesCheck.name" internal-name="AvoidDefaultSerializableInInnerClassesCheck" parent="TreeWalker">
 	    <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck"/>
-            <description>%AvoidDefaultSerializableInInnerClasses.desc</description>
+            <description>%AvoidDefaultSerializableInInnerClassesCheck.desc</description>
             <property-metadata name="allowPartialImplementation" datatype="Boolean" default-value="false">
-		<description>Allow partial implementation for serializable interface</description>
+		<description>%AvoidDefaultSerializableInInnerClassesCheck.allowPartialImplementation</description>
             </property-metadata>
+
+            <message-key key="avoid.default.serializable.in.inner.classes"/>
         </rule-metadata>
 	
-        <rule-metadata name="%AvoidHidingCauseException.name" internal-name="AvoidHidingCauseException" parent="TreeWalker">
+        <rule-metadata name="%AvoidHidingCauseExceptionCheck.name" internal-name="AvoidHidingCauseExceptionCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
-            <description>%AvoidHidingCauseException.desc</description>
+            <description>%AvoidHidingCauseExceptionCheck.desc</description>
+
+            <message-key key="avoid.hiding.cause.exception"/>
         </rule-metadata>
         
-        <rule-metadata name="%AvoidNotShortCircuitOperatorsForBoolean.name" internal-name="AvoidNotShortCircuitOperatorsForBoolean" parent="TreeWalker">
+        <rule-metadata name="%AvoidNotShortCircuitOperatorsForBooleanCheck.name" internal-name="AvoidNotShortCircuitOperatorsForBooleanCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
-            <description>%AvoidNotShortCircuitOperatorsForBoolean.desc</description>
+            <description>%AvoidNotShortCircuitOperatorsForBooleanCheck.desc</description>
+
+            <message-key key="avoid.not.short.circuit.operators.for.boolean"/>
         </rule-metadata>
  
-        <rule-metadata name="%AvoidModifiersForTypes.name" internal-name="AvoidModifiersForTypes" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.AvoidModifiersForTypesCheck"/>
-            <description>%AvoidModifiersForTypes.desc</description>
+        <rule-metadata name="%AvoidModifiersForTypesCheck.name" internal-name="AvoidModifiersForTypesCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck"/>
+            <description>%AvoidModifiersForTypesCheck.desc</description>
             <property-metadata name="forbiddenClassesRegexpAnnotation" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpAnnotation</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpAnnotation</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpFinal" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpFinal</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpFinal</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpStatic" datatype="Regex" default-value="ULC.+">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpStatic</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpStatic</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpTransient" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpTransient</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpTransient</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpVolatile" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpVolatile</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpVolatile</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpPrivate" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpPrivate</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpPrivate</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpPackagePrivate" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpPackagePrivate</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpPackagePrivate</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpProtected" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpProtected</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpProtected</description>
             </property-metadata>
             <property-metadata name="forbiddenClassesRegexpPublic" datatype="Regex" default-value="">
-                <description>%AvoidModifiersForTypes.forbiddenClassesRegexpPublic</description>
+                <description>%AvoidModifiersForTypesCheck.forbiddenClassesRegexpPublic</description>
             </property-metadata>
             <message-key key="avoid.modifiers.for.types"/>
         </rule-metadata>
  
         <rule-metadata name="%FinalizeImplementationCheck.name" internal-name="FinalizeImplementationCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.FinalizeImplementationCheck"/>
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck"/>
             <description>%FinalizeImplementationCheck.desc</description>
-            <message-key key="finalize.implementation.empty"/>
             <message-key key="finalize.implementation.missed.try.finally"/>
             <message-key key="finalize.implementation.public"/>
             <message-key key="finalize.implementation.useless"/>
             <message-key key="finalize.implementation.missed.super.finalize"/>
         </rule-metadata>        
  
-        <rule-metadata name="%CustomDeclarationOrder.name" internal-name="CustomDeclarationOrder" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
-            <description>%CustomDeclarationOrder.desc</description>
+        <rule-metadata name="%CustomDeclarationOrderCheck.name" internal-name="CustomDeclarationOrderCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck"/>
+            <description>%CustomDeclarationOrderCheck.desc</description>
             <property-metadata name="customDeclarationOrder" datatype="Regex" default-value="Field(.*public.*) ### Field(.*protected.*) ### Field(.*private.*) ### CTOR(.*) ### MainMethod(.*) ### GetterSetter(.*) ### Method(.*) ### InnerClass(.*) ### InnerInterface(.*) ### InnerEnum(.*)">
-                <description>%CustomDeclarationOrder.customDeclarationOrder</description>
+                <description>%CustomDeclarationOrderCheck.customDeclarationOrder</description>
             </property-metadata>
             <property-metadata name="caseSensitive" datatype="Boolean" default-value="false">
-                <description>%CustomDeclarationOrder.caseSensitive</description>
+                <description>%CustomDeclarationOrderCheck.caseSensitive</description>
             </property-metadata>
             <property-metadata name="fieldPrefix" datatype="String" default-value="">
-                <description>%CustomDeclarationOrder.fieldPrefix</description>
+                <description>%CustomDeclarationOrderCheck.fieldPrefix</description>
             </property-metadata>
             <message-key key="custom.declaration.order.field"/>
             <message-key key="custom.declaration.order.method"/>
             <message-key key="custom.declaration.order.constructor"/>
             <message-key key="custom.declaration.order.class"/>
+            <message-key key="custom.declaration.order.enum"/>
+            <message-key key="custom.declaration.order.interface"/>
+            <message-key key="custom.declaration.order.invalid.setter"/>
         </rule-metadata>        
         
         <rule-metadata name="%ConfusingConditionCheck.name" internal-name="ConfusingConditionCheck" parent="TreeWalker">
@@ -126,6 +135,7 @@
 		<rule-metadata name="%DiamondOperatorForVariableDefinitionCheck.name" internal-name="DiamondOperatorForVariableDefinitionCheck" parent="TreeWalker">
 			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
 			<description>%DiamondOperatorForVariableDefinitionCheck.desc</description>
+            <message-key key="diamond.operator.for.variable.definition"/>
 		</rule-metadata>
 		
        <rule-metadata name="%EmptyPublicCtorInClassCheck.name" internal-name="EmptyPublicCtorInClassCheck" parent="TreeWalker">
@@ -140,38 +150,40 @@
             <message-key key="empty.public.ctor"/>
        </rule-metadata>
 		
-       <rule-metadata name="%ForbidCertainImports.name" internal-name="ForbidCertainImports" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
-            <description>%ForbidCertainImports.desc</description>
+       <rule-metadata name="%ForbidCertainImportsCheck.name" internal-name="ForbidCertainImportsCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
+            <description>%ForbidCertainImportsCheck.desc</description>
             <property-metadata name="packageNameRegexp" datatype="Regex" default-value="">
-                <description>%ForbidCertainImports.packageNameRegexp</description>
+                <description>%ForbidCertainImportsCheck.packageNameRegexp</description>
             </property-metadata>
             <property-metadata name="forbiddenImportsRegexp" datatype="Regex" default-value="">
-                <description>%ForbidCertainImports.forbiddenImportsRegexp</description>
+                <description>%ForbidCertainImportsCheck.forbiddenImportsRegexp</description>
             </property-metadata>
             <property-metadata name="forbiddenImportsExcludesRegexp" datatype="Regex" default-value="">
-                <description>%ForbidCertainImports.forbiddenImportsExcludesRegexp</description>
+                <description>%ForbidCertainImportsCheck.forbiddenImportsExcludesRegexp</description>
             </property-metadata>
             <message-key key="forbid.certain.imports" />
         </rule-metadata>
                 
-        <rule-metadata name="%ForbidInstantiation.name" internal-name="ForbidInstantiation" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ForbidInstantiationCheck"/>
-            <description>%ForbidInstantiation.desc</description>
+        <rule-metadata name="%ForbidInstantiationCheck.name" internal-name="ForbidInstantiationCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck"/>
+            <description>%ForbidInstantiationCheck.desc</description>
             <property-metadata name="forbiddenClasses" datatype="String" default-value="java.lang.NullPointerException">
-                <description>%ForbidInstantiation.forbiddenClasses</description>
+                <description>%ForbidInstantiationCheck.forbiddenClasses</description>
             </property-metadata>
             <message-key key="forbid.instantiation"/>
         </rule-metadata>
                 
-   		<rule-metadata name="%ForbidCCommentsInMethods.name" internal-name="ForbidCCommentsInMethods" parent="TreeWalker">
+   		<rule-metadata name="%ForbidCCommentsInMethodsCheck.name" internal-name="ForbidCCommentsInMethodsCheck" parent="TreeWalker">
 			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck"/>
-			<description>%ForbidCCommentsInMethods.desc</description>
+			<description>%ForbidCCommentsInMethodsCheck.desc</description>
+            <message-key key="forbid.c.comments.in.the.method.body"/>
 		</rule-metadata>
 		
 		<rule-metadata name="%ForbidReturnInFinallyBlockCheck.name" internal-name="ForbidReturnInFinallyBlockCheck" parent="TreeWalker">
 			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck"/>
-			<description>%ForbidReturnInFinallyBlockCheck.desk</description>
+			<description>%ForbidReturnInFinallyBlockCheck.desc</description>
+            <message-key key="forbid.return.in.finally.block"/>
 		</rule-metadata>
 		
 		<rule-metadata name="%ForbidThrowAnonymousExceptionsCheck.name" internal-name="ForbidThrowAnonymousExceptionsCheck" parent="TreeWalker">
@@ -180,26 +192,32 @@
 			<property-metadata name="exceptionClassNameRegex" datatype="Regex" default-value="^.*Exception">
  				<description>%ForbidThrowAnonymousExceptionsCheck.exceptionClassNameRegex</description>
  			</property-metadata>
+            <message-key key="forbid.throw.anonymous.exception"/>
 		</rule-metadata>
 		
-	<rule-metadata name="%ReturnNullInsteadOfBoolean.name" internal-name="ReturnNullInsteadOfBoolean" parent="TreeWalker">
+	<rule-metadata name="%ReturnNullInsteadOfBooleanCheck.name" internal-name="ReturnNullInsteadOfBooleanCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck"/>
-            <description>%ReturnNullInsteadOfBoolean.desc</description>
+            <description>%ReturnNullInsteadOfBooleanCheck.desc</description>
+            <message-key key="return.null.Boolean"/>
     </rule-metadata>
 
-    <rule-metadata name="%ReturnBooleanFromTernary.name" internal-name="ReturnBooleanFromTernary" parent="TreeWalker">
+    <rule-metadata name="%ReturnBooleanFromTernaryCheck.name" internal-name="ReturnBooleanFromTernaryCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck"/>
-            <description>%ReturnBooleanFromTernary.desc</description>
+            <description>%ReturnBooleanFromTernaryCheck.desc</description>
+            <message-key key="return.boolean.ternary"/>
     </rule-metadata>
         
-	<rule-metadata name="%IllegalCatchExtended.name" internal-name="IllegalCatchExtended" parent="TreeWalker">
+	<rule-metadata name="%IllegalCatchExtendedCheck.name" internal-name="IllegalCatchExtendedCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck"/>
-            <description>%IllegalCatchExtended.desc</description>
+            <description>%IllegalCatchExtendedCheck.desc</description>
 	    <property-metadata name="allowThrow" datatype="Boolean" default-value="true">
-               <description>IllegalCatchExtended.allowThrow</description>
+               <description>%IllegalCatchExtendedCheck.allowThrow</description>
             </property-metadata>
 	    <property-metadata name="allowRethrow" datatype="Boolean" default-value="false">
-               <description>IllegalCatchExtended.allowRethrow</description>
+               <description>%IllegalCatchExtendedCheck.allowRethrow</description>
+            </property-metadata>
+      <property-metadata name="illegalClassNames" datatype="MultiCheck" default-value="Exception, Error, RuntimeException, Throwable">
+               <description>%IllegalCatchExtendedCheck.illegalClassNames</description>
             </property-metadata>
             <message-key key="illegal.catch"/>
         </rule-metadata>
@@ -207,65 +225,68 @@
         <rule-metadata name="%LogicConditionNeedOptimizationCheck.name" internal-name="LogicConditionNeedOptimizationCheck" parent="TreeWalker">
 			<alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck"/>
 			<description>%LogicConditionNeedOptimizationCheck.desc</description>
+            <message-key key="logic.condition.need.optimization"/>
 		</rule-metadata>
 
-        <rule-metadata name="%MultipleVariableDeclarationsExtended.name" internal-name="MultipleVariableDeclarationsExtended" parent="TreeWalker">
+        <rule-metadata name="%MultipleVariableDeclarationsExtendedCheck.name" internal-name="MultipleVariableDeclarationsExtendedCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck"/>
-            <description>%MultipleVariableDeclarationsExtended.desc</description>
+            <description>%MultipleVariableDeclarationsExtendedCheck.desc</description>
 	    <property-metadata name="ignoreCycles" datatype="Boolean" default-value="false">
-               <description>%MultipleVariableDeclarationsExtended.ignoreCycles</description>
+               <description>%MultipleVariableDeclarationsExtendedCheck.ignoreCycles</description>
             </property-metadata>
 	    <property-metadata name="ignoreMethods" datatype="Boolean" default-value="false">
-               <description>%MultipleVariableDeclarationsExtended.ignoreMethods</description>
+               <description>%MultipleVariableDeclarationsExtendedCheck.ignoreMethods</description>
             </property-metadata>
+            <message-key key="multiple.variable.declarations"/>
+            <message-key key="multiple.variable.declarations.comma"/>
         </rule-metadata>
         
-	    <rule-metadata name="%MapIterationInForEachLoop.name"
-	        internal-name="MapIterationInForEachLoop" parent="TreeWalker">
+	    <rule-metadata name="%MapIterationInForEachLoopCheck.name"
+	        internal-name="MapIterationInForEachLoopCheck" parent="TreeWalker">
 		    <alternative-name
-		    internal-name="com.puppycrawl.tools.checkstyle.checks.coding.MapIterationInForEachLoopCheck" />
-	        <description>%MapIterationInForEachLoop.desc</description>
+		    internal-name="com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck" />
+	        <description>%MapIterationInForEachLoopCheck.desc</description>
 	        <property-metadata name="supportedMapImplQualifiedNames"
 		        datatype="String" default-value="java.util.Map, java.util.HashMap, java.util.TreeMap">
-		        <description>%MapIterationInForEachLoop.supportedMapImplQualifiedNames</description>
+		        <description>%MapIterationInForEachLoopCheck.supportedMapImplQualifiedNames</description>
 	        </property-metadata>
 	        <property-metadata name="proposeValuesUsage"
 		        datatype="Boolean" default-value="true">
-			    <description>%MapIterationInForEachLoop.proposeValuesUsage</description>
+			    <description>%MapIterationInForEachLoopCheck.proposeValuesUsage</description>
 	        </property-metadata>
 	        <property-metadata name="proposeKeySetUsage"
 		        datatype="Boolean" default-value="false">
-		        <description>%MapIterationInForEachLoop.proposeKeySetUsage</description>
+		        <description>%MapIterationInForEachLoopCheck.proposeKeySetUsage</description>
 	        </property-metadata>
 	        <property-metadata name="proposeEntrySetUsage"
 		        datatype="Boolean" default-value="false">
-		        <description>%MapIterationInForEachLoop.proposeEntrySetUsage</description>
+		        <description>%MapIterationInForEachLoopCheck.proposeEntrySetUsage</description>
 	        </property-metadata>
 	            <message-key key="map.iteration.keySet" />
 	            <message-key key="map.iteration.entrySet" />
 	            <message-key key="map.iteration.values" />
         </rule-metadata>
         
-        <rule-metadata name="%MultipleStringLiteralsExtended.name" internal-name="MultipleStringLiteralsExtended" parent="TreeWalker">
+        <rule-metadata name="%MultipleStringLiteralsExtendedCheck.name" internal-name="MultipleStringLiteralsExtendedCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck" />
-            <description>%MultipleStringLiteralsExtended.desc</description>
+            <description>%MultipleStringLiteralsExtendedCheck.desc</description>
             <property-metadata name="allowedDuplicates" datatype="Integer" default-value="1">
-                <description>%MultipleStringLiteralsExtended.allowedDuplicates</description>
+                <description>%MultipleStringLiteralsExtendedCheck.allowedDuplicates</description>
             </property-metadata>
             <property-metadata name="highlightAllDuplicates" datatype="Boolean" default-value="false">
-                <description>%MultipleStringLiteralsExtended.highlightAllDuplicates</description>
+                <description>%MultipleStringLiteralsExtendedCheck.highlightAllDuplicates</description>
             </property-metadata>
             <property-metadata name="ignoreStringsRegexp" datatype="Regex" default-value="^&quot;&quot;$">
-                <description>%MultipleStringLiteralsExtended.ignoreStringsRegexp</description>
+                <description>%MultipleStringLiteralsExtendedCheck.ignoreStringsRegexp</description>
             </property-metadata>
             <property-metadata name="ignoreOccurrenceContext" datatype="MultiCheck" default-value="ANNOTATION">
-                <description>%MultipleStringLiteralsExtended.ignoreOccurrenceContext</description>
+                <description>%MultipleStringLiteralsExtendedCheck.ignoreOccurrenceContext</description>
                 <enumeration option-provider="net.sf.eclipsecs.core.config.meta.AllTokensProvider" />
             </property-metadata>
             <message-key key="multiple.string.literal" />
         </rule-metadata>
 
-	    <rule-metadata name="%TernaryPerExpressionCountCheck.name" internal-name="TernaryPerExpressionCount" parent="TreeWalker">
+	    <rule-metadata name="%TernaryPerExpressionCountCheck.name" internal-name="TernaryPerExpressionCountCheck" parent="TreeWalker">
 	            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck"/>
 	            <description>%TernaryPerExpressionCountCheck.desc</description>
 	            <property-metadata name="maxTernaryPerExpressionCount" datatype="Integer" default-value="1">
@@ -277,6 +298,7 @@
            		 <property-metadata name="ignoreIsolatedTernaryOnLine" datatype="Boolean" default-value="true">
            		 	<description>%TernaryPerExpressionCountCheck.ignoreIsolatedTernaryOnLine</description>
            		 </property-metadata>
+                 <message-key key="ternary.per.expression.count"/>
 	    </rule-metadata>
 
         <rule-metadata name="%NameConventionForJunit4TestClassesCheck.name"
@@ -286,7 +308,7 @@
             <description>%NameConventionForJunit4TestClassesCheck.desc</description>
             <property-metadata name="expectedClassNameRegex"
                 datatype="Regex" default-value=".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*">
-                <description>%NameConventionForJunit4TestClassesCheck.correctTestClassNameRegex</description>
+                <description>%NameConventionForJunit4TestClassesCheck.expectedClassNameRegex</description>
             </property-metadata>
             <property-metadata name="classAnnotationNameRegex"
                 datatype="Regex" default-value="">
@@ -311,84 +333,85 @@
             <message-key key="no.null.for.collections"/>
         </rule-metadata>     
 
-        <rule-metadata name="%NumericLiteralNeedsUnderscore.name" internal-name="NumericLiteralNeedsUnderscoreCheck" parent="TreeWalker">
+        <rule-metadata name="%NumericLiteralNeedsUnderscoreCheck.name" internal-name="NumericLiteralNeedsUnderscoreCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck" />
-            <description>%NumericLiteralNeedsUnderscore.desc</description>
+            <description>%NumericLiteralNeedsUnderscoreCheck.desc</description>
             <property-metadata name="minDecimalSymbolLength" datatype="Integer" default-value="7">
-                <description>%NumericLiteralNeedsUnderscore.minDecimalSymbolLength</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.minDecimalSymbolLength</description>
             </property-metadata>
             <property-metadata name="maxDecimalSymbolsUntilUnderscore" datatype="Integer" default-value="3">
-                <description>%NumericLiteralNeedsUnderscore.maxDecimalSymbolsUntilUnderscore</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.maxDecimalSymbolsUntilUnderscore</description>
             </property-metadata>
             <property-metadata name="minHexSymbolLength" datatype="Integer" default-value="5">
-                <description>%NumericLiteralNeedsUnderscore.minHexSymbolLength</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.minHexSymbolLength</description>
             </property-metadata>
             <property-metadata name="maxHexSymbolsUntilUnderscore" datatype="Integer" default-value="4">
-                <description>%NumericLiteralNeedsUnderscore.maxHexSymbolsUntilUnderscore</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.maxHexSymbolsUntilUnderscore</description>
             </property-metadata>
             <property-metadata name="minBinarySymbolLength" datatype="Integer" default-value="9">
-                <description>%NumericLiteralNeedsUnderscore.minBinarySymbolLength</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.minBinarySymbolLength</description>
             </property-metadata>
             <property-metadata name="maxBinarySymbolsUntilUnderscore" datatype="Integer" default-value="8">
-                <description>%NumericLiteralNeedsUnderscore.maxBinarySymbolsUntilUnderscore</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.maxBinarySymbolsUntilUnderscore</description>
             </property-metadata>
             <property-metadata name="ignoreFieldNamePattern" datatype="String" default-value="serialVersionUID">
-                <description>%NumericLiteralNeedsUnderscore.ignoreFieldNamePattern</description>
+                <description>%NumericLiteralNeedsUnderscoreCheck.ignoreFieldNamePattern</description>
             </property-metadata>
             <message-key key="numeric.literal.need.underscore" />
         </rule-metadata>
 
-        <rule-metadata name="%OverridableMethodInConstructor.name" internal-name="OverridableMethodInConstructor" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
-            <description>%OverridableMethodInConstructor.desc</description>
+        <rule-metadata name="%OverridableMethodInConstructorCheck.name" internal-name="OverridableMethodInConstructorCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck" />
+            <description>%OverridableMethodInConstructorCheck.desc</description>
             <property-metadata name="checkCloneMethod" datatype="Boolean" default-value="false">
-                <description>%OverridableMethodInConstructor.checkCloneMethod</description>
+                <description>%OverridableMethodInConstructorCheck.checkCloneMethod</description>
             </property-metadata>
             <property-metadata name="checkReadObjectMethod" datatype="Boolean" default-value="false">
-                <description>%OverridableMethodInConstructor.checkReadObjectMethod</description>
+                <description>%OverridableMethodInConstructorCheck.checkReadObjectMethod</description>
             </property-metadata>
             <property-metadata name="matchMethodsByArgCount" datatype="Boolean" default-value="false">
-                <description>%OverridableMethodInConstructor.matchMethodsByArgCount</description>
+                <description>%OverridableMethodInConstructorCheck.matchMethodsByArgCount</description>
             </property-metadata>
             <message-key key="overridable.method" />
             <message-key key="overridable.method.leads" />
         </rule-metadata>
 
-        <rule-metadata name="%ReturnCountExtended.name" internal-name="ReturnCountExtended" parent="TreeWalker">
-            <alternative-name internal-name="com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountExtendedCheck"/>
-            <description>%ReturnCountExtended.desc</description>   
+        <rule-metadata name="%ReturnCountExtendedCheck.name" internal-name="ReturnCountExtendedCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck"/>
+            <description>%ReturnCountExtendedCheck.desc</description>   
             <property-metadata name="ignoreMethodsNames" datatype="String" default-value="equals">
-                <description>%ReturnCountExtended.ignoreMethodsNames</description>
+                <description>%ReturnCountExtendedCheck.ignoreMethodsNames</description>
             </property-metadata>
             <property-metadata name="maxReturnCount" datatype="Integer" default-value="1">
-                <description>%ReturnCountExtended.maxReturnCount</description>
+                <description>%ReturnCountExtendedCheck.maxReturnCount</description>
             </property-metadata>
             <property-metadata name="ignoreMethodLinesCount" datatype="Integer" default-value="20">
-                <description>%ReturnCountExtended.linesLimit</description>
+                <description>%ReturnCountExtendedCheck.ignoreMethodLinesCount</description>
             </property-metadata>
             <property-metadata name="minIgnoreReturnDepth" datatype="Integer" default-value="4">
-                <description>%ReturnCountExtended.returnDepthLimit</description>
+                <description>%ReturnCountExtendedCheck.minIgnoreReturnDepth</description>
             </property-metadata>
             <property-metadata name="ignoreEmptyReturns" datatype="Boolean" default-value="true">
-                <description>%ReturnCountExtended.ignoreEmptyReturns</description>
+                <description>%ReturnCountExtendedCheck.ignoreEmptyReturns</description>
             </property-metadata>
             <property-metadata name="topLinesToIgnoreCount" datatype="Integer" default-value="5">
-                <description>%ReturnCountExtended.rowsToIgnoreCount</description>
+                <description>%ReturnCountExtendedCheck.topLinesToIgnoreCount</description>
             </property-metadata>
-            <message-key key="return.count.extended"/>
+            <message-key key="return.count.extended.method"/>
+            <message-key key="return.count.extended.ctor"/>
         </rule-metadata>
 
-        <rule-metadata name="%UnnecessaryParenthesesExtended.name" internal-name="UnnecessaryParenthesesExtended" parent="TreeWalker">
+        <rule-metadata name="%UnnecessaryParenthesesExtendedCheck.name" internal-name="UnnecessaryParenthesesExtendedCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck" />
-            <description>%UnnecessaryParenthesesExtended.desc</description>
+            <description>%UnnecessaryParenthesesExtendedCheck.desc</description>
             <property-metadata name="ignoreCalculationOfBooleanVariables" datatype="Boolean" default-value="false">
-                <description>%UnnecessaryParenthesesExtended.ignoreCalculationOfBooleanVariables</description>
+                <description>%UnnecessaryParenthesesExtendedCheck.ignoreCalculationOfBooleanVariables</description>
             </property-metadata>
             <property-metadata name="ignoreCalculationOfBooleanVariablesWithReturn" datatype="Boolean" default-value="false">
-                <description>%UnnecessaryParenthesesExtended.ignoreCalculationOfBooleanVariablesWithReturn</description>
+                <description>%UnnecessaryParenthesesExtendedCheck.ignoreCalculationOfBooleanVariablesWithReturn</description>
             </property-metadata>
             <property-metadata name="ignoreCalculationOfBooleanVariablesWithAssert" datatype="Boolean" default-value="false">
-                <description>%UnnecessaryParenthesesExtended.ignoreCalculationOfBooleanVariablesWithAssert</description>
+                <description>%UnnecessaryParenthesesExtendedCheck.ignoreCalculationOfBooleanVariablesWithAssert</description>
             </property-metadata>
             <message-key key="unnecessary.paren.assign" />
             <message-key key="unnecessary.paren.expr" />
@@ -401,6 +424,7 @@
         <rule-metadata name="%UselessSingleCatchCheck.name" internal-name="UselessSingleCatchCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck"/>
             <description>%UselessSingleCatchCheck.desc</description>
+            <message-key key="useless.single.catch.check" />
         </rule-metadata>
 
         <rule-metadata name="%UselessSuperCtorCallCheck.name" internal-name="UselessSuperCtorCallCheck" parent="TreeWalker">
@@ -423,20 +447,21 @@
                 <description>%EitherLogOrThrowCheck.loggerFullyQualifiedClassName</description>
             </property-metadata>
             <property-metadata name="loggingMethodNames" datatype="String" default-value="error, warn, info, debug">
-                <description>%EitherLogOrThrowCheck.loggerMethodNames</description>
+                <description>%EitherLogOrThrowCheck.loggingMethodNames</description>
             </property-metadata>
+            <message-key key="either.log.or.throw" />
         </rule-metadata>
 
-        <rule-metadata name="%RedundantReturnCheck.name" internal-name="RedundantReturn" parent="TreeWalker">
+        <rule-metadata name="%RedundantReturnCheck.name" internal-name="RedundantReturnCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck" />
             <description>%RedundantReturnCheck.desc</description>
             <property-metadata name="allowReturnInEmptyMethodsAndConstructors" datatype="Boolean" default-value="false">
                 <description>%RedundantReturnCheck.allowReturnInEmptyMethodsAndConstructors</description>
             </property-metadata>
-            <message-key key="redundant.return" />
+            <message-key key="redundant.return.check" />
         </rule-metadata>
       
-        <rule-metadata name="%SimpleAccessorNameNotationCheck.name" internal-name="SimpleAccessorNameNotation" parent="TreeWalker">
+        <rule-metadata name="%SimpleAccessorNameNotationCheck.name" internal-name="SimpleAccessorNameNotationCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck" />
             <description>%SimpleAccessorNameNotationCheck.desc</description>
             <property-metadata name="prefix" datatype="String" default-value="">
@@ -447,13 +472,15 @@
         </rule-metadata>
 
         <rule-metadata name="%SingleBreakOrContinueCheck.name" internal-name="SingleBreakOrContinueCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.SingleBreakOrContinueCheck"/>
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck"/>
             <description>%SingleBreakOrContinueCheck.desc</description>
+            <message-key key="single.break.or.continue.in.loops" />
         </rule-metadata>
 
-        <rule-metadata name="%NestedSwitchCheck.name" internal-name="NestedSwitchCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck"/>
-            <description>%NestedSwitchCheck.desc</description>
+        <rule-metadata name="%WhitespaceBeforeArrayInitializerCheck.name" internal-name="WhitespaceBeforeArrayInitializerCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
+            <description>%WhitespaceBeforeArrayInitializerCheck.desc</description>
+            <message-key key="whitespace.before.array.initializer" />
         </rule-metadata>
 
     </rule-group-metadata>

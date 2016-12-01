@@ -5,15 +5,15 @@
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="500">
 
-        <rule-metadata name="%ForbidAnnotation.name" internal-name="ForbidAnnotation" parent="TreeWalker">
+        <rule-metadata name="%ForbidAnnotationCheck.name" internal-name="ForbidAnnotationCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck"/>
-            <description>%ForbidAnnotation.desc</description>
+            <description>%ForbidAnnotationCheck.desc</description>
 
 		    <property-metadata name="annotationNames" datatype="String" default-value="">
-	                <description>%ForbidAnnotation.annotationNames</description>
+	                <description>%ForbidAnnotationCheck.annotationNames</description>
 		    </property-metadata>
 		    <property-metadata name="annotationTargets" datatype="MultiCheck" default-value="">
-	                <description>%ForbidAnnotation.annotationTargets</description>
+	                <description>%ForbidAnnotationCheck.annotationTargets</description>
 	                <enumeration>
 	                    <property-value-option value="CLASS_DEF"/>
 	                    <property-value-option value="INTERFACE_DEF"/>
@@ -29,16 +29,32 @@
 		    </property-metadata>
 		    <message-key key="annotation.incorrect.target" />   
         </rule-metadata>
-        
-        <rule-metadata name="%RequiredParameterForAnnotation.name" internal-name="RequiredParameterForAnnotation" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck"/>
-            <description>%RequiredParameterForAnnotation.desc</description>
+
+        <rule-metadata name="%ForbidAnnotationElementValueCheck.name" internal-name="ForbidAnnotationElementValueCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck"/>
+            <description>%ForbidAnnotationElementValueCheck.desc</description>
 
             <property-metadata name="annotationName" datatype="String" default-value="">
-                    <description>%RequiredParameterForAnnotation.annotationName</description>
+                    <description>%ForbidAnnotationElementValueCheck.annotationName</description>
+            </property-metadata>
+            <property-metadata name="elementName" datatype="String" default-value="">
+                    <description>%ForbidAnnotationElementValueCheck.elementName</description>                  
+            </property-metadata>
+            <property-metadata name="forbiddenElementValueRegexp" datatype="String" default-value="">
+                    <description>%ForbidAnnotationElementValueCheck.forbiddenElementValueRegexp</description>                  
+            </property-metadata>
+            <message-key key="annotation.forbid.element.value" />
+        </rule-metadata>
+        
+        <rule-metadata name="%RequiredParameterForAnnotationCheck.name" internal-name="RequiredParameterForAnnotationCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck"/>
+            <description>%RequiredParameterForAnnotationCheck.desc</description>
+
+            <property-metadata name="annotationName" datatype="String" default-value="">
+                    <description>%RequiredParameterForAnnotationCheck.annotationName</description>
             </property-metadata>
             <property-metadata name="requiredParameters" datatype="String" default-value="">
-                    <description>%RequiredParameterForAnnotation.requiredParameters</description>
+                    <description>%RequiredParameterForAnnotationCheck.requiredParameters</description>
             </property-metadata>
             <message-key key="annotation.missing.required.parameter" />   
         </rule-metadata>
