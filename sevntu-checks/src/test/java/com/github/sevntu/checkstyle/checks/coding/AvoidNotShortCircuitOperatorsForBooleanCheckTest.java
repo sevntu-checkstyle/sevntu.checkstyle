@@ -16,25 +16,24 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck.MSG_KEY;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck;
-import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
 
-public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport
-{
+import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+
+public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
 
     @Test
-    public final void testAll() throws Exception
-    {
+    public final void testAll() throws Exception {
 
-        String[] expected = {
+        final String[] expected = {
             "6:23: " + getCheckMessage(MSG_KEY, "|"),
             "25:20: " + getCheckMessage(MSG_KEY, "|"),
             "35:30: " + getCheckMessage(MSG_KEY, "|"),

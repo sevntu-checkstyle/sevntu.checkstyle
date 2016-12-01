@@ -16,131 +16,121 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
-import static com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck.*;
+import static com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck.MSG_KEY;
 
 import org.junit.Test;
 
-
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport
-{
+public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
     private final DefaultConfiguration checkConfig = createCheckConfig(CauseParameterInExceptionCheck.class);
 
     @Test
-    public void testNormalWork() throws Exception
-    {
+    public void testNormalWork() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception");
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
-        	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException"),
+        final String[] expected = {
+            "3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException.java"), expected);
     }
 
     @Test
-    public void testNormalWork2() throws Exception
-    {
+    public void testNormalWork2() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
-        	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
-        	"16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
+        final String[] expected = {
+            "3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
+            "16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
     }
 
     @Test
-    public void testIgnorePattern() throws Exception
-    {
+    public void testIgnorePattern() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "Input.+");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
-        	"16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
+        final String[] expected = {
+            "16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
     }
 
     @Test
-    public void testIgnorePattern2() throws Exception
-    {
+    public void testIgnorePattern2() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "My.+");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
-        	"3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
+        final String[] expected = {
+            "3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
     }
 
     @Test
-    public void testStrangeSituation() throws Exception
-    {
+    public void testStrangeSituation() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException3.java"), expected);
     }
 
     @Test
-    public void testStrangeSituation2() throws Exception
-    {
+    public void testStrangeSituation2() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", null);
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException3.java"), expected);
     }
 
     @Test
-    public void testStrangeSituation3() throws Exception
-    {
+    public void testStrangeSituation3() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", null);
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException4.java"), expected);
     }
-    
+
     @Test
-    public void testStrangeSituation4() throws Exception
-    {
+    public void testStrangeSituation4() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", null);
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputCauseParameterInException5.java"), expected);
-    }    
+    }
 }

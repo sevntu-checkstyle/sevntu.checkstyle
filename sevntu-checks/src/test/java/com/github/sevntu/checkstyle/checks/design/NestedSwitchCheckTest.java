@@ -16,8 +16,8 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-package com.github.sevntu.checkstyle.checks.design;
 
+package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck.MSG_KEY;
 
@@ -29,24 +29,22 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class NestedSwitchCheckTest extends BaseCheckTestSupport
- {
-	private final DefaultConfiguration checkConfig = createCheckConfig(NestedSwitchCheck.class);
+public class NestedSwitchCheckTest extends BaseCheckTestSupport {
+    private final DefaultConfiguration checkConfig = createCheckConfig(NestedSwitchCheck.class);
 
-	@Test
-	public void testSimple() throws Exception
-{
-		final String[] expected = {
-                "11:13: " + getCheckMessage(MSG_KEY),
-                "23:13: " + getCheckMessage(MSG_KEY),
-                "28:13: " + getCheckMessage(MSG_KEY),
-                "35:13: " + getCheckMessage(MSG_KEY),
-                "37:17: " + getCheckMessage(MSG_KEY),
-                "50:25: " + getCheckMessage(MSG_KEY),
-                "52:29: " + getCheckMessage(MSG_KEY),
-                "63:25: " + getCheckMessage(MSG_KEY),
-                "65:29: " + getCheckMessage(MSG_KEY),
-                };
+    @Test
+    public void testSimple() throws Exception {
+        final String[] expected = {
+            "11:13: " + getCheckMessage(MSG_KEY),
+            "23:13: " + getCheckMessage(MSG_KEY),
+            "28:13: " + getCheckMessage(MSG_KEY),
+            "35:13: " + getCheckMessage(MSG_KEY),
+            "37:17: " + getCheckMessage(MSG_KEY),
+            "50:25: " + getCheckMessage(MSG_KEY),
+            "52:29: " + getCheckMessage(MSG_KEY),
+            "63:25: " + getCheckMessage(MSG_KEY),
+            "65:29: " + getCheckMessage(MSG_KEY),
+        };
 
         verify(checkConfig, getPath("InputNestedSwitchCheck.java"),
                 expected);

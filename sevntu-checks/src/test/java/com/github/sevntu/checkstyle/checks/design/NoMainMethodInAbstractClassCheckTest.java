@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
-import static com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck.*;
+import static com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck.MSG_KEY;
 
 import org.junit.Test;
 
@@ -30,8 +30,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * Test class for NoMainMethodInAbstractClass check.
  * @author Baratali Izmailov
  */
-public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport
-{
+public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport {
     /**
      * Name of file with messages.
      */
@@ -48,34 +47,33 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testDefault()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(NoMainMethodInAbstractClassCheck.class);
         final String[] expected = {
-        	  "23: " + warningMessage,
-        	  "26: " + warningMessage,
-        	  "34: " + warningMessage,
-        	  "37: " + warningMessage,
-        	  "51: " + warningMessage,
-        	  "53: " + warningMessage,
-        	  "57: " + warningMessage,
-        	  "59: " + warningMessage,
-        	  "100: " + warningMessage,
-        	  "103: " + warningMessage,
-        	  "106: " + warningMessage,
-        	  "109: " + warningMessage,
-        	  "116: " + warningMessage,
-        	  "119: " + warningMessage,
-        	  "122: " + warningMessage,
-        	  "125: " + warningMessage,
-        	  "130: " + warningMessage,
-        	  "136: " + warningMessage,
-        	  "151: " + warningMessage,
-        	  "155: " + warningMessage,
-        	  "166: " + warningMessage,
-        	  "175: " + warningMessage,
-        	  "185: " + warningMessage,
+            "23: " + warningMessage,
+            "26: " + warningMessage,
+            "34: " + warningMessage,
+            "37: " + warningMessage,
+            "51: " + warningMessage,
+            "53: " + warningMessage,
+            "57: " + warningMessage,
+            "59: " + warningMessage,
+            "100: " + warningMessage,
+            "103: " + warningMessage,
+            "106: " + warningMessage,
+            "109: " + warningMessage,
+            "116: " + warningMessage,
+            "119: " + warningMessage,
+            "122: " + warningMessage,
+            "125: " + warningMessage,
+            "130: " + warningMessage,
+            "136: " + warningMessage,
+            "151: " + warningMessage,
+            "155: " + warningMessage,
+            "166: " + warningMessage,
+            "175: " + warningMessage,
+            "185: " + warningMessage,
         };
 
         verify(checkConfig,

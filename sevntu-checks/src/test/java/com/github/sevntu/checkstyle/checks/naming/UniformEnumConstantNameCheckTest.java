@@ -22,6 +22,7 @@ package com.github.sevntu.checkstyle.checks.naming;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -33,12 +34,10 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
  *
  * @author Pavel Baranchikov
  */
-public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport
-{
+public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     private final String inputFile;
 
-    public UniformEnumConstantNameCheckTest() throws IOException
-    {
+    public UniformEnumConstantNameCheckTest() throws IOException {
         inputFile = getPath("InputUniformEnumConstantNameCheck.java");
     }
 
@@ -50,12 +49,10 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport
      */
     @Test
     public void testDefault()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(UniformEnumConstantNameCheck.class);
-        final String[] expected =
-        {
+        final String[] expected = {
                 buildMessage(37, 9, "SECOND_SIMPLE",
                         UniformEnumConstantNameCheck.CAMEL_PATTERN),
                 buildMessage(48, 9, "SecondComplex",
@@ -74,14 +71,12 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport
      */
     @Test
     public void testUpperCase()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("formats",
                 UniformEnumConstantNameCheck.UPPERCASE_PATTERN);
-        final String[] expected =
-        {
+        final String[] expected = {
                 buildMessage(35, 9, "FirstSimple",
                         UniformEnumConstantNameCheck.UPPERCASE_PATTERN),
                 buildMessage(48, 9, "SecondComplex",
@@ -102,8 +97,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport
      */
     @Test
     public void testAllAfterUpper()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("formats",
@@ -118,15 +112,22 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport
      * @throws Exception
      *         on some errors during verification.
      */
-    @Test(expected = CheckstyleException.class)
+    @Test
     public void testInvalidFormat()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("formats", "\\");
         final String[] expected = {};
-        verify(checkConfig, inputFile, expected);
+        try {
+            verify(checkConfig, inputFile, expected);
+            fail();
+        }
+        catch (CheckstyleException ex) {
+            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
+                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
+                    + "Cannot set property 'formats' to '\\' in module "));
+        }
     }
 
     /**
@@ -135,20 +136,27 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport
      * @throws Exception
      *         on some errors during verification.
      */
-    @Test(expected = CheckstyleException.class)
+    @Test
     public void testWrongToken()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("tokens", "INTERFACE_DEF");
         final String[] expected = {};
-        verify(checkConfig, inputFile, expected);
+        try {
+            verify(checkConfig, inputFile, expected);
+            fail();
+        }
+        catch (CheckstyleException ex) {
+            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
+                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
+                    + "Token \"INTERFACE_DEF\" was not found in "
+                    + "Acceptable tokens list in check "));
+        }
     }
 
     private String buildMessage(int lineNumber, int colNumber,
-            String constName, String... pattern)
-    {
+            String constName, String... pattern) {
         final String msgKey;
         final String patternsString;
         if (pattern.length == 1) {

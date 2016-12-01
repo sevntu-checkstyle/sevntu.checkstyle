@@ -16,9 +16,11 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck.MSG_KEY;
+
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -29,19 +31,19 @@ public class DiamondOperatorForVariableDefinitionCheckTest extends BaseCheckTest
 
     @Test
     public void testDefault() throws Exception {
-        String[] expected = { 
-                "25:58: " + getCheckMessage(MSG_KEY),
-                "27:26: " + getCheckMessage(MSG_KEY),
-                "28:50: " + getCheckMessage(MSG_KEY),
-                "29:41: " + getCheckMessage(MSG_KEY),
-                "59:40: " + getCheckMessage(MSG_KEY),
-                "60:83: " + getCheckMessage(MSG_KEY),
-                "79:48: " + getCheckMessage(MSG_KEY),
-                "92:78: " + getCheckMessage(MSG_KEY),
-                "93:68: " + getCheckMessage(MSG_KEY),
-                };
+        final String[] expected = {
+            "25:58: " + getCheckMessage(MSG_KEY),
+            "27:26: " + getCheckMessage(MSG_KEY),
+            "28:50: " + getCheckMessage(MSG_KEY),
+            "29:41: " + getCheckMessage(MSG_KEY),
+            "59:40: " + getCheckMessage(MSG_KEY),
+            "60:83: " + getCheckMessage(MSG_KEY),
+            "79:48: " + getCheckMessage(MSG_KEY),
+            "92:78: " + getCheckMessage(MSG_KEY),
+            "93:68: " + getCheckMessage(MSG_KEY),
+        };
         verify(checkConfig,
                 getPath("InputDiamondOperatorForVariableDefinitionCheck.java"), expected);
     }
-    
+
 }

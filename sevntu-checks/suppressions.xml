@@ -19,7 +19,24 @@
     <suppress checks="InnerAssignment" files="OverridableMethodInConstructorCheck.java"/>
     <suppress checks="BooleanExpressionComplexity" files="ForbidWildcardAsReturnTypeCheck.java"/>
     <suppress checks="JavadocPackage" files="(LineLengthExtendedCheck|Utils).java"/>
+    <suppress checks="LineLength" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="AbstractClassName" files=".*[\\/]BaseCheckTestSupport\.java"/>
     <!-- END of legacy code -->
+
+    <!-- Tone down the checking for test code -->
+    <suppress checks="EmptyBlock" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="ImportControl" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="Javadoc|DesignForExtension" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="MagicNumber" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="AvoidStaticImport" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="WriteTag" files=".*[\\/]src[\\/]test[\\/]"/>
+
+    <!-- they are aggregators of logic, usage a several of classes are ok -->
+    <suppress checks="ClassDataAbstractionCoupling" files=".*[\\/]BaseCheckTestSupport\.java"/>
+
+
+    <!-- Fixing these cases will decrease code readability -->
+    <suppress checks="MultipleStringLiterals" files=".*[\\/]src[\\/](test|it)[\\/]"/>
 
     <suppress checks="Translation" files=".*"/>
 

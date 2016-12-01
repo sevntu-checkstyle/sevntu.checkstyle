@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.MSG_KEY_CTOR;
@@ -26,43 +27,40 @@ import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
-{
+public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(ReturnCountExtendedCheck.class);
 
     @Test
-    public void testMethodsMaxReturnLiteralsIsOne() throws Exception
-    {
+    public void testMethodsMaxReturnLiteralsIsOne() throws Exception {
 
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // swithed off
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"26:16: " + getCheckMessage(MSG_KEY_METHOD, "twoReturnsInMethod", 2, 1),    
-        	"38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
-        	"58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
-        	"92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 2, 1),
-        	"105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
+        final String[] expected = {
+            "26:16: " + getCheckMessage(MSG_KEY_METHOD, "twoReturnsInMethod", 2, 1),
+            "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
+            "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
+            "92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 2, 1),
+            "105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
-    
+
     @Test
-    public void testMethodsMaxReturnLiteralsIsTwo() throws Exception
-    {
+    public void testMethodsMaxReturnLiteralsIsTwo() throws Exception {
 
         checkConfig.addAttribute("maxReturnCount", "2");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // switched off
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
+        final String[] expected = {
             "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 2),
             "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 2),
             "105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 2),
@@ -70,17 +68,16 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
-    
+
     @Test
-    public void testIgnoreEmptyReturns() throws Exception
-    {
+    public void testIgnoreEmptyReturns() throws Exception {
         checkConfig.addAttribute("maxReturnCount", "2");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // switched off
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "true");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
+        final String[] expected = {
             "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 2),
             "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 2),
         };
@@ -89,8 +86,7 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testConstructorsMaxReturnLiteralsIsOne() throws Exception
-    {
+    public void testConstructorsMaxReturnLiteralsIsOne() throws Exception {
 
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
@@ -98,18 +94,17 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"29:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
-        	"42:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
-        	"64:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 4, 1),
+        final String[] expected = {
+            "29:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
+            "42:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
+            "64:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 4, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckCtors.java"), expected);
     }
 
     @Test
-    public void testignoreMethodLinesCount() throws Exception
-    {
+    public void testignoreMethodLinesCount() throws Exception {
 
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "10");
@@ -117,80 +112,76 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
-        	"58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
-        	"105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
+        final String[] expected = {
+            "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
+            "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
+            "105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
-    public void testignoreMethodLinesCount2() throws Exception
-    {
+    public void testignoreMethodLinesCount2() throws Exception {
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "20");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
-        	"105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
+        final String[] expected = {
+            "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
+            "105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
-    public void testminIgnoreReturnDepth() throws Exception
-    {
+    public void testminIgnoreReturnDepth() throws Exception {
         checkConfig.addAttribute("maxReturnCount", "0");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "1");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"7:16: " + getCheckMessage(MSG_KEY_METHOD, "oneReturnInMethod", 1, 0),
-        	"11:16: " + getCheckMessage(MSG_KEY_METHOD, "oneReturnInMethod2", 1, 0),
-        	"92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 1, 0),
-        	"138:17: " + getCheckMessage(MSG_KEY_METHOD, "doNothing", 1, 0),
+        final String[] expected = {
+            "7:16: " + getCheckMessage(MSG_KEY_METHOD, "oneReturnInMethod", 1, 0),
+            "11:16: " + getCheckMessage(MSG_KEY_METHOD, "oneReturnInMethod2", 1, 0),
+            "92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 1, 0),
+            "138:17: " + getCheckMessage(MSG_KEY_METHOD, "doNothing", 1, 0),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
     @Test
-    public void testIgnoreNonEmptyReturns() throws Exception
-    {
+    public void testIgnoreNonEmptyReturns() throws Exception {
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"29:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
-        	"42:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
-        	"64:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 4, 1),
+        final String[] expected = {
+            "29:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
+            "42:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 3, 1),
+            "64:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 4, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckCtors.java"), expected);
     }
 
     @Test
-    public void testMethodsInMethods() throws Exception
-    {
+    public void testMethodsInMethods() throws Exception {
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
 
-        String[] expected = {
-        	"104:24: " + getCheckMessage(MSG_KEY_METHOD, "handleEvent", 3, 1),
+        final String[] expected = {
+            "104:24: " + getCheckMessage(MSG_KEY_METHOD, "handleEvent", 3, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethodsInMethods.java"),
@@ -198,40 +189,38 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testIgnoreMethodsNamesProperty() throws Exception
-    {
+    public void testIgnoreMethodsNamesProperty() throws Exception {
         checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // swithed off
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
         checkConfig.addAttribute("ignoreEmptyReturns", "false");
         checkConfig.addAttribute("topLinesToIgnoreCount", "0");
         checkConfig.addAttribute("ignoreMethodsNames", "threeReturnsInMethod, twoReturnsInMethod");
 
-        String[] expected = {
-        	"58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
-        	"92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 2, 1),
-        	"105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
+        final String[] expected = {
+            "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
+            "92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 2, 1),
+            "105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
     }
 
-	@Test
-	public void testRegexIgnoreMethodsNamesProperty() throws Exception
-	{
-		checkConfig.addAttribute("maxReturnCount", "1");
-		checkConfig.addAttribute("ignoreMethodLinesCount", "0"); // swithed off
-		checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-		checkConfig.addAttribute("ignoreEmptyReturns", "false");
-		checkConfig.addAttribute("topLinesToIgnoreCount", "0");
-		checkConfig.addAttribute("ignoreMethodsNames", "(?iu)(?:TwO|Four)(?-iu)ReturnsInMethod");
+    @Test
+    public void testRegexIgnoreMethodsNamesProperty() throws Exception {
+        checkConfig.addAttribute("maxReturnCount", "1");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
+        checkConfig.addAttribute("ignoreEmptyReturns", "false");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addAttribute("ignoreMethodsNames", "(?iu)(?:TwO|Four)(?-iu)ReturnsInMethod");
 
-		String[] expected = {
-			"38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
-			"92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 2, 1),
-			"105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
-		};
+        final String[] expected = {
+            "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
+            "92:16: " + getCheckMessage(MSG_KEY_METHOD, "nm", 2, 1),
+            "105:17: " + getCheckMessage(MSG_KEY_METHOD, "returnFromLiteral", 6, 1),
+        };
 
-		verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
-	}
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
+    }
 }

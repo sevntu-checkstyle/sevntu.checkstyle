@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.internal;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -39,21 +58,21 @@ public final class ChecksTest {
         Assert.assertTrue("no modules", modules.size() > 0);
 
         // sonar
-        {
-            final File extensionFile = new File(getSonarPath("checkstyle-extensions.xml"));
 
-            Assert.assertTrue("'checkstyle-extensions.xml' must exist in sonar",
-                    extensionFile.exists());
+        final File extensionFile = new File(getSonarPath("checkstyle-extensions.xml"));
 
-            final String input = new String(Files.readAllBytes(extensionFile.toPath()), UTF_8);
+        Assert.assertTrue("'checkstyle-extensions.xml' must exist in sonar",
+                extensionFile.exists());
 
-            final Document document = XmlUtil.getRawXml(extensionFile.getAbsolutePath(), input,
-                    input);
+        final String input = new String(Files.readAllBytes(extensionFile.toPath()), UTF_8);
 
-            validateSonarFile(document, new HashSet<>(modules));
-        }
+        final Document document = XmlUtil.getRawXml(extensionFile.getAbsolutePath(), input,
+                input);
+
+        validateSonarFile(document, new HashSet<>(modules));
 
         // eclipsecs
+
         for (String p : packages) {
             Assert.assertTrue("folder " + p + " must exist in eclipsecs", new File(
                     getEclipseCsPath(p)).exists());
@@ -69,7 +88,7 @@ public final class ChecksTest {
         }
     }
 
-    private static void validateSonarFile(Document document, HashSet<Class<?>> modules) {
+    private static void validateSonarFile(Document document, Set<Class<?>> modules) {
         final NodeList rules = document.getElementsByTagName("rule");
 
         for (int position = 0; position < rules.getLength(); position++) {
@@ -111,40 +130,43 @@ public final class ChecksTest {
             Assert.assertNotNull(moduleName + " requires a description in sonar", description);
 
             final Node configKey = XmlUtil.findElementByTag(children, "configKey");
-            String expectedConfigKey = "Checker/TreeWalker/" + key;
+            final String expectedConfigKey = "Checker/TreeWalker/" + key;
 
             Assert.assertNotNull(moduleName + " requires a configKey in sonar", configKey);
             Assert.assertEquals(moduleName + " requires a valid configKey in sonar",
                     expectedConfigKey, configKey.getTextContent());
 
-            final Set<Node> parameters = XmlUtil.findElementsByTag(children, "param");
-
-            final Set<String> properties = getFinalProperties(module);
-
-            for (Node parameter : parameters) {
-                final NamedNodeMap attributes = parameter.getAttributes();
-                final Node paramKeyNode = attributes.getNamedItem("key");
-
-                Assert.assertNotNull(moduleName + " requires a key for unknown parameter in sonar",
-                        paramKeyNode);
-
-                final String paramKey = paramKeyNode.getTextContent();
-
-                Assert.assertFalse(moduleName
-                        + " requires a valid key for unknown parameter in sonar",
-                        paramKey.isEmpty());
-
-                Assert.assertTrue(moduleName + " has an unknown parameter in sonar: " + paramKey,
-                        properties.remove(paramKey));
-            }
-
-            for (String property : properties) {
-                Assert.fail(moduleName + " parameter not found in sonar: " + property);
-            }
+            validateSonarProperties(module, XmlUtil.findElementsByTag(children, "param"));
         }
 
         for (Class<?> module : modules) {
             Assert.fail("Module not found in sonar: " + module.getCanonicalName());
+        }
+    }
+
+    private static void validateSonarProperties(Class<?> module, Set<Node> parameters) {
+        final String moduleName = module.getName();
+        final Set<String> properties = getFinalProperties(module);
+
+        for (Node parameter : parameters) {
+            final NamedNodeMap attributes = parameter.getAttributes();
+            final Node paramKeyNode = attributes.getNamedItem("key");
+
+            Assert.assertNotNull(moduleName + " requires a key for unknown parameter in sonar",
+                    paramKeyNode);
+
+            final String paramKey = paramKeyNode.getTextContent();
+
+            Assert.assertFalse(moduleName
+                    + " requires a valid key for unknown parameter in sonar",
+                    paramKey.isEmpty());
+
+            Assert.assertTrue(moduleName + " has an unknown parameter in sonar: " + paramKey,
+                    properties.remove(paramKey));
+        }
+
+        for (String property : properties) {
+            Assert.fail(moduleName + " parameter not found in sonar: " + property);
         }
     }
 
@@ -233,55 +255,55 @@ public final class ChecksTest {
             final NamedNodeMap attributes = child.getAttributes();
 
             switch (child.getNodeName()) {
-            case "alternative-name":
-                final Node internalNameNode = attributes.getNamedItem("internal-name");
+                case "alternative-name":
+                    final Node internalNameNode = attributes.getNamedItem("internal-name");
 
-                Assert.assertNotNull(packge
-                        + " checkstyle-metadata.xml must contain an internal name for "
-                        + moduleName, internalNameNode);
+                    Assert.assertNotNull(packge
+                            + " checkstyle-metadata.xml must contain an internal name for "
+                            + moduleName, internalNameNode);
 
-                final String internalName = internalNameNode.getTextContent();
+                    final String internalName = internalNameNode.getTextContent();
 
-                Assert.assertEquals(packge
-                        + " checkstyle-metadata.xml requires a valid internal-name for "
-                        + moduleName, module.getName(), internalName);
-                break;
-            case "description":
-                Assert.assertEquals(
-                        packge + " checkstyle-metadata.xml requires a valid description for "
-                                + moduleName, "%" + moduleName + ".desc", child.getTextContent());
-                break;
-            case "property-metadata":
-                final String propertyName = attributes.getNamedItem("name").getTextContent();
+                    Assert.assertEquals(packge
+                            + " checkstyle-metadata.xml requires a valid internal-name for "
+                            + moduleName, module.getName(), internalName);
+                    break;
+                case "description":
+                    Assert.assertEquals(
+                            packge + " checkstyle-metadata.xml requires a valid description for "
+                                    + moduleName, "%" + moduleName + ".desc", child.getTextContent());
+                    break;
+                case "property-metadata":
+                    final String propertyName = attributes.getNamedItem("name").getTextContent();
 
-                Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown parameter for "
-                        + moduleName + ": " + propertyName, properties.remove(propertyName));
+                    Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown parameter for "
+                            + moduleName + ": " + propertyName, properties.remove(propertyName));
 
-                final Node firstChild = child.getFirstChild().getNextSibling();
+                    final Node firstChild = child.getFirstChild().getNextSibling();
 
-                Assert.assertNotNull(packge
-                        + " checkstyle-metadata.xml requires atleast one child for " + moduleName
-                        + ", " + propertyName, firstChild);
-                Assert.assertEquals(
-                        packge
-                                + " checkstyle-metadata.xml should have a description for the first child of "
-                                + moduleName + ", " + propertyName, "description",
-                        firstChild.getNodeName());
-                Assert.assertEquals(packge
-                        + " checkstyle-metadata.xml requires a valid description for " + moduleName
-                        + ", " + propertyName, "%" + moduleName + "." + propertyName,
-                        firstChild.getTextContent());
-                break;
-            case "message-key":
-                final String key = attributes.getNamedItem("key").getTextContent();
+                    Assert.assertNotNull(packge
+                            + " checkstyle-metadata.xml requires atleast one child for " + moduleName
+                            + ", " + propertyName, firstChild);
+                    Assert.assertEquals(
+                            packge
+                                    + " checkstyle-metadata.xml should have a description for the first child of "
+                                    + moduleName + ", " + propertyName, "description",
+                            firstChild.getNodeName());
+                    Assert.assertEquals(packge
+                            + " checkstyle-metadata.xml requires a valid description for " + moduleName
+                            + ", " + propertyName, "%" + moduleName + "." + propertyName,
+                            firstChild.getTextContent());
+                    break;
+                case "message-key":
+                    final String key = attributes.getNamedItem("key").getTextContent();
 
-                Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown message for "
-                        + moduleName + ": " + key, messages.remove(key));
-                break;
-            default:
-                Assert.fail(packge + " checkstyle-metadata.xml unknown node for " + moduleName
-                        + ": " + child.getNodeName());
-                break;
+                    Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown message for "
+                            + moduleName + ": " + key, messages.remove(key));
+                    break;
+                default:
+                    Assert.fail(packge + " checkstyle-metadata.xml unknown node for " + moduleName
+                            + ": " + child.getNodeName());
+                    break;
             }
         }
 
@@ -301,7 +323,7 @@ public final class ChecksTest {
         Assert.assertTrue("'checkstyle-metadata.properties' must exist in eclipsecs in inside "
                 + packge, file.exists());
 
-        Properties prop = new Properties();
+        final Properties prop = new Properties();
         prop.load(new FileInputStream(file));
 
         final Set<Object> properties = new HashSet<Object>(Collections.list(prop.keys()));
@@ -376,7 +398,7 @@ public final class ChecksTest {
 
     /**
      * Returns canonical path for the file with the given file name.
-     * 
+     *
      * @param filename file name.
      * @return canonical path for the file name.
      * @throws IOException if I/O exception occurs while forming the path.
@@ -388,14 +410,14 @@ public final class ChecksTest {
 
     /**
      * Returns canonical path for the file with the given file name.
-     * 
+     *
      * @param filename file name.
      * @return canonical path for the file name.
      * @throws IOException if I/O exception occurs while forming the path.
      */
     private String getSonarPath(String filename) throws IOException {
         return new File(
-                "../sevntu-checkstyle-sonar-plugin/src/main/resources/com/github/sevntu/checkstyle/sonar/"
-                        + filename).getCanonicalPath();
+                "../sevntu-checkstyle-sonar-plugin/src/main/resources/com/github/sevntu/"
+                        + "checkstyle/sonar/" + filename).getCanonicalPath();
     }
 }
