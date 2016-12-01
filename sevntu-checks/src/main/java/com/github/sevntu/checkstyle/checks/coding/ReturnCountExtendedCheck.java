@@ -70,14 +70,14 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    public static final String WARNING_MSG_KEY_METHOD =
+    public static final String MSG_KEY_METHOD =
             "return.count.extended.method";
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
-    public static final String WARNING_MSG_KEY_CTOR =
+    public static final String MSG_KEY_CTOR =
             "return.count.extended.ctor";
 
     /**
@@ -240,10 +240,10 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
                     final String mKey;
 
                     if (methodDefNode.getType() == TokenTypes.METHOD_DEF) {
-                        mKey = WARNING_MSG_KEY_METHOD;
+                        mKey = MSG_KEY_METHOD;
                     }
                     else {
-                        mKey = WARNING_MSG_KEY_CTOR;
+                        mKey = MSG_KEY_CTOR;
                     }
 
                     final DetailAST methodNameToken = methodDefNode
