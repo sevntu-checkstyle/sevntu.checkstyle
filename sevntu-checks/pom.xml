@@ -229,6 +229,58 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>selftesting</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <linkcheck.skip>true</linkcheck.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <pmd.skip>true</pmd.skip>
+        <xml.skip>true</xml.skip>
+        <forbiddenapis.skip>true</forbiddenapis.skip>
+        <findbugs.skip>true</findbugs.skip>
+        <cobertura.skip>true</cobertura.skip>
+        <maven.site.skip>true</maven.site.skip>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>${checkstyle.plugin.version}</version>
+            <dependencies>
+              <dependency>
+                <groupId>com.puppycrawl.tools</groupId>
+                <artifactId>checkstyle</artifactId>
+                <version>${checkstyle.version}</version>
+              </dependency>
+              <!-- atention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
+              <dependency>
+                <groupId>com.github.sevntu.checkstyle</groupId>
+                <artifactId>sevntu-checks</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <!-- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference
+                     to run checkstyle validation in terminal please use command "mvn process-classes"
+                -->
+                <phase>process-classes</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+                <configuration>
+                  <configLocation>https://raw.githubusercontent.com/sevntu-checkstyle/sevntu.checkstyle/gh-pages/sevntu-checkstyle-default-configuration.xml</configLocation>
+                  <failOnViolation>true</failOnViolation>
+                  <linkXRef>false</linkXRef>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
   <pluginRepositories>
     <pluginRepository>
