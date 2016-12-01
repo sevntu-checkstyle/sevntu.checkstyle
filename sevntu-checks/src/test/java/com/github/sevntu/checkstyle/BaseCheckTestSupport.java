@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle;
 
 import static java.text.MessageFormat.format;
@@ -27,147 +46,141 @@ import com.puppycrawl.tools.checkstyle.TreeWalker;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.Configuration;
 
-public abstract class BaseCheckTestSupport extends Assert
-{
-	/** A brief logger that only display errors */
-	protected static class BriefLogger extends DefaultLogger
-	{
+public abstract class BaseCheckTestSupport extends Assert {
+    private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    private final PrintStream printStream = new PrintStream(baos);
 
-		public BriefLogger(OutputStream out) throws UnsupportedEncodingException
-		{
-			super(out, true, out, false, new AuditEventUtFormatter());
-		}
+    public static DefaultConfiguration createCheckConfig(Class<?> clazz) {
+        return new DefaultConfiguration(clazz.getName());
+    }
 
-		@Override
-		public void auditStarted(AuditEvent evt) {
-		}
+    protected void verify(Configuration config, String fileName, String[] expected)
+            throws Exception {
+        verify(createChecker(config), fileName, fileName, expected);
+    }
 
-		@Override
-		public void fileFinished(AuditEvent evt) {
-		}
+    protected void verify(Checker checker, String fileName, String[] expected) throws Exception {
+        verify(checker, fileName, fileName, expected);
+    }
 
-		@Override
-		public void fileStarted(AuditEvent evt) {
-		}
-	}
+    protected void verify(Checker checker, String processedFilename, String messageFileName,
+            String[] aExpected) throws Exception {
+        verify(checker, new File[] {new File(processedFilename)}, messageFileName, aExpected);
+    }
 
-	private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	private final PrintStream printStream = new PrintStream(baos);
+    protected void verify(Checker checker, File[] processedFiles, String messageFileName,
+            String[] expected) throws Exception {
+        printStream.flush();
+        final List<File> testInputFiles = Lists.newArrayList(processedFiles);
+        final int foundErrorsCount = checker.process(testInputFiles);
 
-	public static DefaultConfiguration createCheckConfig(Class<?> clazz)
-	{
-		return new DefaultConfiguration(clazz.getName());
-	}
+        // Process each output line
+        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        final BufferedReader br = new BufferedReader(new InputStreamReader(bais));
 
-	protected void verify(Configuration config, String fileName, String[] expected)
-			throws Exception
-	{
-		verify(createChecker(config), fileName, fileName, expected);
-	}
+        try {
+            for (int i = 0; i < expected.length; i++) {
+                final String expectedResult = messageFileName + ":" + expected[i];
+                final String actual = br.readLine();
+                assertEquals("error message " + i, expectedResult, actual);
+            }
 
-	protected void verify(Checker c, String fileName, String[] expected) throws Exception
-	{
-		verify(c, fileName, fileName, expected);
-	}
+            assertEquals("Check generated unexpected warning: " + br.readLine(), expected.length,
+                    foundErrorsCount);
+            checker.destroy();
+        }
+        finally {
+            br.close();
+            bais.close();
+        }
+    }
 
-	protected void verify(Checker c, String processedFilename, String messageFileName,
-			String[] aExpected) throws Exception
-	{
-		verify(c, new File[] { new File(processedFilename) }, messageFileName, aExpected);
-	}
+    protected Checker createChecker(Configuration checkConfig) throws Exception {
+        final Checker checker = new Checker();
+        // make sure the tests always run with english error messages
+        // so the tests don't fail in supported locales like german
+        final Locale locale = Locale.ENGLISH;
+        checker.setLocaleCountry(locale.getCountry());
+        checker.setLocaleLanguage(locale.getLanguage());
+        checker.setModuleClassLoader(Thread.currentThread().getContextClassLoader());
 
-	protected void verify(Checker checker, File[] processedFiles, String messageFileName,
-			String[] expected) throws Exception
-	{
-		printStream.flush();
-		List<File> testInputFiles = Lists.newArrayList(processedFiles);
-		int foundErrorsCount = checker.process(testInputFiles);
+        final DefaultConfiguration defaultConfig = createCheckerConfig(checkConfig);
+        checker.configure(defaultConfig);
 
-		// Process each output line
-		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-		BufferedReader br = new BufferedReader(new InputStreamReader(bais));
+        checker.addListener(new BriefLogger(printStream));
+        return checker;
+    }
 
-		try {
-			for (int i = 0; i < expected.length; i++) {
-				final String expectedResult = messageFileName + ":" + expected[i];
-				final String actual = br.readLine();
-				assertEquals("error message " + i, expectedResult, actual);
-			}
+    protected DefaultConfiguration createCheckerConfig(Configuration config) {
+        final DefaultConfiguration result = new DefaultConfiguration("configuration");
+        final DefaultConfiguration treeWalkerConfig = createCheckConfig(TreeWalker.class);
+        // make sure that the tests always run with this charset
+        result.addAttribute("charset", "iso-8859-1");
+        result.addChild(treeWalkerConfig);
+        treeWalkerConfig.addChild(config);
+        return result;
+    }
 
-			assertEquals("Check generated unexpected warning: " + br.readLine(), expected.length, foundErrorsCount);
-			checker.destroy();
-		} finally {
-			br.close();
-			bais.close();
-		}
-	}
+    protected String getPath(String filename) {
+        String result = null;
+        try {
+            final URL resource = getClass().getResource(filename);
+            if (resource == null) {
+                throw new RuntimeException(String.format("Resource '%s' can NOT be found "
+                        + "(does not exist or just not visible for current classloader)",
+                        filename));
+            }
+            else {
+                result = new File(resource.getPath()).getCanonicalPath();
+            }
+        }
+        catch (IOException ex) {
+            throw new RuntimeException("Error while getting path for resource: " + filename, ex);
+        }
+        return result;
+    }
 
-	protected Checker createChecker(Configuration checkConfig) throws Exception
-	{
-		Checker checker = new Checker();
-		// make sure the tests always run with english error messages
-		// so the tests don't fail in supported locales like german
-		Locale locale = Locale.ENGLISH;
-		checker.setLocaleCountry(locale.getCountry());
-		checker.setLocaleLanguage(locale.getLanguage());
-		checker.setModuleClassLoader(Thread.currentThread().getContextClassLoader());
+    /**
+     * Gets the check message 'as is' from appropriate 'messages.properties' file.
+     * @param messageKey the key of message in 'messages.properties' file.
+     */
+    public String getCheckMessage(String messageKey) {
+        final Properties pr = new Properties();
+        try {
+            pr.load(getClass().getResourceAsStream("messages.properties"));
+        }
+        catch (IOException ex) {
+            return null;
+        }
+        return pr.getProperty(messageKey);
+    }
 
-		DefaultConfiguration defaultConfig = createCheckerConfig(checkConfig);
-		checker.configure(defaultConfig);
+    /**
+     * Gets the check message 'as is' from appropriate 'messages.properties' file.
+     * @param messageKey the key of message in 'messages.properties' file.
+     * @param arguments the arguments of message in 'messages.properties' file.
+     */
+    public String getCheckMessage(String messageKey, Object ... arguments) {
+        return format(getCheckMessage(messageKey), arguments);
+    }
 
-		checker.addListener(new BriefLogger(printStream));
-		return checker;
-	}
+    /** A brief logger that only display errors */
+    protected static class BriefLogger extends DefaultLogger {
 
-	protected DefaultConfiguration createCheckerConfig(Configuration config)
-	{
-		DefaultConfiguration result = new DefaultConfiguration("configuration");
-		DefaultConfiguration treeWalkerConfig = createCheckConfig(TreeWalker.class);
-		// make sure that the tests always run with this charset
-		result.addAttribute("charset", "iso-8859-1");
-		result.addChild(treeWalkerConfig);
-		treeWalkerConfig.addChild(config);
-		return result;
-	}
+        public BriefLogger(OutputStream out) throws UnsupportedEncodingException {
+            super(out, true, out, false, new AuditEventUtFormatter());
+        }
 
-	protected String getPath(String filename)
-	{
-		String result = null;
-		try {
-			URL resource = getClass().getResource(filename);
-			if (resource == null) {
-				throw new RuntimeException(String.format("Resource '%s' can NOT be found "
-						+ "(does not exist or just not visible for current classloader)",
-						filename));
-			} else {
-				result = new File(resource.getPath()).getCanonicalPath();
-			}
-		} catch (IOException e) {
-			throw new RuntimeException("Error while getting path for resource: " + filename, e);
-		}
-		return result;
-	}
+        @Override
+        public void auditStarted(AuditEvent evt) {
+        }
 
-	/**
-	 * Gets the check message 'as is' from appropriate 'messages.properties' file.
-	 * @param messageKey the key of message in 'messages.properties' file.
-	 */
-	public String getCheckMessage(String messageKey) {
-		Properties pr = new Properties();
-		try {
-			pr.load(getClass().getResourceAsStream("messages.properties"));
-		} catch (IOException e) {
-			return null;
-		}
-		return pr.getProperty(messageKey);
-	}
-	
-	/**
-	 * Gets the check message 'as is' from appropriate 'messages.properties' file.
-	 * @param messageKey the key of message in 'messages.properties' file.
-	 * @param arguments the arguments of message in 'messages.properties' file.
-	 */
-	public String getCheckMessage(String messageKey, Object ... arguments) {
-		return format(getCheckMessage(messageKey), arguments);
-	}
+        @Override
+        public void fileFinished(AuditEvent evt) {
+        }
+
+        @Override
+        public void fileStarted(AuditEvent evt) {
+        }
+    }
 }

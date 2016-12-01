@@ -16,9 +16,10 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck.MSG_KEY;
 
 import org.junit.Test;
 
@@ -26,33 +27,30 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ForbidCCommentsInMethodsCheckTest extends
-        BaseCheckTestSupport
-{
-	private final String warningMessage = getCheckMessage(MSG_KEY);
-	
+        BaseCheckTestSupport {
+    private final String warningMessage = getCheckMessage(MSG_KEY);
+
     @Test
     public void defaultTest()
-            throws Exception
-    {
+            throws Exception {
 
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {
-                "10: " + warningMessage,
-                "17: " + warningMessage,
-                "26: " + warningMessage,
-                "33: " + warningMessage,
-                "45: " + warningMessage,
-                "52: " + warningMessage,
-                "61: " + warningMessage,
-                "68: " + warningMessage,
+            "10: " + warningMessage,
+            "17: " + warningMessage,
+            "26: " + warningMessage,
+            "33: " + warningMessage,
+            "45: " + warningMessage,
+            "52: " + warningMessage,
+            "61: " + warningMessage,
+            "68: " + warningMessage,
         };
         verify(checkConfig, getPath("InputForbidCCommentsInMethods.java"), expected);
     }
 
     @Test
     public void testFileWithoutComments()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethods2.java"), expected);
@@ -60,8 +58,7 @@ public class ForbidCCommentsInMethodsCheckTest extends
 
     @Test
     public void testInterface()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethods3.java"), expected);

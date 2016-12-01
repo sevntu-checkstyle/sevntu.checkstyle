@@ -87,7 +87,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
             TokenTypes.INTERFACE_DEF,
             TokenTypes.LITERAL_SUPER,
         };
-        StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
+        final StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
         assertArrayEquals(expected, check.getAcceptableTokens());
     }
 
@@ -118,7 +118,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
             TokenTypes.INTERFACE_DEF,
             TokenTypes.LITERAL_SUPER,
         };
-        StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
+        final StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
         assertArrayEquals(expected, check.getRequiredTokens());
     }
 

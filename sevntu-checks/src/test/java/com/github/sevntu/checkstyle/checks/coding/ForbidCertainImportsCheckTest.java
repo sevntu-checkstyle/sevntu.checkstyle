@@ -16,88 +16,82 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck.MSG_KEY;
 
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-
 /**
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport
-{
-	private final DefaultConfiguration checkConfig = createCheckConfig(ForbidCertainImportsCheck.class);
+public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
+    private final DefaultConfiguration checkConfig = createCheckConfig(ForbidCertainImportsCheck.class);
 
     @Test
-    public void testNormalWork() throws Exception
-    {
-        String importRegexp = ".+\\.api\\..+";
+    public void testNormalWork() throws Exception {
+        final String importRegexp = ".+\\.api\\..+";
 
         checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
         checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {
-        	"3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-        	"9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-        	"21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+        final String[] expected = {
+            "3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+            "9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+            "21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
         verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
     }
 
-	@Test
-	public void testNormalWorkWithExcludes() throws Exception
-	{
-		String importRegexp = ".+\\.api\\..+";
-
-		checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
-		checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
-		checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
-
-		String[] expected = {};
-
-		verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
-	}
-    
     @Test
-    public void testEmptyImportsAndDefaultPackage() throws Exception
-    {
+    public void testNormalWorkWithExcludes() throws Exception {
+        final String importRegexp = ".+\\.api\\..+";
+
+        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+    }
+
+    @Test
+    public void testEmptyImportsAndDefaultPackage() throws Exception {
         checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
         checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {};
+        final String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
-    public void testEmptyParams() throws Exception
-    {
+    public void testEmptyParams() throws Exception {
         checkConfig.addAttribute("packageNameRegexp", "");
         checkConfig.addAttribute("forbiddenImportsRegexp", "");
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {};
+        final String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
-    public void testNoImports() throws Exception
-    {
+    public void testNoImports() throws Exception {
         checkConfig.addAttribute("packageNameRegexp", "");
         checkConfig.addAttribute("forbiddenImportsRegexp", "");
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
-        String[] expected = {};
+        final String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
     }

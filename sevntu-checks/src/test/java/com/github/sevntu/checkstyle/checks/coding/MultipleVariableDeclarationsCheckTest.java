@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2010  Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -16,9 +16,11 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck.MSG_VAR_DECLARATIONS;
+import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck.MSG_VAR_DECLARATIONS_COMMA;
 
 import org.junit.Test;
 
@@ -26,88 +28,79 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /** Test class. */
-public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport
-{
-	private final String msgVarDeclarationsComa = getCheckMessage(MSG_VAR_DECLARATIONS_COMMA);
-	private final String msgVarDeclarations = getCheckMessage(MSG_VAR_DECLARATIONS);
-	
-	@Test
-	public void testStandartSituation() throws Exception
-	{
-		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+public class MultipleVariableDeclarationsCheckTest extends BaseCheckTestSupport {
+    private final String msgVarDeclarationsComa = getCheckMessage(MSG_VAR_DECLARATIONS_COMMA);
+    private final String msgVarDeclarations = getCheckMessage(MSG_VAR_DECLARATIONS);
 
-		final String[] expected = {
-				"3:5: " + msgVarDeclarationsComa,
-				"4:5: " + msgVarDeclarations,
-				"7:9: " + msgVarDeclarationsComa,
-				"8:9: " + msgVarDeclarations,
-				"12:5: " + msgVarDeclarations,
-				"15:5: " + msgVarDeclarations,
-				"20:14: " + msgVarDeclarationsComa, };
+    @Test
+    public void testStandartSituation() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
-		checkConfig.addAttribute("ignoreCycles", "false");
-		checkConfig.addAttribute("ignoreMethods", "false");
+        final String[] expected = {
+            "3:5: " + msgVarDeclarationsComa,
+            "4:5: " + msgVarDeclarations,
+            "7:9: " + msgVarDeclarationsComa,
+            "8:9: " + msgVarDeclarations,
+            "12:5: " + msgVarDeclarations,
+            "15:5: " + msgVarDeclarations,
+            "20:14: " + msgVarDeclarationsComa,
+        };
 
-		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
-	}
+        checkConfig.addAttribute("ignoreCycles", "false");
+        checkConfig.addAttribute("ignoreMethods", "false");
 
-	@Test
-	public void testIgnoreCycles() throws Exception
-	{
-		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+    }
 
-		final String[] expected = {
-				"3:5: " + msgVarDeclarationsComa,
-				"4:5: " + msgVarDeclarations,
-				"7:9: " + msgVarDeclarationsComa,
-				"8:9: " + msgVarDeclarations,
-				"12:5: " + msgVarDeclarations,
-				"15:5: " + msgVarDeclarations,
-				//   "20:14: " + msgVarDeclarationsComa,
-		};
+    @Test
+    public void testIgnoreCycles() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
-		checkConfig.addAttribute("ignoreCycles", "true");
-		checkConfig.addAttribute("ignoreMethods", "false");
-		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
-	}
+        final String[] expected = {
+            "3:5: " + msgVarDeclarationsComa,
+            "4:5: " + msgVarDeclarations,
+            "7:9: " + msgVarDeclarationsComa,
+            "8:9: " + msgVarDeclarations,
+            "12:5: " + msgVarDeclarations,
+            "15:5: " + msgVarDeclarations,
+        };
 
-	@Test
-	public void testIgnoreMethods() throws Exception
-	{
-		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        checkConfig.addAttribute("ignoreCycles", "true");
+        checkConfig.addAttribute("ignoreMethods", "false");
+        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+    }
 
-		final String[] expected = {
-				"3:5: " + msgVarDeclarationsComa,
-				"4:5: " + msgVarDeclarations,
-				// "7:9: " + msgVarDeclarationsComa,
-				// "8:9: " + msgVarDeclarations,
-				"12:5: " + msgVarDeclarations,
-				"15:5: " + msgVarDeclarations,
-				"20:14: " + msgVarDeclarationsComa, };
+    @Test
+    public void testIgnoreMethods() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
-		checkConfig.addAttribute("ignoreCycles", "false");
-		checkConfig.addAttribute("ignoreMethods", "true");
-		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
-	}
+        final String[] expected = {
+            "3:5: " + msgVarDeclarationsComa,
+            "4:5: " + msgVarDeclarations,
+            "12:5: " + msgVarDeclarations,
+            "15:5: " + msgVarDeclarations,
+            "20:14: " + msgVarDeclarationsComa,
+        };
 
-	@Test
-	public void testIgnoreMethodsAndIgnoreCycles() throws Exception
-	{
-		DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        checkConfig.addAttribute("ignoreCycles", "false");
+        checkConfig.addAttribute("ignoreMethods", "true");
+        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+    }
 
-		final String[] expected = {
-				"3:5: " + msgVarDeclarationsComa,
-				"4:5: " + msgVarDeclarations,
-				// "7:9: " + msgVarDeclarationsComa,
-				// "8:9: " + msgVarDeclarations,
-				"12:5: " + msgVarDeclarations,
-				"15:5: " + msgVarDeclarations,
-				// "20:14: " + msgVarDeclarationsComa,
-		};
+    @Test
+    public void testIgnoreMethodsAndIgnoreCycles() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
-		checkConfig.addAttribute("ignoreCycles", "true");
-		checkConfig.addAttribute("ignoreMethods", "true");
-		verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
-	}
+        final String[] expected = {
+            "3:5: " + msgVarDeclarationsComa,
+            "4:5: " + msgVarDeclarations,
+            "12:5: " + msgVarDeclarations,
+            "15:5: " + msgVarDeclarations,
+        };
+
+        checkConfig.addAttribute("ignoreCycles", "true");
+        checkConfig.addAttribute("ignoreMethods", "true");
+        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+    }
 
 }

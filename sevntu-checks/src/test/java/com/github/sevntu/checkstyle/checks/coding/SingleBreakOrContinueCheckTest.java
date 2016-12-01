@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2015 the original author or authors.
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -29,8 +29,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 /**
  * @author <a href="mailto:yasser.aziza@gmail.com"> Yasser Aziza </a>
  */
-public class SingleBreakOrContinueCheckTest extends BaseCheckTestSupport
-{
+public class SingleBreakOrContinueCheckTest extends BaseCheckTestSupport {
 
     /**
      * An error message for current check.
@@ -39,22 +38,22 @@ public class SingleBreakOrContinueCheckTest extends BaseCheckTestSupport
 
     @Test
     public void testDefault()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(SingleBreakOrContinueCheck.class);
         final String[] expected = {
-                "8: " + warningMessage,
-                "26: " + warningMessage,
-                "44: " + warningMessage,
-                "88: " + warningMessage,
-                "106: " + warningMessage,
-                "124: " + warningMessage,
-                "168: " + warningMessage,
-                "187: " + warningMessage,
-                "206: " + warningMessage,
-                "346: " + warningMessage,
-                "367: " + warningMessage,
-                "389: " + warningMessage};
+            "8: " + warningMessage,
+            "26: " + warningMessage,
+            "44: " + warningMessage,
+            "88: " + warningMessage,
+            "106: " + warningMessage,
+            "124: " + warningMessage,
+            "168: " + warningMessage,
+            "187: " + warningMessage,
+            "206: " + warningMessage,
+            "346: " + warningMessage,
+            "367: " + warningMessage,
+            "389: " + warningMessage,
+        };
 
         verify(checkConfig, getPath("InputSingleBreakOrContinueCheck.java"),
                 expected);

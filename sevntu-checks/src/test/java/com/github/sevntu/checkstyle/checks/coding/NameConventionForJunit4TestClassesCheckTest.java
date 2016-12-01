@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2013 Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:denant0vz@gmail.com">Denis Antonenkov</a>
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSupport
-{
+public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSupport {
     private final String msgFormat =
             getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY);
 
@@ -43,10 +42,9 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testAnnotatedClass()
-            throws Exception
-    {
+            throws Exception {
 
-        DefaultConfiguration customConfig =
+        final DefaultConfiguration customConfig =
                 buildConfiguration(defaultTestClassName, "RunWith", "");
 
         final String[] expected = {
@@ -58,8 +56,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testAnnotatedMethod()
-            throws Exception
-    {
+            throws Exception {
         final String[] expected = {
                 buildMesssage("8:18: ", defaultTestClassName),
         };
@@ -69,18 +66,16 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testClassIsNotTest()
-            throws Exception
-    {
+            throws Exception {
         final String[] expected = {
-                };
+        };
 
         verify(checkConfig, getPath("InputNameConventionForTest3.java"), expected);
     }
 
     @Test
     public void testRegex()
-            throws Exception
-    {
+            throws Exception {
         final String[] expected = {
                 buildMesssage("7:18: ", defaultTestClassName),
         };
@@ -90,9 +85,8 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testQualifiedAnnotationName()
-            throws Exception
-    {
-        DefaultConfiguration customConfig =
+            throws Exception {
+        final DefaultConfiguration customConfig =
                 buildConfiguration(defaultTestClassName, "", "org.junit.Test");
 
         final String[] expected = {
@@ -104,9 +98,8 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testJunitClassTestAnnotationNamesRegexOption()
-            throws Exception
-    {
-        DefaultConfiguration customConfig =
+            throws Exception {
+        final DefaultConfiguration customConfig =
                 buildConfiguration(defaultTestClassName, "SomeTestAnnotation", "");
 
         final String[] expected = {
@@ -118,9 +111,8 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testJunitMethodTestAnnotationNamesRegexOption()
-            throws Exception
-    {
-        DefaultConfiguration customConfig =
+            throws Exception {
+        final DefaultConfiguration customConfig =
                 buildConfiguration(defaultTestClassName, "", "SomeTestAnnotation");
 
         final String[] expected = {
@@ -132,9 +124,8 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
     @Test
     public void testCorrectTestClassNameRegexOption()
-            throws Exception
-    {
-        DefaultConfiguration customConfig =
+            throws Exception {
+        final DefaultConfiguration customConfig =
                 buildConfiguration("Hello*", "", "Test");
 
         final String[] expected = {
@@ -145,9 +136,8 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     }
 
     private static DefaultConfiguration buildConfiguration(String expectedNameRegex,
-            String classAnnotationNameRegex, String methodAnnotationNameRegex)
-    {
-        DefaultConfiguration config =
+            String classAnnotationNameRegex, String methodAnnotationNameRegex) {
+        final DefaultConfiguration config =
                 createCheckConfig(NameConventionForJunit4TestClassesCheck.class);
 
         config.addAttribute("expectedClassNameRegex", expectedNameRegex);
@@ -157,8 +147,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         return config;
     }
 
-    private String buildMesssage(String lineNumber, String arguments)
-    {
+    private String buildMesssage(String lineNumber, String arguments) {
         return lineNumber + MessageFormat.format(msgFormat, arguments);
     }
 }

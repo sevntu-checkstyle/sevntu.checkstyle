@@ -16,11 +16,13 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.naming;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -32,35 +34,31 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
  * {@link EnumValueNameCheck}.
  * @author Pavel Baranchikov
  */
-public class EnumValueNameCheckTest extends BaseCheckTestSupport
-{
+public class EnumValueNameCheckTest extends BaseCheckTestSupport {
     private final String msgObj = getCheckMessage(EnumValueNameCheck.MSG_OBJ);
     private final String msgConst = getCheckMessage(EnumValueNameCheck.MSG_CONST);
     private final String inputFile;
 
-    public EnumValueNameCheckTest() throws IOException
-    {
+    public EnumValueNameCheckTest() throws IOException {
         inputFile = getPath("InputEnumValueNameCheck.java");
     }
 
     /**
      * Tests for a default naming pattern.
-     * 
+     *
      * @throws Exception
      *         on some errors during verification.
      */
     @Test
     public void testDefault()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(EnumValueNameCheck.class);
         final MessageContext constContext = new MessageContext(false,
                 EnumValueNameCheck.DEFAULT_CONST_PATTERN);
         final MessageContext objContext = new MessageContext(true,
                 EnumValueNameCheck.DEFAULT_OBJ_PATTERN);
-        final String[] expected =
-        {
+        final String[] expected = {
                 buildMessage(35, 9, "FirstSimple", constContext),
                 buildMessage(43, 26, "SECOND_COMPLEX", objContext),
                 buildMessage(66, 19, "MoSecond", constContext),
@@ -72,14 +70,13 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
     /**
      * Tests for a default naming pattern with exclusion of "some*" member
      * names.
-     * 
+     *
      * @throws Exception
      *         on some errors during verification.
      */
     @Test
     public void testExcludes()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(EnumValueNameCheck.class);
         final MessageContext constContext = new MessageContext(false,
@@ -87,8 +84,7 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
         final MessageContext objContext = new MessageContext(true,
                 EnumValueNameCheck.DEFAULT_OBJ_PATTERN);
         checkConfig.addAttribute("excludes", "some*");
-        final String[] expected =
-        {
+        final String[] expected = {
                 buildMessage(35, 9, "FirstSimple", constContext),
                 buildMessage(43, 26, "SECOND_COMPLEX", objContext),
                 buildMessage(66, 9, "MO_FIRST", objContext),
@@ -99,32 +95,38 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
 
     /**
      * Tests for wrong formatter string.
-     * 
+     *
      * @throws Exception
      *         on some errors during verification.
      */
-    @Test(expected = CheckstyleException.class)
+    @Test
     public void testInvalidFormat()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(EnumValueNameCheck.class);
-        checkConfig.addAttribute("format", "\\");
+        checkConfig.addAttribute("constFormat", "\\");
         final String[] expected = {};
-        verify(checkConfig, inputFile, expected);
+        try {
+            verify(checkConfig, inputFile, expected);
+            fail();
+        }
+        catch (CheckstyleException ex) {
+            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
+                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
+                    + "Cannot set property 'constFormat' to '\\' in module "));
+        }
     }
 
     /**
      * Tests for upset naming - Values Enumeration in camel notation while Class
      * Enumeration - in upper-case notation.
-     * 
+     *
      * @throws Exception
      *         on some errors during verification.
      */
     @Test
     public void testUpset()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(EnumValueNameCheck.class);
         final MessageContext constContext = new MessageContext(false,
@@ -135,8 +137,7 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("constFormat", constContext.getPattern());
         checkConfig.addAttribute("objFormat", objContext.getPattern());
 
-        final String[] expected =
-        {
+        final String[] expected = {
                 buildMessage(35, 22, "SECOND_SIMPLE", constContext),
                 buildMessage(43, 9, "FirstComplex", objContext),
                 buildMessage(66, 9, "MO_FIRST", constContext),
@@ -147,14 +148,13 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
 
     /**
      * Tests equal values for constants and static final object references.
-     * 
+     *
      * @throws Exception
      *         on some errors during verification.
      */
     @Test
     public void testEqualRegexps()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(EnumValueNameCheck.class);
         final MessageContext constContext = new MessageContext(false,
@@ -164,8 +164,7 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("constFormat", constContext.getPattern());
         checkConfig.addAttribute("objFormat", objContext.getPattern());
 
-        final String[] expected =
-        {
+        final String[] expected = {
                 buildMessage(35, 9, "FirstSimple", constContext),
                 buildMessage(43, 9, "FirstComplex", objContext),
                 buildMessage(66, 19, "MoSecond", constContext),
@@ -175,9 +174,14 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
     }
 
     private String buildMessage(int lineNumber, int colNumber,
-            String constName, MessageContext context)
-    {
-        final String msg = context.isEnumObj() ? msgObj : msgConst;
+            String constName, MessageContext context) {
+        final String msg;
+        if (context.isEnumObj()) {
+            msg = msgObj;
+        }
+        else {
+            msg = msgConst;
+        }
         return lineNumber + ":" + colNumber + ": "
                 + MessageFormat.format(msg, constName, context.getPattern());
     }
@@ -185,24 +189,20 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport
     /**
      * Class containing pattern and is-object flag.
      */
-    private static class MessageContext
-    {
+    private static final class MessageContext {
         private final boolean enumObj;
         private final String pattern;
 
-        private MessageContext(boolean enumIsObj, String pattern)
-        {
+        private MessageContext(boolean enumIsObj, String pattern) {
             this.enumObj = enumIsObj;
             this.pattern = pattern;
         }
 
-        public boolean isEnumObj()
-        {
+        public boolean isEnumObj() {
             return enumObj;
         }
 
-        public String getPattern()
-        {
+        public String getPattern() {
             return pattern;
         }
 

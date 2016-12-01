@@ -16,32 +16,34 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck.MSG_KEY;
 
 import org.junit.Test;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidReturnInFinallyBlockCheckTest 
-        extends BaseCheckTestSupport
-{
+public class ForbidReturnInFinallyBlockCheckTest
+        extends BaseCheckTestSupport {
     /**
      * An error message for current check.
      */
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
     @Test
     public void testDefault()
-            throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidReturnInFinallyBlockCheck.class);
         final String[] expected = {
-                "13: " + warningMessage,
-                "28: " + warningMessage,
-                "49: " + warningMessage,
-                "56: " + warningMessage,
-                "82: " + warningMessage};
+            "13: " + warningMessage,
+            "28: " + warningMessage,
+            "49: " + warningMessage,
+            "56: " + warningMessage,
+            "82: " + warningMessage,
+        };
         verify(checkConfig, getPath("InputForbidReturnInFinallyBlockCheck.java"),
                 expected);
     }

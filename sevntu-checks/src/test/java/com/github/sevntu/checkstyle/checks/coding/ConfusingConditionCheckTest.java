@@ -16,6 +16,7 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck.MSG_KEY;
@@ -28,39 +29,38 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 /**
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
  */
-public class ConfusingConditionCheckTest extends BaseCheckTestSupport
-{
+public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
 
-	private final String warningMessage = getCheckMessage(MSG_KEY);
-	
-	private final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+    private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    private final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
 
     @Test
-	public void testDefault() throws Exception
-    {
-		checkConfig.addAttribute("ignoreInnerIf", "true");
-		checkConfig.addAttribute("ignoreNullCaseInIf", "true");
-		checkConfig.addAttribute("ignoreSequentialIf", "true");
-		checkConfig.addAttribute("ignoreThrowInElse", "true");
-		checkConfig.addAttribute("multiplyFactorForElseBlocks", "4");
-        
+    public void testDefault() throws Exception {
+        checkConfig.addAttribute("ignoreInnerIf", "true");
+        checkConfig.addAttribute("ignoreNullCaseInIf", "true");
+        checkConfig.addAttribute("ignoreSequentialIf", "true");
+        checkConfig.addAttribute("ignoreThrowInElse", "true");
+        checkConfig.addAttribute("multiplyFactorForElseBlocks", "4");
+
         final String[] expected = {
-                "10: " + warningMessage,
-                "13: " + warningMessage,
-                "16: " + warningMessage,
-                "19: " + warningMessage,
-                "22: " + warningMessage,
-                "105: " + warningMessage,
-                "108: " + warningMessage,
-                "111: " + warningMessage,
-                "149: " + warningMessage,
-                "166: " + warningMessage,
-                "177: " + warningMessage, //!!!
-                "181: " + warningMessage,
-                "200: " + warningMessage,
-                "215: " + warningMessage,
-                "231: " + warningMessage,};
-        
+            "10: " + warningMessage,
+            "13: " + warningMessage,
+            "16: " + warningMessage,
+            "19: " + warningMessage,
+            "22: " + warningMessage,
+            "105: " + warningMessage,
+            "108: " + warningMessage,
+            "111: " + warningMessage,
+            "149: " + warningMessage,
+            "166: " + warningMessage,
+            "177: " + warningMessage,
+            "181: " + warningMessage,
+            "200: " + warningMessage,
+            "215: " + warningMessage,
+            "231: " + warningMessage,
+        };
+
         verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
                 expected);
     }

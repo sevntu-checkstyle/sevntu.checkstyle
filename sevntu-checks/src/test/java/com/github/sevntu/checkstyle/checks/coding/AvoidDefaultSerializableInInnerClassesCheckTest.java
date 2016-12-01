@@ -16,9 +16,10 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck.MSG_KEY;
 
 import org.junit.Test;
 
@@ -26,13 +27,12 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class AvoidDefaultSerializableInInnerClassesCheckTest extends
-    BaseCheckTestSupport
-{
-	private final String warningMessage = getCheckMessage(MSG_KEY);
+    BaseCheckTestSupport {
+    private final String warningMessage = getCheckMessage(MSG_KEY);
+
     @Test
     public void testWithAllowPartiaFalse()
-        throws Exception
-        {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {
@@ -50,27 +50,27 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "159: " + warningMessage,
             "171: " + warningMessage,
             "179: " + warningMessage,
-            "187: " + warningMessage, };
+            "187: " + warningMessage,
+        };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 
     @Test
     public void testPrivateNotRealReadObject()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
-            "10: " + warningMessage, };
+            "10: " + warningMessage,
+        };
 
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses2.java"), expected);
     }
 
     @Test
     public void testRealReadObjectNotRealReadObjectRealPrivate()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {};
@@ -80,8 +80,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
 
     @Test
     public void testWithAllowPartiaTrue()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
@@ -94,8 +93,9 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "121: " + warningMessage,
             "134: " + warningMessage,
             "145: " + warningMessage,
-            "171: " + warningMessage, 
-            "187: " + warningMessage, };
+            "171: " + warningMessage,
+            "187: " + warningMessage,
+        };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
     }
 }

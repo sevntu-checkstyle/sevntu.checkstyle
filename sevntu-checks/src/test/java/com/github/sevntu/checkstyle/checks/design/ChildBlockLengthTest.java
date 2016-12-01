@@ -16,8 +16,8 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
-package com.github.sevntu.checkstyle.checks.design;
 
+package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck.MSG_KEY;
 
@@ -30,119 +30,110 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ChildBlockLengthTest extends BaseCheckTestSupport
-{
+public class ChildBlockLengthTest extends BaseCheckTestSupport {
     private final DefaultConfiguration checkConfig = createCheckConfig(ChildBlockLengthCheck.class);
 
     @Test
-    public void testNPEonAllBlockTypes() throws Exception
-    {
+    public void testNpeOnAllBlockTypes() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "100");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                   + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheck.java"), expected);
     }
 
     @Test
-    public void testNestedConditions() throws Exception
-    {
+    public void testNestedConditions() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "100");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                  + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckNested.java"), expected);
     }
 
     @Test
-    public void testManyBadChildBlocks() throws Exception
-    {
+    public void testManyBadChildBlocks() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "20");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
-        String[] expected = {
-        		"15:15: " + getCheckMessage(MSG_KEY, 13, 5),
+        final String[] expected = {
+            "15:15: " + getCheckMessage(MSG_KEY, 13, 5),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
     @Test
-    public void testManyBadChildBlocks2() throws Exception
-    {
+    public void testManyBadChildBlocks2() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "19");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
-        String[] expected = {
-        		"15:15: " + getCheckMessage(MSG_KEY, 13, 4),
-        		"31:15: " + getCheckMessage(MSG_KEY, 5, 4),
+        final String[] expected = {
+            "15:15: " + getCheckMessage(MSG_KEY, 13, 4),
+            "31:15: " + getCheckMessage(MSG_KEY, 5, 4),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
     @Test
-    public void testNestedBadChildBlocks() throws Exception
-    {
+    public void testNestedBadChildBlocks() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "70");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
-        String[] expected = {
-        		"41:7: " + getCheckMessage(MSG_KEY, 7, 6),
-        		"42:9: " + getCheckMessage(MSG_KEY, 5, 4),
+        final String[] expected = {
+            "41:7: " + getCheckMessage(MSG_KEY, 7, 6),
+            "42:9: " + getCheckMessage(MSG_KEY, 5, 4),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckDoubleNested.java"), expected);
     }
 
     @Test
-    public void testIgnoreBlockLinesCountOption() throws Exception
-    {
+    public void testIgnoreBlockLinesCountOption() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "19");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
         checkConfig.addAttribute("ignoreBlockLinesCount", "26");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
     }
 
     @Test
-    public void testBadChildBlocksThatAreDoubleNested2() throws Exception
-    {
+    public void testBadChildBlocksThatAreDoubleNested2() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "70");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
 
-        String[] expected = {
+        final String[] expected = {
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckCheckNPE.java"), expected);
     }
 
     @Test
-    public void testNestedClass() throws Exception
-    {
+    public void testNestedClass() throws Exception {
         checkConfig.addAttribute("maxChildBlockPercentage", "19");
-		checkConfig.addAttribute("blockTypes", "LITERAL_IF");
+        checkConfig.addAttribute("blockTypes", "LITERAL_IF");
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");
 
-        String[] expected = {
-        		"9:25: " + getCheckMessage(MSG_KEY, 15, 3),
+        final String[] expected = {
+            "9:25: " + getCheckMessage(MSG_KEY, 15, 3),
         };
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckNestedClass.java"), expected);

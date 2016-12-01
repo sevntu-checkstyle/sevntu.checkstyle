@@ -1,25 +1,25 @@
 ////////////////////////////////////////////////////////////////////////////////
-//checkstyle: Checks Java source code for adherence to a set of rules.
-//Copyright (C) 2001-2016 the original author or authors.
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
 //
-//This library is free software; you can redistribute it and/or
-//modify it under the terms of the GNU Lesser General Public
-//License as published by the Free Software Foundation; either
-//version 2.1 of the License, or (at your option) any later version.
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
 //
-//This library is distributed in the hope that it will be useful,
-//but WITHOUT ANY WARRANTY; without even the implied warranty of
-//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//Lesser General Public License for more details.
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
 //
-//You should have received a copy of the GNU Lesser General Public
-//License along with this library; if not, write to the Free Software
-//Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
 
 package com.github.sevntu.checkstyle.checks.design;
 
-import static com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck.*;
+import static com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck.MSG_KEY;
 
 import java.util.Arrays;
 import java.util.SortedSet;
@@ -34,12 +34,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * Test class for ForbidWildcardInReturnTypeCheck.
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
-public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
-{
-    /**
-     * Message for this check.
-     */
-    private final String warningMessage = getCheckMessage(MSG_KEY);
+public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     /**
      * Line numbers with methods which have wildcard in return type.
      */
@@ -48,24 +43,24 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      * Line numbers with public methods which have wildcard in return type.
      */
     private static final SortedSet<Integer> LINES_WITH_PUBLIC_METHODS =
-            newSetOfLines(new Integer[] { 9, 29, 54, 59, 64, 104, 109, 114,
+            newSetOfLines(new Integer[] {9, 29, 54, 59, 64, 104, 109, 114,
                 119, 124, 129, 134, 228, 242, 280, 281, 282, 283, 284, 285,
                 286, 294, 304, 307, 310, 313, 328, });
     /**
      * Line numbers with private methods which have wildcard in return type.
      */
     private static final SortedSet<Integer> LINES_WITH_PRIVATE_METHODS =
-            newSetOfLines(new Integer[] { 24, 44, 49, 234, 297, });
+            newSetOfLines(new Integer[] {24, 44, 49, 234, 297, });
     /**
      * Line numbers with protected methods which have wildcard in return type.
      */
     private static final SortedSet<Integer> LINES_WITH_PROTECTED_METHODS =
-            newSetOfLines(new Integer[] { 19, 39, 231, 243, });
+            newSetOfLines(new Integer[] {19, 39, 231, 243, });
     /**
      * Line numbers with package methods which have wildcard in return type.
      */
     private static final SortedSet<Integer> LINES_WITH_PACKAGE_METHODS =
-            newSetOfLines(new Integer[] { 14, 34, 147, 152, 157, 162, 164, 169,
+            newSetOfLines(new Integer[] {14, 34, 147, 152, 157, 162, 164, 169,
                 174, 179, 189, 202, 207, 214, 218, 221, 244, 248, 251, 254, 264,
                 267, 270, 291, });
     /**
@@ -73,7 +68,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      * type.
      */
     private static final SortedSet<Integer> LINES_WITH_EXTENDS =
-            newSetOfLines(new Integer[] { 29, 34, 39, 44, 49, 54, 104, 114,
+            newSetOfLines(new Integer[] {29, 34, 39, 44, 49, 54, 104, 114,
                 129, 134, 164, 169, 174, 179, 189, 202, 214, 218, 228, 242, 248,
                 264, 282, 283, 286, 291, });
     /**
@@ -81,33 +76,36 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      * type.
      */
     private static final SortedSet<Integer> LINES_WITH_SUPER =
-            newSetOfLines(new Integer[] { 9, 14, 19, 24, 59, 119, 189, 207, 231,
+            newSetOfLines(new Integer[] {9, 14, 19, 24, 59, 119, 189, 207, 231,
                 243, 251, 267, 284, 285, 286, 294, });
     /**
      * Line numbers with override methods.
      */
     private static final SortedSet<Integer> LINES_WITH_OVERRIDE =
-            newSetOfLines(new Integer[] { 307, 313, });
+            newSetOfLines(new Integer[] {307, 313, });
     /**
      * Line numbers with override methods.
      */
     private static final SortedSet<Integer> LINES_WITH_DEPRECATED =
-            newSetOfLines(new Integer[] { 304, 313, 328 });
+            newSetOfLines(new Integer[] {304, 313, 328, });
     /**
      * Line numbers with ignore return type class names.
      */
     private static final SortedSet<Integer> LINES_WITH_IGNORE_CLASS_NAMES =
-            newSetOfLines(new Integer[] { 214, 218, 221, });
+            newSetOfLines(new Integer[] {214, 218, 221, });
     /**
      * Ignore list for class names. Regexp.
      */
     private static final String IGNORE_LIST_PATTERN = "(Compar.+)|Collection";
+    /**
+     * Message for this check.
+     */
+    private final String warningMessage = getCheckMessage(MSG_KEY);
 
     /**
      * Initialize value of LINES.
      */
-    public ForbidWildcardAsReturnTypeCheckTest()
-    {
+    public ForbidWildcardAsReturnTypeCheckTest() {
         LINES.addAll(LINES_WITH_PACKAGE_METHODS);
         LINES.addAll(LINES_WITH_PRIVATE_METHODS);
         LINES.addAll(LINES_WITH_PROTECTED_METHODS);
@@ -121,8 +119,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testDefault()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -148,8 +145,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testOnlyPublicMethods()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -176,8 +172,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testOnlyPrivateMethods()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "false");
@@ -204,8 +199,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testOnlyProtectedMethods()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "false");
@@ -232,8 +226,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testOnlyPackageMethods()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "false");
@@ -260,8 +253,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testAllowSuper()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -290,8 +282,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testAllowExtends()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -320,8 +311,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testAllowExtendsAndSuper()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -351,8 +341,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testWithIgnoreList()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -382,8 +371,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testAllExceptOverrideMethods()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -412,8 +400,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      */
     @Test
     public final void testAllExceptDeprecatedMethods()
-            throws Exception
-            {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
@@ -431,9 +418,9 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
         final String[] expected = createExpectedMessages(exceptOverride);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
-                expected);
-            }
+            getPath("InputForbidWildcardAsReturnType.java"),
+            expected);
+    }
 
     /**
      * Create new set of line numbers.
@@ -441,8 +428,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      *        arrays of line numbers
      * @return sorted set of line numbers.
      */
-    private static SortedSet<Integer> newSetOfLines(Integer[] aLines)
-    {
+    private static SortedSet<Integer> newSetOfLines(Integer[] aLines) {
         return new TreeSet<Integer>(Arrays.asList(aLines));
     }
 
@@ -451,13 +437,12 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport
      * @param aLines sorted set of line numbers.
      * @return array of messages.
      */
-    private String[] createExpectedMessages(SortedSet<Integer> aLines)
-    {
+    private String[] createExpectedMessages(SortedSet<Integer> aLines) {
         final String[] expected = new String[aLines.size()];
-        int i = 0;
+        int index = 0;
         for (Integer element : aLines) {
-            expected[i] = element + ": " + warningMessage;
-            i++;
+            expected[index] = element + ": " + warningMessage;
+            index++;
         }
         return expected;
     }

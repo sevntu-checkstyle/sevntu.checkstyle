@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.annotation;
 
 import static com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck.MSG_KEY;
@@ -16,8 +35,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "str");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "someString\\d+");
 
-        String[] expected = {
-            "47:12: " + getCheckMessage(MSG_KEY, "str", "Anno1")
+        final String[] expected = {
+            "47:12: " + getCheckMessage(MSG_KEY, "str", "Anno1"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -32,8 +51,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "intVal");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "[1-5]");
 
-        String[] expected = {
-            "52:12: " + getCheckMessage(MSG_KEY, "intVal", "Anno2")
+        final String[] expected = {
+            "52:12: " + getCheckMessage(MSG_KEY, "intVal", "Anno2"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -48,8 +67,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "floatVal");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "2\\.\\d+f");
 
-        String[] expected = {
-            "57:12: " + getCheckMessage(MSG_KEY, "floatVal", "Anno3")
+        final String[] expected = {
+            "57:12: " + getCheckMessage(MSG_KEY, "floatVal", "Anno3"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -64,8 +83,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "boolVal");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "true");
 
-        String[] expected = {
-            "63:12: " + getCheckMessage(MSG_KEY, "boolVal", "Anno4")
+        final String[] expected = {
+            "63:12: " + getCheckMessage(MSG_KEY, "boolVal", "Anno4"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -80,8 +99,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "name");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "AnnotationConfigUtils\\.[A-Z_]+");
 
-        String[] expected = {
-            "62:11: " + getCheckMessage(MSG_KEY, "name", "Bean")
+        final String[] expected = {
+            "62:11: " + getCheckMessage(MSG_KEY, "name", "Bean"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -96,8 +115,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "stringValue");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "[a-z]+111String");
 
-        String[] expected = {
-            "69:47: " + getCheckMessage(MSG_KEY, "stringValue", "Anno5")
+        final String[] expected = {
+            "69:47: " + getCheckMessage(MSG_KEY, "stringValue", "Anno5"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -112,8 +131,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "value");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "unchecked");
 
-        String[] expected = {
-            "68:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings")
+        final String[] expected = {
+            "68:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -128,7 +147,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "boolVal");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "false");
 
-        String[] expected = {};
+        final String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
     }
@@ -142,9 +161,9 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "value");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "\\{.*\\}");
 
-        String[] expected = {
+        final String[] expected = {
             "74:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),
-            "79:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings")
+            "79:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -159,8 +178,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "last");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "Hacker");
 
-        String[] expected = {
-            "96:34: " + getCheckMessage(MSG_KEY, "last", "Name")
+        final String[] expected = {
+            "96:34: " + getCheckMessage(MSG_KEY, "last", "Name"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -171,8 +190,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         final DefaultConfiguration checkConfig =
                 createCheckConfig(ForbidAnnotationElementValueCheck.class);
 
-        String[] expected = {
-            "114:11: " + getCheckMessage(MSG_KEY, "expected", "Test")
+        final String[] expected = {
+            "114:11: " + getCheckMessage(MSG_KEY, "expected", "Test"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck.java"), expected);
@@ -187,8 +206,8 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
         checkConfig.addAttribute("elementName", "value");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "rawtypes");
 
-        String[] expected = {
-            "8:33: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings")
+        final String[] expected = {
+            "8:33: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck2.java"), expected);

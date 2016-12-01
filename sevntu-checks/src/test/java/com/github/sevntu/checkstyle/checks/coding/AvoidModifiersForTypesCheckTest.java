@@ -16,14 +16,15 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck.*;
+import static com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck.MSG_KEY;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -34,23 +35,21 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
  * </p>
  */
-public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
-{
+public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(AvoidModifiersForTypesCheck.class);
 
     @Test
-    public void testFinal() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = "InputAvoidModifiersForTypesCheck";
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String publicRegexp = null;
-        String packagePrivateRegexp = null;
-        String protectedRegexp = null;
-        String privateRegexp = null;
+    public void testFinal() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = "InputAvoidModifiersForTypesCheck";
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String publicRegexp = null;
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = null;
+        final String privateRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -62,7 +61,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPrivate", privateRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
@@ -73,17 +72,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testPackagePrivate() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = null;
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = "InputAvoidModifiersForTypesCheck";
-        String protectedRegexp = null;
-        String publicRegexp = null;
+    public void testPackagePrivate() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = null;
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = "InputAvoidModifiersForTypesCheck";
+        final String protectedRegexp = null;
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -95,7 +93,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
             "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
         };
@@ -104,17 +102,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testAnnotationPrivateStatic() throws Exception
-    {
-        String annotationRegexp = "File";
-        String finalRegexp = null;
-        String staticRegexp = "File";
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = "File";
-        String packagePrivateRegexp = null;
-        String protectedRegexp = null;
-        String publicRegexp = null;
+    public void testAnnotationPrivateStatic() throws Exception {
+        final String annotationRegexp = "File";
+        final String finalRegexp = null;
+        final String staticRegexp = "File";
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = "File";
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = null;
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -126,7 +123,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "18:5: " + getCheckMessage(MSG_KEY, "File", "annotation"),
             "18:5: " + getCheckMessage(MSG_KEY, "File", "private"),
             "18:5: " + getCheckMessage(MSG_KEY, "File", "static"),
@@ -136,17 +133,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testProtectedAndTransient() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = null;
-        String staticRegexp = null;
-        String transientRegexp = "InputAvoidModifiersForTypesCheck";
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = null;
-        String protectedRegexp = "InputAvoidModifiersForTypesCheck";
-        String publicRegexp = null;
+    public void testProtectedAndTransient() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = null;
+        final String staticRegexp = null;
+        final String transientRegexp = "InputAvoidModifiersForTypesCheck";
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = "InputAvoidModifiersForTypesCheck";
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -158,7 +154,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
             "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "transient"),
         };
@@ -167,17 +163,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testPublicAndVolatile() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = null;
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = "InputAvoidModifiersForTypesCheck";
-        String privateRegexp = null;
-        String packagePrivateRegexp = null;
-        String protectedRegexp = null;
-        String publicRegexp = "InputAvoidModifiersForTypesCheck";
+    public void testPublicAndVolatile() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = null;
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = "InputAvoidModifiersForTypesCheck";
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = null;
+        final String publicRegexp = "InputAvoidModifiersForTypesCheck";
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -189,7 +184,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "public"),
             "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "volatile"),
         };
@@ -198,17 +193,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testFinalAndPrivatePackage() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = "InputAvoidModifiersForTypesCheck";
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = "InputAvoidModifiersForTypesCheck";
-        String protectedRegexp = null;
-        String publicRegexp = null;
+    public void testFinalAndPrivatePackage() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = "InputAvoidModifiersForTypesCheck";
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = "InputAvoidModifiersForTypesCheck";
+        final String protectedRegexp = null;
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -220,12 +214,12 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"), // both
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"), // both
+            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
             "29:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 
@@ -233,17 +227,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testFinalAndStatic() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = "InputAvoidModifiersForTypesCheck";
-        String staticRegexp = "InputAvoidModifiersForTypesCheck";
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = null;
-        String protectedRegexp = null;
-        String publicRegexp = null;
+    public void testFinalAndStatic() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = "InputAvoidModifiersForTypesCheck";
+        final String staticRegexp = "InputAvoidModifiersForTypesCheck";
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = null;
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -255,10 +248,10 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"), // both
-            "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "static"), // both
+            "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "static"),
             "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "29:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
@@ -267,17 +260,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testProtected() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = null;
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = null;
-        String protectedRegexp = "InputAvoidModifiersForTypesCheck";
-        String publicRegexp = null;
+    public void testProtected() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = null;
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = "InputAvoidModifiersForTypesCheck";
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -289,7 +281,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
         };
 
@@ -297,17 +289,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testLogger() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = null;
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = "Logger";
-        String protectedRegexp = "Logger";
-        String publicRegexp = "Logger";
+    public void testLogger() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = null;
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = "Logger";
+        final String protectedRegexp = "Logger";
+        final String publicRegexp = "Logger";
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -319,7 +310,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {
+        final String[] expected = {
             "36:9: " + getCheckMessage(MSG_KEY, "Logger", "protected"),
             "37:9: " + getCheckMessage(MSG_KEY, "Logger", "public"),
             "38:9: " + getCheckMessage(MSG_KEY, "Logger", "package-private"),
@@ -329,17 +320,16 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     }
 
     @Test
-    public void testAnyFile() throws Exception
-    {
-        String annotationRegexp = null;
-        String finalRegexp = null;
-        String staticRegexp = null;
-        String transientRegexp = null;
-        String volatileRegexp = null;
-        String privateRegexp = null;
-        String packagePrivateRegexp = null;
-        String protectedRegexp = null;
-        String publicRegexp = null;
+    public void testAnyFile() throws Exception {
+        final String annotationRegexp = null;
+        final String finalRegexp = null;
+        final String staticRegexp = null;
+        final String transientRegexp = null;
+        final String volatileRegexp = null;
+        final String privateRegexp = null;
+        final String packagePrivateRegexp = null;
+        final String protectedRegexp = null;
+        final String publicRegexp = null;
 
         checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", annotationRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpFinal", finalRegexp);
@@ -351,7 +341,7 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
         checkConfig.addAttribute("forbiddenClassesRegexpProtected", protectedRegexp);
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
-        String[] expected = {};
+        final String[] expected = {};
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck2.java"), expected);
     }
@@ -359,37 +349,39 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport
     /**
      * This test is needed in order to test the Invalid Token case which is not reproducible with
      * compilable sources and correctly worked parser.
-     * @throws Exception
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void testUnsupportedModifier()
-    {
-        DetailAST sync = new DetailAST();
+    @Test
+    public void testUnsupportedModifier() {
+        final DetailAST sync = new DetailAST();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
 
-        DetailAST ident = new DetailAST();
+        final DetailAST ident = new DetailAST();
         ident.setType(TokenTypes.IDENT);
         ident.setText("dummy");
 
-        DetailAST type = new DetailAST();
+        final DetailAST type = new DetailAST();
         type.setType(TokenTypes.TYPE);
         type.addChild(ident);
 
-        DetailAST child = new DetailAST();
+        final DetailAST child = new DetailAST();
         child.setType(TokenTypes.MODIFIERS);
         child.addChild(sync);
 
-        DetailAST node = new DetailAST();
+        final DetailAST node = new DetailAST();
         node.addChild(type);
         node.addChild(child);
 
-        DetailAST parent = new DetailAST();
+        final DetailAST parent = new DetailAST();
         parent.setType(TokenTypes.OBJBLOCK);
         parent.addChild(node);
 
-        AvoidModifiersForTypesCheck check = new AvoidModifiersForTypesCheck();
-        check.visitToken(node);
-
-        fail();
+        final AvoidModifiersForTypesCheck check = new AvoidModifiersForTypesCheck();
+        try {
+            check.visitToken(node);
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
     }
 }

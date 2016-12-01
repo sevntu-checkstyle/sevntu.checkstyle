@@ -1,3 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// checkstyle: Checks Java source code for adherence to a set of rules.
+// Copyright (C) 2001-2016 the original author or authors.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.internal;
 
 import java.io.IOException;
@@ -28,11 +47,11 @@ public final class CheckUtil {
         return result;
     }
 
-    public static Set<Class<?>> getModulesInPackage(Set<Class<?>> modules, String p) {
+    public static Set<Class<?>> getModulesInPackage(Set<Class<?>> modules, String packge) {
         final Set<Class<?>> result = new HashSet<>();
 
         for (Class<?> module : modules) {
-            if (module.getPackage().getName().endsWith(p)) {
+            if (module.getPackage().getName().endsWith(packge)) {
                 result.add(module);
             }
         }
@@ -45,7 +64,7 @@ public final class CheckUtil {
      * classes from com.puppycrawl.tools.checkstyle package which names end with
      * 'Check', do not contain the word 'Input' (are not input files for UTs),
      * checkstyle's filters and SuppressWarningsHolder class.
-     * 
+     *
      * @return a set of checkstyle's modules names.
      * @throws IOException if the attempt to read class path resources failed.
      */
@@ -101,7 +120,7 @@ public final class CheckUtil {
      * 'Check', do not contain the word 'Input' (are not input files for UTs),
      * checkstyle's filters, checkstyle's file filters and
      * SuppressWarningsHolder class.
-     * 
+     *
      * @param loadedClass class to check.
      * @return true if the class may be considered as the checkstyle module.
      */
@@ -119,7 +138,7 @@ public final class CheckUtil {
      * Checkstyle's checks are nonabstract classes which names end with 'Check',
      * do not contain the word 'Input' (are not input files for UTs), and extend
      * Check.
-     * 
+     *
      * @param loadedClass class to check.
      * @param className class name to check.
      * @return true if a class may be considered as the checkstyle check.
@@ -134,7 +153,7 @@ public final class CheckUtil {
      * Checks whether a class may be considered as the checkstyle filter.
      * Checkstyle's filters are classes which are subclasses of AutomaticBean,
      * implement 'Filter' interface, and which names end with 'Filter'.
-     * 
+     *
      * @param loadedClass class to check.
      * @param className class name to check.
      * @return true if a class may be considered as the checkstyle filter.
@@ -150,7 +169,7 @@ public final class CheckUtil {
      * Checkstyle's file filters are classes which are subclasses of
      * AutomaticBean, implement 'BeforeExecutionFileFilter' interface, and which
      * names end with 'FileFilter'.
-     * 
+     *
      * @param loadedClass class to check.
      * @param className class name to check.
      * @return true if a class may be considered as the checkstyle file filter.

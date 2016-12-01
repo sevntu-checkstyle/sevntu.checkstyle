@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2012 Oliver Burn
+// Copyright (C) 2001-2016 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -16,10 +16,13 @@
 // License along with this library; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ////////////////////////////////////////////////////////////////////////////////
+
 package com.github.sevntu.checkstyle.checks.design;
 
-import org.junit.Test;
 import static com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck.MSG_KEY;
+
+import org.junit.Test;
+
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
@@ -27,8 +30,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
 public class PublicReferenceToPrivateTypeCheckTest extends
-        BaseCheckTestSupport
-{
+        BaseCheckTestSupport {
     /**
      * Test file without method return instance of private class.
      * @throws Exception
@@ -36,8 +38,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void noReturnProblemsTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {};
@@ -53,9 +54,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateTest()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {"13: " + getCheckMessage(MSG_KEY, typeName), };
@@ -72,8 +72,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateThatImplimentTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {};
@@ -90,8 +89,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateThatExtendsTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {};
@@ -107,9 +105,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateArrayTest()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {"13: " + getCheckMessage(MSG_KEY, typeName), };
@@ -125,9 +122,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateInShell()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {"14: " + getCheckMessage(MSG_KEY, typeName), };
@@ -144,9 +140,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateInCollectionInCollection()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {"14: " + getCheckMessage(MSG_KEY, typeName), };
@@ -163,9 +158,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void returnPrivateInMapInCollectionInCollection()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {"14: " + getCheckMessage(MSG_KEY, typeName), };
@@ -182,10 +176,9 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void complexTest()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
-        String typeName1 = "OutClass";
+            throws Exception {
+        final String typeName = "PrivateInner";
+        final String typeName1 = "OutClass";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
@@ -205,9 +198,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void methodModifiersTest()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
@@ -227,9 +219,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends
      */
     @Test
     public void wildcardsTest()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
@@ -241,138 +232,130 @@ public class PublicReferenceToPrivateTypeCheckTest extends
                 getPath("InputPublicReferenceToPrivateTypeCheck11.java"),
                 expected);
     }
-    
+
     @Test
     public void interfacesTest()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
+            throws Exception {
+        final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "13: " + getCheckMessage(MSG_KEY, typeName),
-                "19: " + getCheckMessage(MSG_KEY, typeName)
-            };
+            "13: " + getCheckMessage(MSG_KEY, typeName),
+            "19: " + getCheckMessage(MSG_KEY, typeName),
+        };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck12.java"),
                 expected);
     }
-    
+
     @Test
     public void enumsTest()
-        throws Exception
-    {
-        String typeName = "First";
+            throws Exception {
+        final String typeName = "First";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "8: " + getCheckMessage(MSG_KEY, typeName),
-                "10: " + getCheckMessage(MSG_KEY, typeName)
-            };
+            "8: " + getCheckMessage(MSG_KEY, typeName),
+            "10: " + getCheckMessage(MSG_KEY, typeName),
+        };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck13.java"),
                 expected);
     }
-    
+
     @Test
     public void testClassEnumInterface()
-        throws Exception
-    {
-        String typeName = "PrivateInner";
-        String typeName1 = "PrivateInner1";
-        String typeName2 = "First";
+            throws Exception {
+        final String typeName = "PrivateInner";
+        final String typeName1 = "PrivateInner1";
+        final String typeName2 = "First";
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "15: " + getCheckMessage(MSG_KEY, typeName),
-                "25: " + getCheckMessage(MSG_KEY, typeName1),
-                "31: " + getCheckMessage(MSG_KEY, typeName1),
-                "35: " + getCheckMessage(MSG_KEY, typeName2),
-                "37: " + getCheckMessage(MSG_KEY, typeName2)
-            };
+            "15: " + getCheckMessage(MSG_KEY, typeName),
+            "25: " + getCheckMessage(MSG_KEY, typeName1),
+            "31: " + getCheckMessage(MSG_KEY, typeName1),
+            "35: " + getCheckMessage(MSG_KEY, typeName2),
+            "37: " + getCheckMessage(MSG_KEY, typeName2),
+        };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck14.java"),
                 expected);
     }
-    
+
     @Test
     public void returnFromInnerTypeTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "4: " + getCheckMessage(MSG_KEY, "Inner"),
-                "4: " + getCheckMessage(MSG_KEY, "Inner1"),
-                "9: " + getCheckMessage(MSG_KEY, "Inner"),
-                "9: " + getCheckMessage(MSG_KEY, "Inner2"),
-                "9: " + getCheckMessage(MSG_KEY, "Inner3"),
-                "14: " + getCheckMessage(MSG_KEY, "Inner"),
+            "4: " + getCheckMessage(MSG_KEY, "Inner"),
+            "4: " + getCheckMessage(MSG_KEY, "Inner1"),
+            "9: " + getCheckMessage(MSG_KEY, "Inner"),
+            "9: " + getCheckMessage(MSG_KEY, "Inner2"),
+            "9: " + getCheckMessage(MSG_KEY, "Inner3"),
+            "14: " + getCheckMessage(MSG_KEY, "Inner"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck15.java"),
                 expected);
     }
-    
+
     @Test
     public void returnFromInnerAnonymousClassTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "4: " + getCheckMessage(MSG_KEY, "Inner"),
-                "4: " + getCheckMessage(MSG_KEY, "Inner2"),
-                "4: " + getCheckMessage(MSG_KEY, "Inner3")
+            "4: " + getCheckMessage(MSG_KEY, "Inner"),
+            "4: " + getCheckMessage(MSG_KEY, "Inner2"),
+            "4: " + getCheckMessage(MSG_KEY, "Inner3"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck16.java"),
                 expected);
     }
-    
+
     @Test
     public void returnFromPublicFieldTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "4: " + getCheckMessage(MSG_KEY, "Inner"),
-                "9: " + getCheckMessage(MSG_KEY, "Inner1")
+            "4: " + getCheckMessage(MSG_KEY, "Inner"),
+            "9: " + getCheckMessage(MSG_KEY, "Inner1"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck17.java"),
                 expected);
     }
-    
+
     @Test
     public void implementingOrExtendingPrivateTypeTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "17: " + getCheckMessage(MSG_KEY, "InnerClass")
+            "17: " + getCheckMessage(MSG_KEY, "InnerClass"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck18.java"),
                 expected);
     }
-    
+
     @Test
     public void usingPrivateTypeAsMethodParameterTest()
-        throws Exception
-    {
+            throws Exception {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-                "4: " + getCheckMessage(MSG_KEY, "C1"),
-                "6: " + getCheckMessage(MSG_KEY, "C1"),
-                "8: " + getCheckMessage(MSG_KEY, "C1")
+            "4: " + getCheckMessage(MSG_KEY, "C1"),
+            "6: " + getCheckMessage(MSG_KEY, "C1"),
+            "8: " + getCheckMessage(MSG_KEY, "C1"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck19.java"),
                 expected);
     }
-    
+
 }

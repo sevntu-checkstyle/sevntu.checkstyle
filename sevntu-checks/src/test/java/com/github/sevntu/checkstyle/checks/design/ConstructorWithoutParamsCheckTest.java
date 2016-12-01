@@ -19,14 +19,14 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import static com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck.MSG_KEY;
-
-import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
 
@@ -39,25 +39,27 @@ public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testDefaultConfigProhibitsExceptionsWithoutParams() throws Exception {
-        String[] expectedViolationMsg = {"30:37: " + getCheckMessage(MSG_KEY, "RuntimeException")};
-        verify(defaultConfig , getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        final String[] expectedViolationMsg = {"30:37: " + getCheckMessage(MSG_KEY, "RuntimeException")};
+        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
     }
 
     @Test
     public void testUserDefinedConfigProhibitsCustomClasses() throws Exception {
         defaultConfig.addAttribute("classNameFormat", "Clazz[1-9]");
         defaultConfig.addAttribute("ignoredClassNameFormat", "Clazz4");
-        String[] expectedViolationMsg = {"64:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
-                                         "67:27: " + getCheckMessage(MSG_KEY, "Clazz2")};
-        verify(defaultConfig , getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        final String[] expectedViolationMsg = {
+            "64:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
+            "67:27: " + getCheckMessage(MSG_KEY, "Clazz2"),
+        };
+        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
     }
 
     /*
      Added to comply with the sevntu.checkstyle regulation of 100% code coverage.
      */
     @Test
-    public void testGetAcceptableTokens(){
-        ConstructorWithoutParamsCheck check =  new ConstructorWithoutParamsCheck();
+    public void testGetAcceptableTokens() {
+        final ConstructorWithoutParamsCheck check = new ConstructorWithoutParamsCheck();
         final int[] expectedAcceptableTokens = {TokenTypes.LITERAL_NEW};
         assertArrayEquals(expectedAcceptableTokens, check.getAcceptableTokens());
     }
