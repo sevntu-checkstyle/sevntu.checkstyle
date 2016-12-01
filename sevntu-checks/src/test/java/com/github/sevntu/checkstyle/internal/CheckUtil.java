@@ -1,6 +1,7 @@
 package com.github.sevntu.checkstyle.internal;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,18 @@ public final class CheckUtil {
         for (Class<?> module : modules) {
             result.add(module.getPackage().getName()
                     .replace("com.github.sevntu.checkstyle.checks.", ""));
+        }
+
+        return result;
+    }
+
+    public static Set<Class<?>> getModulesInPackage(Set<Class<?>> modules, String p) {
+        final Set<Class<?>> result = new HashSet<>();
+
+        for (Class<?> module : modules) {
+            if (module.getPackage().getName().endsWith(p)) {
+                result.add(module);
+            }
         }
 
         return result;
@@ -52,6 +65,34 @@ public final class CheckUtil {
             }
         }
         return checkstyleModules;
+    }
+
+    /**
+     * Get's the check's messages.
+     * @param module class to examine.
+     * @return a set of checkstyle's module message fields.
+     * @throws ClassNotFoundException if the attempt to read a protected class fails.
+     */
+    public static Set<Field> getCheckMessages(Class<?> module) throws ClassNotFoundException {
+        final Set<Field> checkstyleMessages = new HashSet<>();
+
+        // get all fields from current class
+        final Field[] fields = module.getDeclaredFields();
+
+        for (Field field : fields) {
+            if (field.getName().startsWith("MSG_")) {
+                checkstyleMessages.add(field);
+            }
+        }
+
+        // deep scan class through hierarchy
+        final Class<?> superModule = module.getSuperclass();
+
+        if (superModule != null) {
+            checkstyleMessages.addAll(getCheckMessages(superModule));
+        }
+
+        return checkstyleMessages;
     }
 
     /**
