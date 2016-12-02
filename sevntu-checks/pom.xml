@@ -271,7 +271,7 @@
                   <goal>check</goal>
                 </goals>
                 <configuration>
-                  <configLocation>https://raw.githubusercontent.com/sevntu-checkstyle/sevntu.checkstyle/gh-pages/sevntu-checkstyle-default-configuration.xml</configLocation>
+                  <configLocation>sevntu-checks.xml</configLocation>
                   <failOnViolation>true</failOnViolation>
                   <linkXRef>false</linkXRef>
                 </configuration>
