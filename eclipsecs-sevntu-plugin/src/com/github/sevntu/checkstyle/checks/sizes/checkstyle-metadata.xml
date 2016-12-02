@@ -3,33 +3,33 @@
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
-    <rule-group-metadata name="SevNTU checks" priority="500">
+  <rule-group-metadata name="SevNTU checks" priority="500">
 
-        <rule-metadata name="%LineLengthExtendedCheck.name" internal-name="LineLengthExtendedCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck"/>
-            <description>%LineLengthExtendedCheck.desc</description>
+    <rule-metadata name="%LineLengthExtendedCheck.name" internal-name="LineLengthExtendedCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck"/>
+      <description>%LineLengthExtendedCheck.desc</description>
 
-	    <property-metadata name="ignorePattern" datatype="Regex" default-value="^$">
-                <description>%LineLengthExtendedCheck.ignorePattern</description>
-            </property-metadata>
-            <property-metadata name="max" datatype="Integer" default-value="80">
-                <description>%LineLengthExtendedCheck.max</description>
-            </property-metadata>
-		<property-metadata name="ignoreClass" datatype="Boolean" default-value="false">
-                <description>%LineLengthExtendedCheck.ignoreClass</description>
-	    </property-metadata>
-	    <property-metadata name="ignoreConstructor" datatype="Boolean" default-value="false">
-                <description>%LineLengthExtendedCheck.ignoreConstructor</description>
-	    </property-metadata>
-	    <property-metadata name="ignoreField" datatype="Boolean" default-value="false">
-                <description>%LineLengthExtendedCheck.ignoreField</description>
-	    </property-metadata>
-	    <property-metadata name="ignoreMethod" datatype="Boolean" default-value="false">
-                <description>%LineLengthExtendedCheck.ignoreMethod</description>
-	    </property-metadata>
-	    
-            <message-key key="maxLineLen"/>
-        </rule-metadata>
+      <property-metadata name="ignorePattern" datatype="Regex" default-value="^$">
+        <description>%LineLengthExtendedCheck.ignorePattern</description>
+      </property-metadata>
+      <property-metadata name="max" datatype="Integer" default-value="80">
+        <description>%LineLengthExtendedCheck.max</description>
+      </property-metadata>
+      <property-metadata name="ignoreClass" datatype="Boolean" default-value="false">
+        <description>%LineLengthExtendedCheck.ignoreClass</description>
+      </property-metadata>
+      <property-metadata name="ignoreConstructor" datatype="Boolean" default-value="false">
+        <description>%LineLengthExtendedCheck.ignoreConstructor</description>
+      </property-metadata>
+      <property-metadata name="ignoreField" datatype="Boolean" default-value="false">
+        <description>%LineLengthExtendedCheck.ignoreField</description>
+      </property-metadata>
+      <property-metadata name="ignoreMethod" datatype="Boolean" default-value="false">
+        <description>%LineLengthExtendedCheck.ignoreMethod</description>
+      </property-metadata>
 
-    </rule-group-metadata>
+      <message-key key="maxLineLen"/>
+    </rule-metadata>
+
+  </rule-group-metadata>
 </checkstyle-metadata>

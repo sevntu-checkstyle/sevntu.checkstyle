@@ -4,7 +4,7 @@
 
 <checkstyle-packages>
   <package name="com.github.sevntu.checkstyle">
-     <package name="checks">
+    <package name="checks">
       <package name="annotation"/>
       <package name="coding"/>
       <package name="design"/>
@@ -15,7 +15,7 @@
     <package name="grammars"/>
   </package>
   <package name="com.puppycrawl.tools.checkstyle">
-     <package name="checks">
+    <package name="checks">
       <package name="blocks"/>
       <package name="coding"/>
       <package name="design"/>
@@ -33,5 +33,5 @@
     </package>
     <package name="filters"/>
   </package>
-  
+
 </checkstyle-packages>

@@ -3,40 +3,48 @@
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
-    <rule-group-metadata name="SevNTU checks" priority="500">
-        <rule-metadata name="%InterfaceTypeParameterNameCheck.name" internal-name="InterfaceTypeParameterNameCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck" />
-            <description>%InterfaceTypeParameterNameCheck.desc</description>
-            <property-metadata name="format" datatype="String" default-value="^[A-Z]$">
-                <description>%InterfaceTypeParameterNameCheck.format</description>
-            </property-metadata>
-            <message-key key="name.invalidPattern" />
-        </rule-metadata>
+  <rule-group-metadata name="SevNTU checks" priority="500">
 
-        <rule-metadata name="%EnumValueNameCheck.name" internal-name="EnumValueNameCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck" />
-            <description>%EnumValueNameCheck.desc</description>
-            <property-metadata name="constFormat" datatype="String" default-value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
-                <description>%EnumValueNameCheck.constFormat</description>
-            </property-metadata>
-            <property-metadata name="objFormat" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$">
-                <description>%EnumValueNameCheck.objFormat</description>
-            </property-metadata>
-            <property-metadata name="excludes" datatype="String" default-value="toString">
-                <description>%EnumValueNameCheck.excludes</description>
-            </property-metadata>
-            <message-key key="enum.name.const.invalidPattern" />
-            <message-key key="enum.name.obj.invalidPattern" />
-        </rule-metadata>
+    <rule-metadata name="%InterfaceTypeParameterNameCheck.name" internal-name="InterfaceTypeParameterNameCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck"/>
+      <description>%InterfaceTypeParameterNameCheck.desc</description>
 
-        <rule-metadata name="%UniformEnumConstantNameCheck.name" internal-name="UniformEnumConstantNameCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck" />
-            <description>%UniformEnumConstantNameCheck.desc</description>
-            <property-metadata name="formats" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$,^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
-                <description>%UniformEnumConstantNameCheck.formats</description>
-             </property-metadata>
-            <message-key key="enum.name.format.violated" />
-            <message-key key="enum.name.formats.violated" />
-        </rule-metadata>
-    </rule-group-metadata>
+      <property-metadata name="format" datatype="String" default-value="^[A-Z]$">
+        <description>%InterfaceTypeParameterNameCheck.format</description>
+      </property-metadata>
+
+      <message-key key="name.invalidPattern"/>
+    </rule-metadata>
+
+    <rule-metadata name="%EnumValueNameCheck.name" internal-name="EnumValueNameCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck"/>
+      <description>%EnumValueNameCheck.desc</description>
+
+      <property-metadata name="constFormat" datatype="String" default-value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
+        <description>%EnumValueNameCheck.constFormat</description>
+      </property-metadata>
+      <property-metadata name="objFormat" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$">
+        <description>%EnumValueNameCheck.objFormat</description>
+      </property-metadata>
+      <property-metadata name="excludes" datatype="String" default-value="toString">
+        <description>%EnumValueNameCheck.excludes</description>
+      </property-metadata>
+
+      <message-key key="enum.name.const.invalidPattern"/>
+      <message-key key="enum.name.obj.invalidPattern"/>
+    </rule-metadata>
+
+    <rule-metadata name="%UniformEnumConstantNameCheck.name" internal-name="UniformEnumConstantNameCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck"/>
+      <description>%UniformEnumConstantNameCheck.desc</description>
+
+      <property-metadata name="formats" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$,^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
+        <description>%UniformEnumConstantNameCheck.formats</description>
+      </property-metadata>
+
+      <message-key key="enum.name.format.violated"/>
+      <message-key key="enum.name.formats.violated"/>
+    </rule-metadata>
+
+  </rule-group-metadata>
 </checkstyle-metadata>

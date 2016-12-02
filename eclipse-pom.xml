@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.sevntu.checkstyle</groupId>
-    <artifactId>parent</artifactId>
-    <version>1.22.0</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>eclipsecs-sevntu-plugin</module>
-        <module>eclipsecs-sevntu-plugin-feature</module>
-        <module>update-site</module>
-    </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <properties>
-        <tycho-version>0.21.0</tycho-version>
-    </properties>
+  <modelVersion>4.0.0</modelVersion>
 
-      <repositories>
-        <repository>
-            <id>indigo</id>
-            <layout>p2</layout>
-            <url>http://download.eclipse.org/releases/juno</url>
-        </repository>
-    </repositories>
+  <groupId>com.github.sevntu.checkstyle</groupId>
+  <artifactId>parent</artifactId>
+  <version>1.22.0</version>
+  <packaging>pom</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-maven-plugin</artifactId>
-                <version>${tycho-version}</version>
-                <extensions>true</extensions>
-            </plugin>
-        </plugins>
-    </build>
+  <modules>
+    <module>eclipsecs-sevntu-plugin</module>
+    <module>eclipsecs-sevntu-plugin-feature</module>
+    <module>update-site</module>
+  </modules>
+
+  <properties>
+    <tycho-version>0.21.0</tycho-version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>indigo</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/releases/juno</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
