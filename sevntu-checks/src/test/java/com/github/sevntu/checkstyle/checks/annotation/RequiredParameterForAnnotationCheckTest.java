@@ -179,8 +179,7 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
     }
 
     @Test
-    public void temporaryTestForCallGetRequiredTokens()
-            throws Exception {
+    public void temporaryTestForCallGetRequiredTokens() {
         final RequiredParameterForAnnotationCheck check = new RequiredParameterForAnnotationCheck();
         final int[] tokens = check.getRequiredTokens();
         Assert.assertNotNull(tokens);

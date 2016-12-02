@@ -165,7 +165,7 @@ public class SingleBreakOrContinueCheck extends AbstractCheck {
      * @param node current node.
      * @return <code>true</code> if the node should be ignored, otherwise <code>false</code>
      */
-    private boolean shouldIgnore(DetailAST node) {
+    private static boolean shouldIgnore(DetailAST node) {
         return TokenTypes.LITERAL_SWITCH == node.getType()
                 || TokenTypes.LITERAL_FOR == node.getType()
                 || TokenTypes.LITERAL_WHILE == node.getType()

@@ -19,7 +19,6 @@
 
 package com.github.sevntu.checkstyle.checks.naming;
 
-import java.io.IOException;
 import java.text.MessageFormat;
 
 import org.junit.Assert;
@@ -39,7 +38,7 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport {
     private final String msgConst = getCheckMessage(EnumValueNameCheck.MSG_CONST);
     private final String inputFile;
 
-    public EnumValueNameCheckTest() throws IOException {
+    public EnumValueNameCheckTest() {
         inputFile = getPath("InputEnumValueNameCheck.java");
     }
 

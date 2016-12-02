@@ -258,7 +258,8 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      * @return true, if the class or method contains one of the annotations,
      *         specified in the regexp
      */
-    private boolean hasAnnotation(DetailAST methodOrClassDefNode, Pattern annotationNamesRegexp) {
+    private static boolean hasAnnotation(DetailAST methodOrClassDefNode,
+            Pattern annotationNamesRegexp) {
         DetailAST modifierNode =
                 methodOrClassDefNode.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
 

@@ -184,8 +184,8 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      * @return true if the class with given className is imported with the
      *         forbidden import and false otherwise.
      */
-    private boolean isWildcardForbiddenImported(String importText, String forbiddenClassNameAndPath,
-            String className) {
+    private static boolean isWildcardForbiddenImported(String importText,
+            String forbiddenClassNameAndPath, String className) {
         final String importTextWithoutAsterisk =
                 importText.substring(0, importText.length() - 1);
 
@@ -206,7 +206,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      * @return true if the class with given className is imported with the
      *         forbidden import and false otherwise.
      */
-    private boolean isForbiddenImported(String importText, String forbiddenClassNameAndPath,
+    private static boolean isForbiddenImported(String importText, String forbiddenClassNameAndPath,
             String className) {
         return importText.equals(forbiddenClassNameAndPath)
                 && importText.endsWith(className);

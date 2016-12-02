@@ -403,7 +403,7 @@ public final class ChecksTest {
      * @return canonical path for the file name.
      * @throws IOException if I/O exception occurs while forming the path.
      */
-    private String getEclipseCsPath(String filename) throws IOException {
+    private static String getEclipseCsPath(String filename) throws IOException {
         return new File("../eclipsecs-sevntu-plugin/src/com/github/sevntu/checkstyle/checks/"
                 + filename).getCanonicalPath();
     }
@@ -415,7 +415,7 @@ public final class ChecksTest {
      * @return canonical path for the file name.
      * @throws IOException if I/O exception occurs while forming the path.
      */
-    private String getSonarPath(String filename) throws IOException {
+    private static String getSonarPath(String filename) throws IOException {
         return new File(
                 "../sevntu-checkstyle-sonar-plugin/src/main/resources/com/github/sevntu/"
                         + "checkstyle/sonar/" + filename).getCanonicalPath();

@@ -19,7 +19,6 @@
 
 package com.github.sevntu.checkstyle.checks.naming;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import org.junit.Assert;
@@ -37,7 +36,7 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     private final String inputFile;
 
-    public UniformEnumConstantNameCheckTest() throws IOException {
+    public UniformEnumConstantNameCheckTest() {
         inputFile = getPath("InputUniformEnumConstantNameCheck.java");
     }
 

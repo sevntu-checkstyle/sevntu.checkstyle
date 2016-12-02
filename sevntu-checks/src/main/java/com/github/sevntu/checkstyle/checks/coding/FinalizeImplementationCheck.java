@@ -149,7 +149,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      *        current method definition.
      * @return true, if method is finalize() method.
      */
-    public static boolean isFinalizeMethodSignature(DetailAST methodDefToken) {
+    private static boolean isFinalizeMethodSignature(DetailAST methodDefToken) {
         return !hasModifier(TokenTypes.LITERAL_STATIC, methodDefToken)
                 && isFinalizeMethodName(methodDefToken) && isVoid(methodDefToken)
                 && getParamsCount(methodDefToken) == 0;
@@ -163,7 +163,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      *        MODIFIRES Token.
      * @return true, if finalize() has "protected" access modifier.
      */
-    public static boolean hasModifier(int modifierType, DetailAST methodToken) {
+    private static boolean hasModifier(int modifierType, DetailAST methodToken) {
         final DetailAST modifiersToken = methodToken.getFirstChild();
         return modifiersToken.findFirstToken(modifierType) != null;
     }
@@ -201,22 +201,12 @@ public class FinalizeImplementationCheck extends AbstractCheck {
     }
 
     /**
-     * Checks, if finalize() is empty.
-     * @param methodOpeningBraceToken
-     *        method opening brace.
-     * @return true, if finalize() is empty.
-     */
-    public static boolean isMethodEmpty(DetailAST methodOpeningBraceToken) {
-        return methodOpeningBraceToken.getFirstChild().getType() == TokenTypes.RCURLY;
-    }
-
-    /**
      * Checks, if current method has super.finalize() call.
      * @param openingBrace
      *        current method definition.
      * @return true, if method has super.finalize() call.
      */
-    public static boolean containsSuperFinalizeCall(DetailAST openingBrace) {
+    private static boolean containsSuperFinalizeCall(DetailAST openingBrace) {
         final DetailAST methodCallToken = openingBrace.getFirstChild().getFirstChild();
         if (methodCallToken != null) {
             final DetailAST dotToken = methodCallToken.getFirstChild();
@@ -225,16 +215,5 @@ public class FinalizeImplementationCheck extends AbstractCheck {
             }
         }
         return false;
-    }
-
-    /**
-     * Checks, if current method has try-finally block.
-     * @param methodOpeningBrace
-     *        Method opening brace.
-     * @return true if current method has try-finally block
-     */
-    public static boolean hasTryFinallyBlock(DetailAST methodOpeningBrace) {
-        final DetailAST tryToken = methodOpeningBrace.findFirstToken(TokenTypes.LITERAL_TRY);
-        return tryToken != null && tryToken.getLastChild().getType() == TokenTypes.LITERAL_FINALLY;
     }
 }
