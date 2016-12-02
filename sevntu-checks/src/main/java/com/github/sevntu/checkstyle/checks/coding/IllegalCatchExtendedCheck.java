@@ -134,15 +134,12 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getNumberOfChildren() > 0) {
-                final DetailAST astResult = getThrowAST(currentNode);
-                if (astResult != null) {
-                    result = astResult;
-                    break;
-                }
+                result = getThrowAST(currentNode);
             }
-
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
                 result = currentNode;
+            }
+            if (result != null) {
                 break;
             }
         }

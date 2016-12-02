@@ -173,7 +173,6 @@
     </module>
     <!-- 1.18.0 -->
     <module name="com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck" >
       <property name="minDecimalSymbolLength" value="7"/>
