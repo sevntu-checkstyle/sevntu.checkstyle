@@ -211,11 +211,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      */
     private static boolean hasOnlyStringArrayParameter(final DetailAST parametersAST) {
         boolean result = true;
-        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
-            result = false;
-        }
-        // there is one parameter
-        else {
+        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) == 1) {
             final DetailAST parameterDefinitionAST =
                     parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
             final DetailAST parameterTypeAST = parameterDefinitionAST
@@ -231,6 +227,10 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
                 result = false;
             }
         }
+        else {
+            // there is none or multiple parameters
+            result = false;
+        }
         return result;
     }
 
@@ -244,11 +244,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      */
     private static boolean hasOnlyStringEllipsisParameter(final DetailAST parametersAST) {
         boolean result = true;
-        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) != 1) {
-            result = false;
-        }
-        // there is one parameter
-        else {
+        if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) == 1) {
             final DetailAST parameterDefinitionAST =
                     parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
             if (hasChildToken(parameterDefinitionAST, TokenTypes.ELLIPSIS)) {
@@ -261,6 +257,10 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
             else {
                 result = false;
             }
+        }
+        else {
+            // there is none or multiple parameters
+            result = false;
         }
         return result;
     }

@@ -32,7 +32,6 @@
       <property name="allowPartialImplementation" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck">
-      <property name="severity" value="warning"/>
       <property name="multiplyFactorForElseBlocks" value="4"/>
       <property name="ignoreInnerIf" value="true"/>
       <property name="ignoreSequentialIf" value="true"/>
