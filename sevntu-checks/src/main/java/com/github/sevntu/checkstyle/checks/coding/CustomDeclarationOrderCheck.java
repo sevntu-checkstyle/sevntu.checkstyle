@@ -271,7 +271,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * @param inputOrderDeclaration The string line with the user custom
      *            declaration.
      */
-    public void setCustomDeclarationOrder(final String inputOrderDeclaration) {
+    public final void setCustomDeclarationOrder(final String inputOrderDeclaration) {
         customOrderDeclaration.clear();
         for (String currentState : inputOrderDeclaration.split("\\s*###\\s*")) {
             try {

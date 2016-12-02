@@ -254,7 +254,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
      * @throws ConversionException
      *             unable to parse aFormat
      */
-    public void setIgnorePattern(String format) throws ConversionException {
+    public final void setIgnorePattern(String format) throws ConversionException {
         try {
             ignorePattern = Pattern.compile(format);
         }

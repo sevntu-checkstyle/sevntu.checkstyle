@@ -103,7 +103,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * @param collectionList
      *        - line contains all collection names.
      */
-    public void setCollectionList(String collectionList) {
+    public final void setCollectionList(String collectionList) {
         this.collectionList.clear();
         for (String currentCollection : collectionList.split("\\s+")) {
             this.collectionList.add(currentCollection);
