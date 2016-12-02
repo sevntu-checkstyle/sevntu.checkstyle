@@ -327,8 +327,8 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      */
     private boolean shouldEmptyReturnStatementBeCounted(DetailAST returnNode) {
         final DetailAST returnChildNode = returnNode.getFirstChild();
-        return !(ignoreEmptyReturns
-                && returnChildNode.getType() == TokenTypes.SEMI);
+        return !ignoreEmptyReturns
+                || returnChildNode.getType() != TokenTypes.SEMI;
     }
 
     /**

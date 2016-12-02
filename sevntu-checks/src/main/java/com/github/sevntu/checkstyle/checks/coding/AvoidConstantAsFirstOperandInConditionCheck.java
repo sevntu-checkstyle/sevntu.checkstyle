@@ -89,7 +89,9 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[]{TokenTypes.EQUAL, TokenTypes.NOT_EQUAL};
+        return new int[] {
+                TokenTypes.EQUAL, TokenTypes.NOT_EQUAL
+        };
     }
 
     @Override

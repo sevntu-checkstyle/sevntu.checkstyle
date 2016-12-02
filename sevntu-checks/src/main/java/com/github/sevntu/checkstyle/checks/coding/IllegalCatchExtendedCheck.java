@@ -78,7 +78,9 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[]{TokenTypes.LITERAL_CATCH};
+        return new int[] {
+            TokenTypes.LITERAL_CATCH
+        };
     }
 
     @Override

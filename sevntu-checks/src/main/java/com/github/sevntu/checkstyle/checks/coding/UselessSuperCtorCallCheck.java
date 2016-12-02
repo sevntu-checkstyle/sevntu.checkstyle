@@ -196,8 +196,8 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
             if (isClassDerived(classDefNode)) {
                 if (!mAllowCallToNoArgsSuperCtor) {
-                    if (!(mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor
-                            && getClassPublicCtorCount(classDefNode) > 1)) {
+                    if (!mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor
+                            || getClassPublicCtorCount(classDefNode) <= 1) {
                         log(aSuperCallNode, MSG_WITHOUT_ARGS, className);
                     }
                 }

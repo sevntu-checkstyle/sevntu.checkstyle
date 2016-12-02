@@ -94,7 +94,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
      * @param ignoreStringsRegexp
      *            regexp pattern for ignored strings
      */
-    public void setIgnoreStringsRegexp(String ignoreStringsRegexp) {
+    public final void setIgnoreStringsRegexp(String ignoreStringsRegexp) {
         if ((ignoreStringsRegexp != null)
                 && (ignoreStringsRegexp.length() > 0)) {
             pattern = Pattern.compile(ignoreStringsRegexp);

@@ -75,7 +75,6 @@
       <property name="forbiddenClassesRegexpPublic" value=""/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructor">
-      <property name="severity" value="warning"/>
       <property name="checkCloneMethod" value="false"/>
       <property name="checkReadObjectMethod" value="false"/>
       <property name="matchMethodsByArgCount" value="false"/>
@@ -145,18 +144,12 @@
       <property name="maxBinarySymbolsUntilUnderscore" value="8"/>
       <property name="ignoreFieldNamePattern" value="serialVersionUID"/>
     </module>
-    <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClass">
-      <property name="severity" value="warning"/>
-    </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClass"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinition"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClasses"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCall">
-      <property name="severity" value="warning"/>
-    </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCall"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatch"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializer">
-      <property name="severity" value="warning"/>
-    </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializer"/>
 
     <!-- Design -->
     <module name="com.github.sevntu.checkstyle.checks.design.ChildBlockLength">
@@ -189,9 +182,7 @@
     <module name="com.github.sevntu.checkstyle.checks.design.InnerClass"/>
     <module name="com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructor"/>
     <module name="com.github.sevntu.checkstyle.checks.design.NestedSwitch"/>
-    <module name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversion">
-      <property name="severity" value="warning"/>
-    </module>
+    <module name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversion"/>
     <module name="com.github.sevntu.checkstyle.checks.design.CauseParameterInException"/>
 
     <!-- Naming -->
