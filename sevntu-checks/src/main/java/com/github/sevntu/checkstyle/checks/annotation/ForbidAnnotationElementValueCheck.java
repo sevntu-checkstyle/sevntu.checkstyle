@@ -228,7 +228,7 @@ public class ForbidAnnotationElementValueCheck extends AbstractCheck {
      * @return List of forbidden elements.
      */
     private List<DetailAST> getForbiddenElements(DetailAST annotation) {
-        final List<DetailAST> forbiddenElements = new LinkedList<DetailAST>();
+        final List<DetailAST> forbiddenElements = new LinkedList<>();
         DetailAST currentNode = annotation.getFirstChild();
 
         while (currentNode != null) {

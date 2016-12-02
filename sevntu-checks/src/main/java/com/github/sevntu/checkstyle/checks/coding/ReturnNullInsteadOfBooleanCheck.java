@@ -43,7 +43,7 @@ public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
     public static final String MSG_KEY = "return.null.Boolean";
 
     /** Stack of states of the need in exploring the methods. */
-    private final Deque<Boolean> methodStack = new ArrayDeque<Boolean>();
+    private final Deque<Boolean> methodStack = new ArrayDeque<>();
     /** Should we explore current method or not. */
     private boolean exploreMethod;
 

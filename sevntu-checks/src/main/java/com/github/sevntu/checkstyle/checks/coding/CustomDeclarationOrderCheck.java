@@ -236,7 +236,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /** List of order declaration customizing by user. */
     private final List<FormatMatcher> customOrderDeclaration =
-        new ArrayList<FormatMatcher>();
+        new ArrayList<>();
 
     /** Save compile flags for further usage. */
     private int compileFlags;
@@ -258,7 +258,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * Stack of GetterSetterContainer objects to keep all getters and all setters
      * of certain class.
      */
-    private final Deque<ClassDetail> classDetails = new LinkedList<ClassDetail>();
+    private final Deque<ClassDetail> classDetails = new LinkedList<>();
 
     /** Constructor to set default format. */
     public CustomDeclarationOrderCheck() {
@@ -1265,11 +1265,11 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         /**
          * List of getter ASTs.
          */
-        private final List<DetailAST> getters = new LinkedList<DetailAST>();
+        private final List<DetailAST> getters = new LinkedList<>();
         /**
          * List of setter ASTs.
          */
-        private final List<DetailAST> setters = new LinkedList<DetailAST>();
+        private final List<DetailAST> setters = new LinkedList<>();
 
         public int getCurrentPosition() {
             return currentPosition;
@@ -1301,10 +1301,10 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          * @return Map with setter AST as key and getter AST as value.
          */
         public Map<DetailAST, DetailAST> getWrongOrderedGettersSetters() {
-            final Map<DetailAST, DetailAST> result = new LinkedHashMap<DetailAST, DetailAST>();
+            final Map<DetailAST, DetailAST> result = new LinkedHashMap<>();
             if (!getters.isEmpty() && !setters.isEmpty()) {
                 //  all getters and setters
-                final List<DetailAST> allGettersSetters = new ArrayList<DetailAST>(getters);
+                final List<DetailAST> allGettersSetters = new ArrayList<>(getters);
                 allGettersSetters.addAll(setters);
                 // sort by line numbers
                 Collections.sort(allGettersSetters, AST_LINE_COMPARATOR);
@@ -1323,7 +1323,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          * @param index index from upper loo
          * @return Map with setter AST as key and getter AST as value.
          */
-        private Map<DetailAST, DetailAST> getWrongOrderedGettersSetters(
+        private static Map<DetailAST, DetailAST> getWrongOrderedGettersSetters(
                 List<DetailAST> allGettersSetters, int index) {
 
             final DetailAST getterAst = allGettersSetters.get(index);
@@ -1336,7 +1336,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 getterField = getNameWithoutPrefix(getIdentifier(getterAst),
                         BOOLEAN_GETTER_PREFIX);
             }
-            final Map<DetailAST, DetailAST> result = new LinkedHashMap<DetailAST, DetailAST>();
+            final Map<DetailAST, DetailAST> result = new LinkedHashMap<>();
 
             if (getterField != null) {
                 // review rest of the list to find a proper setter

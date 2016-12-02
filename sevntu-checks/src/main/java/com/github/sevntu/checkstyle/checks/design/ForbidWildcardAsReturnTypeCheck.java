@@ -250,7 +250,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      */
     private static Set<String> getModifiers(DetailAST methodDefAst) {
         final AST modifiersAst = methodDefAst.getFirstChild();
-        final Set<String> modifiersSet = new HashSet<String>();
+        final Set<String> modifiersSet = new HashSet<>();
         AST modifierAst = modifiersAst.getFirstChild();
         while (modifierAst != null) {
             modifiersSet.add(modifierAst.getText());
@@ -305,7 +305,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return list of arguments which have wildcard.
      */
     private static List<DetailAST> getWildcardArgumentsAsMethodReturnType(DetailAST methodDefAst) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         final DetailAST methodTypeAst =
                 methodDefAst.findFirstToken(TokenTypes.TYPE);
         final DetailAST[] methodTypeArgumentTokens =

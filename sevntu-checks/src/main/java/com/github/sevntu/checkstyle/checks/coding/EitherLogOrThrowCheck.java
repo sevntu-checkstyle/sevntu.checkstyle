@@ -146,7 +146,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     /**
      * Variables names of logger variables.
      */
-    private List<String> loggerFieldNames = new LinkedList<String>();
+    private List<String> loggerFieldNames = new LinkedList<>();
 
     /**
      * Logger class is in imports.
@@ -167,7 +167,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      * Current local variable names of logger type. It can be method's parameter
      * or method's local variable.
      */
-    private List<String> currentLocalLoggerVariableNames = new ArrayList<String>();
+    private List<String> currentLocalLoggerVariableNames = new ArrayList<>();
 
     /**
      * Set logger full class name and logger simple class name.
@@ -334,7 +334,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     private void processCatchNode(final DetailAST catchAst) {
         boolean isLoggingExceptionFound = false;
         int loggingExceptionLineNumber = 0;
-        final List<String> exceptionVariableNames = new LinkedList<String>();
+        final List<String> exceptionVariableNames = new LinkedList<>();
         final String catchParameterName = getCatchParameterName(catchAst);
         final DetailAST statementsAst =
                 catchAst.findFirstToken(TokenTypes.SLIST);

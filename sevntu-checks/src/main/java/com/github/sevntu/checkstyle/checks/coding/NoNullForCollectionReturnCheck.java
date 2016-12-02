@@ -74,7 +74,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * List of collection, that will be check.
      * </p>
      */
-    private Set<String> collectionList = new HashSet<String>();
+    private Set<String> collectionList = new HashSet<>();
 
     /**
      * <p>
@@ -88,7 +88,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * List of the method definition tokens, that returns collection.
      * </p>
      */
-    private LinkedList<DetailAST> methodDefs = new LinkedList<DetailAST>();
+    private LinkedList<DetailAST> methodDefs = new LinkedList<>();
 
     /** Default constructor. */
     public NoNullForCollectionReturnCheck() {
@@ -253,9 +253,9 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      */
     private static LinkedList<DetailAST> getAllSubblocks(DetailAST blockDef) {
         final DetailAST blockBody = getBlockBody(blockDef);
-        final LinkedList<DetailAST> subblocks = new LinkedList<DetailAST>();
+        final LinkedList<DetailAST> subblocks = new LinkedList<>();
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_IF));
-        final List<DetailAST> elseBlocks = new LinkedList<DetailAST>();
+        final List<DetailAST> elseBlocks = new LinkedList<>();
         for (DetailAST currentIf : subblocks) {
             if (currentIf.getChildCount(TokenTypes.LITERAL_ELSE) > 0) {
                 elseBlocks.add(currentIf.findFirstToken(TokenTypes.LITERAL_ELSE));
@@ -268,7 +268,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_DO));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_FOR));
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_TRY));
-        final List<DetailAST> nestedSubblocks = new LinkedList<DetailAST>();
+        final List<DetailAST> nestedSubblocks = new LinkedList<>();
         for (DetailAST currentSubblock : subblocks) {
             if (currentSubblock.branchContains(TokenTypes.SLIST)) {
                 nestedSubblocks.addAll(getAllSubblocks(currentSubblock));
@@ -329,7 +329,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * @return all children of that have the specified type.
      */
     private static List<DetailAST> getChildren(DetailAST root, int type) {
-        final List<DetailAST> children = new LinkedList<DetailAST>();
+        final List<DetailAST> children = new LinkedList<>();
         DetailAST currentChild = root.findFirstToken(type);
         if (currentChild != null) {
             children.add(currentChild);

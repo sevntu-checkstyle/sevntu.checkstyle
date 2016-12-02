@@ -86,7 +86,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      * A list contains all names of operands, which are used in the current
      * expression, which calculates with using "|", "&", "|=", "&=" operators.
      * */
-    private final List<String> supportedOperands = new LinkedList<String>();
+    private final List<String> supportedOperands = new LinkedList<>();
 
     /**
      * Variable, that indicates keywords "true" or "false" in current
@@ -140,7 +140,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         DetailAST curNode = node;
 
         final List<String> childNames = getSupportedOperandsNames(curNode);
-        final List<String> booleanVariablesNames = new LinkedList<String>();
+        final List<String> booleanVariablesNames = new LinkedList<>();
 
         while (curNode.getType() != TokenTypes.CTOR_DEF
                 && curNode.getType() != TokenTypes.METHOD_DEF
@@ -239,7 +239,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      *         aNode.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
 
         DetailAST currNode = node.getFirstChild();
 

@@ -71,7 +71,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     private Pattern pattern = Pattern.compile(DEFAULT_EXCEPTION_CLASS_NAME_REGEX);
 
     /** List of anonymous exceptions to ignore. */
-    private List<String> anonymousExceptions = new ArrayList<String>();
+    private List<String> anonymousExceptions = new ArrayList<>();
 
     /**
      * Setter for pattern.

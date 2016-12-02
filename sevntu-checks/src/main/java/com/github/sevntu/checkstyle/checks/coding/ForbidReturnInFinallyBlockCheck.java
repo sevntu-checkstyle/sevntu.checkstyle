@@ -72,7 +72,7 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
      * @return The list of return nodes.
      */
     private List<DetailAST> getReturnNodes(DetailAST node) {
-        final List<DetailAST> result = new ArrayList<DetailAST>();
+        final List<DetailAST> result = new ArrayList<>();
         DetailAST child = node.getFirstChild();
         while (child != null) {
             if (child.getType() == TokenTypes.LITERAL_RETURN) {

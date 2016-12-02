@@ -521,7 +521,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
      * @return List of token types is related to the given variable modifiers.
      */
     private static Set<Integer> getModifiers(DetailAST variableDefAst) {
-        final Set<Integer> modifiersSet = new HashSet<Integer>();
+        final Set<Integer> modifiersSet = new HashSet<>();
         final DetailAST modifiersAST = variableDefAst
                 .findFirstToken(TokenTypes.MODIFIERS);
         for (DetailAST modifier : getChildren(modifiersAST)) {
@@ -539,7 +539,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
      * @return The list of children one level below on the current parent node.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);

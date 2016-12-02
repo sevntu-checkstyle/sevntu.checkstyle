@@ -191,18 +191,18 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * This list contains Map object's names.
      */
-    private List<String> mapNamesList = new ArrayList<String>();
+    private List<String> mapNamesList = new ArrayList<>();
 
     /**
      * This list contains all qualified imports.
      */
-    private List<String> qualifiedImportList = new ArrayList<String>();
+    private List<String> qualifiedImportList = new ArrayList<>();
 
     /**
      * Set of allowable map implementations. You can set your own map
      * implementations in Checkstyle configuration
      */
-    private final Set<String> supportedMapImplQualifiedNames = new HashSet<String>();
+    private final Set<String> supportedMapImplQualifiedNames = new HashSet<>();
 
     /**
      * Creates default importList and mapImportClassesNamesList.
@@ -697,7 +697,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      */
     private static List<DetailAST> getSubTreeNodesOfType(DetailAST rootNode,
             int... tokenTypes) {
-        final List<DetailAST> result = new ArrayList<DetailAST>();
+        final List<DetailAST> result = new ArrayList<>();
         final DetailAST finishNode;
         if (rootNode.getNextSibling() == null) {
             finishNode = rootNode.getLastChild();

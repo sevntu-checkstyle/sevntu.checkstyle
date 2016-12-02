@@ -161,7 +161,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      */
     private List<DetailAST> getQuestionNodes(DetailAST expressionNode) {
 
-        final List<DetailAST> questionNodes = new LinkedList<DetailAST>();
+        final List<DetailAST> questionNodes = new LinkedList<>();
 
         DetailAST currentNode = expressionNode;
 

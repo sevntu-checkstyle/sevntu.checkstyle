@@ -38,7 +38,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     /**
      * Line numbers with methods which have wildcard in return type.
      */
-    private static final SortedSet<Integer> LINES = new TreeSet<Integer>();
+    private static final SortedSet<Integer> LINES = new TreeSet<>();
     /**
      * Line numbers with public methods which have wildcard in return type.
      */
@@ -265,7 +265,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowReturnWildcardWithSuper", "true");
         checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
-        final SortedSet<Integer> exceptSuper = new TreeSet<Integer>(LINES);
+        final SortedSet<Integer> exceptSuper = new TreeSet<>(LINES);
         exceptSuper.removeAll(LINES_WITH_SUPER);
         exceptSuper.addAll(LINES_WITH_EXTENDS);
         final String[] expected = createExpectedMessages(exceptSuper);
@@ -294,7 +294,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowReturnWildcardWithExtends", "true");
         checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
-        final SortedSet<Integer> exceptExtends = new TreeSet<Integer>(LINES);
+        final SortedSet<Integer> exceptExtends = new TreeSet<>(LINES);
         exceptExtends.removeAll(LINES_WITH_EXTENDS);
         exceptExtends.addAll(LINES_WITH_SUPER);
         final String[] expected = createExpectedMessages(exceptExtends);
@@ -324,7 +324,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowReturnWildcardWithSuper", "true");
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptSuperAndExtends =
-                new TreeSet<Integer>(LINES);
+                new TreeSet<>(LINES);
         exceptSuperAndExtends.removeAll(LINES_WITH_SUPER);
         exceptSuperAndExtends.removeAll(LINES_WITH_EXTENDS);
         final String[] expected = createExpectedMessages(exceptSuperAndExtends);
@@ -355,7 +355,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex",
                 IGNORE_LIST_PATTERN);
         final SortedSet<Integer> exceptSuperAndExtends =
-                new TreeSet<Integer>(LINES);
+                new TreeSet<>(LINES);
         exceptSuperAndExtends.removeAll(LINES_WITH_IGNORE_CLASS_NAMES);
         final String[] expected = createExpectedMessages(exceptSuperAndExtends);
 
@@ -384,7 +384,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptOverride =
-                new TreeSet<Integer>(LINES);
+                new TreeSet<>(LINES);
         exceptOverride.removeAll(LINES_WITH_OVERRIDE);
         final String[] expected = createExpectedMessages(exceptOverride);
 
@@ -413,7 +413,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptOverride =
-                new TreeSet<Integer>(LINES);
+                new TreeSet<>(LINES);
         exceptOverride.removeAll(LINES_WITH_DEPRECATED);
         final String[] expected = createExpectedMessages(exceptOverride);
 

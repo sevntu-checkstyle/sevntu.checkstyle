@@ -70,14 +70,14 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      * List contains the names of classes which would be considered as Exception
      * cause. Default value = "Throwable, Exception".
      */
-    private Set<String> allowedCauseTypes = new HashSet<String>();
+    private Set<String> allowedCauseTypes = new HashSet<>();
 
     /**
      * List of DetailAST objects which are related to Exception classes that
      * need to be warned.
      */
     private List<DetailAST> exceptionClassesToWarn =
-            new LinkedList<DetailAST>();
+            new LinkedList<>();
 
     /**
      * Creates the new check instance.
@@ -204,7 +204,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      * @return the list of classNames for given constructor parameters types.
      */
     private static List<String> getParameterTypes(DetailAST parametersAST) {
-        final List<String> result = new LinkedList<String>();
+        final List<String> result = new LinkedList<>();
         for (DetailAST parametersChild : getChildren(parametersAST)) {
             if (parametersChild.getType() == TokenTypes.PARAMETER_DEF) {
                 final DetailAST parameterType = parametersChild
@@ -254,7 +254,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      * @return The list of children one level below on the current parent node.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);

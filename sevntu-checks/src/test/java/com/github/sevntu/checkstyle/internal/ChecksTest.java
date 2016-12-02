@@ -326,7 +326,7 @@ public final class ChecksTest {
         final Properties prop = new Properties();
         prop.load(new FileInputStream(file));
 
-        final Set<Object> properties = new HashSet<Object>(Collections.list(prop.keys()));
+        final Set<Object> properties = new HashSet<>(Collections.list(prop.keys()));
 
         for (Class<?> module : packgeModules) {
             final String moduleName = module.getSimpleName();
