@@ -8,22 +8,18 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethods">
     </module>
     <module name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck">
-      <property name="severity" value="warning"/>
       <property name="format" value="^[A-Z]$"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck">
-      <property name="severity" value="warning"/>
       <property name="collectionList" value="AbstractCollection AbstractList AbstractQueue AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque ArrayList AttributeList BeanContextServicesSupport BeanContextSupport ConcurrentLinkedDeque ConcurrentLinkedQueue ConcurrentSkipListSet CopyOnWriteArrayList CopyOnWriteArraySet DelayQueue EnumSet HashSet JobStateReasons LinkedBlockingDeque LinkedBlockingQueue LinkedHashSet LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue RoleList RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set"/>
       <property name="searchThroughMethodBody" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck">
-      <property name="severity" value="warning"/>
       <property name="customDeclarationOrder" value="Field(public) ### Field(protected) ### Field(private) ### CTOR(.*) ### Method(.*)### InnerClass()"/>
       <property name="caseSensitive" value="true"/>
       <property name="fieldPrefix" value=""/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck">
       <property name="severity" value="warning"/>
@@ -33,7 +29,6 @@
       <property name="highlightAllDuplicates" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClasses">
-      <property name="severity" value="warning"/>
       <property name="allowPartialImplementation" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck">
@@ -64,16 +59,12 @@
       <property name="ignoreBlockLinesCount" value="50"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernary">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBoolean">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck">
-      <property name="severity" value="warning"/>
       <property name="forbiddenClassesRegexpFinal" value=""/>
       <property name="forbiddenClassesRegexpStatic" value="ULC.+"/>
       <property name="forbiddenClassesRegexpTransient" value=""/>
@@ -92,15 +83,12 @@
       <property name="matchMethodsByArgCount" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck">
-      <property name="severity" value="warning"/>
       <property name="ignoreCycles" value="false"/>
       <property name="ignoreMethods" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck">
-      <property name="severity" value="warning"/>
       <property name="checkPublicMethods" value="true"/>
       <property name="checkPackageMethods" value="true"/>
       <property name="checkProtectedMethods" value="true"/>
@@ -112,15 +100,12 @@
       <property name="returnTypeClassNamesIgnoreRegex" value="^(Comparator|Comparable)$"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck">
-      <property name="severity" value="warning"/>
       <property name="loggerFullyQualifiedClassName" value="org.slf4j.Logger"/>
       <property name="loggingMethodNames" value="error, warn, info, debug"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck">
-      <property name="severity" value="warning"/>
       <property name="allowThrow" value="true"/>
       <property name="allowRethrow" value="false"/>
     </module>
@@ -137,13 +122,11 @@
       <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck">
-      <property name="severity" value="warning"/>
       <property name="ignoreCalculationOfBooleanVariables" value="false"/>
       <property name="ignoreCalculationOfBooleanVariablesWithReturn" value="false"/>
       <property name="ignoreCalculationOfBooleanVariablesWithAssert" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck">
-      <property name="severity" value="warning"/>
       <property name="forbiddenClasses" value="java.lang.NullPointerException"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck">
@@ -151,7 +134,6 @@
       <property name="targetConstantTypes" value="LITERAL_NULL,LITERAL_TRUE,LITERAL_FALSE,NUM_INT,NUM_DOUBLE,NUM_LONG,NUM_FLOAT"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck">
-      <property name="severity" value="warning"/>
     </module>
     <!-- since 1.11 -->
     <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
