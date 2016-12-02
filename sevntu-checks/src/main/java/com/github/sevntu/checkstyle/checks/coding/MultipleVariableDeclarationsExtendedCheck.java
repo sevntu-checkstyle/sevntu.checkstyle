@@ -62,10 +62,6 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
     /** Check declaration in methods. */
     private boolean ignoreMethods;
 
-    /** Creates new instance of the check. */
-    public MultipleVariableDeclarationsExtendedCheck() {
-    }
-
     /**
      * Enable|Disable declaration checking in cycles.
      *
