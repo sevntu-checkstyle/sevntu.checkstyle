@@ -49,7 +49,7 @@ public class InnerClassCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        /** First root class */
+        // First root class
         if (rootClass) {
             rootClass = false;
         }
@@ -68,7 +68,7 @@ public class InnerClassCheck extends AbstractCheck {
 
     @Override
     public void leaveToken(DetailAST ast) {
-        /** Is this a root class */
+        // Is this a root class
         if (null == ast.getParent()) {
             rootClass = true;
         }

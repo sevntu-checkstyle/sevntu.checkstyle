@@ -166,12 +166,11 @@ public class LineLengthExtendedCheck extends AbstractCheck {
 
     @Override
     public int[] getDefaultTokens() {
-        /* array of tokens */
+        // array of tokens
         final List<Integer> tokens = new ArrayList<Integer>();
 
-        /*disable checking field, method, constructor
-         * or class declaration length
-         */
+        // disable checking field, method, constructor
+        // or class declaration length
         if (ignoreClass) {
             tokens.add(TokenTypes.CLASS_DEF);
         }
@@ -185,7 +184,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
             tokens.add(TokenTypes.METHOD_DEF);
         }
 
-        /* array of return tokens */
+        // array of return tokens
         final int[] returnTokens = new int[tokens.size()];
 
         for (int index = 0; index < tokens.size(); index++) {
