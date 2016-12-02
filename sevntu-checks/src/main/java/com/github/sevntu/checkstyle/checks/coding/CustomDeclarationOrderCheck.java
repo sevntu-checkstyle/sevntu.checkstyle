@@ -1310,38 +1310,49 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 Collections.sort(allGettersSetters, AST_LINE_COMPARATOR);
 
                 for (int i = 0; i < allGettersSetters.size(); i++) {
-                    final DetailAST getterAst = allGettersSetters.get(i);
-                    final String getterName = getIdentifier(getterAst);
-                    String getterField = null;
-                    if (isGetterName(getterName)) {
-                        getterField = getNameWithoutPrefix(getIdentifier(getterAst), GETTER_PREFIX);
-                    }
-                    else if (isBooleanGetterName(getterName)) {
-                        getterField = getNameWithoutPrefix(getIdentifier(getterAst),
-                                BOOLEAN_GETTER_PREFIX);
-                    }
+                    result.putAll(getWrongOrderedGettersSetters(allGettersSetters, i));
+                }
+            }
+            return result;
+        }
 
-                    if (getterField != null) {
-                        // review rest of the list to find a proper setter
-                        for (int j = 0; j < allGettersSetters.size(); j++) {
-                            if (i == j) {
-                                // method is getter
-                                continue;
-                            }
-                            final DetailAST setterAst = allGettersSetters.get(j);
-                            final String setterName = getIdentifier(setterAst);
-                            String setterField = null;
-                            if (isSetterName(setterName)) {
-                                setterField = getNameWithoutPrefix(
-                                        getIdentifier(setterAst), SETTER_PREFIX);
-                            }
-                            // non-setter method
-                            else {
-                                continue;
-                            }
+        /**
+         * Compare order of getters and setters. Order should be like "getX; setX; getY; setY; ...".
+         * If it is wrong order, then wrong ordered setters and getters will be returned as map.
+         * @param allGettersSetters collection of all gettter and setters
+         * @param index index from upper loo
+         * @return Map with setter AST as key and getter AST as value.
+         */
+        private Map<DetailAST, DetailAST> getWrongOrderedGettersSetters(
+                List<DetailAST> allGettersSetters, int index) {
+
+            final DetailAST getterAst = allGettersSetters.get(index);
+            final String getterName = getIdentifier(getterAst);
+            String getterField = null;
+            if (isGetterName(getterName)) {
+                getterField = getNameWithoutPrefix(getIdentifier(getterAst), GETTER_PREFIX);
+            }
+            else if (isBooleanGetterName(getterName)) {
+                getterField = getNameWithoutPrefix(getIdentifier(getterAst),
+                        BOOLEAN_GETTER_PREFIX);
+            }
+            final Map<DetailAST, DetailAST> result = new LinkedHashMap<DetailAST, DetailAST>();
+
+            if (getterField != null) {
+                // review rest of the list to find a proper setter
+                for (int j = 0; j < allGettersSetters.size(); j++) {
+                    if (index != j) {
+                        // method is NOT getter
+                        final DetailAST setterAst = allGettersSetters.get(j);
+                        final String setterName = getIdentifier(setterAst);
+                        String setterField = null;
+                        if (isSetterName(setterName)) {
+                            setterField = getNameWithoutPrefix(
+                                    getIdentifier(setterAst), SETTER_PREFIX);
+
                             // if fields are same and setter is sibling with getter
                             if (getterField.equals(setterField)
-                                    && j != i + 1) {
+                                    && j != index + 1) {
                                 result.put(setterAst, getterAst);
                                 break;
                             }
