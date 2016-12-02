@@ -596,7 +596,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private int getPositionInOrderDeclaration(final DetailAST ast) {
         int result = -1;
         final String modifiers = getCombinedModifiersList(ast);
-        for (int index = 0; index < customOrderDeclaration.size() && result != 1; index++) {
+        for (int index = 0; result != 1 && index < customOrderDeclaration.size(); index++) {
             final FormatMatcher currentRule = customOrderDeclaration.get(index);
             if (currentRule.getClassMember() == ast.getType()
                     && currentRule.getRegexp().matcher(modifiers).find()) {
@@ -1351,8 +1351,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                                     getIdentifier(setterAst), SETTER_PREFIX);
 
                             // if fields are same and setter is sibling with getter
-                            if (getterField.equals(setterField)
-                                    && j != index + 1) {
+                            if (j != index + 1
+                                    && getterField.equals(setterField)) {
                                 result.put(setterAst, getterAst);
                                 break;
                             }

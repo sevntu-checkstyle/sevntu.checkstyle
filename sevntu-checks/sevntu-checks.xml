@@ -49,7 +49,6 @@
       <property name="ignoreMethod" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck">
-      <property name="severity" value="warning"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck">
       <property name="severity" value="warning"/>

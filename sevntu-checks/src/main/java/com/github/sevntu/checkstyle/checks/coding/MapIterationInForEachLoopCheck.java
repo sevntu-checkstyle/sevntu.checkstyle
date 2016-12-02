@@ -574,8 +574,8 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                 getSubTreeNodesOfType(variableDefNode,
                         TokenTypes.LITERAL_NEW, TokenTypes.ASSIGN);
         final String className = getClassName(literaNewNodeslList);
-        if (getFirstNodeOfType(literaNewNodeslList, TokenTypes.ASSIGN)
-                != null && className != null) {
+        if (className != null
+                && getFirstNodeOfType(literaNewNodeslList, TokenTypes.ASSIGN) != null) {
             result = isMapImplementation(className);
         }
         return result;

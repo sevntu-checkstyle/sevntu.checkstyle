@@ -230,8 +230,8 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
                 break;
             case TokenTypes.VARIABLE_DEF:
                 final DetailAST methodDefAst = ast.getParent().getParent();
-                if (methodDefAst.getType() == TokenTypes.METHOD_DEF
-                    && methodDefAst == currentMethodDefAst
+                if (methodDefAst == currentMethodDefAst
+                    && methodDefAst.getType() == TokenTypes.METHOD_DEF
                     && isLoggerVariableDefinition(ast)) {
                     currentLocalLoggerVariableNames.add(getIdentifier(ast));
                 }

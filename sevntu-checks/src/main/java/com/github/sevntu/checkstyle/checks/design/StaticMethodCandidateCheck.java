@@ -467,7 +467,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     private static boolean findTypeVariable(Frame frame, String type) {
         boolean result = false;
         Optional<Frame> searchFrame = Optional.of(frame);
-        while (searchFrame.isPresent() && !result) {
+        while (!result && searchFrame.isPresent()) {
             result = searchFrame.get().typeVariables.contains(type);
             searchFrame = Optional.fromNullable(searchFrame.get().parent);
         }
@@ -633,8 +633,8 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         // that the checked method can be static
         boolean hasNonStaticMethod = false;
         boolean hasStaticMethod = false;
-        while (frame.isPresent()
-                && !hasNonStaticMethod) {
+        while (!hasNonStaticMethod
+                && frame.isPresent()) {
             for (DetailAST method: frame.get().methods) {
                 final DetailAST parametersAst = method.findFirstToken(TokenTypes.PARAMETERS);
 
