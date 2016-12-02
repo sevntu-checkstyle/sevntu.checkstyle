@@ -111,6 +111,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
         int numberOfSerializationMethods = 0;
 
         final SiblingIterator methodsIter = new SiblingIterator(objectBody);
+        boolean result = false;
         while (methodsIter.hasNextSibling()) {
             final DetailAST methodNode = methodsIter.nextSibling();
             if (isPrivateMethod(methodNode)
@@ -123,10 +124,11 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
             if (numberOfSerializationMethods == 1
                 && allowPartialImplementation
                 || numberOfSerializationMethods == 2) {
-                return true;
+                result = true;
+                break;
             }
         }
-        return false;
+        return result;
     }
 
     /**
