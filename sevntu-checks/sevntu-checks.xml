@@ -160,7 +160,6 @@
     </module>
     <!-- 1.16.0 , but moved to checkstyle project since 1.21.0 -->
     <!-- <module name="com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck">
-      <property name="severity" value="warning"/>
       <property name="validateCommentNodes" value="false"/>
     </module>
     -->
