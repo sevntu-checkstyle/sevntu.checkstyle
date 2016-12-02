@@ -226,11 +226,11 @@ public class RedundantReturnCheck extends AbstractCheck {
 
         DetailAST tryBlockAst = null;
 
-        if (tryAst.getFirstChild().getType() != TokenTypes.RESOURCE_SPECIFICATION) {
-            tryBlockAst = tryAst.getFirstChild();
+        if (tryAst.getFirstChild().getType() == TokenTypes.RESOURCE_SPECIFICATION) {
+            tryBlockAst = tryAst.getFirstChild().getNextSibling();
         }
         else {
-            tryBlockAst = tryAst.getFirstChild().getNextSibling();
+            tryBlockAst = tryAst.getFirstChild();
         }
 
         DetailAST redundantReturnAst =
