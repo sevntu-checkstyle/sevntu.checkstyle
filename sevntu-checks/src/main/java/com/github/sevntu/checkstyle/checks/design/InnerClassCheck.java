@@ -55,7 +55,7 @@ public class InnerClassCheck extends AbstractCheck {
         }
         else {
             DetailAST nextSibling = ast.getNextSibling();
-            while (null != nextSibling
+            while (nextSibling != null
                     && nextSibling.getType() != TokenTypes.CLASS_DEF) {
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
                         || nextSibling.getType() == TokenTypes.METHOD_DEF) {
@@ -69,7 +69,7 @@ public class InnerClassCheck extends AbstractCheck {
     @Override
     public void leaveToken(DetailAST ast) {
         // Is this a root class
-        if (null == ast.getParent()) {
+        if (ast.getParent() == null) {
             rootClass = true;
         }
     }
