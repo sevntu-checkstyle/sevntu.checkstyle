@@ -19,11 +19,20 @@
 
 package com.github.sevntu.checkstyle.internal;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
@@ -34,6 +43,86 @@ import com.puppycrawl.tools.checkstyle.api.Filter;
 
 public final class CheckUtil {
     private CheckUtil() {
+    }
+
+    public static Set<String> getConfigCheckStyleChecks() {
+        return getCheckStyleChecksReferencedInConfig("sevntu-checks.xml");
+    }
+
+    /**
+     * Gets a set of names of checkstyle's checks which are referenced in checkstyle_checks.xml.
+     *
+     * @param configFilePath
+     *            file path of checkstyle_checks.xml.
+     * @return names of checkstyle's checks which are referenced in checkstyle_checks.xml.
+     */
+    private static Set<String> getCheckStyleChecksReferencedInConfig(String configFilePath) {
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+            // Validations of XML file make parsing too slow, that is why we
+            // disable all validations.
+            factory.setNamespaceAware(false);
+            factory.setValidating(false);
+            factory.setFeature("http://xml.org/sax/features/namespaces", false);
+            factory.setFeature("http://xml.org/sax/features/validation", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar",
+                    false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                    false);
+
+            final DocumentBuilder builder = factory.newDocumentBuilder();
+            final Document document = builder.parse(new File(configFilePath));
+
+            // optional, but recommended
+            // FYI:
+            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-
+            // how-does-it-work
+            document.getDocumentElement().normalize();
+
+            final NodeList nodeList = document.getElementsByTagName("module");
+
+            final Set<String> checksReferencedInCheckstyleChecksXml = new HashSet<>();
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                final Node currentNode = nodeList.item(i);
+                if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+                    final Element module = (Element) currentNode;
+                    final String checkName = module.getAttribute("name");
+                    if (!"Checker".equals(checkName) && !"TreeWalker".equals(checkName)) {
+                        checksReferencedInCheckstyleChecksXml.add(checkName);
+                    }
+                }
+            }
+            return checksReferencedInCheckstyleChecksXml;
+        }
+        catch (Exception exception) {
+            throw new IllegalStateException(exception);
+        }
+    }
+
+    /**
+     * Gets the checkstyle's non abstract checks.
+     * @return the set of checkstyle's non abstract check classes.
+     * @throws IOException if the attempt to read class path resources failed.
+     */
+    public static Set<Class<?>> getCheckstyleChecks() throws IOException {
+        final Set<Class<?>> checkstyleChecks = new HashSet<>();
+
+        final ClassLoader loader = Thread.currentThread()
+                .getContextClassLoader();
+        final ClassPath classpath = ClassPath.from(loader);
+        final String packageName = "com.github.sevntu.checkstyle";
+        final ImmutableSet<ClassPath.ClassInfo> checkstyleClasses = classpath
+                .getTopLevelClassesRecursive(packageName);
+
+        for (ClassPath.ClassInfo clazz : checkstyleClasses) {
+            final String className = clazz.getSimpleName();
+            final Class<?> loadedClass = clazz.load();
+            if (isCheckstyleNonAbstractCheck(loadedClass, className)) {
+                checkstyleChecks.add(loadedClass);
+            }
+        }
+        return checkstyleChecks;
     }
 
     public static Set<String> getPackages(Set<Class<?>> modules) {
