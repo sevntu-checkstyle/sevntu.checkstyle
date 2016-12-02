@@ -92,7 +92,6 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
 
     /** Default constructor. */
     public NoNullForCollectionReturnCheck() {
-        super();
         setCollectionList(DEFAULT_COLLECTIONS);
     }
 
