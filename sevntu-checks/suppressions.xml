@@ -30,6 +30,7 @@
     <suppress checks="MagicNumber" files=".*[\\/]src[\\/]test[\\/]"/>
     <suppress checks="AvoidStaticImport" files=".*[\\/]src[\\/]test[\\/]"/>
     <suppress checks="WriteTag" files=".*[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="IllegalCatch" files="[\\/]internal[\\/]\w+Util\.java"/>
 
     <!-- they are aggregators of logic, usage a several of classes are ok -->
     <suppress checks="ClassDataAbstractionCoupling" files=".*[\\/]BaseCheckTestSupport\.java"/>
