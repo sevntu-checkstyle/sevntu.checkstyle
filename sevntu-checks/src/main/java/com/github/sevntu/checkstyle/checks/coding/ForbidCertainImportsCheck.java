@@ -174,8 +174,8 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
             case TokenTypes.LITERAL_NEW:
                 if (forbiddenImportsRegexp != null
                     && forbiddenImportsExcludesRegexp != null
-                    && ast.findFirstToken(TokenTypes.DOT) != null
-                    && packageMatches) {
+                    && packageMatches
+                    && ast.findFirstToken(TokenTypes.DOT) != null) {
                     final String importQualifiedText = getText(ast);
                     if (isImportForbidden(importQualifiedText)) {
                         log(ast, importQualifiedText);

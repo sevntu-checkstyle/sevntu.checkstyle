@@ -270,8 +270,9 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         final DetailAST prev = ast.getPreviousSibling();
         final DetailAST next = ast.getNextSibling();
 
-        return (prev != null) && (prev.getType() == TokenTypes.LPAREN)
-            && (next != null) && (next.getType() == TokenTypes.RPAREN);
+        return (prev != null) && (next != null)
+            && (prev.getType() == TokenTypes.LPAREN)
+            && (next.getType() == TokenTypes.RPAREN);
     }
 
     /**
