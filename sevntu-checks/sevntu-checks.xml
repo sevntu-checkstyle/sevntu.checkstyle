@@ -75,7 +75,6 @@
       <property name="forbiddenClassesRegexpPublic" value=""/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructor">
-      <property name="severity" value="warning"/>
       <property name="checkCloneMethod" value="false"/>
       <property name="checkReadObjectMethod" value="false"/>
       <property name="matchMethodsByArgCount" value="false"/>

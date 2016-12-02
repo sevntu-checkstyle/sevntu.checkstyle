@@ -162,7 +162,7 @@ public class EnumValueNameCheck extends AbstractCheck {
      * @param excludes
      *        comma separated list or regular expressions
      */
-    public void setExcludes(String[] excludes) {
+    public final void setExcludes(String[] excludes) {
         this.excludes.clear();
         for (String exclude: excludes) {
             this.excludes.add(Pattern.compile(exclude));

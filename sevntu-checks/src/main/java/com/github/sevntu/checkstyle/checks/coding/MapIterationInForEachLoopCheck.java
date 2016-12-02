@@ -222,7 +222,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * @param setSupportedMapImplQualifiedNames
      *        User's set of map implementations.
      */
-    public void setSupportedMapImplQualifiedNames(
+    public final void setSupportedMapImplQualifiedNames(
             final String[] setSupportedMapImplQualifiedNames) {
         supportedMapImplQualifiedNames.clear();
         if (setSupportedMapImplQualifiedNames != null) {
