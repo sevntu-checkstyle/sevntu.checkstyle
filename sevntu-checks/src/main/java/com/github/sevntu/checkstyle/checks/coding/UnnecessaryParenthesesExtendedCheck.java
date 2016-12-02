@@ -193,8 +193,8 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
                 final DetailAST subtree = ast.getFirstChild().getNextSibling()
                     .getNextSibling();
                 final int subtreeType = subtree.getType();
-                if (!(ignoreCalculationOfBooleanVariables && inTokenList(
-                    subtreeType, EQUALS))) {
+                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                    subtreeType, EQUALS)) {
                     log(ast, MSG_KEY_ASSIGN);
                 }
 
@@ -219,28 +219,28 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
 
                 if ((parentToSkip != ast) && exprSurrounded(ast)) {
                     if (assignDepth >= 1) {
-                        if (!(ignoreCalculationOfBooleanVariables && inTokenList(
-                            subtreeType(ast), EQUALS))) {
+                        if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                            subtreeType(ast), EQUALS)) {
                             log(ast, MSG_KEY_ASSIGN);
                         }
                     }
                     else if (ast.getParent().getType()
                         == TokenTypes.LITERAL_RETURN) {
-                        if (!(ignoreCalculationOfBooleanVariablesWithReturn
-                                && inTokenList(subtreeType(ast), EQUALS))) {
+                        if (!ignoreCalculationOfBooleanVariablesWithReturn
+                                || !inTokenList(subtreeType(ast), EQUALS)) {
                             log(ast, MSG_KEY_RETURN);
                         }
                     }
                     else if (ast.getParent().getType()
                             == TokenTypes.LITERAL_ASSERT) {
-                        if (!(ignoreCalculationOfBooleanVariablesWithAssert
-                                && inTokenList(subtreeType(ast), EQUALS))) {
+                        if (!ignoreCalculationOfBooleanVariablesWithAssert
+                                || !inTokenList(subtreeType(ast), EQUALS)) {
                             log(ast, MSG_KEY_EXPR);
                         }
                     }
                     else {
-                        if (!(ignoreCalculationOfBooleanVariables && inTokenList(
-                            subtreeType(ast), EQUALS))) {
+                        if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                            subtreeType(ast), EQUALS)) {
                             log(ast, MSG_KEY_EXPR);
                         }
                     }
