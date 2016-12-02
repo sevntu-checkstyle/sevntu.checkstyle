@@ -110,7 +110,6 @@
       <property name="allowRethrow" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck">
-      <property name="severity" value="warning"/>
       <property name="maxReturnCount" value="1"/>
       <property name="ignoreMethodLinesCount" value="20"/>
       <property name="minIgnoreReturnDepth" value="4"/>
