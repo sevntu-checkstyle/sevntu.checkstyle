@@ -214,7 +214,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return class name for given class definition
      */
-    private String getClassName(DetailAST aClassDefNode) {
+    private static String getClassName(DetailAST aClassDefNode) {
         return aClassDefNode.findFirstToken(TokenTypes.IDENT).getText();
     }
 

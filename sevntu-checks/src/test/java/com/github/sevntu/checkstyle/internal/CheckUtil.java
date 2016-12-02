@@ -36,7 +36,7 @@ public final class CheckUtil {
     private CheckUtil() {
     }
 
-    public static Set<String> getPackages(Set<Class<?>> modules) throws IOException {
+    public static Set<String> getPackages(Set<Class<?>> modules) {
         final Set<String> result = new HashSet<>();
 
         for (Class<?> module : modules) {

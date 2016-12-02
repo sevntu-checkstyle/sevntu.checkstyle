@@ -33,7 +33,7 @@ public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
     private DefaultConfiguration defaultConfig;
 
     @Before
-    public void getDefaultConfiguration() throws Exception {
+    public void getDefaultConfiguration() {
         defaultConfig = createCheckConfig(ConstructorWithoutParamsCheck.class);
     }
 

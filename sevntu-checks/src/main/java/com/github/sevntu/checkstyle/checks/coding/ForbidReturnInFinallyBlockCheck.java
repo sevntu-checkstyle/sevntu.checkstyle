@@ -89,7 +89,7 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
      * @param returnNode The token to examine.
      * @return true if a method definition was found.
      */
-    private boolean isReturnInMethodDefinition(DetailAST returnNode) {
+    private static boolean isReturnInMethodDefinition(DetailAST returnNode) {
         Boolean result = false;
         DetailAST node = returnNode;
         while (node.getType() != TokenTypes.LITERAL_FINALLY) {

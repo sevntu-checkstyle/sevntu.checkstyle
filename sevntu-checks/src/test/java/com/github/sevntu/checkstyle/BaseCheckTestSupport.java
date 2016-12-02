@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
@@ -167,7 +166,7 @@ public abstract class BaseCheckTestSupport extends Assert {
     /** A brief logger that only display errors */
     protected static class BriefLogger extends DefaultLogger {
 
-        public BriefLogger(OutputStream out) throws UnsupportedEncodingException {
+        public BriefLogger(OutputStream out) {
             super(out, true, out, false, new AuditEventUtFormatter());
         }
 
