@@ -84,7 +84,7 @@ public final class XmlUtil {
     }
 
     public static Set<Node> findElementsByTag(Set<Node> nodes, String tag) {
-        final Set<Node> result = new HashSet<Node>();
+        final Set<Node> result = new HashSet<>();
 
         for (Node child : nodes) {
             if (tag.equals(child.getNodeName())) {

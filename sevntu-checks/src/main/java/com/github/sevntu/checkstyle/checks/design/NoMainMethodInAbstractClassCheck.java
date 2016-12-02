@@ -44,7 +44,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      * Keep OBJBLOCKs of classes that are under validation.
      */
     private Deque<DetailAST> objBlockTokensStack =
-            new LinkedList<DetailAST>();
+            new LinkedList<>();
 
     @Override
     public final int[] getDefaultTokens() {

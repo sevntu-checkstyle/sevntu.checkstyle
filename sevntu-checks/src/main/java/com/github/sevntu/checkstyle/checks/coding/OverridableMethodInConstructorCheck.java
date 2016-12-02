@@ -168,7 +168,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * A list contains all METHOD_CALL DetailAST nodes that have been already
      * visited by check.
      * */
-    private final List<DetailAST> visitedMethodCalls = new LinkedList<DetailAST>();
+    private final List<DetailAST> visitedMethodCalls = new LinkedList<>();
 
     /**
      * A current MethodDef AST is being processed by check.
@@ -339,7 +339,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     private List<OverridableMetCall> getOverridables(final DetailAST parentAST) {
 
         final List<OverridableMetCall> result =
-            new LinkedList<OverridableMetCall>();
+            new LinkedList<>();
         final List<DetailAST> methodCallsList = getMethodCallsList(parentAST);
 
         for (DetailAST curNode : methodCallsList) {
@@ -409,7 +409,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      */
     private List<DetailAST> getMethodCallsList(final DetailAST parentAST) {
 
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
 
         for (DetailAST curNode : getChildren(parentAST)) {
             if (curNode.getNumberOfChildren() > 0) {
@@ -552,7 +552,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      */
     private List<DetailAST> getMethodDef(final DetailAST parentAST,
             final String methodName) {
-        List<DetailAST> definitionsList = new LinkedList<DetailAST>();
+        List<DetailAST> definitionsList = new LinkedList<>();
 
         for (DetailAST curNode : getChildren(parentAST)) {
 
@@ -838,7 +838,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      */
     private List<DetailAST> getBaseClasses(final DetailAST classDefNode) {
 
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         String baseClassName = getBaseClassName(classDefNode);
 
         if (baseClassName != null) {
@@ -893,7 +893,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         aNode.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);

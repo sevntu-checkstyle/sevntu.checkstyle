@@ -58,13 +58,13 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      * Set which contains classNames for objects that are forbidden to
      * instantiate.
      */
-    private Set<String> forbiddenClasses = new HashSet<String>();
+    private Set<String> forbiddenClasses = new HashSet<>();
 
     /**
      * List which contains String representation of imports for class is
      * currently being processed.
      */
-    private List<String> importsList = new LinkedList<String>();
+    private List<String> importsList = new LinkedList<>();
 
     /**
      * Creates the check instance.

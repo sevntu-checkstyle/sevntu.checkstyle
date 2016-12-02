@@ -81,12 +81,12 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * List containing names of private types (classes, interfaces or enums).
      */
-    private final Set<DetailAST> privateTypes = new HashSet<DetailAST>();
+    private final Set<DetailAST> privateTypes = new HashSet<>();
 
     /**
      * List containing the names of types returned by public methods or fields.
      */
-    private final Set<DetailAST> externallyReferencedTypes = new HashSet<DetailAST>();
+    private final Set<DetailAST> externallyReferencedTypes = new HashSet<>();
 
     @Override
     public int[] getDefaultTokens() {
@@ -195,7 +195,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
             getMethodOrFieldReferencedTypes(DetailAST typeAst) {
 
         DetailAST returnedType = null;
-        final List<DetailAST> returnedTypes = new ArrayList<DetailAST>();
+        final List<DetailAST> returnedTypes = new ArrayList<>();
         DetailAST currentNode = typeAst;
         while (currentNode != null) {
             if (currentNode.getType() == TokenTypes.IDENT) {
@@ -215,7 +215,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     private static List<DetailAST>
             getMethodParameterTypes(DetailAST parametersDefAst) {
         DetailAST parameterType = null;
-        final List<DetailAST> parameterTypes = new ArrayList<DetailAST>();
+        final List<DetailAST> parameterTypes = new ArrayList<>();
 
         if (parametersDefAst.getFirstChild() != null) {
             DetailAST currentNode = parametersDefAst;
@@ -267,7 +267,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
             isExtendsOrImplementsPrivate(DetailAST classOrInterfaceDefAst) {
         boolean result = false;
 
-        final Set<String> inheritedTypesNamesSet = new HashSet<String>();
+        final Set<String> inheritedTypesNamesSet = new HashSet<>();
         DetailAST currentNode = classOrInterfaceDefAst;
 
         while (currentNode != null) {
@@ -289,7 +289,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
             currentNode = Utils.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
         }
 
-        final Set<String> existingPrivateTypes = new HashSet<String>();
+        final Set<String> existingPrivateTypes = new HashSet<>();
         for (DetailAST privateType : privateTypes) {
             existingPrivateTypes.add(privateType.getText());
         }

@@ -50,7 +50,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     /**
      * Set of annotation's names.
      */
-    private Set<String> annotationNames = new HashSet<String>();
+    private Set<String> annotationNames = new HashSet<>();
     /**
      * Array of type forbidden annotation's target.
      */

@@ -111,7 +111,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
     /**
      * Parameters that should be in annotation.
      */
-    private Set<String> requiredParameters = new TreeSet<String>();
+    private Set<String> requiredParameters = new TreeSet<>();
 
     /**
      * The annotation name we are interested in.
@@ -192,7 +192,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
      * @return name of annotation properties.
      */
     private static Set<String> getAnnotationParameters(DetailAST annotationNode) {
-        final Set<String> annotationParameters = new TreeSet<String>();
+        final Set<String> annotationParameters = new TreeSet<>();
         DetailAST annotationChildNode = annotationNode.getFirstChild();
 
         while (annotationChildNode != null) {

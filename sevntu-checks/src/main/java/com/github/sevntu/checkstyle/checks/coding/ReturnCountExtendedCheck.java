@@ -106,7 +106,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * List contains RegExp patterns for methods' names which would be ignored by check.
      */
-    private Set<String> ignoreMethodsNames = new HashSet<String>();
+    private Set<String> ignoreMethodsNames = new HashSet<>();
 
     /**
      * Maximum allowed "return" literals count per method/ctor (1 by default).
@@ -401,7 +401,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * @return The list of children one level below on the current parent node.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         DetailAST curNode = node.getFirstChild();
         while (curNode != null) {
             result.add(curNode);

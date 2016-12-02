@@ -104,12 +104,12 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     /**
      * List of single-type-imports for current AST.
      */
-    private List<String> singleTypeImports = new ArrayList<String>();
+    private List<String> singleTypeImports = new ArrayList<>();
 
     /**
      * List of on-demand-imports for current AST.
      */
-    private List<String> onDemandImports = new ArrayList<String>();
+    private List<String> onDemandImports = new ArrayList<>();
 
     /**
      * Package name for current AST or empty string if AST does not contain package name.
@@ -321,7 +321,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      * @return list of canonical annotation names for given node.
      */
     private List<String> getAnnotationCanonicalNames(DetailAST node) {
-        final List<String> annotationNames = new ArrayList<String>();
+        final List<String> annotationNames = new ArrayList<>();
 
         DetailAST modifierNode =
                 node.findFirstToken(TokenTypes.MODIFIERS).getFirstChild();
@@ -363,7 +363,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      */
     private List<String>
             generateAnnotationPossibleCanonicalNames(String annotationName) {
-        final List<String> annotationPossibleCanonicalNames = new ArrayList<String>();
+        final List<String> annotationPossibleCanonicalNames = new ArrayList<>();
 
         for (String importEntry : singleTypeImports) {
             final String annotationCanonicalName =

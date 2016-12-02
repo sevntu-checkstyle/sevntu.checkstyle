@@ -245,7 +245,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      */
     private List<DetailAST> getBadChildBlocks(List<DetailAST> blocksList,
             int parentBlockSize) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
         for (DetailAST block : blocksList) {
             if (isChildBlockBad(block, parentBlockSize)) {
                 result.add(block);

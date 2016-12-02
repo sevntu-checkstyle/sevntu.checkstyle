@@ -87,13 +87,13 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 
         final List<DetailAST> throwList = makeThrowList(detailAST);
 
-        final List<String> wrapExcNames = new LinkedList<String>();
+        final List<String> wrapExcNames = new LinkedList<>();
         wrapExcNames.add(originExcName);
         wrapExcNames.addAll(makeExceptionsList(detailAST, detailAST,
                             originExcName));
 
         for (DetailAST throwAST : throwList) {
-            final List<DetailAST> throwParamNamesList = new LinkedList<DetailAST>();
+            final List<DetailAST> throwParamNamesList = new LinkedList<>();
             buildThrowParamNamesList(throwAST, throwParamNamesList);
             if (!isContainsCaughtExc(throwParamNamesList, wrapExcNames)) {
                 log(throwAST, MSG_KEY, originExcName);
@@ -157,7 +157,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      */
     private List<DetailAST> makeThrowList(DetailAST parentAST) {
 
-        final List<DetailAST> throwList = new LinkedList<DetailAST>();
+        final List<DetailAST> throwList = new LinkedList<>();
         for (DetailAST currentNode : getChildNodes(parentAST)) {
 
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
@@ -188,7 +188,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      */
     private List<String> makeExceptionsList(DetailAST currentCatchAST,
             DetailAST parentAST, String currentExcName) {
-        final List<String> wrapExcNames = new LinkedList<String>();
+        final List<String> wrapExcNames = new LinkedList<>();
 
         for (DetailAST currentNode : getChildNodes(parentAST)) {
 
@@ -232,7 +232,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      *         parent node (aNode).
      */
     private static List<DetailAST> getChildNodes(DetailAST node) {
-        final List<DetailAST> result = new LinkedList<DetailAST>();
+        final List<DetailAST> result = new LinkedList<>();
 
         DetailAST currNode = node.getFirstChild();
 

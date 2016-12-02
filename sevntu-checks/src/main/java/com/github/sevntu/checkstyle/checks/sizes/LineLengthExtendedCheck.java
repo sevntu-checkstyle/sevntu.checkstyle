@@ -167,7 +167,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
     @Override
     public int[] getDefaultTokens() {
         // array of tokens
-        final List<Integer> tokens = new ArrayList<Integer>();
+        final List<Integer> tokens = new ArrayList<>();
 
         // disable checking field, method, constructor
         // or class declaration length

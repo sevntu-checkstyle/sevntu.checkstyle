@@ -187,7 +187,7 @@ public class RedundantReturnCheck extends AbstractCheck {
      */
     private static List<DetailAST> getRedundantReturns(DetailAST objectBlockAst) {
 
-        final List<DetailAST> redundantReturns = new ArrayList<DetailAST>();
+        final List<DetailAST> redundantReturns = new ArrayList<>();
 
         final int placeForRedundantReturn = objectBlockAst
             .getLastChild().getPreviousSibling().getType();
@@ -222,7 +222,7 @@ public class RedundantReturnCheck extends AbstractCheck {
      */
     private static List<DetailAST> getRedundantReturnsInTryCatchBlock(DetailAST tryAst) {
 
-        final List<DetailAST> redundantReturns = new ArrayList<DetailAST>();
+        final List<DetailAST> redundantReturns = new ArrayList<>();
 
         DetailAST tryBlockAst = null;
 
