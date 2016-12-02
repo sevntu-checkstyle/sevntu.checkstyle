@@ -124,6 +124,8 @@
               <failOnViolation>true</failOnViolation>
               <linkXRef>false</linkXRef>
               <propertiesLocation>checkstyle.properties</propertiesLocation>
+              <sourceDirectory>${project.basedir}/src</sourceDirectory>
+              <excludes>**/test/resources/**/*,**/test/resources-noncompilable/**/*</excludes>
             </configuration>
           </execution>
         </executions>
@@ -274,6 +276,8 @@
                   <configLocation>sevntu-checks.xml</configLocation>
                   <failOnViolation>true</failOnViolation>
                   <linkXRef>false</linkXRef>
+                  <sourceDirectory>${project.basedir}/src</sourceDirectory>
+                  <excludes>**/test/resources/**/*,**/test/resources-noncompilable/**/*</excludes>
                 </configuration>
               </execution>
             </executions>
