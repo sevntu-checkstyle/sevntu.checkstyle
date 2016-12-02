@@ -147,9 +147,7 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClass"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinition"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClasses"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCall">
-      <property name="severity" value="warning"/>
-    </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCall"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatch"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializer">
       <property name="severity" value="warning"/>
