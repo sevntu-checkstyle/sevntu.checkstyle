@@ -182,9 +182,7 @@
     <module name="com.github.sevntu.checkstyle.checks.design.InnerClass"/>
     <module name="com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructor"/>
     <module name="com.github.sevntu.checkstyle.checks.design.NestedSwitch"/>
-    <module name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversion">
-      <property name="severity" value="warning"/>
-    </module>
+    <module name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversion"/>
     <module name="com.github.sevntu.checkstyle.checks.design.CauseParameterInException"/>
 
     <!-- Naming -->
