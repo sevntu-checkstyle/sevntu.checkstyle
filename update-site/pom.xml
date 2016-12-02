@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<parent>
-		<relativePath>../eclipse-pom.xml</relativePath>
-		<groupId>com.github.sevntu.checkstyle</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.22.0</version>
-	</parent>
+  <modelVersion>4.0.0</modelVersion>
 
-	<artifactId>com.github.sevntu.checkstyle.p2updatesite</artifactId>
-	<packaging>eclipse-repository</packaging>
-	<name>Tycho Test Build</name>
+  <parent>
+    <relativePath>../eclipse-pom.xml</relativePath>
+    <groupId>com.github.sevntu.checkstyle</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.22.0</version>
+  </parent>
 
-<build>
-  <plugins>
-<plugin>
-    <groupId>org.eclipse.tycho</groupId>
-    <artifactId>tycho-p2-director-plugin</artifactId>
-    <version>${tycho-version}</version>
-    <executions>
-     <execution>
-      <id>materialize-products</id>
-      <goals>
-       <goal>materialize-products</goal>
-      </goals>
-     </execution>
-     <execution>
-      <id>archive-products</id>
-      <goals>
-       <goal>archive-products</goal>
-      </goals>
-     </execution>
-    </executions>
-   </plugin>
+  <artifactId>com.github.sevntu.checkstyle.p2updatesite</artifactId>
+  <packaging>eclipse-repository</packaging>
+  <name>Tycho Test Build</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-director-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <executions>
+          <execution>
+            <id>materialize-products</id>
+            <goals>
+              <goal>materialize-products</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>archive-products</id>
+            <goals>
+              <goal>archive-products</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
 
-     <!-- Upload the repo to the server -->
-     <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>wagon-maven-plugin</artifactId>
-      <version>1.0-beta-4</version>
+      <!-- Upload the repo to the server -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0-beta-4</version>
         <configuration>
-         <fromDir>${project.build.directory}/repository/</fromDir>
-         <includes>**</includes>
-         <toDir>update-site</toDir>
-         <url>file://${project.build.directory}/../../gh-pages</url>
+          <fromDir>${project.build.directory}/repository/</fromDir>
+          <includes>**</includes>
+          <toDir>update-site</toDir>
+          <url>file://${project.build.directory}/../../gh-pages</url>
         </configuration>
-     </plugin>
+      </plugin>
     </plugins>
-   </build>
+  </build>
 
 </project>

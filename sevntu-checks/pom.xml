@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.sevntu.checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
   <version>1.22.0</version>
+
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
     <checkstyle.version>7.3</checkstyle.version>
@@ -12,6 +15,7 @@
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.puppycrawl.tools</groupId>
@@ -43,8 +47,7 @@
       <version>1.6.6</version>
       <scope>test</scope>
     </dependency>
-    <!-- required for package/import test cases because creating dummy
-         ones interferes with cobertura -->
+    <!-- required for package/import test cases because creating dummy ones interferes with cobertura -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -52,6 +55,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <distributionManagement>
     <repository>
       <id>com.github.sevntu.checkstyle</id>
@@ -59,6 +63,7 @@
       <url>file://${basedir}/../gh-pages/maven2/</url>
     </repository>
   </distributionManagement>
+
   <build>
     <plugins>
       <plugin>
@@ -137,7 +142,8 @@
         <configuration>
           <check>
             <haltOnFailure>true</haltOnFailure>
-            <!-- only integer values are accepted, all values should 100 after all whole regexes group is removed -->
+            <!-- only integer values are accepted, all values should 100 after all whole regexes group 
+              is removed -->
             <branchRate>100</branchRate>
             <lineRate>100</lineRate>
             <totalBranchRate>88</totalBranchRate>
@@ -192,6 +198,7 @@
       </plugin>
     </plugins>
   </build>
+
   <profiles>
     <profile>
       <id>travis</id>
@@ -286,6 +293,7 @@
       </build>
     </profile>
   </profiles>
+
   <pluginRepositories>
     <pluginRepository>
       <id>sevntu-maven</id>
@@ -293,4 +301,5 @@
       <url>http://sevntu-checkstyle.github.io/sevntu.checkstyle/maven2</url>
     </pluginRepository>
   </pluginRepositories>
+
 </project>

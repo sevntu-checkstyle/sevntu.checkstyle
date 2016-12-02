@@ -3,159 +3,162 @@
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
-    <rule-group-metadata name="SevNTU checks" priority="1600">
+  <rule-group-metadata name="SevNTU checks" priority="1600">
 
-        <rule-metadata name="%AvoidConditionInversionCheck.name" internal-name="AvoidConditionInversionCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck"/>
-            <description>%AvoidConditionInversionCheck.desc</description>
-            <property-metadata name="applyOnlyToRelationalOperands" datatype="Boolean" default-value="false">
-                <description>%AvoidConditionInversionCheck.applyOnlyToRelationalOperands</description>
-            </property-metadata>
-            <message-key key="avoid.condition.inversion" />
-        </rule-metadata>      
+    <rule-metadata name="%AvoidConditionInversionCheck.name" internal-name="AvoidConditionInversionCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck"/>
+      <description>%AvoidConditionInversionCheck.desc</description>
 
-        <rule-metadata name="%CauseParameterInExceptionCheck.name" internal-name="CauseParameterInExceptionCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
-            <description>%CauseParameterInExceptionCheck.desc</description>
-            <property-metadata name="classNamesRegexp" datatype="Regex" default-value=".+Exception">
-                <description>%CauseParameterInExceptionCheck.classNamesRegexp</description>
-            </property-metadata>
-            <property-metadata name="ignoredClassNamesRegexp" datatype="Regex" default-value="">
-                <description>%CauseParameterInExceptionCheck.ignoredClassNamesRegexp</description>
-            </property-metadata>
-            <property-metadata name="allowedCauseTypes" datatype="String" default-value="Throwable, Exception">
-                <description>%CauseParameterInExceptionCheck.allowedCauseTypes</description>
-            </property-metadata>    
-            <message-key key="cause.parameter.in.exception" />
-        </rule-metadata>        
-        
-                <rule-metadata name="%ChildBlockLengthCheck.name" internal-name="ChildBlockLengthCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck"/>
-            <description>%ChildBlockLengthCheck.desc</description>
-		    <property-metadata name="blockTypes" datatype="MultiCheck" default-value="LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH">
-	                <description>%ChildBlockLengthCheck.blockTypes</description>
-	                <enumeration>
-	                    <property-value-option value="LITERAL_IF"/>
-	                    <property-value-option value="LITERAL_ELSE"/>
-	                    <property-value-option value="LITERAL_WHILE"/>
-	                    <property-value-option value="LITERAL_DO"/>
-	                    <property-value-option value="LITERAL_FOR"/>
-	                    <property-value-option value="LITERAL_SWITCH"/>
-	                    <property-value-option value="LITERAL_TRY"/>
-	                    <property-value-option value="LITERAL_CATCH"/>
-	                </enumeration>
-		    </property-metadata>
-		    <property-metadata name="maxChildBlockPercentage" datatype="Integer" default-value="90">
-	                <description>%ChildBlockLengthCheck.maxChildBlockPercentage</description>
-		    </property-metadata>
-		    <property-metadata name="ignoreBlockLinesCount" datatype="Integer" default-value="50">
-	                <description>%ChildBlockLengthCheck.ignoreBlockLinesCount</description>
-		    </property-metadata>
-		    <message-key key="child.block.length" />   
-        </rule-metadata>
+      <property-metadata name="applyOnlyToRelationalOperands" datatype="Boolean" default-value="false">
+        <description>%AvoidConditionInversionCheck.applyOnlyToRelationalOperands</description>
+      </property-metadata>
 
-        <rule-metadata name="%NestedSwitchCheck.name" internal-name="NestedSwitchCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck"/>
-            <description>%NestedSwitchCheck.desc</description>
-            
-            <property-metadata name="max" datatype="Integer" default-value="0">
-                      <description>%NestedSwitchCheck.max</description>
-            </property-metadata>
-            <message-key key="avoid.nested.switch" />
-        </rule-metadata>
+      <message-key key="avoid.condition.inversion"/>
+    </rule-metadata>
 
-	<rule-metadata name="%NoMainMethodInAbstractClassCheck.name"
-            internal-name="NoMainMethodInAbstractClassCheck" parent="TreeWalker">
-            <alternative-name
-                internal-name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck" />
-            <description>%NoMainMethodInAbstractClassCheck.desc</description>
-            <message-key key="avoid.main.method.in.abstract.class" />
-        </rule-metadata>
-        
-        <rule-metadata name="%ForbidWildcardAsReturnTypeCheck.name"
-            internal-name="ForbidWildcardAsReturnTypeCheck" parent="TreeWalker">
-            <alternative-name
-                internal-name="com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck" />
-            <description>%ForbidWildcardAsReturnTypeCheck.desc</description>
-            <property-metadata name="checkPublicMethods"
-                datatype="Boolean" default-value="true">
-                <description>%ForbidWildcardAsReturnTypeCheck.checkPublicMethods</description>
-            </property-metadata>
-            <property-metadata name="checkPackageMethods"
-                datatype="Boolean" default-value="true">
-                <description>%ForbidWildcardAsReturnTypeCheck.checkPackageMethods</description>
-            </property-metadata>
-            <property-metadata name="checkProtectedMethods"
-                datatype="Boolean" default-value="true">
-                <description>%ForbidWildcardAsReturnTypeCheck.checkProtectedMethods</description>
-            </property-metadata>
-            <property-metadata name="checkPrivateMethods"
-                datatype="Boolean" default-value="false">
-                <description>%ForbidWildcardAsReturnTypeCheck.checkPrivateMethods</description>
-            </property-metadata>
-            <property-metadata name="checkOverrideMethods"
-                datatype="Boolean" default-value="false">
-                <description>%ForbidWildcardAsReturnTypeCheck.checkOverrideMethods</description>
-            </property-metadata>
-            <property-metadata name="checkDeprecatedMethods"
-                datatype="Boolean" default-value="false">
-                <description>%ForbidWildcardAsReturnTypeCheck.checkDeprecatedMethods</description>
-            </property-metadata>
-            <property-metadata name="allowReturnWildcardWithExtends"
-                datatype="Boolean" default-value="false">
-                <description>%ForbidWildcardAsReturnTypeCheck.allowReturnWildcardWithExtends</description>
-            </property-metadata>
-            <property-metadata name="allowReturnWildcardWithSuper"
-                datatype="Boolean" default-value="false">
-                <description>%ForbidWildcardAsReturnTypeCheck.allowReturnWildcardWithSuper</description>
-            </property-metadata>
-            <property-metadata name="returnTypeClassNamesIgnoreRegex"
-                datatype="Regex" default-value="^(Comparator|Comparable)$">
-                <description>%ForbidWildcardAsReturnTypeCheck.returnTypeClassNamesIgnoreRegex</description>
-            </property-metadata>
-            <message-key key="forbid.wildcard.as.return.type" />
-        </rule-metadata>
-        
-        <rule-metadata name="%PublicReferenceToPrivateTypeCheck.name" internal-name="PublicReferenceToPrivateTypeCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck"/>
-            <description>%PublicReferenceToPrivateTypeCheck.desc</description>
-            <message-key key="public.reference.to.private.type" />
-        </rule-metadata>
+    <rule-metadata name="%CauseParameterInExceptionCheck.name" internal-name="CauseParameterInExceptionCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
+      <description>%CauseParameterInExceptionCheck.desc</description>
 
-        <rule-metadata name="%StaticMethodCandidateCheck.name" internal-name="StaticMethodCandidateCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck"/>
-            <description>%StaticMethodCandidateCheck.desc</description>
-            
-            <property-metadata name="skippedMethods" datatype="MultiCheck" default-value="writeObject, readObject, readObjectNoData, readResolve, writeReplace">
-                <description>%StaticMethodCandidateCheck.skippedMethods</description>
-            </property-metadata>
-            <message-key key="static.method.candidate"/>   
-        </rule-metadata>
+      <property-metadata name="classNamesRegexp" datatype="Regex" default-value=".+Exception">
+        <description>%CauseParameterInExceptionCheck.classNamesRegexp</description>
+      </property-metadata>
+      <property-metadata name="ignoredClassNamesRegexp" datatype="Regex" default-value="">
+        <description>%CauseParameterInExceptionCheck.ignoredClassNamesRegexp</description>
+      </property-metadata>
+      <property-metadata name="allowedCauseTypes" datatype="String" default-value="Throwable, Exception">
+        <description>%CauseParameterInExceptionCheck.allowedCauseTypes</description>
+      </property-metadata>
+
+      <message-key key="cause.parameter.in.exception"/>
+    </rule-metadata>
+
+    <rule-metadata name="%ChildBlockLengthCheck.name" internal-name="ChildBlockLengthCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck"/>
+      <description>%ChildBlockLengthCheck.desc</description>
+
+      <property-metadata name="blockTypes" datatype="MultiCheck" default-value="LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH">
+        <description>%ChildBlockLengthCheck.blockTypes</description>
+        <enumeration>
+          <property-value-option value="LITERAL_IF"/>
+          <property-value-option value="LITERAL_ELSE"/>
+          <property-value-option value="LITERAL_WHILE"/>
+          <property-value-option value="LITERAL_DO"/>
+          <property-value-option value="LITERAL_FOR"/>
+          <property-value-option value="LITERAL_SWITCH"/>
+          <property-value-option value="LITERAL_TRY"/>
+          <property-value-option value="LITERAL_CATCH"/>
+        </enumeration>
+      </property-metadata>
+      <property-metadata name="maxChildBlockPercentage" datatype="Integer" default-value="90">
+        <description>%ChildBlockLengthCheck.maxChildBlockPercentage</description>
+      </property-metadata>
+      <property-metadata name="ignoreBlockLinesCount" datatype="Integer" default-value="50">
+        <description>%ChildBlockLengthCheck.ignoreBlockLinesCount</description>
+      </property-metadata>
+
+      <message-key key="child.block.length"/>
+    </rule-metadata>
+
+    <rule-metadata name="%NestedSwitchCheck.name" internal-name="NestedSwitchCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck"/>
+      <description>%NestedSwitchCheck.desc</description>
+
+      <property-metadata name="max" datatype="Integer" default-value="0">
+        <description>%NestedSwitchCheck.max</description>
+      </property-metadata>
+
+      <message-key key="avoid.nested.switch"/>
+    </rule-metadata>
+
+    <rule-metadata name="%NoMainMethodInAbstractClassCheck.name" internal-name="NoMainMethodInAbstractClassCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck"/>
+      <description>%NoMainMethodInAbstractClassCheck.desc</description>
+
+      <message-key key="avoid.main.method.in.abstract.class"/>
+    </rule-metadata>
+
+    <rule-metadata name="%ForbidWildcardAsReturnTypeCheck.name" internal-name="ForbidWildcardAsReturnTypeCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck"/>
+      <description>%ForbidWildcardAsReturnTypeCheck.desc</description>
+
+      <property-metadata name="checkPublicMethods" datatype="Boolean" default-value="true">
+        <description>%ForbidWildcardAsReturnTypeCheck.checkPublicMethods</description>
+      </property-metadata>
+      <property-metadata name="checkPackageMethods" datatype="Boolean" default-value="true">
+        <description>%ForbidWildcardAsReturnTypeCheck.checkPackageMethods</description>
+      </property-metadata>
+      <property-metadata name="checkProtectedMethods" datatype="Boolean" default-value="true">
+        <description>%ForbidWildcardAsReturnTypeCheck.checkProtectedMethods</description>
+      </property-metadata>
+      <property-metadata name="checkPrivateMethods" datatype="Boolean" default-value="false">
+        <description>%ForbidWildcardAsReturnTypeCheck.checkPrivateMethods</description>
+      </property-metadata>
+      <property-metadata name="checkOverrideMethods" datatype="Boolean" default-value="false">
+        <description>%ForbidWildcardAsReturnTypeCheck.checkOverrideMethods</description>
+      </property-metadata>
+      <property-metadata name="checkDeprecatedMethods" datatype="Boolean" default-value="false">
+        <description>%ForbidWildcardAsReturnTypeCheck.checkDeprecatedMethods</description>
+      </property-metadata>
+      <property-metadata name="allowReturnWildcardWithExtends" datatype="Boolean" default-value="false">
+        <description>%ForbidWildcardAsReturnTypeCheck.allowReturnWildcardWithExtends</description>
+      </property-metadata>
+      <property-metadata name="allowReturnWildcardWithSuper" datatype="Boolean" default-value="false">
+        <description>%ForbidWildcardAsReturnTypeCheck.allowReturnWildcardWithSuper</description>
+      </property-metadata>
+      <property-metadata name="returnTypeClassNamesIgnoreRegex" datatype="Regex" default-value="^(Comparator|Comparable)$">
+        <description>%ForbidWildcardAsReturnTypeCheck.returnTypeClassNamesIgnoreRegex</description>
+      </property-metadata>
+
+      <message-key key="forbid.wildcard.as.return.type"/>
+    </rule-metadata>
+
+    <rule-metadata name="%PublicReferenceToPrivateTypeCheck.name" internal-name="PublicReferenceToPrivateTypeCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck"/>
+      <description>%PublicReferenceToPrivateTypeCheck.desc</description>
+
+      <message-key key="public.reference.to.private.type"/>
+    </rule-metadata>
+
+    <rule-metadata name="%StaticMethodCandidateCheck.name" internal-name="StaticMethodCandidateCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck"/>
+      <description>%StaticMethodCandidateCheck.desc</description>
+
+      <property-metadata name="skippedMethods" datatype="MultiCheck" default-value="writeObject, readObject, readObjectNoData, readResolve, writeReplace">
+        <description>%StaticMethodCandidateCheck.skippedMethods</description>
+      </property-metadata>
+
+      <message-key key="static.method.candidate"/>
+    </rule-metadata>
 
 
-        <rule-metadata name="%ConstructorWithoutParamsCheck.name" internal-name="ConstructorWithoutParamsCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck"/>
-            <description>%ConstructorWithoutParamsCheck.desc</description>
-            <property-metadata name="classNameFormat" datatype="Regex" default-value=".*Exception">
-                <description>%ConstructorWithoutParamsCheck.classNameFormat</description>
-            </property-metadata>
-            <property-metadata name="ignoredClassNameFormat" datatype="Regex" default-value="UnsupportedOperationException">
-                <description>%ConstructorWithoutParamsCheck.ignoredClassNameFormat</description>
-            </property-metadata>
-            <message-key key="constructor.without.params" />
-        </rule-metadata>
+    <rule-metadata name="%ConstructorWithoutParamsCheck.name" internal-name="ConstructorWithoutParamsCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck"/>
+      <description>%ConstructorWithoutParamsCheck.desc</description>
 
-        <rule-metadata name="%HideUtilityClassConstructorCheck.name" internal-name="HideUtilityClassConstructorCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
-            <description>%HideUtilityClassConstructorCheck.desc</description>
-            <message-key key="hide.utility.class" />
-        </rule-metadata>
+      <property-metadata name="classNameFormat" datatype="Regex" default-value=".*Exception">
+        <description>%ConstructorWithoutParamsCheck.classNameFormat</description>
+      </property-metadata>
+      <property-metadata name="ignoredClassNameFormat" datatype="Regex" default-value="UnsupportedOperationException">
+        <description>%ConstructorWithoutParamsCheck.ignoredClassNameFormat</description>
+      </property-metadata>
 
-        <rule-metadata name="%InnerClassCheck.name" internal-name="InnerClassCheck" parent="TreeWalker">
-            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.InnerClassCheck"/>
-            <description>%InnerClassCheck.desc</description>
-            <message-key key="arrangement.members.before.inner" />
-        </rule-metadata>
+      <message-key key="constructor.without.params"/>
+    </rule-metadata>
 
-    </rule-group-metadata>
+    <rule-metadata name="%HideUtilityClassConstructorCheck.name" internal-name="HideUtilityClassConstructorCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+      <description>%HideUtilityClassConstructorCheck.desc</description>
+
+      <message-key key="hide.utility.class"/>
+    </rule-metadata>
+
+    <rule-metadata name="%InnerClassCheck.name" internal-name="InnerClassCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.InnerClassCheck"/>
+      <description>%InnerClassCheck.desc</description>
+
+      <message-key key="arrangement.members.before.inner"/>
+    </rule-metadata>
+
+  </rule-group-metadata>
 </checkstyle-metadata>
