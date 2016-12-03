@@ -175,7 +175,6 @@
               <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
               <regex><pattern>.*.checks.coding.RedundantReturnCheck</pattern><branchRate>98</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.ReturnBooleanFromTernaryCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ReturnCountExtendedCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.ReturnNullInsteadOfBooleanCheck</pattern><branchRate>80</branchRate><lineRate>88</lineRate></regex>
               <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>72</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.UnnecessaryParenthesesExtendedCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>

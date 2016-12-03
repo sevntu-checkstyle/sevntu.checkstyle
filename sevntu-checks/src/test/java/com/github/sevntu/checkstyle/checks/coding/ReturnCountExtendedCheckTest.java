@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.MSG_KEY_CTOR;
+import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.MSG_KEY_LAMBDA;
 import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.MSG_KEY_METHOD;
 
 import org.junit.Test;
@@ -30,6 +31,20 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     private final DefaultConfiguration checkConfig = createCheckConfig(ReturnCountExtendedCheck.class);
+
+    @Test
+    public void testNullOnIgnoreMethodsNames() throws Exception {
+        checkConfig.addAttribute("maxReturnCount", "99");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "99");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "99");
+        checkConfig.addAttribute("ignoreEmptyReturns", "true");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "99");
+        checkConfig.addAttribute("ignoreMethodsNames", null);
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
+    }
 
     @Test
     public void testMethodsMaxReturnLiteralsIsOne() throws Exception {
@@ -222,5 +237,40 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckMethods.java"), expected);
+    }
+
+    @Test
+    public void testAnonymousClass() throws Exception {
+        checkConfig.addAttribute("maxReturnCount", "1");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "99");
+        checkConfig.addAttribute("ignoreEmptyReturns", "false");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+
+        final String[] expected = {
+            "14:16: " + getCheckMessage(MSG_KEY_METHOD, "method2", 2, 1),
+            "16:24: " + getCheckMessage(MSG_KEY_METHOD, "method2", 2, 1),
+        };
+
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckAnonymousClasses.java"), expected);
+    }
+
+    @Test
+    public void testLambda() throws Exception {
+        checkConfig.addAttribute("maxReturnCount", "1");
+        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
+        checkConfig.addAttribute("minIgnoreReturnDepth", "99");
+        checkConfig.addAttribute("ignoreEmptyReturns", "false");
+        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+
+        final String[] expected = {
+            "12:55: " + getCheckMessage(MSG_KEY_LAMBDA, 2, 1),
+            "24:49: " + getCheckMessage(MSG_KEY_LAMBDA, 2, 1),
+            "31:42: " + getCheckMessage(MSG_KEY_LAMBDA, 3, 1),
+            "38:9: " + getCheckMessage(MSG_KEY_METHOD, "methodWithTwoReturnWithLambdas", 2, 1),
+            "46:57: " + getCheckMessage(MSG_KEY_LAMBDA, 2, 1),
+        };
+
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckLambdas.java"), expected);
     }
 }
