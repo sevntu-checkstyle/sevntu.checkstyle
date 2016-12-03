@@ -431,6 +431,7 @@
 
       <message-key key="return.count.extended.method"/>
       <message-key key="return.count.extended.ctor"/>
+      <message-key key="return.count.extended.lambda"/>
     </rule-metadata>
 
     <rule-metadata name="%UnnecessaryParenthesesExtendedCheck.name" internal-name="UnnecessaryParenthesesExtendedCheck" parent="TreeWalker">
