@@ -154,13 +154,13 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
      * Used to allow calls to no-arguments super constructor from derived class.
      * By default check will log this case.
      */
-    private boolean mAllowCallToNoArgsSuperCtor;
+    private boolean allowCallToNoArgsSuperCtor;
 
     /**
      * Used to allow calls to no-arguments super constructor from derived class
      * if it has multiple public constructors.
      */
-    private boolean mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor;
+    private boolean allowCallToNoArgsSuperCtorIfMultiplePublicCtor;
 
     /**
      * Sets flag to allowCallToNoArgsSuperCtor.
@@ -168,7 +168,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
      *        if true, check will allow super() calls without arguments
      */
     public void setAllowCallToNoArgsSuperCtor(boolean aAllowCallToNoArgsSuperCtor) {
-        mAllowCallToNoArgsSuperCtor = aAllowCallToNoArgsSuperCtor;
+        allowCallToNoArgsSuperCtor = aAllowCallToNoArgsSuperCtor;
     }
 
     /**
@@ -178,7 +178,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
      *        has multiple public constructors
      */
     public void setAllowCallToNoArgsSuperCtorIfMultiplePublicCtor(boolean aAllowCall) {
-        mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor = aAllowCall;
+        allowCallToNoArgsSuperCtorIfMultiplePublicCtor = aAllowCall;
     }
 
     @Override
@@ -195,8 +195,8 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
             final String className = getClassName(classDefNode);
 
             if (isClassDerived(classDefNode)) {
-                if (!mAllowCallToNoArgsSuperCtor) {
-                    if (!mAllowCallToNoArgsSuperCtorIfMultiplePublicCtor
+                if (!allowCallToNoArgsSuperCtor) {
+                    if (!allowCallToNoArgsSuperCtorIfMultiplePublicCtor
                             || getClassPublicCtorCount(classDefNode) <= 1) {
                         log(aSuperCallNode, MSG_WITHOUT_ARGS, className);
                     }
