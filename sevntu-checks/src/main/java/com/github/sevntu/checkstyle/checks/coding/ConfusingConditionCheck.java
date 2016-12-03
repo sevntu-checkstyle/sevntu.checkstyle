@@ -48,7 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * and swapped code in "if" and "else" block:
  * </p>
  * <pre>
- *  if (a == b &amp;&amp; c == d)
+ *  if (a == b || c == d)
  *      {
  *          smth2();
  *      }
@@ -246,22 +246,50 @@ public class ConfusingConditionCheck extends AbstractCheck {
      * @return linesOfCodeInIfBlock line of code in block.
      */
     private static int getAmounOfCodeRowsInBlock(DetailAST detailAST) {
+        final DetailAST firstBrace = getFirstBrace(detailAST);
+        int linesOfCodeInIfBlock;
+
+        if (firstBrace == null) {
+            linesOfCodeInIfBlock = 0;
+        }
+        else {
+            final DetailAST lastBrace = firstBrace.getLastChild();
+            linesOfCodeInIfBlock = lastBrace.getLineNo()
+                    - firstBrace.getLineNo();
+            // If the closing brace on a separate line - ignore this line.
+            if (lastBrace.getLineNo() != lastBrace.getParent().getLineNo()) {
+                linesOfCodeInIfBlock -= 1;
+            }
+        }
+
+        return linesOfCodeInIfBlock;
+    }
+
+    /**
+     * Retrieves the first, opening brace of an {@code if} or {@code else} statement.
+     * @param detailAST The token to examine.
+     * @return The opening brace token or {@code null} if it doesn't exist.
+     */
+    private static DetailAST getFirstBrace(DetailAST detailAST) {
         DetailAST firstBrace = null;
+
         if (detailAST.getType() == TokenTypes.LITERAL_ELSE) {
             firstBrace = detailAST.getFirstChild();
+
+            if (firstBrace.getType() == TokenTypes.LITERAL_IF) {
+                firstBrace = getFirstBrace(firstBrace);
+            }
         }
         else {
             firstBrace = detailAST.getFirstChild().getNextSibling()
                     .getNextSibling().getNextSibling();
         }
-        final DetailAST lastBrace = firstBrace.getLastChild();
-        int linesOfCodeInIfBlock = lastBrace.getLineNo()
-                - firstBrace.getLineNo();
-        // If the closing brace on a separate line - ignore this line.
-        if (lastBrace.getLineNo() != lastBrace.getParent().getLineNo()) {
-            linesOfCodeInIfBlock -= 1;
+
+        if (firstBrace != null && firstBrace.getType() != TokenTypes.SLIST) {
+            firstBrace = null;
         }
-        return linesOfCodeInIfBlock;
+
+        return firstBrace;
     }
 
     /**

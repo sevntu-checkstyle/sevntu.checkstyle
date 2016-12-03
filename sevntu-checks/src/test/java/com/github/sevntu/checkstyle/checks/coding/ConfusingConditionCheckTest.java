@@ -37,12 +37,6 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
 
-        checkConfig.addAttribute("ignoreInnerIf", "true");
-        checkConfig.addAttribute("ignoreNullCaseInIf", "true");
-        checkConfig.addAttribute("ignoreSequentialIf", "true");
-        checkConfig.addAttribute("ignoreThrowInElse", "true");
-        checkConfig.addAttribute("multiplyFactorForElseBlocks", "4");
-
         final String[] expected = {
             "10: " + warningMessage,
             "13: " + warningMessage,
@@ -59,6 +53,8 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
             "200: " + warningMessage,
             "215: " + warningMessage,
             "231: " + warningMessage,
+            "250: " + warningMessage,
+            "259: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
@@ -99,6 +95,10 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
             "215: " + warningMessage,
             "227: " + warningMessage,
             "231: " + warningMessage,
+            "247: " + warningMessage,
+            "250: " + warningMessage,
+            "257: " + warningMessage,
+            "259: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
@@ -121,9 +121,20 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
             "108: " + warningMessage,
             "111: " + warningMessage,
             "177: " + warningMessage,
+            "259: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
+                expected);
+    }
+
+    @Test
+    public void testExceptions() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputConfusingConditionCheck2.java"),
                 expected);
     }
 }
