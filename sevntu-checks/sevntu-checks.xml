@@ -5,6 +5,9 @@
 
   <!-- Filters -->
   <module name="SuppressionCommentFilter"/>
+  <module name="SuppressionFilter">
+    <property name="file" value="sevntu-suppressions.xml"/>
+  </module>
 
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
@@ -90,7 +93,6 @@
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseException"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtended">
-      <property name="severity" value="warning"/>
       <property name="allowThrow" value="true"/>
       <property name="allowRethrow" value="false"/>
     </module>
