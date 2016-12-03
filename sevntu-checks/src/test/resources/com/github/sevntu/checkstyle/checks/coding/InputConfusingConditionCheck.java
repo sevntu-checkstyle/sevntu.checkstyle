@@ -242,7 +242,24 @@ public class InputConfusingConditionCheck
         }
         else {
             a = true;
-        }       
+        }
+        
+        if (!a) {
+            //
+        }
+        else if (!b) {
+            a = true;
+        }
+        else {
+            //
+        }
+        
+        if (!a) 
+            ;
+        else if (!b) 
+            ;
+        else 
+            ;
         
     }
 }
