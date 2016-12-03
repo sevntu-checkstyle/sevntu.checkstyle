@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE checkstyle-packages PUBLIC
+    "-//Puppy Crawl//DTD Package Names 1.0//EN"
+    "http://www.puppycrawl.com/dtds/packages_1_0.dtd">
+
+<checkstyle-packages>
+  <package name="com.github.sevntu.checkstyle">
+    <package name="checks">
+      <package name="annotation"/>
+      <package name="coding"/>
+      <package name="design"/>
+      <package name="naming"/>
+      <package name="sizes"/>
+    </package>
+  </package>
+</checkstyle-packages>
