@@ -207,8 +207,8 @@
     <module name="com.github.sevntu.checkstyle.checks.sizes.LineLengthExtended">
       <property name="severity" value="warning"/>
       <property name="ignorePattern" value="^$"/>
-      <property name="max" value="80"/>
-      <property name="tabWidth" value="8"/>
+      <property name="max" value="100"/>
+      <property name="tabWidth" value="4"/>
       <property name="ignoreClass" value="false"/>
       <property name="ignoreConstructor" value="false"/>
       <property name="ignoreField" value="false"/>
