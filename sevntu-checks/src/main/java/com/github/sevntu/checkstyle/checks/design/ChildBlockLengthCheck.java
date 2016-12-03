@@ -124,6 +124,8 @@ public class ChildBlockLengthCheck extends AbstractCheck {
         this.ignoreBlockLinesCount = ignoreBlockLinesCount;
     }
 
+    // -@cs[SimpleAccessorNameNotation] Overrides method from the base class.
+    // Issue: https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/166
     @Override
     public int[] getDefaultTokens() {
         return blockTypes;
