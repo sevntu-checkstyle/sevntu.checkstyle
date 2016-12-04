@@ -98,7 +98,7 @@ public class EnumTrailingCommaAndSemicolonCheck extends AbstractCheck {
 
     @Override
     public int[] getAcceptableTokens() {
-        return new int[]{TokenTypes.ENUM_DEF};
+        return new int[] {TokenTypes.ENUM_DEF};
     }
 
     @Override
