@@ -1,24 +1,6 @@
 language: java
 sudo: false
 
-jdk:
-  - oraclejdk8
-
-before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
-      && cd eclipse-cs-git/ && git checkout 7.2.0
-      && cd net.sf.eclipsecs.parent/ && mvn install
-      && cd ../../
-
-install: cd sevntu-checks && mvn clean install && mvn javadoc:javadoc
-      && cd ../eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checks && mvn jacoco:report coveralls:jacoco
-      && cd ../sevntu-checks && mvn verify -Pselftesting
-
-after_success:
-
 cache:
   directories:
   - ~/.m2
@@ -27,5 +9,90 @@ branches:
   only:
     - master
 
+install:
+  -
+
 matrix:
   fast_finish: true
+  include:
+    # eclipse-cs
+    - jdk: oraclejdk8
+      env:
+        - DESC="eclipse-cs"
+        - CMD0="git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git"
+        - CMD1="&& cd eclipse-cs-git/ && git checkout 7.2.0"
+        - CMD2="&& cd net.sf.eclipsecs.parent/ && mvn install"
+        - CMD3="&& cd ../../"
+        - CMD4="&& cd eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc"
+        - CMD=$CMD0$CMD1$CMD2$CMD3$CMD4
+        - PREINSTALL="true"
+
+    # maven-plugin
+    - jdk: oraclejdk8
+      env:
+        - DESC="maven-plugin"
+        - CMD="cd sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc"
+        - PREINSTALL="true"
+
+    # idea-extension
+    - jdk: oraclejdk8
+      env:
+        - DESC="idea-extension"
+        - CMD="cd sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc"
+        - PREINSTALL="true"
+
+    # sonar-plugin
+    - jdk: oraclejdk8
+      env:
+        - DESC="sonar-plugin"
+        - CMD="cd sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc"
+        - PREINSTALL="true"
+
+    # checks
+    - jdk: oraclejdk8
+      env:
+        - DESC="checks"
+        - CMD0="cd sevntu-checks && mvn install"
+        - CMD1="&& mvn verify -Pselftesting"
+        - CMD2="&& mvn javadoc:javadoc"
+        - CMD3="&& mvn jacoco:report coveralls:jacoco"
+        - CMD=$CMD0$CMD1$CMD2$CMD3
+
+    # testing of PR format
+    - env:
+        - DESC="test Issue ref in PR description"
+        - CMD_="set -e"
+        - CMD0=" && if [[ ! $TRAVIS_PULL_REQUEST =~ ^([0-9]*)$ ]]; then exit 0; fi "
+        - CMD1=" && LINK_COMMITS=https://api.github.com/repos/checkstyle/checkstyle/pulls/$TRAVIS_PULL_REQUEST/commits "
+        - CMD2=" && COMMITS=\$(curl -s -H 'Authorization: token $GITHUB_AUTH_TOKEN' \$LINK_COMMITS | jq '.[0] | .commit.message') "
+        - CMD3=" && echo 'Messages from github:'\${COMMITS:0:60}... "
+        - CMD4=" && ISSUE_NUMBER=\$( echo \$COMMITS | sed -e 's/^.*Issue //' | sed -e 's/:.*//') "
+        - CMD5=" && echo 'Issue number:'\$ISSUE_NUMBER && RESULT=0"
+        - CMD6=" && if [[ \$ISSUE_NUMBER =~ ^#[0-9]+$ ]]; then "
+        - CMD7="      LINK_PR=https://api.github.com/repos/checkstyle/checkstyle/pulls/$TRAVIS_PULL_REQUEST  "
+        - CMD8="      && LINK_ISSUE=https://api.github.com/repos/checkstyle/checkstyle/issues/\${ISSUE_NUMBER:1} "
+        - CMD9="      && REGEXP=(\$ISSUE_NUMBER\|https://github.com/checkstyle/checkstyle/issues/\${ISSUE_NUMBER:1})"
+        - CMD10="     && PR_DESC=\$(curl -s -H 'Authorization: token $GITHUB_AUTH_TOKEN' \$LINK_PR | jq '.body' | grep -E \$REGEXP | cat ) "
+        - CMD11="     && echo 'PR Description grepped:'\${PR_DESC:0:80}  "
+        - CMD12="     && if [[ -z \$PR_DESC ]]; then "
+        - CMD13="          echo 'Please put a reference of Issue to PR description, this will bind Issue and PR in Github' && RESULT=1; "
+        - CMD14="        fi "
+        - CMD15="     && LABEL_APRV=\$(curl -s -H 'Authorization: token $GITHUB_AUTH_TOKEN' \$LINK_ISSUE | jq '.labels [] | .name' | grep approved | cat | wc -l ) "
+        - CMD16="     && if [[ \$LABEL_APRV == 0 ]]; then "
+        - CMD17="          echo 'You provide PR to Issue that is not approved yes, please ask admins to approve your issue first' && RESULT=1; "
+        - CMD18="        fi "
+        - CMD19="   fi "
+        - CMD20=" && if [[ \$RESULT == 0 ]]; then "
+        - CMD21="       echo 'PR validation succeed.'; "
+        - CMD22="   else "
+        - CMD23="       echo 'PR validation failed.' && false; "
+        - CMD24="   fi "
+        - CMD=$CMD_$CMD0$CMD1$CMD2$CMD3$CMD4$CMD5$CMD6$CMD7$CMD8$CMD9$CMD10$CMD11$CMD12$CMD13$CMD14$CMD15
+        - CMD=$CMD$CMD16$CMD17$CMD18$CMD19$CMD20$CMD21$CMD22$CMD23$CMD24
+
+
+script:
+  - if [[ $PREINSTALL == 'true' ]]; then cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. ; fi
+  - eval $CMD
+
+after_success:
