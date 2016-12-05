@@ -35,8 +35,31 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ForbidAnnotationTest extends BaseCheckTestSupport {
 
     @Test
+    public void testDefaultCheck() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+
+        final String[] expected1 = {};
+
+        verify(checkConfig, getPath("InputForbidAnnotation2.java"), expected1);
+    }
+
+    @Test
+    public void testNullProperties() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+
+        checkConfig.addAttribute("annotationNames", null);
+        checkConfig.addAttribute("annotationTargets", null);
+
+        final String[] expected1 = {};
+
+        verify(checkConfig, getPath("InputForbidAnnotation2.java"), expected1);
+    }
+
+    @Test
     public void testFullAnnotationName() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+
+        checkConfig.addAttribute("annotationNames", "Test");
 
         final String[] expected1 = {};
 

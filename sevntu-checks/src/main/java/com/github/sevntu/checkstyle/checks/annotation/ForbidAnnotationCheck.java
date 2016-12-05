@@ -130,8 +130,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
      * @return boolean
      */
     private boolean isRequiredAnnotationName(String annotationName) {
-        return annotationName != null
-                && annotationNames.contains(annotationName);
+        return annotationNames.contains(annotationName);
     }
 
     /**
