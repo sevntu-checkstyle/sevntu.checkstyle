@@ -188,7 +188,6 @@
               <regex><pattern>.*.checks.design.PublicReferenceToPrivateTypeCheck</pattern><branchRate>97</branchRate><lineRate>90</lineRate></regex>
               <regex><pattern>.*.checks.naming.EnumValueNameCheck</pattern><branchRate>86</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.sizes.LineLengthExtendedCheck</pattern><branchRate>100</branchRate><lineRate>6</lineRate></regex>
-              <regex><pattern>com.github.sevntu.checkstyle.Utils</pattern><branchRate>0</branchRate><lineRate>0</lineRate></regex>
             </regexes>
           </check>
         </configuration>
