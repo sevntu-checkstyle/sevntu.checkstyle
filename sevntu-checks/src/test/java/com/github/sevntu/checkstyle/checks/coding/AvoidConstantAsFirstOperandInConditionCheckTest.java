@@ -76,4 +76,44 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"), expected);
 
     }
+
+    @Test
+    public void testNullProperties() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+
+        checkConfig.addAttribute("targetConstantTypes", null);
+
+        final String[] expected = {
+            "24: " + getCheckMessage(MSG_KEY, "=="),
+            "25: " + getCheckMessage(MSG_KEY, "=="),
+            "27: " + getCheckMessage(MSG_KEY, "=="),
+            "28: " + getCheckMessage(MSG_KEY, "=="),
+            "29: " + getCheckMessage(MSG_KEY, "=="),
+            "30: " + getCheckMessage(MSG_KEY, "=="),
+            "31: " + getCheckMessage(MSG_KEY, "=="),
+            "46: " + getCheckMessage(MSG_KEY, "=="),
+            "47: " + getCheckMessage(MSG_KEY, "!="),
+            "52: " + getCheckMessage(MSG_KEY, "=="),
+            "53: " + getCheckMessage(MSG_KEY, "!="),
+            "58: " + getCheckMessage(MSG_KEY, "=="),
+            "59: " + getCheckMessage(MSG_KEY, "!="),
+            "67: " + getCheckMessage(MSG_KEY, "=="),
+            "71: " + getCheckMessage(MSG_KEY, "=="),
+            "72: " + getCheckMessage(MSG_KEY, "=="),
+            "73: " + getCheckMessage(MSG_KEY, "=="),
+            "74: " + getCheckMessage(MSG_KEY, "=="),
+            "76: " + getCheckMessage(MSG_KEY, "=="),
+            "77: " + getCheckMessage(MSG_KEY, "=="),
+            "78: " + getCheckMessage(MSG_KEY, "=="),
+            "84: " + getCheckMessage(MSG_KEY, "=="),
+            "85: " + getCheckMessage(MSG_KEY, "=="),
+            "86: " + getCheckMessage(MSG_KEY, "=="),
+            "97: " + getCheckMessage(MSG_KEY, "=="),
+            "101: " + getCheckMessage(MSG_KEY, "=="),
+            "111: " + getCheckMessage(MSG_KEY, "=="),
+            "112: " + getCheckMessage(MSG_KEY, "=="),
+        };
+
+        verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"), expected);
+    }
 }
