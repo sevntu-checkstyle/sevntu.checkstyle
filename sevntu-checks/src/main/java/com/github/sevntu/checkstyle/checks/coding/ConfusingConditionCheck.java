@@ -250,7 +250,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
         if (detailAST.getType() == TokenTypes.LITERAL_ELSE) {
             firstBrace = detailAST.getFirstChild();
         }
-        else if (detailAST.getType() == TokenTypes.LITERAL_IF) {
+        else {
             firstBrace = detailAST.getFirstChild().getNextSibling()
                     .getNextSibling().getNextSibling();
         }
