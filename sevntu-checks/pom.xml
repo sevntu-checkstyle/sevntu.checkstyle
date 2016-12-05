@@ -157,7 +157,6 @@
             <regexes>
               <regex><pattern>.*.checks.annotation.ForbidAnnotationCheck</pattern><branchRate>70</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</pattern><branchRate>87</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ConfusingConditionCheck</pattern><branchRate>82</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.CustomDeclarationOrderCheck.*</pattern><branchRate>81</branchRate><lineRate>83</lineRate></regex>
               <regex><pattern>.*.checks.coding.DiamondOperatorForVariableDefinitionCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.EitherLogOrThrowCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
