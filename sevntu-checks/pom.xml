@@ -160,7 +160,6 @@
               <regex><pattern>.*.checks.coding.EitherLogOrThrowCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
               <regex><pattern>.*.checks.coding.EmptyPublicCtorInClassCheck</pattern><branchRate>89</branchRate><lineRate>95</lineRate></regex>
               <regex><pattern>.*.checks.coding.ForbidCertainImportsCheck</pattern><branchRate>61</branchRate><lineRate>84</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ForbidInstantiationCheck</pattern><branchRate>94</branchRate><lineRate>91</lineRate></regex>
               <regex><pattern>.*.checks.coding.ForbidThrowAnonymousExceptionsCheck</pattern><branchRate>81</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.IllegalCatchExtendedCheck</pattern><branchRate>88</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.MapIterationInForEachLoopCheck</pattern><branchRate>90</branchRate><lineRate>98</lineRate></regex>

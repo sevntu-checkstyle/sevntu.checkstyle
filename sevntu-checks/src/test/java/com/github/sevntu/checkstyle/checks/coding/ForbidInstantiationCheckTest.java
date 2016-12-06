@@ -21,10 +21,13 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck.MSG_KEY;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
@@ -32,6 +35,15 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  */
 public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
     private final DefaultConfiguration checkConfig = createCheckConfig(ForbidInstantiationCheck.class);
+
+    @Test
+    public void testNullProperties() throws Exception {
+        checkConfig.addAttribute("forbiddenClasses", null);
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputForbidInstantiationCheck.java"), expected);
+    }
 
     @Test
     public void testNullPointerException() throws Exception {
@@ -97,5 +109,21 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithAsterisk.java"), expected);
+    }
+
+    @Test
+    public void testUnsupportedNode() {
+        final DetailAST sync = new DetailAST();
+        sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
+
+        try {
+            final ForbidInstantiationCheck check = new ForbidInstantiationCheck();
+            check.visitToken(sync);
+
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
     }
 }
