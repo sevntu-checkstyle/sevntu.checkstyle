@@ -180,7 +180,6 @@
               <regex><pattern>.*.checks.design.NoMainMethodInAbstractClassCheck</pattern><branchRate>92</branchRate><lineRate>98</lineRate></regex>
               <regex><pattern>.*.checks.design.PublicReferenceToPrivateTypeCheck</pattern><branchRate>97</branchRate><lineRate>90</lineRate></regex>
               <regex><pattern>.*.checks.naming.EnumValueNameCheck</pattern><branchRate>86</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.sizes.LineLengthExtendedCheck</pattern><branchRate>100</branchRate><lineRate>6</lineRate></regex>
             </regexes>
           </check>
         </configuration>
