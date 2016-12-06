@@ -119,6 +119,10 @@ public class InputUnnecessaryParenthesesUbv {
 			return (flag != b);
 		}
 	}
+    void f8() {
+        for (int i = 1; ((i) == (6+6)); i += 1) {
+        }
+    }
     
     
     

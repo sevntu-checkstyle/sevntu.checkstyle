@@ -19,7 +19,6 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import antlr.collections.AST;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -271,8 +270,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         final DetailAST next = ast.getNextSibling();
 
         return (prev != null) && (next != null)
-            && (prev.getType() == TokenTypes.LPAREN)
-            && (next.getType() == TokenTypes.RPAREN);
+            && (prev.getType() == TokenTypes.LPAREN);
     }
 
     /**
@@ -285,15 +283,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      *         equal to <code>TokenTypes.EXPR</code>.
      */
     private static boolean exprSurrounded(DetailAST ast) {
-        boolean surrounded = false;
-        if (ast.getChildCount() >= MIN_CHILDREN_FOR_MATCH) {
-            final AST n1 = ast.getFirstChild();
-            final AST nn = ast.getLastChild();
-
-            surrounded = (n1.getType() == TokenTypes.LPAREN)
-                && (nn.getType() == TokenTypes.RPAREN);
-        }
-        return surrounded;
+        return ast.getChildCount() >= MIN_CHILDREN_FOR_MATCH;
     }
 
     /**
