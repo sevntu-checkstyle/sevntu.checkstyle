@@ -21,12 +21,14 @@ package com.github.sevntu.checkstyle.checks.sizes;
 
 import static com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck.MSG_KEY;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
-public class LineLengthCheckTest extends BaseCheckTestSupport {
+public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
     @Test
     public void testSimple()
             throws Exception {
@@ -71,5 +73,24 @@ public class LineLengthCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("ignoreField", "true");
         checkConfig.addAttribute("ignoreMethod", "true");
         verify(checkConfig, getPath("InputSimple.java"), expected);
+    }
+
+    @Test
+    public void testProperty() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(LineLengthExtendedCheck.class);
+
+        checkConfig.addAttribute("ignorePattern", "[");
+
+        final String[] expected = {};
+
+        try {
+            verify(checkConfig, getPath("InputSimple.java"), expected);
+        }
+        catch (CheckstyleException ex) {
+            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
+                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
+                    + "Cannot set property 'ignorePattern' to '[' in module "));
+        }
     }
 }
