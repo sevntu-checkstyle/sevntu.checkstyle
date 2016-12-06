@@ -82,3 +82,23 @@ class PublicFinalizer1 {
       }
   }
 }
+
+class TestNoFinal {
+    public static void doStuff()
+    {
+    }
+    protected void finalize() throws Throwable
+    {
+        try {
+            doStuff(); 
+        }
+        catch(Exception e) {
+        }
+    }
+}
+
+interface TestNotFinalize {
+    int finalize() throws Throwable;
+    void finalize(int n) throws Throwable;
+    void someOtherMethod();
+}
