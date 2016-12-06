@@ -156,6 +156,7 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
             "82:27: " + getCheckMessage(MSG_KEY_ASSIGN),
             "96:19: " + getCheckMessage(MSG_KEY_ASSIGN),
             "100:24: " + getCheckMessage(MSG_KEY_EXPR),
+            "123:27: " + getCheckMessage(MSG_KEY_IDENT, "i"),
         };
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");

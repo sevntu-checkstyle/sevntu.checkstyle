@@ -172,7 +172,6 @@
               <regex><pattern>.*.checks.coding.ReturnBooleanFromTernaryCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.ReturnNullInsteadOfBooleanCheck</pattern><branchRate>80</branchRate><lineRate>88</lineRate></regex>
               <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>72</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.UnnecessaryParenthesesExtendedCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.design.AvoidConditionInversionCheck</pattern><branchRate>97</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.design.CauseParameterInExceptionCheck</pattern><branchRate>96</branchRate><lineRate>98</lineRate></regex>
               <regex><pattern>.*.checks.design.ChildBlockLengthCheck</pattern><branchRate>89</branchRate><lineRate>100</lineRate></regex>
