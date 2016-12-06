@@ -179,7 +179,7 @@
       <property name="skippedMethods" value="readObject, writeObject, readObjectNoData, readResolve, writeReplace"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParams">
-      <property name="classNameFormat" value=".*Exception"/>
+      <property name="classNameFormat" value=".*Exception$"/>
       <property name="ignoredClassNameFormat" value="UnsupportedOperationException"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.InnerClass"/>
