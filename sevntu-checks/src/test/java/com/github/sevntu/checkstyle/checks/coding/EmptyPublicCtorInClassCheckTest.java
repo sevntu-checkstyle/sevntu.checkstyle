@@ -21,10 +21,13 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck.MSG_KEY;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     private final String message = getCheckMessage(MSG_KEY);
@@ -120,5 +123,51 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
 
         verify(config, getPath("InputEmptyPublicCtorInClass10.java"), expected);
+    }
+
+    @Test
+    public void testNullProperties1() throws Exception {
+        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+
+        config.addAttribute("classAnnotationNames", null);
+        config.addAttribute("ctorAnnotationNames", null);
+
+        final String[] expected = {
+            "5:5: " + message,
+            "14:9: " + message,
+        };
+
+        verify(config, getPath("InputEmptyPublicCtorInClass5.java"), expected);
+    }
+
+    @Test
+    public void testNullProperties2() throws Exception {
+        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+
+        config.addAttribute("classAnnotationNames", "");
+        config.addAttribute("ctorAnnotationNames", "");
+
+        final String[] expected = {
+            "5:5: " + message,
+            "14:9: " + message,
+        };
+
+        verify(config, getPath("InputEmptyPublicCtorInClass5.java"), expected);
+    }
+
+    @Test
+    public void testUnsupportedNode() {
+        final DetailAST sync = new DetailAST();
+        sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
+
+        try {
+            final EmptyPublicCtorInClassCheck check = new EmptyPublicCtorInClassCheck();
+            check.visitToken(sync);
+
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
     }
 }
