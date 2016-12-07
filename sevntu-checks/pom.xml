@@ -156,7 +156,6 @@
             <totalLineRate>96</totalLineRate>
             <regexes>
               <regex><pattern>.*.checks.coding.CustomDeclarationOrderCheck.*</pattern><branchRate>81</branchRate><lineRate>83</lineRate></regex>
-              <regex><pattern>.*.checks.coding.DiamondOperatorForVariableDefinitionCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.EitherLogOrThrowCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
               <regex><pattern>.*.checks.coding.EmptyPublicCtorInClassCheck</pattern><branchRate>89</branchRate><lineRate>95</lineRate></regex>
               <regex><pattern>.*.checks.coding.ForbidCertainImportsCheck</pattern><branchRate>61</branchRate><lineRate>84</lineRate></regex>

@@ -96,12 +96,10 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
             if (resultNode.getType() == TokenTypes.DOT) {
                 resultNode = resultNode.getFirstChild().getNextSibling();
             }
-            if (resultNode.getType() != TokenTypes.TYPE_ARGUMENTS) {
-                final DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
+            final DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
 
-                if (childNode == null) {
-                    resultNode = resultNode.getNextSibling();
-                }
+            if (childNode == null) {
+                resultNode = resultNode.getNextSibling();
             }
         }
 
