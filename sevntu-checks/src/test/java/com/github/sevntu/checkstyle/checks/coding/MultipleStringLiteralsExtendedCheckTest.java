@@ -113,4 +113,31 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
         verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
     }
 
+    @Test
+    public void testNullProperty() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+        checkConfig.addAttribute("ignoreStringsRegexp", null);
+
+        final String[] expected = {
+            "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
+            "7:17: " + getCheckMessage(MSG_KEY, "\"DoubleString\"", 2),
+            "8:17: " + getCheckMessage(MSG_KEY, "\"\"", 4),
+            "10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
+        };
+
+        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+    }
+
+    @Test
+    public void testIgnoreOccurrenceContextProperty() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+        checkConfig.addAttribute("ignoreOccurrenceContext", "EXPR, PLUS");
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+    }
+
 }

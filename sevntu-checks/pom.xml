@@ -160,7 +160,6 @@
               <regex><pattern>.*.checks.coding.ForbidCertainImportsCheck</pattern><branchRate>61</branchRate><lineRate>84</lineRate></regex>
               <regex><pattern>.*.checks.coding.ForbidThrowAnonymousExceptionsCheck</pattern><branchRate>81</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.MapIterationInForEachLoopCheck</pattern><branchRate>90</branchRate><lineRate>98</lineRate></regex>
-              <regex><pattern>.*.checks.coding.MultipleStringLiteralsExtendedCheck</pattern><branchRate>92</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.MultipleVariableDeclarationsExtendedCheck</pattern><branchRate>95</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.NameConventionForJunit4TestClassesCheck</pattern><branchRate>86</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
