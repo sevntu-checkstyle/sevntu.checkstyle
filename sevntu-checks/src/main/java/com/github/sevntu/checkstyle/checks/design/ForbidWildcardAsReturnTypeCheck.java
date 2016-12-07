@@ -266,11 +266,8 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return identifier of aAST, null if AST does not have identifier.
      */
     private static String getIdentifier(final DetailAST ast) {
-        String result = null;
         final DetailAST identifier = ast.findFirstToken(TokenTypes.IDENT);
-        if (identifier != null) {
-            result = identifier.getText();
-        }
+        final String result = identifier.getText();
         return result;
     }
 
