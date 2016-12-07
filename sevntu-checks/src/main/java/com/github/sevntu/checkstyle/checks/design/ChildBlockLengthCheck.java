@@ -186,16 +186,9 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
         DetailAST curNode = blockOpeningBrace;
 
-        while (curNode != null) {
-            // before node visiting
-            if (curNode == blockClosingBrace) {
-                // stop at closing brace
-                break;
-            }
-            else {
-                if (isAllowedBlockType(curNode.getType())) {
-                    childBlocks.add(curNode);
-                }
+        while (curNode != blockClosingBrace) {
+            if (isAllowedBlockType(curNode.getType())) {
+                childBlocks.add(curNode);
             }
             // before node leaving
             DetailAST nextNode = curNode.getFirstChild();
@@ -207,7 +200,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
                 nextNode = curNode.getNextSibling();
             }
 
-            while ((curNode != null) && (nextNode == null)) {
+            while (nextNode == null) {
                 // leave the visited node
                 nextNode = curNode.getNextSibling();
                 if (nextNode == null) {

@@ -49,4 +49,13 @@ public class InputChildBlockLengthCheckDoubleNested {
       }
     }
   }
+
+  public void inClass(int type) {
+    switch (type) {
+    case 3:
+      new Object() {
+        public void anonymousMethod() {}
+      };
+    }
+  }
 }
