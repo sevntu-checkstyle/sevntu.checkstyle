@@ -107,10 +107,7 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
         // For warnings disable first lvl child must be an EXPR and
         // second lvl child must be IDENT or LITERAL_NEW with
         // appropriate boolean flags.
-        final boolean noWarning = throwAST != null
-                && firstLvlChild != null
-                && secondLvlChild != null
-             && firstLvlChild.getType() == TokenTypes.EXPR
+        final boolean noWarning = secondLvlChild != null
              && ((allowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
              || (allowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW));
 
