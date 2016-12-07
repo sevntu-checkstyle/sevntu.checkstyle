@@ -42,6 +42,17 @@ public class InputChildBlockLengthCheckManyBlocksOnOneScope {
 
     }
 
+    public void test() {
+        int number;
+
+        if (isTrue()) {
+            if (isTrue())
+                number = 3;
+            else
+                number = 3;
+        }
+    }
+
     public static boolean isTrue() {
         return Boolean.TRUE;
     }
