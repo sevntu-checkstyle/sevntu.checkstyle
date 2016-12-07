@@ -165,7 +165,6 @@
               <regex><pattern>.*.checks.coding.NameConventionForJunit4TestClassesCheck</pattern><branchRate>86</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ReturnBooleanFromTernaryCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>72</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.design.ChildBlockLengthCheck</pattern><branchRate>89</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>94</branchRate><lineRate>100</lineRate></regex>
