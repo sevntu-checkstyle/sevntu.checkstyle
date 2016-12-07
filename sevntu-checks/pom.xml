@@ -170,7 +170,6 @@
               <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>72</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.design.ChildBlockLengthCheck</pattern><branchRate>89</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>94</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.design.InnerClassCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.naming.EnumValueNameCheck</pattern><branchRate>86</branchRate><lineRate>100</lineRate></regex>
             </regexes>
           </check>
