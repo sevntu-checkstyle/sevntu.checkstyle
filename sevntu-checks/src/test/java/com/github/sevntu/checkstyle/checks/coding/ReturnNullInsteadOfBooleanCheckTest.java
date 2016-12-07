@@ -21,10 +21,13 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck.MSG_KEY;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ReturnNullInsteadOfBooleanCheckTest extends BaseCheckTestSupport {
 
@@ -39,5 +42,37 @@ public class ReturnNullInsteadOfBooleanCheckTest extends BaseCheckTestSupport {
             "22:25: " + warningMessage,
         };
         verify(checkConfig, getPath("InputReturnNullInsteadOfBoolean.java"), expected);
+    }
+
+    @Test
+    public void testUnsupportedNodeVisit() {
+        final DetailAST sync = new DetailAST();
+        sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
+
+        try {
+            final ReturnNullInsteadOfBooleanCheck check = new ReturnNullInsteadOfBooleanCheck();
+            check.visitToken(sync);
+
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnsupportedNodeLeave() {
+        final DetailAST sync = new DetailAST();
+        sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
+
+        try {
+            final ReturnNullInsteadOfBooleanCheck check = new ReturnNullInsteadOfBooleanCheck();
+            check.leaveToken(sync);
+
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
     }
 }
