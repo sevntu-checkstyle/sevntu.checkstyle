@@ -19,8 +19,16 @@
 
 package com.github.sevntu.checkstyle.internal;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.junit.Assert;
@@ -38,6 +46,86 @@ public class AllChecksTest {
                     "%s is not referenced in sevntu-checks.xml", check);
                 Assert.fail(errorMessage);
             });
+    }
+
+    @Test
+    public void testAllCheckstyleModulesHaveMessage() throws Exception {
+        for (Class<?> module : CheckUtil.getCheckstyleChecks()) {
+            Assert.assertFalse(module.getSimpleName()
+                    + " should have atleast one 'MSG_*' field for error messages", CheckUtil
+                    .getCheckMessages(module).isEmpty());
+        }
+    }
+
+    @Test
+    public void testAllCheckstyleMessages() throws Exception {
+        final Map<String, List<String>> usedMessages = new TreeMap<>();
+
+        // test validity of messages from checks
+        for (Class<?> module : CheckUtil.getCheckstyleModules()) {
+            for (Field message : CheckUtil.getCheckMessages(module)) {
+                Assert.assertEquals(module.getSimpleName() + "." + message.getName()
+                        + " should be 'public static final'", Modifier.PUBLIC | Modifier.STATIC
+                        | Modifier.FINAL, message.getModifiers());
+
+                // below is required for package/private classes
+                if (!message.isAccessible()) {
+                    message.setAccessible(true);
+                }
+
+                verifyCheckstyleMessage(usedMessages, module, message);
+            }
+        }
+
+        // test properties for messages not used by checks
+        for (Entry<String, List<String>> entry : usedMessages.entrySet()) {
+            final Properties pr = new Properties();
+            pr.load(AllChecksTest.class.getResourceAsStream(
+                    "/" + entry.getKey().replace('.', '/') + "/messages.properties"));
+
+            for (Object key : pr.keySet()) {
+                Assert.assertTrue("property '" + key + "' isn't used by any check in package '"
+                        + entry.getKey() + "'", entry.getValue().contains(key.toString()));
+            }
+        }
+    }
+
+    private static void verifyCheckstyleMessage(Map<String, List<String>> usedMessages,
+            Class<?> module, Field message) throws Exception {
+        final String messageString = message.get(null).toString();
+        final String packageName = module.getPackage().getName();
+        List<String> packageMessages = usedMessages.get(packageName);
+
+        if (packageMessages == null) {
+            packageMessages = new ArrayList<>();
+            usedMessages.put(packageName, packageMessages);
+        }
+
+        packageMessages.add(messageString);
+
+        String result = null;
+
+        try {
+            result = CheckUtil.getCheckMessage(module, messageString);
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.fail(module.getSimpleName() + " with the message '" + messageString
+                    + "' failed with: "
+                    + ex.getClass().getSimpleName() + " - " + ex.getMessage());
+        }
+
+        Assert.assertNotNull(
+                module.getSimpleName() + " should have text for the message '"
+                        + messageString + "'",
+                result);
+        Assert.assertFalse(
+                module.getSimpleName() + " should have non-empty text for the message '"
+                        + messageString + "'",
+                result.trim().isEmpty());
+        Assert.assertFalse(
+                module.getSimpleName() + " should have non-TODO text for the message '"
+                        + messageString + "'",
+                result.trim().startsWith("TODO"));
     }
 
     /**
