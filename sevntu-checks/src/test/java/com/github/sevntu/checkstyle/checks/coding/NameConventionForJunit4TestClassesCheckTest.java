@@ -135,6 +135,28 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
     }
 
+    @Test
+    public void testNullProperties()
+            throws Exception {
+        final DefaultConfiguration customConfig =
+                buildConfiguration(null, null, null);
+
+        final String[] expected = {};
+
+        verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
+    }
+
+    @Test
+    public void testEmptyProperties()
+            throws Exception {
+        final DefaultConfiguration customConfig =
+                buildConfiguration("", "", "");
+
+        final String[] expected = {};
+
+        verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
+    }
+
     private static DefaultConfiguration buildConfiguration(String expectedNameRegex,
             String classAnnotationNameRegex, String methodAnnotationNameRegex) {
         final DefaultConfiguration config =
