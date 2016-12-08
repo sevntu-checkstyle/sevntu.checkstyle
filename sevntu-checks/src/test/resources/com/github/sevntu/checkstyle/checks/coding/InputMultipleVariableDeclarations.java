@@ -19,5 +19,9 @@ public class InputMultipleVariableDeclarations {
     void method2() {
         for (int i=0, j=0; i < 10; i++, j--) {
         }
+        switch("") {
+        case "6":
+            int k = 7;
+        }
     }
 }

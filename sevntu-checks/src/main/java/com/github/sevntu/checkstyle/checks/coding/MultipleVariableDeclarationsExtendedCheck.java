@@ -139,7 +139,7 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
             work(token);
         }
 
-        else if (!ignoreMethods && !inClass && !inFor) {
+        else if (!ignoreMethods && !inFor) {
             work(token);
         }
 
