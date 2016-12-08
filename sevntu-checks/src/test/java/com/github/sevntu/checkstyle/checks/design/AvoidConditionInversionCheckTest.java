@@ -34,7 +34,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  *
  */
-public class AvoidConditionInversionTest extends BaseCheckTestSupport {
+public class AvoidConditionInversionCheckTest extends BaseCheckTestSupport {
     private final DefaultConfiguration checkConfig =
             createCheckConfig(AvoidConditionInversionCheck.class);
 

@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class MapIterationInForEachLoopTest extends BaseCheckTestSupport {
+public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
 
     /**
      * Default check configuration

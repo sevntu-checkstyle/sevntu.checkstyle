@@ -26,7 +26,7 @@ import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidThrowAnonymousExceptionsTest extends BaseCheckTestSupport {
+public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSupport {
 
     /**
      * Default check configuration

@@ -32,7 +32,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  *
  */
-public class ForbidAnnotationTest extends BaseCheckTestSupport {
+public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testDefaultCheck() throws Exception {
