@@ -21,10 +21,13 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck.MSG_KEY;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
@@ -46,6 +49,17 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
             "9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
             "21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
+
+        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+    }
+
+    @Test
+    public void testNoPackageMatch() throws Exception {
+        checkConfig.addAttribute("packageNameRegexp", ".+\\.BAD\\..+");
+        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+
+        final String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
     }
@@ -86,6 +100,45 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
     }
 
     @Test
+    public void testNullParams() throws Exception {
+        checkConfig.addAttribute("packageNameRegexp", null);
+        checkConfig.addAttribute("forbiddenImportsRegexp", null);
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+    }
+
+    @Test
+    public void testPackageMatchButNullParams() throws Exception {
+        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addAttribute("forbiddenImportsRegexp", null);
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+    }
+
+    @Test
+    public void testPackageForbiddenImportMatchButNullExclude() throws Exception {
+        final String importRegexp = ".+\\.api\\..+";
+
+        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
+
+        final String[] expected = {
+            "3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+            "9: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+            "21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+        };
+
+        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+    }
+
+    @Test
     public void testNoImports() throws Exception {
         checkConfig.addAttribute("packageNameRegexp", "");
         checkConfig.addAttribute("forbiddenImportsRegexp", "");
@@ -94,5 +147,37 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+    }
+
+    @Test
+    public void testSinglePackage() throws Exception {
+        final String importRegexp = ".+\\.api\\..+";
+
+        checkConfig.addAttribute("packageNameRegexp", "sevntu");
+        checkConfig.addAttribute("forbiddenImportsRegexp", importRegexp);
+        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+
+        final String[] expected = {
+            "3: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+            "10: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
+        };
+
+        verify(checkConfig, getPath("InputForbidCertainImportsSinglePackage.java"), expected);
+    }
+
+    @Test
+    public void testUnsupportedNode() {
+        final DetailAST sync = new DetailAST();
+        sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
+
+        try {
+            final ForbidCertainImportsCheck check = new ForbidCertainImportsCheck();
+            check.visitToken(sync);
+
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
     }
 }
