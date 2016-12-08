@@ -118,14 +118,6 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
     }
 
     /**
-     * Gets the regexp for excluding imports from checking.
-     * @return regexp for excluding imports from checking.
-     */
-    public String getForbiddenImportsExcludesRegexp() {
-        return forbiddenImportsExcludesRegexp.toString();
-    }
-
-    /**
      * Sets the regexp for excluding imports from checking.
      * @param forbiddenImportsExcludesRegexp
      *        String contains a regexp for excluding imports from checking.
@@ -140,16 +132,16 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     @Override
     public int[] getDefaultTokens() {
-        final int[] defaultTokens;
-        if (packageNamesRegexp == null || forbiddenImportsRegexp == null
-            || forbiddenImportsExcludesRegexp == null) {
-            defaultTokens = new int[] {};
-        }
-        else {
-            defaultTokens = new int[] {TokenTypes.PACKAGE_DEF,
-                TokenTypes.IMPORT, TokenTypes.LITERAL_NEW, };
-        }
-        return defaultTokens;
+        return new int[] {
+            TokenTypes.PACKAGE_DEF,
+            TokenTypes.IMPORT,
+            TokenTypes.LITERAL_NEW,
+        };
+    }
+
+    @Override
+    public void beginTree(DetailAST rootAST) {
+        packageMatches = false;
     }
 
     @Override
@@ -163,22 +155,16 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
                 }
                 break;
             case TokenTypes.IMPORT:
-                if (packageMatches && forbiddenImportsRegexp != null
-                    && forbiddenImportsExcludesRegexp != null) {
-                    final String importQualifiedText = getText(ast);
-                    if (isImportForbidden(importQualifiedText)) {
-                        log(ast, importQualifiedText);
-                    }
+                final String importQualifiedText = getText(ast);
+                if (isImportForbidden(importQualifiedText)) {
+                    log(ast, importQualifiedText);
                 }
                 break;
             case TokenTypes.LITERAL_NEW:
-                if (forbiddenImportsRegexp != null
-                    && forbiddenImportsExcludesRegexp != null
-                    && packageMatches
-                    && ast.findFirstToken(TokenTypes.DOT) != null) {
-                    final String importQualifiedText = getText(ast);
-                    if (isImportForbidden(importQualifiedText)) {
-                        log(ast, importQualifiedText);
+                if (ast.findFirstToken(TokenTypes.DOT) != null) {
+                    final String classQualifiedText = getText(ast);
+                    if (isImportForbidden(classQualifiedText)) {
+                        log(ast, classQualifiedText);
                     }
                 }
                 break;
@@ -195,8 +181,11 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
      *     classes package, false otherwise
      */
     private boolean isImportForbidden(String importText) {
-        return forbiddenImportsRegexp.matcher(importText).matches()
-                && !forbiddenImportsExcludesRegexp.matcher(importText).matches();
+        return packageMatches
+                && forbiddenImportsRegexp != null
+                && forbiddenImportsRegexp.matcher(importText).matches()
+                && (forbiddenImportsExcludesRegexp == null
+                    || !forbiddenImportsExcludesRegexp.matcher(importText).matches());
     }
 
     /**
@@ -226,12 +215,10 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
         if (identNode == null) {
             final DetailAST parentDotAST = packageDefOrImportNode.findFirstToken(TokenTypes.DOT);
-            if (parentDotAST != null) {
-                final FullIdent dottedPathIdent = FullIdent
-                        .createFullIdentBelow(parentDotAST);
-                final DetailAST nameAST = parentDotAST.getLastChild();
-                result = dottedPathIdent.getText() + "." + nameAST.getText();
-            }
+            final FullIdent dottedPathIdent = FullIdent
+                    .createFullIdentBelow(parentDotAST);
+            final DetailAST nameAST = parentDotAST.getLastChild();
+            result = dottedPathIdent.getText() + "." + nameAST.getText();
         }
         else {
             result = identNode.getText();
