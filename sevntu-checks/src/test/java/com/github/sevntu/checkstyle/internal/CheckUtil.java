@@ -23,7 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.text.MessageFormat;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -267,5 +269,27 @@ public final class CheckUtil {
         return BeforeExecutionFileFilter.class.isAssignableFrom(loadedClass)
                 && AutomaticBean.class.isAssignableFrom(loadedClass)
                 && className.endsWith("FileFilter");
+    }
+
+    /**
+     * Gets the check message 'as is' from appropriate 'messages.properties'
+     * file.
+     *
+     * @param locale the locale to get the message for.
+     * @param messageKey the key of message in 'messages*.properties' file.
+     * @param arguments the arguments of message in 'messages*.properties' file.
+     * @return the check's formatted message.
+     */
+    public static String getCheckMessage(Class<?> module, String messageKey,
+            Object... arguments) {
+        final Properties pr = new Properties();
+        try {
+            pr.load(module.getResourceAsStream("messages.properties"));
+        }
+        catch (IOException ex) {
+            return null;
+        }
+        final MessageFormat formatter = new MessageFormat(pr.getProperty(messageKey));
+        return formatter.format(arguments);
     }
 }
