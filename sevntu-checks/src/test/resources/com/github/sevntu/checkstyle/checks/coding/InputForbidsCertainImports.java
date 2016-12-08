@@ -19,6 +19,7 @@ public class InputForbidsCertainImports extends Check
     {
         
         AutomaticBean smth = new com.puppycrawl.tools.checkstyle.api.AutomaticBean(); // forbidden!
+        Number test = new Integer(0);
         return 5;
     }
 
