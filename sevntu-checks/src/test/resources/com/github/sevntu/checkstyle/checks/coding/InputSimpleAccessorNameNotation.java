@@ -31,4 +31,57 @@ public class InputSimpleAccessorNameNotation {
 	public void setFirst(int mFirst){
 		this.mFirst = mFirst;
 	}
+    public int setFirstAgain(int mFirst){
+        this.mFirst = mFirst;
+        return mFirst;
+    }
+    public void setTest(int mFirst){
+    }
+    public void setTest2(int mFirst){
+        setTest(mFirst);
+    }
+    private java.util.List<String> names;
+    public void setNames(String[] names) {
+        this.names = java.util.Arrays.asList(names);
+    }
+    public void setNamesTwo(String[] names) {
+        if (names == null)
+            this.names = null;
+        if (names != null)
+            this.names = null;
+    }
+    boolean isExpiredToken() {
+        return ((System.currentTimeMillis() - 0) >= 0);
+    }
+    public static boolean isTrue() {
+        return Boolean.TRUE;
+    }
+    private int colors[];
+    private void setColor(int color) {
+        colors[0] = color;
+    }
+    private Object object;
+    public void setInvocation(Object invocation) {
+        this.object = ((Object)invocation);
+    }
+    public void setObject(Object object, Object ignore) {
+        object = object;
+    }
+    public static <T> java.util.function.BinaryOperator<T> getTest() {
+        return (t1, t2) -> {
+            throw new IllegalStateException();
+        };
+    }
+    int getTest2() {
+        return ((java.util.Hashtable[]) object).length;
+    }
+    private static Object sfield;
+    public void setTest3(int test) throws Exception {
+        InputSimpleAccessorNameNotation.sfield = sfield;
+    }
+}
+interface InnerIterface {
+    default void getFoo() {
+        return;
+    }
 }
