@@ -134,8 +134,8 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             if (containsOnlyExpression(currentVerifiedTop)) {
 
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
-                final boolean containsOnlyOneAssignment = currentVerifiedTop.getChildCount() == 1
-                        && currentVerifiedTop.getFirstChild().getType() == TokenTypes.ASSIGN;
+                final boolean containsOnlyOneAssignment = currentVerifiedTop.getFirstChild()
+                        .getType() == TokenTypes.ASSIGN;
                 if (containsOnlyOneAssignment) {
 
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
@@ -207,8 +207,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private static boolean containsOnlyExpression(DetailAST objectBlock) {
         //three child: EXPR, SEMI and RCURLY
         return objectBlock.getChildCount() == EXPRESSION_BLOCK_CHILD_COUNT
-                && objectBlock.getFirstChild().getType() == TokenTypes.EXPR
-                && objectBlock.findFirstToken(TokenTypes.SEMI) != null;
+                && objectBlock.getFirstChild().getType() == TokenTypes.EXPR;
     }
 
     /**
@@ -242,10 +241,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             else {
                 if (assigningFirstChild.getType() == TokenTypes.DOT) {
 
-                    if (assigningFirstChild.getChildCount() == 2
-                            && "this".equals(assigningFirstChild
-                                    .getFirstChild().getText())
-                            && assigningFirstChild.getLastChild().getType() == TokenTypes.IDENT) {
+                    if ("this".equals(assigningFirstChild.getFirstChild().getText())) {
 
                         nameOfSettingField = assigningFirstChild.getLastChild()
                                 .getText();
@@ -298,8 +294,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private static boolean isCorrectReturn(DetailAST literalReturn) {
         //two child: EXPR and SEMI
         return literalReturn.getChildCount() == 2
-                && literalReturn.getFirstChild().getType() == TokenTypes.EXPR
-                && literalReturn.getLastChild().getType() == TokenTypes.SEMI;
+                && literalReturn.getFirstChild().getType() == TokenTypes.EXPR;
     }
 
     /**
@@ -324,8 +319,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             else {
                 if (exprFirstChild.getType() == TokenTypes.DOT
                         && exprFirstChild.getChildCount() == 2
-                        && exprFirstChild.getFirstChild().getType() == TokenTypes.LITERAL_THIS
-                        && exprFirstChild.getLastChild().getType() == TokenTypes.IDENT) {
+                        && exprFirstChild.getFirstChild().getType() == TokenTypes.LITERAL_THIS) {
 
                     nameOfGettingField = exprFirstChild.getLastChild().getText();
                 }
