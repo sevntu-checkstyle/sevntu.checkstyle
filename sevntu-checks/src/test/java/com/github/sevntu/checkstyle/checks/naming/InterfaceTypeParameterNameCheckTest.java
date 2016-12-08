@@ -24,7 +24,7 @@ import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class TypeParameterNameTest
+public class InterfaceTypeParameterNameCheckTest
     extends BaseCheckTestSupport {
     /** Warning message key. */
     private static final String MSG_KEY = "name.invalidPattern";

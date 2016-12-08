@@ -27,7 +27,7 @@ import org.junit.Test;
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class SimpleAccessorNameNotationTest extends BaseCheckTestSupport {
+public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     private final String warningGetterMessage = getCheckMessage(MSG_KEY_GETTER);
     private final String warningSetterMessage = getCheckMessage(MSG_KEY_SETTER);
