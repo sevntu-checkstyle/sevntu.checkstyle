@@ -19,6 +19,7 @@
 
 package com.github.sevntu.checkstyle.internal;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -46,6 +47,18 @@ public class AllChecksTest {
                     "%s is not referenced in sevntu-checks.xml", check);
                 Assert.fail(errorMessage);
             });
+    }
+
+    @Test
+    public void testAllCheckstyleModulesHaveTest() throws Exception {
+        for (Class<?> module : CheckUtil.getCheckstyleChecks()) {
+            final String path = "src/test/java/"
+                    + module.getName().replace('.', File.separatorChar) + "Test.java";
+            final File file = new File(path);
+
+            Assert.assertTrue("Test must exist for " + module.getName() + " and be located at "
+                    + path, file.exists());
+        }
     }
 
     @Test
