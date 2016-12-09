@@ -49,7 +49,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
         checkConfig.addAttribute("ignoreCycles", "false");
         checkConfig.addAttribute("ignoreMethods", "false");
 
-        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
         checkConfig.addAttribute("ignoreCycles", "true");
         checkConfig.addAttribute("ignoreMethods", "false");
-        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
         checkConfig.addAttribute("ignoreCycles", "false");
         checkConfig.addAttribute("ignoreMethods", "true");
-        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
         checkConfig.addAttribute("ignoreCycles", "true");
         checkConfig.addAttribute("ignoreMethods", "true");
-        verify(checkConfig, getPath("InputMultipleVariableDeclarations.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
     }
 
 }

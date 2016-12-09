@@ -34,31 +34,31 @@ public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
     public void testSingleCtorWithSuperWithinNotDerivedClass()
             throws Exception {
         final String[] expected = {
-            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCall1"),
+            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCallCheck1"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall1.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck1.java"), expected);
     }
 
     @Test
     public void testSingleCtorWithSuperWithinDerivedClass()
             throws Exception {
         final String[] expected = {
-            "7:9: " + getCheckMessage(MSG_WITHOUT_ARGS, "InputUselessSuperCtorCall2"),
+            "7:9: " + getCheckMessage(MSG_WITHOUT_ARGS, "InputUselessSuperCtorCallCheck2"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall2.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck2.java"), expected);
     }
 
     @Test
     public void testMultipleCtorsWithSuperWithinNotDerivedClass()
             throws Exception {
         final String[] expected = {
-            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCall3"),
-            "12:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCall3"),
+            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCallCheck3"),
+            "12:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCallCheck3"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall3.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck3.java"), expected);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
             "9:13: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "Inner"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall4.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck4.java"), expected);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
             throws Exception {
         final String[] expected = {};
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall5.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck5.java"), expected);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputUselessSuperCtorCall6.java"), expected);
+        verify(checkConfig, getPath("InputUselessSuperCtorCallCheck6.java"), expected);
     }
 
     @Test
@@ -100,6 +100,6 @@ public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
             "26:13: " + getCheckMessage(MSG_WITHOUT_ARGS, "DerivedTwo"),
         };
 
-        verify(checkConfig, getPath("InputUselessSuperCtorCall7.java"), expected);
+        verify(checkConfig, getPath("InputUselessSuperCtorCallCheck7.java"), expected);
     }
 }

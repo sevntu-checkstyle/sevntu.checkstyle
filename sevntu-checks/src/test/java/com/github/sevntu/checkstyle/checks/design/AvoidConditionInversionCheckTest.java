@@ -54,7 +54,7 @@ public class AvoidConditionInversionCheckTest extends BaseCheckTestSupport {
             "107: " + getCheckMessage(MSG_KEY),
         };
 
-        verify(checkConfig, getPath("InputAvoidConditionInversion.java"),
+        verify(checkConfig, getPath("InputAvoidConditionInversionCheck.java"),
                 expected);
     }
 
@@ -75,7 +75,7 @@ public class AvoidConditionInversionCheckTest extends BaseCheckTestSupport {
             "31: " + getCheckMessage(MSG_KEY),
         };
 
-        verify(checkConfig, getPath("InputAvoidConditionInversion.java"),
+        verify(checkConfig, getPath("InputAvoidConditionInversionCheck.java"),
                 expected);
     }
 

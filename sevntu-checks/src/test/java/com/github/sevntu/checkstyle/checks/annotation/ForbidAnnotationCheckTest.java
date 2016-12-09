@@ -40,7 +40,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
         final String[] expected1 = {};
 
-        verify(checkConfig, getPath("InputForbidAnnotation2.java"), expected1);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck2.java"), expected1);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
         final String[] expected1 = {};
 
-        verify(checkConfig, getPath("InputForbidAnnotation2.java"), expected1);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck2.java"), expected1);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
         final String[] expected1 = {};
 
-        verify(checkConfig, getPath("InputForbidAnnotation2.java"), expected1);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck2.java"), expected1);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
             "59: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "SuppressWarnings"),
         };
 
-        verify(checkConfig, getPath("InputForbidAnnotation.java"), expected2);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected2);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
             "47: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "B"),
         };
 
-        verify(checkConfig, getPath("InputForbidAnnotation.java"), expected3);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected3);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
             "9: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor2"),
         };
 
-        verify(checkConfig, getPath("InputForbidAnnotation.java"), expected4);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected4);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
             "35: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Target"),
         };
 
-        verify(checkConfig, getPath("InputForbidAnnotation.java"), expected5);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected5);
     }
 
     @Test
@@ -146,7 +146,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
             "45: " + getCheckMessage(MSG_KEY, "INTERFACE_DEF", "A"),
         };
 
-        verify(checkConfig, getPath("InputForbidAnnotation.java"), expected6);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected6);
     }
 
     @Test
@@ -164,6 +164,6 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
             "56: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int3"),
         };
 
-        verify(checkConfig, getPath("InputForbidAnnotation.java"), expected7);
+        verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected7);
     }
 }

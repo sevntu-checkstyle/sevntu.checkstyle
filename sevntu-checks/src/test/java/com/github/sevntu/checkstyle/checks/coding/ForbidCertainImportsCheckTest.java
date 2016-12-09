@@ -50,7 +50,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
             "21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
-        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheck.java"), expected);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheck.java"), expected);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheck.java"), expected);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheckDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheckDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheckDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheck.java"), expected);
     }
 
     @Test
@@ -135,7 +135,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
             "21: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
-        verify(checkConfig, getPath("InputForbidsCertainImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheck.java"), expected);
     }
 
     @Test
@@ -146,7 +146,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputForbidCertainImportsDefaultPackageWithoutImports.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheckDefaultPackageWithoutImports.java"), expected);
     }
 
     @Test
@@ -162,7 +162,7 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
             "10: " + getCheckMessage(MSG_KEY, importRegexp, "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
-        verify(checkConfig, getPath("InputForbidCertainImportsSinglePackage.java"), expected);
+        verify(checkConfig, getPath("InputForbidCertainImportsCheckSinglePackage.java"), expected);
     }
 
     @Test

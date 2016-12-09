@@ -44,7 +44,7 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "false");
 
-        verify(checkConfig, getPath("InputIllegalCatchCheckNew.java"), expected);
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowThrow", "true");
         checkConfig.addAttribute("allowRethrow", "false");
 
-        verify(checkConfig, getPath("InputIllegalCatchCheckNew.java"), expected);
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "true");
 
-        verify(checkConfig, getPath("InputIllegalCatchCheckNew.java"), expected);
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
 
 }

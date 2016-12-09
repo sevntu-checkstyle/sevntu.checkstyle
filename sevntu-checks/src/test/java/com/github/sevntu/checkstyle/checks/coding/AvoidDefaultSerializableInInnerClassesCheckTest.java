@@ -52,7 +52,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "179: " + warningMessage,
             "187: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"), expected);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "10: " + warningMessage,
         };
 
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses2.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck2.java"), expected);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses3.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck3.java"), expected);
     }
 
     @Test
@@ -96,6 +96,6 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "171: " + warningMessage,
             "187: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"), expected);
     }
 }

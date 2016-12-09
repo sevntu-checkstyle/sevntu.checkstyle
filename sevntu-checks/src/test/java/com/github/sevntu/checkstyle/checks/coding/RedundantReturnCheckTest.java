@@ -56,7 +56,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
             "181: " + getCheckMessage(MSG_KEY),
         };
 
-        verify(checkConfig, getPath("InputRedundantReturn.java"), expected);
+        verify(checkConfig, getPath("InputRedundantReturnCheck.java"), expected);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
             "181: " + getCheckMessage(MSG_KEY),
         };
 
-        verify(checkConfig, getPath("InputRedundantReturn.java"), expected);
+        verify(checkConfig, getPath("InputRedundantReturnCheck.java"), expected);
 
     }
 
@@ -94,7 +94,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
 
         verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "coding/InputRedundantReturnTestNPE.java", expected);
+                + "coding/InputRedundantReturnCheckTestNPE.java", expected);
 
     }
 
@@ -105,7 +105,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputRedundantReturnMethodInInterface.java"), expected);
+        verify(checkConfig, getPath("InputRedundantReturnCheckMethodInInterface.java"), expected);
 
     }
 
@@ -116,7 +116,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputRedundantReturnFalsePositive.java"), expected);
+        verify(checkConfig, getPath("InputRedundantReturnCheckFalsePositive.java"), expected);
 
     }
 

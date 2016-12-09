@@ -63,7 +63,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
                                 + "InnerClass (public .*abstract .*) ###"
                                 + "InnerClass (private .*)");
         checkConfig.addAttribute("caseSensitive", "true");
-        verify(checkConfig, getPath("InputCustomDeclarationOrder.java"), expected);
+        verify(checkConfig, getPath("InputCustomDeclarationOrderCheck.java"), expected);
         checkConfig.addAttribute("customDeclarationOrder", "Field .*final.*public|.*public.*final)");
     }
 

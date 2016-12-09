@@ -55,7 +55,7 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig,
-                getPath("InputMapIterationInForEachLoop.java"), expected);
+                getPath("InputMapIterationInForEachLoopCheck.java"), expected);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
             "12:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
         };
         verify(checkConfig,
-                getPath("InputMapIterationInForEachLoopImport.java"),
+                getPath("InputMapIterationInForEachLoopCheckImport.java"),
                 expected);
     }
 
@@ -81,7 +81,7 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
         final String supportedMapImplQualifiedNames =
                 "java.util.Map, "
                 + "java.util.HashMap, java.util.TreeMap, "
-                + "com.myTest.MyMap";
+                + "com.myTest.InputMyMap";
 
         checkConfig.addAttribute("supportedMapImplQualifiedNames",
                 supportedMapImplQualifiedNames);
@@ -91,7 +91,7 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig,
-                getPath("InputMapIterationInForEachLoopSkipIf.java"),
+                getPath("InputMapIterationInForEachLoopCheckSkipIf.java"),
                 expected);
     }
 

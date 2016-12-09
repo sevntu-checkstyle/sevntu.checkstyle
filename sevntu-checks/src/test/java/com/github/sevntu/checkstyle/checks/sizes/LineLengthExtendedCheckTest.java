@@ -40,7 +40,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
             "18: " + getCheckMessage(MSG_KEY, 80, 81),
             "145: " + getCheckMessage(MSG_KEY, 80, 83),
         };
-        verify(checkConfig, getPath("InputSimple.java"), expected);
+        verify(checkConfig, getPath("InputLineLengthExtendedCheck.java"), expected);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("ignoreConstructor", "true");
         checkConfig.addAttribute("ignoreField", "true");
         checkConfig.addAttribute("ignoreMethod", "true");
-        verify(checkConfig, getPath("InputSimple.java"), expected);
+        verify(checkConfig, getPath("InputLineLengthExtendedCheck.java"), expected);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
 
         try {
-            verify(checkConfig, getPath("InputSimple.java"), expected);
+            verify(checkConfig, getPath("InputLineLengthExtendedCheck.java"), expected);
         }
         catch (CheckstyleException ex) {
             Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
