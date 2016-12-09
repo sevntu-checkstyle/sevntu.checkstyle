@@ -58,6 +58,16 @@ matrix:
         - CMD3="&& mvn jacoco:report coveralls:jacoco"
         - CMD=$CMD0$CMD1$CMD2$CMD3
 
+    # regression on checkstyle
+    - jdk: oraclejdk8
+      env:
+        - DESC="checkstyle regression"
+        - CMD0="git clone https://github.com/checkstyle/checkstyle "
+        - CMD1=" && cd sevntu-checks && mvn install -DskipTests -Dcheckstyle.skip=true -Dcobertura.skip=true"
+        - CMD2=" && mvn test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../"
+        - CMD3=" && cd ../ && cd checkstyle && mvn clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true"
+        - CMD=$CMD0$CMD1$CMD2$CMD3
+
     # testing of PR format
     - env:
         - DESC="test Issue ref in PR description"

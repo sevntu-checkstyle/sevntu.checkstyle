@@ -58,7 +58,7 @@ public final class CheckUtil {
      *            file path of checkstyle_checks.xml.
      * @return names of checkstyle's checks which are referenced in checkstyle_checks.xml.
      */
-    private static Set<String> getCheckStyleChecksReferencedInConfig(String configFilePath) {
+    public static Set<String> getCheckStyleChecksReferencedInConfig(String configFilePath) {
         try {
             final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
