@@ -93,7 +93,7 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
             "86:16: " + getCheckMessage(MSG_KEY_EXPR),
         };
 
-        verify(checkConfig, getPath("InputUnnecessaryParentheses.java"), expected);
+        verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheck.java"), expected);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "false");
-        verify(checkConfig, getPath("Input15Extensions.java"), expected);
+        verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheck2.java"), expected);
     }
 
     @Test
@@ -161,6 +161,6 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "true");
-        verify(checkConfig, getPath("InputUnnecessaryParenthesesUbv.java"), expected);
+        verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheckUbv.java"), expected);
     }
 }

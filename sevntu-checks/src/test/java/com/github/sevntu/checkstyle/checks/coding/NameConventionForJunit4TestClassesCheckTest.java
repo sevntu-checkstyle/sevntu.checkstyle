@@ -51,7 +51,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("14:18: ", defaultTestClassName),
         };
 
-        verify(customConfig, getPath("InputNameConventionForTest1.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck1.java"), expected);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("8:18: ", defaultTestClassName),
         };
 
-        verify(checkConfig, getPath("InputNameConventionForTest2.java"), expected);
+        verify(checkConfig, getPath("InputNameConventionForJunit4TestClassesCheck2.java"), expected);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputNameConventionForTest3.java"), expected);
+        verify(checkConfig, getPath("InputNameConventionForJunit4TestClassesCheck3.java"), expected);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("7:18: ", defaultTestClassName),
         };
 
-        verify(checkConfig, getPath("InputNameConventionForTest4.java"), expected);
+        verify(checkConfig, getPath("InputNameConventionForJunit4TestClassesCheck4.java"), expected);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("8:18: ", defaultTestClassName),
         };
 
-        verify(customConfig, getPath("InputNameConventionForTest5.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck5.java"), expected);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("7:18: ", defaultTestClassName),
         };
 
-        verify(customConfig, getPath("InputNameConventionForTest6.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck6.java"), expected);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("6:18: ", defaultTestClassName),
         };
 
-        verify(customConfig, getPath("InputNameConventionForTest7.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck7.java"), expected);
     }
 
     @Test
@@ -132,7 +132,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
                 buildMesssage("5:14: ", "Hello*"),
         };
 
-        verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck8.java"), expected);
     }
 
     @Test
@@ -143,7 +143,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
         final String[] expected = {};
 
-        verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck8.java"), expected);
     }
 
     @Test
@@ -154,7 +154,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
         final String[] expected = {};
 
-        verify(customConfig, getPath("InputNameConventionForTest8.java"), expected);
+        verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck8.java"), expected);
     }
 
     private static DefaultConfiguration buildConfiguration(String expectedNameRegex,

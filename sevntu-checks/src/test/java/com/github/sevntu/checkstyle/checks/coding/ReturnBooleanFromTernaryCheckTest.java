@@ -43,6 +43,6 @@ public class ReturnBooleanFromTernaryCheckTest extends BaseCheckTestSupport {
             "10:28: " + warninigMessage,
             "11:27: " + warninigMessage,
         };
-        verify(checkConfig, getPath("InputReturnBooleanFromTernary.java"), expected);
+        verify(checkConfig, getPath("InputReturnBooleanFromTernaryCheck.java"), expected);
     }
 }

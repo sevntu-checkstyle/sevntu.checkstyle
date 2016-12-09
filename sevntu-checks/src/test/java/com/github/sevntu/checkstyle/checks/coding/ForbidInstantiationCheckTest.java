@@ -75,10 +75,10 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
     @Test
     public void testNormalWork2() throws Exception {
 
-        checkConfig.addAttribute("forbiddenClasses", "com.github.sevntu.checkstyle.checks.test.utils.File");
+        checkConfig.addAttribute("forbiddenClasses", "com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck");
 
         final String[] expected = {
-            "12:68: " + getCheckMessage(MSG_KEY, "File"),
+            "12:89: " + getCheckMessage(MSG_KEY, "InputForbidInstantiationCheck"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);

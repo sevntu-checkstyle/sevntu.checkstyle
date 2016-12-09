@@ -36,12 +36,12 @@ public class InterfaceTypeParameterNameCheckTest
                 createCheckConfig(InterfaceTypeParameterNameCheck.class);
 
         final String[] expected = {
-            "5:51: " + getCheckMessage(MSG_KEY, "it", "^[A-Z]$"),
+            "5:56: " + getCheckMessage(MSG_KEY, "it", "^[A-Z]$"),
             "9:27: " + getCheckMessage(MSG_KEY, "foo", "^[A-Z]$"),
             "18:34: " + getCheckMessage(MSG_KEY, "Taa", "^[A-Z]$"),
             "18:52: " + getCheckMessage(MSG_KEY, "Vaa", "^[A-Z]$"),
         };
-        verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
+        verify(checkConfig, getPath("InputInterfaceTypeParameterNameCheck.java"), expected);
     }
 
     @Test
@@ -51,11 +51,11 @@ public class InterfaceTypeParameterNameCheckTest
                 createCheckConfig(InterfaceTypeParameterNameCheck.class);
         checkConfig.addAttribute("format", "^foo$");
         final String[] expected = {
-            "5:51: " + getCheckMessage(MSG_KEY, "it", "^foo$"),
+            "5:56: " + getCheckMessage(MSG_KEY, "it", "^foo$"),
             "13:27: " + getCheckMessage(MSG_KEY, "A", "^foo$"),
             "18:34: " + getCheckMessage(MSG_KEY, "Taa", "^foo$"),
             "18:52: " + getCheckMessage(MSG_KEY, "Vaa", "^foo$"),
         };
-        verify(checkConfig, getPath("InputInterfaceTypeParameterName.java"), expected);
+        verify(checkConfig, getPath("InputInterfaceTypeParameterNameCheck.java"), expected);
     }
 }

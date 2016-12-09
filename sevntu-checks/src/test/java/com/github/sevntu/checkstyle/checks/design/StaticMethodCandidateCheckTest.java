@@ -48,7 +48,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
             "192: " + getCheckMessage(MSG_KEY, "fOo"),
             "194: " + getCheckMessage(MSG_KEY, "foO"),
         };
-        verify(checkConfig, getPath("InputStaticMethodCandidate.java"), expected);
+        verify(checkConfig, getPath("InputStaticMethodCandidateCheck.java"), expected);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
                 createCheckConfig(StaticMethodCandidateCheck.class);
         checkConfig.addAttribute("skippedMethods", "foo, bar,foobar");
         final String[] expected = {};
-        verify(checkConfig, getPath("InputStaticMethodCandidateSkippedMethods.java"), expected);
+        verify(checkConfig, getPath("InputStaticMethodCandidateCheckSkippedMethods.java"), expected);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
         };
         verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "design/InputStaticMethodCandidateLambda.java", expected);
+                + "design/InputStaticMethodCandidateCheckLambda.java", expected);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
             "16: " + getCheckMessage(MSG_KEY, "bar"),
         };
         verify(checkConfig, new File("src/test/resources-noncompilable/com/github/"
-            + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateInterfaceMethod.java")
+            + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateCheckInterfaceMethod.java")
                 .getCanonicalPath(), expected);
     }
 }

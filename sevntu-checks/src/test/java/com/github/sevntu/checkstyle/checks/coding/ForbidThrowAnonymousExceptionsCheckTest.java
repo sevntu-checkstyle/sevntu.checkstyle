@@ -42,7 +42,7 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
         };
 
         verify(checkConfig,
-                getPath("InputForbidThrowAnonymousExceptions.java"), expected);
+                getPath("InputForbidThrowAnonymousExceptionsCheck.java"), expected);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
         };
 
         verify(checkConfig,
-                getPath("InputForbidThrowAnonymousExceptions2.java"), expected);
+                getPath("InputForbidThrowAnonymousExceptionsCheck2.java"), expected);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
         };
 
         verify(checkConfig,
-                getPath("InputForbidThrowAnonymousExceptions3.java"), expected);
+                getPath("InputForbidThrowAnonymousExceptionsCheck3.java"), expected);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
         };
 
         verify(checkConfig,
-                getPath("InputForbidThrowAnonymousExceptionsAnotherClassName.java"), expected);
+                getPath("InputForbidThrowAnonymousExceptionsCheckAnotherClassName.java"), expected);
     }
 
 }

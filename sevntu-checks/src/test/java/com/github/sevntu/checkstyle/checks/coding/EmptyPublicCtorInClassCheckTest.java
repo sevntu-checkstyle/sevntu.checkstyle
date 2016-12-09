@@ -41,7 +41,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             "5:5: " + message,
         };
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass1.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck1.java"), expected);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             throws Exception {
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass2.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck2.java"), expected);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             throws Exception {
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass6.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck6.java"), expected);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             throws Exception {
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass3.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck3.java"), expected);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             throws Exception {
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass4.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck4.java"), expected);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             "14:9: " + message,
         };
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass5.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck5.java"), expected);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(config, getPath("InputEmptyPublicCtorInClass7.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck7.java"), expected);
     }
 
     @Test
@@ -106,11 +106,11 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
                 "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName|"
                 + "org\\.junit\\.runner\\.RunWith|"
                 + "org\\.junit\\.Ignore|"
-                + "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.InputEmptyPublicCtorInClass9\\.InnerAnnotation");
+                + "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.InputEmptyPublicCtorInClassCheck9\\.InnerAnnotation");
 
         final String[] expected = {};
 
-        verify(config, getPath("InputEmptyPublicCtorInClass8.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck8.java"), expected);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
         final String[] expected = {};
 
-        verify(config, getPath("InputEmptyPublicCtorInClass10.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck10.java"), expected);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             "14:9: " + message,
         };
 
-        verify(config, getPath("InputEmptyPublicCtorInClass5.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck5.java"), expected);
     }
 
     @Test
@@ -152,7 +152,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             "14:9: " + message,
         };
 
-        verify(config, getPath("InputEmptyPublicCtorInClass5.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck5.java"), expected);
     }
 
     @Test

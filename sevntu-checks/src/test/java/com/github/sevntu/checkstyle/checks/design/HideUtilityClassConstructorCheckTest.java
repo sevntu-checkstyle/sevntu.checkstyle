@@ -36,7 +36,7 @@ public class HideUtilityClassConstructorCheckTest
         final String[] expected = {
             "11:1: " + getCheckMessage(MSG_KEY),
         };
-        verify(checkConfig, getPath("InputArrayTypeStyle.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck.java"), expected);
     }
 
     /** Non static methods - always OK */
@@ -46,7 +46,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputDesignForExtension.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck4.java"), expected);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputNonUtilityClass.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck5.java"), expected);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputRegression.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck6.java"), expected);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputHideUtilityClassContructor1.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck1.java"), expected);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputHideUtilityClassContructor2.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck2.java"), expected);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class HideUtilityClassConstructorCheckTest
             createCheckConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputHideUtilityClassContructor3.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck3.java"), expected);
     }
 
 }

@@ -45,7 +45,7 @@ public class ForbidCCommentsInMethodsCheckTest extends
             "61: " + warningMessage,
             "68: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods.java"), expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck.java"), expected);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ForbidCCommentsInMethodsCheckTest extends
             throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods2.java"), expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck2.java"), expected);
     }
 
     @Test
@@ -61,6 +61,6 @@ public class ForbidCCommentsInMethodsCheckTest extends
             throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods3.java"), expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck3.java"), expected);
     }
 }

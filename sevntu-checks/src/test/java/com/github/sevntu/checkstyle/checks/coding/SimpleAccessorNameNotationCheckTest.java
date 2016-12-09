@@ -47,7 +47,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "28: " + warningGetterMessage,
         };
 
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck.java"), expected);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "17: " + warningSetterMessage,
             "22: " + warningGetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation1.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck1.java"), expected);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "7: " + warningSetterMessage,
             "12: " + warningGetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation1.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck1.java"), expected);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "40: " + warningSetterMessage,
             "45: " + warningGetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation2.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck2.java"), expected);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "35: " + warningGetterMessage,
             "40: " + warningSetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation2.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck2.java"), expected);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "17: " + warningSetterMessage,
             "22: " + warningGetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation3.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck3.java"), expected);
     }
 
     @Test
@@ -122,14 +122,14 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "17: " + warningSetterMessage,
             "22: " + warningGetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation3.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck3.java"), expected);
     }
 
     @Test
     public void cleanWithoutPrefix() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation4.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck4.java"), expected);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {};
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation4.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck4.java"), expected);
     }
 
     @Test
@@ -147,20 +147,20 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
             "28: " + warningSetterMessage,
             "33: " + warningGetterMessage,
         };
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation5.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck5.java"), expected);
     }
 
     @Test
     public void testAnonymousCases() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation6.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck6.java"), expected);
     }
 
     @Test
     public void testInterface() throws Exception {
         final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputSimpleAccessorNameNotation7.java"), expected);
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck7.java"), expected);
     }
 }

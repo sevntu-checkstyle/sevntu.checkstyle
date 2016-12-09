@@ -134,7 +134,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(LINES);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -161,7 +161,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PUBLIC_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -188,7 +188,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PRIVATE_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -215,7 +215,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PROTECTED_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -242,7 +242,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PACKAGE_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -271,7 +271,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptSuper);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -300,7 +300,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptExtends);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -330,7 +330,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptSuperAndExtends);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -360,7 +360,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptSuperAndExtends);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -389,7 +389,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptOverride);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -418,7 +418,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptOverride);
 
         verify(checkConfig,
-            getPath("InputForbidWildcardAsReturnType.java"),
+            getPath("InputForbidWildcardAsReturnTypeCheck.java"),
             expected);
     }
 

@@ -41,7 +41,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
             "10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
         };
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
             "14:28: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
         };
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
             "10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
         };
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
             "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
         };
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
             "19:23: " + getCheckMessage(MSG_KEY, "\"unchecked\"", 4),
         };
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -126,7 +126,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
             "10:23: " + getCheckMessage(MSG_KEY, "\", \"", 3),
         };
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputMultipleStringLiterals.java"), expected);
+        verify(checkConfig, getPath("InputMultipleStringLiteralsExtendedCheck.java"), expected);
     }
 
 }

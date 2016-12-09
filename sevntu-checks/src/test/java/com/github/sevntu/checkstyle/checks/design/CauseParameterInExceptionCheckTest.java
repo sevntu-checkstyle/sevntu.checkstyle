@@ -43,10 +43,10 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
-            "3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException"),
+            "5:5: " + getCheckMessage(MSG_KEY, "TestException"),
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck.java"), expected);
     }
 
     @Test
@@ -56,24 +56,24 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
-            "3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
+            "5:5: " + getCheckMessage(MSG_KEY, "TestException2"),
             "16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck2.java"), expected);
     }
 
     @Test
     public void testIgnorePattern() throws Exception {
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", "Input.+");
+        checkConfig.addAttribute("ignoredClassNamesRegexp", "Test.+");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
             "16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck2.java"), expected);
     }
 
     @Test
@@ -83,10 +83,10 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
-            "3:1: " + getCheckMessage(MSG_KEY, "InputCauseParameterInException2"),
+            "5:5: " + getCheckMessage(MSG_KEY, "TestException2"),
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException2.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck2.java"), expected);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException3.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck3.java"), expected);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException3.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck3.java"), expected);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException4.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck4.java"), expected);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputCauseParameterInException5.java"), expected);
+        verify(checkConfig, getPath("InputCauseParameterInExceptionCheck5.java"), expected);
     }
 
     @Test

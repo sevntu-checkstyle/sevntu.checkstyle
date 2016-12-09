@@ -41,7 +41,7 @@ public class ReturnNullInsteadOfBooleanCheckTest extends BaseCheckTestSupport {
             "11:9: " + warningMessage,
             "22:25: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputReturnNullInsteadOfBoolean.java"), expected);
+        verify(checkConfig, getPath("InputReturnNullInsteadOfBooleanCheck.java"), expected);
     }
 
     @Test

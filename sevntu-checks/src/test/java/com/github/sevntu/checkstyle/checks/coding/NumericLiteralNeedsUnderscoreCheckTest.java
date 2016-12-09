@@ -80,7 +80,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
             "103: " + warningMessage,
             "104: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputNumericLiteralNeedUnderscoreCheck.java"),
+        verify(checkConfig, getPath("InputNumericLiteralNeedsUnderscoreCheck.java"),
                 expected);
     }
 
@@ -120,7 +120,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
             "88: " + warningMessage,
             "89: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputNumericLiteralNeedUnderscoreCheck2.java"),
+        verify(checkConfig, getPath("InputNumericLiteralNeedsUnderscoreCheck2.java"),
                 expected);
     }
 
@@ -144,7 +144,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
             "40: " + warningMessage,
         };
         verify(checkConfig, new File("src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "coding/InputNumericLiteralNeedUnderscoreCheck3.java").getCanonicalPath(),
+                + "coding/InputNumericLiteralNeedsUnderscoreCheck3.java").getCanonicalPath(),
                 expected);
     }
 
@@ -170,7 +170,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
             "38: " + warningMessage,
         };
         verify(checkConfig, new File("src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "coding/InputNumericLiteralNeedUnderscoreCheck3.java").getCanonicalPath(),
+                + "coding/InputNumericLiteralNeedsUnderscoreCheck3.java").getCanonicalPath(),
                 expected);
     }
 

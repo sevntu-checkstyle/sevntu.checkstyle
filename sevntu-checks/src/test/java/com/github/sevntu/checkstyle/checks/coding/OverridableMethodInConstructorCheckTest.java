@@ -45,7 +45,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "11:17: " + getCheckMessage(MSG_KEY_LEADS, "init", CTOR_KEY, "getPart"),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor26.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck26.java"), expected);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "15:21: " + getCheckMessage(MSG_KEY, "init", CTOR_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck27.java"), expected);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "15:21: " + getCheckMessage(MSG_KEY, "init", CTOR_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor27.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck27.java"), expected);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor1.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck1.java"), expected);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "10:27: " + getCheckMessage(MSG_KEY, "overrideMe", CTOR_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor2.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck2.java"), expected);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "16:27: " + getCheckMessage(MSG_KEY, "overrideMe", CTOR_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor3.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck3.java"), expected);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", CTOR_KEY, "overrideMe2"),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor4.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck4.java"), expected);
     }
 
     @Test
@@ -138,7 +138,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "11:27: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", CTOR_KEY, "overrideMe3"),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor5.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck5.java"), expected);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor6.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck6.java"), expected);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor7.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck7.java"), expected);
     }
 
     @Test
@@ -174,7 +174,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "37:37: " + getCheckMessage(MSG_KEY, "doSmth", CLONE_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor8.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck8.java"), expected);
     }
 
     @Test
@@ -188,7 +188,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "26:20: " + getCheckMessage(MSG_KEY, "doSmth2", CLONE_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor9.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck9.java"), expected);
     }
 
     @Test
@@ -205,7 +205,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "63:37: " + getCheckMessage(MSG_KEY, "doSmth", CLONE_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor13.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck13.java"), expected);
     }
 
     @Test
@@ -216,7 +216,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor10.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck10.java"), expected);
     }
 
     @Test
@@ -229,7 +229,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "31:20: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor11.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck11.java"), expected);
     }
 
     @Test
@@ -241,7 +241,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor12.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck12.java"), expected);
     }
 
     @Test
@@ -263,7 +263,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "81:29: " + getCheckMessage(MSG_KEY_LEADS, "doSmth2", READ_OBJECT_KEY, "doSmth"),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor14.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck14.java"), expected);
     }
 
     @Test
@@ -274,7 +274,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor15.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck15.java"), expected);
     }
 
     @Test
@@ -285,7 +285,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor16.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck16.java"), expected);
     }
 
     @Test
@@ -299,7 +299,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "18:45: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor17.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck17.java"), expected);
     }
 
     @Test
@@ -310,7 +310,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor18.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck18.java"), expected);
     }
 
     @Test
@@ -321,7 +321,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor19.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck19.java"), expected);
     }
 
     @Test
@@ -332,7 +332,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor20.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck20.java"), expected);
     }
 
     @Test
@@ -343,7 +343,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor21.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck21.java"), expected);
     }
 
     @Test
@@ -356,7 +356,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "5:15: " + getCheckMessage(MSG_KEY_LEADS, "doSMTH", CTOR_KEY, "doPublic"),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor22.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck22.java"), expected);
     }
 
     @Test
@@ -367,7 +367,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor23.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck23.java"), expected);
     }
 
     @Test
@@ -380,7 +380,7 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
             "11:22: " + getCheckMessage(MSG_KEY, "buildGetter", CTOR_KEY),
         };
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor24.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck24.java"), expected);
     }
 
     @Test
@@ -391,6 +391,6 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputOverridableMethodInConstructor25.java"), expected);
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck25.java"), expected);
     }
 }
