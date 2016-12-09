@@ -20,9 +20,13 @@
 package com.github.sevntu.checkstyle.internal;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -103,6 +107,24 @@ public class AllChecksTest {
         }
     }
 
+    @Test
+    public void testAllInputsHaveTest() throws Exception {
+        final Map<String, List<String>> allTests = new HashMap<>();
+
+        Files.walk(Paths.get("src/test/java/com/github/sevntu/checkstyle"))
+            .forEach(filePath -> {
+                grabAllTests(allTests, filePath.toFile());
+            });
+        Files.walk(Paths.get("src/test/resources/com/github/sevntu/checkstyle"))
+            .forEach(filePath -> {
+                verifyInputFile(allTests, filePath.toFile());
+            });
+        Files.walk(Paths.get("src/test/resources-noncompilable/com/github/sevntu/checkstyle"))
+            .forEach(filePath -> {
+                verifyInputFile(allTests, filePath.toFile());
+            });
+    }
+
     private static void verifyCheckstyleMessage(Map<String, List<String>> usedMessages,
             Class<?> module, Field message) throws Exception {
         final String messageString = message.get(null).toString();
@@ -141,6 +163,76 @@ public class AllChecksTest {
                 result.trim().startsWith("TODO"));
     }
 
+    private static void grabAllTests(Map<String, List<String>> allTests, File file) {
+        if (file.isFile() && file.getName().endsWith("Test.java")) {
+            String path = null;
+
+            try {
+                path = getSimplePath(file.getCanonicalPath()).replace("Test.java", "");
+            }
+            catch (IOException ex) {
+                throw new IllegalStateException(ex);
+            }
+
+            final int slash = path.lastIndexOf(File.separatorChar);
+            final String packge = path.substring(0, slash);
+
+            List<String> classes = allTests.get(packge);
+
+            if (classes == null) {
+                classes = new ArrayList<String>();
+
+                allTests.put(packge, classes);
+            }
+
+            classes.add(path.substring(slash + 1));
+        }
+    }
+
+    private static void verifyInputFile(Map<String, List<String>> allTests, File file) {
+        if (file.isFile()) {
+            String fileName = file.getName().toString();
+            String path = null;
+
+            try {
+                path = getSimplePath(file.getCanonicalPath());
+            }
+            catch (IOException ex) {
+                throw new IllegalStateException(ex);
+            }
+
+            Assert.assertTrue("Resource must start with 'Input': " + path,
+                    fileName.startsWith("Input"));
+
+            final int period = fileName.lastIndexOf(".");
+
+            Assert.assertTrue("Resource must have an extension: " + path, period > 0);
+
+            fileName = fileName.substring(5, period);
+
+            final int slash = path.lastIndexOf(File.separatorChar);
+            final String packge = path.substring(0, slash);
+            final List<String> classes = allTests.get(packge);
+
+            if (classes != null || !packge.endsWith("external")) {
+                Assert.assertNotNull("Resource must be in a package that has tests: " + path,
+                        classes);
+
+                boolean found = false;
+
+                for (String clss : classes) {
+                    if (fileName.startsWith(clss)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                Assert.assertTrue("Resource must be named after a Test like 'InputMyCheck.java' "
+                        + "and be in the same package as the test: " + path, found);
+            }
+        }
+    }
+
     /**
      * Removes 'Check' suffix from each class name in the set.
      * @param checks class instances.
@@ -149,5 +241,9 @@ public class AllChecksTest {
     private static Set<String> getFullNames(Set<Class<?>> checks) {
         return checks.stream().map(check -> check.getName().replace("Check", ""))
             .collect(Collectors.toSet());
+    }
+
+    private static String getSimplePath(String path) {
+        return path.substring(path.lastIndexOf("com" + File.separator + "github"));
     }
 }
