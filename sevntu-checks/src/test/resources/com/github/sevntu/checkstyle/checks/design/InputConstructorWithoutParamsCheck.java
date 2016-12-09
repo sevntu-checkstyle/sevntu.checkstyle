@@ -20,7 +20,12 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InputConstructorWithoutParamsCheck {
 
@@ -111,4 +116,6 @@ public class InputConstructorWithoutParamsCheck {
 
     }
 
+    private static final Set<String> TEST = Collections.unmodifiableSortedSet(Stream.of("test")
+            .collect(Collectors.toCollection(TreeSet::new)));
 }

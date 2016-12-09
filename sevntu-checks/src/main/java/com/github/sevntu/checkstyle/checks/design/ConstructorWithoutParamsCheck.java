@@ -149,23 +149,25 @@ public class ConstructorWithoutParamsCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
+        final DetailAST firstChild = ast.getFirstChild();
+        if (firstChild != null) {
+            final String className = firstChild.getText();
 
-        final String className = ast.getFirstChild().getText();
+            // The "new" keyword either creates objects or declares arrays.
+            // In the case of arrays, no objects (array elements) are automatically created,
+            // and this check does not apply.
+            if (regexp.matcher(className).find()
+                && !ignoredRegexp.matcher(className).find()
+                && !ast.branchContains(TokenTypes.ARRAY_DECLARATOR)) {
 
-        // The "new" keyword either creates objects or declares arrays.
-        // In the case of arrays, no objects (array elements) are automatically created,
-        // and this check does not apply.
-        if (regexp.matcher(className).find()
-            && !ignoredRegexp.matcher(className).find()
-            && !ast.branchContains(TokenTypes.ARRAY_DECLARATOR)) {
+                final DetailAST parameterListAST = ast.findFirstToken(TokenTypes.ELIST);
+                final int numberOfParameters = parameterListAST.getChildCount();
 
-            final DetailAST parameterListAST = ast.findFirstToken(TokenTypes.ELIST);
-            final int numberOfParameters = parameterListAST.getChildCount();
+                if (numberOfParameters == 0) {
+                    log(ast, MSG_KEY, className);
+                }
 
-            if (numberOfParameters == 0) {
-                log(ast, MSG_KEY, className);
             }
-
         }
     }
 }
