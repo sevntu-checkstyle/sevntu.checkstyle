@@ -82,7 +82,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
  *          &lt;property name="forbiddenClassesRegexpAnnotation" value="Person"/&gt;
  *      &lt;/module&gt;
- * &lt;module&gt;
+ * &lt;/module&gt;
  * </pre>
  *
  * <pre>
@@ -116,7 +116,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *          &lt;property name="forbiddenClassesRegexpPublic" value="Logger"/&gt;
  *          &lt;property name="forbiddenClassesRegexpPackagePrivate" value="Logger"/&gt;
  *      &lt;module&gt;
- * &lt;module&gt;
+ * &lt;/module&gt;
  * </pre>
  *
  * <pre>
