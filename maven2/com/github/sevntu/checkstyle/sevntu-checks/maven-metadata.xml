@@ -3,7 +3,7 @@
   <groupId>com.github.sevntu.checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
   <versioning>
-    <release>1.22.0</release>
+    <release>1.23.0</release>
     <versions>
       <version>1.5.1</version>
       <version>1.5.2</version>
@@ -37,7 +37,8 @@
       <version>1.21.0</version>
       <version>1.21.1</version>
       <version>1.22.0</version>
+      <version>1.23.0</version>
     </versions>
-    <lastUpdated>20161120003718</lastUpdated>
+    <lastUpdated>20161210150258</lastUpdated>
   </versioning>
 </metadata>
