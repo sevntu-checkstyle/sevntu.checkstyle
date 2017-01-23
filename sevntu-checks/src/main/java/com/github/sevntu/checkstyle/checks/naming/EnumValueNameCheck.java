@@ -236,7 +236,6 @@ public class EnumValueNameCheck extends AbstractCheck {
     private static boolean
             hasMembers(DetailAST ast, List<Pattern> excludes) {
         final DetailAST objBlock = ast.getParent();
-        assert objBlock.getType() == TokenTypes.OBJBLOCK;
         boolean memberFound = false;
         for (DetailAST member = objBlock.getFirstChild(); member != null; member = member
                 .getNextSibling()) {
@@ -244,7 +243,6 @@ public class EnumValueNameCheck extends AbstractCheck {
                     || member.getType() == TokenTypes.VARIABLE_DEF) {
                 final DetailAST memberIdent = member
                         .findFirstToken(TokenTypes.IDENT);
-                assert memberIdent != null;
                 final String identifierStr = memberIdent.getText();
                 if (!isAnyMatched(excludes, identifierStr)) {
                     memberFound = true;
