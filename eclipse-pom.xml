@@ -8,6 +8,13 @@
   <version>1.23.0</version>
   <packaging>pom</packaging>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
   <modules>
     <module>eclipsecs-sevntu-plugin</module>
     <module>eclipsecs-sevntu-plugin-feature</module>

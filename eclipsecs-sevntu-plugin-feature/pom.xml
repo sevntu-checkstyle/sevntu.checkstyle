@@ -15,4 +15,11 @@
   <packaging>eclipse-feature</packaging>
   <name>Extension for eclipse-cs Plugin with additional Checks</name>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
 </project>

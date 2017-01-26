@@ -10,6 +10,13 @@
   <name>SevNTU Checkstyle Sonar Extension Plugin</name>
   <description>SevNTU Checkstyle extension plugin for Sonar</description>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <checkstyle.version>7.2</checkstyle.version>
@@ -137,7 +144,7 @@
     </plugins>
   </build>
 
-  <!-- That profile is from https://github.com/SonarSource/sonar-developer-toolset/tree/master/eclipse/m2e-error-disabler-plugin 
+  <!-- That profile is from https://github.com/SonarSource/sonar-developer-toolset/tree/master/eclipse/m2e-error-disabler-plugin
     to avoid errors in Eclipse -->
   <profiles>
     <profile>

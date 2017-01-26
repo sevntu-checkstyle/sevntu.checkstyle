@@ -18,6 +18,13 @@
 
   <name>eclipse-cs Sevntu Checkstyle Plugin</name>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
   <properties>
     <eclipsecs.version>7.2.0-SNAPSHOT</eclipsecs.version>
   </properties>

@@ -7,6 +7,13 @@
   <name>Sevntu Checkstyle Maven Plugin</name>
   <version>1.23.0</version>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
   <dependencies>
     <dependency>
       <groupId>com.github.sevntu.checkstyle</groupId>
