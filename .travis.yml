@@ -19,34 +19,35 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="eclipse-cs"
+        - CMD_="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
         - CMD0="git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git"
         - CMD1="&& cd eclipse-cs-git/ && git checkout 7.2.0"
         - CMD2="&& cd net.sf.eclipsecs.parent/ && mvn install"
         - CMD3="&& cd ../../"
         - CMD4="&& cd eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc"
-        - CMD=$CMD0$CMD1$CMD2$CMD3$CMD4
+        - CMD=$CMD_" && "$CMD0$CMD1$CMD2$CMD3$CMD4
         - PREINSTALL="true"
 
     # maven-plugin
     - jdk: oraclejdk8
       env:
         - DESC="maven-plugin"
-        - CMD="cd sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc"
-        - PREINSTALL="true"
+        - CMD0="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD=$CMD0" && ""cd sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc"
 
     # idea-extension
     - jdk: oraclejdk8
       env:
         - DESC="idea-extension"
-        - CMD="cd sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc"
-        - PREINSTALL="true"
+        - CMD0="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD=$CMD0" && ""cd sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc"
 
     # sonar-plugin
     - jdk: oraclejdk8
       env:
         - DESC="sonar-plugin"
-        - CMD="cd sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc"
-        - PREINSTALL="true"
+        - CMD0="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD=$CMD0" && ""cd sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc"
 
     # checks
     - jdk: oraclejdk8
@@ -102,7 +103,6 @@ matrix:
 
 
 script:
-  - if [[ $PREINSTALL == 'true' ]]; then cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. ; fi
   - eval $CMD
 
 after_success:
