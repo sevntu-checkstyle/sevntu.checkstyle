@@ -72,7 +72,7 @@ matrix:
     - env:
         - DESC="test Issue ref in PR description"
         - CMD_="set -e"
-        - CMD0=" && if [[ ! $TRAVIS_PULL_REQUEST =~ ^([0-9]*)$ ]]; then exit 0; fi "
+        - CMD0=" && if [[ ! \$TRAVIS_PULL_REQUEST =~ ^([0-9]*)$ ]]; then exit 0; fi "
         - CMD1=" && LINK_COMMITS=https://api.github.com/repos/sevntu-checkstyle/sevntu.checkstyle/pulls/$TRAVIS_PULL_REQUEST/commits "
         - CMD2=" && COMMITS=\$(curl -s -H 'Authorization: token $GITHUB_AUTH_TOKEN' \$LINK_COMMITS | jq '.[0] | .commit.message') "
         - CMD3=" && echo 'Messages from github:'\${COMMITS:0:60}... "
