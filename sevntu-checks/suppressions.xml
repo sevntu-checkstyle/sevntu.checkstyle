@@ -6,7 +6,7 @@
 
 <suppressions>
     <!-- START of legacy code, all violations will be resolved during transition to main project -->
-    <suppress checks="ImportControl" files="CustomDeclarationOrderCheck.java"/>    
+    <suppress checks="ImportControl" files="CustomDeclarationOrderCheck.java"/>
     <suppress checks="JavadocParagraph" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|MultipleVariableDeclarationsExtendedCheck|EmptyPublicCtorInClassCheck|TernaryPerExpressionCountCheck|RequiredParameterForAnnotationCheck|ConfusingConditionCheck|ForbidInstantiationCheck|ForbidThrowAnonymousExceptionsCheck|MapIterationInForEachLoopCheck|NameConventionForJunit4TestClassesCheck|NoNullForCollectionReturnCheck|OverridableMethodInConstructorCheck|UselessSuperCtorCallCheck|WhitespaceBeforeArrayInitializerCheck|EnumValueNameCheck|CauseParameterInExceptionCheck|ChildBlockLengthCheck|NestedSwitchCheck|PublicReferenceToPrivateTypeCheck).java"/>
     <suppress checks="CyclomaticComplexity" files="(AvoidNotShortCircuitOperatorsForBooleanCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|ReturnCountExtendedCheck|AvoidHidingCauseExceptionCheck|ConfusingConditionCheck|ForbidCertainImportsCheck|ForbidWildcardAsReturnTypeCheck|HideUtilityClassConstructorCheck|UnnecessaryParenthesesExtendedCheck|OverridableMethodInConstructorCheck|MapIterationInForEachLoopCheck|IllegalCatchExtendedCheck).java"/>
     <suppress checks="JavadocVariable" files="(TernaryPerExpressionCountCheck|CustomDeclarationOrderCheck).java"/>
@@ -35,6 +35,8 @@
     <!-- they are aggregators of logic, usage a several of classes are ok -->
     <suppress checks="ClassDataAbstractionCoupling" files=".*[\\/]BaseCheckTestSupport\.java"/>
 
+    <!-- we can not change name of pre-existing Check -->
+    <suppress checks="AbbreviationAsWordInName" files=".*[\\/]ForbidCCommentsInMethodsCheck(Test)?\.java"/>
 
     <!-- Fixing these cases will decrease code readability -->
     <suppress checks="MultipleStringLiterals" files=".*[\\/]+src[\\/]test[\\/]"/>
