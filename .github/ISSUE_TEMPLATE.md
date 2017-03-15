@@ -10,7 +10,7 @@
 
 [[PLACE YOUR OUTPUT HERE]]
 
-/var/tmp $ java -classpath sevntu-checks-X.XX.X.jar;checkstyle-X.XX-all.jar com.puppycrawl.tools.checkstyle.Main -c config.xml YOUR_FILE.java
+/var/tmp $ java -classpath sevntu-checks-X.XX.X.jar:checkstyle-X.XX-all.jar com.puppycrawl.tools.checkstyle.Main -c config.xml YOUR_FILE.java
 
 [[PLACE YOUR OUTPUT HERE]]
 
