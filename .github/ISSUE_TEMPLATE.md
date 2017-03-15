@@ -20,4 +20,4 @@ Describe what you expect in detail.
 
 --------------
 
-Still not clear ??? - see example - http://checkstyle.sourceforge.net/report_issue.html#How_to_report_a_bug
+Still not clear ??? - see example - https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-report-the-issue-(example)
