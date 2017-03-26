@@ -32,8 +32,6 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.beanutils.ConversionException;
-
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -418,7 +416,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         final int classMember = convertMacroToTokenType(macro);
         if (classMember == -1) {
             // if Class Member has been specified wrong
-            throw new ConversionException("Unable to parse " + macro);
+            throw new IllegalArgumentException("Unable to parse " + macro);
         }
 
         // parse regExp
@@ -1235,7 +1233,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 this.format = newFormat;
             }
             catch (final PatternSyntaxException ex) {
-                throw new ConversionException("unable to parse " + newFormat, ex);
+                throw new IllegalArgumentException("unable to parse " + newFormat, ex);
             }
         }
 

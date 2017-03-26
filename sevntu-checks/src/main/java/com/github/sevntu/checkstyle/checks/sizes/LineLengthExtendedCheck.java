@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.beanutils.ConversionException;
-
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -251,15 +249,15 @@ public class LineLengthExtendedCheck extends AbstractCheck {
      *
      * @param format
      *            a <code>String</code> value
-     * @throws ConversionException
+     * @throws IllegalArgumentException
      *             unable to parse aFormat
      */
-    public final void setIgnorePattern(String format) throws ConversionException {
+    public final void setIgnorePattern(String format) {
         try {
             ignorePattern = Pattern.compile(format);
         }
         catch (final PatternSyntaxException ex) {
-            throw new ConversionException("unable to parse " + format, ex);
+            throw new IllegalArgumentException("unable to parse " + format, ex);
         }
     }
 }
