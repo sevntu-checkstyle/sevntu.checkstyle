@@ -46,4 +46,7 @@
          as visitToken() has cyclomatic complexity 14 now because of SWITCH  -->
     <suppress checks="CyclomaticComplexity" files="StaticMethodCandidateCheck.java"/>
 
+    <!-- Until https://github.com/checkstyle/checkstyle/issues/3496 and when we have time to fix this in sevntu-->
+    <suppress id="returnCountMaxOne" files=".*[\\/]coding[\\/]|BaseCheckTestSupport\.java|XmlUtil\.java|CheckUtil\.java|EnumValueNameCheck\.java|ForbidAnnotationCheck\.java"/>
+
 </suppressions>
