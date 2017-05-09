@@ -154,6 +154,7 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCall"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatch"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializer"/>
+    <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIf" />
 
     <!-- Design -->
     <module name="com.github.sevntu.checkstyle.checks.design.ChildBlockLength">
