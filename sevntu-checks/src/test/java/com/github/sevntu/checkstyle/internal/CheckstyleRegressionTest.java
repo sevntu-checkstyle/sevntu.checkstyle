@@ -88,9 +88,6 @@ public class CheckstyleRegressionTest {
 
         trimSevntuChecksNotReferenced(configChecks, sevntuChecks);
 
-        String configContents = new String(Files.readAllBytes(config.toPath()), UTF_8);
-        String suppressionContents = new String(Files.readAllBytes(suppression.toPath()), UTF_8);
-
         if (sevntuChecks.size() > 0) {
             System.out.println("Adding " + sevntuChecks.size() + " missing check(s)");
 
@@ -113,6 +110,8 @@ public class CheckstyleRegressionTest {
                 }
             }
 
+            String configContents = new String(Files.readAllBytes(config.toPath()), UTF_8);
+
             int treeWalkerPosition = configContents.lastIndexOf("<module name=\"TreeWalker\">");
             treeWalkerPosition = configContents.indexOf('\n', treeWalkerPosition) + 1;
 
@@ -122,6 +121,7 @@ public class CheckstyleRegressionTest {
             Files.write(config.toPath(), configContents.getBytes(UTF_8), StandardOpenOption.CREATE);
 
             if (!suppressionAdditions.isEmpty()) {
+                String suppressionContents = new String(Files.readAllBytes(suppression.toPath()), UTF_8);
                 final int position = suppressionContents.lastIndexOf("</suppressions");
 
                 suppressionContents = suppressionContents.substring(0, position)

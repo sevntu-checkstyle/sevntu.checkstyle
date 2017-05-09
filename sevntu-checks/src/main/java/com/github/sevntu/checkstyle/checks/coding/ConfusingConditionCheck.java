@@ -231,9 +231,9 @@ public class ConfusingConditionCheck extends AbstractCheck {
         boolean result = true;
 
         final DetailAST lastChildAfterIf = literalIf.getLastChild();
-        final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(literalIf);
         final int linesOfCodeInElseBlock = getAmounOfCodeRowsInBlock(lastChildAfterIf);
         if (linesOfCodeInElseBlock > 0) {
+            final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(literalIf);
             result = linesOfCodeInIfBlock / linesOfCodeInElseBlock < multiplyFactorForElseBlocks;
         }
         return result;
