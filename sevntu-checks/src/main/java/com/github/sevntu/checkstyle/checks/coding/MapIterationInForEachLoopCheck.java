@@ -330,14 +330,10 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         final DetailAST forEachNode = forLiteralNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE);
         final DetailAST keySetOrEntrySetNode =
                 getKeySetOrEntrySetNode(forEachNode);
-        boolean isMapClassField = false;
         // Search for keySet or entrySet
         if (keySetOrEntrySetNode != null) {
-            if (keySetOrEntrySetNode.getPreviousSibling().getChildCount() != 0) {
-                isMapClassField = true;
-            }
-            final DetailAST variableDefNode = forEachNode.getFirstChild();
-            final String keyOrEntryVariableName = variableDefNode.getLastChild().getText();
+            final boolean isMapClassField = keySetOrEntrySetNode.getPreviousSibling()
+                    .getChildCount() != 0;
 
             final String currentMapVariableName;
 
@@ -351,6 +347,8 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
             final DetailAST forEachOpeningBrace = forLiteralNode.getLastChild();
 
             if (!isMapPassedIntoAnyMethod(forEachOpeningBrace)) {
+                final DetailAST variableDefNode = forEachNode.getFirstChild();
+                final String keyOrEntryVariableName = variableDefNode.getLastChild().getText();
 
                 if (proposeKeySetUsage
                         && KEY_SET_METHOD_NAME.equals(

@@ -214,11 +214,11 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private static List<DetailAST>
             getMethodParameterTypes(DetailAST parametersDefAst) {
-        DetailAST parameterType = null;
         final List<DetailAST> parameterTypes = new ArrayList<>();
 
         if (parametersDefAst.getFirstChild() != null) {
             DetailAST currentNode = parametersDefAst;
+            DetailAST parameterType = null;
 
             while (currentNode != null) {
                 if (currentNode.getType() == TokenTypes.PARAMETER_DEF) {

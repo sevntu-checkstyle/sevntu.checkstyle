@@ -194,11 +194,12 @@ public class LineLengthExtendedCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        final DetailAST endOfIgnoreLine = ast.findFirstToken(TokenTypes.SLIST);
         if (ast.getParent() != null
                 && ast.getParent().getType() == TokenTypes.OBJBLOCK
                 || ast.getType() == TokenTypes.CLASS_DEF) {
             final int mNumberOfLine = ast.getLineNo();
+            final DetailAST endOfIgnoreLine = ast.findFirstToken(TokenTypes.SLIST);
+
             if (endOfIgnoreLine == null) {
                 lines[mNumberOfLine - 1] = null;
             }

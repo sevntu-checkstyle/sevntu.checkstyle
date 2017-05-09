@@ -93,8 +93,8 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST methodDef) {
-        final String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
         if (hasBody(methodDef) && !isMethodAtAnonymousClass(methodDef)) {
+            final String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
             if (methodName.startsWith(BOOLEAN_GETTER_PREFIX)) {
                 if (!isGetterCorrect(methodDef,
                         methodName.substring(BOOLEAN_GETTER_PREFIX.length()))) {
@@ -224,10 +224,9 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             DetailAST parameters) {
         String nameOfSettingField = null;
 
-        final DetailAST assigningFirstChild = assign.getFirstChild();
-
         if (assign.getChildCount() == 2
                 && assign.getLastChild().getType() == TokenTypes.IDENT) {
+            final DetailAST assigningFirstChild = assign.getFirstChild();
 
             if (assigningFirstChild.getType() == TokenTypes.IDENT) {
 

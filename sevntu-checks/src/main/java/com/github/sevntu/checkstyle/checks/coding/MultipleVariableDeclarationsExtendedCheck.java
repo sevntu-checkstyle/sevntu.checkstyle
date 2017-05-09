@@ -98,10 +98,12 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
     public void work(DetailAST ast) {
 
         DetailAST nextNode = ast.getNextSibling();
-        final boolean isCommaSeparated = (nextNode != null)
-                && (nextNode.getType() == TokenTypes.COMMA);
 
         if (nextNode != null) {
+            // -@cs[MoveVariableInsideIf] assignment value is modified later so
+            // it can't be moved
+            final boolean isCommaSeparated = nextNode.getType() == TokenTypes.COMMA;
+
             if ((nextNode.getType() == TokenTypes.COMMA)
                     || (nextNode.getType() == TokenTypes.SEMI)) {
                 nextNode = nextNode.getNextSibling();

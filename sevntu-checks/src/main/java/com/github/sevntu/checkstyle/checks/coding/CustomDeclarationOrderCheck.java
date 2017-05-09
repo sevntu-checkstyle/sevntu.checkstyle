@@ -390,6 +390,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     public void leaveToken(DetailAST ast) {
         if (ast.getType() == TokenTypes.CLASS_DEF
                 && !isClassDefInMethodDef(ast)) {
+            // -@cs[MoveVariableInsideIf] assignment value is a modification
+            // call so it can't be moved
             final ClassDetail classDetail = classDetails.pop();
 
             if (checkGettersSetters) {
@@ -687,9 +689,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private boolean isGetterCorrect(DetailAST methodDef, String methodPrefix) {
         boolean result = false;
 
-        final String methodName = getIdentifier(methodDef);
-        final String methodNameWithoutPrefix = getNameWithoutPrefix(methodName, methodPrefix);
-
         final DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
 
         // no parameters
@@ -703,6 +702,9 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 if (returnStatementAst != null) {
                     final DetailAST exprAst = returnStatementAst.getFirstChild();
                     final String returnedFieldName = getNameOfGetterField(exprAst);
+                    final String methodName = getIdentifier(methodDef);
+                    final String methodNameWithoutPrefix = getNameWithoutPrefix(methodName,
+                            methodPrefix);
                     if (returnedFieldName != null
                             && !localVariableHidesField(statementsAst, returnedFieldName)
                             && verifyFieldAndMethodName(returnedFieldName,
@@ -748,15 +750,14 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private boolean isSetterCorrect(DetailAST methodDefAst, String methodPrefix) {
         boolean result = false;
 
-        final String methodName = getIdentifier(methodDefAst);
-        final String setterFieldName = fieldPrefix
-                + getNameWithoutPrefix(methodName, methodPrefix);
-
         final DetailAST methodTypeAst = methodDefAst.findFirstToken(TokenTypes.TYPE);
 
         if (methodTypeAst.branchContains(TokenTypes.LITERAL_VOID)) {
 
             final DetailAST statementsAst = methodDefAst.findFirstToken(TokenTypes.SLIST);
+            final String methodName = getIdentifier(methodDefAst);
+            final String setterFieldName = fieldPrefix
+                    + getNameWithoutPrefix(methodName, methodPrefix);
 
             result = statementsAst != null
                     && !localVariableHidesField(statementsAst, setterFieldName)
@@ -1066,9 +1067,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      */
     private static boolean isVoidType(final DetailAST methodAST) {
         boolean result = true;
-        DetailAST methodTypeAST = null;
         if (hasChildToken(methodAST, TokenTypes.TYPE)) {
-            methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
+            final DetailAST methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
             result = hasChildToken(methodTypeAST, TokenTypes.LITERAL_VOID);
         }
         return result;
@@ -1343,9 +1343,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                         // method is NOT getter
                         final DetailAST setterAst = allGettersSetters.get(j);
                         final String setterName = getIdentifier(setterAst);
-                        String setterField = null;
                         if (isSetterName(setterName)) {
-                            setterField = getNameWithoutPrefix(
+                            final String setterField = getNameWithoutPrefix(
                                     getIdentifier(setterAst), SETTER_PREFIX);
 
                             // if fields are same and setter is sibling with getter
