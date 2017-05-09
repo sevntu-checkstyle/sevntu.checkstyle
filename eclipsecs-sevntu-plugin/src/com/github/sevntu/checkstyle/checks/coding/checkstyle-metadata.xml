@@ -529,5 +529,12 @@
       <message-key key="whitespace.before.array.initializer"/>
     </rule-metadata>
 
+    <rule-metadata name="%MoveVariableInsideIfCheck.name" internal-name="MoveVariableInsideIfCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck"/>
+      <description>%MoveVariableInsideIfCheck.desc</description>
+
+      <message-key key="move.variable.inside"/>
+    </rule-metadata>
+
   </rule-group-metadata>
 </checkstyle-metadata>
