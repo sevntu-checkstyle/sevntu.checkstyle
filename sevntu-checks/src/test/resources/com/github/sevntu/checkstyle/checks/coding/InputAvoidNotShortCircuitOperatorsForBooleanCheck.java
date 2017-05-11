@@ -160,4 +160,19 @@ class MyConstructor
     {
         boolean x = InputAvoidNotShortCircuitOperatorsForBooleanCheck.x | InputAvoidNotShortCircuitOperatorsForBooleanCheck.x;
     }
+
+    public void test() {
+        new Runnable() {
+            @Override
+            public void run() {
+            }
+            public boolean test() {
+                try {
+                } catch (IllegalArgumentException | NullPointerException e) {
+                    return false;
+                }
+                return true;
+            }
+        };
+    }
 }

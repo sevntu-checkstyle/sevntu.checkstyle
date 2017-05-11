@@ -107,6 +107,10 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         // look for EXPR which is always around BOR/BAND... operators
         while (currentNode != null && currentNode.getType() != TokenTypes.EXPR) {
             currentNode = currentNode.getParent();
+
+            if (currentNode.getType() == TokenTypes.OBJBLOCK) {
+                currentNode = null;
+            }
         }
 
         if (currentNode != null && isBooleanExpression(currentNode)) {
