@@ -352,7 +352,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      */
     private static DetailAST getMethodDef(DetailAST returnLit) {
         DetailAST methodDef = returnLit;
-        while (methodDef.getType() != TokenTypes.METHOD_DEF) {
+        while (methodDef != null && methodDef.getType() != TokenTypes.METHOD_DEF) {
             methodDef = methodDef.getParent();
         }
         return methodDef;
