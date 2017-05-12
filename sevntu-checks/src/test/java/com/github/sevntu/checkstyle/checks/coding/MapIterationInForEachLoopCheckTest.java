@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
 
@@ -93,6 +94,17 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
         verify(checkConfig,
                 getPath("InputMapIterationInForEachLoopCheckSkipIf.java"),
                 expected);
+    }
+
+    @Test
+    public final void testClassExtendingMap() throws Exception {
+        checkConfig.addAttribute("proposeValuesUsage", "true");
+        checkConfig.addAttribute("proposeKeySetUsage", "true");
+        checkConfig.addAttribute("proposeEntrySetUsage", "true");
+
+        verify(checkConfig,
+                getPath("InputMapIterationInForEachLoopCheckExtendingMap.java"),
+                CommonUtils.EMPTY_STRING_ARRAY);
     }
 
 }

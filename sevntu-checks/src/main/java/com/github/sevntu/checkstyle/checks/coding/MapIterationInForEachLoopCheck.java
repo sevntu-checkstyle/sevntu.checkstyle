@@ -400,7 +400,13 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                     || ENTRY_SET_METHOD_NAME.equals(identNode.getText())) {
                 final String mapClassName;
                 if (isMapClassField) {
-                    mapClassName = identNode.getPreviousSibling().getLastChild().getText();
+                    final DetailAST lastChild = identNode.getPreviousSibling().getLastChild();
+                    if (lastChild == null) {
+                        mapClassName = null;
+                    }
+                    else {
+                        mapClassName = lastChild.getText();
+                    }
                 }
                 else {
                     mapClassName = identNode.getPreviousSibling().getText();
