@@ -19,258 +19,61 @@
 
 package com.github.sevntu.checkstyle.checks.naming;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import com.google.common.collect.Lists;
-import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
 
 /**
- * Check forces enum values to match the specific pattern. According to
- * "Java Coding Style" by Achut Reddy p 3.3 constants include
- * "all static final object reference types that are never followed by "
- * ." (dot).", i.e. enums, which are followed by dot while used in the code are
- * to be treated as static object references, while enums, that are not used
- * with following dot, should be treated as constants.
  * <p>
- * Enums are defined to be used as class have some own methods. This condition
- * is used to distinguish between Values Enumeration and Class Enumeration.
- * Values Enumeration looks like the following: <code>
- * enum SimpleErrorEnum
- *   {
- *       FIRST_SIMPLE, SECOND_SIMPLE, THIRD_SIMPLE;
- *   }
- * </code>
+ * Checks that enumeration value names conform to a format specified
+ * by the format property. The format is a
+ * {@link java.util.regex.Pattern regular expression} and defaults to
+ * <strong>^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$</strong>.
+ * </p>
  * <p>
- * While Class Enumeration has some methods, for example: <code>
- * enum SimpleErrorEnum
- *   {
- *       FIRST_SIMPLE, SECOND_SIMPLE, THIRD_SIMPLE;
- *
- *       public String toString() {
- *           return Integer.toString(ordinal() + 10);
- *       }
- *   }
- * </code>
+ * An example of how to configure the check is:
+ * </p>
+ * <pre>
+ * &lt;module name="EnumValueName"/&gt;
+ * </pre>
  * <p>
- * Name format for Class Enumeration values is specified with
- * {@link #setObjFormat(String)} , while format for enum constants - with
- * {@link #setConstFormat(String)}
- * <p>
- * To avoid assuming enum as static object reference, while using some specific
- * methods, {@link #setExcludes(String[])} can be used. For example to make enum in
- * the previous example a constant set Excludes property to a value
- * <code>toString</code>
- * <p>
- * By default <code>toString</code> is used as an exclusion.
+ * An example of how to configure the check for names that requires all names to be lowercase
+ * with underscores and digits is:
+ * </p>
+ * <pre>
+ * &lt;module name="EnumValueName"&gt;
+ *    &lt;property name="format" value="^[a-z_0-9]+*$"/&gt;
+ * &lt;/module&gt;
+ * </pre>
  *
  * @author Pavel Baranchikov
- *
- * @see <a href="http://www.scribd.com/doc/15884743/Java-Coding-Style-by-Achut-Reddy">
- * Java Coding Style</a>
  */
-public class EnumValueNameCheck extends AbstractCheck {
-    /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
-     */
-    public static final String MSG_CONST = "enum.name.const.invalidPattern";
-    /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
-     */
-    public static final String MSG_OBJ = "enum.name.obj.invalidPattern";
-
+public class EnumValueNameCheck extends AbstractNameCheck {
     /**
      * Default pattern for Values Enumeration names.
      */
-    public static final String DEFAULT_CONST_PATTERN =
+    public static final String DEFAULT_PATTERN =
             "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$";
 
     /**
-     * Default pattern for Class Enumeration names.
-     */
-    public static final String DEFAULT_OBJ_PATTERN = "^[A-Z][a-zA-Z0-9]*$";
-
-    /**
-     * Default exclusions value.
-     */
-    private static final String[] DEFAULT_EXCLUSION = {
-        "toString",
-    };
-
-    /**
-     * Regular expression to test Class Enumeration names against.
-     */
-    private Pattern objRegexp;
-
-    /**
-     * Format for Class Enumeration names to check for. Compiled to
-     * {@link #objRegexp}
-     */
-    private String objFormat;
-
-    /**
-     * Regular expression to test Values Enumeration names against.
-     */
-    private Pattern constRegexp;
-
-    /**
-     * Format for Values Enumeration names to check for. Compiled to
-     * {@link #constRegexp}
-     */
-    private String constFormat;
-
-    /**
-     * Method and field names to exclude from check.
-     */
-    private final List<Pattern> excludes;
-
-    /**
-     * Constructs check with the default pattern.compile.
+     * Creates a new {@code EnumValueNameCheck} instance.
      */
     public EnumValueNameCheck() {
-        setConstFormat(DEFAULT_CONST_PATTERN);
-        setObjFormat(DEFAULT_OBJ_PATTERN);
-        excludes = Lists.newArrayList();
-        setExcludes(DEFAULT_EXCLUSION);
-    }
-
-    /**
-     * Method sets format to match Class Enumeration names.
-     * @param newConstRegexp format to check against
-     */
-    public final void setConstFormat(String newConstRegexp) {
-        this.constRegexp = Pattern.compile(newConstRegexp, 0);
-        constFormat = newConstRegexp;
-    }
-
-    /**
-     * Method sets format to match Values Enumeration names.
-     * @param objectRegexp format to check against
-     */
-    public final void setObjFormat(String objectRegexp) {
-        objRegexp = Pattern.compile(objectRegexp, 0);
-        objFormat = objectRegexp;
-    }
-
-    /**
-     * Method sets method and field name exclusions.
-     * @param excludes
-     *        comma separated list or regular expressions
-     */
-    public final void setExcludes(String[] excludes) {
-        this.excludes.clear();
-        for (String exclude: excludes) {
-            this.excludes.add(Pattern.compile(exclude));
-        }
+        super(DEFAULT_PATTERN);
     }
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[] {
-            TokenTypes.ENUM_CONSTANT_DEF,
-        };
+        return getAcceptableTokens();
     }
 
     @Override
-    public void visitToken(DetailAST ast) {
-        final DetailAST nameAST = ast.findFirstToken(TokenTypes.IDENT);
-        final boolean enumIsClass = isClassEnumeration(ast);
-        final Pattern pattern;
-        if (enumIsClass) {
-            pattern = objRegexp;
-        }
-        else {
-            pattern = constRegexp;
-        }
-        if (!pattern.matcher(nameAST.getText()).find()) {
-            final String format;
-            if (enumIsClass) {
-                format = objFormat;
-            }
-            else {
-                format = constFormat;
-            }
-            final String msg;
-            if (enumIsClass) {
-                msg = MSG_OBJ;
-            }
-            else {
-                msg = MSG_CONST;
-            }
-            log(nameAST.getLineNo(),
-                    nameAST.getColumnNo(),
-                    msg,
-                    nameAST.getText(),
-                    format);
-        }
+    public int[] getAcceptableTokens() {
+        return new int[] {TokenTypes.ENUM_CONSTANT_DEF};
     }
 
-    /**
-     * Method determines, whether the Enum, specified as parameter has any
-     * members. Method uses {@link #excludes} while looking though the tree
-     * nodes
-     *
-     * @param ast
-     *        ast to check
-     * @return <code>true</code> if enum is a class enumeration
-     */
-    private boolean isClassEnumeration(DetailAST ast) {
-        return hasMembers(ast, excludes);
+    @Override
+    protected boolean mustCheckName(DetailAST ast) {
+        return true;
     }
-
-    /**
-     * Method determines whether the specified enum is a constant or is an
-     * object.
-     *
-     * @param ast
-     *        token of a enum value definition
-     * @param excludes
-     *        list of ignored member names
-     * @return <code>true</code> if enum is a class enumeration
-     */
-    private static boolean
-            hasMembers(DetailAST ast, List<Pattern> excludes) {
-        final DetailAST objBlock = ast.getParent();
-        boolean memberFound = false;
-        for (DetailAST member = objBlock.getFirstChild(); member != null; member = member
-                .getNextSibling()) {
-            if (member.getType() == TokenTypes.METHOD_DEF
-                    || member.getType() == TokenTypes.VARIABLE_DEF) {
-                final DetailAST memberIdent = member
-                        .findFirstToken(TokenTypes.IDENT);
-                final String identifierStr = memberIdent.getText();
-                if (!isAnyMatched(excludes, identifierStr)) {
-                    memberFound = true;
-                    break;
-                }
-            }
-        }
-        return memberFound;
-    }
-
-    /**
-     * Returns whether at least one of patterns are successfully matched arainst
-     * the specified string value
-     * @param patterns
-     *        pattern list to match against
-     * @param value
-     *        value to match
-     * @return <code>true</code> if at least one pattern have been successfully
-     *         matched.
-     */
-    private static boolean
-            isAnyMatched(Collection<Pattern> patterns, String value) {
-        for (Pattern pattern : patterns) {
-            if (pattern.matcher(value).find()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
