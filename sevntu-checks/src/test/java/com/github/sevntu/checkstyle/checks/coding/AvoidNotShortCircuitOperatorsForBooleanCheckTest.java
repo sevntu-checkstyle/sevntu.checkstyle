@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport {
 
@@ -51,5 +52,12 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
         };
 
         verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
+    }
+
+    @Test
+    public final void testNonClasses() throws Exception {
+        verify(checkConfig,
+                getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckNonClasses.java"),
+                CommonUtils.EMPTY_STRING_ARRAY);
     }
 }
