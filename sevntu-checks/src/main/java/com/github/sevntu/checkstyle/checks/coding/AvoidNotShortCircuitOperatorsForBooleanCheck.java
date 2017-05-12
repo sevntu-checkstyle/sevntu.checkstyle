@@ -148,7 +148,10 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
 
         while (curNode.getType() != TokenTypes.CTOR_DEF
                 && curNode.getType() != TokenTypes.METHOD_DEF
-                && curNode.getType() != TokenTypes.CLASS_DEF) {
+                && curNode.getType() != TokenTypes.CLASS_DEF
+                && curNode.getType() != TokenTypes.INTERFACE_DEF
+                && curNode.getType() != TokenTypes.ANNOTATION_DEF
+                && curNode.getType() != TokenTypes.ENUM_DEF) {
             curNode = curNode.getParent();
         }
 
