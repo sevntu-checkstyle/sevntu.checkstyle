@@ -310,8 +310,8 @@ class MethodsWithAnnotations extends SomeClass {
     @SuppressWarnings("unchecked") public List<?> met3() {
         return null;
     }
-    @Deprecated
-    @Override
+    @java.lang.Deprecated
+    @java.lang.Override
     @SuppressWarnings("unused")
     public List<?> met4() {
         return null;

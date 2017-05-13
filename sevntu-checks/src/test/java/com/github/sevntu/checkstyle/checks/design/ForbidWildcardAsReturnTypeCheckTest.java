@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 /**
  * Test class for ForbidWildcardInReturnTypeCheck.
@@ -420,6 +421,17 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         verify(checkConfig,
             getPath("InputForbidWildcardAsReturnTypeCheck.java"),
             expected);
+    }
+
+    @Test
+    public final void testFullyQualifiedAnnotation()
+            throws Exception {
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+
+        verify(checkConfig,
+            getPath("InputForbidWildcardAsReturnTypeCheckQualifiedAnnotation.java"),
+            CommonUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
