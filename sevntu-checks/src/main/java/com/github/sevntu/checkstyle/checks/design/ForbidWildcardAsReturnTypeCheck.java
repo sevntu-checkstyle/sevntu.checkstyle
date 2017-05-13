@@ -29,6 +29,7 @@ import antlr.collections.AST;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
 
 /**
  * Prevents using wildcards as return type of methods.
@@ -61,6 +62,19 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      */
     private static final int WILDCARD_SUPER_IDENT =
             TokenTypes.TYPE_LOWER_BOUNDS;
+
+    /** {@link Deprecated Deprecated} annotation name. */
+    private static final String DEPRECATED = "Deprecated";
+
+    /** Fully-qualified {@link Deprecated Deprecated} annotation name. */
+    private static final String FQ_DEPRECATED = "java.lang." + DEPRECATED;
+
+    /** {@link Override Override} annotation name. */
+    private static final String OVERRIDE = "Override";
+
+    /** Fully-qualified {@link Override Override} annotation name. */
+    private static final String FQ_OVERRIDE = "java.lang." + OVERRIDE;
+
     /**
      * Empty array of DetailAST.
      */
@@ -191,9 +205,12 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
                 || (checkProtectedMethods && "protected".equals(methodScope))
                 || (checkPackageMethods && "package".equals(methodScope)))
                 && (checkOverrideMethods
-                        || !hasAnnotation(methodDefAst, "Override"))
+                        || (!AnnotationUtility.containsAnnotation(methodDefAst, OVERRIDE)
+                            && !AnnotationUtility.containsAnnotation(methodDefAst, FQ_OVERRIDE)))
                 && (checkDeprecatedMethods
-                        || !hasAnnotation(methodDefAst, "Deprecated"))) {
+                        || (!AnnotationUtility.containsAnnotation(methodDefAst, DEPRECATED)
+                            && !AnnotationUtility.containsAnnotation(methodDefAst,
+                                FQ_DEPRECATED)))) {
             final List<DetailAST> wildcardTypeArguments =
                     getWildcardArgumentsAsMethodReturnType(methodDefAst);
             if (!wildcardTypeArguments.isEmpty()
@@ -267,30 +284,6 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     private static String getIdentifier(final DetailAST ast) {
         final DetailAST identifier = ast.findFirstToken(TokenTypes.IDENT);
         final String result = identifier.getText();
-        return result;
-    }
-
-    /**
-     * Verify that method definition contains specified annotation.
-     * @param methodDefAst DetailAST of method definition.
-     * @param annotationTitle Annotation title
-     * @return true if method definition contains specified annotation.
-     */
-    private static boolean hasAnnotation(DetailAST methodDefAst,
-            String annotationTitle) {
-        boolean result = false;
-        final DetailAST modifiersAst = methodDefAst.getFirstChild();
-        if (hasChildToken(modifiersAst, TokenTypes.ANNOTATION)) {
-            DetailAST modifierAst = modifiersAst.getFirstChild();
-            while (modifierAst != null) {
-                if (modifierAst.getType() == TokenTypes.ANNOTATION
-                        && annotationTitle.equals(getIdentifier(modifierAst))) {
-                    result = true;
-                    break;
-                }
-                modifierAst = modifierAst.getNextSibling();
-            }
-        }
         return result;
     }
 
