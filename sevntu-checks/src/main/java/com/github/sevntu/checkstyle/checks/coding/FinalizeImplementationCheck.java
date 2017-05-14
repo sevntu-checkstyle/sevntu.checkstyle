@@ -208,9 +208,10 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      */
     private static boolean containsSuperFinalizeCall(DetailAST openingBrace) {
         final DetailAST methodCallToken = openingBrace.getFirstChild().getFirstChild();
-        if (methodCallToken != null) {
+        if (methodCallToken != null && methodCallToken.getType() == TokenTypes.METHOD_CALL) {
             final DetailAST dotToken = methodCallToken.getFirstChild();
-            if (dotToken.findFirstToken(TokenTypes.LITERAL_SUPER) != null) {
+            if (dotToken.getType() == TokenTypes.DOT
+                    && dotToken.findFirstToken(TokenTypes.LITERAL_SUPER) != null) {
                 return true;
             }
         }
