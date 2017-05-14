@@ -51,4 +51,15 @@ public class FinalizeImplementationCheckTest extends BaseCheckTestSupport {
         verify(checkConfig,
                 getPath("InputFinalizeImplementationCheck.java"), expected);
     }
+
+    @Test
+    public final void testSpecialFinalize() throws Exception {
+        final String[] expected = {
+            "5: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+            "18: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+        };
+
+        verify(checkConfig, getPath("InputFinalizeImplementationCheckSpecial.java"),
+                expected);
+    }
 }
