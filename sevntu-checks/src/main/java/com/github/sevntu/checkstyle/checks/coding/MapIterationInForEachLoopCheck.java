@@ -409,7 +409,13 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                     }
                 }
                 else {
-                    mapClassName = identNode.getPreviousSibling().getText();
+                    final DetailAST previousSibling = identNode.getPreviousSibling();
+                    if (previousSibling == null) {
+                        mapClassName = null;
+                    }
+                    else {
+                        mapClassName = previousSibling.getText();
+                    }
                 }
                 if (mapNamesList.contains(mapClassName)) {
                     keySetOrEntrySetNode = identNode;

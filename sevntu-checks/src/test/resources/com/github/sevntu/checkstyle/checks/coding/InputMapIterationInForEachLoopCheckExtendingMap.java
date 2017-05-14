@@ -8,5 +8,9 @@ public class InputMapIterationInForEachLoopCheckExtendingMap {
             for (Entry<Integer, Integer> entry : this.entrySet()) {
             }
         }
+        public void test2() {
+            for (Entry<Integer, Integer> entry : entrySet()) {
+            }
+        }
     }
 }
