@@ -211,7 +211,9 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
                     else {
                         convertedExc = temp.findFirstToken(TokenTypes.IDENT);
                     }
-                    wrapExcNames.add(convertedExc.getText());
+                    if (convertedExc != null) {
+                        wrapExcNames.add(convertedExc.getText());
+                    }
                 }
             }
 

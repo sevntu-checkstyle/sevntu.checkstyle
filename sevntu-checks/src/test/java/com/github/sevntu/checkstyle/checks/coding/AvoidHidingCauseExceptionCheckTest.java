@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
 
@@ -61,6 +62,14 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
+    }
+
+    @Test
+    public final void testWrappingException() throws Exception {
+        final DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+
+        verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheckWrapping.java"),
+                CommonUtils.EMPTY_STRING_ARRAY);
     }
 
 }
