@@ -3,6 +3,12 @@
 
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+  </parent>
+
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checkstyle-idea-extension</artifactId>
   <version>1.23.1</version>
