@@ -7,12 +7,12 @@
 
   <parent>
     <relativePath>../eclipse-pom.xml</relativePath>
-    <groupId>com.github.sevntu.checkstyle</groupId>
+    <groupId>com.github.sevntu-checkstyle</groupId>
     <artifactId>parent</artifactId>
     <version>1.23.1</version>
   </parent>
 
-  <groupId>com.github.sevntu.checkstyle</groupId>
+  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>eclipsecs-sevntu-plugin</artifactId>
   <packaging>eclipse-plugin</packaging>
 
@@ -31,7 +31,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.sevntu.checkstyle</groupId>
+      <groupId>com.github.sevntu-checkstyle</groupId>
       <artifactId>sevntu-checks</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -85,7 +85,7 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>com.github.sevntu.checkstyle</groupId>
+                  <groupId>com.github.sevntu-checkstyle</groupId>
                   <artifactId>sevntu-checks</artifactId>
                   <version>${sevntu.checks.version}</version>
                   <type>jar</type>

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.sevntu.checkstyle</groupId>
+  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
   <version>1.23.1</version>
 
@@ -70,7 +70,7 @@
 
   <distributionManagement>
     <repository>
-      <id>com.github.sevntu.checkstyle</id>
+      <id>com.github.sevntu-checkstyle</id>
       <name>sevntu-checks</name>
       <url>file://${basedir}/../gh-pages/maven2/</url>
     </repository>
@@ -249,7 +249,7 @@
               </dependency>
               <!-- atention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
               <dependency>
-                <groupId>com.github.sevntu.checkstyle</groupId>
+                <groupId>com.github.sevntu-checkstyle</groupId>
                 <artifactId>sevntu-checks</artifactId>
                 <version>${project.version}</version>
               </dependency>

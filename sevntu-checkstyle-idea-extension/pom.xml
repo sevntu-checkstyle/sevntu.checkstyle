@@ -3,7 +3,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.sevntu.checkstyle</groupId>
+  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checkstyle-idea-extension</artifactId>
   <version>1.23.1</version>
   <packaging>jar</packaging>
@@ -19,7 +19,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.sevntu.checkstyle</groupId>
+      <groupId>com.github.sevntu-checkstyle</groupId>
       <artifactId>sevntu-checks</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -27,7 +27,7 @@
 
   <distributionManagement>
     <repository>
-      <id>com.github.sevntu.checkstyle</id>
+      <id>com.github.sevntu-checkstyle</id>
       <name>Sevntu Checkstyle Idea extension</name>
       <url>file://${basedir}/../gh-pages/maven2/</url>
     </repository>
@@ -54,7 +54,7 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>com.github.sevntu.checkstyle</groupId>
+                  <groupId>com.github.sevntu-checkstyle</groupId>
                   <artifactId>sevntu-checks</artifactId>
                   <version>${sevntu.checks.version}</version>
                   <type>jar</type>
