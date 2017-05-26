@@ -43,7 +43,7 @@ prepareForDeploy()
 deployIdea()
     {
         cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
-        mvn clean deploy
+        mvn clean deploy -Plocal-deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/"
@@ -61,7 +61,7 @@ deployEclipse()
                 #echo -n "Enter version number: "
                 #read version
                 #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
-        mvn clean install -f eclipse-pom.xml
+        mvn clean install -f eclipse-pom.xml -Plocal-deploy
         if [ "$?" != "0" ]
         then
             echo "build for eclipse-pom.xml."
@@ -83,7 +83,7 @@ deployMavenLibrary()
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $REPO_HOME_DIR/sevntu-checks
-        mvn clean javadoc:javadoc deploy
+        mvn clean javadoc:javadoc deploy -Plocal-deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checks."
@@ -100,10 +100,41 @@ deployMavenLibrary()
         return
     }
 
+deployToMavenCentral()
+    {
+        # As we do not use SNAPSHOT qualifier for developemnt in pom.xml
+        # we have to deploy library sevntu-checks always even it overides existing binaries in maven repository
+        # for relase build - it will not override binaries
+        # for test build - it will override as we need to be sure that in repository,
+        #                  we have previous release version but compiled with from new code
+        cd $REPO_HOME_DIR/sevntu-checks
+        mvn clean deploy -DskipStaging=false
+        if [ "$?" != "0" ]
+        then
+            echo "build for $REPO_HOME_DIR/sevntu-checks."
+            exit 1
+        fi
+        cd $REPO_HOME_DIR
+
+        cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
+        mvn clean deploy -DskipStaging=false
+        cd $REPO_HOME_DIR
+
+        cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
+        mvn clean deploy -DskipStaging=false
+        cd $REPO_HOME_DIR
+
+        cd $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/
+        mvn clean deploy -DskipStaging=false
+        cd $REPO_HOME_DIR
+
+        return
+    }
+
 deployMavenPlugin()
     {
         cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
-        mvn clean deploy
+        mvn clean deploy -Plocal-deploy
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/."
@@ -167,6 +198,10 @@ do
             prepareForDeploy
             deployMavenLibrary
             deployMavenPlugin
+            shift 1
+            ;;
+        --maven-central)
+            deployToMavenCentral
             shift 1
             ;;
         --idea)

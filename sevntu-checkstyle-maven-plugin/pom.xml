@@ -34,14 +34,6 @@
     </dependency>
   </dependencies>
 
-  <distributionManagement>
-    <repository>
-      <id>com.github.sevntu-checkstyle</id>
-      <name>Sevntu Checkstyle Maven Plugin</name>
-      <url>file://${basedir}/../gh-pages/maven2/</url>
-    </repository>
-  </distributionManagement>
-
   <build>
     <plugins>
       <plugin>
@@ -93,4 +85,17 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>local-deploy</id>
+      <distributionManagement>
+        <repository>
+          <id>com.github.sevntu-checkstyle</id>
+          <name>Sevntu Checkstyle Maven Plugin</name>
+          <url>file://${basedir}/../gh-pages/maven2/</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+
+  </profiles>
 </project>
