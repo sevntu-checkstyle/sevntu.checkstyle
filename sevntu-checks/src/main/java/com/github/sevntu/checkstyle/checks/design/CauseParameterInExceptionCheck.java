@@ -145,6 +145,11 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     }
 
     @Override
+    public void beginTree(DetailAST rootAST) {
+        exceptionClassesToWarn.clear();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
             case TokenTypes.CLASS_DEF:
@@ -173,7 +178,6 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
         for (DetailAST classDefNode : exceptionClassesToWarn) {
             log(classDefNode, MSG_KEY, getName(classDefNode));
         }
-        exceptionClassesToWarn.clear();
     }
 
     /**
