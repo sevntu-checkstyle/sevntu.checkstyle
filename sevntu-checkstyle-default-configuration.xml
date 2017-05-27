@@ -155,12 +155,6 @@
       <property name="severity" value="warning"/>
     </module>
     <!-- since 1.11 -->
-    <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
-    <property name="severity" value="warning"/>
-      <property name="objFormat" value="^[A-Z][a-zA-Z0-9]*$"/>
-      <property name="constFormat" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
-      <property name="excludes" value="toString"/>
-    </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck">
     <property name="severity" value="warning"/>
     </module>
@@ -227,6 +221,14 @@
       <property name="annotationName" value="Test"/>
       <property name="elementName" value="expected"/>
       <property name="forbiddenElementValueRegexp" value=".*"/>
+    </module>
+    <!-- 1.24.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
+      <property name="severity" value="warning"/>
+      <property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+    </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck">
+      <property name="severity" value="warning"/>
     </module>
   </module>
 </module>
