@@ -64,6 +64,9 @@
               <goals>
                 <goal>jar</goal>
               </goals>
+              <configuration>
+                <sourcepath>${basedir}/src</sourcepath>
+              </configuration>
             </execution>
           </executions>
       </plugin>
