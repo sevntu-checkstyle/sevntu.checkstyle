@@ -108,7 +108,7 @@ deployToMavenCentral()
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $REPO_HOME_DIR/sevntu-checks
-        mvn clean deploy -DskipStaging=false
+        mvn clean deploy -DskipStaging=false -Pgpg
         if [ "$?" != "0" ]
         then
             echo "build for $REPO_HOME_DIR/sevntu-checks."
@@ -117,15 +117,15 @@ deployToMavenCentral()
         cd $REPO_HOME_DIR
 
         cd $REPO_HOME_DIR/sevntu-checkstyle-maven-plugin/
-        mvn clean deploy -DskipStaging=false
+        mvn clean deploy -DskipStaging=false -Pgpg
         cd $REPO_HOME_DIR
 
         cd $REPO_HOME_DIR/sevntu-checkstyle-idea-extension/
-        mvn clean deploy -DskipStaging=false
+        mvn clean deploy -DskipStaging=false -Pgpg
         cd $REPO_HOME_DIR
 
         cd $REPO_HOME_DIR/sevntu-checkstyle-sonar-plugin/
-        mvn clean deploy -DskipStaging=false
+        mvn clean deploy -DskipStaging=false -Pgpg
         cd $REPO_HOME_DIR
 
         return
