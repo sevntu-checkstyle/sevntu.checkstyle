@@ -230,6 +230,16 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(final DetailAST node) {
         final DetailAST openingBrace = node
                 .findFirstToken(TokenTypes.SLIST);

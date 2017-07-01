@@ -89,6 +89,16 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
         };
     }
 
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
     /**
      * Searches for wrong declarations and checks the their type.
      *

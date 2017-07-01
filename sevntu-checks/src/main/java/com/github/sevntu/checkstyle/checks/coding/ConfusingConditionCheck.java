@@ -158,6 +158,16 @@ public class ConfusingConditionCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST literalIf) {
         if (isIfEndsWithElse(literalIf)
                 && !(ignoreSequentialIf && isSequentialIf(literalIf))

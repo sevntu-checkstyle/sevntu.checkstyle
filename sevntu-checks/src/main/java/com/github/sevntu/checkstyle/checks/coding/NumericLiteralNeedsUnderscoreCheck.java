@@ -338,6 +338,16 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(final DetailAST ast) {
         if (!passesCheck(ast)) {
             log(ast.getLineNo(), MSG_KEY);

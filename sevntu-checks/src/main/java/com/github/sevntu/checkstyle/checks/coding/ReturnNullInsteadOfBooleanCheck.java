@@ -56,6 +56,11 @@ public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public int[] getRequiredTokens() {
         return new int[] {
             TokenTypes.METHOD_DEF,

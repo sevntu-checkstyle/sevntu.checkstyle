@@ -65,6 +65,16 @@ public class InterfaceTypeParameterNameCheck
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     protected final boolean mustCheckName(DetailAST ast) {
         final DetailAST location = ast.getParent().getParent();
 

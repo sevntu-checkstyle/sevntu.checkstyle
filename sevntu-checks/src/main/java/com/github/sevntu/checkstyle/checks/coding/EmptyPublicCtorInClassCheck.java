@@ -167,6 +167,16 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void beginTree(DetailAST aRootNode) {
         singleTypeImports.clear();
         onDemandImports.clear();

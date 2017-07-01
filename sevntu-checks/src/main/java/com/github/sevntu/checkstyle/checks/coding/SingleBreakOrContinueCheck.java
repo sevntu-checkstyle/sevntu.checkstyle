@@ -126,6 +126,16 @@ public class SingleBreakOrContinueCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         if (getNumberOfContinueAndBreaks(ast.getFirstChild()) > 1) {
             log(ast.getLineNo(), MSG_KEY);

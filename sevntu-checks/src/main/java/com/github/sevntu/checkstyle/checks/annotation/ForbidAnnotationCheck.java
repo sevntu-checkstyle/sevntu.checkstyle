@@ -88,6 +88,16 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST annotation) {
 
         final String annotationName = getAnnotationName(annotation);

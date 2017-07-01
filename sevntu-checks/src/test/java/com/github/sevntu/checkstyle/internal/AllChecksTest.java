@@ -26,6 +26,7 @@ import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -39,7 +40,67 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
+
 public class AllChecksTest {
+
+    @Test
+    public void testDefaultTokensAreSubsetOfAcceptableTokens() throws Exception {
+        for (Class<?> check : CheckUtil.getCheckstyleChecks()) {
+            if (AbstractCheck.class.isAssignableFrom(check)) {
+                final AbstractCheck testedCheck = (AbstractCheck) check.getDeclaredConstructor()
+                        .newInstance();
+                final int[] defaultTokens = testedCheck.getDefaultTokens();
+                final int[] acceptableTokens = testedCheck.getAcceptableTokens();
+
+                if (!isSubset(defaultTokens, acceptableTokens)) {
+                    final String errorMessage = String.format(Locale.ROOT,
+                            "%s's default tokens must be a subset"
+                            + " of acceptable tokens.", check.getName());
+                    Assert.fail(errorMessage);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testRequiredTokensAreSubsetOfAcceptableTokens() throws Exception {
+        for (Class<?> check : CheckUtil.getCheckstyleChecks()) {
+            if (AbstractCheck.class.isAssignableFrom(check)) {
+                final AbstractCheck testedCheck = (AbstractCheck) check.getDeclaredConstructor()
+                        .newInstance();
+                final int[] requiredTokens = testedCheck.getRequiredTokens();
+                final int[] acceptableTokens = testedCheck.getAcceptableTokens();
+
+                if (!isSubset(requiredTokens, acceptableTokens)) {
+                    final String errorMessage = String.format(Locale.ROOT,
+                            "%s's required tokens must be a subset"
+                            + " of acceptable tokens.", check.getName());
+                    Assert.fail(errorMessage);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testRequiredTokensAreSubsetOfDefaultTokens() throws Exception {
+        for (Class<?> check : CheckUtil.getCheckstyleChecks()) {
+            if (AbstractCheck.class.isAssignableFrom(check)) {
+                final AbstractCheck testedCheck = (AbstractCheck) check.getDeclaredConstructor()
+                        .newInstance();
+                final int[] defaultTokens = testedCheck.getDefaultTokens();
+                final int[] requiredTokens = testedCheck.getRequiredTokens();
+
+                if (!isSubset(requiredTokens, defaultTokens)) {
+                    final String errorMessage = String.format(Locale.ROOT,
+                            "%s's required tokens must be a subset"
+                            + " of default tokens.", check.getName());
+                    Assert.fail(errorMessage);
+                }
+            }
+        }
+    }
+
     @Test
     public void testAllChecksAreReferencedInConfigFile() throws Exception {
         final Set<String> checksReferencedInConfig = CheckUtil.getConfigCheckStyleChecks();
@@ -245,5 +306,27 @@ public class AllChecksTest {
 
     private static String getSimplePath(String path) {
         return path.substring(path.lastIndexOf("com" + File.separator + "github"));
+    }
+
+    /**
+     * Checks that an array is a subset of other array.
+     * @param array to check whether it is a subset.
+     * @param arrayToCheckIn array to check in.
+     */
+    private static boolean isSubset(int[] array, int... arrayToCheckIn) {
+        boolean result = true;
+        if (arrayToCheckIn == null) {
+            result = array == null || array.length == 0;
+        }
+        else {
+            Arrays.sort(arrayToCheckIn);
+            for (final int element : array) {
+                if (Arrays.binarySearch(arrayToCheckIn, element) < 0) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

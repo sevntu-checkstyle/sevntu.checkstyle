@@ -196,6 +196,16 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST classDefNode) {
         if ((isClassDefinitionAnnotated(classDefNode) || isAtleastOneMethodAnnotated(classDefNode))
                 && hasUnexpectedName(classDefNode)) {

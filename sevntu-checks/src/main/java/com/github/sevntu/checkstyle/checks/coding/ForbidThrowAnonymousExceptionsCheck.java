@@ -90,6 +90,16 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST literalThrowOrVariableDefAst) {
         switch (literalThrowOrVariableDefAst.getType()) {
             case TokenTypes.LITERAL_THROW:

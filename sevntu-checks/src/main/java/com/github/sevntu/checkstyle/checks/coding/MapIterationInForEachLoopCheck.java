@@ -274,6 +274,16 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void beginTree(DetailAST ast) {
         qualifiedImportList.clear();
         mapNamesList.clear();

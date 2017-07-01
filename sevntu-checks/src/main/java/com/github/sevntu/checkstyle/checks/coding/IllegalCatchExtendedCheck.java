@@ -84,6 +84,11 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public int[] getRequiredTokens() {
         return getDefaultTokens();
     }

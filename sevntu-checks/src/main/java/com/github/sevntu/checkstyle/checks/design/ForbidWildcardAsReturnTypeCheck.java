@@ -198,6 +198,16 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST methodDefAst) {
         final String methodScope = getVisibilityScope(methodDefAst);
         if (((checkPublicMethods && "public".equals(methodScope))

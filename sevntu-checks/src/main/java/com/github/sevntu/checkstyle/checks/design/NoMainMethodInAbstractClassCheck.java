@@ -55,6 +55,16 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public final void visitToken(final DetailAST ast) {
         if (ast.getType() == TokenTypes.CLASS_DEF) {
             if (isNotInnerClass(ast)) {

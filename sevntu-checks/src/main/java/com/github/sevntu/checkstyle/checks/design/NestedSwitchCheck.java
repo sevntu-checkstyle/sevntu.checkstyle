@@ -71,6 +71,11 @@ public class NestedSwitchCheck extends AbstractNestedDepthCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST aAST) {
         nestIn(aAST, MSG_KEY);
     }
