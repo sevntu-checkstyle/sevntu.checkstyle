@@ -73,6 +73,11 @@ public class EnumValueNameCheck extends AbstractNameCheck {
     }
 
     @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     protected boolean mustCheckName(DetailAST ast) {
         return true;
     }

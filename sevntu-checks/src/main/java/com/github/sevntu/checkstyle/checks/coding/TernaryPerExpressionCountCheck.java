@@ -108,6 +108,16 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
         };
     }
 
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
     /**
      * Sets the maximum number of ternary operators, default value = 1.
      *

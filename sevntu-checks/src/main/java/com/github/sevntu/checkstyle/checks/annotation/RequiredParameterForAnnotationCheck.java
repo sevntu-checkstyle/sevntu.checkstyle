@@ -146,6 +146,11 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST annotationNode) {
         final String annotationNameCheck = getAnnotationName(annotationNode);
 

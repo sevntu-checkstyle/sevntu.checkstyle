@@ -65,6 +65,16 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST detailAST) {
         final boolean topLevelClass = detailAST.getParent() == null;
         if (!topLevelClass && isSerializable(detailAST)

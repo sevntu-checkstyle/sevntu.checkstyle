@@ -166,6 +166,16 @@ public class ForbidAnnotationElementValueCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         if (getAnnotationName(ast).equals(annotationName)) {
             if (ELEMENT_NAME_DEFAULT.equals(elementName) && isSingleElementAnnotation(ast)) {

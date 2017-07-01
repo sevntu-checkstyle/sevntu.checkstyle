@@ -52,6 +52,16 @@ public class ReturnBooleanFromTernaryCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         final DetailAST secondBranch = ast.getLastChild();
         final DetailAST firstBranch = secondBranch.getPreviousSibling().getPreviousSibling();

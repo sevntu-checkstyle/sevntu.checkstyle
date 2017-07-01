@@ -53,6 +53,16 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST variableDefNode) {
 
         final DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);

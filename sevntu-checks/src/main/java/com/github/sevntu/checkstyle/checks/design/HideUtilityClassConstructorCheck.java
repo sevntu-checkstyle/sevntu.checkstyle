@@ -48,6 +48,16 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         // abstract class could not have private constructor
         if (!isAbstract(ast)) {

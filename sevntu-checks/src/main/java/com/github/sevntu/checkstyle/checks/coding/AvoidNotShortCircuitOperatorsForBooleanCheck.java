@@ -101,6 +101,16 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public final void visitToken(final DetailAST detailAST) {
 
         DetailAST currentNode = detailAST;
