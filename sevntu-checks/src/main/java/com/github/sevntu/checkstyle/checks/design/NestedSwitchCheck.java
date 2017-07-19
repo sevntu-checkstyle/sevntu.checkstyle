@@ -19,9 +19,9 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.checks.coding.AbstractNestedDepthCheck;
 
 /**
  * <p>
@@ -48,19 +48,24 @@ import com.puppycrawl.tools.checkstyle.checks.coding.AbstractNestedDepthCheck;
  * <br><br>
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class NestedSwitchCheck extends AbstractNestedDepthCheck {
+public class NestedSwitchCheck extends AbstractCheck {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
      */
     public static final String MSG_KEY = "avoid.nested.switch";
 
-    /** Default allowed nesting depth. */
-    private static final int DEFAULT_MAX = 0;
+    /** Maximum allowed nesting depth. */
+    private int max;
+    /** Current nesting depth. */
+    private int depth;
 
-    /** The default constructor. */
-    public NestedSwitchCheck() {
-        super(DEFAULT_MAX);
+    /**
+     * Setter for maximum allowed nesting depth.
+     * @param max maximum allowed nesting depth.
+     */
+    public final void setMax(int max) {
+        this.max = max;
     }
 
     @Override
@@ -76,12 +81,25 @@ public class NestedSwitchCheck extends AbstractNestedDepthCheck {
     }
 
     @Override
+    public final int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public void beginTree(DetailAST rootAST) {
+        depth = 0;
+    }
+
+    @Override
     public void visitToken(DetailAST aAST) {
-        nestIn(aAST, MSG_KEY);
+        if (depth > max) {
+            log(aAST, MSG_KEY, depth, max);
+        }
+        ++depth;
     }
 
     @Override
     public void leaveToken(DetailAST aAST) {
-        nestOut();
+        --depth;
     }
 }

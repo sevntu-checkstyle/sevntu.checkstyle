@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -45,6 +46,15 @@ public class NestedSwitchCheckTest extends BaseCheckTestSupport {
             "63:25: " + getCheckMessage(MSG_KEY),
             "65:29: " + getCheckMessage(MSG_KEY),
         };
+
+        verify(checkConfig, getPath("InputNestedSwitchCheck.java"),
+                expected);
+    }
+
+    @Test
+    public void testMax() throws Exception {
+        checkConfig.addAttribute("max", "99");
+        final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
 
         verify(checkConfig, getPath("InputNestedSwitchCheck.java"),
                 expected);
