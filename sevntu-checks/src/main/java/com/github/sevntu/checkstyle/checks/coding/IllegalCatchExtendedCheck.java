@@ -19,10 +19,14 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
 import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
 
 /**
@@ -30,11 +34,17 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * is almost never acceptable.
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
  */
-public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
+public final class IllegalCatchExtendedCheck extends AbstractCheck {
     /**
      * Warning message key.
      */
     public static final String MSG_KEY = "illegal.catch";
+
+    /** Illegal class names. */
+    private final Set<String> illegalClassNames = Arrays.stream(
+            new String[] {"Exception", "Error", "RuntimeException", "Throwable",
+                          "java.lang.Error", "java.lang.Exception", "java.lang.RuntimeException",
+                          "java.lang.Throwable", }).collect(Collectors.toSet());
 
     /** Disable warnings for "catch" blocks containing
      * throwing an exception. */
@@ -44,18 +54,24 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
      * rethrowing an exception. */
     private boolean allowRethrow = true;
 
-    /** Creates new instance of the check. */
-    public IllegalCatchExtendedCheck() {
-        super(new String[] {
-            "Exception",
-            "Error",
-            "RuntimeException",
-            "Throwable",
-            "java.lang.Error",
-            "java.lang.Exception",
-            "java.lang.RuntimeException",
-            "java.lang.Throwable",
-        });
+    /**
+     * Set the list of illegal classes.
+     *
+     * @param classNames
+     *            array of illegal exception classes
+     */
+    public void setIllegalClassNames(final String... classNames) {
+        illegalClassNames.clear();
+        for (final String name : classNames) {
+            illegalClassNames.add(name);
+            final int lastDot = name.lastIndexOf('.');
+            if (lastDot > 0
+                    && lastDot < name.length() - 1) {
+                final String shortName = name
+                        .substring(name.lastIndexOf('.') + 1);
+                illegalClassNames.add(shortName);
+            }
+        }
     }
 
     /**
@@ -168,4 +184,14 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
         return result;
     }
 
+    /**
+     * Checks if given class is illegal.
+     *
+     * @param ident
+     *            ident to check.
+     * @return true if given ident is illegal.
+     */
+    protected boolean isIllegalClassName(final String ident) {
+        return illegalClassNames.contains(ident);
+    }
 }
