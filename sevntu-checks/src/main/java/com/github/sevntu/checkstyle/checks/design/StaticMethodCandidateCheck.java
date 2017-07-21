@@ -387,7 +387,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      *     is still a static method candidate.
      */
     private static boolean isFrameTypesAcceptable(final Frame frame) {
-        Predicate<String> predicate = new Predicate<String>() {
+        final Predicate<String> predicate = new Predicate<String>() {
             @Override
             public boolean apply(String type) {
                 final Optional<Frame> typeFrame = findFrameByName(frame, type);
