@@ -24,6 +24,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
+ * Validates finalize method implementation.
  * <p>
  * This Check detects 3 most common cases of incorrect finalize() method implementation:
  * </p>

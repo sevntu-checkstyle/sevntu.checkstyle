@@ -118,7 +118,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     /**
      * If <b>true</b> - Check only puts violation on conditions with
      * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
-     * relational</a> operands
+     * relational</a> operands.
      */
     private boolean applyOnlyToRelationalOperands;
 
@@ -200,7 +200,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     }
 
     /**
-     * Checks if return statement is not empty
+     * Checks if return statement is not empty.
      * @param returnAst
      *             Node of type
      *             {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LITERAL_RETURN}
@@ -212,7 +212,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     }
 
     /**
-     * Checks if condition in for-loop is not empty
+     * Checks if condition in for-loop is not empty.
      * @param forConditionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#FOR_CONDITION}
      * @return true if the for condition is empty.
@@ -223,7 +223,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     }
 
     /**
-     * Gets inversion node of condition if one exists
+     * Gets inversion node of condition if one exists.
      * @param expressionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#EXPR}
      * @return Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
@@ -235,7 +235,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     }
 
     /**
-     * Checks if current inversion is avoidable according to Check's properties
+     * Checks if current inversion is avoidable according to Check's properties.
      * @param inversionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
      * @return true if the inversion is avoidable.
@@ -247,7 +247,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
 
     /**
      * Checks if current inverted condition has to be skipped by Check,
-     * it depends from user-defined property <b>"applyOnlyToRelationalOperands"</b>
+     * it depends from user-defined property <b>"applyOnlyToRelationalOperands"</b>.
      * if it's <b>true</b> - Check will ignore inverted conditions with
      * non-relational operands
      * @param inversionConditionAst
@@ -264,7 +264,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     /**
      * Checks if current inverted condition contains only
      * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
-     * relational</a> operands
+     * relational</a> operands.
      * @param inversionConditionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
      * @return true if the node contains only relation operands.
@@ -301,7 +301,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     /**
      * Checks if current operand is
      * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
-     * relational</a> operand
+     * relational</a> operand.
      * @param operandAst
      *             Child node of {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT} node
      * @return true if the operand is relational.
@@ -315,7 +315,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     /**
      * Checks if current condition contains
      * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
-     * conditional</a> operators
+     * conditional</a> operators.
      * @param inversionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
      * @return true if the node contains conditional or relational operands.
@@ -340,7 +340,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     }
 
     /**
-     * Logs message on line where inverted condition is used
+     * Logs message on line where inverted condition is used.
      * @param inversionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
      */

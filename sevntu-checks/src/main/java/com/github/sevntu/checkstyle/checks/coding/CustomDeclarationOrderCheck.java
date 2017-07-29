@@ -416,7 +416,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Parse input current declaration rule and create new instance of
-     * FormatMather with matcher
+     * FormatMather with matcher.
      *
      * @param currentState input string with MemberDefinition and RegExp.
      * @return new FormatMatcher with parsed and compile rule
@@ -969,9 +969,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * <p>
-     * Gets name of the field, that was used in calling setter from a super class
-     * </p>
+     * Gets name of the field, that was used in calling setter from a super class.
+     *
      * @param methodCallDotAst The token to examine.
      * @return
      *      name of field in method parameter.

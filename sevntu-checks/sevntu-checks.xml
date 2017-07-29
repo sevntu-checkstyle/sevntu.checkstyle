@@ -4,18 +4,20 @@
 <module name="Checker">
 
   <!-- Filters -->
-  <module name="SuppressionCommentFilter"/>
   <module name="SuppressionFilter">
     <property name="file" value="sevntu-suppressions.xml"/>
-  </module>
-  <module name="SuppressWithNearbyCommentFilter">
-    <property name="commentFormat" value="-@cs\[(\w{8,})\] \w[\(\)\-\.\'\`\,\:\;\w ]{10,}"/>
-    <property name="checkFormat" value="$1"/>
-    <property name="influenceFormat" value="3"/>
   </module>
 
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
+
+    <!-- Filters -->
+    <module name="SuppressionCommentFilter"/>
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="commentFormat" value="-@cs\[(\w{8,})\] \w[\(\)\-\.\'\`\,\:\;\w ]{10,}"/>
+      <property name="checkFormat" value="$1"/>
+      <property name="influenceFormat" value="3"/>
+    </module>
 
     <!-- Misc -->
     <module name="FileContentsHolder"/>

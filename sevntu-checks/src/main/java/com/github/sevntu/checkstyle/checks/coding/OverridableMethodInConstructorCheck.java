@@ -29,6 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
+ * Detects overridable methods in constructors.
  * <p>
  * This check prevents any calls to overridable methods that are take place in:
  * <ol><li>

@@ -332,7 +332,7 @@ public class ForbidAnnotationElementValueCheck extends AbstractCheck {
     }
 
     /**
-     * Gets String-represented array from provided left brace
+     * Gets String-represented array from provided left brace.
      *
      * @param brace
      *        DetailAST node of type {@link TokenTypes#ANNOTATION_ARRAY_INIT}

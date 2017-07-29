@@ -279,7 +279,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     }
 
     /**
-     * Checks whether given ctor is public
+     * Checks whether given ctor is public.
      * @param aCtorDefNode
      *          a ctor definition node(TokenTypes.CTOR_DEF)
      * @return true, if given ctor is public

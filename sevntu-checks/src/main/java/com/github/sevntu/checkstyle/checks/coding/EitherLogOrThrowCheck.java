@@ -256,6 +256,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     }
 
     /**
+     * Checks if AST object is logger import.
      * @param importAst
      *        DetailAST of import statement.
      * @return true if import equals logger full class name.

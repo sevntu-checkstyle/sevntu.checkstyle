@@ -107,10 +107,9 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     /**
-     * <p>
-     * Return true, if inner class contain override method readObject() and
-     * writeObject();
-     * </p>
+     * Return {@code true}, if inner class contain override method {@code readObject()} and
+     * {@code writeObject()}.
+     *
      * @param classNode
      *        the start node of class definition.
      * @return The boolean value. True, if method was override.
@@ -198,9 +197,8 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     /**
-     * <p>
-     * Return true, if class implement Serializable interface;
-     * </p>
+     * Return {@code true}, if class implement Serializable interface.
+     *
      * @param classDefNode
      *        - the start node for class definition.
      * @return boolean value. True, if class implements Serializable interface.

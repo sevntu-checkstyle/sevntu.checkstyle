@@ -88,7 +88,7 @@ public class UselessSingleCatchCheck extends AbstractCheck {
 
     /**
      * Determines whether throw node is of form
-     * <code>throw exceptionObject;</code>
+     * <code>throw exceptionObject;</code>.
      * @param throwNode
      *        node of type TokenTypes.LITERAL_THROW
      * @return wheather this throw node is of specified form
@@ -101,7 +101,7 @@ public class UselessSingleCatchCheck extends AbstractCheck {
     }
 
     /**
-     * Gets catch parameter name
+     * Gets catch parameter name.
      * @param catchNode
      *        node of type TokenTypes.LITERAL_CATCH
      * @return catch parameter name
