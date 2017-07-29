@@ -271,6 +271,21 @@
       </build>
     </profile>
     <profile>
+      <id>no-validations</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <linkcheck.skip>true</linkcheck.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <pmd.skip>true</pmd.skip>
+        <xml.skip>true</xml.skip>
+        <forbiddenapis.skip>true</forbiddenapis.skip>
+        <findbugs.skip>true</findbugs.skip>
+        <cobertura.skip>true</cobertura.skip>
+        <maven.site.skip>true</maven.site.skip>
+      </properties>
+    </profile>
+    <profile>
       <id>selftesting</id>
       <properties>
         <skipTests>true</skipTests>
