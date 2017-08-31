@@ -19,9 +19,6 @@
       <property name="influenceFormat" value="3"/>
     </module>
 
-    <!-- Misc -->
-    <module name="FileContentsHolder"/>
-
     <!-- Annotation -->
     <module name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValue">
       <property name="annotationName" value="Test"/>
