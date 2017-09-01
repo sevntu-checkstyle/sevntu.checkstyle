@@ -7,7 +7,7 @@
 
 	<title>sevntu-checkstyle/sevntu.checkstyle @ GitHub</title>
 
-	<script type="text/Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/Javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style type="text/css">
 body {
@@ -90,6 +90,10 @@ hr {
   font-style: italic;
 }
 
+.spoiler:hover h3{
+    color: #1D4875;
+}
+
 div.spoiler div.name {
 	cursor: pointer;
     height:auto;
@@ -134,52 +138,35 @@ img.darkShadowed {
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
 </script>
 
 <script type="text/Javascript">
-		$(document).ready(function() {
+  $(function () {
+    // Configure spoilers. Spoilers are configured by their classes:
+    // openOnHover color_on_hover pre_opened_spoiler
+    var fadeTime = 300;
 
-			// Configure spoilers. Spoilers are configured by their classes:
-			// openOnHover color_on_hover pre_opened_spoiler
-			var fadeTime = 300;
+    // Set the toggle operarions (spoilers fading)
+    var spoilers = $("div.spoiler div.name span");
+    var flag = false;
+    spoilers.on('click', function () {
+      var elementToToggle = $(this).parent("div.name").parent("div.spoiler").children("div.text");
+      if (flag === false) {
+        elementToToggle.fadeIn(fadeTime);
+      } else {
+        elementToToggle.fadeOut(fadeTime);
+      }
+      flag = !flag;
+    });
 
-			// Set the toggle operarions (spoilers fading)
-			$("div.spoiler div.name span").toggle(
-			function() {
-				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeIn(fadeTime);
-			}
-			,function() {
-				$(this).parent("div.name").parent("div.spoiler").children("div.text").fadeOut(fadeTime);
-			});
-
-			// Set mouseOver operations (coloring/opening on hover)
-			$("div.spoiler div.name span").mouseover(function() {
-
-			    var openOnHover = $(this).parent("div.name").parent("div.spoiler").hasClass("openOnHower");
-		        var color_on_hover = $(this).parent("div.name").parent("div.spoiler").hasClass("color_on_hover");
-
-				if (color_on_hover) {
-				    $(this).children().css("color", "#1D4875");
-			    }
-				if (openOnHover) {
-					 $(this).parent("div.name").parent("div.spoiler").children("div.text").fadeIn(fadeTime);
-				}
-
-			}).mouseout(function() {
-				var color_on_hover = $(this).parent("div.name").parent("div.spoiler").hasClass("color_on_hover");
-				if (color_on_hover) {
-					$(this).children().css("color", "#242630");
-	 		    }
-			});
-
-		    // Open spoilers with 'pre-opened' class
-			$(".pre_opened_spoiler").children("div.text").fadeIn(fadeTime);
-			// End configure spoilers
-		});
+    // Open spoilers with 'pre-opened' class
+    $(".pre_opened_spoiler").children("div.text").fadeIn(fadeTime);
+    // End configure spoilers
+  });
 	</script>
 
 <body>
@@ -256,7 +243,7 @@ Full list of Checks and examples of usage could be found at
 
 <h2> New and noteworthy</h2>
 <!--
-<div id="X.Y.Z" class="spoiler color_on_hover pre_opened_spoiler">
+<div id="X.Y.Z" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release X.Y.Z (9/Oct/2014)</h3></span></div>
 <div class="text">
      <b>new FooBarCheck</b> -&nbsp; %DESCRIPTION%. Done by %AUTHOR%.
@@ -266,7 +253,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 -->
-<div id="1.24.2" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.24.2" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.24.2 (20/July/2017)</h3></span></div>
 <div class="text">
      <b>internal updates</b> update to IllegalCatchExtendedCheck and NestedSwitchCheck to avoid usage of deprecated parent class. Done by rnveach.
@@ -275,7 +262,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.24.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.24.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.24.1 (2/July/2017)</h3></span></div>
 <div class="text">
      <b>bug</b> -&nbsp; added get acceptable and required tokens in all checks. Done by rnveach. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/595">More</a>
@@ -289,7 +276,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.24.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.24.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.24.0 (27/May/2017)</h3></span></div>
 
 <div class="text">
@@ -369,7 +356,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.23.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.23.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.23.1 (25/Feb/2017)</h3></span></div>
 <div class="text">
      <b>internal updates</b> config: define license version in pom.xml as LGPL-2.1+;
@@ -381,7 +368,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.23.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.23.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.23.0 (10/Dec/2016)</h3></span></div>
 <div class="text">
      <b>bug</b> -&nbsp; ForbidCertainImportsCheck: null excludes gives no violations. Done by rnveach. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/552">More</a>
@@ -428,7 +415,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.22.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.22.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.22.0 (19/Nov/2016)</h3></span></div>
 <div class="text">
      <b>new ForbidAnnotationElementValueCheck</b> -&nbsp; Forbids specific element value for specific annotation. Done by rnveach. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/108">More</a>
@@ -457,7 +444,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.21.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.21.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.21.1 (15/Oct/2016)</h3></span></div>
 <div class="text">
      <b>update for sevntu-checkstyle-idea-extension</b> -&nbsp; Idea Extension is incorrectly build by maven. Done by KTannenberg. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/468">More</a>
@@ -471,7 +458,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.21.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.21.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.21.0 (08/June/2016)</h3></span></div>
 <div class="text">
      <b>new UniformEnumValueCheck</b> -&nbsp; Check forces enum values to match one of the specified patterns and forces all the values to follow only one of the specified patterns.
@@ -491,7 +478,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.20.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.20.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.20.0 (25/March/2016)</h3></span></div>
 <div class="text">
      <b>new ConstructorWithoutParamsCheck</b> -&nbsp; This check prohibits usage of parameterless constructors, including the default ones. Rationale: constructors of certain classes must always take arguments to properly instantiate objects. Done by Sergey Dudoladov. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/412">More</a>
@@ -505,7 +492,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.19.2" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.19.2" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.19.2 (20/March/2016)</h3></span></div>
 <div class="text">
      <b>bug</b> -&nbsp; False positive in DiamondOperatorForVariableDefinitionCheck . Done by Vladislav Lisetskiy. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/430">More</a>
@@ -514,7 +501,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.19.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.19.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.19.1 (10/March/2016)</h3></span></div>
 <div class="text">
      <b>bug </b> -&nbsp; Sevntu Sonar plugin 1.19.0 does not work with Sonar 5.3. Done by Charlie Pai. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/436">More</a>
@@ -528,7 +515,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.19.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.19.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.19.0 (8/March/2016)</h3></span></div>
 <div class="text">
      <b>bug </b> -&nbsp; NumericLiteralNeedsUnderscore: New option to skip fields by regexp. Done by Charlie Pai. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/425">More</a>
@@ -542,7 +529,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.18.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.18.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.18.0 (17/January/2016)</h3></span></div>
 <div class="text">
      <b>new SingleBreakOrContinue</b> -&nbsp; This check restricts the number of break and continue statements inside cycle body (only one is allowed). Done by Yasser Aziza. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/374">More</a>
@@ -561,7 +548,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.17.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.17.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.17.1 (14/December/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp; Fix false-positive on methods called from 'super' at StaticMethodCandidateCheck. Done by Vladislav Lisetskiy.
@@ -584,7 +571,7 @@ Full list of Checks and examples of usage could be found at
 
 </div>
 
-<div id="1.17.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.17.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.17.0 (8/November/2015)</h3></span></div>
 <div class="text">
      <b>new StaticMethodCandidateCheck </b> -&nbsp; Checks whether private methods can be declared as static. Done by Vladislav Lisetskiy. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/339">More</a>
@@ -599,7 +586,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.16.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.16.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.16.1 (28/October/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp; Cannot initialize module SingleSpaceSeparator. Done by Roman Ivanov. <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/385">More</a>
@@ -608,7 +595,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.16.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.16.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.16.0 (25/October/2015)</h3></span></div>
 <div class="text">
      <b> new SingleSpaceSeparatorCheck </b> -&nbsp; Checks that if tokens are separated by whitespaces, it has to be a single space. Done by Robert Whitebit.
@@ -622,7 +609,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.15.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.15.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.15.0 (8/October/2015)</h3></span></div>
 <div class="text">
      <b> version bump </b> -&nbsp; Version bump to Eclipse-CS 6.11.0 . Done by David Ignjić.
@@ -641,7 +628,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.14.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.14.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.14.0 (26/September/2015)</h3></span></div>
 <div class="text">
      <b> version bump </b> -&nbsp; Version bump to Eclipse-CS 6.9.0 . Done by Roman Ivanov.
@@ -650,7 +637,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.6" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.6" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.6 (7/September/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp;  LogicConditionNeedOptimizationCheck doesn't give violation when it is expected. Done by Vadim Panasiuk.
@@ -672,7 +659,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.5" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.5" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.5 (23/June/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp;  sevntu-checks are failed within Sonar because of the outdated checkstyle-extensions.xml. Done by Ruslan Diachenko.
@@ -682,7 +669,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.4" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.4" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.4 (21/June/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp; Sonar fails to start with 'Extension to Sonar Checkstyle Plugin 1.13.3'. Done by Ruslan Diachenko.
@@ -692,7 +679,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.3" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.3" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.3 (7/June/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp; ReturnNullInsteadOfBoolean:   Remove FastStack reference that was removed from checkstyle 6.7. Done by Roman Ivanov.
@@ -702,7 +689,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.2" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.2" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.2 (7/June/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp;  DiamondOperatorForVariableDefinitionCheck throws NullPointerException. Done by Roman Ivanov.
@@ -712,7 +699,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.1" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.1" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.1 (6/June/2015)</h3></span></div>
 <div class="text">
      <b> bug </b> -&nbsp; PublicReferenceToPrivateTypeCheck fails on all files in eclipse-cs. Done by Roman Ivanov.
@@ -722,7 +709,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.13.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.13.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.13.0 (16/May/2015)</h3></span></div>
 <div class="text">
      <b>VariableDeclarationUsageDistanceCheck</b> -&nbsp; was moved to Checkstyle library. Done by Roamn Ivanov.
@@ -796,7 +783,7 @@ Full list of Checks and examples of usage could be found at
 </div>
 </div>
 
-<div id="1.12.0" class="spoiler color_on_hover pre_opened_spoiler">
+      <div id="1.12.0" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release 1.12.0 (9/Oct/2014)</h3></span></div>
 <div class="text">
      <b>Update in Redundant Return Check</b> -&nbsp; Redundant Return Check was retested and fixed. Done by Alexey Nesterenko.
