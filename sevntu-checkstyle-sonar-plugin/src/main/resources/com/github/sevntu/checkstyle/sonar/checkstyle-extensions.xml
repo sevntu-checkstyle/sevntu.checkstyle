@@ -378,6 +378,22 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck</key>
+    <name>Forbid Certain Method</name>
+    <category name="coding"/>
+    <description>Forbids certain method in class.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck</configKey>
+    <param key="methodName" type="REGULAR_EXPRESSION">
+      <defaultValue>^$</defaultValue>
+      <description>Regex to match method name.</description>
+    </param>
+    <param key="argumentCount" type="STRING">
+      <defaultValue>0-</defaultValue>
+      <description>Number or range to match number of arguments. Multiple numbers/ranges must be comma separated.</description>
+    </param>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</key>
     <name>Forbid Instantiation</name>
     <category name="coding"/>

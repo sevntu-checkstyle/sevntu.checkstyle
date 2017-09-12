@@ -179,6 +179,19 @@
       <message-key key="forbid.certain.imports"/>
     </rule-metadata>
 
+    <rule-metadata name="%ForbidCertainMethodCheck.name" internal-name="ForbidCertainMethodCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck"/>
+      <description>%ForbidCertainMethodCheck.desc</description>
+      <property-metadata name="methodName" datatype="Regex" default-value="^$">
+        <description>%ForbidCertainMethodCheck.methodName</description>
+      </property-metadata>
+      <property-metadata name="argumentCount" datatype="String" default-value="0-">
+        <description>%ForbidCertainMethodCheck.argumentCount</description>
+      </property-metadata>
+
+      <message-key key="forbid.certain.method"/>
+    </rule-metadata>
+
     <rule-metadata name="%ForbidInstantiationCheck.name" internal-name="ForbidInstantiationCheck" parent="TreeWalker">
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck"/>
       <description>%ForbidInstantiationCheck.desc</description>
