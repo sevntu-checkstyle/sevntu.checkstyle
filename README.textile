@@ -4,6 +4,7 @@ sevntu-checks: !https://maven-badges.herokuapp.com/maven-central/com.github.sevn
 sevntu-checkstyle-idea-extension:!https://maven-badges.herokuapp.com/maven-central/com.github.sevntu-checkstyle/sevntu-checkstyle-idea-extension/badge.svg!:https://search.maven.org/#search|gav|1|g%3A%22com.github.sevntu-checkstyle%22%20AND%20a%3A%22sevntu-checkstyle-idea-extension%22
 sevntu-checkstyle-maven-plugin:!https://maven-badges.herokuapp.com/maven-central/com.github.sevntu-checkstyle/sevntu-checkstyle-maven-plugin/badge.svg!:https://search.maven.org/#search|gav|1|g%3A%22com.github.sevntu-checkstyle%22%20AND%20a%3A%22sevntu-checkstyle-maven-plugin%22
 sevntu-checkstyle-sonar-plugin:!https://maven-badges.herokuapp.com/maven-central/com.github.sevntu-checkstyle/sevntu-checkstyle-sonar-plugin/badge.svg!:https://search.maven.org/#search|gav|1|g%3A%22com.github.sevntu-checkstyle%22%20AND%20a%3A%22sevntu-checkstyle-sonar-plugin%22
+eclipsecs-sevntu-plugin: "all versions":https://github.com/sevntu-checkstyle/sevntu.checkstyle/tree/gh-pages/update-site/plugins
 
 
 Additional(non-standard) checks for Checkstyle that are compiled as:
