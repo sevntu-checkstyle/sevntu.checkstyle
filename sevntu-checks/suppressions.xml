@@ -17,7 +17,6 @@
     <suppress checks="NPathComplexity" files="MapIterationInForEachLoopCheck.java"/>
     <suppress checks="NestedIfDepth|ReturnCount" files="UnnecessaryParenthesesExtendedCheck.java"/>
     <suppress checks="InnerAssignment" files="OverridableMethodInConstructorCheck.java"/>
-    <suppress checks="BooleanExpressionComplexity" files="ForbidWildcardAsReturnTypeCheck.java"/>
     <suppress checks="AbstractClassName" files=".*[\\/]BaseCheckTestSupport\.java"/>
     <!-- END of legacy code -->
 
