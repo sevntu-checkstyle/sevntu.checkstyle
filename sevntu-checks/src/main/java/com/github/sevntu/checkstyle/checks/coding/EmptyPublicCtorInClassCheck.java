@@ -418,15 +418,18 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      */
     private static String
             joinSingleTypeImportWithIdentifier(String importEntry, String identifierName) {
+        final String result;
         final String importEntryLastPart = getSimpleIdentifierNameFromQualifiedName(importEntry);
         final String annotationNameFirstPart = getQualifiedNameFirstPart(identifierName);
 
         if (importEntryLastPart.equals(annotationNameFirstPart)) {
-            return importEntry + identifierName.substring(annotationNameFirstPart.length());
+            result = importEntry + identifierName.substring(annotationNameFirstPart.length());
         }
         else {
-            return null;
+            result = null;
         }
+
+        return result;
     }
 
     /**
@@ -475,14 +478,17 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      *         argument.
      */
     private static String getQualifiedNameFirstPart(String canonicalName) {
+        final String result;
         final int firstDotIndex = canonicalName.indexOf('.');
 
         if (firstDotIndex == -1) {
-            return canonicalName;
+            result = canonicalName;
         }
         else {
-            return canonicalName.substring(0, firstDotIndex);
+            result = canonicalName.substring(0, firstDotIndex);
         }
+
+        return result;
     }
 
     /**

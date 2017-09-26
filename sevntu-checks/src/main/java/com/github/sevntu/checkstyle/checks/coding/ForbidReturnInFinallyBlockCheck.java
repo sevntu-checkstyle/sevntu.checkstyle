@@ -20,7 +20,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
@@ -86,7 +85,8 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
         DetailAST child = node.getFirstChild();
         while (child != null) {
             if (child.getType() == TokenTypes.LITERAL_RETURN) {
-                return Collections.singletonList(child);
+                result.add(child);
+                break;
             }
             result.addAll(getReturnNodes(child));
             child = child.getNextSibling();

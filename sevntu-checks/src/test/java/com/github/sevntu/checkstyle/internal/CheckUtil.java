@@ -282,14 +282,16 @@ public final class CheckUtil {
      */
     public static String getCheckMessage(Class<?> module, String messageKey,
             Object... arguments) {
+        String result;
         final Properties pr = new Properties();
         try {
             pr.load(module.getResourceAsStream("messages.properties"));
+            final MessageFormat formatter = new MessageFormat(pr.getProperty(messageKey));
+            result = formatter.format(arguments);
         }
         catch (IOException ex) {
-            return null;
+            result = null;
         }
-        final MessageFormat formatter = new MessageFormat(pr.getProperty(messageKey));
-        return formatter.format(arguments);
+        return result;
     }
 }

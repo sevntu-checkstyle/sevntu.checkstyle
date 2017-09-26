@@ -324,10 +324,14 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      *         <code>MAX_QUOTED_LENGTH</code>; otherwise <code>aString</code>.
      */
     private static String chopString(String string) {
+        final String result;
         if (string.length() > MAX_QUOTED_LENGTH) {
-            return string.substring(0, MAX_QUOTED_LENGTH) + "...\"";
+            result = string.substring(0, MAX_QUOTED_LENGTH) + "...\"";
         }
-        return string;
+        else {
+            result = string;
+        }
+        return result;
     }
 
     /**

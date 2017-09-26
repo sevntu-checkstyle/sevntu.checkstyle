@@ -442,14 +442,16 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * @return true, if any Method Call contains Map Parameter.
      */
     private boolean isMapPassedIntoAnyMethod(DetailAST forEachOpeningBraceNode) {
+        boolean result = false;
         final List<DetailAST> methodCallNodeList = getSubTreeNodesOfType(
                 forEachOpeningBraceNode, TokenTypes.METHOD_CALL);
         for (DetailAST methodCallNode : methodCallNodeList) {
             if (hasMapAsParameter(methodCallNode)) {
-                return true;
+                result = true;
+                break;
             }
         }
-        return false;
+        return result;
     }
 
     /**
@@ -661,13 +663,15 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      *        if class name is missed, returns null.
      */
     private static String getClassName(final List<DetailAST> literaNewNodesList) {
+        String result = null;
         for (DetailAST literalNewNode : literaNewNodesList) {
             final DetailAST exprNode = literalNewNode.getParent();
             if (exprNode.getParent().getType() == TokenTypes.ASSIGN) {
-                return literalNewNode.getFirstChild().getText();
+                result = literalNewNode.getFirstChild().getText();
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     /**
@@ -681,12 +685,14 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      */
     private static DetailAST getFirstNodeOfType(List<DetailAST> nodesList,
             int aSpecificType) {
+        DetailAST result = null;
         for (DetailAST node : nodesList) {
             if (node.getType() == aSpecificType) {
-                return node;
+                result = node;
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     /**
@@ -697,14 +703,16 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * @return full path of map implementation or null.
      */
     private String getMapImportQualifiedName(DetailAST importNode) {
+        String result = null;
         final String mapClassQualifiedName = FullIdent.createFullIdent(
                 importNode.getFirstChild()).getText();
         for (String qualifiedName : supportedMapImplQualifiedNames) {
             if (mapClassQualifiedName.equals(qualifiedName)) {
-                return mapClassQualifiedName;
+                result = mapClassQualifiedName;
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     /**

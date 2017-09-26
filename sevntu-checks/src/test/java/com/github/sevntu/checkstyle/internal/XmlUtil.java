@@ -41,6 +41,7 @@ public final class XmlUtil {
 
     public static Document getRawXml(String fileName, String code, String unserializedSource)
             throws ParserConfigurationException {
+        Document rawXml = null;
         try {
             final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(false);
@@ -48,14 +49,14 @@ public final class XmlUtil {
 
             final DocumentBuilder builder = factory.newDocumentBuilder();
 
-            return builder.parse(new InputSource(new StringReader(code)));
+            rawXml = builder.parse(new InputSource(new StringReader(code)));
         }
         catch (IOException | SAXException ex) {
             Assert.fail(fileName + " has invalid xml (" + ex.getMessage() + "): "
                     + unserializedSource);
         }
 
-        return null;
+        return rawXml;
     }
 
     public static Set<Node> getChildrenElements(Node node) {
