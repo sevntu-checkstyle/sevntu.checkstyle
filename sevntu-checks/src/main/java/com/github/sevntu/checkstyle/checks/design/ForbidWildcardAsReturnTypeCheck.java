@@ -210,10 +210,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST methodDefAst) {
         final String methodScope = getVisibilityScope(methodDefAst);
-        if (((checkPublicMethods && "public".equals(methodScope))
-                || (checkPrivateMethods && "private".equals(methodScope))
-                || (checkProtectedMethods && "protected".equals(methodScope))
-                || (checkPackageMethods && "package".equals(methodScope)))
+        if (isCheckableMethodScope(methodScope)
                 && (checkOverrideMethods
                         || (!AnnotationUtility.containsAnnotation(methodDefAst, OVERRIDE)
                             && !AnnotationUtility.containsAnnotation(methodDefAst, FQ_OVERRIDE)))
@@ -228,6 +225,18 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
                 log(methodDefAst.getLineNo(), MSG_KEY);
             }
         }
+    }
+
+    /**
+     * Checks if the method scope is defined as one of the types to check.
+     * @param methodScope The string version of the scope.
+     * @return {@code true} if the method should be checked.
+     */
+    private boolean isCheckableMethodScope(String methodScope) {
+        return (checkPublicMethods && "public".equals(methodScope))
+                || (checkPrivateMethods && "private".equals(methodScope))
+                || (checkProtectedMethods && "protected".equals(methodScope))
+                || (checkPackageMethods && "package".equals(methodScope));
     }
 
     /**
