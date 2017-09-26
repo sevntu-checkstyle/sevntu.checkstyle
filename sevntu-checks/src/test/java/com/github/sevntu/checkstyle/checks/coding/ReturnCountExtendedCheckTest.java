@@ -30,7 +30,8 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(ReturnCountExtendedCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(ReturnCountExtendedCheck.class);
 
     @Test
     public void testNullOnIgnoreMethodsNames() throws Exception {
@@ -252,7 +253,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
             "16:24: " + getCheckMessage(MSG_KEY_METHOD, "method2", 2, 1),
         };
 
-        verify(checkConfig, getPath("InputReturnCountExtendedCheckAnonymousClasses.java"), expected);
+        verify(checkConfig, getPath("InputReturnCountExtendedCheckAnonymousClasses.java"),
+                expected);
     }
 
     @Test

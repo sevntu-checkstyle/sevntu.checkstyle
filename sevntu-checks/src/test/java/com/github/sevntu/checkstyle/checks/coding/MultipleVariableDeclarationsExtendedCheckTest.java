@@ -34,7 +34,8 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
     @Test
     public void testStandartSituation() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -49,12 +50,14 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
         checkConfig.addAttribute("ignoreCycles", "false");
         checkConfig.addAttribute("ignoreMethods", "false");
 
-        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
+                expected);
     }
 
     @Test
     public void testIgnoreCycles() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -67,12 +70,14 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
         checkConfig.addAttribute("ignoreCycles", "true");
         checkConfig.addAttribute("ignoreMethods", "false");
-        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
+                expected);
     }
 
     @Test
     public void testIgnoreMethods() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -84,12 +89,14 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
         checkConfig.addAttribute("ignoreCycles", "false");
         checkConfig.addAttribute("ignoreMethods", "true");
-        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
+                expected);
     }
 
     @Test
     public void testIgnoreMethodsAndIgnoreCycles() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -100,7 +107,8 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
 
         checkConfig.addAttribute("ignoreCycles", "true");
         checkConfig.addAttribute("ignoreMethods", "true");
-        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"), expected);
+        verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
+                expected);
     }
 
 }

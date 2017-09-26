@@ -28,7 +28,8 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration mDefaultConfig = createCheckConfig(UselessSuperCtorCallCheck.class);
+    private final DefaultConfiguration mDefaultConfig =
+            createCheckConfig(UselessSuperCtorCallCheck.class);
 
     @Test
     public void testSingleCtorWithSuperWithinNotDerivedClass()

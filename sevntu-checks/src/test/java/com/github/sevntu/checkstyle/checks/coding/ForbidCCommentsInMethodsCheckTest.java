@@ -34,7 +34,8 @@ public class ForbidCCommentsInMethodsCheckTest extends
     public void defaultTest()
             throws Exception {
 
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {
             "10: " + warningMessage,
             "17: " + warningMessage,
@@ -51,7 +52,8 @@ public class ForbidCCommentsInMethodsCheckTest extends
     @Test
     public void testFileWithoutComments()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck2.java"), expected);
     }
@@ -59,7 +61,8 @@ public class ForbidCCommentsInMethodsCheckTest extends
     @Test
     public void testInterface()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck3.java"), expected);
     }

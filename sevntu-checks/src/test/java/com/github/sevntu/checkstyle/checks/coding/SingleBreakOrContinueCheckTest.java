@@ -39,7 +39,8 @@ public class SingleBreakOrContinueCheckTest extends BaseCheckTestSupport {
     @Test
     public void testDefault()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SingleBreakOrContinueCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SingleBreakOrContinueCheck.class);
         final String[] expected = {
             "8: " + warningMessage,
             "26: " + warningMessage,

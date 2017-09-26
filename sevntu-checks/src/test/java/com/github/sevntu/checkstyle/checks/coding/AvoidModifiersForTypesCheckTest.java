@@ -37,7 +37,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(AvoidModifiersForTypesCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(AvoidModifiersForTypesCheck.class);
 
     @Test
     public void testFinal() throws Exception {
@@ -94,8 +95,10 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("forbiddenClassesRegexpPublic", publicRegexp);
 
         final String[] expected = {
-            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
+            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
+                    "package-private"),
+            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
+                    "package-private"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -217,9 +220,11 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
+            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
+                    "package-private"),
             "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "package-private"),
+            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
+                    "package-private"),
             "29:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 

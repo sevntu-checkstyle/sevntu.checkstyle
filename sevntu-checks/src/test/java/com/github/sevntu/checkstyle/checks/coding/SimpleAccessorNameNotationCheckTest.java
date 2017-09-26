@@ -34,7 +34,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void test() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
 
         checkConfig.addAttribute("prefix", "m");
 
@@ -52,7 +53,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void correctWithoutPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
             "17: " + warningSetterMessage,
             "22: " + warningGetterMessage,
@@ -62,7 +64,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void correctWithtPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
             "7: " + warningSetterMessage,
@@ -73,7 +76,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void partlyWithoutPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
             "15: " + warningGetterMessage,
             "20: " + warningSetterMessage,
@@ -87,7 +91,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void partlyWithPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
             "10: " + warningSetterMessage,
@@ -102,7 +107,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void errorsWithoutPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
             "7: " + warningSetterMessage,
             "12: " + warningGetterMessage,
@@ -114,7 +120,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void errorsWithPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {
             "7: " + warningSetterMessage,
@@ -127,14 +134,16 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void cleanWithoutPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck4.java"), expected);
     }
 
     @Test
     public void cleanWithPrefix() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
         final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck4.java"), expected);
@@ -142,7 +151,8 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testBoolean() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {
             "28: " + warningSetterMessage,
             "33: " + warningGetterMessage,
@@ -152,14 +162,16 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testAnonymousCases() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck6.java"), expected);
     }
 
     @Test
     public void testInterface() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(SimpleAccessorNameNotationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(SimpleAccessorNameNotationCheck.class);
         final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck7.java"), expected);
     }

@@ -38,15 +38,26 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
             createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-            "10:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private static final long serialVersionUID)", "Field(.*final public .*|.*public final .*)"),
+            "10:5: " + getCheckMessage(MSG_KEY_FIELD,
+                    "Field(private static final long serialVersionUID)",
+                    "Field(.*final public .*|.*public final .*)"),
             "20:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(protected .*)", "Field(private .*)"),
-            "22:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(@SuppressWarnings(.*serial.*).*)", "Field(private .*)"),
-            "45:5: " + getCheckMessage(MSG_KEY_CONSTRUCTOR, "Ctor()", "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*)"),
-            "52:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(public static .*(new|edit|create).*)", "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*)"),
-            "60:9: " + getCheckMessage(MSG_KEY_FIELD, "Field(.*final public .*|.*public final .*)", "Field(private .*)"),
-            "80:9: " + getCheckMessage(MSG_KEY_CLASS, "InnerClass (public .*abstract .*)", "InnerClass (private .*)"),
-            "84:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(@Deprecated .*)", "InnerClass (private .*)"),
-            "95:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*)", "InnerClass (private .*)"),
+            "22:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(@SuppressWarnings(.*serial.*).*)",
+                    "Field(private .*)"),
+            "45:5: " + getCheckMessage(MSG_KEY_CONSTRUCTOR, "Ctor()",
+                    "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*)"),
+            "52:5: " + getCheckMessage(MSG_KEY_METHOD,
+                    "Method(public static .*(new|edit|create).*)",
+                    "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*)"),
+            "60:9: " + getCheckMessage(MSG_KEY_FIELD, "Field(.*final public .*|.*public final .*)",
+                    "Field(private .*)"),
+            "80:9: " + getCheckMessage(MSG_KEY_CLASS, "InnerClass (public .*abstract .*)",
+                    "InnerClass (private .*)"),
+            "84:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(@Deprecated .*)",
+                    "InnerClass (private .*)"),
+            "95:5: " + getCheckMessage(MSG_KEY_METHOD,
+                    "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*)",
+                    "InnerClass (private .*)"),
             "105:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private .*)", "Ctor()"),
         };
         checkConfig.addAttribute("customDeclarationOrder",
@@ -59,12 +70,14 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
                                 + "Method(@Deprecated .*) ###"
                                 + "Method(public static .*(new|edit|create).*) ###"
                                 + "Method() ###"
-                                + "Method(.*abstract .*public .*|.*public .*abstract .*|protected .*) ###"
+                                + "Method(.*abstract .*public .*|.*public .*abstract .*|"
+                                    + "protected .*) ###"
                                 + "InnerClass (public .*abstract .*) ###"
                                 + "InnerClass (private .*)");
         checkConfig.addAttribute("caseSensitive", "true");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheck.java"), expected);
-        checkConfig.addAttribute("customDeclarationOrder", "Field .*final.*public|.*public.*final)");
+        checkConfig
+                .addAttribute("customDeclarationOrder", "Field .*final.*public|.*public.*final)");
     }
 
     @Test
@@ -73,10 +86,14 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         final DefaultConfiguration checkConfig =
                 createCheckConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-            "39:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)", "Field(public .*)"),
-            "54:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)", "Field(private .*)"),
-            "66:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField()", "Ctor(public .*)"),
-            "95:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)", "Field(private .*)"),
+            "39:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
+                    "Field(public .*)"),
+            "54:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
+                    "Field(private .*)"),
+            "66:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField()",
+                    "Ctor(public .*)"),
+            "95:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
+                    "Field(private .*)"),
         };
         checkConfig
             .addAttribute(
@@ -123,7 +140,8 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
             "GetterSetter(.*) ### Method(.*)"
         );
         checkConfig.addAttribute("caseSensitive", "false");
-        verify(checkConfig, getPath("InputCustomDeclarationOrderCheckGettersSetters.java"), expected);
+        verify(checkConfig, getPath("InputCustomDeclarationOrderCheckGettersSetters.java"),
+                expected);
     }
 
     @Test
@@ -140,10 +158,12 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
 
         checkConfig.addAttribute(
             "customDeclarationOrder",
-            "Field(private ) ### Field(public ) ### Method(.*) ### InnerInterface(.*) ### InnerEnum(.*)"
+            "Field(private ) ### Field(public ) ### Method(.*) ### InnerInterface(.*) ### "
+                    + "InnerEnum(.*)"
         );
         checkConfig.addAttribute("caseSensitive", "true");
-        verify(checkConfig, getPath("InputCustomDeclarationOrderCheckInnerInterfaceEnum.java"), expected);
+        verify(checkConfig, getPath("InputCustomDeclarationOrderCheckInnerInterfaceEnum.java"),
+                expected);
     }
 
     @Test

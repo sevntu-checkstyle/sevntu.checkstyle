@@ -28,7 +28,8 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchExtendedCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(IllegalCatchExtendedCheck.class);
 
     @Test
     public final void testDefault() throws Exception {

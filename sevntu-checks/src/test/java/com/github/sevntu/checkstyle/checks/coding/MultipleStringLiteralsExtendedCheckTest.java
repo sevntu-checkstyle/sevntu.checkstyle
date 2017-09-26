@@ -47,7 +47,8 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testItAndShowAllWarnings()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("allowedDuplicates", "2");
         checkConfig.addAttribute("ignoreStringsRegexp", "");
         checkConfig.addAttribute("highlightAllDuplicates", "true");

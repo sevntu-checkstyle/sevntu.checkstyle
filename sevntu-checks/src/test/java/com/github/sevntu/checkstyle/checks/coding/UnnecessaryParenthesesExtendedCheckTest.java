@@ -98,7 +98,8 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
 
     @Test
     public void test15Extensions() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
         final String[] expected = {};
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "false");
@@ -108,7 +109,8 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
 
     @Test
     public void testUbv() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
         final String[] expected = {
             "5:22: " + getCheckMessage(MSG_KEY_ASSIGN),
             "5:29: " + getCheckMessage(MSG_KEY_EXPR),

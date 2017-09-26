@@ -91,7 +91,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     public void testCtorAnnotatedWithAnnotation() throws Exception {
         final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName");
+        config.addAttribute("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\."
+                + "coding\\.AnnotationName");
 
         final String[] expected = {};
 
@@ -106,7 +107,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
                 "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName|"
                 + "org\\.junit\\.runner\\.RunWith|"
                 + "org\\.junit\\.Ignore|"
-                + "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.InputEmptyPublicCtorInClassCheck9\\.InnerAnnotation");
+                + "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\."
+                + "InputEmptyPublicCtorInClassCheck9\\.InnerAnnotation");
 
         final String[] expected = {};
 

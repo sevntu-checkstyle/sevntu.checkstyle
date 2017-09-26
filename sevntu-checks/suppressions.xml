@@ -19,7 +19,6 @@
     <suppress checks="InnerAssignment" files="OverridableMethodInConstructorCheck.java"/>
     <suppress checks="BooleanExpressionComplexity" files="ForbidWildcardAsReturnTypeCheck.java"/>
     <suppress checks="JavadocPackage" files="(LineLengthExtendedCheck|Utils).java"/>
-    <suppress checks="LineLength" files=".*[\\/]src[\\/]test[\\/]"/>
     <suppress checks="AbstractClassName" files=".*[\\/]BaseCheckTestSupport\.java"/>
     <suppress checks="ReturnCount" files="(BaseCheckTestSupport|CheckUtil|XmlUtil|ForbidAnnotationCheck|ForbidReturnInFinallyBlockCheck|CustomDeclarationOrderCheck|NumericLiteralNeedsUnderscoreCheck|FinalizeImplementationCheck|MapIterationInForEachLoopCheck|MapIterationInForEachLoopCheck|MapIterationInForEachLoopCheck|MapIterationInForEachLoopCheck|EmptyPublicCtorInClassCheck|EmptyPublicCtorInClassCheck|NameConventionForJunit4TestClassesCheck|NameConventionForJunit4TestClassesCheck|MultipleStringLiteralsExtendedCheck).java"/>
     <!-- END of legacy code -->
