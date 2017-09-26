@@ -34,7 +34,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig = createCheckConfig(CauseParameterInExceptionCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(CauseParameterInExceptionCheck.class);
 
     @Test
     public void testNormalWork() throws Exception {

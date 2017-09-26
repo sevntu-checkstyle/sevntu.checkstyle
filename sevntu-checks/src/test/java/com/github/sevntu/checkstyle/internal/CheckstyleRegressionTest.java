@@ -121,7 +121,8 @@ public class CheckstyleRegressionTest {
             Files.write(config.toPath(), configContents.getBytes(UTF_8), StandardOpenOption.CREATE);
 
             if (!suppressionAdditions.isEmpty()) {
-                String suppressionContents = new String(Files.readAllBytes(suppression.toPath()), UTF_8);
+                String suppressionContents = new String(Files.readAllBytes(suppression.toPath()),
+                        UTF_8);
                 final int position = suppressionContents.lastIndexOf("</suppressions");
 
                 suppressionContents = suppressionContents.substring(0, position)

@@ -39,8 +39,11 @@ public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testDefaultConfigProhibitsExceptionsWithoutParams() throws Exception {
-        final String[] expectedViolationMsg = {"35:37: " + getCheckMessage(MSG_KEY, "RuntimeException")};
-        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        final String[] expectedViolationMsg = {
+            "35:37: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+        };
+        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"),
+                expectedViolationMsg);
     }
 
     @Test
@@ -51,7 +54,8 @@ public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
             "69:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
             "72:27: " + getCheckMessage(MSG_KEY, "Clazz2"),
         };
-        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"),
+                expectedViolationMsg);
     }
 
     /*

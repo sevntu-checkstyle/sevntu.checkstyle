@@ -33,7 +33,8 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     @Test
     public void testWithAllowPartiaFalse()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {
             "33: " + warningMessage,
@@ -52,36 +53,42 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "179: " + warningMessage,
             "187: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
+                expected);
     }
 
     @Test
     public void testPrivateNotRealReadObject()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
             "10: " + warningMessage,
         };
 
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck2.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck2.java"),
+                expected);
     }
 
     @Test
     public void testRealReadObjectNotRealReadObjectRealPrivate()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck3.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck3.java"),
+                expected);
     }
 
     @Test
     public void testWithAllowPartiaTrue()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
             "33: " + warningMessage,
@@ -96,6 +103,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
             "171: " + warningMessage,
             "187: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
+                expected);
     }
 }

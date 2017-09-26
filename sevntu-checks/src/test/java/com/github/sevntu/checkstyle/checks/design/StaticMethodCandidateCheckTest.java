@@ -57,7 +57,8 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
                 createCheckConfig(StaticMethodCandidateCheck.class);
         checkConfig.addAttribute("skippedMethods", "foo, bar,foobar");
         final String[] expected = {};
-        verify(checkConfig, getPath("InputStaticMethodCandidateCheckSkippedMethods.java"), expected);
+        verify(checkConfig, getPath("InputStaticMethodCandidateCheckSkippedMethods.java"),
+                expected);
     }
 
     @Test

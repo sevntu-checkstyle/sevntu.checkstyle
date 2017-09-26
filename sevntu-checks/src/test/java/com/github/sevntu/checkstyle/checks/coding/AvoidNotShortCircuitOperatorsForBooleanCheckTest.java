@@ -29,7 +29,8 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
 
     @Test
     public final void testAll() throws Exception {
@@ -51,7 +52,8 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
             "97:11: " + getCheckMessage(MSG_KEY, "|="),
         };
 
-        verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"),
+                expected);
     }
 
     @Test

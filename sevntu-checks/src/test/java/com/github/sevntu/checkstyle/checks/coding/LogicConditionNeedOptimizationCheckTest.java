@@ -30,7 +30,8 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
 
     @Test
     public void test() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(LogicConditionNeedOptimizationCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(LogicConditionNeedOptimizationCheck.class);
         final String[] expected = {
             "26: " + getCheckMessage(MSG_KEY, "&&", 26, 27),
             "28: " + getCheckMessage(MSG_KEY, "&&", 28, 21),

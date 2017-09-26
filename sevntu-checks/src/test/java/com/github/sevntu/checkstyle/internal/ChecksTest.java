@@ -47,7 +47,8 @@ import com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractJavadocCheck;
 
 public final class ChecksTest {
     private static final Set<String> CHECK_PROPERTIES = getProperties(AbstractCheck.class);
-    private static final Set<String> JAVADOC_CHECK_PROPERTIES = getProperties(AbstractJavadocCheck.class);
+    private static final Set<String> JAVADOC_CHECK_PROPERTIES =
+            getProperties(AbstractJavadocCheck.class);
     private static final Set<String> FILESET_PROPERTIES = getProperties(AbstractFileSetCheck.class);
 
     @Test
@@ -271,33 +272,38 @@ public final class ChecksTest {
                 case "description":
                     Assert.assertEquals(
                             packge + " checkstyle-metadata.xml requires a valid description for "
-                                    + moduleName, "%" + moduleName + ".desc", child.getTextContent());
+                                    + moduleName, "%" + moduleName + ".desc",
+                            child.getTextContent());
                     break;
                 case "property-metadata":
                     final String propertyName = attributes.getNamedItem("name").getTextContent();
 
-                    Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown parameter for "
+                    Assert.assertTrue(packge
+                            + " checkstyle-metadata.xml has an unknown parameter for "
                             + moduleName + ": " + propertyName, properties.remove(propertyName));
 
                     final Node firstChild = child.getFirstChild().getNextSibling();
 
                     Assert.assertNotNull(packge
-                            + " checkstyle-metadata.xml requires atleast one child for " + moduleName
-                            + ", " + propertyName, firstChild);
+                            + " checkstyle-metadata.xml requires atleast one child for "
+                            + moduleName + ", " + propertyName, firstChild);
                     Assert.assertEquals(
                             packge
-                                    + " checkstyle-metadata.xml should have a description for the first child of "
+                                    + " checkstyle-metadata.xml should have a description for the "
+                                    + "first child of "
                                     + moduleName + ", " + propertyName, "description",
                             firstChild.getNodeName());
                     Assert.assertEquals(packge
-                            + " checkstyle-metadata.xml requires a valid description for " + moduleName
-                            + ", " + propertyName, "%" + moduleName + "." + propertyName,
+                            + " checkstyle-metadata.xml requires a valid description for "
+                            + moduleName + ", " + propertyName, "%" + moduleName + "."
+                            + propertyName,
                             firstChild.getTextContent());
                     break;
                 case "message-key":
                     final String key = attributes.getNamedItem("key").getTextContent();
 
-                    Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown message for "
+                    Assert.assertTrue(packge
+                            + " checkstyle-metadata.xml has an unknown message for "
                             + moduleName + ": " + key, messages.remove(key));
                     break;
                 default:

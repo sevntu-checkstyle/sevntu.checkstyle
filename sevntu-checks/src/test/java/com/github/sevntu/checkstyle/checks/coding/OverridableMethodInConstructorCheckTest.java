@@ -33,7 +33,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     private static final String CLONE_KEY = "'clone()' method";
     private static final String READ_OBJECT_KEY = "'readObject()' method";
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(OverridableMethodInConstructorCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(OverridableMethodInConstructorCheck.class);
 
     @Test
     public final void revereCodeTest() throws Exception {

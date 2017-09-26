@@ -31,7 +31,8 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void issue52Test() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
         final String[] expected = {};
 
@@ -40,7 +41,8 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void test() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
         final String[] expected = {
             "18:13: " + getCheckMessage(MSG_KEY, "e"),
@@ -66,7 +68,8 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void testWrappingException() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createCheckConfig(AvoidHidingCauseExceptionCheck.class);
 
         verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheckWrapping.java"),
                 CommonUtils.EMPTY_STRING_ARRAY);

@@ -34,7 +34,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig = createCheckConfig(ForbidInstantiationCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(ForbidInstantiationCheck.class);
 
     @Test
     public void testNullProperties() throws Exception {
@@ -75,7 +76,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
     @Test
     public void testNormalWork2() throws Exception {
 
-        checkConfig.addAttribute("forbiddenClasses", "com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck");
+        checkConfig.addAttribute("forbiddenClasses",
+                "com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck");
 
         final String[] expected = {
             "12:89: " + getCheckMessage(MSG_KEY, "InputForbidInstantiationCheck"),

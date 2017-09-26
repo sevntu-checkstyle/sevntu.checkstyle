@@ -68,7 +68,8 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
             "15:15: " + getCheckMessage(MSG_KEY, 13, 5),
         };
 
-        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"),
+                expected);
     }
 
     @Test
@@ -83,7 +84,8 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
             "31:15: " + getCheckMessage(MSG_KEY, 5, 4),
         };
 
-        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"),
+                expected);
     }
 
     @Test
@@ -111,7 +113,8 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
         final String[] expected = {
         };
 
-        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"), expected);
+        verify(checkConfig, getPath("InputChildBlockLengthCheckManyBlocksOnOneScope.java"),
+                expected);
     }
 
     @Test

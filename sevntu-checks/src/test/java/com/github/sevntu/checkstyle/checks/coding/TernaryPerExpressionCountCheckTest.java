@@ -33,7 +33,8 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
  */
 public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(TernaryPerExpressionCountCheck.class);
+    private final DefaultConfiguration checkConfig =
+            createCheckConfig(TernaryPerExpressionCountCheck.class);
 
     @Test
     public void testWithDefaultTernaryPerExpressionCountValue()
@@ -84,8 +85,10 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
         catch (CheckstyleException ex) {
             final String errorMsg = ex.getMessage();
             Assert.assertTrue(errorMsg
-                    .contains("Cannot set property 'maxTernaryPerExpressionCount' to '-1' in module "
-                            + "com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck"));
+                    .contains("Cannot set property 'maxTernaryPerExpressionCount' "
+                            + "to '-1' in module "
+                            + "com.github.sevntu.checkstyle.checks.coding."
+                            + "TernaryPerExpressionCountCheck"));
         }
     }
 
