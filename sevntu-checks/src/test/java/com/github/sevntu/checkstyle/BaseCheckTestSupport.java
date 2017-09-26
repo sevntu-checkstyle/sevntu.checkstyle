@@ -144,14 +144,16 @@ public abstract class BaseCheckTestSupport extends Assert {
      * @param messageKey the key of message in 'messages.properties' file.
      */
     public String getCheckMessage(String messageKey) {
+        String result;
         final Properties pr = new Properties();
         try {
             pr.load(getClass().getResourceAsStream("messages.properties"));
+            result = pr.getProperty(messageKey);
         }
         catch (IOException ex) {
-            return null;
+            result = null;
         }
-        return pr.getProperty(messageKey);
+        return result;
     }
 
     /**

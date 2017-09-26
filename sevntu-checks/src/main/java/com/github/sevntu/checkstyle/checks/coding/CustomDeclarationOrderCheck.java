@@ -877,11 +877,12 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * @return identifier of AST, null if AST does not have name.
      */
     private static String getIdentifier(final DetailAST ast) {
+        String result = null;
         final DetailAST ident = ast.findFirstToken(TokenTypes.IDENT);
         if (ident != null) {
-            return ident.getText();
+            result = ident.getText();
         }
-        return null;
+        return result;
     }
 
     /**

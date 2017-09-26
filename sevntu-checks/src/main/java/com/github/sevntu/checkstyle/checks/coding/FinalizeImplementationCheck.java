@@ -218,14 +218,15 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      * @return true, if method has super.finalize() call.
      */
     private static boolean containsSuperFinalizeCall(DetailAST openingBrace) {
+        boolean result = false;
         final DetailAST methodCallToken = openingBrace.getFirstChild().getFirstChild();
         if (methodCallToken != null && methodCallToken.getType() == TokenTypes.METHOD_CALL) {
             final DetailAST dotToken = methodCallToken.getFirstChild();
             if (dotToken.getType() == TokenTypes.DOT
                     && dotToken.findFirstToken(TokenTypes.LITERAL_SUPER) != null) {
-                return true;
+                result = true;
             }
         }
-        return false;
+        return result;
     }
 }

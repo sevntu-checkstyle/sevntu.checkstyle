@@ -552,23 +552,23 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      */
     private static boolean numericSegmentPassesRequirement(String numericSegment,
             int minLength, int symbolsUntilUnderscore) {
-        if (numericSegment.length() < minLength) {
-            return true;
-        }
-        final char underscore = '_';
-        int symbolCount = 0;
         boolean passes = true;
-        for (int i = 0; i < numericSegment.length(); i++) {
-            final char current = numericSegment.charAt(i);
-            if (symbolCount >= symbolsUntilUnderscore && current != underscore) {
-                passes = false;
-                break;
-            }
-            if (current == underscore) {
-                symbolCount = 0;
-            }
-            else {
-                symbolCount++;
+        if (numericSegment.length() >= minLength) {
+            final char underscore = '_';
+            int symbolCount = 0;
+
+            for (int i = 0; i < numericSegment.length(); i++) {
+                final char current = numericSegment.charAt(i);
+                if (symbolCount >= symbolsUntilUnderscore && current != underscore) {
+                    passes = false;
+                    break;
+                }
+                if (current == underscore) {
+                    symbolCount = 0;
+                }
+                else {
+                    symbolCount++;
+                }
             }
         }
         return passes;

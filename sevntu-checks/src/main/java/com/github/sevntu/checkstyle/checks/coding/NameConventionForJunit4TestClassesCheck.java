@@ -232,19 +232,21 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *         defined annotation
      */
     private boolean isAtleastOneMethodAnnotated(DetailAST classDefNode) {
+        boolean result = false;
         DetailAST classMemberNode =
                 classDefNode.findFirstToken(TokenTypes.OBJBLOCK).getFirstChild();
 
         while (classMemberNode != null) {
             if (classMemberNode.getType() == TokenTypes.METHOD_DEF
                     && hasAnnotation(classMemberNode, methodAnnotationNameRegex)) {
-                return true;
+                result = true;
+                break;
             }
 
             classMemberNode = classMemberNode.getNextSibling();
         }
 
-        return false;
+        return result;
     }
 
     /**
@@ -341,11 +343,13 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *         against regex.
      */
     private static boolean isMatchesRegex(Pattern regexPattern, String str) {
+        final boolean result;
         if (regexPattern != null) {
-            return regexPattern.matcher(str).matches();
+            result = regexPattern.matcher(str).matches();
         }
         else {
-            return false;
+            result = false;
         }
+        return result;
     }
 }
