@@ -12,7 +12,6 @@
     <suppress checks="JavadocVariable" files="(TernaryPerExpressionCountCheck|CustomDeclarationOrderCheck).java"/>
     <suppress checks="MultipleStringLiterals" files="(CustomDeclarationOrderCheck|ForbidWildcardAsReturnTypeCheck).java"/>
     <suppress checks="MethodCount" files="CustomDeclarationOrderCheck.java"/>
-    <suppress checks="ModifiedControlVariable" files="AvoidNotShortCircuitOperatorsForBooleanCheck.java"/>
     <suppress checks="TodoComment" files="HideUtilityClassConstructorCheck.java"/>
     <suppress checks="NPathComplexity" files="MapIterationInForEachLoopCheck.java"/>
     <suppress checks="NestedIfDepth|ReturnCount" files="UnnecessaryParenthesesExtendedCheck.java"/>

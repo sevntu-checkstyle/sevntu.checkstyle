@@ -209,10 +209,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
                     && currentNode.getParent().getType() != TokenTypes.DOT) {
                 supportedOperands.add(currentNode.getText());
             }
-
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
-            }
         }
         return supportedOperands;
     }
@@ -236,10 +232,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
             if (type == TokenTypes.LITERAL_TRUE
                     || type == TokenTypes.LITERAL_FALSE) {
                 hasTrueOrFalseLiteral = true;
-            }
-
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
             }
 
             if (hasTrueOrFalseLiteral) {
