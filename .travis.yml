@@ -69,6 +69,12 @@ matrix:
         - CMD3=" && cd ../ && cd checkstyle && mvn clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true"
         - CMD=$CMD0$CMD1$CMD2$CMD3
 
+    # eclipse static analysis
+    - jdk: oraclejdk8
+      env:
+        - DESC="eclipse static analysis
+        - CMD="cd sevntu-checks && mvn clean compile exec:exec -Peclipse-compiler"
+
     # testing of PR format
     - env:
         - DESC="test Issue ref in PR description"
