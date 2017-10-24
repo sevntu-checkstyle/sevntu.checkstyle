@@ -62,7 +62,7 @@ public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
 
     @Override
     public void beginTree(DetailAST rootAST) {
-        clangComments = getFileContents().getCComments().keySet();
+        clangComments = getFileContents().getBlockComments().keySet();
     }
 
     @Override
