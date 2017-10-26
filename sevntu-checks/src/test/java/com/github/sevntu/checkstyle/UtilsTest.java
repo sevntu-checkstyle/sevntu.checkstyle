@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle;
 
 import static com.puppycrawl.tools.checkstyle.internal.TestUtils.assertUtilsClassHasPrivateConstructor;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,6 +37,7 @@ public class UtilsTest {
     public void testReportInvalidToken() {
         try {
             Utils.reportInvalidToken(TokenTypes.CLASS_DEF);
+            fail();
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: CLASS_DEF", ex.getMessage());

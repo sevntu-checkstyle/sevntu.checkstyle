@@ -19,6 +19,8 @@
 
 package com.github.sevntu.checkstyle.checks.naming;
 
+import static org.junit.Assert.fail;
+
 import java.util.Arrays;
 
 import org.junit.Assert;

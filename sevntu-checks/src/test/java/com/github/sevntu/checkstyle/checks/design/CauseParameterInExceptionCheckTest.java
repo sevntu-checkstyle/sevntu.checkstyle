@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck.MSG_KEY;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Test;
