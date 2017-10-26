@@ -536,5 +536,12 @@
       <message-key key="move.variable.inside"/>
     </rule-metadata>
 
+    <rule-metadata name="%RequireFailForTryCatchInJunitCheck.name" internal-name="RequireFailForTryCatchInJunitCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck"/>
+      <description>%RequireFailForTryCatchInJunitCheck.desc</description>
+
+      <message-key key="require.fail"/>
+    </rule-metadata>
+
   </rule-group-metadata>
 </checkstyle-metadata>
