@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.sizes;
 
 import static com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck.MSG_KEY;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -86,6 +87,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
 
         try {
             verify(checkConfig, getPath("InputLineLengthExtendedCheck.java"), expected);
+            fail();
         }
         catch (CheckstyleException ex) {
             Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "

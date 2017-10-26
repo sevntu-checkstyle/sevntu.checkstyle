@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck.MSG_KEY;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 
@@ -185,6 +186,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "minSymbolsBeforeChecking", mockType);
+            fail();
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
@@ -198,6 +200,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "maxSymbolsUntilUnderscore", mockType);
+            fail();
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
@@ -211,6 +214,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "getNumericSegments", "", mockType);
+            fail();
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
@@ -224,6 +228,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "removePrePostfixByType", "", mockType);
+            fail();
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));

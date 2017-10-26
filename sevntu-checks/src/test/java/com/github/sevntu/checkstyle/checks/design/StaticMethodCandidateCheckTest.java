@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck.MSG_KEY;
+import static org.junit.Assert.assertArrayEquals;
 
 import java.io.File;
 

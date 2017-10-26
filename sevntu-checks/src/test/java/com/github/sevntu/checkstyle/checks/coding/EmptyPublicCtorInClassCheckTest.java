@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck.MSG_KEY;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Test;

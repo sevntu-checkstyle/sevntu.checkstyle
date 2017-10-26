@@ -20,6 +20,7 @@
 package com.github.sevntu.checkstyle;
 
 import static java.text.MessageFormat.format;
+import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -34,8 +35,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.junit.Assert;
-
 import com.google.common.collect.Lists;
 import com.puppycrawl.tools.checkstyle.AuditEventUtFormatter;
 import com.puppycrawl.tools.checkstyle.Checker;
@@ -45,7 +44,7 @@ import com.puppycrawl.tools.checkstyle.TreeWalker;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.Configuration;
 
-public abstract class BaseCheckTestSupport extends Assert {
+public abstract class BaseCheckTestSupport {
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
     private final PrintStream printStream = new PrintStream(baos);
 
