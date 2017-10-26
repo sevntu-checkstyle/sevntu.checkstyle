@@ -896,4 +896,12 @@
     <description>Checks if a variable is only used inside if statements and asks for it's declaration to be moved there too.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</configKey>
   </rule>
+
+  <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</key>
+    <name>Require fail for try/catch in junit check</name>
+    <category name="coding"/>
+    <description>Checks if a try/catch block has a junit fail assertion inside the try  for a junit method.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</configKey>
+  </rule>
 </rules>
