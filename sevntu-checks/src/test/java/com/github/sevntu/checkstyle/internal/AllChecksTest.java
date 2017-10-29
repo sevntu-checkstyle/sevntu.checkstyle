@@ -300,7 +300,7 @@ public class AllChecksTest {
      * @return a set of simple names.
      */
     private static Set<String> getFullNames(Set<Class<?>> checks) {
-        return checks.stream().map(check -> check.getName().replace("Check", ""))
+        return checks.stream().map(check -> check.getName())
             .collect(Collectors.toSet());
     }
 
