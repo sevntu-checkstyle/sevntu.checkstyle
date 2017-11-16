@@ -904,4 +904,20 @@
     <description>Checks if a try/catch block has a junit fail assertion inside the try  for a junit method.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</configKey>
   </rule>
+
+  <rule>
+    <key>com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</key>
+    <name>Custom check to ensure Checkstyle tests are designed correctly.</name>
+    <category name="design"/>
+    <description>Custom check to ensure Checkstyle tests are designed correctly.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</configKey>
+    <param key="createMethodRegexp" type="REGULAR_EXPRESSION">
+      <defaultValue>create(Root|Module)Config|getModuleConfig</defaultValue>
+      <description>Regular expression for matching a create configuration method by name.</description>
+    </param>
+    <param key="verifyMethodRegexp" type="REGULAR_EXPRESSION">
+      <defaultValue>verify(Warns|Suppressed)?</defaultValue>
+      <description>Regular expression for matching a verify method by name.</description>
+    </param>
+  </rule>
 </rules>

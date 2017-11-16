@@ -188,6 +188,7 @@
     <module name="com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
+    <module name="com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck"/>
 
     <!-- Naming -->
     <module name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck">
