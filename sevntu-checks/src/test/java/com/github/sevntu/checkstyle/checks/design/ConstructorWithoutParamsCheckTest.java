@@ -22,7 +22,6 @@ package com.github.sevntu.checkstyle.checks.design;
 import static com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck.MSG_KEY;
 import static org.junit.Assert.assertArrayEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.github.sevntu.checkstyle.BaseCheckTestSupport;
@@ -31,15 +30,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
 
-    private DefaultConfiguration defaultConfig;
-
-    @Before
-    public void getDefaultConfiguration() {
-        defaultConfig = createCheckConfig(ConstructorWithoutParamsCheck.class);
-    }
-
     @Test
     public void testDefaultConfigProhibitsExceptionsWithoutParams() throws Exception {
+        final DefaultConfiguration defaultConfig =
+                createModuleConfig(ConstructorWithoutParamsCheck.class);
         final String[] expectedViolationMsg = {
             "35:37: " + getCheckMessage(MSG_KEY, "RuntimeException"),
         };
@@ -49,6 +43,8 @@ public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testUserDefinedConfigProhibitsCustomClasses() throws Exception {
+        final DefaultConfiguration defaultConfig =
+                createModuleConfig(ConstructorWithoutParamsCheck.class);
         defaultConfig.addAttribute("classNameFormat", "Clazz[1-9]");
         defaultConfig.addAttribute("ignoredClassNameFormat", "Clazz4");
         final String[] expectedViolationMsg = {

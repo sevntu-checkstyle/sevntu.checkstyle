@@ -36,7 +36,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
     @Test
     public void testCustomDecrationOrder() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(CustomDeclarationOrderCheck.class);
+            createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
             "10:5: " + getCheckMessage(MSG_KEY_FIELD,
                     "Field(private static final long serialVersionUID)",
@@ -84,7 +84,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
     public void anonymousClasses()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(CustomDeclarationOrderCheck.class);
+                createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
             "39:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
                     "Field(public .*)"),
@@ -116,7 +116,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
     public void gettersSetters()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(CustomDeclarationOrderCheck.class);
+                createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
             "50:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
             "56:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
@@ -148,7 +148,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
     public void innerInterfacesAndEnums()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(CustomDeclarationOrderCheck.class);
+                createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
             "41:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private )", "InnerInterface(.*)"),
             "49:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private )", "InnerEnum(.*)"),
@@ -170,7 +170,7 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
     public void mainMethod()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(CustomDeclarationOrderCheck.class);
+                createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
             "10:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private )", "MainMethod(.*)"),
             "17:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private )", "MainMethod(.*)"),

@@ -31,7 +31,7 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
     @Test
     public void testAll() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+                createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
         final String[] expected = {
             "24: " + getCheckMessage(MSG_KEY, "=="),
             "25: " + getCheckMessage(MSG_KEY, "=="),
@@ -69,7 +69,7 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
     @Test
     public void testAttributes() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+                createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
         checkConfig.addAttribute("targetConstantTypes", "LITERAL_FALSE,NUM_INT,NUM_FLOAT");
         final String[] expected = {
             "25: " + getCheckMessage(MSG_KEY, "=="),
@@ -84,7 +84,7 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
     @Test
     public void testNullProperties() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+                createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
 
         checkConfig.addAttribute("targetConstantTypes", null);
 

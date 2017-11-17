@@ -40,7 +40,7 @@ public class SingleBreakOrContinueCheckTest extends BaseCheckTestSupport {
     public void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(SingleBreakOrContinueCheck.class);
+                createModuleConfig(SingleBreakOrContinueCheck.class);
         final String[] expected = {
             "8: " + warningMessage,
             "26: " + warningMessage,

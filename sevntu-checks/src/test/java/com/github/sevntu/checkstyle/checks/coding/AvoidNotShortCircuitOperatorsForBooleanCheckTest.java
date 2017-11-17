@@ -29,11 +29,10 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
-
     @Test
     public final void testAll() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
 
         final String[] expected = {
             "6:23: " + getCheckMessage(MSG_KEY, "|"),
@@ -58,6 +57,8 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
 
     @Test
     public final void testNonClasses() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
         verify(checkConfig,
                 getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckNonClasses.java"),
                 CommonUtils.EMPTY_STRING_ARRAY);

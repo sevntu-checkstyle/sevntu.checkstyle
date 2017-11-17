@@ -33,30 +33,26 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
  */
 public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(TernaryPerExpressionCountCheck.class);
-
     @Test
     public void testWithDefaultTernaryPerExpressionCountValue()
             throws Exception {
-        final int maxTernaryOperatorsCount = 1;
-        final boolean ternaryInBraces = true;
-        final boolean oneLine = true;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "true");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "true");
         checkConfig.addAttribute("maxTernaryPerExpressionCount",
-                Integer.toString(maxTernaryOperatorsCount));
+                "1");
         final String[] expected = {
-            "14:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "18:32: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "20:33: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "21:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "25:56: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "26:50: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "30:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "47:36: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
+            "14:26: " + getCheckMessage(MSG_KEY, 1),
+            "18:32: " + getCheckMessage(MSG_KEY, 1),
+            "20:33: " + getCheckMessage(MSG_KEY, 1),
+            "21:26: " + getCheckMessage(MSG_KEY, 1),
+            "25:56: " + getCheckMessage(MSG_KEY, 1),
+            "26:50: " + getCheckMessage(MSG_KEY, 1),
+            "30:47: " + getCheckMessage(MSG_KEY, 1),
+            "47:36: " + getCheckMessage(MSG_KEY, 1),
         };
         verify(checkConfig,
                 getPath("InputTernaryPerExpressionCountCheck.java"), expected);
@@ -65,15 +61,14 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
     @Test
     public void testWithNegativeTernaryPerExpressionCountValue()
             throws Exception {
-        final int maxTernaryOperatorsCount = -1;
-        final boolean ternaryInBraces = true;
-        final boolean oneLine = false;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "true");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "false");
         checkConfig.addAttribute("maxTernaryPerExpressionCount",
-                Integer.toString(maxTernaryOperatorsCount));
+                "-1");
         final String[] expected = {};
 
         try {
@@ -95,46 +90,44 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
     @Test
     public void testWithDifferentTernaryPerExpressionCountValue()
             throws Exception {
-        final boolean ternaryInBraces = true;
-        final boolean oneLine = false;
-        final int maxTernaryOperatorsCount = 2;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "true");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "false");
         checkConfig.addAttribute("maxTernaryPerExpressionCount",
-                Integer.toString(maxTernaryOperatorsCount));
-        final String[] expected = {"14:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount)};
+                "2");
+        final String[] expected = {"14:26: " + getCheckMessage(MSG_KEY, 2)};
         verify(checkConfig,
                 getPath("InputTernaryPerExpressionCountCheck.java"), expected);
     }
 
     @Test
     public void testWithZeroValue() throws Exception {
-        final boolean ternaryInBraces = false;
-        final boolean oneLine = true;
-        final int maxTernaryOperatorsCount = 0;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "false");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "true");
         checkConfig.addAttribute("maxTernaryPerExpressionCount",
-                Integer.toString(maxTernaryOperatorsCount));
+                "0");
         final String[] expected = {
-            "14:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "18:32: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "20:33: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "21:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "25:56: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "26:50: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "30:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "31:52: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "35:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "36:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "37:31: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "38:23: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "47:36: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "101:48: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
+            "14:26: " + getCheckMessage(MSG_KEY, 0),
+            "18:32: " + getCheckMessage(MSG_KEY, 0),
+            "20:33: " + getCheckMessage(MSG_KEY, 0),
+            "21:26: " + getCheckMessage(MSG_KEY, 0),
+            "25:56: " + getCheckMessage(MSG_KEY, 0),
+            "26:50: " + getCheckMessage(MSG_KEY, 0),
+            "30:47: " + getCheckMessage(MSG_KEY, 0),
+            "31:52: " + getCheckMessage(MSG_KEY, 0),
+            "35:38: " + getCheckMessage(MSG_KEY, 0),
+            "36:38: " + getCheckMessage(MSG_KEY, 0),
+            "37:31: " + getCheckMessage(MSG_KEY, 0),
+            "38:23: " + getCheckMessage(MSG_KEY, 0),
+            "47:36: " + getCheckMessage(MSG_KEY, 0),
+            "101:48: " + getCheckMessage(MSG_KEY, 0),
         };
         verify(checkConfig,
                 getPath("InputTernaryPerExpressionCountCheck.java"), expected);
@@ -142,28 +135,27 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testWithoutIgnoringExpressionInBraces() throws Exception {
-        final boolean ternaryInBraces = false;
-        final boolean oneLine = true;
-        final int maxTernaryOperatorsCount = 1;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "false");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "true");
         final String[] expected = {
-            "14:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "18:32: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "20:33: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "21:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "25:56: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "26:50: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "30:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "31:52: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "35:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "36:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "37:31: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "38:23: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "47:36: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "101:48: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
+            "14:26: " + getCheckMessage(MSG_KEY, 1),
+            "18:32: " + getCheckMessage(MSG_KEY, 1),
+            "20:33: " + getCheckMessage(MSG_KEY, 1),
+            "21:26: " + getCheckMessage(MSG_KEY, 1),
+            "25:56: " + getCheckMessage(MSG_KEY, 1),
+            "26:50: " + getCheckMessage(MSG_KEY, 1),
+            "30:47: " + getCheckMessage(MSG_KEY, 1),
+            "31:52: " + getCheckMessage(MSG_KEY, 1),
+            "35:38: " + getCheckMessage(MSG_KEY, 1),
+            "36:38: " + getCheckMessage(MSG_KEY, 1),
+            "37:31: " + getCheckMessage(MSG_KEY, 1),
+            "38:23: " + getCheckMessage(MSG_KEY, 1),
+            "47:36: " + getCheckMessage(MSG_KEY, 1),
+            "101:48: " + getCheckMessage(MSG_KEY, 1),
         };
         verify(checkConfig,
                 getPath("InputTernaryPerExpressionCountCheck.java"), expected);
@@ -171,35 +163,34 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testWithoutIgnoringSingleTernariesPerLine() throws Exception {
-        final boolean ternaryInBraces = false;
-        final boolean oneLine = false;
-        final int maxTernaryOperatorsCount = 1;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "false");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "false");
         final String[] expected = {
-            "14:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "18:32: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "20:33: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "21:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "25:56: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "26:50: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "30:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "31:52: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "35:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "36:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "37:31: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "38:23: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "47:36: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "49:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "57:41: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "67:39: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "79:41: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "91:29: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "94:29: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "99:29: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "101:48: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
+            "14:26: " + getCheckMessage(MSG_KEY, 1),
+            "18:32: " + getCheckMessage(MSG_KEY, 1),
+            "20:33: " + getCheckMessage(MSG_KEY, 1),
+            "21:26: " + getCheckMessage(MSG_KEY, 1),
+            "25:56: " + getCheckMessage(MSG_KEY, 1),
+            "26:50: " + getCheckMessage(MSG_KEY, 1),
+            "30:47: " + getCheckMessage(MSG_KEY, 1),
+            "31:52: " + getCheckMessage(MSG_KEY, 1),
+            "35:38: " + getCheckMessage(MSG_KEY, 1),
+            "36:38: " + getCheckMessage(MSG_KEY, 1),
+            "37:31: " + getCheckMessage(MSG_KEY, 1),
+            "38:23: " + getCheckMessage(MSG_KEY, 1),
+            "47:36: " + getCheckMessage(MSG_KEY, 1),
+            "49:47: " + getCheckMessage(MSG_KEY, 1),
+            "57:41: " + getCheckMessage(MSG_KEY, 1),
+            "67:39: " + getCheckMessage(MSG_KEY, 1),
+            "79:41: " + getCheckMessage(MSG_KEY, 1),
+            "91:29: " + getCheckMessage(MSG_KEY, 1),
+            "94:29: " + getCheckMessage(MSG_KEY, 1),
+            "99:29: " + getCheckMessage(MSG_KEY, 1),
+            "101:48: " + getCheckMessage(MSG_KEY, 1),
         };
         verify(checkConfig,
                 getPath("InputTernaryPerExpressionCountCheck.java"), expected);
@@ -207,30 +198,29 @@ public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testWithIgnoringOneTernaryPerLine() throws Exception {
-        final boolean ternaryInBraces = false;
-        final boolean oneLine = true;
-        final int maxTernaryOperatorsCount = 0;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(TernaryPerExpressionCountCheck.class);
         checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
-                Boolean.toString(ternaryInBraces));
+                "false");
         checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
-                Boolean.toString(oneLine));
+                "true");
         checkConfig.addAttribute("maxTernaryPerExpressionCount",
-                Integer.toString(maxTernaryOperatorsCount));
+                "0");
         final String[] expected = {
-            "14:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "18:32: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "20:33: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "21:26: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "25:56: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "26:50: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "30:47: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "31:52: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "35:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "36:38: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "37:31: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "38:23: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "47:36: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
-            "101:48: " + getCheckMessage(MSG_KEY, maxTernaryOperatorsCount),
+            "14:26: " + getCheckMessage(MSG_KEY, 0),
+            "18:32: " + getCheckMessage(MSG_KEY, 0),
+            "20:33: " + getCheckMessage(MSG_KEY, 0),
+            "21:26: " + getCheckMessage(MSG_KEY, 0),
+            "25:56: " + getCheckMessage(MSG_KEY, 0),
+            "26:50: " + getCheckMessage(MSG_KEY, 0),
+            "30:47: " + getCheckMessage(MSG_KEY, 0),
+            "31:52: " + getCheckMessage(MSG_KEY, 0),
+            "35:38: " + getCheckMessage(MSG_KEY, 0),
+            "36:38: " + getCheckMessage(MSG_KEY, 0),
+            "37:31: " + getCheckMessage(MSG_KEY, 0),
+            "38:23: " + getCheckMessage(MSG_KEY, 0),
+            "47:36: " + getCheckMessage(MSG_KEY, 0),
+            "101:48: " + getCheckMessage(MSG_KEY, 0),
         };
         verify(checkConfig,
                 getPath("InputTernaryPerExpressionCountCheck.java"), expected);

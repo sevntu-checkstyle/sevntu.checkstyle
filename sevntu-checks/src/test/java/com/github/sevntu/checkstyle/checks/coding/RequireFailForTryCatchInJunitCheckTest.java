@@ -35,7 +35,7 @@ public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport
     @Test
     public void testIndifferent1() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequireFailForTryCatchInJunitCheck.class);
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
         verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck1.java"), expected);
     }
@@ -43,7 +43,7 @@ public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport
     @Test
     public void testIndifferent2() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequireFailForTryCatchInJunitCheck.class);
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
         verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck2.java"), expected);
     }
@@ -51,7 +51,7 @@ public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport
     @Test
     public void testBad1() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequireFailForTryCatchInJunitCheck.class);
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = {
             "8:9: " + getCheckMessage(MSG_KEY),
             "12:9: " + getCheckMessage(MSG_KEY),
@@ -73,7 +73,7 @@ public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport
     @Test
     public void testBad2() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequireFailForTryCatchInJunitCheck.class);
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = {
             "9:9: " + getCheckMessage(MSG_KEY),
             "14:9: " + getCheckMessage(MSG_KEY),
@@ -84,7 +84,7 @@ public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport
     @Test
     public void testGood() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequireFailForTryCatchInJunitCheck.class);
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
         verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck5.java"), expected);
     }

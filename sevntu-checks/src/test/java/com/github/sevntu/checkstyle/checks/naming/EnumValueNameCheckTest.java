@@ -32,7 +32,7 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport {
     public void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
+                createModuleConfig(EnumValueNameCheck.class);
         final String[] expected = {
             "35:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FirstSimple", DEFAULT_PATTERN),
             "43:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FirstComplex", DEFAULT_PATTERN),
@@ -45,20 +45,19 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport {
     @Test
     public void testCustomFormat()
             throws Exception {
-        final String pattern = "[a-z]+";
         final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
+                createModuleConfig(EnumValueNameCheck.class);
 
-        checkConfig.addAttribute("format", pattern);
+        checkConfig.addAttribute("format", "[a-z]+");
 
         final String[] expected = {
-            "35:22: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_SIMPLE", pattern),
-            "35:37: " + getCheckMessage(MSG_INVALID_PATTERN, "DB2", pattern),
-            "35:42: " + getCheckMessage(MSG_INVALID_PATTERN, "V1", pattern),
-            "43:26: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_COMPLEX", pattern),
-            "43:45: " + getCheckMessage(MSG_INVALID_PATTERN, "V2", pattern),
-            "66:9: " + getCheckMessage(MSG_INVALID_PATTERN, "MO_FIRST", pattern),
-            "76:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FO_FIRST", pattern),
+            "35:22: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_SIMPLE", "[a-z]+"),
+            "35:37: " + getCheckMessage(MSG_INVALID_PATTERN, "DB2", "[a-z]+"),
+            "35:42: " + getCheckMessage(MSG_INVALID_PATTERN, "V1", "[a-z]+"),
+            "43:26: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_COMPLEX", "[a-z]+"),
+            "43:45: " + getCheckMessage(MSG_INVALID_PATTERN, "V2", "[a-z]+"),
+            "66:9: " + getCheckMessage(MSG_INVALID_PATTERN, "MO_FIRST", "[a-z]+"),
+            "76:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FO_FIRST", "[a-z]+"),
         };
         verify(checkConfig, getPath("InputEnumValueNameCheck.java"), expected);
     }

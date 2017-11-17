@@ -47,7 +47,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
     @Test
     public void test() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NumericLiteralNeedsUnderscoreCheck.class);
+                createModuleConfig(NumericLiteralNeedsUnderscoreCheck.class);
         final String[] expected = {
             "27: " + warningMessage,
             "28: " + warningMessage,
@@ -89,7 +89,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
     @Test
     public void testWithConfig() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NumericLiteralNeedsUnderscoreCheck.class);
+                createModuleConfig(NumericLiteralNeedsUnderscoreCheck.class);
         checkConfig.addAttribute("minDecimalSymbolLength", "1");
         checkConfig.addAttribute("maxDecimalSymbolsUntilUnderscore", "3");
         checkConfig.addAttribute("minHexSymbolLength", "1");
@@ -130,7 +130,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
     @Test
     public void testIgnore() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NumericLiteralNeedsUnderscoreCheck.class);
+                createModuleConfig(NumericLiteralNeedsUnderscoreCheck.class);
         final String[] expected = {
             "7: " + warningMessage,
             "8: " + warningMessage,
@@ -155,7 +155,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport
     @Test
     public void testConfiguredIgnore() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NumericLiteralNeedsUnderscoreCheck.class);
+                createModuleConfig(NumericLiteralNeedsUnderscoreCheck.class);
         checkConfig.addAttribute("ignoreFieldNamePattern", "RED");
         checkConfig.addAttribute("minDecimalSymbolLength", "1");
         final String[] expected = {

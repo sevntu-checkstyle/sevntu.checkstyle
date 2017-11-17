@@ -31,14 +31,10 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
 
-    /**
-     * Default check configuration
-     */
-    private final DefaultConfiguration checkConfig =
-        createCheckConfig(MapIterationInForEachLoopCheck.class);
-
     @Test
     public final void basicTest() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MapIterationInForEachLoopCheck.class);
         checkConfig.addAttribute("proposeValuesUsage", "true");
         checkConfig.addAttribute("proposeKeySetUsage", "true");
         checkConfig.addAttribute("proposeEntrySetUsage", "true");
@@ -61,6 +57,8 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void importsWithoutFullPathTest() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MapIterationInForEachLoopCheck.class);
         checkConfig.addAttribute("proposeValuesUsage", "true");
         checkConfig.addAttribute("proposeKeySetUsage", "true");
         checkConfig.addAttribute("proposeEntrySetUsage", "true");
@@ -75,17 +73,13 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void skipIfConditionTest() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MapIterationInForEachLoopCheck.class);
         checkConfig.addAttribute("proposeValuesUsage", "false");
         checkConfig.addAttribute("proposeKeySetUsage", "true");
         checkConfig.addAttribute("proposeEntrySetUsage", "true");
-
-        final String supportedMapImplQualifiedNames =
-                "java.util.Map, "
-                + "java.util.HashMap, java.util.TreeMap, "
-                + "com.myTest.InputMyMap";
-
         checkConfig.addAttribute("supportedMapImplQualifiedNames",
-                supportedMapImplQualifiedNames);
+                "java.util.Map, java.util.HashMap, java.util.TreeMap, com.myTest.InputMyMap");
 
         final String[] expected = {
             "14:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
@@ -98,6 +92,8 @@ public class MapIterationInForEachLoopCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void testClassExtendingMap() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MapIterationInForEachLoopCheck.class);
         checkConfig.addAttribute("proposeValuesUsage", "true");
         checkConfig.addAttribute("proposeKeySetUsage", "true");
         checkConfig.addAttribute("proposeEntrySetUsage", "true");

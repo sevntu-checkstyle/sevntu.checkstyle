@@ -35,11 +35,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(CauseParameterInExceptionCheck.class);
-
     @Test
     public void testNormalWork() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", ".+Exception");
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -53,6 +52,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNormalWork2() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -67,6 +68,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIgnorePattern() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "Test.+");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -80,6 +83,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIgnorePattern2() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "My.+");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -93,6 +98,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testStrangeSituation() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", ".+Exception");
         checkConfig.addAttribute("ignoredClassNamesRegexp", "");
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -105,6 +112,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testStrangeSituation2() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", null);
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -117,6 +126,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testStrangeSituation3() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", null);
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
@@ -129,6 +140,8 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testStrangeSituation4() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(CauseParameterInExceptionCheck.class);
         checkConfig.addAttribute("classNamesRegexp", null);
         checkConfig.addAttribute("ignoredClassNamesRegexp", null);
         checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");

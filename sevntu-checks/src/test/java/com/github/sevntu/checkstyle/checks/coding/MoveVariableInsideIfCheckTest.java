@@ -30,14 +30,16 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 public class MoveVariableInsideIfCheckTest extends BaseCheckTestSupport {
     @Test
     public final void testNoViolations() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MoveVariableInsideIfCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MoveVariableInsideIfCheck.class);
         verify(checkConfig, getPath("InputMoveVariableInsideIfCheckNoViolations.java"),
                 CommonUtils.EMPTY_STRING_ARRAY);
     }
 
     @Test
     public final void testViolations() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MoveVariableInsideIfCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MoveVariableInsideIfCheck.class);
         final String[] expected = {
             "5:9: " + getCheckMessage(MSG_KEY, "variable", "7"),
             "13:9: " + getCheckMessage(MSG_KEY, "variable", "15"),
@@ -50,7 +52,8 @@ public class MoveVariableInsideIfCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void testFalsePositives() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(MoveVariableInsideIfCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(MoveVariableInsideIfCheck.class);
         final String[] expected = {
             "9:9: " + getCheckMessage(MSG_KEY, "variable", "12"),
             "18:9: " + getCheckMessage(MSG_KEY, "variable", "24"),

@@ -48,7 +48,7 @@ public abstract class BaseCheckTestSupport {
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
     private final PrintStream printStream = new PrintStream(baos);
 
-    public static DefaultConfiguration createCheckConfig(Class<?> clazz) {
+    public static DefaultConfiguration createModuleConfig(Class<?> clazz) {
         return new DefaultConfiguration(clazz.getName());
     }
 
@@ -111,7 +111,7 @@ public abstract class BaseCheckTestSupport {
 
     protected DefaultConfiguration createCheckerConfig(Configuration config) {
         final DefaultConfiguration result = new DefaultConfiguration("configuration");
-        final DefaultConfiguration treeWalkerConfig = createCheckConfig(TreeWalker.class);
+        final DefaultConfiguration treeWalkerConfig = createModuleConfig(TreeWalker.class);
         // make sure that the tests always run with this charset
         result.addAttribute("charset", "iso-8859-1");
         result.addChild(treeWalkerConfig);

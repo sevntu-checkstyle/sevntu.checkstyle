@@ -33,10 +33,9 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport {
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(EitherLogOrThrowCheck.class);
-
     @Test
     public void test() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(EitherLogOrThrowCheck.class);
         checkConfig.addAttribute("loggerFullyQualifiedClassName", "org.slf4j.Logger");
         checkConfig.addAttribute("loggingMethodNames", "error, warn");
 

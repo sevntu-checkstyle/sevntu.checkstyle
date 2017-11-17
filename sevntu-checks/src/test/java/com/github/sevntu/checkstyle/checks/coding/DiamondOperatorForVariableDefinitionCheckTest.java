@@ -27,11 +27,10 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class DiamondOperatorForVariableDefinitionCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(DiamondOperatorForVariableDefinitionCheck.class);
-
     @Test
     public void testDefault() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(DiamondOperatorForVariableDefinitionCheck.class);
         final String[] expected = {
             "25:58: " + getCheckMessage(MSG_KEY),
             "27:26: " + getCheckMessage(MSG_KEY),

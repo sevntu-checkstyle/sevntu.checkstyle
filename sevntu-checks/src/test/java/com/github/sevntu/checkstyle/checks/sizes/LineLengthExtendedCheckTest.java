@@ -34,7 +34,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
     public void testSimple()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(LineLengthExtendedCheck.class);
+                createModuleConfig(LineLengthExtendedCheck.class);
         checkConfig.addAttribute("max", "80");
         checkConfig.addAttribute("ignorePattern", "^.*is OK.*regexp.*$");
         final String[] expected = {
@@ -48,7 +48,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
     public void testSimpleIgnore()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(LineLengthExtendedCheck.class);
+                createModuleConfig(LineLengthExtendedCheck.class);
         checkConfig.addAttribute("max", "40");
         checkConfig.addAttribute("ignorePattern", "^.*is OK.*regexp.*$");
         final String[] expected = {
@@ -79,7 +79,7 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
     @Test
     public void testProperty() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(LineLengthExtendedCheck.class);
+                createModuleConfig(LineLengthExtendedCheck.class);
 
         checkConfig.addAttribute("ignorePattern", "[");
 

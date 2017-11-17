@@ -28,11 +28,10 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(IllegalCatchExtendedCheck.class);
-
     @Test
     public final void testDefault() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         final String[] expected = {
             "9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
             "11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
@@ -50,7 +49,8 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void testThrowPermit() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         final String[] expected = {
             "9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
             "11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
@@ -67,6 +67,8 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void testReThrowPermit() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         checkConfig.addAttribute("illegalClassNames",
                                  "java.lang.Error, java.lang.Exception, java.lang.Throwable");
 
@@ -83,6 +85,8 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIllegalClassNames() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         checkConfig.addAttribute("illegalClassNames",
                                  "java.lang.Error, java.lang.Exception, NullPointerException");
 

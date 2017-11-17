@@ -33,7 +33,7 @@ public class ReturnBooleanFromTernaryCheckTest extends BaseCheckTestSupport {
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ReturnBooleanFromTernaryCheck.class);
+                createModuleConfig(ReturnBooleanFromTernaryCheck.class);
         final String[] expected = {
             "6:35: " + warninigMessage,
             "7:38: " + warninigMessage,

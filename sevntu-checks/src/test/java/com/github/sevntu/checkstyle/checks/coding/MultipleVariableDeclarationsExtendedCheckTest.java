@@ -35,7 +35,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
     @Test
     public void testStandartSituation() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+                createModuleConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -57,7 +57,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
     @Test
     public void testIgnoreCycles() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+                createModuleConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -77,7 +77,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
     @Test
     public void testIgnoreMethods() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+                createModuleConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
@@ -96,7 +96,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTest
     @Test
     public void testIgnoreMethodsAndIgnoreCycles() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleVariableDeclarationsExtendedCheck.class);
+                createModuleConfig(MultipleVariableDeclarationsExtendedCheck.class);
 
         final String[] expected = {
             "3:5: " + msgVarDeclarationsComa,
