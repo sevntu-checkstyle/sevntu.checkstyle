@@ -35,7 +35,7 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testDefault() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
         final String[] expected = {
             "10: " + warningMessage,
@@ -63,7 +63,7 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testFalseProperties() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
         checkConfig.addAttribute("ignoreInnerIf", "false");
         checkConfig.addAttribute("ignoreNullCaseInIf", "false");
@@ -107,7 +107,7 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testMultiplyFactor() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
         checkConfig.addAttribute("multiplyFactorForElseBlocks", "0");
 
@@ -130,7 +130,7 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testExceptions() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
         final String[] expected = {};
 

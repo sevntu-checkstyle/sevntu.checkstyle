@@ -52,7 +52,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     public void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(UniformEnumConstantNameCheck.class);
+                createModuleConfig(UniformEnumConstantNameCheck.class);
         final String[] expected = {
                 buildMessage(37, 9, "SECOND_SIMPLE",
                         UniformEnumConstantNameCheck.CAMEL_PATTERN),
@@ -74,18 +74,18 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     public void testUpperCase()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(UniformEnumConstantNameCheck.class);
+                createModuleConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("formats",
-                UniformEnumConstantNameCheck.UPPERCASE_PATTERN);
+                "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$");
         final String[] expected = {
                 buildMessage(35, 9, "FirstSimple",
-                        UniformEnumConstantNameCheck.UPPERCASE_PATTERN),
+                        "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"),
                 buildMessage(48, 9, "SecondComplex",
-                        UniformEnumConstantNameCheck.UPPERCASE_PATTERN),
+                        "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"),
                 buildMessage(82, 9, "CcFirst",
-                        UniformEnumConstantNameCheck.UPPERCASE_PATTERN),
+                        "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"),
                 buildMessage(90, 9, "WF_First",
-                        UniformEnumConstantNameCheck.UPPERCASE_PATTERN),
+                        "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"),
         };
         verify(checkConfig, inputFile, expected);
     }
@@ -100,9 +100,9 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     public void testAllAfterUpper()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(UniformEnumConstantNameCheck.class);
+                createModuleConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("formats",
-                UniformEnumConstantNameCheck.UPPERCASE_PATTERN + ",.*");
+                "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$" + ",.*");
         final String[] expected = {};
         verify(checkConfig, inputFile, expected);
     }
@@ -117,7 +117,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     public void testInvalidFormat()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(UniformEnumConstantNameCheck.class);
+                createModuleConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("formats", "\\");
         final String[] expected = {};
         try {
@@ -141,7 +141,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
     public void testWrongToken()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(UniformEnumConstantNameCheck.class);
+                createModuleConfig(UniformEnumConstantNameCheck.class);
         checkConfig.addAttribute("tokens", "INTERFACE_DEF");
         final String[] expected = {};
         try {

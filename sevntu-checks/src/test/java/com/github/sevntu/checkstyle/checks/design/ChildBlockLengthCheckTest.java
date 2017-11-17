@@ -31,10 +31,9 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  *         Yaroslavtsev</a>
  */
 public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig = createCheckConfig(ChildBlockLengthCheck.class);
-
     @Test
     public void testNpeOnAllBlockTypes() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "100");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                   + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -47,6 +46,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNestedConditions() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "100");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                  + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -59,6 +59,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testManyBadChildBlocks() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "20");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -74,6 +75,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testManyBadChildBlocks2() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "19");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -90,6 +92,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNestedBadChildBlocks() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "70");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -105,6 +108,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIgnoreBlockLinesCountOption() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "19");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -119,6 +123,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testBadChildBlocksThatAreDoubleNested2() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "70");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, "
                 + "LITERAL_DO, LITERAL_WHILE, LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH");
@@ -131,6 +136,7 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNestedClass() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
         checkConfig.addAttribute("maxChildBlockPercentage", "19");
         checkConfig.addAttribute("blockTypes", "LITERAL_IF");
         checkConfig.addAttribute("ignoreBlockLinesCount", "0");

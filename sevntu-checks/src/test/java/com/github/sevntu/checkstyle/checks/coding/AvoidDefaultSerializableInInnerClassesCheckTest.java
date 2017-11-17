@@ -34,7 +34,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     public void testWithAllowPartiaFalse()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {
             "33: " + warningMessage,
@@ -61,7 +61,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     public void testPrivateNotRealReadObject()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
@@ -76,7 +76,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     public void testRealReadObjectNotRealReadObjectRealPrivate()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {};
 
@@ -88,7 +88,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     public void testWithAllowPartiaTrue()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
             "33: " + warningMessage,

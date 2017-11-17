@@ -35,11 +35,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(ForbidInstantiationCheck.class);
-
     @Test
     public void testNullProperties() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidInstantiationCheck.class);
         checkConfig.addAttribute("forbiddenClasses", null);
 
         final String[] expected = {};
@@ -49,7 +48,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNullPointerException() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidInstantiationCheck.class);
         checkConfig.addAttribute("forbiddenClasses", "java.lang.NullPointerException");
 
         final String[] expected = {
@@ -62,7 +62,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNormalWork() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidInstantiationCheck.class);
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {
@@ -76,7 +77,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNormalWork2() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidInstantiationCheck.class);
         checkConfig.addAttribute("forbiddenClasses",
                 "com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck");
 
@@ -89,7 +91,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNormalWork3() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidInstantiationCheck.class);
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {
@@ -102,7 +105,8 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testAsteriskInInput() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidInstantiationCheck.class);
         checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {

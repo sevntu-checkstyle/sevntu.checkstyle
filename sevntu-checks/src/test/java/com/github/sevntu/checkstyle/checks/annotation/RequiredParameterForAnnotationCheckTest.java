@@ -33,7 +33,7 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
     public void testValidateRequiredParameter()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequiredParameterForAnnotationCheck.class);
+                createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationName", "testAnnotation1");
         checkConfig.addAttribute("requiredParameters", "firstParameter");
@@ -53,7 +53,7 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
     public void testMultipleProperties1()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequiredParameterForAnnotationCheck.class);
+                createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationName", "testAnnotation1");
         checkConfig.addAttribute("requiredParameters",
@@ -93,7 +93,7 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
     public void testMultipleProperties2()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequiredParameterForAnnotationCheck.class);
+                createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationName", "testAnnotation1");
         checkConfig.addAttribute("requiredParameters", "firstParameter,secondParameter");
@@ -122,7 +122,7 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
     public void testForAnnotationWithCanonicalName()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequiredParameterForAnnotationCheck.class);
+                createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationName", "com.github.sevntu.checkstyle.checks"
                 + ".annotation.InputRequiredParameterForAnnotationCheck.testAnnotation2");
@@ -152,7 +152,7 @@ public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSuppor
     public void testMultipleParametersForAnnotationWithCanonicalName()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(RequiredParameterForAnnotationCheck.class);
+                createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationName", "com.github.sevntu.checkstyle.checks"
                 + ".annotation.InputRequiredParameterForAnnotationCheck.testAnnotation2");

@@ -36,7 +36,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testDefaultCheck() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         final String[] expected1 = {};
 
@@ -45,7 +45,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNullProperties() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", null);
         checkConfig.addAttribute("annotationTargets", null);
@@ -57,7 +57,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testFullAnnotationName() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", "Test");
 
@@ -68,7 +68,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testVariableIsForbidden() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames",
                 "Edible,Author,Author2,SuppressWarnings");
@@ -86,7 +86,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testMethodIsForbidden() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", "Twizzle,One,Two,Three,B");
         checkConfig.addAttribute("annotationTargets", "METHOD_DEF");
@@ -104,7 +104,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testClassAndConstuctorIsForbidden() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", "Test,ctor,ctor2");
         checkConfig.addAttribute("annotationTargets", "CLASS_DEF,CTOR_DEF");
@@ -120,7 +120,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testAnnotationIsForbidden() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", "Retention,Target");
         checkConfig.addAttribute("annotationTargets", "ANNOTATION_DEF");
@@ -135,7 +135,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testParameterAndInterfaceIsForbidden() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", "MyAnnotation,A");
         checkConfig.addAttribute("annotationTargets",
@@ -151,7 +151,7 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testEnumIsForbidden() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidAnnotationCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
         checkConfig.addAttribute("annotationNames", "C,int1,int2,int3");
         checkConfig.addAttribute("annotationTargets",

@@ -37,7 +37,7 @@ public class ReturnNullInsteadOfBooleanCheckTest extends BaseCheckTestSupport {
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ReturnNullInsteadOfBooleanCheck.class);
+                createModuleConfig(ReturnNullInsteadOfBooleanCheck.class);
         final String[] expected = {
             "11:9: " + warningMessage,
             "22:25: " + warningMessage,

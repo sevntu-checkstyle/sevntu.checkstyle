@@ -33,7 +33,7 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
     @Test
     public void testMembersBeforeInner() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(InnerClassCheck.class);
+                createModuleConfig(InnerClassCheck.class);
         final String[] expected = {
             "15:17: " + warningMessage,
             "25:17: " + warningMessage,

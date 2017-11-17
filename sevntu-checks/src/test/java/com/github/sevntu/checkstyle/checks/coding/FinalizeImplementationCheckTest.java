@@ -31,15 +31,10 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class FinalizeImplementationCheckTest extends BaseCheckTestSupport {
 
-    /**
-     * Default check configuration
-     */
-    private final DefaultConfiguration checkConfig =
-        createCheckConfig(FinalizeImplementationCheck.class);
-
     @Test
     public final void basicTest() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(FinalizeImplementationCheck.class);
         final String[] expected = {
             "22: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
             "35: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
@@ -54,6 +49,8 @@ public class FinalizeImplementationCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void testSpecialFinalize() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(FinalizeImplementationCheck.class);
         final String[] expected = {
             "5: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
             "18: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),

@@ -37,7 +37,7 @@ public class ForbidReturnInFinallyBlockCheckTest
     public void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidReturnInFinallyBlockCheck.class);
+                createModuleConfig(ForbidReturnInFinallyBlockCheck.class);
         final String[] expected = {
             "13: " + warningMessage,
             "28: " + warningMessage,

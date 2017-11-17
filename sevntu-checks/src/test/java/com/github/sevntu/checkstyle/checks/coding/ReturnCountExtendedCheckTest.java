@@ -30,11 +30,10 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(ReturnCountExtendedCheck.class);
-
     @Test
     public void testNullOnIgnoreMethodsNames() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "99");
         checkConfig.addAttribute("ignoreMethodLinesCount", "99");
         checkConfig.addAttribute("minIgnoreReturnDepth", "99");
@@ -49,7 +48,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testMethodsMaxReturnLiteralsIsOne() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -69,7 +69,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testMethodsMaxReturnLiteralsIsTwo() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "2");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -87,6 +88,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIgnoreEmptyReturns() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "2");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -103,7 +106,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testConstructorsMaxReturnLiteralsIsOne() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -121,7 +125,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testignoreMethodLinesCount() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "10");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -139,6 +144,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testignoreMethodLinesCount2() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "20");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -155,6 +162,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testminIgnoreReturnDepth() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "0");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "1");
@@ -173,6 +182,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIgnoreNonEmptyReturns() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -190,6 +201,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testMethodsInMethods() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -206,6 +219,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testIgnoreMethodsNamesProperty() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -224,6 +239,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testRegexIgnoreMethodsNamesProperty() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "5");
@@ -242,6 +259,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testAnonymousClass() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "99");
@@ -259,6 +278,8 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testLambda() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ReturnCountExtendedCheck.class);
         checkConfig.addAttribute("maxReturnCount", "1");
         checkConfig.addAttribute("ignoreMethodLinesCount", "0");
         checkConfig.addAttribute("minIgnoreReturnDepth", "99");

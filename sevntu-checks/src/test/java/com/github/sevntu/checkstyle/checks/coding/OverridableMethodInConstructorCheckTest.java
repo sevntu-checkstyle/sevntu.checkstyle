@@ -33,11 +33,10 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     private static final String CLONE_KEY = "'clone()' method";
     private static final String READ_OBJECT_KEY = "'readObject()' method";
 
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(OverridableMethodInConstructorCheck.class);
-
     @Test
     public final void revereCodeTest() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "false");
         checkConfig.addAttribute("checkReadObjectMethod", "false");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -51,6 +50,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void newFeauture() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -65,6 +66,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void newFeautureWithoutMethodsByArgCount() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "false");
@@ -78,6 +81,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testNoWarnings() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -89,6 +94,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testWarning() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "false");
@@ -102,6 +109,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void test2WarningsIn2Ctors() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -117,6 +126,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testWarningInSecondDepth() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -130,6 +141,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testWarningsInThirdDepth() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -144,6 +157,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCloneNoWarningsSimple() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -155,6 +170,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCloneNoWarnings() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -166,6 +183,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCloneWarnings() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -180,6 +199,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCloneSecondDepth() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -194,6 +215,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCloneThirdDepthImplementation() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -211,6 +234,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testSerializableNoWarnings() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -222,6 +247,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testSerializableWarning() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -235,6 +262,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testStaticModifiers() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -248,6 +277,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
     @Test
     public final void testSerializableThirdDepthImplementation()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -269,6 +300,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCtorOverloadedMethods() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -280,6 +313,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void test2EqualMethodNamesWithNoWarning() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -291,6 +326,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void test2EqualMethodNamesWithoutWarning2() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -305,6 +342,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCallMethodIsNotInBuildPath2() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -316,6 +355,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testCallMethodIsNotInBuildPath() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -327,6 +368,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testReadObjectInInterface() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -338,6 +381,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testStackOverFlowError() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -349,6 +394,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testStackOverFlowErrorWithWarning() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -362,6 +409,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testStackOverFlowErrorWithoutWarning() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -373,6 +422,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testAbstractMethodCall() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");
@@ -386,6 +437,8 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void testFinalClass() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
         checkConfig.addAttribute("checkReadObjectMethod", "true");
         checkConfig.addAttribute("matchMethodsByArgCount", "true");

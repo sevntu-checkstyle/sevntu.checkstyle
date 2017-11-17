@@ -33,7 +33,7 @@ public class InterfaceTypeParameterNameCheckTest
     public void testInterfaceDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(InterfaceTypeParameterNameCheck.class);
+                createModuleConfig(InterfaceTypeParameterNameCheck.class);
 
         final String[] expected = {
             "5:56: " + getCheckMessage(MSG_KEY, "it", "^[A-Z]$"),
@@ -48,7 +48,7 @@ public class InterfaceTypeParameterNameCheckTest
     public void testInterfaceFooName()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(InterfaceTypeParameterNameCheck.class);
+                createModuleConfig(InterfaceTypeParameterNameCheck.class);
         checkConfig.addAttribute("format", "^foo$");
         final String[] expected = {
             "5:56: " + getCheckMessage(MSG_KEY, "it", "^foo$"),

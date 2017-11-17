@@ -30,7 +30,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testIt() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("allowedDuplicates", "2");
         checkConfig.addAttribute("ignoreStringsRegexp", "");
         checkConfig.addAttribute("highlightAllDuplicates", "false");
@@ -48,7 +48,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     public void testItAndShowAllWarnings()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("allowedDuplicates", "2");
         checkConfig.addAttribute("ignoreStringsRegexp", "");
         checkConfig.addAttribute("highlightAllDuplicates", "true");
@@ -72,7 +72,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testItIgnoreEmpty() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("allowedDuplicates", "2");
         checkConfig.addAttribute("highlightAllDuplicates", "false");
 
@@ -87,7 +87,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testItIgnoreEmptyAndComaSpace() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("allowedDuplicates", "2");
         checkConfig.addAttribute("ignoreStringsRegexp", "^((\"\")|(\", \"))$");
         checkConfig.addAttribute("highlightAllDuplicates", "false");
@@ -102,7 +102,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testItWithoutIgnoringAnnotations() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("allowedDuplicates", "3");
         checkConfig.addAttribute("ignoreOccurrenceContext", "");
         checkConfig.addAttribute("highlightAllDuplicates", "false");
@@ -117,7 +117,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testNullProperty() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("ignoreStringsRegexp", null);
 
         final String[] expected = {
@@ -133,7 +133,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSuppor
     @Test
     public void testIgnoreOccurrenceContextProperty() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(MultipleStringLiteralsExtendedCheck.class);
+                createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
         checkConfig.addAttribute("ignoreOccurrenceContext", "EXPR, PLUS");
 
         final String[] expected = {};

@@ -31,10 +31,9 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class NestedSwitchCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig = createCheckConfig(NestedSwitchCheck.class);
-
     @Test
     public void testSimple() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(NestedSwitchCheck.class);
         final String[] expected = {
             "11:13: " + getCheckMessage(MSG_KEY),
             "23:13: " + getCheckMessage(MSG_KEY),
@@ -53,6 +52,7 @@ public class NestedSwitchCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testMax() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(NestedSwitchCheck.class);
         checkConfig.addAttribute("max", "99");
         final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
 

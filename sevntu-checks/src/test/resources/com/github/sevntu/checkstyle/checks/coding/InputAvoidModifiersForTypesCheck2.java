@@ -11,7 +11,7 @@ public class InputAvoidModifiersForTypesCheck2 extends BaseCheckTestSupport
         throws Exception
     {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(LineLengthCheck.class);
+            createModuleConfig(LineLengthCheck.class);
         checkConfig.addAttribute("max", "80");
         checkConfig.addAttribute("ignorePattern",  "^.*is OK.*regexp.*$");
         final String[] expected = {
@@ -26,7 +26,7 @@ public class InputAvoidModifiersForTypesCheck2 extends BaseCheckTestSupport
         throws Exception
     {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(LineLengthCheck.class);
+            createModuleConfig(LineLengthCheck.class);
         checkConfig.addAttribute("max", "40");
         checkConfig.addAttribute("ignorePattern",  "^.*is OK.*regexp.*$");
         final String[] expected = {

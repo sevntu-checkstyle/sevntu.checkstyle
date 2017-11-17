@@ -35,7 +35,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
             "37: " + getCheckMessage(MSG_KEY, "foo11"),
             "56: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
@@ -55,7 +55,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
     @Test
     public void testSkippedMethods() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         checkConfig.addAttribute("skippedMethods", "foo, bar,foobar");
         final String[] expected = {};
         verify(checkConfig, getPath("InputStaticMethodCandidateCheckSkippedMethods.java"),
@@ -127,7 +127,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
     @Test
     public void testLambda() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
         };
         verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
@@ -137,7 +137,7 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
     @Test
     public void testInterface() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
             "16: " + getCheckMessage(MSG_KEY, "bar"),
         };

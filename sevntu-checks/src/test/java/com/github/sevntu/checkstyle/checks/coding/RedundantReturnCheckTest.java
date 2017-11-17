@@ -34,7 +34,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testInputWithIgnoreEmptyConstructorsTrue()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
         checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors",
                 "false");
 
@@ -63,7 +63,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testInputWithIgnoreEmptyConstructorsFalse()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
         checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors",
                 "true");
 
@@ -90,7 +90,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testForNullPointerExceptionsPresence()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
 
         final String[] expected = {};
 
@@ -102,7 +102,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testForNullPointerExceptionsInInterface()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
 
         final String[] expected = {};
 
@@ -113,7 +113,7 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testSomeFalsePositiveCase()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(RedundantReturnCheck.class);
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
 
         final String[] expected = {};
 

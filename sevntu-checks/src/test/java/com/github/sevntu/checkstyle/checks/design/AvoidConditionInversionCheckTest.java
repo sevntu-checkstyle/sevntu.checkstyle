@@ -36,12 +36,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  */
 public class AvoidConditionInversionCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig =
-            createCheckConfig(AvoidConditionInversionCheck.class);
-
     @Test
     public void defaultTest() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidConditionInversionCheck.class);
         final String[] expected = {
             "7: " + getCheckMessage(MSG_KEY),
             "11: " + getCheckMessage(MSG_KEY),
@@ -61,10 +59,10 @@ public class AvoidConditionInversionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void avoidOnlyRelationalOperandsInCondition() throws Exception {
-
-        final boolean applyOnlyToMathematicalOperands = true;
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidConditionInversionCheck.class);
         checkConfig.addAttribute("applyOnlyToRelationalOperands",
-                Boolean.toString(applyOnlyToMathematicalOperands));
+                "true");
 
         final String[] expected = {
             "7: " + getCheckMessage(MSG_KEY),

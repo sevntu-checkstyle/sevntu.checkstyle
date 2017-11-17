@@ -28,15 +28,10 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSupport {
 
-    /**
-     * Default check configuration
-     */
-    private final DefaultConfiguration checkConfig =
-        createCheckConfig(ForbidThrowAnonymousExceptionsCheck.class);
-
     @Test
     public final void anonymousExceptionTest() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         final String[] expected = {
             "8: " + getCheckMessage(MSG_KEY),
         };
@@ -47,7 +42,8 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void preDefinedAnonymousExceptionTest() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         final String[] expected = {
             "8: " + getCheckMessage(MSG_KEY),
             "30: " + getCheckMessage(MSG_KEY),
@@ -59,7 +55,8 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void sameNameExceptionsTest() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         final String[] expected = {
             "12: " + getCheckMessage(MSG_KEY),
             "23: " + getCheckMessage(MSG_KEY),
@@ -75,8 +72,9 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSuppor
 
     @Test
     public final void nonStandardExceptionClassNameTest() throws Exception {
-        final String exceptionNameRegex = "^.*bla";
-        checkConfig.addAttribute("exceptionClassNameRegex", exceptionNameRegex);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
+        checkConfig.addAttribute("exceptionClassNameRegex", "^.*bla");
         final String[] expected = {
             "10: " + getCheckMessage(MSG_KEY),
             "12: " + getCheckMessage(MSG_KEY),

@@ -34,21 +34,19 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     private final String msgFormat =
             getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY);
 
-    private final String defaultTestClassName =
-            ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases";
-
-    private final DefaultConfiguration checkConfig =
-            buildConfiguration(defaultTestClassName, "", "Test");
-
     @Test
     public void testAnnotatedClass()
             throws Exception {
-
         final DefaultConfiguration customConfig =
-                buildConfiguration(defaultTestClassName, "RunWith", "");
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        customConfig.addAttribute("classAnnotationNameRegex", "RunWith");
+        customConfig.addAttribute("methodAnnotationNameRegex", "");
 
         final String[] expected = {
-                buildMesssage("14:18: ", defaultTestClassName),
+            buildMesssage("14:18: ",
+                    ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck1.java"),
@@ -58,8 +56,16 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     @Test
     public void testAnnotatedMethod()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        checkConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        checkConfig.addAttribute("classAnnotationNameRegex", "");
+        checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
+
         final String[] expected = {
-                buildMesssage("8:18: ", defaultTestClassName),
+            buildMesssage("8:18: ",
+                    ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
         verify(checkConfig, getPath("InputNameConventionForJunit4TestClassesCheck2.java"),
@@ -69,6 +75,13 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     @Test
     public void testClassIsNotTest()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        checkConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        checkConfig.addAttribute("classAnnotationNameRegex", "");
+        checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
+
         final String[] expected = {
         };
 
@@ -79,8 +92,16 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     @Test
     public void testRegex()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        checkConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        checkConfig.addAttribute("classAnnotationNameRegex", "");
+        checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
+
         final String[] expected = {
-                buildMesssage("7:18: ", defaultTestClassName),
+            buildMesssage("7:18: ",
+                    ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
         verify(checkConfig, getPath("InputNameConventionForJunit4TestClassesCheck4.java"),
@@ -91,10 +112,15 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     public void testQualifiedAnnotationName()
             throws Exception {
         final DefaultConfiguration customConfig =
-                buildConfiguration(defaultTestClassName, "", "org.junit.Test");
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        customConfig.addAttribute("classAnnotationNameRegex", "");
+        customConfig.addAttribute("methodAnnotationNameRegex", "org.junit.Test");
 
         final String[] expected = {
-                buildMesssage("8:18: ", defaultTestClassName),
+            buildMesssage("8:18: ",
+                    ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck5.java"),
@@ -105,10 +131,15 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     public void testJunitClassTestAnnotationNamesRegexOption()
             throws Exception {
         final DefaultConfiguration customConfig =
-                buildConfiguration(defaultTestClassName, "SomeTestAnnotation", "");
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        customConfig.addAttribute("classAnnotationNameRegex", "SomeTestAnnotation");
+        customConfig.addAttribute("methodAnnotationNameRegex", "");
 
         final String[] expected = {
-                buildMesssage("7:18: ", defaultTestClassName),
+            buildMesssage("7:18: ",
+                    ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck6.java"),
@@ -119,10 +150,15 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     public void testJunitMethodTestAnnotationNamesRegexOption()
             throws Exception {
         final DefaultConfiguration customConfig =
-                buildConfiguration(defaultTestClassName, "", "SomeTestAnnotation");
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex",
+                ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
+        customConfig.addAttribute("classAnnotationNameRegex", "");
+        customConfig.addAttribute("methodAnnotationNameRegex", "SomeTestAnnotation");
 
         final String[] expected = {
-                buildMesssage("6:18: ", defaultTestClassName),
+            buildMesssage("6:18: ",
+                    ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck7.java"),
@@ -133,7 +169,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     public void testCorrectTestClassNameRegexOption()
             throws Exception {
         final DefaultConfiguration customConfig =
-                buildConfiguration("Hello*", "", "Test");
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex", "Hello*");
+        customConfig.addAttribute("classAnnotationNameRegex", "");
+        customConfig.addAttribute("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
                 buildMesssage("5:14: ", "Hello*"),
@@ -147,7 +186,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     public void testNullProperties()
             throws Exception {
         final DefaultConfiguration customConfig =
-                buildConfiguration(null, null, null);
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex", null);
+        customConfig.addAttribute("classAnnotationNameRegex", null);
+        customConfig.addAttribute("methodAnnotationNameRegex", null);
 
         final String[] expected = {};
 
@@ -159,24 +201,15 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     public void testEmptyProperties()
             throws Exception {
         final DefaultConfiguration customConfig =
-                buildConfiguration("", "", "");
+                createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
+        customConfig.addAttribute("expectedClassNameRegex", "");
+        customConfig.addAttribute("classAnnotationNameRegex", "");
+        customConfig.addAttribute("methodAnnotationNameRegex", "");
 
         final String[] expected = {};
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck8.java"),
                 expected);
-    }
-
-    private static DefaultConfiguration buildConfiguration(String expectedNameRegex,
-            String classAnnotationNameRegex, String methodAnnotationNameRegex) {
-        final DefaultConfiguration config =
-                createCheckConfig(NameConventionForJunit4TestClassesCheck.class);
-
-        config.addAttribute("expectedClassNameRegex", expectedNameRegex);
-        config.addAttribute("classAnnotationNameRegex", classAnnotationNameRegex);
-        config.addAttribute("methodAnnotationNameRegex", methodAnnotationNameRegex);
-
-        return config;
     }
 
     private String buildMesssage(String lineNumber, String arguments) {

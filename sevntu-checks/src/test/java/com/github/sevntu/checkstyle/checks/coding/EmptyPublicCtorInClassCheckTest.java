@@ -33,11 +33,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     private final String message = getCheckMessage(MSG_KEY);
 
-    private DefaultConfiguration checkConfig = createCheckConfig(EmptyPublicCtorInClassCheck.class);
-
     @Test
     public void testEmptyPublicCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {
             "5:5: " + message,
         };
@@ -48,6 +48,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     @Test
     public void testEmptyPrivateCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck2.java"), expected);
@@ -56,6 +58,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     @Test
     public void testEmptyProtectedCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck6.java"), expected);
@@ -64,6 +68,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     @Test
     public void testClassWithMultiplePublicCtors()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck3.java"), expected);
@@ -72,6 +78,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     @Test
     public void testPublicNotEmptyCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck4.java"), expected);
@@ -80,6 +88,8 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
     @Test
     public void testClassWithInnerClasses()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {
             "5:5: " + message,
             "14:9: " + message,
@@ -90,7 +100,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testCtorAnnotatedWithAnnotation() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\."
                 + "coding\\.AnnotationName");
@@ -102,7 +112,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testClassAnnotatedWithAnnotation1() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("classAnnotationNames",
                 "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName|"
@@ -118,7 +128,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testClassAnnotatedWithAnnotation2() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("classAnnotationNames",
                 "org\\.junit\\.runner\\.RunWith|org\\.junit\\.Ignore|");
@@ -130,7 +140,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNullProperties1() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("classAnnotationNames", null);
         config.addAttribute("ctorAnnotationNames", null);
@@ -145,7 +155,7 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testNullProperties2() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("classAnnotationNames", "");
         config.addAttribute("ctorAnnotationNames", "");

@@ -33,7 +33,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testArraysNotDeep() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
             "11: " + warningMessage,
             "46: " + warningMessage,
@@ -47,7 +47,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testArraysDeep() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
             "11: " + warningMessage,
@@ -63,10 +63,9 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testCollections() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
-        final String listOfCollecton =
-                "Collection ArrayList LinkedList Stack Vector HashSet TreeSet";
-        checkConfig.addAttribute("collectionList", listOfCollecton);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
+        checkConfig.addAttribute("collectionList",
+                "Collection ArrayList LinkedList Stack Vector HashSet TreeSet");
         final String[] expected = {
             "7: " + warningMessage,
             "17: " + warningMessage,
@@ -83,7 +82,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testRevereCode() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
             "13: " + warningMessage,
             "16: " + warningMessage,
@@ -95,7 +94,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testRevereCodeDeep() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
             "13: " + warningMessage,
@@ -108,7 +107,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testInterface() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
         };
 
@@ -118,7 +117,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testInnerClasses() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
             "17: " + warningMessage,
             "25: " + warningMessage,
@@ -132,7 +131,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     @Test
     public void testRealCode() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
         };
@@ -144,7 +143,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     public void testIss148()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
             "8: " + warningMessage,
         };
@@ -156,7 +155,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     public void testIss148Deep()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
             "8: " + warningMessage,
@@ -169,7 +168,7 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
     public void testConstructor()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoNullForCollectionReturnCheck.class);
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
             "5: " + warningMessage,
         };

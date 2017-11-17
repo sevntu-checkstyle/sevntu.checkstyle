@@ -49,7 +49,7 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport {
     public final void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(NoMainMethodInAbstractClassCheck.class);
+                createModuleConfig(NoMainMethodInAbstractClassCheck.class);
         final String[] expected = {
             "23: " + warningMessage,
             "26: " + warningMessage,
