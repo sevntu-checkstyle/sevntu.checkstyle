@@ -11,7 +11,7 @@
 
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
-  <version>1.24.2</version>
+  <version>1.25.0</version>
 
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
@@ -289,7 +289,7 @@
               <executable>.ci/eclipse-compiler-javac.sh</executable>
               <classpathScope>test</classpathScope>
               <arguments>
-                <classpath />
+                <classpath/>
                 <argument>${checkstyle.version}</argument>
               </arguments>
             </configuration>
