@@ -236,5 +236,8 @@
       <property name="verifyMethodRegexp" value="verify(Warns|Suppressed)?"/>
       <property name="severity" value="warning"/>
     </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck">
+      <property name="severity" value="warning"/>
+    </module>
   </module>
 </module>
