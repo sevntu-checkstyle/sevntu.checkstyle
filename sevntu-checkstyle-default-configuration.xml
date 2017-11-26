@@ -230,5 +230,11 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck">
       <property name="severity" value="warning"/>
     </module>
+    <!-- 1.25.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck">
+      <property name="createMethodRegexp" value="create(Root|Module)Config|getModuleConfig"/>
+      <property name="verifyMethodRegexp" value="verify(Warns|Suppressed)?"/>
+      <property name="severity" value="warning"/>
+    </module>
   </module>
 </module>
