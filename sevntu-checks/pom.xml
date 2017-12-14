@@ -130,7 +130,7 @@
           -->
           <serverId>sonatype-nexus-staging</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
           <skipStaging>true</skipStaging>
         </configuration>
       </plugin>
