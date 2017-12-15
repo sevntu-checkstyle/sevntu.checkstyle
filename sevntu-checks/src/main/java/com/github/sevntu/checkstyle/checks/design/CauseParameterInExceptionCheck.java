@@ -48,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.

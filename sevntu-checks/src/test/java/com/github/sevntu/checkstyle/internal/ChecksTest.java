@@ -46,6 +46,7 @@ import com.puppycrawl.tools.checkstyle.api.AbstractFileSetCheck;
 import com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractJavadocCheck;
 
 public final class ChecksTest {
+
     private static final Set<String> CHECK_PROPERTIES = getProperties(AbstractCheck.class);
     private static final Set<String> JAVADOC_CHECK_PROPERTIES =
             getProperties(AbstractJavadocCheck.class);
@@ -426,4 +427,5 @@ public final class ChecksTest {
                 "../sevntu-checkstyle-sonar-plugin/src/main/resources/com/github/sevntu/"
                         + "checkstyle/sonar/" + filename).getCanonicalPath();
     }
+
 }

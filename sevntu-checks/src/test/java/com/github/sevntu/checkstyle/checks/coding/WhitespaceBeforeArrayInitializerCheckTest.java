@@ -27,6 +27,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class WhitespaceBeforeArrayInitializerCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testWhitespaceBeforeArrayInitializer() throws Exception {
         final DefaultConfiguration mDefaultConfig =
@@ -41,4 +42,5 @@ public class WhitespaceBeforeArrayInitializerCheckTest extends BaseCheckTestSupp
         verify(mDefaultConfig, getPath("InputWhitespaceBeforeArrayInitializerCheck.java"),
                 expected);
     }
+
 }

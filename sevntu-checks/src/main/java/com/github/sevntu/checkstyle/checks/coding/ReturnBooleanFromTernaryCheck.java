@@ -72,4 +72,5 @@ public class ReturnBooleanFromTernaryCheck extends AbstractCheck {
             log(ast, MSG_KEY);
         }
     }
+
 }

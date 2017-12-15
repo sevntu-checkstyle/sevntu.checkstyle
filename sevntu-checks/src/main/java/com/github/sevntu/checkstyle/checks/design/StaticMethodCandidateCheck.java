@@ -695,6 +695,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * Contains information about the frame.
      */
     private static class Frame {
+
         /** Name of the class, enum or method. */
         private String frameName;
 
@@ -835,5 +836,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
             };
             return Iterables.tryFind(enumConstants, predicate);
         }
+
     }
+
 }

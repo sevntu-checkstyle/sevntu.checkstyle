@@ -27,6 +27,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
     @Test
@@ -70,4 +71,5 @@ public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
 
         verify(config, getPath("InputUselessSingleCatchCheck5.java"), expected);
     }
+
 }

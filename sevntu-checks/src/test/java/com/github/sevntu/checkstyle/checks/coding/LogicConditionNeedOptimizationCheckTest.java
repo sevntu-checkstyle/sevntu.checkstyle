@@ -53,4 +53,5 @@ public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSuppor
         };
         verify(checkConfig, getPath("InputLogicConditionNeedOptimizationCheck.java"), expected);
     }
+
 }

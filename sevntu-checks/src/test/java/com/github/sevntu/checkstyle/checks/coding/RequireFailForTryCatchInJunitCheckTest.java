@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testIndifferent1() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -105,4 +106,5 @@ public class RequireFailForTryCatchInJunitCheckTest extends BaseCheckTestSupport
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

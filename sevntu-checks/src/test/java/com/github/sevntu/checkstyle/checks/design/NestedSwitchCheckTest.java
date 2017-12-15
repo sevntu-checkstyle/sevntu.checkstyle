@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class NestedSwitchCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testSimple() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(NestedSwitchCheck.class);
@@ -59,4 +60,5 @@ public class NestedSwitchCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("InputNestedSwitchCheck.java"),
                 expected);
     }
+
 }

@@ -256,7 +256,6 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
             }
 
             if (curMethodLinesCount >= ignoreMethodLinesCount) {
-
                 final int mCurReturnCount = getReturnCount(node,
                         openingBrace);
 
@@ -317,7 +316,6 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
         // stop at closing brace
         while (curNode.getType() != TokenTypes.RCURLY
                 || curNode.getParent() != methodOpeningBrace) {
-
             if (curNode.getType() == TokenTypes.LITERAL_RETURN
                     && getDepth(methodDefNode, curNode) < minIgnoreReturnDepth
                     && shouldEmptyReturnStatementBeCounted(curNode)

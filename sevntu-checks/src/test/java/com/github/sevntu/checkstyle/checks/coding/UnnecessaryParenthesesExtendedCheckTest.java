@@ -38,6 +38,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author Antonenko Dmitriy
  */
 public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -165,4 +166,5 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "true");
         verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheckUbv.java"), expected);
     }
+
 }

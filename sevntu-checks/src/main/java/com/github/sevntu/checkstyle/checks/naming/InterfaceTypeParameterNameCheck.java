@@ -80,4 +80,5 @@ public class InterfaceTypeParameterNameCheck
 
         return location.getType() == TokenTypes.INTERFACE_DEF;
     }
+
 }

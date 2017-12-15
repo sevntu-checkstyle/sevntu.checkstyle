@@ -26,6 +26,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class InterfaceTypeParameterNameCheckTest
     extends BaseCheckTestSupport {
+
     /** Warning message key. */
     private static final String MSG_KEY = "name.invalidPattern";
 
@@ -58,4 +59,5 @@ public class InterfaceTypeParameterNameCheckTest
         };
         verify(checkConfig, getPath("InputInterfaceTypeParameterNameCheck.java"), expected);
     }
+
 }

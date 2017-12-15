@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testNormalWork() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -167,4 +168,5 @@ public class CauseParameterInExceptionCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

@@ -112,7 +112,6 @@ public class ForbidInstantiationCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
-
             case TokenTypes.IMPORT:
                 importsList.add(getText(ast));
                 break;
@@ -127,7 +126,6 @@ public class ForbidInstantiationCheck extends AbstractCheck {
                     final String instanceClassName = getClassName(instanceClass);
 
                     for (String forbiddenClass : forbiddenClasses) {
-
                         if (forbiddenClass.startsWith("java.lang.")
                             && forbiddenClass.endsWith(instanceClassName)) {
                             log(ast, MSG_KEY, instanceClassName);
@@ -153,7 +151,6 @@ public class ForbidInstantiationCheck extends AbstractCheck {
                 Utils.reportInvalidToken(ast.getType());
                 break;
         }
-
     }
 
     /**

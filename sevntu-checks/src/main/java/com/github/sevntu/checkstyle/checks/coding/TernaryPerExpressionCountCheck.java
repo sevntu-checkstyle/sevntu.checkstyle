@@ -153,7 +153,6 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST expressionNode) {
-
         final List<DetailAST> questionNodes = getQuestionNodes(expressionNode);
 
         if (questionNodes.size() > maxTernaryPerExpressionCount) {
@@ -170,7 +169,6 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      *          List of question nodes
      */
     private List<DetailAST> getQuestionNodes(DetailAST expressionNode) {
-
         final List<DetailAST> questionNodes = new LinkedList<>();
 
         DetailAST currentNode = expressionNode;
@@ -182,7 +180,6 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
                     && !isSkipTernaryOperator(currentNode)) {
                 questionNodes.add(currentNode);
             }
-
         } while (currentNode != null);
 
         return questionNodes;
@@ -269,4 +266,5 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
         return toVisit;
     }
+
 }

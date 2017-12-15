@@ -30,6 +30,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
 public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testSimple()
             throws Exception {
@@ -95,4 +96,5 @@ public class LineLengthExtendedCheckTest extends BaseCheckTestSupport {
                     + "Cannot set property 'ignorePattern' to '[' in module "));
         }
     }
+
 }

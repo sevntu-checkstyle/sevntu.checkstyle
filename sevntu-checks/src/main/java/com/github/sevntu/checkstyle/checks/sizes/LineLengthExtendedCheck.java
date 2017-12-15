@@ -88,6 +88,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
 public class LineLengthExtendedCheck extends AbstractCheck {
+
     /** Warning message key. */
     public static final String MSG_KEY = "maxLineLen";
 
@@ -231,7 +232,6 @@ public class LineLengthExtendedCheck extends AbstractCheck {
     @Override
     public void finishTree(DetailAST rootAST) {
         for (int i = 0; i < lines.length; i++) {
-
             if (lines[i] == null) {
                 continue;
             }
@@ -271,4 +271,5 @@ public class LineLengthExtendedCheck extends AbstractCheck {
             throw new IllegalArgumentException("unable to parse " + format, ex);
         }
     }
+
 }

@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 public class MoveVariableInsideIfCheckTest extends BaseCheckTestSupport {
+
     @Test
     public final void testNoViolations() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -62,4 +63,5 @@ public class MoveVariableInsideIfCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("InputMoveVariableInsideIfCheckFalsePositives.java"),
                 expected);
     }
+
 }

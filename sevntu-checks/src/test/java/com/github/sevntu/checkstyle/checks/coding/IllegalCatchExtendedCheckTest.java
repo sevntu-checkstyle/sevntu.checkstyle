@@ -100,4 +100,5 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
 
         verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
+
 }

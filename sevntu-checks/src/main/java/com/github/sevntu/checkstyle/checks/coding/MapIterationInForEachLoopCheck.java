@@ -292,7 +292,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
-
             case TokenTypes.IMPORT:
                 final String qualifiedMapImportText = getMapImportQualifiedName(ast);
                 if (qualifiedMapImportText != null) {
@@ -502,7 +501,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
             }
             if (mapIdentNode != null && GET_NODE_NAME.equals(identOrLiteralIfNode.getText())
                     && mapName.equals(mapIdentNode.getText())) {
-
                 methodGetCallCount++;
             }
 
@@ -530,7 +528,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         }
 
         if (methodGetCallCount != 0 && keyIdentCount != 0) {
-
             if (proposeValuesUsage && methodGetCallCount == keyIdentCount) {
                 result = MSG_KEY_VALUES;
             }
@@ -559,7 +556,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         int methodGetKeyCallCount = 0;
         int methodGetValueCallCount = 0;
         for (DetailAST identNode : identNodesList) {
-
             final DetailAST entryNode = identNode.getPreviousSibling();
 
             if (entryNode != null && GET_KEY_NODE_NAME.equals(identNode.getText())
@@ -579,7 +575,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         }
         else if (methodGetKeyCallCount > 0 && methodGetValueCallCount == 0) {
             result = MSG_KEY_KEYSET;
-
         }
         return result;
     }
@@ -751,4 +746,5 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

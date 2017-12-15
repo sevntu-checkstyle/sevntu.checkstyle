@@ -110,4 +110,5 @@ public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
                 break;
         }
     }
+
 }

@@ -73,6 +73,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  */
 public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
+
     /**
      * Check message key for private types.
      */
@@ -203,7 +204,6 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private static List<DetailAST>
             getMethodOrFieldReferencedTypes(DetailAST typeAst) {
-
         DetailAST returnedType = null;
         final List<DetailAST> returnedTypes = new ArrayList<>();
         DetailAST currentNode = typeAst;
@@ -242,11 +242,9 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                             parameterTypes.add(parameterType);
                         }
                     }
-
                 }
                 currentNode = Utils.getNextSubTreeNode(currentNode, parametersDefAst);
             }
-
         }
 
         return parameterTypes;
@@ -294,7 +292,6 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                                 .add(implementingOrExtendingAst.getText());
                     }
                 }
-
             }
             currentNode = Utils.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
         }

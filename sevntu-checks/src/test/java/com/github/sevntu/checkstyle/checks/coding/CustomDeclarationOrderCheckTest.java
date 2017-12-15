@@ -183,4 +183,5 @@ public class CustomDeclarationOrderCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("caseSensitive", "false");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheckMainMethod.java"), expected);
     }
+
 }

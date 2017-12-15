@@ -49,6 +49,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class NestedSwitchCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -102,4 +103,5 @@ public class NestedSwitchCheck extends AbstractCheck {
     public void leaveToken(DetailAST aAST) {
         --depth;
     }
+
 }

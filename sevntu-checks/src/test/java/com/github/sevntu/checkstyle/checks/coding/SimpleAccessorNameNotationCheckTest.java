@@ -175,4 +175,5 @@ public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck7.java"), expected);
     }
+
 }

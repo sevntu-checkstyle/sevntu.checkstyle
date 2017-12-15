@@ -270,13 +270,10 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     @Override
     public void visitToken(final DetailAST detailAST) {
-
         final DetailAST classDef = getClassDef(detailAST);
 
         if (classDef != null && !hasModifier(classDef, TokenTypes.FINAL)) {
-
             switch (detailAST.getType()) {
-
                 case TokenTypes.CTOR_DEF:
                     logWarnings(detailAST, KEY_CTOR);
                     break;
@@ -317,7 +314,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *            "messages.properties" file.
      */
     private void logWarnings(final DetailAST detailAST, final String key) {
-
         final List<OverridableMetCall> methodCallsToWarnList =
             getOverridables(detailAST);
 
@@ -348,7 +344,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         constructor body.
      */
     private List<OverridableMetCall> getOverridables(final DetailAST parentAST) {
-
         final List<OverridableMetCall> result =
             new LinkedList<>();
         final List<DetailAST> methodCallsList = getMethodCallsList(parentAST);
@@ -377,7 +372,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         overridable method call and false otherwise.
      */
     private boolean isOverridableMethodCall(final DetailAST methodCallAST) {
-
         boolean result = false;
         visitedMethodCalls.add(methodCallAST);
 
@@ -419,7 +413,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         current parent node.
      */
     private List<DetailAST> getMethodCallsList(final DetailAST parentAST) {
-
         final List<DetailAST> result = new LinkedList<>();
 
         for (DetailAST curNode : getChildren(parentAST)) {
@@ -443,7 +436,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * @return The method name is related to the current METHOD_CALL DetailAST.
      */
     private String getMethodName(final DetailAST methodCallAST) {
-
         String result = null;
 
         final DetailAST ident = methodCallAST.findFirstToken(TokenTypes.IDENT);
@@ -455,7 +447,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
             final DetailAST childAST = methodCallAST.getFirstChild();
 
             if (childAST != null && childAST.getType() == TokenTypes.DOT) {
-
                 final DetailAST firstChild = childAST.getFirstChild();
                 final DetailAST lastChild = childAST.getLastChild();
 
@@ -489,7 +480,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         node.
      */
     private DetailAST getMethodDef(final DetailAST methodCallAST) {
-
         DetailAST result = null;
 
         curMethodDef = null;
@@ -497,7 +487,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
         final String methodName = getMethodName(methodCallAST);
         if (methodName != null) {
-
             final DetailAST curClassAST = getClassDef(methodCallAST);
             final DetailAST callsChild = methodCallAST.getFirstChild();
             final String variableTypeName;
@@ -510,7 +499,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
             }
 
             if (curMethodDefCount == 0) {
-
                 final List<DetailAST> baseClasses = getBaseClasses(curClassAST);
 
                 for (DetailAST curBaseClass : baseClasses) {
@@ -566,7 +554,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
         List<DetailAST> definitionsList = new LinkedList<>();
 
         for (DetailAST curNode : getChildren(parentAST)) {
-
             if (curNode.getNumberOfChildren() > 0) {
                 if (curNode.getType() == TokenTypes.METHOD_DEF) {
                     final String curMethodName = curNode.findFirstToken(
@@ -614,7 +601,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
                 typeName = dotChild.getFirstChild().getText()
                         + PATH_SEPARATOR + dotChild.getLastChild().getText();
             }
-
         }
         return typeName;
     }
@@ -669,7 +655,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * @return the count of parameters for current method.
      */
     private static int getMethodParamsCount(DetailAST methodDefOrCallAST) {
-
         int result = 0;
         DetailAST paramsParentAST = null;
 
@@ -707,7 +692,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      */
     private static boolean hasModifier(final DetailAST methodOrClassDefAST,
         int modifierType) {
-
         boolean result = false;
         final DetailAST modifiers = methodOrClassDefAST
                 .findFirstToken(TokenTypes.MODIFIERS);
@@ -733,7 +717,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         node named aMethodNode.
      * */
     private static DetailAST getClassDef(final DetailAST methodNode) {
-
         DetailAST curNode = methodNode;
 
         while (curNode != null && curNode.getType() != TokenTypes.CLASS_DEF) {
@@ -754,7 +737,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         named "aClassName".
      */
     private static DetailAST getClassDef(DetailAST rootNode, String className) {
-
         DetailAST curNode = rootNode;
 
         while (curNode != null) {
@@ -792,7 +774,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      */
     private boolean realizesAnInterface(final DetailAST classDefNode,
             final String interfaceName) {
-
         boolean result = false;
         final List<DetailAST> classWithBaseClasses =
                 getBaseClasses(classDefNode);
@@ -821,7 +802,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      */
     private static boolean implementsAnInterface(final DetailAST classDefAST,
             final String interfaceName) {
-
         boolean result = false;
         final DetailAST implClause = classDefAST
                 .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
@@ -848,7 +828,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *         processed and all it`s base classes.
      */
     private List<DetailAST> getBaseClasses(final DetailAST classDefNode) {
-
         final List<DetailAST> result = new LinkedList<>();
         String baseClassName = getBaseClassName(classDefNode);
 
@@ -876,7 +855,6 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * @return The name of a base class for current class.
      */
     private static String getBaseClassName(final DetailAST classDefNode) {
-
         String result = null;
         final DetailAST extendsClause = classDefNode
                 .findFirstToken(TokenTypes.EXTENDS_CLAUSE);
@@ -919,6 +897,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * overridable method.
      */
     private final class OverridableMetCall {
+
         /**
          * DetailAST node is related to the method call that leads to
          *           call of the overridable method.
@@ -942,6 +921,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
             this.metCallAST = methodCallAST;
             this.overridableMetName = overridableMetName;
         }
+
     }
 
 }

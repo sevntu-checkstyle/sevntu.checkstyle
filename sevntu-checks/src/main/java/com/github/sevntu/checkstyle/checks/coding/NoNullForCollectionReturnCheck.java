@@ -51,6 +51,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  */
 public class NoNullForCollectionReturnCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -383,4 +384,5 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
         }
         return blockBody;
     }
+
 }

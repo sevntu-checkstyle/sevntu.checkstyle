@@ -59,4 +59,5 @@ public class FinalizeImplementationCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("InputFinalizeImplementationCheckSpecial.java"),
                 expected);
     }
+
 }

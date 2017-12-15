@@ -49,6 +49,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:iliadubinin91@gmail.com">Ilja Dubinin</a>
  */
 public class SimpleAccessorNameNotationCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -138,16 +139,13 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
         final DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
         boolean result = true;
         if (methodType.branchContains(TokenTypes.LITERAL_VOID)) {
-
             DetailAST currentVerifiedTop = methodDef.findFirstToken(TokenTypes.SLIST);
 
             if (containsOnlyExpression(currentVerifiedTop)) {
-
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
                 final boolean containsOnlyOneAssignment = currentVerifiedTop.getFirstChild()
                         .getType() == TokenTypes.ASSIGN;
                 if (containsOnlyOneAssignment) {
-
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
                     final DetailAST parameters =
                             methodDef.findFirstToken(TokenTypes.PARAMETERS);
@@ -157,7 +155,6 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
                     if (nameOfSettingField != null
                             && verifyFieldAndMethodName(nameOfSettingField,
                                     methodName)) {
-
                         result = false;
                     }
                 }
@@ -181,22 +178,18 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
         final DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
         boolean result = true;
         if (parameters.getChildCount() == 0) {
-
             DetailAST currentVerifiedTop =
                     methodDef.findFirstToken(TokenTypes.SLIST);
             if (containsOnlyReturn(currentVerifiedTop)) {
-
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
 
                 if (isCorrectReturn(currentVerifiedTop)) {
-
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
                     final String nameOfGettingField = getNameOfGettingField(currentVerifiedTop);
 
                     if (nameOfGettingField != null
                             && verifyFieldAndMethodName(nameOfGettingField,
                                     methodName)) {
-
                         result = false;
                     }
                 }
@@ -239,23 +232,18 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             final DetailAST assigningFirstChild = assign.getFirstChild();
 
             if (assigningFirstChild.getType() == TokenTypes.IDENT) {
-
                 nameOfSettingField = assigningFirstChild.getText();
 
                 if (checkNameOfParameters(parameters, nameOfSettingField)) {
                     nameOfSettingField = null;
                 }
-
             }
             else {
                 if (assigningFirstChild.getType() == TokenTypes.DOT) {
-
                     if ("this".equals(assigningFirstChild.getFirstChild().getText())) {
-
                         nameOfSettingField = assigningFirstChild.getLastChild()
                                 .getText();
                     }
-
                 }
             }
         }
@@ -321,15 +309,12 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             final DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
-
                 nameOfGettingField = exprFirstChild.getText();
-
             }
             else {
                 if (exprFirstChild.getType() == TokenTypes.DOT
                         && exprFirstChild.getChildCount() == 2
                         && exprFirstChild.getFirstChild().getType() == TokenTypes.LITERAL_THIS) {
-
                     nameOfGettingField = exprFirstChild.getLastChild().getText();
                 }
             }
@@ -351,7 +336,6 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      */
     private static boolean checkNameOfParameters(DetailAST paramrters,
             String fieldName) {
-
         boolean isNameOfParameter = false;
         final int parametersChildCount = paramrters.getChildCount();
 
@@ -359,10 +343,8 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
 
         for (int i = 0; i < parametersChildCount && !isNameOfParameter; i++) {
-
             isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText()
                     .equals(fieldName);
-
         }
 
         return isNameOfParameter;
@@ -392,4 +374,5 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
         final DetailAST body = methodDef.findFirstToken(TokenTypes.SLIST);
         return body != null;
     }
+
 }

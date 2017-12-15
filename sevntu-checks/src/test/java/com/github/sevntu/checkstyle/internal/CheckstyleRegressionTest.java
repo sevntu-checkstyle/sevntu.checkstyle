@@ -33,6 +33,7 @@ import java.util.Set;
 import org.junit.Test;
 
 public class CheckstyleRegressionTest {
+
     /** List of checks to suppress if we dynamically add it to the configuration. */
     private static final List<String> ADD_CHECK_SUPPRESSIONS = Arrays
             .asList("ReturnCountExtendedCheck");
@@ -175,4 +176,5 @@ public class CheckstyleRegressionTest {
 
         return -1;
     }
+
 }

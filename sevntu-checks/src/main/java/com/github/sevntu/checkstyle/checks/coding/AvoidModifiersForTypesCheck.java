@@ -399,7 +399,6 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
         final String classNameAndPath = getClassNameAndPath(ast);
 
         if (classNameAndPath != null) {
-
             final String className = getClassName(classNameAndPath);
 
             final Set<Integer> modifiersSet = getModifiers(ast);

@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  *         Yaroslavtsev</a>
  */
 public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testNpeOnAllBlockTypes() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ChildBlockLengthCheck.class);
@@ -147,4 +148,5 @@ public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
 
         verify(checkConfig, getPath("InputChildBlockLengthCheckNestedClass.java"), expected);
     }
+
 }

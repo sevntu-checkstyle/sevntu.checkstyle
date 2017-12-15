@@ -44,6 +44,7 @@ import com.puppycrawl.tools.checkstyle.api.BeforeExecutionFileFilter;
 import com.puppycrawl.tools.checkstyle.api.Filter;
 
 public final class CheckUtil {
+
     private CheckUtil() {
     }
 
@@ -294,4 +295,5 @@ public final class CheckUtil {
         }
         return result;
     }
+
 }

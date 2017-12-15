@@ -34,4 +34,5 @@ public final class CheckstyleExtensionPlugin extends SonarPlugin {
     public List<?> getExtensions() {
         return Arrays.asList(CheckstyleExtensionRepository.class);
     }
+
 }

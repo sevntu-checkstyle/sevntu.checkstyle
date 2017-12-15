@@ -33,6 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
 public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -84,4 +85,5 @@ public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
             }
         }
     }
+
 }

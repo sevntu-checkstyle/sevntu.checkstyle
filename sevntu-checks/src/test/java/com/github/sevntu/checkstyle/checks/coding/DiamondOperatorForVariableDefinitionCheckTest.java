@@ -27,6 +27,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class DiamondOperatorForVariableDefinitionCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =

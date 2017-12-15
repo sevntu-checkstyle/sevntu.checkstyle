@@ -137,4 +137,5 @@ public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("InputConfusingConditionCheck2.java"),
                 expected);
     }
+
 }

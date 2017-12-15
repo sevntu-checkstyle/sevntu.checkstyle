@@ -27,6 +27,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class MultipleStringLiteralsExtendedCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testIt() throws Exception {
         final DefaultConfiguration checkConfig =

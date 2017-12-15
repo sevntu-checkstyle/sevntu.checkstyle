@@ -166,4 +166,5 @@ public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected7);
     }
+
 }

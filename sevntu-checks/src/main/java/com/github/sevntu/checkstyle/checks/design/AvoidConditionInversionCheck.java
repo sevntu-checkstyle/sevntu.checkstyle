@@ -127,7 +127,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @param applyOnlyToRelationalOperands The new value for the field.
      */
     public void setApplyOnlyToRelationalOperands(boolean applyOnlyToRelationalOperands) {
-
         this.applyOnlyToRelationalOperands = applyOnlyToRelationalOperands;
     }
 
@@ -154,15 +153,11 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-
         final DetailAST expressionAst = ast.findFirstToken(TokenTypes.EXPR);
 
         switch (ast.getType()) {
-
             case TokenTypes.LITERAL_RETURN:
-
                 if (!isEmptyReturn(ast)) {
-
                     final DetailAST inversionAst = getInversion(expressionAst);
 
                     if (isAvoidableInversion(inversionAst)) {
@@ -170,29 +165,26 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
                     }
                 }
                 break;
+
             case TokenTypes.LITERAL_WHILE:
             case TokenTypes.LITERAL_DO:
             case TokenTypes.LITERAL_IF:
-
                 final DetailAST invertedAst = getInversion(expressionAst);
-
                 if (isAvoidableInversion(invertedAst)) {
-
                     log(invertedAst);
                 }
                 break;
+
             case TokenTypes.FOR_CONDITION:
-
                 if (!isEmptyForCondition(ast)) {
-
                     final DetailAST inversionAst = getInversion(expressionAst);
 
                     if (isAvoidableInversion(inversionAst)) {
-
                         log(inversionAst);
                     }
                 }
                 break;
+
             default:
                 Utils.reportInvalidToken(ast.getType());
                 break;
@@ -207,7 +199,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if the return is empty.
      */
     private static boolean isEmptyReturn(DetailAST returnAst) {
-
         return returnAst.findFirstToken(TokenTypes.EXPR) == null;
     }
 
@@ -218,7 +209,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if the for condition is empty.
      */
     private static boolean isEmptyForCondition(DetailAST forConditionAst) {
-
         return forConditionAst.getFirstChild() == null;
     }
 
@@ -230,7 +220,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      *     if exists, else - null
      */
     private static DetailAST getInversion(DetailAST expressionAst) {
-
         return expressionAst.findFirstToken(TokenTypes.LNOT);
     }
 
@@ -241,7 +230,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if the inversion is avoidable.
      */
     private boolean isAvoidableInversion(DetailAST inversionAst) {
-
         return inversionAst != null && !isSkipCondition(inversionAst);
     }
 
@@ -255,7 +243,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if token can be skipped.
      */
     private boolean isSkipCondition(DetailAST inversionConditionAst) {
-
         return (applyOnlyToRelationalOperands
                     && !containsRelationalOperandsOnly(inversionConditionAst))
                 || !containsConditionalOrRelationalOperands(inversionConditionAst);
@@ -270,23 +257,18 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if the node contains only relation operands.
      */
     private static boolean containsRelationalOperandsOnly(DetailAST inversionConditionAst) {
-
         boolean result = true;
 
         final DetailAST operatorInInversionAst = inversionConditionAst.getFirstChild()
                 .getNextSibling();
 
         if (operatorInInversionAst != null) {
-
             if (!RELATIONAL_OPERATORS_SET.contains(operatorInInversionAst.getType())) {
-
                 DetailAST currentNode = operatorInInversionAst.getFirstChild();
 
                 while (currentNode != null) {
-
                     if ((currentNode.getType() == TokenTypes.IDENT)
                             || (!isRelationalOperand(currentNode))) {
-
                         result = false;
                     }
 
@@ -307,7 +289,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if the operand is relational.
      */
     private static boolean isRelationalOperand(DetailAST operandAst) {
-
         return operandAst.getFirstChild() == null
                 || RELATIONAL_OPERATORS_SET.contains(operandAst.getType());
     }
@@ -321,15 +302,12 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if the node contains conditional or relational operands.
      */
     private static boolean containsConditionalOrRelationalOperands(DetailAST inversionAst) {
-
         boolean result = false;
 
         DetailAST currentNodeAst = inversionAst.getFirstChild();
 
         while (currentNodeAst != null) {
-
             if (RELATIONAL_AND_CONDITIONAL_OPERATORS_SET.contains(currentNodeAst.getType())) {
-
                 result = true;
             }
 
@@ -345,7 +323,6 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
      */
     private void log(DetailAST inversionAst) {
-
         log(inversionAst.getLineNo(), MSG_KEY);
     }
 

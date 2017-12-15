@@ -96,6 +96,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
 public class EmptyPublicCtorInClassCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */
@@ -186,7 +187,6 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST node) {
         switch (node.getType()) {
-
             case TokenTypes.IMPORT:
                 final String packageMemberName = getIdentifierName(node);
 
@@ -537,4 +537,5 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
         return result;
     }
+
 }

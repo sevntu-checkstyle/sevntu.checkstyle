@@ -61,6 +61,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
  */
 public class ConfusingConditionCheck extends AbstractCheck {
+
     /**
      * The key is pointing to the message text String in
      * "messages.properties file".This message used for common cases.

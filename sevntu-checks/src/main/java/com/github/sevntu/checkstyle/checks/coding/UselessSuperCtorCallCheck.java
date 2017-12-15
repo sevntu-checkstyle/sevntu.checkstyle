@@ -138,6 +138,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
 public class UselessSuperCtorCallCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */

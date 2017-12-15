@@ -48,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
 public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */
@@ -439,4 +440,5 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

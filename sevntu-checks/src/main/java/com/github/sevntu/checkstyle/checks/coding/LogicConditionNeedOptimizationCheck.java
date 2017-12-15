@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
 public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
+
     /**
      * The key is pointing to the warning message text in "messages.properties"
      * file.
@@ -93,4 +94,5 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
         }
         return child;
     }
+
 }

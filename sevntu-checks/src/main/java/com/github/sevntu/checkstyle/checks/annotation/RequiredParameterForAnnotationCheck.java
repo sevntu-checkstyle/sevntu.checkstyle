@@ -98,6 +98,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 
 public class RequiredParameterForAnnotationCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */
@@ -155,7 +156,6 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
         final String annotationNameCheck = getAnnotationName(annotationNode);
 
         if (annotationNameCheck.equals(this.annotationName)) {
-
             final Set<String> missingParameters =
                     Sets.difference(requiredParameters, getAnnotationParameters(annotationNode));
 

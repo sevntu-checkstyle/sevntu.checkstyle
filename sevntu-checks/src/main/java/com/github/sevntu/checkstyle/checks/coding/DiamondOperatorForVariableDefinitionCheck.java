@@ -64,16 +64,13 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST variableDefNode) {
-
         final DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);
 
         if (assignNode != null) {
-
             final DetailAST newNode = assignNode.getFirstChild().getFirstChild();
 
             // we check only creation by NEW
             if (newNode.getType() == TokenTypes.LITERAL_NEW) {
-
                 final DetailAST variableDefNodeType =
                         variableDefNode.findFirstToken(TokenTypes.TYPE);
                 final DetailAST varDefArguments = getFirstTypeArgumentsToken(variableDefNodeType);
@@ -83,7 +80,6 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
                         && newNode.getLastChild().getType() != TokenTypes.OBJBLOCK
                         // arrays can not be generics
                         && newNode.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
-
                     final DetailAST typeArgs = getFirstTypeArgumentsToken(newNode);
 
                     if (varDefArguments.equalsTree(typeArgs)) {

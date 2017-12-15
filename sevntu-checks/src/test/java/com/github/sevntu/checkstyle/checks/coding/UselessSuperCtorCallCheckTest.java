@@ -28,6 +28,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testSingleCtorWithSuperWithinNotDerivedClass()
             throws Exception {
@@ -112,4 +113,5 @@ public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
 
         verify(checkConfig, getPath("InputUselessSuperCtorCallCheck7.java"), expected);
     }
+
 }

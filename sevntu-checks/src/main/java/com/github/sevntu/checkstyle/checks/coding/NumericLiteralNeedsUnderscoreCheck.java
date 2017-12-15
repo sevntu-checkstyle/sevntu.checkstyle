@@ -151,6 +151,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * Type of numeric literal.
      */
     protected enum NumericType {
+
         /**
          * Denotes a decimal literal. For example, 1.2f
          */
@@ -165,6 +166,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
          * Denotes a binary literal. For example, 0b0011
          */
         BINARY;
+
     }
 
     /**

@@ -130,4 +130,5 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
         }
         return previousAst;
     }
+
 }
