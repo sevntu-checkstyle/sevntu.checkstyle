@@ -27,6 +27,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testAnnotationWithStringParameter() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -212,4 +213,5 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck2.java"), expected);
     }
+
 }

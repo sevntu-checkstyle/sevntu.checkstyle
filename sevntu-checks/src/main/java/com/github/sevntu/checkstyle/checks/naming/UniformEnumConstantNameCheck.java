@@ -76,6 +76,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Pavel Baranchikov
  */
 public class UniformEnumConstantNameCheck extends AbstractCheck {
+
     /**
      * Message code for format violations. Used, when more than one format
      * violated.
@@ -226,4 +227,5 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

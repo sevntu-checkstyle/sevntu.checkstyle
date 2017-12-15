@@ -106,7 +106,6 @@ public class FinalizeImplementationCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST methodDefToken) {
         if (isFinalizeMethodSignature(methodDefToken)) {
-
             final String warningMessage = validateFinalizeMethod(methodDefToken);
 
             if (warningMessage != null) {
@@ -135,7 +134,6 @@ public class FinalizeImplementationCheck extends AbstractCheck {
                 else {
                     warningMessage = MSG_KEY_MISSED_TRY_FINALLY;
                 }
-
             }
             else {
                 final DetailAST literalFinally = literalTry
@@ -146,7 +144,6 @@ public class FinalizeImplementationCheck extends AbstractCheck {
                     warningMessage = MSG_KEY_MISSED_SUPER_FINALIZE_CALL;
                 }
             }
-
         }
         else {
             warningMessage = MSG_KEY_PUBLIC_FINALIZE;
@@ -229,4 +226,5 @@ public class FinalizeImplementationCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

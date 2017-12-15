@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author Baratali Izmailov
  */
 public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport {
+
     /**
      * Name of file with messages.
      */
@@ -80,4 +81,5 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport {
                 getPath("InputNoMainMethodInAbstractClassCheck.java"),
                 expected);
     }
+
 }

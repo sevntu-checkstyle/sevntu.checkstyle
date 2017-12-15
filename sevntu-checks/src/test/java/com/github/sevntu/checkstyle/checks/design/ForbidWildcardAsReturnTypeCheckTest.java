@@ -36,6 +36,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
 public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
+
     /**
      * Line numbers with methods which have wildcard in return type.
      */
@@ -454,4 +455,5 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         }
         return expected;
     }
+
 }

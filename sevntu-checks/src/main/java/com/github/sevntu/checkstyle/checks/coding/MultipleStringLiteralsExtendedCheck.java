@@ -38,6 +38,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * @author Daniel Grenner
  */
 public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -217,6 +218,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
      * This class contains information about where a string was found.
      */
     private static final class StringInfo {
+
         /**
          * Line of finding.
          */
@@ -256,6 +258,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
         private int getCol() {
             return col;
         }
+
     }
 
 }

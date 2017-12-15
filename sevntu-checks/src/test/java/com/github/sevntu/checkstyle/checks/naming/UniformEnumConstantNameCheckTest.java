@@ -36,6 +36,7 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
  * @author Pavel Baranchikov
  */
 public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
+
     private final String inputFile;
 
     public UniformEnumConstantNameCheckTest() {

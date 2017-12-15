@@ -79,4 +79,5 @@ public final class CheckstyleExtensionRepository extends RuleRepository {
             IOUtils.closeQuietly(input);
         }
     }
+
 }

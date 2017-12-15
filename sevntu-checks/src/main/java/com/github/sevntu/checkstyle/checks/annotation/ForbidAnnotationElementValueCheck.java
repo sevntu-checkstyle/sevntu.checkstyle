@@ -112,6 +112,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Richard Veach
  */
 public class ForbidAnnotationElementValueCheck extends AbstractCheck {
+
     /** Message key. */
     public static final String MSG_KEY = "annotation.forbid.element.value";
 
@@ -396,4 +397,5 @@ public class ForbidAnnotationElementValueCheck extends AbstractCheck {
         final DetailAST elementName = memberValuePair.findFirstToken(TokenTypes.IDENT);
         return elementName.getText();
     }
+
 }

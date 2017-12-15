@@ -147,13 +147,11 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
         // if the block has braces at all
         if (aOpeningBrace != null) {
-
             final DetailAST aClosingBrace = closingBrace(ast);
             final int parentBlockSize =
                     linesCount(aOpeningBrace, aClosingBrace);
 
             if (parentBlockSize > ignoreBlockLinesCount) {
-
                 final List<DetailAST> childBlocks = getChildBlocks(
                         aOpeningBrace, aClosingBrace);
 
@@ -167,7 +165,6 @@ public class ChildBlockLengthCheck extends AbstractCheck {
                 }
                 else {
                     for (DetailAST badBlock : badChildBlocks) {
-
                         final int blockSize = linesCount(badBlock);
 
                         final double allowedBlockSize = (int) (parentBlockSize

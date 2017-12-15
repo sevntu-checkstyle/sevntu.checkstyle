@@ -181,4 +181,5 @@ public class SingleBreakOrContinueCheck extends AbstractCheck {
                 || TokenTypes.LITERAL_WHILE == node.getType()
                 || TokenTypes.LITERAL_DO == node.getType();
     }
+
 }

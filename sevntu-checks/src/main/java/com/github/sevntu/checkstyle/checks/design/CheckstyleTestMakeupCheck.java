@@ -69,6 +69,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * @author Richard Veach
  */
 public class CheckstyleTestMakeupCheck extends AbstractCheck {
+
     /** Violations message. */
     public static final String MSG_KEY_CONFIG_NOT_ASSIGNED = "tester.config.not.assigned";
     /** Violations message. */
@@ -423,4 +424,5 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
         foundVerify = false;
         violations.clear();
     }
+
 }

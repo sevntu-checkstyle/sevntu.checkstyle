@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @version $Revision: 1.12 $
  */
 public class HideUtilityClassConstructorCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -99,7 +100,6 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                         // for the purpose of this Check
                         hasPublicCtor = true;
                     }
-
                 }
                 child = child.getNextSibling();
             }
@@ -147,4 +147,5 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
 
         return staticAST != null;
     }
+
 }

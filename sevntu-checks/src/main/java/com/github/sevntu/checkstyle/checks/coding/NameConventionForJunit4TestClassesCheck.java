@@ -107,6 +107,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
 public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */
@@ -352,4 +353,5 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

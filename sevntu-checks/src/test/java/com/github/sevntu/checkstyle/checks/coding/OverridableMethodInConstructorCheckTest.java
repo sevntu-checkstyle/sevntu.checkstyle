@@ -447,4 +447,5 @@ public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSuppor
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck25.java"), expected);
     }
+
 }

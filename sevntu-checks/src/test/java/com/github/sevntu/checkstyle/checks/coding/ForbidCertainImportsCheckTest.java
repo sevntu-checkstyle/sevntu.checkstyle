@@ -35,9 +35,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testNormalWork() throws Exception {
-
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
         checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
@@ -208,4 +208,5 @@ public class ForbidCertainImportsCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

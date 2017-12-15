@@ -53,6 +53,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * @author Sergey Burtsev
  */
 public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -158,4 +159,5 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
     private boolean isTargetConstantType(int targetType) {
         return Arrays.binarySearch(targetConstantTypes, targetType) > -1;
     }
+
 }

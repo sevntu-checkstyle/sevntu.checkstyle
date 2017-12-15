@@ -76,4 +76,5 @@ public class ReturnNullInsteadOfBooleanCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

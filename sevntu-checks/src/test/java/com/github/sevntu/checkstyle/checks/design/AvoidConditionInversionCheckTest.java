@@ -36,6 +36,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  */
 public class AvoidConditionInversionCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void defaultTest() throws Exception {
         final DefaultConfiguration checkConfig =

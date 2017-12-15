@@ -36,6 +36,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public final class XmlUtil {
+
     private XmlUtil() {
     }
 
@@ -95,4 +96,5 @@ public final class XmlUtil {
 
         return result;
     }
+
 }

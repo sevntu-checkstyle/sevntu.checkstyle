@@ -318,4 +318,5 @@ public class AvoidModifiersForTypesCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

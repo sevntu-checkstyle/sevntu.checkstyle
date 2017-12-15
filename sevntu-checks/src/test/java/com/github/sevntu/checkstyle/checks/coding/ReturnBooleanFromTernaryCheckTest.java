@@ -45,4 +45,5 @@ public class ReturnBooleanFromTernaryCheckTest extends BaseCheckTestSupport {
         };
         verify(checkConfig, getPath("InputReturnBooleanFromTernaryCheck.java"), expected);
     }
+
 }

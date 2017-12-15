@@ -29,6 +29,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /** Test class. */
 public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTestSupport {
+
     private final String msgVarDeclarationsComa = getCheckMessage(MSG_VAR_DECLARATIONS_COMMA);
     private final String msgVarDeclarations = getCheckMessage(MSG_VAR_DECLARATIONS);
 

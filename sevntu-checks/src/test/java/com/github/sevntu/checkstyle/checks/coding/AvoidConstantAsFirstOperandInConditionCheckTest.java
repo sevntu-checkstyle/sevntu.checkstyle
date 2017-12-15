@@ -78,7 +78,6 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
         };
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
                 expected);
-
     }
 
     @Test
@@ -122,4 +121,5 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTe
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
                 expected);
     }
+
 }

@@ -99,7 +99,6 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST annotation) {
-
         final String annotationName = getAnnotationName(annotation);
         // first parent - 'MODIFIERS', second parent - annotation's target
         final DetailAST annotationTarget = annotation.getParent().getParent();
@@ -108,7 +107,6 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
         if (isRequiredAnnotationName(annotationName)
                 && isForbiddenAnnotationTarget(targetType)) {
-
             final String currentTarget = annotationTarget.getText();
 
             log(annotation.getLineNo(), MSG_KEY,
@@ -154,4 +152,5 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     private boolean isForbiddenAnnotationTarget(int targetType) {
         return Arrays.binarySearch(annotationTargets, targetType) > -1;
     }
+
 }

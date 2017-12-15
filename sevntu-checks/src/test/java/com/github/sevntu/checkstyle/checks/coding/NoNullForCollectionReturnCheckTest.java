@@ -176,4 +176,5 @@ public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheckConstructor.java"),
                 expected);
     }
+
 }

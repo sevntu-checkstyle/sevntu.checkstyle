@@ -45,6 +45,7 @@ import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.Configuration;
 
 public abstract class BaseCheckTestSupport {
+
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
     private final PrintStream printStream = new PrintStream(baos);
 
@@ -182,5 +183,7 @@ public abstract class BaseCheckTestSupport {
         @Override
         public void fileStarted(AuditEvent evt) {
         }
+
     }
+
 }

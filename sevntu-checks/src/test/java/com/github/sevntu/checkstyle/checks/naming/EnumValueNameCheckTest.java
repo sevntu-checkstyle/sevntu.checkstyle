@@ -28,6 +28,7 @@ import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class EnumValueNameCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testDefault()
             throws Exception {
@@ -61,4 +62,5 @@ public class EnumValueNameCheckTest extends BaseCheckTestSupport {
         };
         verify(checkConfig, getPath("InputEnumValueNameCheck.java"), expected);
     }
+
 }

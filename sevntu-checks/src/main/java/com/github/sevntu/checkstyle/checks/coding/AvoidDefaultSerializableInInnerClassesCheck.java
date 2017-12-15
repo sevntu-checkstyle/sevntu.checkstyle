@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  */
 public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -226,6 +227,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      *</b>
      */
     private final class SiblingIterator {
+
         /**
         *<b>
         *Next.
@@ -270,5 +272,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
             }
             return result;
         }
+
     }
+
 }

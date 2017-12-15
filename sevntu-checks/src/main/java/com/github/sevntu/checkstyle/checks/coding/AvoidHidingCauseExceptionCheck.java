@@ -65,6 +65,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  */
 public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -90,7 +91,6 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST detailAST) {
-
         final String originExcName = detailAST
                 .findFirstToken(TokenTypes.PARAMETER_DEF).getLastChild()
                 .getText();
@@ -142,7 +142,6 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
     private List<DetailAST> buildThrowParamNamesList(DetailAST startNode,
                             List<DetailAST> paramNamesAST) {
         for (DetailAST currentNode : getChildNodes(startNode)) {
-
             if (currentNode.getType() == TokenTypes.IDENT) {
                 paramNamesAST.add(currentNode);
             }
@@ -152,7 +151,6 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
                     && currentNode.getNumberOfChildren() > 0) {
                 buildThrowParamNamesList(currentNode, paramNamesAST);
             }
-
         }
         return paramNamesAST;
     }
@@ -166,10 +164,8 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      * @return null-safe list of <code>LITERAL_THROW</code> literals
      */
     private List<DetailAST> makeThrowList(DetailAST parentAST) {
-
         final List<DetailAST> throwList = new LinkedList<>();
         for (DetailAST currentNode : getChildNodes(parentAST)) {
-
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
                 throwList.add(currentNode);
             }
@@ -180,7 +176,6 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
                     && currentNode.getNumberOfChildren() > 0) {
                 throwList.addAll(makeThrowList(currentNode));
             }
-
         }
         return throwList;
     }
@@ -201,11 +196,9 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
         final List<String> wrapExcNames = new LinkedList<>();
 
         for (DetailAST currentNode : getChildNodes(parentAST)) {
-
             if (currentNode.getType() == TokenTypes.IDENT
                     && currentNode.getText().equals(currentExcName)
                     && currentNode.getParent().getType() != TokenTypes.DOT) {
-
                 DetailAST temp = currentNode;
 
                 while (!temp.equals(currentCatchAST)
@@ -232,7 +225,6 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
                 wrapExcNames.addAll(makeExceptionsList(currentCatchAST,
                         currentNode, currentExcName));
             }
-
         }
         return wrapExcNames;
     }

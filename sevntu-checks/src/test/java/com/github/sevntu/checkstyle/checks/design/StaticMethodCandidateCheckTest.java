@@ -145,4 +145,5 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
             + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateCheckInterfaceMethod.java")
                 .getCanonicalPath(), expected);
     }
+
 }

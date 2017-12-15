@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class HideUtilityClassConstructorCheckTest
     extends BaseCheckTestSupport {
+
     /** Only static methods and no constructor - default ctor is visible */
     @Test
     public void testUtilClass() throws Exception {

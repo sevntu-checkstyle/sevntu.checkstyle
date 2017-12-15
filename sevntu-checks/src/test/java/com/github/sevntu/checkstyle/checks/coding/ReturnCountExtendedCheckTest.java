@@ -296,4 +296,5 @@ public class ReturnCountExtendedCheckTest extends BaseCheckTestSupport {
 
         verify(checkConfig, getPath("InputReturnCountExtendedCheckLambdas.java"), expected);
     }
+
 }

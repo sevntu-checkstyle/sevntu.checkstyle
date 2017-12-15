@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class CheckstyleTestMakeupCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testMiscFile() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -119,4 +120,5 @@ public class CheckstyleTestMakeupCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: OBJBLOCK", ex.getMessage());
         }
     }
+
 }

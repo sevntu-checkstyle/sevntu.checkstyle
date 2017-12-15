@@ -28,12 +28,12 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ForbidCCommentsInMethodsCheckTest extends
         BaseCheckTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
     @Test
     public void defaultTest()
             throws Exception {
-
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {
@@ -66,4 +66,5 @@ public class ForbidCCommentsInMethodsCheckTest extends
         final String[] expected = {};
         verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck3.java"), expected);
     }
+
 }

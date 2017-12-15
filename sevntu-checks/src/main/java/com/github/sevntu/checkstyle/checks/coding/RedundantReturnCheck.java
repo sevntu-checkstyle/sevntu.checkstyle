@@ -118,7 +118,6 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-
         final DetailAST blockAst = ast.getLastChild();
 
         switch (ast.getType()) {
@@ -149,7 +148,6 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return true if the block can be ignored.
      */
     private boolean ignoreLonelyReturn(DetailAST objectBlockAst) {
-
         return allowReturnInEmptyMethodsAndConstructors
                     && objectBlockAst.getFirstChild().getType()
                         == TokenTypes.LITERAL_RETURN;
@@ -170,7 +168,6 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return true if void method has non-empty body.
      */
     private static boolean isVoidMethodWithNonEmptyBody(DetailAST methodDefAst) {
-
         return methodDefAst.getLastChild().getType() == TokenTypes.SLIST
                     && methodDefAst.findFirstToken(TokenTypes.TYPE)
                         .findFirstToken(TokenTypes.LITERAL_VOID) != null
@@ -196,25 +193,21 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return list of redundant returns or empty list if none were found
      */
     private static List<DetailAST> getRedundantReturns(DetailAST objectBlockAst) {
-
         final List<DetailAST> redundantReturns = new ArrayList<>();
 
         final int placeForRedundantReturn = objectBlockAst
             .getLastChild().getPreviousSibling().getType();
 
         if (placeForRedundantReturn == TokenTypes.LITERAL_RETURN) {
-
             final DetailAST lastChildAst = objectBlockAst.getLastChild();
 
             final DetailAST redundantReturnAst = lastChildAst.getPreviousSibling();
 
             redundantReturns.add(redundantReturnAst);
-
         }
         else if (placeForRedundantReturn == TokenTypes.LITERAL_TRY
                 && !getRedundantReturnsInTryCatchBlock(objectBlockAst
                     .findFirstToken(TokenTypes.LITERAL_TRY)).isEmpty()) {
-
             final List<DetailAST> redundantsAst = getRedundantReturnsInTryCatchBlock(objectBlockAst
                     .findFirstToken(TokenTypes.LITERAL_TRY));
 
@@ -231,7 +224,6 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return list of redundant returns or empty list if none were found
      */
     private static List<DetailAST> getRedundantReturnsInTryCatchBlock(DetailAST tryAst) {
-
         final List<DetailAST> redundantReturns = new ArrayList<>();
 
         DetailAST tryBlockAst = null;
@@ -272,7 +264,6 @@ public class RedundantReturnCheck extends AbstractCheck {
 
         // if redundant return is in finally block
         if (blockAst.getNextSibling() != null) {
-
             final DetailAST afterCatchBlockAst = blockAst.getNextSibling().getLastChild()
                 .getLastChild();
 
@@ -295,7 +286,6 @@ public class RedundantReturnCheck extends AbstractCheck {
         DetailAST catchBlockAst = null;
         if (blockAst.getNextSibling() != null
                 && blockAst.getNextSibling().getType() == TokenTypes.LITERAL_CATCH) {
-
             catchBlockAst = blockAst.getNextSibling();
         }
         return catchBlockAst;
@@ -308,11 +298,9 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return redundant literal return if found, else null.
      */
     private static DetailAST getRedundantReturnInBlock(DetailAST statementAst) {
-
         DetailAST redundantReturnAst = null;
 
         if (statementAst != null) {
-
             if (statementAst.getType() == TokenTypes.LITERAL_RETURN) {
                 redundantReturnAst = statementAst;
             }
@@ -341,7 +329,6 @@ public class RedundantReturnCheck extends AbstractCheck {
         DetailAST toVisitAst = currentNodeAst;
         DetailAST returnAst = null;
         while (toVisitAst != null) {
-
             toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
 
             if (toVisitAst != null
@@ -350,12 +337,10 @@ public class RedundantReturnCheck extends AbstractCheck {
                             == TokenTypes.RCURLY)
                     && toVisitAst.getType() == TokenTypes.LITERAL_RETURN
                     && toVisitAst.getParent().getNextSibling() == null) {
-
                 returnAst = toVisitAst;
 
                 while (toVisitAst != null
                             && toVisitAst.getParent() != currentNodeAst.getLastChild()) {
-
                     toVisitAst = toVisitAst.getParent();
                 }
 
@@ -370,4 +355,5 @@ public class RedundantReturnCheck extends AbstractCheck {
         currentNodeAst = Utils.getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
         return redundantReturnAst;
     }
+
 }

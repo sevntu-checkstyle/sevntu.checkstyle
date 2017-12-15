@@ -49,4 +49,5 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
         };
         verify(checkConfig, getPath("InputInnerClassCheck.java"), expected);
     }
+
 }

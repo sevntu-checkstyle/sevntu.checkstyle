@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class AvoidDefaultSerializableInInnerClassesCheckTest extends
     BaseCheckTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
     @Test
@@ -106,4 +107,5 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
                 expected);
     }
+
 }

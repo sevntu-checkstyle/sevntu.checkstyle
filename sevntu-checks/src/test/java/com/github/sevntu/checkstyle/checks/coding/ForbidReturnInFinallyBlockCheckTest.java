@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ForbidReturnInFinallyBlockCheckTest
         extends BaseCheckTestSupport {
+
     /**
      * An error message for current check.
      */
@@ -48,4 +49,5 @@ public class ForbidReturnInFinallyBlockCheckTest
         verify(checkConfig, getPath("InputForbidReturnInFinallyBlockCheck.java"),
                 expected);
     }
+
 }

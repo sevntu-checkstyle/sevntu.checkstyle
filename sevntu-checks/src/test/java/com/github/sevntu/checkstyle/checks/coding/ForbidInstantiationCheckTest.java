@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *         Yaroslavtsev</a>
  */
 public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testNullProperties() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -133,4 +134,5 @@ public class ForbidInstantiationCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

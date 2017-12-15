@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  */
 public class PublicReferenceToPrivateTypeCheckTest extends
         BaseCheckTestSupport {
+
     /**
      * Test file without method return instance of private class.
      * @throws Exception

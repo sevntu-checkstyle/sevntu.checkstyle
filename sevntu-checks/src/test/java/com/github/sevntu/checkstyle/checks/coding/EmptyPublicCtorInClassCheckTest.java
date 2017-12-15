@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
+
     private final String message = getCheckMessage(MSG_KEY);
 
     @Test
@@ -183,4 +184,5 @@ public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
+
 }

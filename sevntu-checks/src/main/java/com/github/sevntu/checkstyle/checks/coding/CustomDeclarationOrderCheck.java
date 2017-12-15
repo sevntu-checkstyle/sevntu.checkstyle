@@ -150,6 +150,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
 public class CustomDeclarationOrderCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -346,11 +347,9 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
-
             case TokenTypes.CLASS_DEF:
                 if (!isClassDefInMethodDef(ast)) {
                     if (checkInnerClasses && !classDetails.isEmpty()) {
-
                         final int position = getPositionInOrderDeclaration(ast);
 
                         if (position != -1) {
@@ -371,7 +370,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 final DetailAST objBlockAst = ast.getParent();
                 if (objBlockAst != null
                     && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
-
                     final DetailAST classDefAst = objBlockAst.getParent();
 
                     if (classDefAst.getType() == TokenTypes.CLASS_DEF
@@ -392,7 +390,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                         }
                     }
                 }
-
         }
     }
 
@@ -405,7 +402,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final ClassDetail classDetail = classDetails.pop();
 
             if (checkGettersSetters) {
-
                 final Map<DetailAST, DetailAST> gettersSetters =
                         classDetail.getWrongOrderedGettersSetters();
 
@@ -559,7 +555,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      */
     private void logWrongOrderedSetters(Map<DetailAST, DetailAST> gettersSetters) {
         for (Entry<DetailAST, DetailAST> entry: gettersSetters.entrySet()) {
-
             final DetailAST setterAst = entry.getKey();
             final DetailAST getterAst = entry.getValue();
 
@@ -613,7 +608,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 if (currentRule.hasRule(ANNON_CLASS_FIELD_MACRO)
                         || currentRule.hasRule(GETTER_SETTER_MACRO)
                         || currentRule.hasRule(MAIN_METHOD_MACRO)) {
-
                     final String methodName = getIdentifier(ast);
                     final ClassDetail classDetail = classDetails.peek();
 
@@ -703,7 +697,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         // no parameters
         if (parameters.getChildCount() == 0) {
-
             final DetailAST statementsAst = methodDef.findFirstToken(TokenTypes.SLIST);
             if (statementsAst != null) {
                 final DetailAST returnStatementAst = statementsAst
@@ -763,7 +756,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         final DetailAST methodTypeAst = methodDefAst.findFirstToken(TokenTypes.TYPE);
 
         if (methodTypeAst.branchContains(TokenTypes.LITERAL_VOID)) {
-
             final DetailAST statementsAst = methodDefAst.findFirstToken(TokenTypes.SLIST);
             final String methodName = getIdentifier(methodDefAst);
             final String setterFieldName = fieldPrefix
@@ -896,7 +888,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         DetailAST currentStatement = statementsAst.getFirstChild();
 
         while (currentStatement != null && currentStatement != statementsAst) {
-
             String nameOfSetterField = null;
             if (currentStatement.getType() == TokenTypes.ASSIGN) {
                 nameOfSetterField = getNameOfAssignedField(currentStatement);
@@ -938,7 +929,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         if (assignAst.getChildCount() > 0
                         && (assignAst.getLastChild().getType() == TokenTypes.IDENT
                         || assignAst.getLastChild().getType() == TokenTypes.METHOD_CALL)) {
-
             final DetailAST methodCallDot = assignAst.getFirstChild();
             if (methodCallDot.getChildCount() == 2
                 && "this".equals(methodCallDot.getFirstChild().getText())) {
@@ -1016,9 +1006,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
-
                 nameOfGetterField = exprFirstChild.getText();
-
             }
             else if (exprFirstChild.getType() == TokenTypes.DOT
                     && exprFirstChild.getChildCount() == 2
@@ -1177,6 +1165,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * Private class for members of class and their patterns.
      */
     private static final class FormatMatcher {
+
         /** The regexp to match against. */
         private Pattern regExp;
         /** The Member of Class. */
@@ -1260,12 +1249,14 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         public String toString() {
             return rule;
         }
+
     }
 
     /**
      * Class to keep current position and collect getters, setters.
      */
     private static class ClassDetail {
+
         /**
          * Current position in custom order declaration.
          */
@@ -1333,7 +1324,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          */
         private static Map<DetailAST, DetailAST> getWrongOrderedGettersSetters(
                 List<DetailAST> allGettersSetters, int index) {
-
             final DetailAST getterAst = allGettersSetters.get(index);
             final String getterName = getIdentifier(getterAst);
             String getterField = null;
@@ -1401,6 +1391,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             }
             return result;
         }
+
     }
 
 }

@@ -46,6 +46,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  */
 
 public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -106,7 +107,6 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
      *            uses to get the parent or previous sibling token.
      */
     public void work(DetailAST ast) {
-
         DetailAST nextNode = ast.getNextSibling();
 
         if (nextNode != null) {
@@ -139,7 +139,6 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-
         final DetailAST token = ast;
         final boolean inFor = ast.getParent().getType() == TokenTypes.FOR_INIT;
         final boolean inClass = ast.getParent().getParent().getType() == TokenTypes.CLASS_DEF;
@@ -154,7 +153,6 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
         else if (!ignoreMethods && !inFor) {
             work(token);
         }
-
     }
 
     /**
@@ -180,4 +178,5 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
 
         return currentNode;
     }
+
 }

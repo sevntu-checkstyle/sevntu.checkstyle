@@ -28,6 +28,7 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class UtilsTest {
+
     @Test
     public void testIsProperUtilsClass() throws ReflectiveOperationException {
         assertUtilsClassHasPrivateConstructor(Utils.class);
@@ -43,4 +44,5 @@ public class UtilsTest {
             Assert.assertEquals("Found unsupported token: CLASS_DEF", ex.getMessage());
         }
     }
+
 }

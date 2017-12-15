@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
 public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
     @Test
@@ -59,4 +60,5 @@ public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport {
         verify(checkConfig, getPath("InputEitherLogOrThrowCheck.java"),
                 expected);
     }
+
 }

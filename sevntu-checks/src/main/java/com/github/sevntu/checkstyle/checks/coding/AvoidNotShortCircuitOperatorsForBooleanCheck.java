@@ -112,7 +112,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
 
     @Override
     public final void visitToken(final DetailAST detailAST) {
-
         DetailAST currentNode = detailAST;
         // look for EXPR which is always around BOR/BAND... operators
         while (currentNode != null && currentNode.getType() != TokenTypes.EXPR) {
@@ -169,7 +168,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         for (DetailAST currentNode : getChildren(curNode.getLastChild())) {
             if (currentNode.getLineNo() < line
                     && currentNode.getType() == TokenTypes.VARIABLE_DEF) {
-
                 if (isBooleanType(currentNode)) {
                     booleanVariablesNames.add(currentNode.findFirstToken(
                             TokenTypes.IDENT).getText());
@@ -178,7 +176,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         }
 
         boolean result = false;
-
         for (String name : childNames) {
             if (booleanVariablesNames.contains(name)) {
                 result = true;
@@ -197,9 +194,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      */
     public final List<String> getSupportedOperandsNames(
             final DetailAST exprParentAST) {
-
         for (DetailAST currentNode : getChildren(exprParentAST)) {
-
             if (currentNode.getNumberOfChildren() > 0
                     && currentNode.getType() != TokenTypes.METHOD_CALL) {
                 getSupportedOperandsNames(currentNode);
@@ -221,9 +216,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      *     "true" or "false" keywords and false otherwise.
      */
     public final boolean hasTrueOrFalseLiteral(final DetailAST parentAST) {
-
         for (DetailAST currentNode : getChildren(parentAST)) {
-
             if (currentNode.getNumberOfChildren() > 0) {
                 hasTrueOrFalseLiteral(currentNode);
             }

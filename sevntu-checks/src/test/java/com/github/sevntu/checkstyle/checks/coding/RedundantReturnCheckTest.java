@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class RedundantReturnCheckTest extends BaseCheckTestSupport {
+
     @Test
     public void testInputWithIgnoreEmptyConstructorsTrue()
             throws Exception {
@@ -84,7 +85,6 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig, getPath("InputRedundantReturnCheck.java"), expected);
-
     }
 
     @Test
@@ -96,7 +96,6 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
 
         verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
                 + "coding/InputRedundantReturnCheckTestNPE.java", expected);
-
     }
 
     @Test
@@ -107,7 +106,6 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputRedundantReturnCheckMethodInInterface.java"), expected);
-
     }
 
     @Test
@@ -118,7 +116,6 @@ public class RedundantReturnCheckTest extends BaseCheckTestSupport {
         final String[] expected = {};
 
         verify(checkConfig, getPath("InputRedundantReturnCheckFalsePositive.java"), expected);
-
     }
 
     @Test

@@ -52,6 +52,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Antonenko Dmitriy
  */
 public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
+
     /**Warning message key.*/
     public static final String MSG_KEY_ASSIGN = "unnecessary.paren.assign";
     /**Warning message key.*/
@@ -206,7 +207,6 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
                     subtreeType, EQUALS)) {
                     log(ast, MSG_KEY_ASSIGN);
                 }
-
             }
         }
     }
@@ -221,7 +221,6 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
             || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
             // An expression is surrounded by parentheses.
             if (type == TokenTypes.EXPR) {
-
                 // If 'mParentToSkip' == 'aAST', then we've already logged a
                 // warning about an immediate child node in visitToken, so we don't
                 // need to log another one here.
@@ -385,4 +384,5 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         this.ignoreCalculationOfBooleanVariablesWithAssert =
             ignoreCalculationOfBooleanVariablesWithAssert;
     }
+
 }

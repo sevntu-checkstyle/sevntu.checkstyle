@@ -63,4 +63,5 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
                 getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckNonClasses.java"),
                 CommonUtils.EMPTY_STRING_ARRAY);
     }
+
 }

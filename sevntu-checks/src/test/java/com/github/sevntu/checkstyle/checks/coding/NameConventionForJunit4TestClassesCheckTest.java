@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
 public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSupport {
+
     private final String msgFormat =
             getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY);
 
@@ -215,4 +216,5 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
     private String buildMesssage(String lineNumber, String arguments) {
         return lineNumber + MessageFormat.format(msgFormat, arguments);
     }
+
 }

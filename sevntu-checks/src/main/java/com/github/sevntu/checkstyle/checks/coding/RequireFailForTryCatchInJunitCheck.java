@@ -67,6 +67,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
  * @author Richard Veach
  */
 public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */
@@ -243,4 +244,5 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
         }
         return imp.getText();
     }
+
 }

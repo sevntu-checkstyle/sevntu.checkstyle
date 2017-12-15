@@ -116,6 +116,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
 public class EitherLogOrThrowCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */

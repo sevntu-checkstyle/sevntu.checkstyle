@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author Baratali Izmailov <a href="mailto:barataliba@gmail.com">email</a>
  */
 public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */
@@ -270,4 +271,5 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     private static boolean hasChildToken(DetailAST ast, int tokenType) {
         return ast.findFirstToken(tokenType) != null;
     }
+
 }

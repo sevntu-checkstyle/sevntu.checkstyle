@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
  */
 public final class IllegalCatchExtendedCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -151,7 +152,6 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
         final DetailAST[] asts = getChilds(parentAST);
 
         for (DetailAST currentNode : asts) {
-
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getNumberOfChildren() > 0) {
                 result = getThrowAST(currentNode);
@@ -194,4 +194,5 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
     protected boolean isIllegalClassName(final String ident) {
         return illegalClassNames.contains(ident);
     }
+
 }

@@ -29,6 +29,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * @author Damian Szczepanik
  */
 public final class Utils {
+
     /** Prevent instances. */
     private Utils() {
     }
@@ -74,4 +75,5 @@ public final class Utils {
         }
         return toVisitAst;
     }
+
 }

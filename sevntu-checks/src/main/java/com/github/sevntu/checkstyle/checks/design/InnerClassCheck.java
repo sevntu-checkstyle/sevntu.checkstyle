@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
  */
 public class InnerClassCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -83,4 +84,5 @@ public class InnerClassCheck extends AbstractCheck {
             rootClass = true;
         }
     }
+
 }

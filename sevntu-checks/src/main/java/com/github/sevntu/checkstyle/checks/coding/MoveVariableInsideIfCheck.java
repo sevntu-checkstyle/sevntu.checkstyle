@@ -114,6 +114,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * @author Richard Veach
  */
 public class MoveVariableInsideIfCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -275,6 +276,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * @author Richard Veach
      */
     private static class Holder {
+
         /** The name of the variable being examined. */
         private String variableName;
         /** Switch to trigger ending examining more nodes. */
@@ -357,5 +359,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
 
             return found;
         }
+
     }
+
 }

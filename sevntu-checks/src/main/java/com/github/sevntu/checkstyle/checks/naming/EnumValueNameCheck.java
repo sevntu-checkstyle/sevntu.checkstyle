@@ -49,6 +49,7 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
  * @author Pavel Baranchikov
  */
 public class EnumValueNameCheck extends AbstractNameCheck {
+
     /**
      * Default pattern for Values Enumeration names.
      */
@@ -81,4 +82,5 @@ public class EnumValueNameCheck extends AbstractNameCheck {
     protected boolean mustCheckName(DetailAST ast) {
         return true;
     }
+
 }
