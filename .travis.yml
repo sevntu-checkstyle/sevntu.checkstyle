@@ -19,12 +19,12 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="eclipse-cs"
-        - CMD_="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD_="cd sevntu-checks && mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
         - CMD0="git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git"
         - CMD1="&& cd eclipse-cs-git/ && git checkout 8.5.1"
-        - CMD2="&& cd net.sf.eclipsecs.parent/ && mvn install"
+        - CMD2="&& cd net.sf.eclipsecs.parent/ && mvn -e install"
         - CMD3="&& cd ../../"
-        - CMD4="&& cd eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc"
+        - CMD4="&& cd eclipsecs-sevntu-plugin && mvn -e verify && mvn -e javadoc:javadoc"
         - CMD=$CMD_" && "$CMD0$CMD1$CMD2$CMD3$CMD4
         - PREINSTALL="true"
 
@@ -32,31 +32,31 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="maven-plugin"
-        - CMD0="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
-        - CMD=$CMD0" && ""cd sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc"
+        - CMD0="cd sevntu-checks && mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD=$CMD0" && ""cd sevntu-checkstyle-maven-plugin && mvn -e verify && mvn -e javadoc:javadoc"
 
     # idea-extension
     - jdk: oraclejdk8
       env:
         - DESC="idea-extension"
-        - CMD0="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
-        - CMD=$CMD0" && ""cd sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc"
+        - CMD0="cd sevntu-checks && mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD=$CMD0" && ""cd sevntu-checkstyle-idea-extension && mvn -e verify && mvn -e javadoc:javadoc"
 
     # sonar-plugin
     - jdk: oraclejdk8
       env:
         - DESC="sonar-plugin"
-        - CMD0="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
-        - CMD=$CMD0" && ""cd sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc"
+        - CMD0="cd sevntu-checks && mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
+        - CMD=$CMD0" && ""cd sevntu-checkstyle-sonar-plugin && mvn -e verify && mvn -e javadoc:javadoc"
 
     # checks
     - jdk: oraclejdk8
       env:
         - DESC="checks"
-        - CMD0="cd sevntu-checks && mvn install"
-        - CMD1="&& mvn verify -Pselftesting"
-        - CMD2="&& mvn javadoc:javadoc"
-        - CMD3="&& mvn jacoco:report coveralls:jacoco"
+        - CMD0="cd sevntu-checks && mvn -e install"
+        - CMD1="&& mvn -e verify -Pselftesting"
+        - CMD2="&& mvn -e javadoc:javadoc"
+        - CMD3="&& mvn -e jacoco:report coveralls:jacoco"
         - CMD=$CMD0$CMD1$CMD2$CMD3
 
     # regression on checkstyle
@@ -64,16 +64,16 @@ matrix:
       env:
         - DESC="checkstyle regression"
         - CMD0="git clone https://github.com/checkstyle/checkstyle "
-        - CMD1=" && cd sevntu-checks && mvn install -DskipTests -Dcheckstyle.skip=true -Dcobertura.skip=true"
-        - CMD2=" && mvn test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../"
-        - CMD3=" && cd ../ && cd checkstyle && mvn clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true"
+        - CMD1=" && cd sevntu-checks && mvn -e install -DskipTests -Dcheckstyle.skip=true -Dcobertura.skip=true"
+        - CMD2=" && mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../"
+        - CMD3=" && cd ../ && cd checkstyle && mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true"
         - CMD=$CMD0$CMD1$CMD2$CMD3
 
     # eclipse static analysis
     - jdk: oraclejdk8
       env:
         - DESC="eclipse static analysis
-        - CMD="cd sevntu-checks && mvn clean compile exec:exec -Peclipse-compiler"
+        - CMD="cd sevntu-checks && mvn -e clean compile exec:exec -Peclipse-compiler"
 
     # testing of PR format
     - env:
