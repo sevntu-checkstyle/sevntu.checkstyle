@@ -21,7 +21,7 @@ matrix:
         - DESC="eclipse-cs"
         - CMD_="cd sevntu-checks && mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true && cd .. "
         - CMD0="git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git"
-        - CMD1="&& cd eclipse-cs-git/ && git checkout 7.6.0"
+        - CMD1="&& cd eclipse-cs-git/ && git checkout 8.5.1"
         - CMD2="&& cd net.sf.eclipsecs.parent/ && mvn install"
         - CMD3="&& cd ../../"
         - CMD4="&& cd eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc"

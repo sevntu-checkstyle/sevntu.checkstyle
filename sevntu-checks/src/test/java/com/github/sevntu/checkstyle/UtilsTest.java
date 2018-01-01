@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle;
 
-import static com.puppycrawl.tools.checkstyle.internal.TestUtils.assertUtilsClassHasPrivateConstructor;
+import static com.puppycrawl.tools.checkstyle.internal.utils.TestUtil.isUtilsClassHasPrivateConstructor;
 import static org.junit.Assert.fail;
 
 import org.junit.Assert;
@@ -31,7 +31,8 @@ public class UtilsTest {
 
     @Test
     public void testIsProperUtilsClass() throws ReflectiveOperationException {
-        assertUtilsClassHasPrivateConstructor(Utils.class);
+        Assert.assertTrue("Constructor is not private",
+                isUtilsClassHasPrivateConstructor(Utils.class, true));
     }
 
     @Test

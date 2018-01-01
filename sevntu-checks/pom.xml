@@ -19,7 +19,7 @@
     <checkstyle.version>8.7</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <!-- It is compile dependency to checkstyle, this version has to be the same as eclispe-cs depends on -->
-    <checkstyle.eclipse-cs.version>7.6</checkstyle.eclipse-cs.version>
+    <checkstyle.eclipse-cs.version>8.5</checkstyle.eclipse-cs.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
   </properties>

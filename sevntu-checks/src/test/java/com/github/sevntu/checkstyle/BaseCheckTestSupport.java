@@ -36,13 +36,13 @@ import java.util.Locale;
 import java.util.Properties;
 
 import com.google.common.collect.Lists;
-import com.puppycrawl.tools.checkstyle.AuditEventUtFormatter;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.DefaultLogger;
 import com.puppycrawl.tools.checkstyle.TreeWalker;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.Configuration;
+import com.puppycrawl.tools.checkstyle.internal.utils.AuditEventUtFormatter;
 
 public abstract class BaseCheckTestSupport {
 
