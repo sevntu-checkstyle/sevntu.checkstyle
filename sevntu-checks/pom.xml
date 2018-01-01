@@ -16,7 +16,7 @@
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
     <!-- it is not compile dependency to checkstyle, this version is only for maven plugins -->
-    <checkstyle.version>8.6</checkstyle.version>
+    <checkstyle.version>8.7</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <!-- It is compile dependency to checkstyle, this version has to be the same as eclispe-cs depends on -->
     <checkstyle.eclipse-cs.version>7.6</checkstyle.eclipse-cs.version>
