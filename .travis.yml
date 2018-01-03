@@ -60,14 +60,15 @@ matrix:
         - CMD=$CMD0$CMD1$CMD2$CMD3
 
     # regression on checkstyle
-    - jdk: oraclejdk8
-      env:
-        - DESC="checkstyle regression"
-        - CMD0="git clone https://github.com/checkstyle/checkstyle "
-        - CMD1=" && cd sevntu-checks && mvn -e install -DskipTests -Dcheckstyle.skip=true -Dcobertura.skip=true"
-        - CMD2=" && mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../"
-        - CMD3=" && cd ../ && cd checkstyle && mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true"
-        - CMD=$CMD0$CMD1$CMD2$CMD3
+    # disabled until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/629
+    #- jdk: oraclejdk8
+    #  env:
+    #    - DESC="checkstyle regression"
+    #    - CMD0="git clone https://github.com/checkstyle/checkstyle "
+    #    - CMD1=" && cd sevntu-checks && mvn -e install -DskipTests -Dcheckstyle.skip=true -Dcobertura.skip=true"
+    #    - CMD2=" && mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../"
+    #    - CMD3=" && cd ../ && cd checkstyle && mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true"
+    #    - CMD=$CMD0$CMD1$CMD2$CMD3
 
     # eclipse static analysis
     - jdk: oraclejdk8
