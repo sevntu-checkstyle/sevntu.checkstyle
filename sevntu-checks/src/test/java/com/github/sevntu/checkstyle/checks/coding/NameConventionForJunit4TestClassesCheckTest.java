@@ -19,21 +19,21 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.text.MessageFormat;
-
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * @author <a href="mailto:denant0vz@gmail.com">Denis Antonenkov</a>
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
  */
-public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSupport {
+public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleTestSupport {
 
-    private final String msgFormat =
-            getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testAnnotatedClass()
@@ -46,7 +46,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         customConfig.addAttribute("methodAnnotationNameRegex", "");
 
         final String[] expected = {
-            buildMesssage("14:18: ",
+            "14:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
                     ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
@@ -65,7 +65,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
-            buildMesssage("8:18: ",
+            "8:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
                     ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
@@ -101,7 +101,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
-            buildMesssage("7:18: ",
+            "7:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
                     ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
@@ -120,7 +120,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         customConfig.addAttribute("methodAnnotationNameRegex", "org.junit.Test");
 
         final String[] expected = {
-            buildMesssage("8:18: ",
+            "8:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
                     ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
@@ -139,7 +139,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         customConfig.addAttribute("methodAnnotationNameRegex", "");
 
         final String[] expected = {
-            buildMesssage("7:18: ",
+            "7:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
                     ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
@@ -158,7 +158,7 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         customConfig.addAttribute("methodAnnotationNameRegex", "SomeTestAnnotation");
 
         final String[] expected = {
-            buildMesssage("6:18: ",
+            "6:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
                     ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases"),
         };
 
@@ -176,7 +176,8 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
         customConfig.addAttribute("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
-                buildMesssage("5:14: ", "Hello*"),
+            "5:14: "
+                    + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY, "Hello*"),
         };
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck8.java"),
@@ -211,10 +212,6 @@ public class NameConventionForJunit4TestClassesCheckTest extends BaseCheckTestSu
 
         verify(customConfig, getPath("InputNameConventionForJunit4TestClassesCheck8.java"),
                 expected);
-    }
-
-    private String buildMesssage(String lineNumber, String arguments) {
-        return lineNumber + MessageFormat.format(msgFormat, arguments);
     }
 
 }

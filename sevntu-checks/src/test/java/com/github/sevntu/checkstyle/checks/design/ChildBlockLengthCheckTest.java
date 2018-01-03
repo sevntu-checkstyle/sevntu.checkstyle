@@ -23,14 +23,19 @@ import static com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck.M
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  */
-public class ChildBlockLengthCheckTest extends BaseCheckTestSupport {
+public class ChildBlockLengthCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     @Test
     public void testNpeOnAllBlockTypes() throws Exception {

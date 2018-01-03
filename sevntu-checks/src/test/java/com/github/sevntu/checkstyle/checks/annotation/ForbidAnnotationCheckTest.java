@@ -23,7 +23,7 @@ import static com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationChe
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
@@ -32,7 +32,12 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  *
  */
-public class ForbidAnnotationCheckTest extends BaseCheckTestSupport {
+public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/annotation";
+    }
 
     @Test
     public void testDefaultCheck() throws Exception {

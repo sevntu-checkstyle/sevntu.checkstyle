@@ -23,12 +23,17 @@ import static com.github.sevntu.checkstyle.checks.design.InnerClassCheck.MSG_KEY
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class InnerClassCheckTest extends BaseCheckTestSupport {
+public class InnerClassCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     @Test
     public void testMembersBeforeInner() throws Exception {

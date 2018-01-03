@@ -23,10 +23,15 @@ import static com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptim
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class LogicConditionNeedOptimizationCheckTest extends BaseCheckTestSupport {
+public class LogicConditionNeedOptimizationCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void test() throws Exception {

@@ -23,13 +23,17 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializabl
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class AvoidDefaultSerializableInInnerClassesCheckTest extends
-    BaseCheckTestSupport {
+public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testWithAllowPartiaFalse()

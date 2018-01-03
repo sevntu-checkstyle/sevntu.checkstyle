@@ -23,11 +23,16 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExcepti
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
-public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
+public class AvoidHidingCauseExceptionCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void issue52Test() throws Exception {

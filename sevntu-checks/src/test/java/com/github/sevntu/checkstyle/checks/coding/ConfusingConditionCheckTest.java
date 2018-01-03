@@ -23,15 +23,20 @@ import static com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
  */
-public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
+public class ConfusingConditionCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testDefault() throws Exception {

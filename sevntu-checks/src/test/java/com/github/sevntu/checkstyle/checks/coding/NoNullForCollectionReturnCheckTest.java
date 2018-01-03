@@ -23,12 +23,17 @@ import static com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionRetu
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class NoNullForCollectionReturnCheckTest extends BaseCheckTestSupport {
+public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testArraysNotDeep() throws Exception {

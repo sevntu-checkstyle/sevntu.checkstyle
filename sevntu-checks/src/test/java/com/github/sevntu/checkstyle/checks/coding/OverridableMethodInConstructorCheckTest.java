@@ -24,14 +24,19 @@ import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInCons
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class OverridableMethodInConstructorCheckTest extends BaseCheckTestSupport {
+public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestSupport {
 
     private static final String CTOR_KEY = "constructor";
     private static final String CLONE_KEY = "'clone()' method";
     private static final String READ_OBJECT_KEY = "'readObject()' method";
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void revereCodeTest() throws Exception {

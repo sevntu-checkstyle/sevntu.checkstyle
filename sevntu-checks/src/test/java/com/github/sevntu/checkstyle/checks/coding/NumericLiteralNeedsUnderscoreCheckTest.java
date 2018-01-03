@@ -32,17 +32,22 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.internal.WhiteboxImpl;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
 import com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck.NumericType;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(NumericType.class)
-public class NumericLiteralNeedsUnderscoreCheckTest extends BaseCheckTestSupport {
+public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSupport {
 
     private static final String EXCEPTION_MESSAGE = "Unexpected numeric type ";
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void test() throws Exception {

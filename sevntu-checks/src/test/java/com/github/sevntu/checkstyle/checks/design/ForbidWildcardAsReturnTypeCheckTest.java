@@ -27,7 +27,7 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
@@ -35,7 +35,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * Test class for ForbidWildcardInReturnTypeCheck.
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
-public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
+public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSupport {
 
     /**
      * Line numbers with methods which have wildcard in return type.
@@ -108,6 +108,11 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         LINES.addAll(LINES_WITH_PRIVATE_METHODS);
         LINES.addAll(LINES_WITH_PROTECTED_METHODS);
         LINES.addAll(LINES_WITH_PUBLIC_METHODS);
+    }
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
     }
 
     /**

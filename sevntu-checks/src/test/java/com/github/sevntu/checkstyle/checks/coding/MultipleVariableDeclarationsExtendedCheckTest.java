@@ -24,14 +24,19 @@ import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclara
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /** Test class. */
-public class MultipleVariableDeclarationsExtendedCheckTest extends BaseCheckTestSupport {
+public class MultipleVariableDeclarationsExtendedCheckTest extends AbstractModuleTestSupport {
 
     private final String msgVarDeclarationsComa = getCheckMessage(MSG_VAR_DECLARATIONS_COMMA);
     private final String msgVarDeclarations = getCheckMessage(MSG_VAR_DECLARATIONS);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testStandartSituation() throws Exception {

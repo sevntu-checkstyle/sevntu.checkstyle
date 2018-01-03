@@ -23,10 +23,15 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOpe
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTestSupport {
+public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testAll() throws Exception {

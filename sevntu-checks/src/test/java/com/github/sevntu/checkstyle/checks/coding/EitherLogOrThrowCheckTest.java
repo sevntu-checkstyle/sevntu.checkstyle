@@ -23,16 +23,21 @@ import static com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck.M
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * Test for EitherLogOrThrowCheck.
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
-public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport {
+public class EitherLogOrThrowCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void test() throws Exception {

@@ -24,10 +24,15 @@ import static com.github.sevntu.checkstyle.checks.annotation.RequiredParameterFo
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class RequiredParameterForAnnotationCheckTest extends BaseCheckTestSupport {
+public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/annotation";
+    }
 
     @Test
     public void testValidateRequiredParameter()

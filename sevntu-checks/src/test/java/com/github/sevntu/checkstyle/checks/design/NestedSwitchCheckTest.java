@@ -23,14 +23,19 @@ import static com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck.MSG_K
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class NestedSwitchCheckTest extends BaseCheckTestSupport {
+public class NestedSwitchCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     @Test
     public void testSimple() throws Exception {

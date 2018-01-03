@@ -24,14 +24,19 @@ import static com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCou
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
 /**
  * @author <a href="mailto:nesterenko-aleksey@list.ru"> Aleksey Nesterenko</a>
  */
-public class TernaryPerExpressionCountCheckTest extends BaseCheckTestSupport {
+public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testWithDefaultTernaryPerExpressionCountValue()

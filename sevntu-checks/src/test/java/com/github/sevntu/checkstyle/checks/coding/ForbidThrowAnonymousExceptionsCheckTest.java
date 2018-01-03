@@ -23,10 +23,15 @@ import static com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExc
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidThrowAnonymousExceptionsCheckTest extends BaseCheckTestSupport {
+public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void anonymousExceptionTest() throws Exception {
