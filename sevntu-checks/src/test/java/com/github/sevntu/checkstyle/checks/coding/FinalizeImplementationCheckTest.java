@@ -26,10 +26,15 @@ import static com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationC
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class FinalizeImplementationCheckTest extends BaseCheckTestSupport {
+public class FinalizeImplementationCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void basicTest() throws Exception {

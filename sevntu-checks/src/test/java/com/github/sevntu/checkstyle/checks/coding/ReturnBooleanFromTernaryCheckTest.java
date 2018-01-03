@@ -23,12 +23,17 @@ import static com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernar
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ReturnBooleanFromTernaryCheckTest extends BaseCheckTestSupport {
+public class ReturnBooleanFromTernaryCheckTest extends AbstractModuleTestSupport {
 
     private final String warninigMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testDefault() throws Exception {

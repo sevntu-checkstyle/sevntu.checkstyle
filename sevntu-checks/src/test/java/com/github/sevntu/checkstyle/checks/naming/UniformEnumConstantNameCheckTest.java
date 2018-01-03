@@ -26,7 +26,7 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
@@ -35,12 +35,11 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
  *
  * @author Pavel Baranchikov
  */
-public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
+public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport {
 
-    private final String inputFile;
-
-    public UniformEnumConstantNameCheckTest() {
-        inputFile = getPath("InputUniformEnumConstantNameCheck.java");
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/naming";
     }
 
     /**
@@ -62,7 +61,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
                 buildMessage(90, 9, "WF_First",
                         UniformEnumConstantNameCheck.DEFAULT_PATTERN),
         };
-        verify(checkConfig, inputFile, expected);
+        verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
     }
 
     /**
@@ -88,7 +87,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
                 buildMessage(90, 9, "WF_First",
                         "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"),
         };
-        verify(checkConfig, inputFile, expected);
+        verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
     }
 
     /**
@@ -105,7 +104,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("formats",
                 "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$" + ",.*");
         final String[] expected = {};
-        verify(checkConfig, inputFile, expected);
+        verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
     }
 
     /**
@@ -122,7 +121,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("formats", "\\");
         final String[] expected = {};
         try {
-            verify(checkConfig, inputFile, expected);
+            verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
             fail();
         }
         catch (CheckstyleException ex) {
@@ -146,7 +145,7 @@ public class UniformEnumConstantNameCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("tokens", "INTERFACE_DEF");
         final String[] expected = {};
         try {
-            verify(checkConfig, inputFile, expected);
+            verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
             fail();
         }
         catch (CheckstyleException ex) {

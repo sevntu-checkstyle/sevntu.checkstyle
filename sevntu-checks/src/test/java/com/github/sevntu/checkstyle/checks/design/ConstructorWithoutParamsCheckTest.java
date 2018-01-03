@@ -24,11 +24,16 @@ import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
+public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     @Test
     public void testDefaultConfigProhibitsExceptionsWithoutParams() throws Exception {

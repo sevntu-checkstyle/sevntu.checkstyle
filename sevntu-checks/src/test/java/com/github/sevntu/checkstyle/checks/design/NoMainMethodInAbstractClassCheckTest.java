@@ -23,14 +23,14 @@ import static com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractC
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * Test class for NoMainMethodInAbstractClass check.
  * @author Baratali Izmailov
  */
-public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport {
+public class NoMainMethodInAbstractClassCheckTest extends AbstractModuleTestSupport {
 
     /**
      * Name of file with messages.
@@ -40,6 +40,11 @@ public class NoMainMethodInAbstractClassCheckTest extends BaseCheckTestSupport {
      * Message for this check.
      */
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     /**
      * Main test.

@@ -24,10 +24,15 @@ import static com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck.MS
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class EnumValueNameCheckTest extends BaseCheckTestSupport {
+public class EnumValueNameCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/naming";
+    }
 
     @Test
     public void testDefault()

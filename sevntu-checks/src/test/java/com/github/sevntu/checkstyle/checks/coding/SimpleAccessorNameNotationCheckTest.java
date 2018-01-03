@@ -24,13 +24,18 @@ import static com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotat
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class SimpleAccessorNameNotationCheckTest extends BaseCheckTestSupport {
+public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSupport {
 
     private final String warningGetterMessage = getCheckMessage(MSG_KEY_GETTER);
     private final String warningSetterMessage = getCheckMessage(MSG_KEY_SETTER);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void test() throws Exception {

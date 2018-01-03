@@ -23,16 +23,20 @@ import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBl
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidReturnInFinallyBlockCheckTest
-        extends BaseCheckTestSupport {
+public class ForbidReturnInFinallyBlockCheckTest extends AbstractModuleTestSupport {
 
     /**
      * An error message for current check.
      */
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testDefault()

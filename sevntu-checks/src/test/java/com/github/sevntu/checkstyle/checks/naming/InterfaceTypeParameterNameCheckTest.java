@@ -21,14 +21,18 @@ package com.github.sevntu.checkstyle.checks.naming;
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class InterfaceTypeParameterNameCheckTest
-    extends BaseCheckTestSupport {
+public class InterfaceTypeParameterNameCheckTest extends AbstractModuleTestSupport {
 
     /** Warning message key. */
     private static final String MSG_KEY = "name.invalidPattern";
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/naming";
+    }
 
     @Test
     public void testInterfaceDefault()

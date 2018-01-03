@@ -1,10 +1,8 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
-import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import org.junit.Test;
 
-public class InputAvoidModifiersForTypesCheck2 extends BaseCheckTestSupport
+public class InputAvoidModifiersForTypesCheck2 extends BaseClass
 {
 	@Test
     public void testSimple()
@@ -54,9 +52,24 @@ public class InputAvoidModifiersForTypesCheck2 extends BaseCheckTestSupport
         //System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
         verify(checkConfig, getPath("InputSomeFile.java"), expected);
     }
-    
+
     class LineLengthCheck {
         
     }
     
+}
+class DefaultConfiguration {
+    public void addAttribute(String name, String value) {}
+}
+abstract class BaseClass {
+    protected String getPath(String fileName) {
+        return null;
+    }
+
+    protected DefaultConfiguration createModuleConfig(Class<?> clss) {
+        return new DefaultConfiguration();
+    }
+
+    protected void verify(DefaultConfiguration checkConfig, String path, String[] expected) {
+    }
 }

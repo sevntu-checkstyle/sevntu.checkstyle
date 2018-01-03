@@ -23,11 +23,15 @@ import static com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstru
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class HideUtilityClassConstructorCheckTest
-    extends BaseCheckTestSupport {
+public class HideUtilityClassConstructorCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     /** Only static methods and no constructor - default ctor is visible */
     @Test
