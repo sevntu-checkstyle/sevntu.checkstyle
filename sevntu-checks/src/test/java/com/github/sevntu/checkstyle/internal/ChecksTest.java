@@ -44,6 +44,7 @@ import org.w3c.dom.NodeList;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractFileSetCheck;
 import com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractJavadocCheck;
+import com.puppycrawl.tools.checkstyle.internal.utils.XmlUtil;
 
 public final class ChecksTest {
 
@@ -97,7 +98,7 @@ public final class ChecksTest {
             final Node rule = rules.item(position);
             final Set<Node> children = XmlUtil.getChildrenElements(rule);
 
-            final String key = XmlUtil.findElementByTag(children, "key").getTextContent();
+            final String key = SevntuXmlUtil.findElementByTag(children, "key").getTextContent();
 
             final Class<?> module = findModule(modules, key);
             modules.remove(module);
@@ -105,13 +106,13 @@ public final class ChecksTest {
             Assert.assertNotNull("Unknown class found in sonar: " + key, module);
 
             final String moduleName = module.getName();
-            final Node name = XmlUtil.findElementByTag(children, "name");
+            final Node name = SevntuXmlUtil.findElementByTag(children, "name");
 
             Assert.assertNotNull(moduleName + " requires a name in sonar", name);
             Assert.assertFalse(moduleName + " requires a name in sonar", name.getTextContent()
                     .isEmpty());
 
-            final Node categoryNode = XmlUtil.findElementByTag(children, "category");
+            final Node categoryNode = SevntuXmlUtil.findElementByTag(children, "category");
 
             String expectedCategory = module.getCanonicalName();
             final int lastIndex = expectedCategory.lastIndexOf('.');
@@ -127,18 +128,18 @@ public final class ChecksTest {
             Assert.assertEquals(moduleName + " requires a valid category in sonar",
                     expectedCategory, categoryAttribute.getTextContent());
 
-            final Node description = XmlUtil.findElementByTag(children, "description");
+            final Node description = SevntuXmlUtil.findElementByTag(children, "description");
 
             Assert.assertNotNull(moduleName + " requires a description in sonar", description);
 
-            final Node configKey = XmlUtil.findElementByTag(children, "configKey");
+            final Node configKey = SevntuXmlUtil.findElementByTag(children, "configKey");
             final String expectedConfigKey = "Checker/TreeWalker/" + key;
 
             Assert.assertNotNull(moduleName + " requires a configKey in sonar", configKey);
             Assert.assertEquals(moduleName + " requires a valid configKey in sonar",
                     expectedConfigKey, configKey.getTextContent());
 
-            validateSonarProperties(module, XmlUtil.findElementsByTag(children, "param"));
+            validateSonarProperties(module, SevntuXmlUtil.findElementsByTag(children, "param"));
         }
 
         for (Class<?> module : modules) {
