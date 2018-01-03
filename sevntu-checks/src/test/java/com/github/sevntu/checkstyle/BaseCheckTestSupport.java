@@ -169,7 +169,8 @@ public abstract class BaseCheckTestSupport {
     protected static class BriefLogger extends DefaultLogger {
 
         public BriefLogger(OutputStream out) {
-            super(out, true, out, false, new AuditEventUtFormatter());
+            super(out, OutputStreamOptions.CLOSE, out, OutputStreamOptions.NONE,
+                    new AuditEventUtFormatter());
         }
 
         @Override
