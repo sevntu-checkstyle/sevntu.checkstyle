@@ -19,49 +19,49 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="eclipse-cs"
-        - CMD="./.ci/travis/travis.sh eclipse-cs"
+        - CMD="./.ci/travis.sh eclipse-cs"
 
     # maven-plugin
     - jdk: oraclejdk8
       env:
         - DESC="maven-plugin"
-        - CMD="./.ci/travis/travis.sh maven-plugin"
+        - CMD="./.ci/travis.sh maven-plugin"
 
     # idea-extension
     - jdk: oraclejdk8
       env:
         - DESC="idea-extension"
-        - CMD="./.ci/travis/travis.sh idea-extension"
+        - CMD="./.ci/travis.sh idea-extension"
 
     # sonar-plugin
     - jdk: oraclejdk8
       env:
         - DESC="sonar-plugin"
-        - CMD="./.ci/travis/travis.sh sonar-plugin"
+        - CMD="./.ci/travis.sh sonar-plugin"
 
     # checks
     - jdk: oraclejdk8
       env:
         - DESC="checks"
-        - CMD="./.ci/travis/travis.sh checks"
+        - CMD="./.ci/travis.sh checks"
 
     # regression on checkstyle
     # disabled until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/629
     #- jdk: oraclejdk8
     #  env:
     #    - DESC="checkstyle-regression"
-    #    - CMD="./.ci/travis/travis.sh checkstyle-regression"
+    #    - CMD="./.ci/travis.sh checkstyle-regression"
 
     # eclipse static analysis
     - jdk: oraclejdk8
       env:
         - DESC="eclipse-analysis"
-        - CMD="./.ci/travis/travis.sh eclipse-analysis"
+        - CMD="./.ci/travis.sh eclipse-analysis"
 
     # testing of PR format
     - env:
         - DESC="test Issue ref in PR description"
-        - CMD="./.ci/travis/travis.sh pr-description"
+        - CMD="./.ci/travis.sh pr-description"
 
 
 script:
