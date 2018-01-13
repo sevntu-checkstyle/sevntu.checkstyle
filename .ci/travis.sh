@@ -12,12 +12,11 @@ eclipse-cs)
   cd sevntu-checks
   mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true
   cd ..
-  git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
-  cd eclipse-cs-git/
-  git checkout 8.5.1
-  cd net.sf.eclipsecs.parent/
+  git clone https://github.com/checkstyle/eclipse-cs.git
+  cd eclipse-cs/
+  git checkout 8.7.0
   mvn -e install
-  cd ../../
+  cd ../
   cd eclipsecs-sevntu-plugin
   mvn -e verify
   mvn -e javadoc:javadoc
@@ -65,7 +64,7 @@ checkstyle-regression)
   mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../
   cd ../
   cd checkstyle
-  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true
+  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.7
   ;;
 
 eclipse-analysis)

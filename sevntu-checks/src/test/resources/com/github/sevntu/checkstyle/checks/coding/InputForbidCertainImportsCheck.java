@@ -18,7 +18,11 @@ public class InputForbidCertainImportsCheck extends Check
     public int a()
     {
         
-        AutomaticBean smth = new com.puppycrawl.tools.checkstyle.api.AutomaticBean(); // forbidden!
+        AutomaticBean smth = new com.puppycrawl.tools.checkstyle.api.AutomaticBean() { // forbidden!
+            @Override
+            protected void finishLocalSetup() {
+            }
+        };
         Number test = new Integer(0);
         return 5;
     }

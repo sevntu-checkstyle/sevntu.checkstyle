@@ -7,7 +7,11 @@ public class InputForbidCertainImportsCheckSinglePackage
     public int a()
     {
         
-        AutomaticBean smth = new com.puppycrawl.tools.checkstyle.api.AutomaticBean(); // forbidden!
+        AutomaticBean smth = new com.puppycrawl.tools.checkstyle.api.AutomaticBean() { // forbidden!
+            @Override
+            protected void finishLocalSetup() {
+            }
+        };
         return 5;
     }
 }
