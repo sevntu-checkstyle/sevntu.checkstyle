@@ -46,11 +46,10 @@ matrix:
         - CMD="./.ci/travis.sh checks"
 
     # regression on checkstyle
-    # disabled until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/629
-    #- jdk: oraclejdk8
-    #  env:
-    #    - DESC="checkstyle-regression"
-    #    - CMD="./.ci/travis.sh checkstyle-regression"
+    - jdk: oraclejdk8
+      env:
+        - DESC="checkstyle-regression"
+        - CMD="./.ci/travis.sh checkstyle-regression"
 
     # eclipse static analysis
     - jdk: oraclejdk8

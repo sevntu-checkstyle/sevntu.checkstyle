@@ -112,7 +112,7 @@ public final class CheckUtil {
                 PackageNamesLoader.getPackageNames(loader), loader);
 
         for (Class<?> clazz : checkstyleModules) {
-            if (ModuleReflectionUtils.isCheckstyleCheck(clazz)) {
+            if (ModuleReflectionUtils.isCheckstyleTreeWalkerCheck(clazz)) {
                 checkstyleChecks.add(clazz);
             }
         }
