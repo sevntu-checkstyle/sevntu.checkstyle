@@ -3,14 +3,15 @@
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
   <versioning>
-    <release>1.26.0</release>
+    <release>1.27.0</release>
     <versions>
       <version>1.24.0</version>
       <version>1.24.1</version>
       <version>1.24.2</version>
       <version>1.25.0</version>
       <version>1.26.0</version>
+      <version>1.27.0</version>
     </versions>
-    <lastUpdated>20180101200813</lastUpdated>
+    <lastUpdated>20180114141231</lastUpdated>
   </versioning>
 </metadata>
