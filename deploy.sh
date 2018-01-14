@@ -58,9 +58,9 @@ deployIdea()
 deployEclipse()
     {
         cd $REPO_HOME_DIR
-                #echo -n "Enter version number: "
-                #read version
-                #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
+        #echo -n "Enter version number: "
+        #read version
+        #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
         mvn clean install -f eclipse-pom.xml -Plocal-deploy
         if [ "$?" != "0" ]
         then
