@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE checkstyle-metadata PUBLIC
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
-"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+"https://checkstyle.github.io/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
   <rule-group-metadata name="SevNTU checks" priority="500">
 
