@@ -232,12 +232,6 @@
   <profiles>
     <profile>
       <id>travis</id>
-      <activation>
-        <property>
-          <name>env.TRAVIS</name>
-          <value>true</value>
-        </property>
-      </activation>
       <build>
         <plugins>
           <plugin>
@@ -263,7 +257,7 @@
           <plugin>
             <groupId>org.eluder.coveralls</groupId>
             <artifactId>coveralls-maven-plugin</artifactId>
-            <version>2.2.0</version>
+            <version>4.3.0</version>
           </plugin>
         </plugins>
       </build>
