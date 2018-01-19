@@ -231,7 +231,7 @@
 
   <profiles>
     <profile>
-      <id>travis</id>
+      <id>coverall</id>
       <build>
         <plugins>
           <plugin>
@@ -240,17 +240,17 @@
             <version>0.7.1.201405082137</version>
             <executions>
               <execution>
-                <id>prepare-agent</id>
+                <id>pre-unit-test</id>
                 <goals>
                   <goal>prepare-agent</goal>
                 </goals>
               </execution>
               <execution>
-                <id>report</id>
+                <id>post-unit-test</id>
                 <goals>
                   <goal>report</goal>
                 </goals>
-                <phase>prepare-package</phase>
+                <phase>test</phase>
               </execution>
             </executions>
           </plugin>
@@ -307,15 +307,7 @@
     <profile>
       <id>selftesting</id>
       <properties>
-        <skipTests>true</skipTests>
-        <linkcheck.skip>true</linkcheck.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-        <pmd.skip>true</pmd.skip>
-        <xml.skip>true</xml.skip>
-        <forbiddenapis.skip>true</forbiddenapis.skip>
-        <findbugs.skip>true</findbugs.skip>
-        <cobertura.skip>true</cobertura.skip>
-        <maven.site.skip>true</maven.site.skip>
+        <checkstyle.skip>false</checkstyle.skip>
       </properties>
       <build>
         <plugins>

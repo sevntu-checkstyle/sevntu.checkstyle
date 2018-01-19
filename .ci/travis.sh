@@ -49,13 +49,13 @@ sonar-plugin)
   mvn -e javadoc:javadoc
   ;;
 
-checks)
+sevntu-checks)
   cd sevntu-checks
-  mvn -e install
-  mvn -e verify -Pselftesting
+  mvn -e -Pcoverall install
+  mvn -e verify -Pno-validations,selftesting
   mvn -e javadoc:javadoc
   if [[ $TRAVIS == 'true' ]]; then
-    mvn -e -Ptravis jacoco:report coveralls:report
+    mvn -e -Pcoverall jacoco:report coveralls:report
   fi
   ;;
 
