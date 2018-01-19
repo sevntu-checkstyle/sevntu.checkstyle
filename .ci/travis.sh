@@ -54,7 +54,7 @@ checks)
   mvn -e install
   mvn -e verify -Pselftesting
   mvn -e javadoc:javadoc
-  mvn -e org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:report
+  mvn -e org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:4.3.0:report
   ;;
 
 checkstyle-regression)
