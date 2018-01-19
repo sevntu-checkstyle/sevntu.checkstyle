@@ -43,7 +43,7 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="checks"
-        - CMD="./.ci/travis.sh checks"
+        - CMD="./.ci/travis.sh sevntu-checks"
 
     # regression on checkstyle
     - jdk: oraclejdk8
