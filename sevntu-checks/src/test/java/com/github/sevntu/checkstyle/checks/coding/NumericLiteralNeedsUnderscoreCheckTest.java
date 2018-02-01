@@ -194,7 +194,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
             fail();
         }
         catch (IllegalStateException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
+            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
+                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
         }
     }
 
@@ -208,7 +209,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
             fail();
         }
         catch (IllegalStateException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
+            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
+                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
         }
     }
 
@@ -222,7 +224,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
             fail();
         }
         catch (IllegalStateException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
+            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
+                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
         }
     }
 
@@ -236,7 +239,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
             fail();
         }
         catch (IllegalStateException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith(EXCEPTION_MESSAGE));
+            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
+                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
         }
     }
 

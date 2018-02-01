@@ -125,9 +125,11 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             fail();
         }
         catch (CheckstyleException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
-                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'formats' to '\\' in module "));
+            final String messagePrefix = "cannot initialize module "
+                + "com.puppycrawl.tools.checkstyle.TreeWalker - "
+                + "Cannot set property 'formats' to '\\' in module ";
+            Assert.assertTrue("Exception's message does not start with: " + messagePrefix,
+                ex.getMessage().startsWith(messagePrefix));
         }
     }
 
@@ -149,10 +151,12 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             fail();
         }
         catch (CheckstyleException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
-                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Token \"INTERFACE_DEF\" was not found in "
-                    + "Acceptable tokens list in check "));
+            final String messagePrefix = "cannot initialize module "
+                + "com.puppycrawl.tools.checkstyle.TreeWalker - "
+                + "Token \"INTERFACE_DEF\" was not found in "
+                + "Acceptable tokens list in check ";
+            Assert.assertTrue("Exception's message does not start with: " + messagePrefix,
+                ex.getMessage().startsWith(messagePrefix));
         }
     }
 
