@@ -13,5 +13,6 @@
       <package name="naming"/>
       <package name="sizes"/>
     </package>
+    <package name="filters"/>
   </package>
 </checkstyle-packages>
