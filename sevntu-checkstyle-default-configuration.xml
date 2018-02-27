@@ -239,5 +239,10 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck">
       <property name="severity" value="warning"/>
     </module>
+    <!-- 1.28.0 -->
+    <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck">
+      <property name="methodName" value="assert(True|False)"/>
+      <property name="argumentCount" value="1"/>
+    </module>
   </module>
 </module>
