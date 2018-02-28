@@ -1,0 +1,20 @@
+language: java
+sudo: false
+
+cache:
+  -
+
+branches:
+  only:
+    - master
+
+install:
+  -
+
+matrix:
+  fast_finish: true
+
+script:
+  -
+
+after_success:
