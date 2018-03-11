@@ -1,4 +1,4 @@
-h3. Information "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":http://travis-ci.org/sevntu-checkstyle/sevntu.checkstyle/builds !https://coveralls.io/repos/sevntu-checkstyle/sevntu.checkstyle/badge.svg?branch=master&service=github(Coverage Status)!:https://coveralls.io/github/sevntu-checkstyle/sevntu.checkstyle?branch=master !https://sonarqube.com/api/badges/measure?key=com.github.sevntu.checkstyle:sevntu-checks&metric=sqale_debt_ratio!:https://sonarqube.com/dashboard?id=com.github.sevntu.checkstyle%3Asevntu-checks 
+h3. Information "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checkstyle.png!":http://travis-ci.org/sevntu-checkstyle/sevntu.checkstyle/builds !https://coveralls.io/repos/sevntu-checkstyle/sevntu.checkstyle/badge.svg?branch=master&service=github(Coverage Status)!:https://coveralls.io/github/sevntu-checkstyle/sevntu.checkstyle?branch=master !https://sonarqube.com/api/badges/measure?key=com.github.sevntu.checkstyle:sevntu-checks&metric=sqale_debt_ratio!:https://sonarqube.com/dashboard?id=com.github.sevntu.checkstyle%3Asevntu-checks
 
 sevntu-checks: !https://maven-badges.herokuapp.com/maven-central/com.github.sevntu-checkstyle/sevntu-checks/badge.svg!:https://search.maven.org/#search|gav|1|g%3A%22com.github.sevntu-checkstyle%22%20AND%20a%3A%22sevntu-checks%22
 sevntu-checkstyle-idea-extension:!https://maven-badges.herokuapp.com/maven-central/com.github.sevntu-checkstyle/sevntu-checkstyle-idea-extension/badge.svg!:https://search.maven.org/#search|gav|1|g%3A%22com.github.sevntu-checkstyle%22%20AND%20a%3A%22sevntu-checkstyle-idea-extension%22
@@ -12,7 +12,7 @@ Additional(non-standard) checks for Checkstyle that are compiled as:
 - extension to "Sonar Checkstyle Plugin":http://docs.codehaus.org/display/SONAR/Checkstyle+Plugin (how to use: "instructions with pictures":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-integrate-sevntu-checks-into-SonarQubeTM-%28user%27s-guide%29).
 - extension to "CheckStyle-IDEA":http://plugins.jetbrains.com/plugin/1065 (how to use: "instructions with pictures":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-Intellij-IDEA).
 - extension to "Checkstyle Beans, NetBeans":http://plugins.netbeans.org/plugin/3413/checkstyle-beans (how to use: "instructions with pictures":https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/How-to-use-SevNTU-Checkstyle-in-NetBeans).
-- extension to "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/ how to use: install from EclipseCS "update site": 
+- extension to "Checkstyle Eclipse plugin":http://eclipse-cs.sourceforge.net/ how to use: install from EclipseCS "update site":
 !https://cloud.githubusercontent.com/assets/812984/2935361/20e479c8-d805-11e3-9391-f41cc4aa979c.png!
 
 h3. Related Projects
@@ -21,7 +21,7 @@ h3. Related Projects
 
 h3. Contributors
 
-"Roman Ivanov":https://github.com/romani, "Ivan Sopov":https://github.com/isopov, "Ruslan Diachenko":https://github.com/rdiachenko, Danil Lopatin, "Daniil Yaroslavtsev":https://github.com/daniilyar, "Yuriy Balahonov":https://github.com/balakhonov, Dmitriy Antonenko, 
+"Roman Ivanov":https://github.com/romani, "Ivan Sopov":https://github.com/isopov, "Ruslan Diachenko":https://github.com/rdiachenko, Danil Lopatin, "Daniil Yaroslavtsev":https://github.com/daniilyar, "Yuriy Balahonov":https://github.com/balakhonov, Dmitriy Antonenko,
 Hidoyatov Victor, Troshin Sergey, Svinukhov Vladimir, "Ilia Dubinin":https://github.com/sabaka, Dmitry Gridyushko, "Vadym Chekrii":https://github.com/vchekrii, "Vadim Panasiuk":https://github.com/VadimPanasiuk,
 "Aleksey Grigirov":https://github.com/KTannenberg, Alexander Berezovsky, "Sergey Burtsev":https://github.com/burtsevsergey, "Baratali Izmailov":https://github.com/baratali, "Max Vetrenko":https://github.com/maxvetrenko,
 "Pavel Baranchikov":https://github.com/pbaranchikov , "Ashutosh Agarwal":https://github.com/Radsaggi, "Alexey Nesterenko":https://github.com/alexkravin. , ......  for whole list please look at "contributors list":https://github.com/sevntu-checkstyle/sevntu.checkstyle/network/members .
