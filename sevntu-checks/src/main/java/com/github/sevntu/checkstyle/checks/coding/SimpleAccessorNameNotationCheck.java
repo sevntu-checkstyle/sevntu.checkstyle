@@ -39,7 +39,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * , for example:</p>
  *
  * <pre>
- * &lt;module name="SimpleAccesorNameNotationCheck"&gt; &lt;
+ * &lt;module name="SimpleAccessorNameNotationCheck"&gt; &lt;
  * property name="prefix" value="m_"/&gt;
  * &lt;/module&gt;
  * </pre>
