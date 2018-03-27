@@ -28,7 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 public class ReturnBooleanFromTernaryCheckTest extends AbstractModuleTestSupport {
 
-    private final String warninigMessage = getCheckMessage(MSG_KEY);
+    private final String warningMessage = getCheckMessage(MSG_KEY);
 
     @Override
     protected String getPackageLocation() {
@@ -40,13 +40,13 @@ public class ReturnBooleanFromTernaryCheckTest extends AbstractModuleTestSupport
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnBooleanFromTernaryCheck.class);
         final String[] expected = {
-            "6:35: " + warninigMessage,
-            "7:38: " + warninigMessage,
-            "8:38: " + warninigMessage,
-            "9:35: " + warninigMessage,
-            "9:43: " + warninigMessage,
-            "10:28: " + warninigMessage,
-            "11:27: " + warninigMessage,
+            "6:35: " + warningMessage,
+            "7:38: " + warningMessage,
+            "8:38: " + warningMessage,
+            "9:35: " + warningMessage,
+            "9:43: " + warningMessage,
+            "10:28: " + warningMessage,
+            "11:27: " + warningMessage,
         };
         verify(checkConfig, getPath("InputReturnBooleanFromTernaryCheck.java"), expected);
     }

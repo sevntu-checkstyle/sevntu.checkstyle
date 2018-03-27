@@ -1318,7 +1318,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         /**
          * Compare order of getters and setters. Order should be like "getX; setX; getY; setY; ...".
          * If it is wrong order, then wrong ordered setters and getters will be returned as map.
-         * @param allGettersSetters collection of all gettter and setters
+         * @param allGettersSetters collection of all getter and setters
          * @param index index from upper loo
          * @return Map with setter AST as key and getter AST as value.
          */
