@@ -53,7 +53,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * insensitive):
  * <ol>
  * <li>"Field" to denote the Fields</li>
- * <li>"DeclareAnnonClassField" to denote the fields keeping objects of anonymous classes</li>
+ * <li>"DeclareAnonClassField" to denote the fields keeping objects of anonymous classes</li>
  * <li>"Ctor" to denote the Constructors</li>
  * <li>"Method" to denote the Methods</li>
  * <li>"GetterSetter" to denote the group of getter and setter methods</li>
@@ -203,7 +203,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     private static final String METHOD_MACRO = "Method";
 
-    private static final String ANNON_CLASS_FIELD_MACRO = "DeclareAnnonClassField";
+    private static final String ANON_CLASS_FIELD_MACRO = "DeclareAnonClassField";
 
     private static final String FIELD_MACRO = "Field";
 
@@ -454,7 +454,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             String inputMemberName) {
         int result = -1;
         if (FIELD_MACRO.equalsIgnoreCase(inputMemberName)
-                || ANNON_CLASS_FIELD_MACRO.equalsIgnoreCase(inputMemberName)) {
+                || ANON_CLASS_FIELD_MACRO.equalsIgnoreCase(inputMemberName)) {
             result = TokenTypes.VARIABLE_DEF;
         }
         else if (GETTER_SETTER_MACRO.equalsIgnoreCase(inputMemberName)
@@ -605,7 +605,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final FormatMatcher currentRule = customOrderDeclaration.get(index);
             if (currentRule.getClassMember() == ast.getType()
                     && currentRule.getRegexp().matcher(modifiers).find()) {
-                if (currentRule.hasRule(ANNON_CLASS_FIELD_MACRO)
+                if (currentRule.hasRule(ANON_CLASS_FIELD_MACRO)
                         || currentRule.hasRule(GETTER_SETTER_MACRO)
                         || currentRule.hasRule(MAIN_METHOD_MACRO)) {
                     final String methodName = getIdentifier(ast);
