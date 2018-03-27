@@ -321,7 +321,7 @@
                 <artifactId>checkstyle</artifactId>
                 <version>${checkstyle.eclipse-cs.version}</version>
               </dependency>
-              <!-- atention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
+              <!-- attention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
               <dependency>
                 <groupId>com.github.sevntu-checkstyle</groupId>
                 <artifactId>sevntu-checks</artifactId>
