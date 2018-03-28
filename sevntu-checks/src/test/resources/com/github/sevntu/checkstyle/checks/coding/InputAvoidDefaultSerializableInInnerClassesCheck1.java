@@ -156,7 +156,7 @@ public class InputAvoidDefaultSerializableInInnerClassesCheck1 implements Serial
 
 		}
 	}
-	private class NoErrorForPartlial1 implements Serializable
+	private class NoErrorForPartial1 implements Serializable
 	{
 		private void readObject(ObjectInputStream s)
 		{
@@ -168,7 +168,7 @@ public class InputAvoidDefaultSerializableInInnerClassesCheck1 implements Serial
 		    
 		}
 	}
-	private class ErrorForPartlial implements Serializable //error
+	private class ErrorForPartial implements Serializable //error
 	{
 		private final int readObject(ObjectInputStream s)
 		{

@@ -36,7 +36,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
     }
 
     @Test
-    public void testWithAllowPartiaFalse()
+    public void testWithAllowPartialFalse()
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
@@ -90,7 +90,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
     }
 
     @Test
-    public void testWithAllowPartiaTrue()
+    public void testWithAllowPartialTrue()
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
