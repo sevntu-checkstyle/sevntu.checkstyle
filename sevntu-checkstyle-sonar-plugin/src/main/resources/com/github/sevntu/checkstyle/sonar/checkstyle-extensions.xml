@@ -623,7 +623,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</key>
     <name>Public Reference To Private Type</name>
     <category name="design"/>
-    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classe, interfaces or enumerations.</description>
+    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classes, interfaces or enumerations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</configKey>
   </rule>
 
