@@ -579,11 +579,11 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that method is invoked on aUsedInstanceName.
-     * @param usedInstanseName name of instance.
+     * @param usedInstanceName name of instance.
      * @param methodCallAst DetailAST of METHOD_CALL.
      * @return true if method is invoked on aUsedInstanceName.
      */
-    private static boolean isInstanceMethodCall(final String usedInstanseName,
+    private static boolean isInstanceMethodCall(final String usedInstanceName,
             final DetailAST methodCallAst) {
         boolean result = false;
         if (methodCallAst != null
@@ -594,7 +594,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
             if (firstDotIndex != -1) {
                 final String usedObjectName =
                         methodCallIdent.substring(0, firstDotIndex);
-                if (usedObjectName.equals(usedInstanseName)) {
+                if (usedObjectName.equals(usedInstanceName)) {
                     result = true;
                 }
             }

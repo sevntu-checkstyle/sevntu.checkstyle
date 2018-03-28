@@ -130,11 +130,11 @@ public final class CheckUtil {
         return result;
     }
 
-    public static Set<Class<?>> getModulesInPackage(Set<Class<?>> modules, String packge) {
+    public static Set<Class<?>> getModulesInPackage(Set<Class<?>> modules, String pkg) {
         final Set<Class<?>> result = new HashSet<>();
 
         for (Class<?> module : modules) {
-            if (module.getPackage().getName().endsWith(packge)) {
+            if (module.getPackage().getName().endsWith(pkg)) {
                 result.add(module);
             }
         }

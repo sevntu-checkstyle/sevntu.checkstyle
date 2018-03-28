@@ -242,9 +242,9 @@ public class ConfusingConditionCheck extends AbstractCheck {
         boolean result = true;
 
         final DetailAST lastChildAfterIf = literalIf.getLastChild();
-        final int linesOfCodeInElseBlock = getAmounOfCodeRowsInBlock(lastChildAfterIf);
+        final int linesOfCodeInElseBlock = getAmountOfCodeRowsInBlock(lastChildAfterIf);
         if (linesOfCodeInElseBlock > 0) {
-            final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(literalIf);
+            final int linesOfCodeInIfBlock = getAmountOfCodeRowsInBlock(literalIf);
             result = linesOfCodeInIfBlock / linesOfCodeInElseBlock < multiplyFactorForElseBlocks;
         }
         return result;
@@ -256,7 +256,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
      * @param detailAST The token to examine.
      * @return linesOfCodeInIfBlock line of code in block.
      */
-    private static int getAmounOfCodeRowsInBlock(DetailAST detailAST) {
+    private static int getAmountOfCodeRowsInBlock(DetailAST detailAST) {
         final DetailAST firstBrace = getFirstBrace(detailAST);
         int linesOfCodeInIfBlock;
 

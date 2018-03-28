@@ -54,7 +54,7 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     }
 
     @Test
-    public final void newFeauture() throws Exception {
+    public final void newFeature() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");
@@ -70,7 +70,7 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     }
 
     @Test
-    public final void newFeautureWithoutMethodsByArgCount() throws Exception {
+    public final void newFeatureWithoutMethodsByArgCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
         checkConfig.addAttribute("checkCloneMethod", "true");

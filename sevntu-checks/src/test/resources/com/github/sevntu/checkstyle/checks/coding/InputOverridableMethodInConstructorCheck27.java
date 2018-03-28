@@ -44,7 +44,7 @@ public class InputOverridableMethodInConstructorCheck27
 
             void init()
             {
-                System.out.println("Overrriden init");
+                System.out.println("Overridden init");
             }
 
             void overrideMe(String aString)

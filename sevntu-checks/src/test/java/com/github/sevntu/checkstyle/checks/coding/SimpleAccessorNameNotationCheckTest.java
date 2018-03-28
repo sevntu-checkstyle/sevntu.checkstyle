@@ -68,7 +68,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
     }
 
     @Test
-    public void correctWithtPrefix() throws Exception {
+    public void correctWithPrefix() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SimpleAccessorNameNotationCheck.class);
         checkConfig.addAttribute("prefix", "m");
