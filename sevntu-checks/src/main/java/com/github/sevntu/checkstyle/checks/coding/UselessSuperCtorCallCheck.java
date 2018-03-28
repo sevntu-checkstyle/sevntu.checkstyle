@@ -87,7 +87,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Check will not generate violation when "super()" called inside class ctor when class
  * has multiple public ctors(however, setting this option to "true" will not prevent Check
  * from logging violation if class does not extend anything). This option defaults to "false".
- * This option may be usefull for cases in which class`s ctors just forward its arguments to
+ * This option may be useful for cases in which class`s ctors just forward its arguments to
  * super ctors, thus removing "super()" in this case will make default ctors look not like
  * others. For example:
  * <pre>

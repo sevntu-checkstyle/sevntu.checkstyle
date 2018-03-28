@@ -30,7 +30,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * The finally block is always executed unless there is abnormal program termination, either
  * resulting from a JVM crash or from a call to System.exit(0). On top of that, any value returned
- * from within the finnally block will override the value returned prior to execution of the finally
+ * from within the finally block will override the value returned prior to execution of the finally
  * block. This check reports if the finally block contains a return statement.
  * </p>
  *

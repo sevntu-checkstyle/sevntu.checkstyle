@@ -177,7 +177,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     private DetailAST curMethodDef;
 
     /**
-     * A current root of the synthax tree is being processed.
+     * A current root of the syntax tree is being processed.
      * */
     private DetailAST treeRootAST;
 
@@ -648,7 +648,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Gets the count of parameters for current method definitioin or
+     * Gets the count of parameters for current method definition or
      * method call.
      * @param methodDefOrCallAST METHOD_DEF or METHOD_CALL
      *     DetailAST node
@@ -730,7 +730,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * Gets the CLASS_DEF DetailAST node for the class is named "aClassName".
      *
      * @param rootNode
-     *            A root node of synthax tree is being processed.
+     *            A root node of syntax tree is being processed.
      * @param className
      *            The name of class to search.
      * @return The CLASS_DEF DetailAST node which is related to the class is
@@ -892,7 +892,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Class that incapsulates the DetailAST node related to the method call
+     * Class that encapsulates the DetailAST node related to the method call
      * that leads to call of the overridable method and the name of
      * overridable method.
      */
