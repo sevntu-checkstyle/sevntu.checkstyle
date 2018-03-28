@@ -233,7 +233,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     }
 
     /**
-     * Gets first constructor defininition for class.
+     * Gets first constructor definition for class.
      * @param classDefNode
      *        a class definition node.
      * @return first ctor definition node for class or null if class has no ctor.

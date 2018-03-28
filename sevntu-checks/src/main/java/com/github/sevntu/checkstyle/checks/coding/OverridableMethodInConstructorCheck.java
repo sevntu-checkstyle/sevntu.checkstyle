@@ -648,7 +648,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Gets the count of parameters for current method definitioin or
+     * Gets the count of parameters for current method definition or
      * method call.
      * @param methodDefOrCallAST METHOD_DEF or METHOD_CALL
      *     DetailAST node
