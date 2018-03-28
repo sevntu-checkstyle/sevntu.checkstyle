@@ -145,7 +145,7 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
     }
 
     @Test
-    public void testAnnotationWtithBooleanParameterValueDoesntMatch() throws Exception {
+    public void testAnnotationWithBooleanParameterValueDoesntMatch() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
