@@ -45,14 +45,14 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
  * reject. If the user of a class has to think about wildcard types, there is
  * probably something wrong with the class’s API."
  * Attention: some JDK classes have public methods with "?"(wildcard) in return type
- * so it might not always possible to avoid wildcards in retun type, as they do not demand user
+ * so it might not always possible to avoid wildcards in return type, as they do not demand user
  * to bother about it (invisible for user or method). So suppressions should be used.
  * </p>
  * <p>
  * Examples:
  * <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html">
  * JDK Collectors</a>, so usage
- * of methods that retun wilcard could force user customizations over Collectors use wilcard in
+ * of methods that return wilcard could force user customizations over Collectors use wilcard in
  * public methods
  * </p>
  * <pre>{@code
