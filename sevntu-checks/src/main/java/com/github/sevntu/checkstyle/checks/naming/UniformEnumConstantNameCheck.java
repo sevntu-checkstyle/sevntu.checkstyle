@@ -206,7 +206,7 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
 
     /**
      * Matches the specified enum name against the patterns, specified by
-     * {@code conformedPattenrs}.
+     * {@code conformedPatterns}.
      *
      * @param name
      *        name to validate
