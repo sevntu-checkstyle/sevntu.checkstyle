@@ -77,7 +77,7 @@
     <subpackage name="design">
       <allow class="com.google.common.annotations.VisibleForTesting" local-only="true"/>
       <allow class="com.google.common.collect.ImmutableMap" local-only="true"/>
-      <!-- following allows does not exist in main proejcts -->
+      <!-- following allows does not exist in main projects -->
       <allow class="com.google.common.collect.ImmutableSet" local-only="true"/>
       <allow class="com.google.common.base.Optional" local-only="true"/>
       <allow class="com.google.common.base.Predicate" local-only="true"/>
@@ -91,16 +91,16 @@
     </subpackage>
     <subpackage name="coding">
       <allow class="com.google.common.collect.ImmutableCollection" local-only="true"/>
-      <!-- following allows does not exist in main proejcts -->
+      <!-- following allows does not exist in main projects -->
       <allow class="com.google.common.collect.Maps" local-only="true"/>
       <allow class="com.google.common.collect.Lists" local-only="true"/>
     </subpackage>
     <subpackage name="naming">
-      <!-- following allows does not exist in main proejcts -->
+      <!-- following allows does not exist in main projects -->
       <allow class="com.google.common.collect.Lists" local-only="true"/>
     </subpackage>
     <subpackage name="annotation">
-      <!-- following allows does not exist in main proejcts -->
+      <!-- following allows does not exist in main projects -->
       <allow class="com.google.common.collect.Lists" local-only="true"/>
       <allow class="com.google.common.base.CharMatcher" local-only="true"/>
       <allow class="com.google.common.collect.Sets" local-only="true"/>
