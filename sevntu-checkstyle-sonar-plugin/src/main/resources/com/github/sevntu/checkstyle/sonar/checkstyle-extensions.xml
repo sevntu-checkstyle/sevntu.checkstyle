@@ -135,7 +135,7 @@
     </param>
     <param key="checkOverrideMethods" type="BOOLEAN">
       <defaultValue>false</defaultValue>
-      <description>Check overrided methods.</description>
+      <description>Check overridden methods.</description>
     </param>
     <param key="checkDeprecatedMethods" type="BOOLEAN">
       <defaultValue>false</defaultValue>
