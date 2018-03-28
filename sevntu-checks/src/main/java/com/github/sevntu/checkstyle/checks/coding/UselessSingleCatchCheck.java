@@ -92,7 +92,7 @@ public class UselessSingleCatchCheck extends AbstractCheck {
      * <code>throw exceptionObject;</code>.
      * @param throwNode
      *        node of type TokenTypes.LITERAL_THROW
-     * @return wheather this throw node is of specified form
+     * @return whether this throw node is of specified form
      */
     private static boolean isSimpleRethrow(DetailAST throwNode) {
         final DetailAST exprNode = throwNode.findFirstToken(TokenTypes.EXPR);
