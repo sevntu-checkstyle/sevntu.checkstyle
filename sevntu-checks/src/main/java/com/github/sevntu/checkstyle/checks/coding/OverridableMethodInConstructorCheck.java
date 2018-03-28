@@ -892,7 +892,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Class that incapsulates the DetailAST node related to the method call
+     * Class that encapsulates the DetailAST node related to the method call
      * that leads to call of the overridable method and the name of
      * overridable method.
      */
