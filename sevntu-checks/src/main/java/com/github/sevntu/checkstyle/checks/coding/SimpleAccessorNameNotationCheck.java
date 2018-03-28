@@ -285,7 +285,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Return true when getter has correct arguments of return.
      * </p>
      * @param literalReturn
-     *        - DeailAST contains LITERAL_RETURN
+     *        - DetailAST contains LITERAL_RETURN
      * @return - true when getter has correct return.
      */
     private static boolean isCorrectReturn(DetailAST literalReturn) {

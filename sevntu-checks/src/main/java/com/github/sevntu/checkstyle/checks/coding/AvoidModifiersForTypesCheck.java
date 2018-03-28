@@ -525,7 +525,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
      * Gets the modifiers of the defined variable (annotation, public, private, final, static,
      * transient or volatile).
      * @param variableDefAst
-     *        A DeatilAST node is related to the variable definition
+     *        A DetailAST node is related to the variable definition
      *        (VARIABLE_DEF type)
      * @return List of token types is related to the given variable modifiers.
      */
