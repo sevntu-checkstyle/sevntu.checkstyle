@@ -140,7 +140,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Analyzes variable definition for anonymous exception definition. if found
      * - adds it to list of anonymous exceptions
-     * @param variableDefAst The token to exmaine.
+     * @param variableDefAst The token to examine.
      */
     private void
             lookForAnonymousExceptionDefinition(DetailAST variableDefAst) {
@@ -168,7 +168,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Gets the literal new node from variable definition node or throw node.
-     * @param literalThrowOrVariableDefAst The token to exmaine.
+     * @param literalThrowOrVariableDefAst The token to examine.
      * @return the specified node.
      */
     private static DetailAST
@@ -179,7 +179,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Retrieves the AST node which contains the name of throwing exception.
-     * @param expressionAst The token to exmaine.
+     * @param expressionAst The token to examine.
      * @return the specified node.
      */
     private static DetailAST
@@ -189,7 +189,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Checks if definition with a literal new has an ObjBlock.
-     * @param literalNewAst The token to exmaine.
+     * @param literalNewAst The token to examine.
      * @return true if the new has an object block.
      */
     private static boolean hasObjectBlock(DetailAST literalNewAst) {
@@ -199,7 +199,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Checks if variable name is definitely an exception name. It is so if
      * variable type ends with "Exception" suffix
-     * @param variableNameAst The token to exmaine.
+     * @param variableNameAst The token to examine.
      * @return true if the name is an exception.
      */
     private boolean isExceptionName(DetailAST variableNameAst) {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #################################################################################
-#  This is a useful script which builds Checkstyle AST (abstract synthax tree)  #
+#  This is a useful script which builds Checkstyle AST (abstract syntax tree)   #
 #  for custom Java file and opens it using simple built-in Checkstyle GUI.      #
 #################################################################################
 
@@ -41,7 +41,7 @@ CHECKSTYLE_VERSION=5.7
 ARCHIVE_FILE_NAME=checkstyle-${CHECKSTYLE_VERSION}-bin.tar.gz
 CHECKSTYLE_OUTPUT_FILE_NAME=checkstyle-${CHECKSTYLE_VERSION}-all.jar
 
-# checking  /tmp for existance
+# checking  /tmp for existence
 TMPDIR=/tmp
 if [ ! -d $TMPDIR ]
 then

@@ -38,7 +38,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * </p>
  *
  * <p>Rationale: This check was made to ensure tests follow a specific design implementation
- * so 3rd party utilities like the regression utility can parse the tests for informaiton
+ * so 3rd party utilities like the regression utility can parse the tests for information
  * used in creating regression reports.
  *
  * <p>

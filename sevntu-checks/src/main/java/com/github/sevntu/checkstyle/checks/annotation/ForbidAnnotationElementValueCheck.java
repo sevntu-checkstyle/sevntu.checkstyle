@@ -86,7 +86,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * &#64;SuppressWarnings("unchecked")
  * </pre>
  * <p>
- * To forbid any array-valued element, frobiddenElementValueRegexp option should be: "\{.*\}".
+ * To forbid any array-valued element, forbiddenElementValueRegexp option should be: "\{.*\}".
  * </p>
  * <p>
  * Config

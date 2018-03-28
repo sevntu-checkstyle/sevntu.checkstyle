@@ -197,7 +197,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
      * Range must be bounded on one side or both sides.
      * It can't be unbounded on both side.
      * <br>
-     * Some examples of vaild ranges:
+     * Some examples of valid ranges:
      * <ul>
      * <li>1-10: 1 and 10 and all numbers between 1 and 10</li>
      * <li>-10: same as 0-10</li>

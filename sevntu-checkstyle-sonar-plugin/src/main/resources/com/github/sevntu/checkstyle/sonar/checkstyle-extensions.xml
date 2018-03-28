@@ -135,7 +135,7 @@
     </param>
     <param key="checkOverrideMethods" type="BOOLEAN">
       <defaultValue>false</defaultValue>
-      <description>Check overrided methods.</description>
+      <description>Check overridden methods.</description>
     </param>
     <param key="checkDeprecatedMethods" type="BOOLEAN">
       <defaultValue>false</defaultValue>
@@ -159,7 +159,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</key>
     <name>No Main Method In Abstract Class</name>
     <category name="design"/>
-    <description>Forbids main methods in abstract classes. Rationale: existance of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
+    <description>Forbids main methods in abstract classes. Rationale: existence of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</configKey>
   </rule>
 
@@ -502,7 +502,7 @@
     </param>
     <param key="highlightAllDuplicates" type="BOOLEAN">
       <defaultValue>false</defaultValue>
-      <description>Check to highlight all dublicates.</description>
+      <description>Check to highlight all duplicates.</description>
     </param>
   </rule>
 
@@ -623,7 +623,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</key>
     <name>Public Reference To Private Type</name>
     <category name="design"/>
-    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classe, interfaces or enumerations.</description>
+    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classes, interfaces or enumerations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</configKey>
   </rule>
 
