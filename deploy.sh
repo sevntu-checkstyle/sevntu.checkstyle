@@ -78,7 +78,7 @@ deployEclipse()
 deployMavenLibrary()
     {
         # As we do not use SNAPSHOT qualifier for development in pom.xml
-        # we have to deploy library sevntu-checks always even it overides existing binaries in maven repository
+        # we have to deploy library sevntu-checks always even it overrides existing binaries in maven repository
         # for relase build - it will not override binaries
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
@@ -103,7 +103,7 @@ deployMavenLibrary()
 deployToMavenCentral()
     {
         # As we do not use SNAPSHOT qualifier for development in pom.xml
-        # we have to deploy library sevntu-checks always even it overides existing binaries in maven repository
+        # we have to deploy library sevntu-checks always even it overrides existing binaries in maven repository
         # for relase build - it will not override binaries
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
