@@ -51,14 +51,14 @@ public class InputRedundantReturnCheckTestNPE
 			return;
 		}
 
-		long ifModofiedSince = Integer.parseInt(request);
+		long ifModifiedSince = Integer.parseInt(request);
 
 		boolean gzip = Boolean.getBoolean(request);
 
 		String output = new String(response + gzip);
 		try {
-			if (ifModofiedSince > 0) {
-				if (!targetProvider.equals(uri + ifModofiedSince + output)) {
+			if (ifModifiedSince > 0) {
+				if (!targetProvider.equals(uri + ifModifiedSince + output)) {
 					response.concat("");
 					return;
 				}

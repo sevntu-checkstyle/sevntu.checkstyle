@@ -77,7 +77,7 @@ public class InputCustomDeclarationOrderCheck {
     private static class Test {
         private abstract static class AbstractTest1 {
         }
-        public abstract class AbstractrTest2 {
+        public abstract class AbstractTest2 {
         }
     }
 

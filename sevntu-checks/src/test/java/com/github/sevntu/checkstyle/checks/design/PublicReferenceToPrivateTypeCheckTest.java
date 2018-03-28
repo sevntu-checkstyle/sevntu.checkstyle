@@ -80,7 +80,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
      *         exceptions while verify()
      */
     @Test
-    public void returnPrivateThatImplimentTest()
+    public void returnPrivateThatImplementTest()
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);

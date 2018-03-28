@@ -39,7 +39,7 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
     }
 
     @Test
-    public void testCustomDecrationOrder() throws Exception {
+    public void testCustomDeclarationOrder() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {

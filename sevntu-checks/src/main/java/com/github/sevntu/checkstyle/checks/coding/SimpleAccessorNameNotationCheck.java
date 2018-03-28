@@ -328,18 +328,18 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Return true when name of the field is not contained in parameters of the
      * setter method.
      * </p>
-     * @param paramrters
+     * @param parameters
      *        - DetailAST contains parameters of the setter.
      * @param fieldName
      *        - name of the field.
      * @return true when name of the field is not contained in parameters.
      */
-    private static boolean checkNameOfParameters(DetailAST paramrters,
+    private static boolean checkNameOfParameters(DetailAST parameters,
             String fieldName) {
         boolean isNameOfParameter = false;
-        final int parametersChildCount = paramrters.getChildCount();
+        final int parametersChildCount = parameters.getChildCount();
 
-        final DetailAST parameterDef = paramrters
+        final DetailAST parameterDef = parameters
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
 
         for (int i = 0; i < parametersChildCount && !isNameOfParameter; i++) {
