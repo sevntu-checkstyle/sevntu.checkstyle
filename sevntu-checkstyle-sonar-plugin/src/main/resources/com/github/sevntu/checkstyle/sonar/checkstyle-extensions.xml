@@ -502,7 +502,7 @@
     </param>
     <param key="highlightAllDuplicates" type="BOOLEAN">
       <defaultValue>false</defaultValue>
-      <description>Check to highlight all dublicates.</description>
+      <description>Check to highlight all duplicates.</description>
     </param>
   </rule>
 
