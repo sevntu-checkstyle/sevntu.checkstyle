@@ -52,11 +52,11 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
  * Examples:
  * <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html">
  * JDK Collectors</a>, so usage
- * of methods that return wilcard could force user customizations over Collectors use wilcard in
+ * of methods that return wildcard could force user customizations over Collectors use wildcard in
  * public methods
  * </p>
  * <pre>{@code
- * // custom util method, wilcard come from Collectors.toList()
+ * // custom util method, wildcard come from Collectors.toList()
  * public <T> Collector<T, ?, T> singleResult(Function<? super Iterable<T>, T> collector) {
  *   return Collectors.collectingAndThen(Collectors.toList(), collected -> collected.get(0));
  * }
