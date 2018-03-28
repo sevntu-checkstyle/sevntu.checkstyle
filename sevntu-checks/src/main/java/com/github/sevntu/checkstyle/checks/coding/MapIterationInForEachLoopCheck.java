@@ -587,12 +587,12 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      */
     private boolean isMapVariable(DetailAST variableDefNode) {
         boolean result = false;
-        final List<DetailAST> literaNewNodeslList =
+        final List<DetailAST> literalNewNodeslList =
                 getSubTreeNodesOfType(variableDefNode,
                         TokenTypes.LITERAL_NEW, TokenTypes.ASSIGN);
-        final String className = getClassName(literaNewNodeslList);
+        final String className = getClassName(literalNewNodeslList);
         if (className != null
-                && getFirstNodeOfType(literaNewNodeslList, TokenTypes.ASSIGN) != null) {
+                && getFirstNodeOfType(literalNewNodeslList, TokenTypes.ASSIGN) != null) {
             result = isMapImplementation(className);
         }
         return result;
@@ -652,14 +652,14 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Returns the instance's class name.
-     * @param literaNewNodesList
+     * @param literalNewNodesList
      *        This list contains "new" literals.
      * @return object's class name,
      *        if class name is missed, returns null.
      */
-    private static String getClassName(final List<DetailAST> literaNewNodesList) {
+    private static String getClassName(final List<DetailAST> literalNewNodesList) {
         String result = null;
-        for (DetailAST literalNewNode : literaNewNodesList) {
+        for (DetailAST literalNewNode : literalNewNodesList) {
             final DetailAST exprNode = literalNewNode.getParent();
             if (exprNode.getParent().getType() == TokenTypes.ASSIGN) {
                 result = literalNewNode.getFirstChild().getText();
