@@ -159,7 +159,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</key>
     <name>No Main Method In Abstract Class</name>
     <category name="design"/>
-    <description>Forbids main methods in abstract classes. Rationale: existance of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
+    <description>Forbids main methods in abstract classes. Rationale: existence of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</configKey>
   </rule>
 

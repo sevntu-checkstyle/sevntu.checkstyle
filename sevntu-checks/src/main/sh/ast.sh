@@ -41,7 +41,7 @@ CHECKSTYLE_VERSION=5.7
 ARCHIVE_FILE_NAME=checkstyle-${CHECKSTYLE_VERSION}-bin.tar.gz
 CHECKSTYLE_OUTPUT_FILE_NAME=checkstyle-${CHECKSTYLE_VERSION}-all.jar
 
-# checking  /tmp for existance
+# checking  /tmp for existence
 TMPDIR=/tmp
 if [ ! -d $TMPDIR ]
 then
