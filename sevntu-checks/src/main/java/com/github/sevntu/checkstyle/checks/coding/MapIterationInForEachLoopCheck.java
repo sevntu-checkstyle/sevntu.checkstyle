@@ -377,7 +377,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Checks if the not is a for each.
-     * @param forNode The token to exmaine.
+     * @param forNode The token to examine.
      * @return true if is for each.
      */
     private static boolean isForEach(DetailAST forNode) {
