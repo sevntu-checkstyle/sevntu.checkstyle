@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #################################################################################
-#  This is a useful script which builds Checkstyle AST (abstract synthax tree)  #
+#  This is a useful script which builds Checkstyle AST (abstract syntax tree)  #
 #  for custom Java file and opens it using simple built-in Checkstyle GUI.      #
 #################################################################################
 
