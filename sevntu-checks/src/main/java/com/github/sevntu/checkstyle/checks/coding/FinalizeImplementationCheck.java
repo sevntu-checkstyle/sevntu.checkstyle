@@ -168,7 +168,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      * @param modifierType
      *        modifier type.
      * @param methodToken
-     *        MODIFIRES Token.
+     *        MODIFIERS Token.
      * @return true, if finalize() has "protected" access modifier.
      */
     private static boolean hasModifier(int modifierType, DetailAST methodToken) {

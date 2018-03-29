@@ -20,12 +20,12 @@ public class InputAvoidHidingCauseExceptionCheck
 
         catch (IllegalStateException e) {
             //your code
-            throw new RuntimeException("Runtime Ecxeption!"); // !
+            throw new RuntimeException("Runtime Exception!"); // !
         }
 
         catch (java.lang.ArithmeticException e) {
             //your code
-            throw new RuntimeException("Runtime Ecxeption!", e);
+            throw new RuntimeException("Runtime Exception!", e);
         }
 
         catch (RuntimeException e) {
@@ -62,14 +62,14 @@ public class InputAvoidHidingCauseExceptionCheck
                 x = !!!!!!!!false & !!!!!!!!true;
                 double kkk = Math.pow(5, 25555555);
                 int ee = (int) kkk;
-                throw new RuntimeException("Runtime Ecxeption!"); // !            
+                throw new RuntimeException("Runtime Exception!"); // !            
             }
 
         }
         catch (java.lang.ArithmeticException e) {
             int []err = new int [50];
             if (err[51]==0) { err[999]++; }
-            throw new RuntimeException("Runtime Ecxeption!", e);
+            throw new RuntimeException("Runtime Exception!", e);
         }
 
         catch (RuntimeException e) {

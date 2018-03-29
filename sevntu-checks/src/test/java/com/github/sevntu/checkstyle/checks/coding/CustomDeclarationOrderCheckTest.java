@@ -39,7 +39,7 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
     }
 
     @Test
-    public void testCustomDecrationOrder() throws Exception {
+    public void testCustomDeclarationOrder() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
@@ -91,22 +91,22 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CustomDeclarationOrderCheck.class);
         final String[] expected = {
-            "39:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
+            "39:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnonClassField(private .*)",
                     "Field(public .*)"),
-            "54:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
+            "54:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnonClassField(private .*)",
                     "Field(private .*)"),
-            "66:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField()",
+            "66:5: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnonClassField()",
                     "Ctor(public .*)"),
-            "95:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnnonClassField(private .*)",
+            "95:9: " + getCheckMessage(MSG_KEY_FIELD, "DeclareAnonClassField(private .*)",
                     "Field(private .*)"),
         };
         checkConfig
             .addAttribute(
                     "customDeclarationOrder",
-                    "DeclareAnnonClassField(private .*) ###"
-                            + "DeclareAnnonClassField(protected .*) ###"
-                            + "DeclareAnnonClassField() ###"
-                            + "DeclareAnnonClassField(public .*) ###"
+                    "DeclareAnonClassField(private .*) ###"
+                            + "DeclareAnonClassField(protected .*) ###"
+                            + "DeclareAnonClassField() ###"
+                            + "DeclareAnonClassField(public .*) ###"
                             + "Field(private .*) ###"
                             + "Field(public .*) ###"
                             + "Ctor(public .*) ###"

@@ -236,14 +236,14 @@ public class AllChecksTest {
             }
 
             final int slash = path.lastIndexOf(File.separatorChar);
-            final String packge = path.substring(0, slash);
+            final String pkg = path.substring(0, slash);
 
-            List<String> classes = allTests.get(packge);
+            List<String> classes = allTests.get(pkg);
 
             if (classes == null) {
                 classes = new ArrayList<String>();
 
-                allTests.put(packge, classes);
+                allTests.put(pkg, classes);
             }
 
             classes.add(path.substring(slash + 1));
@@ -272,10 +272,10 @@ public class AllChecksTest {
             fileName = fileName.substring(5, period);
 
             final int slash = path.lastIndexOf(File.separatorChar);
-            final String packge = path.substring(0, slash);
-            final List<String> classes = allTests.get(packge);
+            final String pkg = path.substring(0, slash);
+            final List<String> classes = allTests.get(pkg);
 
-            if (classes != null || !packge.endsWith("external")) {
+            if (classes != null || !pkg.endsWith("external")) {
                 Assert.assertNotNull("Resource must be in a package that has tests: " + path,
                         classes);
 

@@ -206,13 +206,13 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
 
     /**
      * Matches the specified enum name against the patterns, specified by
-     * {@code conformedPattenrs}.
+     * {@code conformedPatterns}.
      *
      * @param name
      *        name to validate
      * @param conformedPatterns
      *        bit set of patterns, which the method should match against.
-     * @return bit set of matched patterns. Returned value is alwais a subset of
+     * @return bit set of matched patterns. Returned value is always a subset of
      *         {@code conformedPatterns}
      */
     private BitSet match(String name, BitSet conformedPatterns) {

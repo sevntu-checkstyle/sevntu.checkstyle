@@ -40,7 +40,7 @@ do
 	mv $i.new $i
 done
 
-#aditional version reference in dependency
+#additional version reference in dependency
 FILE=sevntu-checkstyle-maven-plugin/pom.xml
 echo "Updating: "$FILE
 xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
@@ -48,7 +48,7 @@ xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
     $FILE > $FILE.new
 mv $FILE.new $FILE
 
-#aditional version reference, eclipse file 
+#additional version reference, eclipse file 
 FILE=eclipsecs-sevntu-plugin-feature/feature.xml
 echo "Updating: "$FILE
 xmlstarlet ed --ps \

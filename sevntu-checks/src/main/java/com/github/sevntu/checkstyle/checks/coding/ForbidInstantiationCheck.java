@@ -235,7 +235,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      *        - DetailAST node is pointing to import definition or to the "new"
      *        literal node ("IMPORT" or "LITERAL_NEW" node types).
      * @return Import text without "import" word and semicolons for given
-     *         "IMPORT" node or instanstiated class Name&Path for given
+     *         "IMPORT" node or instantiated class Name&Path for given
      *         "LITERAL_NEW" node.
      */
     private static String getText(final DetailAST ast) {

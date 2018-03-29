@@ -55,7 +55,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     public static final String MSG_KEY = "child.block.length";
 
     /**
-     * The constant is used in percantage arifmethic operations. Represents
+     * The constant is used in percentage arithmetic operations. Represents
      * '100%'
      */
     private static final double PERCENTS_FACTOR = 100.0;
