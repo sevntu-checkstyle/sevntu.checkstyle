@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+  </parent>
+
+  <groupId>com.github.sevntu-checkstyle</groupId>
+  <artifactId>sevntu-checkstyle-idea-extension</artifactId>
+  <version>1.29.0</version>
+  <packaging>jar</packaging>
+
+  <name>Sevntu Checkstyle Idea extension</name>
+
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.sevntu-checkstyle</groupId>
+      <artifactId>sevntu-checks</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>../eclipsecs-sevntu-plugin/src</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <phase>package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <configuration>
+                <sourcepath>${basedir}/src</sourcepath>
+              </configuration>
+            </execution>
+          </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- serverId is ID of a <server> section from Maven's settings.xml
+              to pick authentication information from
+          -->
+          <serverId>sonatype-nexus-staging</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <skipStaging>true</skipStaging>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>com.github.sevntu-checkstyle</groupId>
+                  <artifactId>sevntu-checks</artifactId>
+                  <version>${sevntu.checks.version}</version>
+                  <type>jar</type>
+                  <overWrite>true</overWrite>
+                  <outputDirectory>${basedir}/target/classes</outputDirectory>
+                  <includes>
+                    com/github/sevntu/checkstyle/**/*.class,
+                    com/github/sevntu/checkstyle/**/m*.properties
+                  </includes>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+
+    <profile>
+      <id>local-deploy</id>
+      <distributionManagement>
+        <repository>
+          <id>com.github.sevntu-checkstyle</id>
+          <name>Sevntu Checkstyle Idea extension</name>
+          <url>file://${basedir}/../gh-pages/maven2/</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+
+    <profile>
+      <!-- first part of profile is in settings.xml with defined gpg.passphrase and gpg.keyname -->
+      <id>gpg</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>
