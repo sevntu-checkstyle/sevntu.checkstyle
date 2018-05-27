@@ -181,7 +181,7 @@ public class RedundantReturnCheck extends AbstractCheck {
      */
     private void log(List<DetailAST> redundantReturnsAst) {
         for (DetailAST redundantLiteralReturnAst : redundantReturnsAst) {
-            log(redundantLiteralReturnAst.getLineNo(), MSG_KEY);
+            log(redundantLiteralReturnAst, MSG_KEY);
         }
     }
 

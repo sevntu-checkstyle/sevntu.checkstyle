@@ -40,10 +40,10 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-            "11: " + warningMessage,
-            "46: " + warningMessage,
-            "54: " + warningMessage,
-            "59: " + warningMessage,
+            "11:9: " + warningMessage,
+            "46:13: " + warningMessage,
+            "54:13: " + warningMessage,
+            "59:17: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck1.java"), expected);
@@ -55,11 +55,11 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-            "11: " + warningMessage,
-            "18: " + warningMessage,
-            "46: " + warningMessage,
-            "54: " + warningMessage,
-            "59: " + warningMessage,
+            "11:9: " + warningMessage,
+            "18:9: " + warningMessage,
+            "46:13: " + warningMessage,
+            "54:13: " + warningMessage,
+            "59:17: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck1.java"), expected);
@@ -72,13 +72,13 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
         checkConfig.addAttribute("collectionList",
                 "Collection ArrayList LinkedList Stack Vector HashSet TreeSet");
         final String[] expected = {
-            "7: " + warningMessage,
-            "17: " + warningMessage,
-            "27: " + warningMessage,
-            "37: " + warningMessage,
-            "47: " + warningMessage,
-            "57: " + warningMessage,
-            "67: " + warningMessage,
+            "7:9: " + warningMessage,
+            "17:9: " + warningMessage,
+            "27:9: " + warningMessage,
+            "37:9: " + warningMessage,
+            "47:9: " + warningMessage,
+            "57:9: " + warningMessage,
+            "67:9: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck2.java"), expected);
@@ -89,8 +89,8 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-            "13: " + warningMessage,
-            "16: " + warningMessage,
+            "13:25: " + warningMessage,
+            "16:25: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck3.java"), expected);
@@ -102,8 +102,8 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-            "13: " + warningMessage,
-            "16: " + warningMessage,
+            "13:25: " + warningMessage,
+            "16:25: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck3.java"), expected);
@@ -124,10 +124,10 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-            "17: " + warningMessage,
-            "25: " + warningMessage,
-            "27: " + warningMessage,
-            "39: " + warningMessage,
+            "17:17: " + warningMessage,
+            "25:13: " + warningMessage,
+            "27:9: " + warningMessage,
+            "39:13: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck5.java"), expected);
@@ -150,7 +150,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-            "8: " + warningMessage,
+            "8:9: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck7.java"), expected);
@@ -163,7 +163,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         checkConfig.addAttribute("searchThroughMethodBody", "true");
         final String[] expected = {
-            "8: " + warningMessage,
+            "8:9: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheck7.java"), expected);
@@ -175,7 +175,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
         final String[] expected = {
-            "5: " + warningMessage,
+            "5:9: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputNoNullForCollectionReturnCheckConstructor.java"),

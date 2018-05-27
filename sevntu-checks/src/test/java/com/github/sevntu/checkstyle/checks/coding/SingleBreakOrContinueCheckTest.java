@@ -47,18 +47,18 @@ public class SingleBreakOrContinueCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SingleBreakOrContinueCheck.class);
         final String[] expected = {
-            "8: " + warningMessage,
-            "26: " + warningMessage,
-            "44: " + warningMessage,
-            "88: " + warningMessage,
-            "106: " + warningMessage,
-            "124: " + warningMessage,
-            "168: " + warningMessage,
-            "187: " + warningMessage,
-            "206: " + warningMessage,
-            "346: " + warningMessage,
-            "367: " + warningMessage,
-            "389: " + warningMessage,
+            "8:9: " + warningMessage,
+            "26:9: " + warningMessage,
+            "44:9: " + warningMessage,
+            "88:9: " + warningMessage,
+            "106:9: " + warningMessage,
+            "124:9: " + warningMessage,
+            "168:9: " + warningMessage,
+            "187:9: " + warningMessage,
+            "206:9: " + warningMessage,
+            "346:13: " + warningMessage,
+            "367:13: " + warningMessage,
+            "389:13: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputSingleBreakOrContinueCheck.java"),

@@ -45,22 +45,22 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
                 "false");
 
         final String[] expected = {
-            "10: " + getCheckMessage(MSG_KEY),
-            "17: " + getCheckMessage(MSG_KEY),
-            "22: " + getCheckMessage(MSG_KEY),
-            "32: " + getCheckMessage(MSG_KEY),
-            "39: " + getCheckMessage(MSG_KEY),
-            "52: " + getCheckMessage(MSG_KEY),
-            "56: " + getCheckMessage(MSG_KEY),
-            "60: " + getCheckMessage(MSG_KEY),
-            "87: " + getCheckMessage(MSG_KEY),
-            "100: " + getCheckMessage(MSG_KEY),
-            "104: " + getCheckMessage(MSG_KEY),
-            "117: " + getCheckMessage(MSG_KEY),
-            "128: " + getCheckMessage(MSG_KEY),
-            "140: " + getCheckMessage(MSG_KEY),
-            "151: " + getCheckMessage(MSG_KEY),
-            "181: " + getCheckMessage(MSG_KEY),
+            "10:17: " + getCheckMessage(MSG_KEY),
+            "17:17: " + getCheckMessage(MSG_KEY),
+            "22:17: " + getCheckMessage(MSG_KEY),
+            "32:33: " + getCheckMessage(MSG_KEY),
+            "39:17: " + getCheckMessage(MSG_KEY),
+            "52:25: " + getCheckMessage(MSG_KEY),
+            "56:25: " + getCheckMessage(MSG_KEY),
+            "60:25: " + getCheckMessage(MSG_KEY),
+            "87:25: " + getCheckMessage(MSG_KEY),
+            "100:25: " + getCheckMessage(MSG_KEY),
+            "104:25: " + getCheckMessage(MSG_KEY),
+            "117:13: " + getCheckMessage(MSG_KEY),
+            "128:33: " + getCheckMessage(MSG_KEY),
+            "140:33: " + getCheckMessage(MSG_KEY),
+            "151:33: " + getCheckMessage(MSG_KEY),
+            "181:49: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig, getPath("InputRedundantReturnCheck.java"), expected);
@@ -74,19 +74,19 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
                 "true");
 
         final String[] expected = {
-            "17: " + getCheckMessage(MSG_KEY),
-            "32: " + getCheckMessage(MSG_KEY),
-            "39: " + getCheckMessage(MSG_KEY),
-            "52: " + getCheckMessage(MSG_KEY),
-            "56: " + getCheckMessage(MSG_KEY),
-            "60: " + getCheckMessage(MSG_KEY),
-            "100: " + getCheckMessage(MSG_KEY),
-            "104: " + getCheckMessage(MSG_KEY),
-            "117: " + getCheckMessage(MSG_KEY),
-            "128: " + getCheckMessage(MSG_KEY),
-            "140: " + getCheckMessage(MSG_KEY),
-            "151: " + getCheckMessage(MSG_KEY),
-            "181: " + getCheckMessage(MSG_KEY),
+            "17:17: " + getCheckMessage(MSG_KEY),
+            "32:33: " + getCheckMessage(MSG_KEY),
+            "39:17: " + getCheckMessage(MSG_KEY),
+            "52:25: " + getCheckMessage(MSG_KEY),
+            "56:25: " + getCheckMessage(MSG_KEY),
+            "60:25: " + getCheckMessage(MSG_KEY),
+            "100:25: " + getCheckMessage(MSG_KEY),
+            "104:25: " + getCheckMessage(MSG_KEY),
+            "117:13: " + getCheckMessage(MSG_KEY),
+            "128:33: " + getCheckMessage(MSG_KEY),
+            "140:33: " + getCheckMessage(MSG_KEY),
+            "151:33: " + getCheckMessage(MSG_KEY),
+            "181:49: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig, getPath("InputRedundantReturnCheck.java"), expected);

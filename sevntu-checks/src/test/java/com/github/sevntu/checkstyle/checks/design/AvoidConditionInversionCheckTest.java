@@ -47,16 +47,16 @@ public class AvoidConditionInversionCheckTest extends AbstractModuleTestSupport 
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidConditionInversionCheck.class);
         final String[] expected = {
-            "7: " + getCheckMessage(MSG_KEY),
-            "11: " + getCheckMessage(MSG_KEY),
-            "15: " + getCheckMessage(MSG_KEY),
-            "19: " + getCheckMessage(MSG_KEY),
-            "23: " + getCheckMessage(MSG_KEY),
-            "29: " + getCheckMessage(MSG_KEY),
-            "31: " + getCheckMessage(MSG_KEY),
-            "39: " + getCheckMessage(MSG_KEY),
-            "102: " + getCheckMessage(MSG_KEY),
-            "107: " + getCheckMessage(MSG_KEY),
+            "7:24: " + getCheckMessage(MSG_KEY),
+            "11:24: " + getCheckMessage(MSG_KEY),
+            "15:24: " + getCheckMessage(MSG_KEY),
+            "19:21: " + getCheckMessage(MSG_KEY),
+            "23:24: " + getCheckMessage(MSG_KEY),
+            "29:27: " + getCheckMessage(MSG_KEY),
+            "31:34: " + getCheckMessage(MSG_KEY),
+            "39:24: " + getCheckMessage(MSG_KEY),
+            "102:21: " + getCheckMessage(MSG_KEY),
+            "107:21: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig, getPath("InputAvoidConditionInversionCheck.java"),
@@ -71,13 +71,13 @@ public class AvoidConditionInversionCheckTest extends AbstractModuleTestSupport 
                 "true");
 
         final String[] expected = {
-            "7: " + getCheckMessage(MSG_KEY),
-            "11: " + getCheckMessage(MSG_KEY),
-            "15: " + getCheckMessage(MSG_KEY),
-            "19: " + getCheckMessage(MSG_KEY),
-            "23: " + getCheckMessage(MSG_KEY),
-            "29: " + getCheckMessage(MSG_KEY),
-            "31: " + getCheckMessage(MSG_KEY),
+            "7:24: " + getCheckMessage(MSG_KEY),
+            "11:24: " + getCheckMessage(MSG_KEY),
+            "15:24: " + getCheckMessage(MSG_KEY),
+            "19:21: " + getCheckMessage(MSG_KEY),
+            "23:24: " + getCheckMessage(MSG_KEY),
+            "29:27: " + getCheckMessage(MSG_KEY),
+            "31:34: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig, getPath("InputAvoidConditionInversionCheck.java"),
