@@ -67,7 +67,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
-        final String[] expected = {"13: " + getCheckMessage(MSG_KEY, typeName), };
+        final String[] expected = {"13:12: " + getCheckMessage(MSG_KEY, typeName), };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck2.java"),
                 expected);
@@ -118,7 +118,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
-        final String[] expected = {"13: " + getCheckMessage(MSG_KEY, typeName), };
+        final String[] expected = {"13:12: " + getCheckMessage(MSG_KEY, typeName), };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck5.java"),
                 expected);
@@ -135,7 +135,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
-        final String[] expected = {"14: " + getCheckMessage(MSG_KEY, typeName), };
+        final String[] expected = {"14:16: " + getCheckMessage(MSG_KEY, typeName), };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck6.java"),
                 expected);
@@ -153,7 +153,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
-        final String[] expected = {"14: " + getCheckMessage(MSG_KEY, typeName), };
+        final String[] expected = {"14:24: " + getCheckMessage(MSG_KEY, typeName), };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck7.java"),
                 expected);
@@ -171,7 +171,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final String typeName = "PrivateInner";
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
-        final String[] expected = {"14: " + getCheckMessage(MSG_KEY, typeName), };
+        final String[] expected = {"14:40: " + getCheckMessage(MSG_KEY, typeName), };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck9.java"),
                 expected);
@@ -191,8 +191,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "25: " + getCheckMessage(MSG_KEY, typeName),
-            "28: " + getCheckMessage(MSG_KEY, typeName1),
+            "25:40: " + getCheckMessage(MSG_KEY, typeName),
+            "28:12: " + getCheckMessage(MSG_KEY, typeName1),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck8.java"),
@@ -212,9 +212,9 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "14: " + getCheckMessage(MSG_KEY, typeName),
-            "20: " + getCheckMessage(MSG_KEY, typeName),
-            "23: " + getCheckMessage(MSG_KEY, typeName),
+            "14:40: " + getCheckMessage(MSG_KEY, typeName),
+            "20:43: " + getCheckMessage(MSG_KEY, typeName),
+            "23:33: " + getCheckMessage(MSG_KEY, typeName),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck10.java"),
@@ -233,9 +233,9 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "14: " + getCheckMessage(MSG_KEY, typeName),
-            "20: " + getCheckMessage(MSG_KEY, typeName),
-            "23: " + getCheckMessage(MSG_KEY, typeName),
+            "14:24: " + getCheckMessage(MSG_KEY, typeName),
+            "20:29: " + getCheckMessage(MSG_KEY, typeName),
+            "23:33: " + getCheckMessage(MSG_KEY, typeName),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck11.java"),
@@ -249,8 +249,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "13: " + getCheckMessage(MSG_KEY, typeName),
-            "19: " + getCheckMessage(MSG_KEY, typeName),
+            "13:24: " + getCheckMessage(MSG_KEY, typeName),
+            "19:16: " + getCheckMessage(MSG_KEY, typeName),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck12.java"),
@@ -264,8 +264,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "8: " + getCheckMessage(MSG_KEY, typeName),
-            "10: " + getCheckMessage(MSG_KEY, typeName),
+            "8:5: " + getCheckMessage(MSG_KEY, typeName),
+            "10:15: " + getCheckMessage(MSG_KEY, typeName),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck13.java"),
@@ -281,11 +281,11 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "15: " + getCheckMessage(MSG_KEY, typeName),
-            "25: " + getCheckMessage(MSG_KEY, typeName1),
-            "31: " + getCheckMessage(MSG_KEY, typeName1),
-            "35: " + getCheckMessage(MSG_KEY, typeName2),
-            "37: " + getCheckMessage(MSG_KEY, typeName2),
+            "15:12: " + getCheckMessage(MSG_KEY, typeName),
+            "25:24: " + getCheckMessage(MSG_KEY, typeName1),
+            "31:16: " + getCheckMessage(MSG_KEY, typeName1),
+            "35:5: " + getCheckMessage(MSG_KEY, typeName2),
+            "37:15: " + getCheckMessage(MSG_KEY, typeName2),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck14.java"),
@@ -298,12 +298,12 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "4: " + getCheckMessage(MSG_KEY, "Inner"),
-            "4: " + getCheckMessage(MSG_KEY, "Inner1"),
-            "9: " + getCheckMessage(MSG_KEY, "Inner"),
-            "9: " + getCheckMessage(MSG_KEY, "Inner2"),
-            "9: " + getCheckMessage(MSG_KEY, "Inner3"),
-            "14: " + getCheckMessage(MSG_KEY, "Inner"),
+            "4:12: " + getCheckMessage(MSG_KEY, "Inner"),
+            "4:18: " + getCheckMessage(MSG_KEY, "Inner1"),
+            "9:12: " + getCheckMessage(MSG_KEY, "Inner"),
+            "9:18: " + getCheckMessage(MSG_KEY, "Inner2"),
+            "9:25: " + getCheckMessage(MSG_KEY, "Inner3"),
+            "14:12: " + getCheckMessage(MSG_KEY, "Inner"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck15.java"),
@@ -316,9 +316,9 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "4: " + getCheckMessage(MSG_KEY, "Inner"),
-            "4: " + getCheckMessage(MSG_KEY, "Inner2"),
-            "4: " + getCheckMessage(MSG_KEY, "Inner3"),
+            "4:12: " + getCheckMessage(MSG_KEY, "Inner"),
+            "4:18: " + getCheckMessage(MSG_KEY, "Inner2"),
+            "4:25: " + getCheckMessage(MSG_KEY, "Inner3"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck16.java"),
@@ -331,8 +331,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "4: " + getCheckMessage(MSG_KEY, "Inner"),
-            "9: " + getCheckMessage(MSG_KEY, "Inner1"),
+            "4:12: " + getCheckMessage(MSG_KEY, "Inner"),
+            "9:12: " + getCheckMessage(MSG_KEY, "Inner1"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck17.java"),
@@ -345,7 +345,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "17: " + getCheckMessage(MSG_KEY, "InnerClass"),
+            "17:12: " + getCheckMessage(MSG_KEY, "InnerClass"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck18.java"),
@@ -358,9 +358,9 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
         final String[] expected = {
-            "4: " + getCheckMessage(MSG_KEY, "C1"),
-            "6: " + getCheckMessage(MSG_KEY, "C1"),
-            "8: " + getCheckMessage(MSG_KEY, "C1"),
+            "4:31: " + getCheckMessage(MSG_KEY, "C1"),
+            "6:23: " + getCheckMessage(MSG_KEY, "C1"),
+            "8:43: " + getCheckMessage(MSG_KEY, "C1"),
         };
         verify(checkConfig,
                 getPath("InputPublicReferenceToPrivateTypeCheck19.java"),
