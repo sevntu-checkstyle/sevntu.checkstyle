@@ -241,7 +241,7 @@ public class AllChecksTest {
             List<String> classes = allTests.get(pkg);
 
             if (classes == null) {
-                classes = new ArrayList<String>();
+                classes = new ArrayList<>();
 
                 allTests.put(pkg, classes);
             }

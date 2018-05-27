@@ -802,7 +802,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         }
 
         while (astNode.getType() != TokenTypes.IDENT) {
-            if (astNode != null && astNode.getFirstChild() != null) {
+            if (astNode.getFirstChild() != null) {
                 modifiers.append(getModifiersAsText(astNode.getFirstChild()));
                 modifiers.append(" ");
             }

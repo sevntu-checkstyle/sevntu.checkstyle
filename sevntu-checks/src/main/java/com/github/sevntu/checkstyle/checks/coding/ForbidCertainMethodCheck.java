@@ -161,7 +161,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
                     methodNameInCode = dot.getLastChild().getText();
                 }
                 final int numArgsInCode = dot.getNextSibling().getChildCount(TokenTypes.EXPR);
-                if (isForbiddenMethod(ast, methodNameInCode, numArgsInCode)) {
+                if (isForbiddenMethod(methodNameInCode, numArgsInCode)) {
                     log(ast, MSG_KEY, methodNameInCode, methodName,
                         numArgsInCode, argumentCount);
                 }
@@ -174,12 +174,11 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
     /**
      * Check if the method/constructor call against defined rules.
-     * @param ast ast for the call
      * @param name ruleName of the the method
      * @param argCount number of arguments of the method
      * @return true if method name and argument matches, false otherwise.
      */
-    private boolean isForbiddenMethod(DetailAST ast, String name, int argCount) {
+    private boolean isForbiddenMethod(String name, int argCount) {
         boolean matched = false;
         if (methodName.matcher(name).matches()) {
             for (IntRange intRange : argumentCountRanges) {
