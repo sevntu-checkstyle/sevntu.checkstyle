@@ -270,7 +270,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     private static boolean isAnonymousClass(DetailAST ast) {
         final int astType = ast.getType();
         return astType == TokenTypes.LITERAL_NEW
-                && ast.branchContains(TokenTypes.LCURLY);
+                && ast.findFirstToken(TokenTypes.OBJBLOCK) != null;
     }
 
     /**

@@ -138,7 +138,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private boolean isSetterCorrect(DetailAST methodDef, String methodName) {
         final DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
         boolean result = true;
-        if (methodType.branchContains(TokenTypes.LITERAL_VOID)) {
+        if (methodType.findFirstToken(TokenTypes.LITERAL_VOID) != null) {
             DetailAST currentVerifiedTop = methodDef.findFirstToken(TokenTypes.SLIST);
 
             if (containsOnlyExpression(currentVerifiedTop)) {

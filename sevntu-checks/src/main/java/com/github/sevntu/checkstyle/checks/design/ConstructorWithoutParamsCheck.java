@@ -158,7 +158,7 @@ public class ConstructorWithoutParamsCheck extends AbstractCheck {
             // and this check does not apply.
             if (regexp.matcher(className).find()
                 && !ignoredRegexp.matcher(className).find()
-                && !ast.branchContains(TokenTypes.ARRAY_DECLARATOR)) {
+                && ast.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
                 final DetailAST parameterListAST = ast.findFirstToken(TokenTypes.ELIST);
                 final int numberOfParameters = parameterListAST.getChildCount();
 

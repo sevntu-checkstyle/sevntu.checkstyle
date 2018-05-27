@@ -280,7 +280,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_TRY));
         final List<DetailAST> nestedSubblocks = new LinkedList<>();
         for (DetailAST currentSubblock : subblocks) {
-            if (currentSubblock.branchContains(TokenTypes.SLIST)) {
+            if (currentSubblock.findFirstToken(TokenTypes.SLIST) != null) {
                 nestedSubblocks.addAll(getAllSubblocks(currentSubblock));
             }
         }
