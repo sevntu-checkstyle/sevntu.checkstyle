@@ -78,7 +78,7 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
     public void visitToken(DetailAST ast) {
         final DetailAST previousAst = getPreviousAst(ast);
         if (!areTokensSeparatedByWhitespace(previousAst, ast) && isNestedArrayInitializer(ast)) {
-            log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY);
+            log(ast, MSG_KEY);
         }
     }
 
