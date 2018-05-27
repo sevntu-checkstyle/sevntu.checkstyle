@@ -79,9 +79,9 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                     final DetailAST modifiers =
                         child.findFirstToken(TokenTypes.MODIFIERS);
                     final boolean isStatic =
-                        modifiers.branchContains(TokenTypes.LITERAL_STATIC);
+                        modifiers.findFirstToken(TokenTypes.LITERAL_STATIC) != null;
                     final boolean isPrivate =
-                        modifiers.branchContains(TokenTypes.LITERAL_PRIVATE);
+                        modifiers.findFirstToken(TokenTypes.LITERAL_PRIVATE) != null;
 
                     if (!isStatic && !isPrivate) {
                         hasNonStaticMethodOrField = true;
@@ -94,8 +94,8 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                     hasDefaultCtor = false;
                     final DetailAST modifiers =
                         child.findFirstToken(TokenTypes.MODIFIERS);
-                    if (!modifiers.branchContains(TokenTypes.LITERAL_PRIVATE)
-                        && !modifiers.branchContains(TokenTypes.LITERAL_PROTECTED)) {
+                    if (modifiers.findFirstToken(TokenTypes.LITERAL_PRIVATE) == null
+                        && modifiers.findFirstToken(TokenTypes.LITERAL_PROTECTED) == null) {
                         // treat package visible as public
                         // for the purpose of this Check
                         hasPublicCtor = true;
