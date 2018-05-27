@@ -247,8 +247,8 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         final DetailAST modifiersAst = ast.findFirstToken(TokenTypes.MODIFIERS);
         final String methodName = ast.findFirstToken(TokenTypes.IDENT).getText();
         final Frame frame = new Frame(parentFrame);
-        if (modifiersAst.branchContains(TokenTypes.LITERAL_PRIVATE)
-                && !modifiersAst.branchContains(TokenTypes.LITERAL_STATIC)
+        if (modifiersAst.findFirstToken(TokenTypes.LITERAL_PRIVATE) != null
+                && modifiersAst.findFirstToken(TokenTypes.LITERAL_STATIC) == null
                 && !skippedMethods.contains(methodName)) {
             frame.isPrivateMethod = true;
             frame.ast = ast;
@@ -360,7 +360,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      */
     private static boolean hasStaticModifier(DetailAST ast) {
         return ast.findFirstToken(TokenTypes.MODIFIERS)
-            .branchContains(TokenTypes.LITERAL_STATIC);
+            .findFirstToken(TokenTypes.LITERAL_STATIC) != null;
     }
 
     /**
@@ -643,7 +643,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                             || parametersAst.branchContains(TokenTypes.ELLIPSIS))) {
                     final DetailAST modifiersAst = method.findFirstToken(TokenTypes.MODIFIERS);
 
-                    if (modifiersAst.branchContains(TokenTypes.LITERAL_STATIC)) {
+                    if (modifiersAst.findFirstToken(TokenTypes.LITERAL_STATIC) != null) {
                         // if a static method is found, we keep searching for a similar
                         // non-static one to the end of the frame and if a non-static
                         // method is not found, then the checked method is still

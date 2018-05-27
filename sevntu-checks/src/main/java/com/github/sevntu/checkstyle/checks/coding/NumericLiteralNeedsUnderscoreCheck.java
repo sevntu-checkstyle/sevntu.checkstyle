@@ -368,8 +368,10 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
             current = current.getParent();
         }
         return current.getType() == TokenTypes.VARIABLE_DEF
-                && current.branchContains(TokenTypes.LITERAL_STATIC)
-                && current.branchContains(TokenTypes.FINAL);
+                && current.findFirstToken(TokenTypes.MODIFIERS)
+                    .findFirstToken(TokenTypes.LITERAL_STATIC) != null
+                && current.findFirstToken(TokenTypes.MODIFIERS)
+                    .findFirstToken(TokenTypes.FINAL) != null;
     }
 
     /**
