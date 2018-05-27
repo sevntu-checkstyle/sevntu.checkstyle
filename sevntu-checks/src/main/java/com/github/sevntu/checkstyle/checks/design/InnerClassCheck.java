@@ -70,7 +70,7 @@ public class InnerClassCheck extends AbstractCheck {
                     && nextSibling.getType() != TokenTypes.CLASS_DEF) {
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
                         || nextSibling.getType() == TokenTypes.METHOD_DEF) {
-                    log(nextSibling.getLineNo(), nextSibling.getColumnNo(), MSG_KEY);
+                    log(nextSibling, MSG_KEY);
                 }
                 nextSibling = nextSibling.getNextSibling();
             }

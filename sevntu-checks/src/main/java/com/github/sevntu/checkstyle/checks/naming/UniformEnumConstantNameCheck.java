@@ -200,7 +200,7 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
             }
             patternsString = violatedPatterns.toString();
         }
-        log(member.getLineNo(), member.getColumnNo(), msgKey, enumName,
+        log(member, msgKey, enumName,
                 patternsString);
     }
 

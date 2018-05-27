@@ -119,7 +119,7 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                 && hasNonPrivateStaticMethodOrField;
 
             if (isUtilClass && (hasAccessibleCtor && !hasStaticModifier)) {
-                log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY);
+                log(ast, MSG_KEY);
             }
         }
     }

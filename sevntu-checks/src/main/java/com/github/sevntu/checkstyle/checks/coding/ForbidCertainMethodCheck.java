@@ -162,7 +162,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
                 }
                 final int numArgsInCode = dot.getNextSibling().getChildCount(TokenTypes.EXPR);
                 if (isForbiddenMethod(ast, methodNameInCode, numArgsInCode)) {
-                    log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY, methodNameInCode, methodName,
+                    log(ast, MSG_KEY, methodNameInCode, methodName,
                         numArgsInCode, argumentCount);
                 }
                 break;
