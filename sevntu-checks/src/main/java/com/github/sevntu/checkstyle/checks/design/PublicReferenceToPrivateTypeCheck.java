@@ -258,9 +258,9 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private boolean isExtendsOrImplementsSmth(DetailAST classOrInterfaceDefAst) {
         return (classOrInterfaceDefAst
-                .branchContains(TokenTypes.EXTENDS_CLAUSE)
+                .findFirstToken(TokenTypes.EXTENDS_CLAUSE) != null
                 || classOrInterfaceDefAst
-                .branchContains(TokenTypes.IMPLEMENTS_CLAUSE))
+                .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE) != null)
                 && !isExtendsOrImplementsPrivate(classOrInterfaceDefAst);
     }
 

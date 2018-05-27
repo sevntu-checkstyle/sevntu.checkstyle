@@ -368,6 +368,19 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
     }
 
     @Test
+    public void testNestedInnerClass()
+            throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(PublicReferenceToPrivateTypeCheck.class);
+        final String[] expected = {
+            "7:18: " + getCheckMessage(MSG_KEY, "ConcurrentWeakInternSet"),
+        };
+        verify(checkConfig,
+                getPath("InputPublicReferenceToPrivateTypeCheck20.java"),
+                expected);
+    }
+
+    @Test
     public void testUnsupportedNode() {
         final DetailAST sync = new DetailAST();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);

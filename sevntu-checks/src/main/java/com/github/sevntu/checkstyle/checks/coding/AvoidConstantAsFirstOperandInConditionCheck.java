@@ -128,7 +128,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
         final int constantType = firstOperand.getType();
 
         return isTargetConstantType(constantType)
-                && !secondOperand.branchContains(constantType);
+                && secondOperand.getType() != firstOperand.getType();
     }
 
     /**

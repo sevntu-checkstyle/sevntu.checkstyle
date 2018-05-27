@@ -67,6 +67,10 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractMod
             "101:23: " + getCheckMessage(MSG_KEY, "=="),
             "111:19: " + getCheckMessage(MSG_KEY, "=="),
             "112:40: " + getCheckMessage(MSG_KEY, "=="),
+            "118:15: " + getCheckMessage(MSG_KEY, "=="),
+            "119:15: " + getCheckMessage(MSG_KEY, "!="),
+            "120:15: " + getCheckMessage(MSG_KEY, "!="),
+            "121:18: " + getCheckMessage(MSG_KEY, "!="),
         };
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
                 expected);
@@ -81,6 +85,9 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractMod
             "25:15: " + getCheckMessage(MSG_KEY, "=="),
             "28:18: " + getCheckMessage(MSG_KEY, "=="),
             "31:19: " + getCheckMessage(MSG_KEY, "=="),
+            "118:15: " + getCheckMessage(MSG_KEY, "=="),
+            "119:15: " + getCheckMessage(MSG_KEY, "!="),
+            "120:15: " + getCheckMessage(MSG_KEY, "!="),
         };
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
                 expected);
@@ -123,6 +130,10 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractMod
             "101:23: " + getCheckMessage(MSG_KEY, "=="),
             "111:19: " + getCheckMessage(MSG_KEY, "=="),
             "112:40: " + getCheckMessage(MSG_KEY, "=="),
+            "118:15: " + getCheckMessage(MSG_KEY, "=="),
+            "119:15: " + getCheckMessage(MSG_KEY, "!="),
+            "120:15: " + getCheckMessage(MSG_KEY, "!="),
+            "121:18: " + getCheckMessage(MSG_KEY, "!="),
         };
 
         verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),

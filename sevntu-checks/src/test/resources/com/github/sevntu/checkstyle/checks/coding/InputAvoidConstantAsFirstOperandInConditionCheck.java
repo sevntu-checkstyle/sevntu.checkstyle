@@ -112,4 +112,14 @@ public class InputAvoidConstantAsFirstOperandInConditionCheck {
         for (someVariable = null; null == someVariable; someVariable = null) {} //!!
     }
 
+    public void expressionsWithInnerConstant() {
+        int a = 0, b = 0;
+
+        if (1 == (1 & (a >> b))) {}
+        if (1 != someMethod(1)) {}
+        if (1 != a * 2) {}
+        if (null != System.getProperty("test.src", null)) {}
+    }
+
+    public int someMethod(int i) { return i; }
 }

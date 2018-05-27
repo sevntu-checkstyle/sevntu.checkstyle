@@ -755,7 +755,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         final DetailAST methodTypeAst = methodDefAst.findFirstToken(TokenTypes.TYPE);
 
-        if (methodTypeAst.branchContains(TokenTypes.LITERAL_VOID)) {
+        if (methodTypeAst.findFirstToken(TokenTypes.LITERAL_VOID) != null) {
             final DetailAST statementsAst = methodDefAst.findFirstToken(TokenTypes.SLIST);
             final String methodName = getIdentifier(methodDefAst);
             final String setterFieldName = fieldPrefix
