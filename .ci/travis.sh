@@ -66,7 +66,9 @@ checkstyle-regression)
   mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../
   cd ../
   cd checkstyle
-  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dfindbugs.skip=true -Dcobertura.skip=true -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.7
+  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
+      -Dfindbugs.skip=true -Dcobertura.skip=true \
+      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.7
   ;;
 
 eclipse-analysis)
