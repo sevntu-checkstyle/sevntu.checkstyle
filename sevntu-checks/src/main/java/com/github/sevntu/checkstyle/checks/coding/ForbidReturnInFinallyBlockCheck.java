@@ -70,7 +70,7 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
 
         for (DetailAST returnNode : listOfReturnNodes) {
             if (!isReturnInMethodDefinition(returnNode)) {
-                log(finallyNode.getLineNo(), MSG_KEY);
+                log(finallyNode, MSG_KEY);
             }
         }
     }

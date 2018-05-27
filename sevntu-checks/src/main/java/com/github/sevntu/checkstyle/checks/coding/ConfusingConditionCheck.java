@@ -177,7 +177,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
             if (isRatioBetweenIfAndElseBlockSuitable(literalIf)
                     && !(ignoreNullCaseInIf && isIfWithNull(literalIf))
                     && isConditionAllNegative(literalIf)) {
-                log(literalIf.getLineNo(), MSG_KEY);
+                log(literalIf, MSG_KEY);
             }
         }
     }

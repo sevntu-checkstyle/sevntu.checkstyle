@@ -80,10 +80,10 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("annotationTargets", "VARIABLE_DEF");
 
         final String[] expected2 = {
-            "13: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Edible"),
-            "20: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Author"),
-            "21: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Author2"),
-            "59: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "SuppressWarnings"),
+            "13:5: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Edible"),
+            "20:7: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Author"),
+            "21:7: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Author2"),
+            "59:7: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "SuppressWarnings"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected2);
@@ -97,11 +97,11 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("annotationTargets", "METHOD_DEF");
 
         final String[] expected3 = {
-            "28: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Twizzle"),
-            "39: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "One"),
-            "40: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Two"),
-            "41: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Three"),
-            "47: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "B"),
+            "28:7: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Twizzle"),
+            "39:7: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "One"),
+            "40:7: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Two"),
+            "41:7: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Three"),
+            "47:9: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "B"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected3);
@@ -115,9 +115,9 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("annotationTargets", "CLASS_DEF,CTOR_DEF");
 
         final String[] expected4 = {
-            "6: " + getCheckMessage(MSG_KEY, "CLASS_DEF", "Test"),
-            "8: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor"),
-            "9: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor2"),
+            "6:1: " + getCheckMessage(MSG_KEY, "CLASS_DEF", "Test"),
+            "8:5: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor"),
+            "9:5: " + getCheckMessage(MSG_KEY, "CTOR_DEF", "ctor2"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected4);
@@ -131,8 +131,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("annotationTargets", "ANNOTATION_DEF");
 
         final String[] expected5 = {
-            "34: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Retention"),
-            "35: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Target"),
+            "34:7: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Retention"),
+            "35:7: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Target"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected5);
@@ -147,8 +147,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
                 "PARAMETER_DEF,INTERFACE_DEF");
 
         final String[] expected6 = {
-            "43: " + getCheckMessage(MSG_KEY, "PARAMETER_DEF", "MyAnnotation"),
-            "45: " + getCheckMessage(MSG_KEY, "INTERFACE_DEF", "A"),
+            "43:17: " + getCheckMessage(MSG_KEY, "PARAMETER_DEF", "MyAnnotation"),
+            "45:7: " + getCheckMessage(MSG_KEY, "INTERFACE_DEF", "A"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected6);
@@ -163,10 +163,10 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
                 "ENUM_DEF,ENUM_CONSTANT_DEF");
 
         final String[] expected7 = {
-            "50: " + getCheckMessage(MSG_KEY, "ENUM_DEF", "C"),
-            "52: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int1"),
-            "54: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int2"),
-            "56: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int3"),
+            "50:7: " + getCheckMessage(MSG_KEY, "ENUM_DEF", "C"),
+            "52:12: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int1"),
+            "54:12: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int2"),
+            "56:12: " + getCheckMessage(MSG_KEY, "ENUM_CONSTANT_DEF", "int3"),
         };
 
         verify(checkConfig, getPath("InputForbidAnnotationCheck.java"), expected7);

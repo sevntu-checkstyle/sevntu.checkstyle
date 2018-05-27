@@ -124,7 +124,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
         if (throwingLiteralNewAst != null
                 && hasObjectBlock(throwingLiteralNewAst)) {
-            log(throwDefAst.getLineNo(), MSG_KEY);
+            log(throwDefAst, MSG_KEY);
         }
         else if (throwingLiteralNewAst == null) {
             final DetailAST throwingExceptionNameAst = getThrowingExceptionNameAst(throwDefAst
@@ -132,7 +132,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
             if (throwingExceptionNameAst != null
                     && anonymousExceptions.contains(throwingExceptionNameAst
                             .getText())) {
-                log(throwDefAst.getLineNo(), MSG_KEY);
+                log(throwDefAst, MSG_KEY);
             }
         }
     }

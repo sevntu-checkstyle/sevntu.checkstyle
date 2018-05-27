@@ -206,7 +206,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
      *        import to be warned.
      */
     private void log(DetailAST nodeToWarn, String importText) {
-        log(nodeToWarn.getLineNo(), MSG_KEY,
+        log(nodeToWarn, MSG_KEY,
                 getForbiddenImportRegexp(), importText);
     }
 
