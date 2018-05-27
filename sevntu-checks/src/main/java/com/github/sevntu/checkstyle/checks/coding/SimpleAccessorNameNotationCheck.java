@@ -109,17 +109,17 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             if (methodName.startsWith(BOOLEAN_GETTER_PREFIX)) {
                 if (!isGetterCorrect(methodDef,
                         methodName.substring(BOOLEAN_GETTER_PREFIX.length()))) {
-                    log(methodDef.getLineNo(), MSG_KEY_GETTER);
+                    log(methodDef, MSG_KEY_GETTER);
                 }
             }
             else if (methodName.startsWith(SETTER_PREFIX)) {
                 if (!isSetterCorrect(methodDef, methodName.substring(SETTER_PREFIX.length()))) {
-                    log(methodDef.getLineNo(), MSG_KEY_SETTER);
+                    log(methodDef, MSG_KEY_SETTER);
                 }
             }
             else if (methodName.startsWith(GETTER_PREFIX)) {
                 if (!isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length()))) {
-                    log(methodDef.getLineNo(), MSG_KEY_GETTER);
+                    log(methodDef, MSG_KEY_GETTER);
                 }
             }
         }

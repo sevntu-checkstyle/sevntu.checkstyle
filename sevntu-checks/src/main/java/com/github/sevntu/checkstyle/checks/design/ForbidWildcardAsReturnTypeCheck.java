@@ -242,7 +242,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
                     getWildcardArgumentsAsMethodReturnType(methodDefAst);
             if (!wildcardTypeArguments.isEmpty()
                     && !isIgnoreCase(methodDefAst, wildcardTypeArguments)) {
-                log(methodDefAst.getLineNo(), MSG_KEY);
+                log(methodDefAst, MSG_KEY);
             }
         }
     }

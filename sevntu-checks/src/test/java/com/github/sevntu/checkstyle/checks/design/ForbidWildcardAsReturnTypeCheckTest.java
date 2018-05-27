@@ -455,10 +455,26 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
         final String[] expected = new String[aLines.size()];
         int index = 0;
         for (Integer element : aLines) {
-            expected[index] = element + ": " + warningMessage;
+            expected[index] = element + ":" + getColumnNumber(element) + ": " + warningMessage;
             index++;
         }
         return expected;
+    }
+
+    private static int getColumnNumber(int lineNumber) {
+        final int result;
+
+        if (lineNumber >= 264 && lineNumber < 280) {
+            result = 13;
+        }
+        else if (lineNumber < 228 || lineNumber >= 280 && lineNumber < 290 || lineNumber >= 304) {
+            result = 5;
+        }
+        else {
+            result = 9;
+        }
+
+        return result;
     }
 
 }

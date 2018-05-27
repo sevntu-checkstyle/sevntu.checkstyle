@@ -152,7 +152,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                         outReturnedType.getText())
                         && !isExtendsOrImplementsSmth(privateType
                                 .getParent())) {
-                    log(outReturnedType.getLineNo(), MSG_KEY,
+                    log(outReturnedType, MSG_KEY,
                             outReturnedType.getText());
                 }
             }
