@@ -50,11 +50,11 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {
-            "3: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "3:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-            "9: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "9:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-            "21: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "21:30: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
@@ -154,11 +154,11 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
 
         final String[] expected = {
-            "3: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "3:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-            "9: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "9:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-            "21: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "21:30: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 
@@ -189,9 +189,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {
-            "3: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "3:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
-            "10: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
+            "10:30: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
                     "com.puppycrawl.tools.checkstyle.api.AutomaticBean"),
         };
 

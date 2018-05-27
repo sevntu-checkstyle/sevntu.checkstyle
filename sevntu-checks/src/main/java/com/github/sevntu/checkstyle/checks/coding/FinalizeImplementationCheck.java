@@ -109,7 +109,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
             final String warningMessage = validateFinalizeMethod(methodDefToken);
 
             if (warningMessage != null) {
-                log(methodDefToken.getLineNo(), warningMessage);
+                log(methodDefToken, warningMessage);
             }
         }
     }

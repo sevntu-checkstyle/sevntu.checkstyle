@@ -42,21 +42,21 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
                 createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {
-            "33: " + warningMessage,
-            "45: " + warningMessage,
-            "52: " + warningMessage,
-            "59: " + warningMessage,
-            "67: " + warningMessage,
-            "74: " + warningMessage,
-            "97: " + warningMessage,
-            "104: " + warningMessage,
-            "121: " + warningMessage,
-            "134: " + warningMessage,
-            "145: " + warningMessage,
-            "159: " + warningMessage,
-            "171: " + warningMessage,
-            "179: " + warningMessage,
-            "187: " + warningMessage,
+            "33:48: " + warningMessage,
+            "45:31: " + warningMessage,
+            "52:31: " + warningMessage,
+            "59:30: " + warningMessage,
+            "67:9: " + warningMessage,
+            "74:30: " + warningMessage,
+            "97:30: " + warningMessage,
+            "104:34: " + warningMessage,
+            "121:30: " + warningMessage,
+            "134:30: " + warningMessage,
+            "145:36: " + warningMessage,
+            "159:42: " + warningMessage,
+            "171:39: " + warningMessage,
+            "179:42: " + warningMessage,
+            "187:35: " + warningMessage,
         };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
                 expected);
@@ -70,7 +70,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
-            "10: " + warningMessage,
+            "10:22: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck2.java"),
@@ -96,17 +96,17 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
                 createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
-            "33: " + warningMessage,
-            "59: " + warningMessage,
-            "67: " + warningMessage,
-            "74: " + warningMessage,
-            "97: " + warningMessage,
-            "104: " + warningMessage,
-            "121: " + warningMessage,
-            "134: " + warningMessage,
-            "145: " + warningMessage,
-            "171: " + warningMessage,
-            "187: " + warningMessage,
+            "33:48: " + warningMessage,
+            "59:30: " + warningMessage,
+            "67:9: " + warningMessage,
+            "74:30: " + warningMessage,
+            "97:30: " + warningMessage,
+            "104:34: " + warningMessage,
+            "121:30: " + warningMessage,
+            "134:30: " + warningMessage,
+            "145:36: " + warningMessage,
+            "171:39: " + warningMessage,
+            "187:35: " + warningMessage,
         };
         verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
                 expected);

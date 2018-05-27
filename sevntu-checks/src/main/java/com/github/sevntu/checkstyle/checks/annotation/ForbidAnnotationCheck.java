@@ -109,7 +109,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
                 && isForbiddenAnnotationTarget(targetType)) {
             final String currentTarget = annotationTarget.getText();
 
-            log(annotation.getLineNo(), MSG_KEY,
+            log(annotation, MSG_KEY,
                     currentTarget, annotationName);
         }
     }

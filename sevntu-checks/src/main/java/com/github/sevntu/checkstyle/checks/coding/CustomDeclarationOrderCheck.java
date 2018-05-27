@@ -558,7 +558,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final DetailAST setterAst = entry.getKey();
             final DetailAST getterAst = entry.getValue();
 
-            log(setterAst.getLineNo(),
+            log(setterAst,
                     MSG_KEY_INVALID_SETTER,
                     getIdentifier(setterAst),
                     getIdentifier(getterAst));

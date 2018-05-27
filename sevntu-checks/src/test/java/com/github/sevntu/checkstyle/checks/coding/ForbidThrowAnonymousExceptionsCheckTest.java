@@ -38,7 +38,7 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         final String[] expected = {
-            "8: " + getCheckMessage(MSG_KEY),
+            "8:23: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig,
@@ -50,8 +50,8 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         final String[] expected = {
-            "8: " + getCheckMessage(MSG_KEY),
-            "30: " + getCheckMessage(MSG_KEY),
+            "8:15: " + getCheckMessage(MSG_KEY),
+            "30:13: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig,
@@ -63,12 +63,12 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         final String[] expected = {
-            "12: " + getCheckMessage(MSG_KEY),
-            "23: " + getCheckMessage(MSG_KEY),
-            "66: " + getCheckMessage(MSG_KEY),
-            "88: " + getCheckMessage(MSG_KEY),
-            "107: " + getCheckMessage(MSG_KEY),
-            "127: " + getCheckMessage(MSG_KEY),
+            "12:15: " + getCheckMessage(MSG_KEY),
+            "23:13: " + getCheckMessage(MSG_KEY),
+            "66:9: " + getCheckMessage(MSG_KEY),
+            "88:9: " + getCheckMessage(MSG_KEY),
+            "107:9: " + getCheckMessage(MSG_KEY),
+            "127:9: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig,
@@ -81,8 +81,8 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestS
                 createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
         checkConfig.addAttribute("exceptionClassNameRegex", "^.*bla");
         final String[] expected = {
-            "10: " + getCheckMessage(MSG_KEY),
-            "12: " + getCheckMessage(MSG_KEY),
+            "10:13: " + getCheckMessage(MSG_KEY),
+            "12:13: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig,

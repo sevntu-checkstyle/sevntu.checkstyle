@@ -83,7 +83,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
                 && !hasSerialazableMethods(detailAST)) {
             final DetailAST implementsBlock = detailAST
                     .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
-            log(implementsBlock.getLineNo(),
+            log(implementsBlock,
                     MSG_KEY);
         }
     }

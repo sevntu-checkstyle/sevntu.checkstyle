@@ -44,11 +44,11 @@ public class ForbidReturnInFinallyBlockCheckTest extends AbstractModuleTestSuppo
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidReturnInFinallyBlockCheck.class);
         final String[] expected = {
-            "13: " + warningMessage,
-            "28: " + warningMessage,
-            "49: " + warningMessage,
-            "56: " + warningMessage,
-            "82: " + warningMessage,
+            "13:13: " + warningMessage,
+            "28:13: " + warningMessage,
+            "49:13: " + warningMessage,
+            "56:17: " + warningMessage,
+            "82:13: " + warningMessage,
         };
         verify(checkConfig, getPath("InputForbidReturnInFinallyBlockCheck.java"),
                 expected);
