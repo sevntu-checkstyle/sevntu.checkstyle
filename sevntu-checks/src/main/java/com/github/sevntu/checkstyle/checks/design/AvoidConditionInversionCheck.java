@@ -323,7 +323,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}
      */
     private void log(DetailAST inversionAst) {
-        log(inversionAst.getLineNo(), MSG_KEY);
+        log(inversionAst, MSG_KEY);
     }
 
 }

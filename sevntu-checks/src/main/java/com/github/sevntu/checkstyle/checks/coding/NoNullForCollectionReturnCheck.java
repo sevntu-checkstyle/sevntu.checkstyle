@@ -160,7 +160,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
                         && (hasNullLiteralInReturn(detailAST)
                             || (searchThroughMethodBody
                                 && isReturnedValueBeNull(detailAST)))) {
-                        log(detailAST.getLineNo(), MSG_KEY);
+                        log(detailAST, MSG_KEY);
                     }
                 }
                 break;

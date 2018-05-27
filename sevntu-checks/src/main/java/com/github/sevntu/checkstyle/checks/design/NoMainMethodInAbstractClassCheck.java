@@ -79,7 +79,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
         }
         // type of token is METHOD_DEF
         else if (isChildOfCurrentObjBlockToken(ast) && isMainMethod(ast)) {
-            log(ast.getLineNo(), MSG_KEY);
+            log(ast, MSG_KEY);
             // remove current objblock
             objBlockTokensStack.pop();
         }

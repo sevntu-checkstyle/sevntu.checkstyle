@@ -60,7 +60,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST detailAST) {
         if (needOptimization(detailAST)) {
-            log(detailAST.getLineNo(), MSG_KEY,
+            log(detailAST, MSG_KEY,
                     detailAST.getText(), detailAST.getLineNo(),
                     detailAST.getColumnNo());
         }
