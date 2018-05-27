@@ -345,7 +345,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      */
     private void processCatchNode(final DetailAST catchAst) {
         boolean isLoggingExceptionFound = false;
-        int loggingExceptionLineNumber = 0;
+        DetailAST loggingExceptionAst = null;
         final List<String> exceptionVariableNames = new LinkedList<>();
         final String catchParameterName = getCatchParameterName(catchAst);
         final DetailAST statementsAst =
@@ -377,7 +377,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
                         && (isLoggingExceptionArgument(currentStatementAst, catchParameterName)
                         || isPrintStackTrace(currentStatementAst, catchParameterName))) {
                         isLoggingExceptionFound = true;
-                        loggingExceptionLineNumber = currentStatementAst.getLineNo();
+                        loggingExceptionAst = currentStatementAst;
                     }
                     break;
                     // throw exception
@@ -389,7 +389,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
                         if (exceptionVariableNames.contains(getIdentifier(thrownExceptionAst))
                             || isInstanceCreationBasedOnException(
                                 thrownExceptionAst, catchParameterName)) {
-                            log(loggingExceptionLineNumber, MSG_KEY);
+                            log(loggingExceptionAst, MSG_KEY);
                             break;
                         }
                     }

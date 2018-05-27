@@ -42,17 +42,17 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
-            "37: " + getCheckMessage(MSG_KEY, "foo11"),
-            "56: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
-            "86: " + getCheckMessage(MSG_KEY, "doSomething"),
-            "123: " + getCheckMessage(MSG_KEY, "main"),
-            "176: " + getCheckMessage(MSG_KEY, "bar"),
-            "184: " + getCheckMessage(MSG_KEY, "fooBar"),
-            "186: " + getCheckMessage(MSG_KEY, "barFoo"),
-            "188: " + getCheckMessage(MSG_KEY, "fooo"),
-            "190: " + getCheckMessage(MSG_KEY, "baar"),
-            "192: " + getCheckMessage(MSG_KEY, "fOo"),
-            "194: " + getCheckMessage(MSG_KEY, "foO"),
+            "37:5: " + getCheckMessage(MSG_KEY, "foo11"),
+            "56:9: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
+            "86:9: " + getCheckMessage(MSG_KEY, "doSomething"),
+            "123:5: " + getCheckMessage(MSG_KEY, "main"),
+            "176:5: " + getCheckMessage(MSG_KEY, "bar"),
+            "184:5: " + getCheckMessage(MSG_KEY, "fooBar"),
+            "186:5: " + getCheckMessage(MSG_KEY, "barFoo"),
+            "188:5: " + getCheckMessage(MSG_KEY, "fooo"),
+            "190:5: " + getCheckMessage(MSG_KEY, "baar"),
+            "192:5: " + getCheckMessage(MSG_KEY, "fOo"),
+            "194:5: " + getCheckMessage(MSG_KEY, "foO"),
         };
         verify(checkConfig, getPath("InputStaticMethodCandidateCheck.java"), expected);
     }
@@ -144,7 +144,7 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
-            "16: " + getCheckMessage(MSG_KEY, "bar"),
+            "16:5: " + getCheckMessage(MSG_KEY, "bar"),
         };
         verify(checkConfig, new File("src/test/resources-noncompilable/com/github/"
             + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateCheckInterfaceMethod.java")

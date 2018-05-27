@@ -251,7 +251,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                 && !modifiersAst.branchContains(TokenTypes.LITERAL_STATIC)
                 && !skippedMethods.contains(methodName)) {
             frame.isPrivateMethod = true;
-            frame.lineNo = ast.getLineNo();
+            frame.ast = ast;
             frame.frameName = getIdentText(ast);
         }
         else {
@@ -332,7 +332,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                             && isFrameTypesAcceptable(frame);
                     if (frame.isPrivateMethod) {
                         if (isStaticCandidate) {
-                            log(frame.lineNo, MSG_KEY, frame.frameName);
+                            log(frame.ast, MSG_KEY, frame.frameName);
                         }
                     }
                     else if (!isStaticCandidate) {
@@ -740,8 +740,8 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         /** Whether the frame has LITERAL_THIS or LITERAL_SUPER. */
         private boolean hasLiteralThisOrSuper;
 
-        /** Number of the line where the frame is declared. */
-        private int lineNo;
+        /** AST where the frame is declared. */
+        private DetailAST ast;
 
         /**
          * Creates new frame.
@@ -753,10 +753,10 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add method call to this Frame.
-         * @param ast EXPR ast.
+         * @param exprAst EXPR ast.
          */
-        public void addExpr(DetailAST ast) {
-            expressions.add(ast);
+        public void addExpr(DetailAST exprAst) {
+            expressions.add(exprAst);
         }
 
         /**
