@@ -69,4 +69,13 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractMo
                 CommonUtils.EMPTY_STRING_ARRAY);
     }
 
+    @Test
+    public final void testExpressionBeforeTry() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
+        verify(checkConfig,
+            getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckLambdaWithMultiCatch.java"),
+            CommonUtils.EMPTY_STRING_ARRAY);
+    }
+
 }
