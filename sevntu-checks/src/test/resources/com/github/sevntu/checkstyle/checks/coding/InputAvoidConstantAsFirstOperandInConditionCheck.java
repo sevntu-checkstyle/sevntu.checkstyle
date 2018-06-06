@@ -122,4 +122,13 @@ public class InputAvoidConstantAsFirstOperandInConditionCheck {
     }
 
     public int someMethod(int i) { return i; }
+
+    public void otherConditions() {
+    	int a = 0;
+
+    	if (1 < a) {}
+    	if (1 <= a) {}
+    	if (1 > a) {}
+    	if (1 >= a) {}
+    }
 }
