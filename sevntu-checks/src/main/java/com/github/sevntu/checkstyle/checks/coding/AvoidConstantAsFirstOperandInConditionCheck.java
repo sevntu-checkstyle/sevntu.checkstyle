@@ -27,17 +27,20 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 /**
- * If comparing values, C(C++) developers prefer to put the constant first in the equality check,
- * to prevent situations of assignment rather than equality checking.
+ * Checks that constants do not appear in the first operand of any condition.
  *
  * <p>
- * But in Java, in IF condition it is impossible to use assignment,
- * so that habit become unnecessary and do damage readability of code.
+ * If comparing values, C(C++) developers prefer to put the constant first in the equality check,
+ * to prevent situations of assignment rather than equality checking. It is easy to write "="
+ * instead of "==", and no compile error will be produced but condition will work in a different
+ * way then intended. However, in Java it is impossible to use assignment inside the
+ * <code>if</code> condition, so that habit becomes unnecessary and does damage to the readability
+ * of the code.
  * </p>
  *
  * <p>
- * In C(C++), comparison for null is tricky, and it is easy to write "=" instead of "==",
- * and no complication error will be but condition will work in different way
+ * This check was extended to include all equality checks like "&gt;", "&gt;=", "&lt;", "&lt;="
+ * for users who prefer constants always be on the right-hand side for any condition.
  * </p>
  *
  * <p>
@@ -93,6 +96,10 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
         return new int[] {
             TokenTypes.EQUAL,
             TokenTypes.NOT_EQUAL,
+            TokenTypes.LT,
+            TokenTypes.LE,
+            TokenTypes.GT,
+            TokenTypes.GE,
         };
     }
 
