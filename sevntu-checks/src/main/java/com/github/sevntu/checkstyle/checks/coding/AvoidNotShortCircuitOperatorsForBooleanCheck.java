@@ -117,7 +117,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         while (currentNode != null && currentNode.getType() != TokenTypes.EXPR) {
             currentNode = currentNode.getParent();
 
-            if (currentNode.getType() == TokenTypes.OBJBLOCK) {
+            if (currentNode.getType() == TokenTypes.PARAMETER_DEF) {
                 currentNode = null;
             }
         }
