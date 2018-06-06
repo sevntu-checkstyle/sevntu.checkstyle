@@ -93,6 +93,18 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
     }
 
     @Test
+    public void testInputNestedMethods()
+            throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
+
+        final String[] expected = {
+            "29:17: " + getCheckMessage(MSG_KEY),
+        };
+
+        verify(checkConfig, getPath("InputRedundantReturnCheckNestedMethods.java"), expected);
+    }
+
+    @Test
     public void testForNullPointerExceptionsPresence()
             throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);

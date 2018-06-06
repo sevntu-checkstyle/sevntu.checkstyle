@@ -327,17 +327,17 @@ public class RedundantReturnCheck extends AbstractCheck {
     private static DetailAST findRedundantReturnInCatch(DetailAST lastStatementInCatchBlockAst) {
         DetailAST redundantReturnAst = null;
         DetailAST currentNodeAst = lastStatementInCatchBlockAst;
-        DetailAST toVisitAst = currentNodeAst;
         DetailAST returnAst = null;
-        while (toVisitAst != null) {
-            toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
+        DetailAST toVisitAst = Utils.getNextSubTreeNode(currentNodeAst, currentNodeAst);
 
-            if (toVisitAst != null
-                    && (toVisitAst.getParent().getParent().getNextSibling() == null
-                        || toVisitAst.getParent().getParent().getNextSibling().getType()
-                            == TokenTypes.RCURLY)
-                    && toVisitAst.getType() == TokenTypes.LITERAL_RETURN
-                    && toVisitAst.getParent().getNextSibling() == null) {
+        while (toVisitAst != null) {
+            if (toVisitAst.getType() == TokenTypes.OBJBLOCK) {
+                while (toVisitAst.getNextSibling() == null) {
+                    toVisitAst = toVisitAst.getParent();
+                }
+                toVisitAst = toVisitAst.getNextSibling();
+            }
+            else if (isFinalReturn(toVisitAst)) {
                 returnAst = toVisitAst;
 
                 while (toVisitAst != null
@@ -351,10 +351,25 @@ public class RedundantReturnCheck extends AbstractCheck {
 
                 toVisitAst = returnAst;
             }
+
+            toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
         }
 
         currentNodeAst = Utils.getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
         return redundantReturnAst;
+    }
+
+    /**
+     * Checks if the {@code ast} is the final return statement.
+     * @param ast the AST to examine.
+     * @return {@code true} if the {@code ast} is the final return statement.
+     */
+    private static boolean isFinalReturn(DetailAST ast) {
+        return (ast.getParent().getParent().getNextSibling() == null
+                    || ast.getParent().getParent().getNextSibling().getType()
+                    == TokenTypes.RCURLY)
+                && ast.getType() == TokenTypes.LITERAL_RETURN
+                && ast.getParent().getNextSibling() == null;
     }
 
 }
