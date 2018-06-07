@@ -69,3 +69,26 @@ class InnerInputForbidCCommentsInMethods2
         }
     }
 }
+class InnerInputForbidCCommentsInMethods3 {
+    /* Comment before field. */
+    private int field;
+
+    /* Comment on same line as method. */ void method1() {}
+    void method2() {} /* Comment on same line as method. */
+    void method3() { /* Comment on same line as method but inside. */ }
+
+    void method4() {
+        new innerClass() {
+            /* Comment inside anonymous class. */
+            public void innerMethod() {}
+        };
+    }
+
+    private static void /* Comment insside definition. */ method5() {}
+    /* Comment before native method. */
+    public native void method6();
+
+    private abstract class innerClass {
+        public abstract void innerMethod();
+    }
+}
