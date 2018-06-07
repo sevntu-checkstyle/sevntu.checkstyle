@@ -41,14 +41,15 @@ public class ForbidCCommentsInMethodsCheckTest extends AbstractModuleTestSupport
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {
-            "10: " + warningMessage,
-            "17: " + warningMessage,
-            "26: " + warningMessage,
-            "33: " + warningMessage,
-            "45: " + warningMessage,
-            "52: " + warningMessage,
-            "61: " + warningMessage,
-            "68: " + warningMessage,
+            "10:9: " + warningMessage,
+            "17:9: " + warningMessage,
+            "26:13: " + warningMessage,
+            "33:13: " + warningMessage,
+            "45:9: " + warningMessage,
+            "52:9: " + warningMessage,
+            "61:13: " + warningMessage,
+            "68:13: " + warningMessage,
+            "78:22: " + warningMessage,
         };
         verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck.java"), expected);
     }
