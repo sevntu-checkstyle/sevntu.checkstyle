@@ -453,4 +453,17 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
         verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck25.java"), expected);
     }
 
+    @Test
+    public final void testExtendsSimilarNamedClass() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(OverridableMethodInConstructorCheck.class);
+        checkConfig.addAttribute("checkCloneMethod", "true");
+        checkConfig.addAttribute("checkReadObjectMethod", "true");
+        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck28.java"), expected);
+    }
+
 }
