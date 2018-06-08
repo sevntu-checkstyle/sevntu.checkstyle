@@ -212,7 +212,7 @@
               <regex><pattern>.*.checks.coding.ForbidThrowAnonymousExceptionsCheck</pattern><branchRate>81</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.MapIterationInForEachLoopCheck</pattern><branchRate>90</branchRate><lineRate>98</lineRate></regex>
               <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
-              <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
+              <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>94</branchRate><lineRate>99</lineRate></regex>
               <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>94</branchRate><lineRate>100</lineRate></regex>
             </regexes>
           </check>

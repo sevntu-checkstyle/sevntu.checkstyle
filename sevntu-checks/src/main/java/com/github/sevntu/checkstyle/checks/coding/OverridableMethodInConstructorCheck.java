@@ -837,7 +837,15 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
                 result.add(curClass);
                 baseClassName = getBaseClassName(curClass);
                 if (baseClassName != null) {
-                    curClass = getClassDef(treeRootAST, baseClassName);
+                    final DetailAST nextClass = getClassDef(treeRootAST, baseClassName);
+
+                    // prevent infinite loop with similar named classes
+                    if (nextClass == curClass) {
+                        curClass = null;
+                    }
+                    else {
+                        curClass = nextClass;
+                    }
                 }
                 else {
                     break;
