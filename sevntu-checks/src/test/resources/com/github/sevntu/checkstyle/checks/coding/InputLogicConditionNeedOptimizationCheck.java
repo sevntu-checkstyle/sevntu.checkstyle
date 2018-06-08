@@ -93,4 +93,21 @@ public class InputLogicConditionNeedOptimizationCheck
       found = (lst.remove(elem)) || found;
       found = found || (lst.remove(elem));
     }
+
+    private void instanceOf() {
+        String s = "";
+        Object o = null;
+        if (("Test".equals(s)) && (o instanceof String)) {}
+        if ((o instanceof String)) {}
+        if (o==null && (o instanceof String)) {}
+        if ((o instanceof String) && o==null ) {} // violation
+        if (o==null && (o instanceof String) && o!=null) {} // violation
+        if (o==null && ((o instanceof String) && o!=null)) {} // violation
+        if (o==null && ((o instanceof String) || o!=null)) {} // violation
+        if (o==null && (o!=null && (o instanceof String))) {}
+        if (o instanceof InputLogicConditionNeedOptimizationCheck
+                && ((InputLogicConditionNeedOptimizationCheck) o).field1 == true) {}
+        if (o instanceof String && o != null && ((String) o).length() > 0) {} // violation
+        if (o != null && o instanceof String && ((String) o).length() > 0) {}
+    }
 }

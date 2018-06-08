@@ -26,7 +26,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * <p>
  * This check prevents the placement of local variables and fields after calling
- * methods in '&amp;&amp;' and '||' conditions.
+ * methods and instanceof in '&amp;&amp;' and '||' conditions.
  * </p>
  * <p>
  * For example: if(getProperty() &amp;&amp; property) ==&gt; if(property &amp;&amp; getProperty()),
@@ -76,8 +76,21 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      */
     private static boolean needOptimization(DetailAST logicNode) {
         final DetailAST secondOperand = getSecondOperand(logicNode);
-        return !secondOperand.branchContains(TokenTypes.METHOD_CALL)
-                && logicNode.branchContains(TokenTypes.METHOD_CALL);
+        final boolean firstInstanceOf = logicNode.branchContains(TokenTypes.LITERAL_INSTANCEOF);
+        final boolean secondTypeCast = secondOperand.branchContains(TokenTypes.TYPECAST);
+        final boolean result;
+
+        if (firstInstanceOf && secondTypeCast) {
+            result = false;
+        }
+        else {
+            result = !secondOperand.branchContains(TokenTypes.METHOD_CALL)
+                && !secondOperand.branchContains(TokenTypes.LITERAL_INSTANCEOF)
+                && (firstInstanceOf
+                        || logicNode.branchContains(TokenTypes.METHOD_CALL));
+        }
+
+        return result;
     }
 
     /**
