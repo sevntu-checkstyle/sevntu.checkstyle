@@ -110,4 +110,12 @@ public class InputLogicConditionNeedOptimizationCheck
         if (o instanceof String && o != null && ((String) o).length() > 0) {} // violation
         if (o != null && o instanceof String && ((String) o).length() > 0) {}
     }
+
+    private void complexConditions() {
+        String s = System.getProperty("s");
+        int i = 0;
+        if (((s.equals("1") && (i != 1))) ||
+            ((s.equals("2") && (i != 2)))) {}
+        if ("true".equals(s) || ((s.contains("test")))) {}
+    }
 }
