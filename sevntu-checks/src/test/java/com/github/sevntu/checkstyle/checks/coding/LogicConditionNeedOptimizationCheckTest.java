@@ -60,6 +60,8 @@ public class LogicConditionNeedOptimizationCheckTest extends AbstractModuleTestS
             "105:47: " + getCheckMessage(MSG_KEY, "&&", 105, 46),
             "106:47: " + getCheckMessage(MSG_KEY, "||", 106, 46),
             "110:33: " + getCheckMessage(MSG_KEY, "&&", 110, 32),
+            "117:29: " + getCheckMessage(MSG_KEY, "&&", 117, 28),
+            "118:29: " + getCheckMessage(MSG_KEY, "&&", 118, 28),
         };
         verify(checkConfig, getPath("InputLogicConditionNeedOptimizationCheck.java"), expected);
     }

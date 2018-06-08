@@ -42,6 +42,11 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      */
     public static final String MSG_KEY = "logic.condition.need.optimization";
 
+    /** Integer for the 3rd position. */
+    private static final int THIRD_POSITION = 3;
+    /** Number of operands positions in start/stop array. */
+    private static final int OPERAND_SIZE = 4;
+
     @Override
     public int[] getDefaultTokens() {
         return new int[] {TokenTypes.LAND, TokenTypes.LOR };
@@ -75,19 +80,19 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      * @return - boolean variable
      */
     private static boolean needOptimization(DetailAST logicNode) {
-        final DetailAST secondOperand = getSecondOperand(logicNode);
-        final boolean firstInstanceOf = logicNode.branchContains(TokenTypes.LITERAL_INSTANCEOF);
-        final boolean secondTypeCast = secondOperand.branchContains(TokenTypes.TYPECAST);
+        final DetailAST[] operands = getOperands(logicNode);
+        final boolean firstInstanceOf = branchContains(operands, 1, TokenTypes.LITERAL_INSTANCEOF);
+        final boolean secondTypeCast = branchContains(operands, 2, TokenTypes.TYPECAST);
         final boolean result;
 
         if (firstInstanceOf && secondTypeCast) {
             result = false;
         }
         else {
-            result = !secondOperand.branchContains(TokenTypes.METHOD_CALL)
-                && !secondOperand.branchContains(TokenTypes.LITERAL_INSTANCEOF)
+            result = !branchContains(operands, 2, TokenTypes.METHOD_CALL)
+                && !branchContains(operands, 2, TokenTypes.LITERAL_INSTANCEOF)
                 && (firstInstanceOf
-                        || logicNode.branchContains(TokenTypes.METHOD_CALL));
+                        || branchContains(operands, 1, TokenTypes.METHOD_CALL));
         }
 
         return result;
@@ -95,17 +100,88 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
 
     /**
      * <p>
-     * Return second operand of current logic operator.
+     * Return operands of current logic operator.
      * </p>
      * @param logicNode - current logic operator
-     * @return second operand
+     * @return operands
      */
-    private static DetailAST getSecondOperand(DetailAST logicNode) {
-        DetailAST child = logicNode.getLastChild();
-        if (child.getType() == TokenTypes.RPAREN) {
-            child = child.getPreviousSibling();
+    private static DetailAST[] getOperands(DetailAST logicNode) {
+        final DetailAST[] results = new DetailAST[OPERAND_SIZE];
+        DetailAST node = logicNode.getFirstChild();
+
+        // start of first
+        results[0] = node;
+
+        int parenthesis = 0;
+
+        do {
+            if (node.getType() == TokenTypes.LPAREN) {
+                parenthesis++;
+            }
+            else {
+                if (node.getType() == TokenTypes.RPAREN) {
+                    parenthesis--;
+                }
+                if (parenthesis == 0) {
+                    // end of first
+                    results[1] = node;
+                }
+            }
+
+            node = node.getNextSibling();
+        } while (parenthesis > 0);
+
+        // start of second
+        results[2] = node;
+        results[THIRD_POSITION] = logicNode.getLastChild();
+
+        return results;
+    }
+
+    /**
+     * Checks if the node range contains a token of the provided type.
+     * @param operands the list operands in order of start and stop
+     * @param setNumber to retrieve the 1st or 2nd operand
+     * @param type a TokenType
+     * @return true if and only if the node range
+     *     contains a token of type {@code type}.
+     */
+    private static boolean branchContains(DetailAST[] operands, int setNumber, int type) {
+        final boolean result;
+
+        if (setNumber == 1) {
+            result = branchContains(operands[0], operands[1], type);
         }
-        return child;
+        else {
+            result = branchContains(operands[2], operands[THIRD_POSITION], type);
+        }
+
+        return result;
+    }
+
+    /**
+     * Checks if the node range contains a token of the provided type.
+     * @param start the token to start checking with (inclusive)
+     * @param end the token to end with (inclusive)
+     * @param type a TokenType
+     * @return true if and only if the node range
+     *     contains a token of type {@code type}.
+     */
+    private static boolean branchContains(DetailAST start, DetailAST end, int type) {
+        boolean result = false;
+        DetailAST current = start;
+
+        while (true) {
+            result = current.branchContains(type);
+
+            if (current == end || result) {
+                break;
+            }
+
+            current = current.getNextSibling();
+        }
+
+        return result;
     }
 
 }
