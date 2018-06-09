@@ -13,7 +13,6 @@
     <suppress checks="TodoComment" files="HideUtilityClassConstructorCheck.java"/>
     <suppress checks="NPathComplexity" files="MapIterationInForEachLoopCheck.java"/>
     <suppress checks="NestedIfDepth|ReturnCount" files="UnnecessaryParenthesesExtendedCheck.java"/>
-    <suppress checks="InnerAssignment" files="OverridableMethodInConstructorCheck.java"/>
     <!-- END of legacy code -->
 
     <!-- Tone down the checking for test code -->

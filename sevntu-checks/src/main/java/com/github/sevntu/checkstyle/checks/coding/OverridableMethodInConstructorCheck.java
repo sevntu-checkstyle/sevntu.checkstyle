@@ -491,10 +491,10 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
         if (methodName != null) {
             final DetailAST curClassAST = getClassDef(methodCallAST);
             final DetailAST callsChild = methodCallAST.getFirstChild();
-            final String variableTypeName;
+            final String variableTypeName = getVariableType(methodCallAST);
 
-            if (callsChild.getType() != TokenTypes.DOT
-                    || (variableTypeName = getVariableType(methodCallAST)) == null
+            if (variableTypeName == null
+                    || callsChild.getType() != TokenTypes.DOT
                     || isItTypeOfCurrentClass(variableTypeName, curClassAST)
                     || isItCallMethodViaKeywordThis(variableTypeName, curClassAST)) {
                 getMethodDef(curClassAST, methodName);
