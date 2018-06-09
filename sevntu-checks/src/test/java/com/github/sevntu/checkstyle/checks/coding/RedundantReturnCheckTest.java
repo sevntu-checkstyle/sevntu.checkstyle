@@ -114,6 +114,18 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
     }
 
     @Test
+    public void testForNullPointerExceptionsInEmptyMethod()
+            throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
+        checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors",
+                "true");
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputRedundantReturnCheckMethodInEmptyMethod.java"), expected);
+    }
+
+    @Test
     public void testSomeFalsePositiveCase()
             throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
