@@ -193,28 +193,40 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      */
     public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
 
+    /** Macro string for inner enumeration. */
     private static final String INNER_ENUM_MACRO = "InnerEnum";
 
+    /** Macro string for inner interface. */
     private static final String INNER_INTERFACE_MACRO = "InnerInterface";
 
+    /** Macro string for inner class. */
     private static final String INNER_CLASS_MACRO = "InnerClass";
 
+    /** Macro string for constructor. */
     private static final String CTOR_MACRO = "Ctor";
 
+    /** Macro string for method. */
     private static final String METHOD_MACRO = "Method";
 
+    /** Macro string for anonymous class field. */
     private static final String ANON_CLASS_FIELD_MACRO = "DeclareAnonClassField";
 
+    /** Macro string for field. */
     private static final String FIELD_MACRO = "Field";
 
+    /** Macro string for getter and setter. */
     private static final String GETTER_SETTER_MACRO = "GetterSetter";
 
+    /** Macro string for main method. */
     private static final String MAIN_METHOD_MACRO = "MainMethod";
 
+    /** Prefix for boolean getter method name. */
     private static final String BOOLEAN_GETTER_PREFIX = "is";
 
+    /** Prefix for getter method name. */
     private static final String GETTER_PREFIX = "get";
 
+    /** Prefix for setter method name. */
     private static final String SETTER_PREFIX = "set";
 
     /** Default format for custom declaration check. */

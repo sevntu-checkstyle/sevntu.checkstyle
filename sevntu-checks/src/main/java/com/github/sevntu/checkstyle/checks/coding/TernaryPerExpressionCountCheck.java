@@ -93,12 +93,22 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      */
     public static final String MSG_KEY = "ternary.per.expression.count";
 
+    /** Default limit of ternary operators per expression. */
     private static final int DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT = 1;
 
+    /** Limit of ternary operators per expression. */
     private int maxTernaryPerExpressionCount = DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT;
 
+    /**
+     * If true Check will ignore ternary operators in braces (braces explicitly
+     * set priority level).
+     */
     private boolean ignoreTernaryOperatorsInBraces = true;
 
+    /**
+     * If true Check will ignore one line ternary operators, if only it is
+     * places in line alone.
+     */
     private boolean ignoreIsolatedTernaryOnLine = true;
 
     @Override
