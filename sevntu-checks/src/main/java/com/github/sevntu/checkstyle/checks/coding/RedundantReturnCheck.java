@@ -149,6 +149,7 @@ public class RedundantReturnCheck extends AbstractCheck {
      */
     private boolean ignoreLonelyReturn(DetailAST objectBlockAst) {
         return allowReturnInEmptyMethodsAndConstructors
+                    && objectBlockAst.getFirstChild() != null
                     && objectBlockAst.getFirstChild().getType()
                         == TokenTypes.LITERAL_RETURN;
     }
