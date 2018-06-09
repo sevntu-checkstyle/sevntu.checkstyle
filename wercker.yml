@@ -50,3 +50,111 @@ build:
         else
           echo "build is skipped ..."
         fi
+
+  - script:
+      name: NoExceptiontest - Apache Struts
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-struts"
+          ./.ci/wercker.sh no-exception-struts
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Guava
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh ./.ci/wercker.sh no-exception-guava"
+          ./.ci/wercker.sh no-exception-guava
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Hibernate
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-hibernate-orm"
+          ./.ci/wercker.sh no-exception-hibernate-orm
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+
+  - script:
+      name: NoExceptiontest - spotbugs
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-spotbugs"
+          ./.ci/wercker.sh no-exception-spotbugs
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - spring-framework
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-spring-framework"
+          ./.ci/wercker.sh no-exception-spring-framework
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Hbase
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-hbase"
+          ./.ci/wercker.sh no-exception-hbase
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - pmd elasticsearch lombok-ast
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-Pmd-elasticsearch-lombok-ast"
+          ./.ci/wercker.sh no-exception-Pmd-elasticsearch-lombok-ast
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - RxJava apache-ant apache-jsecurity android-launcher ....
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-alot-of-projects"
+          ./.ci/wercker.sh no-exception-alot-of-projects
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: Cleanup maven local repo
+      code: |
+        find ${WERCKER_CACHE_DIR} -type d -name "*SNAPSHOT" -ls -exec rm -rf {} +
+        echo "------"
+        du -hs ${WERCKER_CACHE_DIR}
+        echo "------"
+        du -hs ${WERCKER_CACHE_DIR}/* | sort -h
+        echo "------"
+        du -hs * | sort -h
