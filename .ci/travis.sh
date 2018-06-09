@@ -14,7 +14,7 @@ eclipse-cs)
   cd ..
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
-  git checkout 8.7.0
+  git checkout 8.10.0
   mvn -e install
   cd ../
   cd eclipsecs-sevntu-plugin
@@ -25,7 +25,7 @@ eclipse-cs)
 maven-plugin)
   cd sevntu-checks
   mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true
-  cd .. 
+  cd ..
   cd sevntu-checkstyle-maven-plugin
   mvn -e verify
   mvn -e javadoc:javadoc
