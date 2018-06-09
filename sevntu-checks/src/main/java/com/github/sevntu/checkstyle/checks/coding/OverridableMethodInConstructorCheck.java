@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Detects overridable methods in constructors.
  * <p>
  * This check prevents any calls to overridable methods that are take place in:
+ * </p>
  * <ol><li>
  * Any constructor body (verification is always done by default and not
  * configurable).
@@ -82,6 +83,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * <i><b>Notes:</b><br><br>This check doesn`t handle the situation when there
  * is a call to an overloaded method(s).</i><br>Here`s an example:
+ * </p>
  *
  * <pre> public class Test {
  *

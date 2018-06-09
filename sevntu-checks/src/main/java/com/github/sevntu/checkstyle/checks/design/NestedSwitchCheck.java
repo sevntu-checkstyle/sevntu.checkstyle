@@ -40,12 +40,15 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *      }
  * </pre>
  *
+ * <p>
  * Nested switch block that checks <code>type</code> parameter should be converted into separate
  * method.<br>
- * To enable this check use following configuration:<br>
- * <br>
- * <code>&lt;module name=&quot;NestedSwitchCheck&quot;/&gt;</code>
- * <br><br>
+ * To enable this check use following configuration:
+ * </p>
+ *
+ * <pre>
+ * &lt;module name=&quot;NestedSwitchCheck&quot;/&gt;
+ * </pre>
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class NestedSwitchCheck extends AbstractCheck {

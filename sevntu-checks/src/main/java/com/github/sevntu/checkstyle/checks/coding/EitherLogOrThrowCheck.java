@@ -41,6 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * <b>Examples:</b>
+ * </p>
  *
  * <pre>
  * catch (NoSuchMethodException e) {
@@ -70,6 +71,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * <b>What check can detect:</b> <br>
  * <b>Loggers</b>
+ * </p>
  * <ul>
  * <li>logger is declared as class field</li>
  * <li>logger is declared as method's local variable</li>
@@ -86,6 +88,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ul>
  * <p>
  * <b>What check can not detect:</b> <br>
+ * </p>
  * <ul>
  * <li>loggers that is used like method's return value. Example:
  *
@@ -103,6 +106,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ul>
  * <p>
  * Default parameters are:
+ * </p>
  * <ul>
  * <li><b>loggerFullyQualifiedClassName</b> - fully qualified class name of
  * logger type. Default value is <i>"org.slf4j.Logger"</i>.</li>

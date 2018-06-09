@@ -37,6 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * Example 1. Check will generate violation for this code:
+ * </p>
  *
  * <pre>
  * class Dummy {
@@ -47,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * <p>
  * Example 2. Check will not generate violation for this code:
+ * </p>
  *
  * <pre>
  * class Dummy {
@@ -55,9 +57,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * class Dummy has only one ctor, which is not public.
+ * </p>
  * <p>
  * Example 3. Check will not generate violation for this code:
+ * </p>
  *
  * <pre>
  * class Dummy {
@@ -68,7 +73,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * class Dummy has multiple ctors.
+ * </p>
  * <p>
  * Check has two properties:
  * </p>

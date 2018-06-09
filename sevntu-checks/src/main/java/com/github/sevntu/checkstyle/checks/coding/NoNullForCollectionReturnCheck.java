@@ -58,9 +58,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
     public static final String MSG_KEY = "no.null.for.collections";
 
     /**
-     * <p>
      * Default list of collection implementing classes.
-     * <p>
      */
     private static final String DEFAULT_COLLECTIONS = "AbstractCollection AbstractList "
             + "AbstractQueue AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque "
@@ -71,9 +69,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
             + "LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue RoleList "
             + "RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set";
     /**
-     * <p>
      * List of collection, that will be check.
-     * </p>
      */
     private Set<String> collectionList = new HashSet<>();
 

@@ -36,13 +36,14 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * <p>
  * This check can help you to write the whole for-each map iteration more
- * correctly:
+ * correctly.
  * </p>
  * <p>
  * 1. If you iterate over a map using map.keySet() or map.entrySet(), but your
  * code uses only map values, Check will propose you to use map.values() instead
  * of map.keySet() or map.entrySet(). Replacing map.keySet() or map.entrySet()
  * with map.values() for such cases can a bit improve an iteration performance.
+ * </p>
  * <p>
  * Bad:
  * </p>
@@ -71,9 +72,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * 2. If you iterate over a map using map.entrySet(), but never call
  * entry.getValue(), Check will propose you to use map.keySet() instead of
  * map.entrySet(). to iterate over map keys only.
+ * </p>
  * <p>
  * Bad:
  * </p>
@@ -95,10 +98,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * 3. If you iterate over a map with map.keySet() and use both keys and values,
  * check will propose you to use map.entrySet() to improve an iteration
  * performance by avoiding search operations inside a map. For this case,
  * iteration can significantly grow up a performance.
+ * </p>
  * <p>
  * Bad:
  * </p>

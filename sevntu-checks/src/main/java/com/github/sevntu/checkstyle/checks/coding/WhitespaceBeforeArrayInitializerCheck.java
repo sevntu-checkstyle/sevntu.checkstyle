@@ -36,14 +36,18 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * };
  * </pre>
  *
+ * <p>
  * This example is valid too:
+ * </p>
  *
  * <pre>
  * int[] tab = new int[]
  *                 {0, 1, 2, 3}
  * </pre>
  *
+ * <p>
  * But this violates check:
+ * </p>
  *
  * <pre>
  * int[] ints = new int[]{0, 1, 2, 3};
