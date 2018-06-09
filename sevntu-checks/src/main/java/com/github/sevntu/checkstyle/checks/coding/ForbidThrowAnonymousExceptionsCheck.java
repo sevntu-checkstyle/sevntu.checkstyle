@@ -30,7 +30,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * This Check warns on throwing anonymous exception.<br>
+ * This Check warns on throwing anonymous exception.
+ * </p>
  * Examples:
  * <pre>
  * catch (Exception e) {

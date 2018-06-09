@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * Case 1. no-argument "super()" is called from class ctor if class is not derived, for example:
+ * </p>
  * <pre>
  * <code>
  * class Dummy {
@@ -45,6 +46,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Case 2. no-argument "super()" is called without parameters from class ctor if class is
  * derived, for example:
+ * </p>
  * <pre>
  * <code>
  * class Derived extends Base {
@@ -67,6 +69,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * violations when "super()" called inside derived class. This option defaults to "false".
  * If for example this option set to "true", then Check will not generate violation for
  * cases like following:
+ * </p>
  * <pre>
  * <code>
  * class Base {
@@ -90,6 +93,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * This option may be useful for cases in which class`s ctors just forward its arguments to
  * super ctors, thus removing "super()" in this case will make default ctors look not like
  * others. For example:
+ * </p>
  * <pre>
  * <code>
  * class Base {
@@ -128,6 +132,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Checkstyle configuration example with options "allowCallToNoArgsSuperCtor" and
  * "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" set to true.
+ * </p>
  * <pre>
  *   &lt;module name="UselessSuperCtorCallCheck"&gt;
  *     &lt;property name="allowCallToNoArgsSuperCtor" value="true"/&gt;

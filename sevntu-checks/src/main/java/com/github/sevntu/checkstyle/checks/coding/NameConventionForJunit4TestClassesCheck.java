@@ -53,6 +53,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * considered to be a test. This option defaults to empty regex(one that matches
  * nothing). If for example this option set to "RunWith", then class "SomeClass"
  * is considered to be a test:
+ * </p>
  *
  * <pre>
  * <code>
@@ -69,6 +70,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * matching annotation, it is considered to be a test. This option defaults to
  * "Test|org.junit.Test". For example, if this option set to "Test", then class
  * "SomeClass" is considered to be a test.
+ * </p>
  *
  * <pre>
  * <code>
@@ -95,6 +97,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Following configuration will adjust Check to look for classes annotated with
  * annotation "RunWith" or classes with methods annotated with "Test" and verify
  * that classes names end with "Test" or "Tests".
+ * </p>
  *
  * <pre>
  *     &lt;module name="NameConventionForJUnit4TestClassesCheck"&gt;

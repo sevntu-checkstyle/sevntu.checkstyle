@@ -7,7 +7,6 @@
 <suppressions>
     <!-- START of legacy code, all violations will be resolved during transition to main project -->
     <suppress checks="ImportControl" files="CustomDeclarationOrderCheck.java"/>
-    <suppress checks="JavadocParagraph" files="(AvoidModifiersForTypesCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|MultipleVariableDeclarationsExtendedCheck|EmptyPublicCtorInClassCheck|TernaryPerExpressionCountCheck|ForbidThrowAnonymousExceptionsCheck|MapIterationInForEachLoopCheck|NameConventionForJunit4TestClassesCheck|NoNullForCollectionReturnCheck|OverridableMethodInConstructorCheck|UselessSuperCtorCallCheck|WhitespaceBeforeArrayInitializerCheck|NestedSwitchCheck|PublicReferenceToPrivateTypeCheck).java"/>
     <suppress checks="CyclomaticComplexity" files="(AvoidNotShortCircuitOperatorsForBooleanCheck|CustomDeclarationOrderCheck|EitherLogOrThrowCheck|ReturnCountExtendedCheck|AvoidHidingCauseExceptionCheck|ConfusingConditionCheck|ForbidWildcardAsReturnTypeCheck|HideUtilityClassConstructorCheck|UnnecessaryParenthesesExtendedCheck|OverridableMethodInConstructorCheck|MapIterationInForEachLoopCheck).java"/>
     <suppress checks="MultipleStringLiterals" files="(CustomDeclarationOrderCheck|ForbidWildcardAsReturnTypeCheck).java"/>
     <suppress checks="MethodCount" files="CustomDeclarationOrderCheck.java"/>

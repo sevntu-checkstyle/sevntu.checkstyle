@@ -40,8 +40,6 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * &lt;module name="MultipleVariableDeclarations"/&gt;
  * </pre>
  *
- * *
- *
  * @author o_sukhodolsky
  */
 

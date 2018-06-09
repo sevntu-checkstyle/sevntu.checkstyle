@@ -40,6 +40,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Checks that the parts of a class(main, nested, member inner) declaration
  * appear in the rules order set by user using regular expressions.
+ * </p>
  * <p>
  * The check forms line which consists of class member annotations, modifiers,
  * type and name from your code and compares it with your RegExp.
@@ -114,8 +115,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <p><b>What is group of getters and setters(<code>GetterSetter</code>)?</b></p>
+ *
  * <p>
  * It is ordered sequence of getters and setters like:
+ * </p>
+ *
  * <pre>
  * public int getValue() {
  *     log.info("Getting value");

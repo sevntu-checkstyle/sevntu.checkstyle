@@ -35,9 +35,11 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 /**
  * <p>
  * Disallow some set of modifiers for Java types specified by regexp.
+ * </p>
  * <p>
  * Field modifiers types according to Java Spec:
  * (https://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.3.1)
+ * </p>
  * <ul>
  * <li><b>Annotation</b>: using the 'forbiddenClassesRegexpAnnotation' option.
  * <li><b>final</b>: using the 'forbiddenClassesRegexpFinal' option.
@@ -52,16 +54,20 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * <p>
  * <b>Example 1:</b> Forbid use of 'static' modifiers for 'ULCComponents'
  * (http://ulc.canoo.com/ulccommunity/Contributions/Extensions/GoodPractices.html)
+ * </p>
  *
  * <p>
  * Never keep instances of ULC classes in static variables (ULCIcons neither!). They cannot be
  * shared between different sessions.
+ * </p>
  * <p>
  * So we can disallow "static" modifier for all ULC* components by setting up an
  * "forbiddenClassesRegexpStatic" option to "ULC.+" regexp String.
+ * </p>
  *
  * <p>
  * <b>Configuration:</b>
+ * </p>
  * <pre>
  * &lt;module name="TreeWalker"&gt;
  *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
@@ -74,9 +80,11 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * <b>Example 2:</b> Forbid using annotation for fields: (e.g. <code>&#64;Autowired</code> ). This
  * can be done by setting up the "forbiddenClassesRegexpAnnotation" option to "Person" regexp
  * String.
+ * </p>
  *
  * <p>
  * <b>Configuration:</b>
+ * </p>
  * <pre>
  * &lt;module name="TreeWalker"&gt;
  *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
@@ -102,13 +110,16 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * produce logs that are hard to investigate as logging class does not contains that code and search
  * should be done in other classes or in hierarchy (if filed is public or accessible by other
  * protected or package).
+ * </p>
  * <p>
  * This check can be activated by setting up the "forbiddenClassesRegexpPublic",
  * "forbiddenClassesRegexpPackagePrivate" and "forbiddenClassesRegexpProtected" options to "Logger"
  * regexp String.
+ * </p>
  *
  * <p>
  * <b>Configuration:</b>
+ * </p>
  * <pre>
  * &lt;module name="TreeWalker"&gt;
  *      &lt;module name="AvoidModifiersForTypesCheck"&gt;
@@ -132,7 +143,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *
  * }
  * </pre>
- * <p>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
  */

@@ -44,9 +44,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * System.out.println(x);
  * </pre>
  *
- * Output for code above is "D", but more obvious would be "BC".<br>
- *
- * Check has following properties:<br>
+ * <p>
+ * Output for code above is "D", but more obvious would be "BC".
+ * </p>
+ * <p>
+ * Check has following properties:
+ * </p>
  * <ul>
  * <li><b>maxTernaryPerExpressionCount</b> - limit of ternary operators per
  * expression<br>
@@ -73,8 +76,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *   procedureNameToUse + "(";
  * </pre>
  *
+ * <p>
  * When using <b>ignoreIsolatedTernaryOnLine</b> (value = <b>true</b>), even without<br>
- * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:<br>
+ * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:
+ * </p>
  *
  * <pre>
  * int a = (d == 5) ? d : f

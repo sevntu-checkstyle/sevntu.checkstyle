@@ -30,7 +30,6 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * <p>
  * This Check warns on propagation of inner private types to outer classes:<br>
  * - Externally accessible method if it returns private inner type.<br>
  * - Externally accessible field if it's type is a private inner type.<br>
