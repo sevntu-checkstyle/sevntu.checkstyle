@@ -59,6 +59,20 @@ sevntu-checks)
   fi
   ;;
 
+all-sevntu-checks-contribution)
+  wget -q \
+    https://raw.githubusercontent.com/checkstyle/contribution/master/checkstyle-tester/checks-sevntu-error.xml
+  xmlstarlet sel --net --template -m .//module -v "@name" -n checks-sevntu-error.xml \
+    | grep -vE "Checker|TreeWalker|Filter|Holder" | grep -v "^$" \
+    | sed "s/com\.github\.sevntu\.checkstyle\.checks\..*\.//" \
+    | sort | uniq | sed "s/Check$//" > web.txt
+  xmlstarlet sel --net --template -m .//module -v "@name" -n sevntu-checks/sevntu-checks.xml \
+    | grep -vE "Checker|TreeWalker|Filter|Holder" | grep -v "^$" \
+    | sed "s/com\.github\.sevntu\.checkstyle\.checks\..*\.//" \
+    | sort | uniq | sed "s/Check$//" > file.txt
+  diff -u web.txt file.txt
+  ;;
+
 checkstyle-regression)
   git clone https://github.com/checkstyle/checkstyle
   cd sevntu-checks
