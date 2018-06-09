@@ -5,6 +5,11 @@ cache:
   directories:
   - ~/.m2
 
+addons:
+  apt:
+    packages:
+      - xmlstarlet
+
 branches:
   only:
     - master
@@ -44,6 +49,12 @@ matrix:
       env:
         - DESC="checks"
         - CMD="./.ci/travis.sh sevntu-checks"
+
+    # Ensure that all sevntu checks are used in contribution
+    - jdk: oraclejdk8
+      env:
+        - DESC="All sevntu checks should be used in contribution"
+        - CMD="./.ci/travis.sh all-sevntu-checks-contribution"
 
     # regression on checkstyle
     - jdk: oraclejdk8
