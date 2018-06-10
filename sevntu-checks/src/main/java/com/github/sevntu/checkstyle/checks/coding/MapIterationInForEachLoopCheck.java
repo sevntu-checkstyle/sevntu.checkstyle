@@ -514,10 +514,33 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
             }
         }
 
+        if (methodGetCallCount != 0 && keyIdentCount != 0) {
+            if (proposeValuesUsage && methodGetCallCount == keyIdentCount) {
+                result = MSG_KEY_VALUES;
+            }
+            else if (methodGetCallCount < keyIdentCount
+                    && methodGetCallCount > 0
+                    && getMethodGetCallInsideIfCount(identAndLiteralIfNodesList, mapName,
+                            isMapClassField) != methodGetCallCount) {
+                result = MSG_KEY_ENTRYSET;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Counts the getter methods called inside the if statement.
+     * @param identAndLiteralIfNodesList the nodes to examine.
+     * @param mapName Current map name.
+     * @param isMapClassField if the map is a class field.
+     * @return The number of methods.
+     */
+    private static int getMethodGetCallInsideIfCount(List<DetailAST> identAndLiteralIfNodesList,
+            String mapName, boolean isMapClassField) {
         final DetailAST literalIfNode =
                 getFirstNodeOfType(identAndLiteralIfNodesList,
                         TokenTypes.LITERAL_IF);
-        int methodGetCallInsideIfCount = 0;
+        int result = 0;
         if (literalIfNode != null) {
             for (DetailAST node : getSubTreeNodesOfType(literalIfNode, TokenTypes.IDENT)) {
                 DetailAST mapIdentNode = node.getPreviousSibling();
@@ -527,19 +550,8 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
                 if (mapIdentNode != null && GET_NODE_NAME.equals(node.getText())
                         && mapName.equals(mapIdentNode.getText())) {
-                    methodGetCallInsideIfCount++;
+                    result++;
                 }
-            }
-        }
-
-        if (methodGetCallCount != 0 && keyIdentCount != 0) {
-            if (proposeValuesUsage && methodGetCallCount == keyIdentCount) {
-                result = MSG_KEY_VALUES;
-            }
-
-            else if (methodGetCallCount < keyIdentCount && methodGetCallCount > 0
-                    && methodGetCallInsideIfCount != methodGetCallCount) {
-                result = MSG_KEY_ENTRYSET;
             }
         }
         return result;
