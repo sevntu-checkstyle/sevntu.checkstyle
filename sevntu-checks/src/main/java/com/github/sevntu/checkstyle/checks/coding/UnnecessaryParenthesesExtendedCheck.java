@@ -166,46 +166,41 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         final int type = ast.getType();
-        final boolean surrounded = isSurrounded(ast);
         final DetailAST parent = ast.getParent();
 
-        if ((type == TokenTypes.ASSIGN)
-            && (parent.getType() == TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
-            // shouldn't process assign in annotation pairs
-            return;
-        }
+        // shouldn't process assign in annotation pairs
+        if ((type != TokenTypes.ASSIGN)
+            || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
+            final boolean surrounded = isSurrounded(ast);
 
-        // An identifier surrounded by parentheses.
-        if (surrounded && (type == TokenTypes.IDENT)) {
-            parentToSkip = ast.getParent();
-            log(ast, MSG_KEY_IDENT, ast.getText());
-            return;
-        }
-
-        // A literal (numeric or string) surrounded by parentheses.
-        if (surrounded && inTokenList(type, LITERALS)) {
-            parentToSkip = ast.getParent();
-            if (type == TokenTypes.STRING_LITERAL) {
-                log(ast, MSG_KEY_STRING,
-                    chopString(ast.getText()));
+            // An identifier surrounded by parentheses.
+            if (surrounded && (type == TokenTypes.IDENT)) {
+                parentToSkip = ast.getParent();
+                log(ast, MSG_KEY_IDENT, ast.getText());
             }
-            else {
-                log(ast, MSG_KEY_LITERAL, ast.getText());
+            // A literal (numeric or string) surrounded by parentheses.
+            else if (surrounded && inTokenList(type, LITERALS)) {
+                parentToSkip = ast.getParent();
+                if (type == TokenTypes.STRING_LITERAL) {
+                    log(ast, MSG_KEY_STRING,
+                        chopString(ast.getText()));
+                }
+                else {
+                    log(ast, MSG_KEY_LITERAL, ast.getText());
+                }
             }
-            return;
-        }
-
-        // The rhs of an assignment surrounded by parentheses.
-        if (inTokenList(type, ASSIGNMENTS)) {
-            assignDepth++;
-            final DetailAST last = ast.getLastChild();
-            if (last.getType() == TokenTypes.RPAREN) {
-                final DetailAST subtree = ast.getFirstChild().getNextSibling()
-                    .getNextSibling();
-                final int subtreeType = subtree.getType();
-                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
-                    subtreeType, EQUALS)) {
-                    log(ast, MSG_KEY_ASSIGN);
+            // The rhs of an assignment surrounded by parentheses.
+            else if (inTokenList(type, ASSIGNMENTS)) {
+                assignDepth++;
+                final DetailAST last = ast.getLastChild();
+                if (last.getType() == TokenTypes.RPAREN) {
+                    final DetailAST subtree = ast.getFirstChild().getNextSibling()
+                        .getNextSibling();
+                    final int subtreeType = subtree.getType();
+                    if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                        subtreeType, EQUALS)) {
+                        log(ast, MSG_KEY_ASSIGN);
+                    }
                 }
             }
         }
@@ -221,38 +216,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
             || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
             // An expression is surrounded by parentheses.
             if (type == TokenTypes.EXPR) {
-                // If 'mParentToSkip' == 'aAST', then we've already logged a
-                // warning about an immediate child node in visitToken, so we don't
-                // need to log another one here.
-
-                if ((parentToSkip != ast) && exprSurrounded(ast)) {
-                    if (assignDepth >= 1) {
-                        if (!ignoreCalculationOfBooleanVariables || !inTokenList(
-                            subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_ASSIGN);
-                        }
-                    }
-                    else if (ast.getParent().getType()
-                        == TokenTypes.LITERAL_RETURN) {
-                        if (!ignoreCalculationOfBooleanVariablesWithReturn
-                                || !inTokenList(subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_RETURN);
-                        }
-                    }
-                    else if (ast.getParent().getType()
-                            == TokenTypes.LITERAL_ASSERT) {
-                        if (!ignoreCalculationOfBooleanVariablesWithAssert
-                                || !inTokenList(subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_EXPR);
-                        }
-                    }
-                    else {
-                        if (!ignoreCalculationOfBooleanVariables || !inTokenList(
-                            subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_EXPR);
-                        }
-                    }
-                }
+                leaveTokenExpression(ast);
 
                 parentToSkip = null;
             }
@@ -261,6 +225,45 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
             }
 
             super.leaveToken(ast);
+        }
+    }
+
+    /**
+     * Examines the expression AST for violations.
+     * @param ast The AST to examine.
+     */
+    private void leaveTokenExpression(DetailAST ast) {
+        // If 'mParentToSkip' == 'aAST', then we've already logged a
+        // warning about an immediate child node in visitToken, so we don't
+        // need to log another one here.
+
+        if ((parentToSkip != ast) && exprSurrounded(ast)) {
+            if (assignDepth >= 1) {
+                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                    subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_ASSIGN);
+                }
+            }
+            else if (ast.getParent().getType()
+                == TokenTypes.LITERAL_RETURN) {
+                if (!ignoreCalculationOfBooleanVariablesWithReturn
+                        || !inTokenList(subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_RETURN);
+                }
+            }
+            else if (ast.getParent().getType()
+                    == TokenTypes.LITERAL_ASSERT) {
+                if (!ignoreCalculationOfBooleanVariablesWithAssert
+                        || !inTokenList(subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_EXPR);
+                }
+            }
+            else {
+                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                    subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_EXPR);
+                }
+            }
         }
     }
 
