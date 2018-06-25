@@ -33,6 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author lkuehne
  * @version $Revision: 1.12 $
+ * @since 1.8.0
  */
 public class HideUtilityClassConstructorCheck extends AbstractCheck {
 

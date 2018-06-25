@@ -146,6 +146,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
+ * @since 1.8.0
  */
 public class AvoidModifiersForTypesCheck extends AbstractCheck {
 

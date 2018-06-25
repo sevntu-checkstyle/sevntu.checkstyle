@@ -70,6 +70,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * dead/useless code<br>
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
+ * @since 1.12.0
  */
 public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
 

@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * class declaration into the method body you will get an error.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
+ * @since 1.6.0
  */
 public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
 

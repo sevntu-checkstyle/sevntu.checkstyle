@@ -81,6 +81,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
+ * @since 1.13.0
  */
 public class AvoidConditionInversionCheck extends AbstractCheck {
 

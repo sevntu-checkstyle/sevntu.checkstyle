@@ -141,6 +141,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
+ * @since 1.13.0
  */
 public class UselessSuperCtorCallCheck extends AbstractCheck {
 

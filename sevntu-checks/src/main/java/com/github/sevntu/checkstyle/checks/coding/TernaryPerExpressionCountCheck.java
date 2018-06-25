@@ -88,6 +88,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
+ * @since 1.12.0
  */
 
 public class TernaryPerExpressionCountCheck extends AbstractCheck {

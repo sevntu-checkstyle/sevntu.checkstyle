@@ -76,6 +76,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:fishh1991@gmail.com">Troshin Sergey</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Alexey Nesterenko</a>
+ * @since 1.8.0
  */
 public class RedundantReturnCheck extends AbstractCheck {
 

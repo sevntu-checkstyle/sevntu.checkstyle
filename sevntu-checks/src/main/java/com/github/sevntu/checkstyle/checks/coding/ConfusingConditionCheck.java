@@ -59,6 +59,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
+ * @since 1.9.0
  */
 public class ConfusingConditionCheck extends AbstractCheck {
 

@@ -152,6 +152,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
+ * @since 1.8.0
  */
 public class CustomDeclarationOrderCheck extends AbstractCheck {
 

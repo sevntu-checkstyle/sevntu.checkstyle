@@ -83,6 +83,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * </p>
  *
  * @author <a href="mailto:raghavgautam@gmail.com">Raghav Kumar Gautam</a>
+ * @since 1.28.0
  */
 public class ForbidCertainMethodCheck extends AbstractCheck {
 

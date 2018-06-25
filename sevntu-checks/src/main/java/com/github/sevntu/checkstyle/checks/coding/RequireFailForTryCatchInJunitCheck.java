@@ -65,6 +65,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
  *   }
  * </pre>
  * @author Richard Veach
+ * @since 1.25.0
  */
 public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
 

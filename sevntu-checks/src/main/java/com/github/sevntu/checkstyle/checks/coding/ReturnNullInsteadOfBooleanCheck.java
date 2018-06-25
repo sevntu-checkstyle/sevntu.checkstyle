@@ -34,6 +34,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * @author Ivan Sopov
+ * @since 1.8.0
  */
 public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
 

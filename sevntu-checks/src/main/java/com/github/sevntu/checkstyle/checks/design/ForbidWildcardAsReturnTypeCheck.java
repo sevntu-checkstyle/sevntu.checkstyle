@@ -65,6 +65,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
  * with option to ignore wildcard if used with another type (not alone).
  * </p>
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
+ * @since 1.9.0
  */
 public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 

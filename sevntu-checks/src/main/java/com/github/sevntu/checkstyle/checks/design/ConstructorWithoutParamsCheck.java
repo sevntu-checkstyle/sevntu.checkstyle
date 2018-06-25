@@ -84,6 +84,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * <a href=https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/412> issue 412</a></p>.
  *
  * @author <a href="mailto:Sergey.Dudoladov@gmail.com">Sergey Dudoladov</a>
+ * @since 1.20.0
  */
 public class ConstructorWithoutParamsCheck extends AbstractCheck {
 

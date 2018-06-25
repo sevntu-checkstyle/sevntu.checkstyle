@@ -48,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
 *
 * @author Dmitry Gridyushko
 * @version 1.0
+* @since 1.8.0
 */
 public class InterfaceTypeParameterNameCheck
         extends AbstractNameCheck {

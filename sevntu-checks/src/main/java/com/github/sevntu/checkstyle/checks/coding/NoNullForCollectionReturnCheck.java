@@ -49,6 +49,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * TreeSet, Vector, Collection, List, Map, Set.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
+ * @since 1.9.0
  */
 public class NoNullForCollectionReturnCheck extends AbstractCheck {
 

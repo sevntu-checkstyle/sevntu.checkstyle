@@ -33,6 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * and similarly for any expression.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
+ * @since 1.8.0
  */
 public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
 

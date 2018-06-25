@@ -63,6 +63,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
+ * @since 1.8.0
  */
 public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 

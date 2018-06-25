@@ -74,6 +74,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * constant conform or there is no.
  *
  * @author Pavel Baranchikov
+ * @since 1.21.0
  */
 public class UniformEnumConstantNameCheck extends AbstractCheck {
 

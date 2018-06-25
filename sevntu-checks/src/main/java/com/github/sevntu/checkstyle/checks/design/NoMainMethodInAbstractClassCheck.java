@@ -30,6 +30,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Forbids main methods in abstract classes. Existence of 'main' method can
  * mislead a developer to consider this class as a ready-to-use implementation.
  * @author Baratali Izmailov <a href="mailto:barataliba@gmail.com">email</a>
+ * @since 1.9.0
  */
 public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 

@@ -47,6 +47,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  * @author <a href="mailto:iliadubinin91@gmail.com">Ilja Dubinin</a>
+ * @since 1.9.0
  */
 public class SimpleAccessorNameNotationCheck extends AbstractCheck {
 

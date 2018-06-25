@@ -125,6 +125,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
+ * @since 1.11.0
  */
 
 public class MapIterationInForEachLoopCheck extends AbstractCheck {

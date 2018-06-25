@@ -50,6 +50,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author Eric Roe
  * @author Antonenko Dmitriy
+ * @since 1.8.0
  */
 public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
 
