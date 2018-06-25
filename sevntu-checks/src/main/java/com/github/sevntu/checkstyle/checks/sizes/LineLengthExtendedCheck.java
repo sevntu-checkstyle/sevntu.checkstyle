@@ -86,6 +86,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  *
  * @author Lars Kühne
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
+ * @since 1.5.1
  */
 public class LineLengthExtendedCheck extends AbstractCheck {
 

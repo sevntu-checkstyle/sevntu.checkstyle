@@ -42,6 +42,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class ForbidInstantiationCheck extends AbstractCheck {
 

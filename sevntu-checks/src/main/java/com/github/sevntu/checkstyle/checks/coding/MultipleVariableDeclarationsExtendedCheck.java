@@ -41,6 +41,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * </pre>
  *
  * @author o_sukhodolsky
+ * @since 1.5.3
  */
 
 public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {

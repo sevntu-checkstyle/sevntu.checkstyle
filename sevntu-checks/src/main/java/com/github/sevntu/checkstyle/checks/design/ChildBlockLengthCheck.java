@@ -45,6 +45,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class ChildBlockLengthCheck extends AbstractCheck {
 

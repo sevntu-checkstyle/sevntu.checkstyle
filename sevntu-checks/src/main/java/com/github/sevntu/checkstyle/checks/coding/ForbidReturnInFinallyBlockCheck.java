@@ -35,6 +35,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * @author <a href="mailto:andrew.uljanenko@gmail.com">Andrew Uljanenko</a>
+ * @since 1.13.0
  */
 
 public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {

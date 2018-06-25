@@ -112,6 +112,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * </pre>
  *
  * @author Richard Veach
+ * @since 1.24.0
  */
 public class MoveVariableInsideIfCheck extends AbstractCheck {
 

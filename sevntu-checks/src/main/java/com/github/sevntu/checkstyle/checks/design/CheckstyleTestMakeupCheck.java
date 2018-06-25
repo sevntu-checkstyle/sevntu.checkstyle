@@ -67,6 +67,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * </pre>
  *
  * @author Richard Veach
+ * @since 1.25.0
  */
 public class CheckstyleTestMakeupCheck extends AbstractCheck {
 

@@ -118,6 +118,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * different loggers, then create another instance of this check.
  * </p>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
+ * @since 1.9.0
  */
 public class EitherLogOrThrowCheck extends AbstractCheck {
 

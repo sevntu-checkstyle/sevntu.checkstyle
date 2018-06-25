@@ -33,6 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * "Effective Java (2nd edition)" chapter 11, item 74, page 294.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
+ * @since 1.8.0
  */
 public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
 

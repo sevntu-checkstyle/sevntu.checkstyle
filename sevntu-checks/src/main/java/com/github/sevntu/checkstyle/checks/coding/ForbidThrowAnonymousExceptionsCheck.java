@@ -58,6 +58,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
+ * @since 1.11.0
  */
 public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 

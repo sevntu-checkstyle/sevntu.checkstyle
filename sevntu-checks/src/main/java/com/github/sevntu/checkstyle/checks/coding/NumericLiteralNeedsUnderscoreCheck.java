@@ -138,6 +138,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * int passingBinary = 0b0000_1111;
  * </pre>
  * @author Cheng-Yu Pai
+ * @since 1.18.0
  */
 
 public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {

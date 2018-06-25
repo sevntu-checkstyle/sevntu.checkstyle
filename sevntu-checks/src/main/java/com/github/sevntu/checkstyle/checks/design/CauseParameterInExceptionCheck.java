@@ -46,6 +46,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * ("allowedCauseTypes" option).</li></ol><br>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class CauseParameterInExceptionCheck extends AbstractCheck {
 

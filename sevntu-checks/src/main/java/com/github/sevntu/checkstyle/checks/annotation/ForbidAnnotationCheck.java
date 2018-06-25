@@ -38,6 +38,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * value="METHOD_DEF,CLASS_DEF"/&gt; &lt;/module&gt;
  * </pre>
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
+ * @since 1.12.0
  */
 
 public class ForbidAnnotationCheck extends AbstractCheck {

@@ -50,6 +50,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * &lt;module name=&quot;NestedSwitchCheck&quot;/&gt;
  * </pre>
  * @author Damian Szczepanik (damianszczepanik@github)
+ * @since 1.13.0
  */
 public class NestedSwitchCheck extends AbstractCheck {
 

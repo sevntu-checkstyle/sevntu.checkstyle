@@ -95,6 +95,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:andrew.uljanenko@gmail.com">Andrew Uljanenko</a>
+ * @since 1.13.0
  */
 
 public class RequiredParameterForAnnotationCheck extends AbstractCheck {

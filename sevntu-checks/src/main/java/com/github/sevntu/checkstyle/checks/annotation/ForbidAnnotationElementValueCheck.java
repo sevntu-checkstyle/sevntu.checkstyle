@@ -110,6 +110,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:drozzds@gmail.com"> Sergey Drozd </a>
  * @author Richard Veach
+ * @since 1.22.0
  */
 public class ForbidAnnotationElementValueCheck extends AbstractCheck {
 

@@ -62,6 +62,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * </li>
  * </ul>
  * @author Vladislav Lisetskiy
+ * @since 1.17.0
  */
 public class StaticMethodCandidateCheck extends AbstractCheck {
 

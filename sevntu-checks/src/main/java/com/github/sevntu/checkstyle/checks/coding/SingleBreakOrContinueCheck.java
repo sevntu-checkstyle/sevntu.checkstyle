@@ -109,6 +109,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
+ * @since 1.18.0
  */
 public class SingleBreakOrContinueCheck extends AbstractCheck {
 

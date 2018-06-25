@@ -55,6 +55,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  *
  * @author <a href="mailto:piotr.listkiewicz@gmail.com">liscju</a>
+ * @since 1.14.0
  */
 public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
 

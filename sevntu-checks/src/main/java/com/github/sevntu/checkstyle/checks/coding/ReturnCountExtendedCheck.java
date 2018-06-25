@@ -66,6 +66,7 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
  * <br>
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class ReturnCountExtendedCheck extends AbstractCheck {
 

@@ -54,6 +54,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * </p>
  *
  * @author Sergey Burtsev
+ * @since 1.9.0
  */
 public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
 

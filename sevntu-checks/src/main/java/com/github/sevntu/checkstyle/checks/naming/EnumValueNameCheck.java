@@ -47,6 +47,7 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
  * </pre>
  *
  * @author Pavel Baranchikov
+ * @since 1.24.0
  */
 public class EnumValueNameCheck extends AbstractNameCheck {
 

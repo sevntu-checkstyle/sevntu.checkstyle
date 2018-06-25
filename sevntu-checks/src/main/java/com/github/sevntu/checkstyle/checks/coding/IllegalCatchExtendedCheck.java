@@ -33,6 +33,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
  * is almost never acceptable.
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
+ * @since 1.8.0
  */
 public final class IllegalCatchExtendedCheck extends AbstractCheck {
 

@@ -30,6 +30,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
+ * @since 1.8.0
  */
 public class InnerClassCheck extends AbstractCheck {
 
