@@ -6,6 +6,8 @@ sevntu-checkstyle-maven-plugin:!https://maven-badges.herokuapp.com/maven-central
 sevntu-checkstyle-sonar-plugin:!https://maven-badges.herokuapp.com/maven-central/com.github.sevntu-checkstyle/sevntu-checkstyle-sonar-plugin/badge.svg!:https://search.maven.org/#search|gav|1|g%3A%22com.github.sevntu-checkstyle%22%20AND%20a%3A%22sevntu-checkstyle-sonar-plugin%22
 eclipsecs-sevntu-plugin: "all versions":https://github.com/sevntu-checkstyle/sevntu.checkstyle/tree/gh-pages/update-site/plugins
 
+All sevntu artifact on maven repo: https://repo1.maven.org/maven2/com/github/sevntu-checkstyle/
+
 
 Additional(non-standard) checks for Checkstyle that are compiled as:
 - extension to "maven-checkstyle-plugin":http://maven.apache.org/plugins/maven-checkstyle-plugin/ (how to use: "in general":http://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-developed-checkstyle.html, "maven, ant, gradle example":https://github.com/sevntu-checkstyle/checkstyle-samples).
