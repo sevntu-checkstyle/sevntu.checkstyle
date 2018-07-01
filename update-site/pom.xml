@@ -53,7 +53,7 @@
           <fromDir>${project.build.directory}/repository/</fromDir>
           <includes>**</includes>
           <toDir>update-site</toDir>
-          <url>file://${project.build.directory}/../../gh-pages</url>
+          <url>file://${deployDir}</url>
         </configuration>
       </plugin>
     </plugins>

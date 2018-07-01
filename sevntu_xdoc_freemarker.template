@@ -1,0 +1,56 @@
+  <#escape x as x?html>
+    <div id="${releaseNo}" class="spoiler pre_opened_spoiler">
+    <div class="name"><span><h3>Release ${releaseNo}</h3></span></div>
+    <div class="text">
+      <#if breakingMessages?has_content>
+      <p>Breaking backward compatibility:</p>
+        <ul>
+        <#list breakingMessages as message>
+          <li>
+            ${message.title}.
+	    Author: ${message.author}<#if message.issueNo != -1>
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+          </li>
+        </#list>
+        </ul>
+      </#if>
+      <#if newMessages?has_content>
+      <p>New:</p>
+        <ul>
+          <#list newMessages as message>
+          <li>
+            ${message.title}.
+	    Author: ${message.author}<#if message.issueNo != -1>
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+          </li>
+          </#list>
+        </ul>
+      </#if>
+      <#if bugMessages?has_content>
+      <p>Bug fixes:</p>
+        <ul>
+          <#list bugMessages as message>
+          <li>
+            ${message.title}.
+	    Author: ${message.author}<#if message.issueNo != -1>
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+          </li>
+          </#list>
+        </ul>
+      </#if>
+      <#if notesMessages?has_content>
+      <p>Notes:</p>
+        <ul>
+          <#list notesMessages as message>
+          <li>
+            ${message.title}.
+	    Author: ${message.author}<#if message.issueNo != -1>
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+          </li>
+          </#list>
+        </ul>
+      </#if>
+    </div>
+    </div>
+  </#escape>
+
