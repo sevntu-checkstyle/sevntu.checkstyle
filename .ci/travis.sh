@@ -82,7 +82,7 @@ checkstyle-regression)
   cd checkstyle
   mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
       -Dfindbugs.skip=true -Dcobertura.skip=true \
-      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.7
+      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.10
   ;;
 
 eclipse-analysis)

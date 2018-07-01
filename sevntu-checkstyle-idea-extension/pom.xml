@@ -128,7 +128,7 @@
         <repository>
           <id>com.github.sevntu-checkstyle</id>
           <name>Sevntu Checkstyle Idea extension</name>
-          <url>file://${basedir}/../gh-pages/maven2/</url>
+          <url>file://${deployDir}/maven2/</url>
         </repository>
       </distributionManagement>
     </profile>
