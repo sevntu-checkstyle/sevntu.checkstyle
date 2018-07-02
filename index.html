@@ -240,6 +240,96 @@ Full list of Checks and examples of usage could be found at
 </p>
 
 <h2> New and noteworthy</h2>
+  
+    <div id="1.30.0" class="spoiler pre_opened_spoiler">
+    <div class="name"><span><h3>Release 1.30.0</h3></span></div>
+    <div class="text">
+      <p>New:</p>
+        <ul>
+          <li>
+            AvoidConstantAsFirstOperandInConditionCheck: doesn&#39;t validate comparisons other then equals and not equals.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/672">#672</a>
+          </li>
+        </ul>
+      <p>Bug fixes:</p>
+        <ul>
+          <li>
+            RedundantReturn: false positive in anonymous class.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/650">#650</a>
+          </li>
+          <li>
+            RedundantReturnCheck: NPE on method with no body.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/687">#687</a>
+          </li>
+          <li>
+            LogicConditionNeedOptimization: false positive when many conditions are wrapped in parenthesis.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/683">#683</a>
+          </li>
+          <li>
+            LogicConditionNeedOptimization: ignore instanceof.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/661">#661</a>
+          </li>
+          <li>
+            OverridableMethodInConstructorCheck: can&#39;t run regression on openjdk9.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/572">#572</a>
+          </li>
+          <li>
+            AvoidNotShortCircuitOperatorsForBoolean: reports multi catch case.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/659">#659</a>
+          </li>
+        </ul>
+      <p>Notes:</p>
+        <ul>
+          <li>
+            Fixes for release.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/638">#638</a>
+          </li>
+          <li>
+            Add since tag to all module javadocs.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/701">#701</a>
+          </li>
+          <li>
+            Resolve sevntu-checks violations in its own code (old code).
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/525">#525</a>
+          </li>
+          <li>
+            upgrade to 8.10 eclipse-cs.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/658">#658</a>
+          </li>
+          <li>
+            Add no-exceptions testing lauches to CI.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/644">#644</a>
+          </li>
+          <li>
+            Verify all modules are listed in contribution checks-sevntu-error.xml.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/691">#691</a>
+          </li>
+          <li>
+            Update all AbstractChecks to log DetailAST.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/662">#662</a>
+          </li>
+          <li>
+            Remove usage of DetailAST.branchContains.
+	    Author: rnveach
+	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/669">#669</a>
+          </li>
+        </ul>
+    </div>
+    </div>
 <!--
 <div id="X.Y.Z" class="spoiler pre_opened_spoiler">
 <div class="name"><span><h3>Release X.Y.Z (9/Oct/2014)</h3></span></div>
