@@ -12,7 +12,7 @@
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
   <name>Sevntu Checkstyle Maven Plugin</name>
-  <version>1.29.0</version>
+  <version>1.30.0</version>
 
   <licenses>
     <license>
@@ -25,7 +25,7 @@
     <dependency>
       <groupId>com.github.sevntu-checkstyle</groupId>
       <artifactId>sevntu-checks</artifactId>
-      <version>1.29.0</version>
+      <version>1.30.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>

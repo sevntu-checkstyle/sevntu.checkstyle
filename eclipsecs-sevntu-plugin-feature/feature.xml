@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="com.github.sevntu.checkstyle.checks.feature" label="Extension for eclipse-cs plugin with additional Checks" version="1.29.0">
+<feature id="com.github.sevntu.checkstyle.checks.feature" label="Extension for eclipse-cs plugin with additional Checks" version="1.30.0">
 
    <description url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/">
       http://sevntu-checkstyle.github.io/sevntu.checkstyle/
@@ -20,6 +20,6 @@ Eclipse Public License - Version 1.0
       <discovery label="Eclipse Update site" url="http://sevntu-checkstyle.github.com/sevntu.checkstyle/update-site/"/>
    </url>
 
-   <plugin id="eclipsecs-sevntu-plugin" download-size="0" install-size="0" version="1.29.0" unpack="false"/>
+   <plugin id="eclipsecs-sevntu-plugin" download-size="0" install-size="0" version="1.30.0" unpack="false"/>
 
 </feature>

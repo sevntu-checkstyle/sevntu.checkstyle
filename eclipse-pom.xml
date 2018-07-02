@@ -5,7 +5,7 @@
 
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>parent</artifactId>
-  <version>1.29.0</version>
+  <version>1.30.0</version>
   <packaging>pom</packaging>
 
   <licenses>

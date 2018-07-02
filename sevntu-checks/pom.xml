@@ -11,7 +11,7 @@
 
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
-  <version>1.29.0</version>
+  <version>1.30.0</version>
 
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
