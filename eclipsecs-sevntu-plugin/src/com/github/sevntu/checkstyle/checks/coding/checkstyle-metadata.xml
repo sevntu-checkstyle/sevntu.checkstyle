@@ -556,5 +556,13 @@
       <message-key key="require.fail"/>
     </rule-metadata>
 
+    <rule-metadata name="%EnumTrailingCommaAndSemicolonCheck.name" internal-name="EnumTrailingCommaAndSemicolonCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaAndSemicolonCheck"/>
+      <description>%EnumTrailingCommaAndSemicolonCheck.desc</description>
+
+      <message-key key="enum.trailing.comma"/>
+      <message-key key="enum.trailing.comma.semi"/>
+    </rule-metadata>
+
   </rule-group-metadata>
 </checkstyle-metadata>
