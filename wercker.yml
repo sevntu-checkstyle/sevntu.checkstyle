@@ -1,0 +1,160 @@
+box: maven:3.5.2-jdk-8
+
+build:
+  steps:
+  - script:
+      name: setup maven local repo
+      code: |
+        export MAVEN_OPTS="-Dmaven.repo.local=${WERCKER_CACHE_DIR}"
+        mvn -version
+        echo "------"
+        du -hs ${WERCKER_CACHE_DIR}
+        echo "------"
+        du -hs ${WERCKER_CACHE_DIR}/* | sort -h
+
+  - script:
+      name: install groovy
+      code: |
+         if [ ! -d ${WERCKER_CACHE_DIR}/groovy ]; then
+           GROOVY_LINK="https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.4.7.zip"
+           wget -O ${WERCKER_CACHE_DIR}/groovy.zip $GROOVY_LINK;
+           unzip ${WERCKER_CACHE_DIR}/groovy.zip -d ${WERCKER_CACHE_DIR};
+           mv ${WERCKER_CACHE_DIR}/groovy-2.4.7 ${WERCKER_CACHE_DIR}/groovy
+         fi
+         export GROOVY_HOME=${WERCKER_CACHE_DIR}/groovy
+         PATH=$GROOVY_HOME/bin:$PATH
+         groovy -v
+
+  - script:
+      name: Build Sevntu
+      code: |
+        SKIP_FILES1="appveyor.yml|codeship-*|buddy.yml|circleci|travis"
+        SKIP_FILES2="|shippable|sonar-|fast-forward-merge.sh|LICENSE|LICENSE.apache20"
+        SKIP_FILES3="|README.md|release.sh|RIGHTS.antlr|intellij-idea-inspections.xml"
+        SKIP_FILES4="|org.eclipse.jdt.core.prefs|distelli-manifest.yml|jsoref-spellchecker"
+        SKIP_FILES5="|check-only-javadoc-error.sh|eclipse-compiler-javac.sh|idea_inspection"
+        SKIP_FILES6="|test-spelling-unknown-words.sh"
+        SKIP_FILES=$SKIP_FILES1$SKIP_FILES2$SKIP_FILES3$SKIP_FILES4$SKIP_FILES5$SKIP_FILES6
+        export SKIP_CI=false;
+        if [[ $(git diff --name-only HEAD HEAD~1 | grep -vE "$SKIP_FILES" | cat | wc -c) > 0 ]];
+          then
+            SKIP_CI=false;
+          else
+            SKIP_CI=true;
+        fi
+        echo "SKIP_CI="$SKIP_CI
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          mvn -e clean install -Pno-validations
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Apache Struts
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-struts"
+          ./.ci/wercker.sh no-exception-struts
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Guava
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh ./.ci/wercker.sh no-exception-guava"
+          ./.ci/wercker.sh no-exception-guava
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Hibernate
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-hibernate-orm"
+          ./.ci/wercker.sh no-exception-hibernate-orm
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+
+  - script:
+      name: NoExceptiontest - spotbugs
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-spotbugs"
+          ./.ci/wercker.sh no-exception-spotbugs
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - spring-framework
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-spring-framework"
+          ./.ci/wercker.sh no-exception-spring-framework
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - Hbase
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-hbase"
+          ./.ci/wercker.sh no-exception-hbase
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - pmd elasticsearch lombok-ast
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-Pmd-elasticsearch-lombok-ast"
+          ./.ci/wercker.sh no-exception-Pmd-elasticsearch-lombok-ast
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: NoExceptiontest - RxJava apache-ant apache-jsecurity android-launcher ....
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: ./.ci/wercker.sh no-exception-alot-of-projects"
+          ./.ci/wercker.sh no-exception-alot-of-projects
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
+      name: Cleanup maven local repo
+      code: |
+        find ${WERCKER_CACHE_DIR} -type d -name "*SNAPSHOT" -ls -exec rm -rf {} +
+        echo "------"
+        du -hs ${WERCKER_CACHE_DIR}
+        echo "------"
+        du -hs ${WERCKER_CACHE_DIR}/* | sort -h
+        echo "------"
+        du -hs * | sort -h

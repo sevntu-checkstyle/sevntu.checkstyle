@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,20 @@ import static com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedChe
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
+public class IllegalCatchExtendedCheckTest extends AbstractModuleTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(IllegalCatchExtendedCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void testDefault() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         final String[] expected = {
             "9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
             "11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
@@ -44,12 +49,13 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "false");
 
-        verify(checkConfig, getPath("InputIllegalCatchCheckNew.java"), expected);
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
 
     @Test
     public final void testThrowPermit() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         final String[] expected = {
             "9:9: " + getCheckMessage(MSG_KEY, "RuntimeException"),
             "11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
@@ -61,11 +67,13 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowThrow", "true");
         checkConfig.addAttribute("allowRethrow", "false");
 
-        verify(checkConfig, getPath("InputIllegalCatchCheckNew.java"), expected);
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
 
     @Test
     public final void testReThrowPermit() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
         checkConfig.addAttribute("illegalClassNames",
                                  "java.lang.Error, java.lang.Exception, java.lang.Throwable");
 
@@ -77,7 +85,25 @@ public class IllegalCatchExtendedCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowThrow", "false");
         checkConfig.addAttribute("allowRethrow", "true");
 
-        verify(checkConfig, getPath("InputIllegalCatchCheckNew.java"), expected);
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
+    }
+
+    @Test
+    public void testIllegalClassNames() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(IllegalCatchExtendedCheck.class);
+        checkConfig.addAttribute("illegalClassNames",
+                                 "java.lang.Error, java.lang.Exception, NullPointerException");
+
+        // check that incorrect names don't break the Check
+        checkConfig.addAttribute("illegalClassNames",
+                "java.lang.IOException.");
+
+        final String[] expected = {
+            "11:9: " + getCheckMessage(MSG_KEY, "java.lang.Exception"),
+        };
+
+        verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
 
 }

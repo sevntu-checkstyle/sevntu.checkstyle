@@ -5,9 +5,11 @@ bin/
 # No Github Pages
 gh-pages/
 
-# No Eclipse settings
+# No Eclipse files
 .settings/
 .checkstyle
+.classpath
+.project
 
 # No IntelliJ Idea project files
 .idea/

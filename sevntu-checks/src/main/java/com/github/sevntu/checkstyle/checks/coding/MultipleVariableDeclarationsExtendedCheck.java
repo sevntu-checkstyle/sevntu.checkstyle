@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -40,12 +40,12 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * &lt;module name="MultipleVariableDeclarations"/&gt;
  * </pre>
  *
- * *
- *
  * @author o_sukhodolsky
+ * @since 1.5.3
  */
 
 public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -89,6 +89,16 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
         };
     }
 
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
     /**
      * Searches for wrong declarations and checks the their type.
      *
@@ -96,12 +106,13 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
      *            uses to get the parent or previous sibling token.
      */
     public void work(DetailAST ast) {
-
         DetailAST nextNode = ast.getNextSibling();
-        final boolean isCommaSeparated = (nextNode != null)
-                && (nextNode.getType() == TokenTypes.COMMA);
 
         if (nextNode != null) {
+            // -@cs[MoveVariableInsideIf] assignment value is modified later so
+            // it can't be moved
+            final boolean isCommaSeparated = nextNode.getType() == TokenTypes.COMMA;
+
             if ((nextNode.getType() == TokenTypes.COMMA)
                     || (nextNode.getType() == TokenTypes.SEMI)) {
                 nextNode = nextNode.getNextSibling();
@@ -127,7 +138,6 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-
         final DetailAST token = ast;
         final boolean inFor = ast.getParent().getType() == TokenTypes.FOR_INIT;
         final boolean inClass = ast.getParent().getParent().getType() == TokenTypes.CLASS_DEF;
@@ -139,10 +149,9 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
             work(token);
         }
 
-        else if (!ignoreMethods && !inClass && !inFor) {
+        else if (!ignoreMethods && !inFor) {
             work(token);
         }
-
     }
 
     /**
@@ -168,4 +177,5 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
 
         return currentNode;
     }
+
 }

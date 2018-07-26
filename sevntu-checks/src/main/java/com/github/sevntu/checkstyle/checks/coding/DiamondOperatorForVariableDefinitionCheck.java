@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -41,6 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </code>
  * </p>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
+ * @since 1.12.0
  */
 public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
 
@@ -53,17 +54,24 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
     }
 
     @Override
-    public void visitToken(DetailAST variableDefNode) {
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
 
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public void visitToken(DetailAST variableDefNode) {
         final DetailAST assignNode = variableDefNode.findFirstToken(TokenTypes.ASSIGN);
 
         if (assignNode != null) {
-
             final DetailAST newNode = assignNode.getFirstChild().getFirstChild();
 
             // we check only creation by NEW
             if (newNode.getType() == TokenTypes.LITERAL_NEW) {
-
                 final DetailAST variableDefNodeType =
                         variableDefNode.findFirstToken(TokenTypes.TYPE);
                 final DetailAST varDefArguments = getFirstTypeArgumentsToken(variableDefNodeType);
@@ -73,7 +81,6 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
                         && newNode.getLastChild().getType() != TokenTypes.OBJBLOCK
                         // arrays can not be generics
                         && newNode.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
-
                     final DetailAST typeArgs = getFirstTypeArgumentsToken(newNode);
 
                     if (varDefArguments.equalsTree(typeArgs)) {
@@ -96,12 +103,10 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
             if (resultNode.getType() == TokenTypes.DOT) {
                 resultNode = resultNode.getFirstChild().getNextSibling();
             }
-            if (resultNode.getType() != TokenTypes.TYPE_ARGUMENTS) {
-                final DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
+            final DetailAST childNode = getFirstTypeArgumentsToken(resultNode);
 
-                if (childNode == null) {
-                    resultNode = resultNode.getNextSibling();
-                }
+            if (childNode == null) {
+                resultNode = resultNode.getNextSibling();
             }
         }
 

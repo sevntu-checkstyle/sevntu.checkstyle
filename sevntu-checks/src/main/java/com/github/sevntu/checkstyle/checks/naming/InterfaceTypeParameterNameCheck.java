@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -48,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
 *
 * @author Dmitry Gridyushko
 * @version 1.0
+* @since 1.8.0
 */
 public class InterfaceTypeParameterNameCheck
         extends AbstractNameCheck {
@@ -65,9 +66,20 @@ public class InterfaceTypeParameterNameCheck
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     protected final boolean mustCheckName(DetailAST ast) {
         final DetailAST location = ast.getParent().getParent();
 
         return location.getType() == TokenTypes.INTERFACE_DEF;
     }
+
 }

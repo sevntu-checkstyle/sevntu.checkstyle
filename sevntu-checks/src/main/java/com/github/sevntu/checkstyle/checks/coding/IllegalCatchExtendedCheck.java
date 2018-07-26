@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,22 +19,34 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.checks.coding.AbstractIllegalCheck;
 import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
 
 /**
  * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
  * is almost never acceptable.
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
+ * @since 1.8.0
  */
-public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
+public final class IllegalCatchExtendedCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
     public static final String MSG_KEY = "illegal.catch";
+
+    /** Illegal class names. */
+    private final Set<String> illegalClassNames = Arrays.stream(
+            new String[] {"Exception", "Error", "RuntimeException", "Throwable",
+                          "java.lang.Error", "java.lang.Exception", "java.lang.RuntimeException",
+                          "java.lang.Throwable", }).collect(Collectors.toSet());
 
     /** Disable warnings for "catch" blocks containing
      * throwing an exception. */
@@ -44,18 +56,24 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
      * rethrowing an exception. */
     private boolean allowRethrow = true;
 
-    /** Creates new instance of the check. */
-    public IllegalCatchExtendedCheck() {
-        super(new String[] {
-            "Exception",
-            "Error",
-            "RuntimeException",
-            "Throwable",
-            "java.lang.Error",
-            "java.lang.Exception",
-            "java.lang.RuntimeException",
-            "java.lang.Throwable",
-        });
+    /**
+     * Set the list of illegal classes.
+     *
+     * @param classNames
+     *            array of illegal exception classes
+     */
+    public void setIllegalClassNames(final String... classNames) {
+        illegalClassNames.clear();
+        for (final String name : classNames) {
+            illegalClassNames.add(name);
+            final int lastDot = name.lastIndexOf('.');
+            if (lastDot > 0
+                    && lastDot < name.length() - 1) {
+                final String shortName = name
+                        .substring(name.lastIndexOf('.') + 1);
+                illegalClassNames.add(shortName);
+            }
+        }
     }
 
     /**
@@ -84,6 +102,11 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public int[] getRequiredTokens() {
         return getDefaultTokens();
     }
@@ -107,10 +130,7 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
         // For warnings disable first lvl child must be an EXPR and
         // second lvl child must be IDENT or LITERAL_NEW with
         // appropriate boolean flags.
-        final boolean noWarning = throwAST != null
-                && firstLvlChild != null
-                && secondLvlChild != null
-             && firstLvlChild.getType() == TokenTypes.EXPR
+        final boolean noWarning = secondLvlChild != null
              && ((allowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
              || (allowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW));
 
@@ -133,7 +153,6 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
         final DetailAST[] asts = getChilds(parentAST);
 
         for (DetailAST currentNode : asts) {
-
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getNumberOfChildren() > 0) {
                 result = getThrowAST(currentNode);
@@ -164,6 +183,17 @@ public final class IllegalCatchExtendedCheck extends AbstractIllegalCheck {
         }
 
         return result;
+    }
+
+    /**
+     * Checks if given class is illegal.
+     *
+     * @param ident
+     *            ident to check.
+     * @return true if given ident is illegal.
+     */
+    protected boolean isIllegalClassName(final String ident) {
+        return illegalClassNames.contains(ident);
     }
 
 }

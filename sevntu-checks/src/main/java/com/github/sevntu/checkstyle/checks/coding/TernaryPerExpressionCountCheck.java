@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -44,9 +44,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * System.out.println(x);
  * </pre>
  *
- * Output for code above is "D", but more obvious would be "BC".<br>
- *
- * Check has following properties:<br>
+ * <p>
+ * Output for code above is "D", but more obvious would be "BC".
+ * </p>
+ * <p>
+ * Check has following properties:
+ * </p>
  * <ul>
  * <li><b>maxTernaryPerExpressionCount</b> - limit of ternary operators per
  * expression<br>
@@ -73,8 +76,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *   procedureNameToUse + "(";
  * </pre>
  *
+ * <p>
  * When using <b>ignoreIsolatedTernaryOnLine</b> (value = <b>true</b>), even without<br>
- * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:<br>
+ * <b>ignoreTernaryOperatorsInBraces</b> option Check won't warn on code below:
+ * </p>
  *
  * <pre>
  * int a = (d == 5) ? d : f
@@ -83,6 +88,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
+ * @since 1.12.0
  */
 
 public class TernaryPerExpressionCountCheck extends AbstractCheck {
@@ -93,12 +99,22 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      */
     public static final String MSG_KEY = "ternary.per.expression.count";
 
+    /** Default limit of ternary operators per expression. */
     private static final int DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT = 1;
 
+    /** Limit of ternary operators per expression. */
     private int maxTernaryPerExpressionCount = DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT;
 
+    /**
+     * If true Check will ignore ternary operators in braces (braces explicitly
+     * set priority level).
+     */
     private boolean ignoreTernaryOperatorsInBraces = true;
 
+    /**
+     * If true Check will ignore one line ternary operators, if only it is
+     * places in line alone.
+     */
     private boolean ignoreIsolatedTernaryOnLine = true;
 
     @Override
@@ -106,6 +122,16 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
         return new int[] {
             TokenTypes.EXPR,
         };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
     }
 
     /**
@@ -143,7 +169,6 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST expressionNode) {
-
         final List<DetailAST> questionNodes = getQuestionNodes(expressionNode);
 
         if (questionNodes.size() > maxTernaryPerExpressionCount) {
@@ -160,7 +185,6 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      *          List of question nodes
      */
     private List<DetailAST> getQuestionNodes(DetailAST expressionNode) {
-
         final List<DetailAST> questionNodes = new LinkedList<>();
 
         DetailAST currentNode = expressionNode;
@@ -172,7 +196,6 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
                     && !isSkipTernaryOperator(currentNode)) {
                 questionNodes.add(currentNode);
             }
-
         } while (currentNode != null);
 
         return questionNodes;
@@ -259,4 +282,5 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
         return toVisit;
     }
+
 }

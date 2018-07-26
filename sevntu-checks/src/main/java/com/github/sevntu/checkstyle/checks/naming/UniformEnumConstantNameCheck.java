@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -74,8 +74,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * constant conform or there is no.
  *
  * @author Pavel Baranchikov
+ * @since 1.21.0
  */
 public class UniformEnumConstantNameCheck extends AbstractCheck {
+
     /**
      * Message code for format violations. Used, when more than one format
      * violated.
@@ -124,7 +126,7 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
      * @param regexps format to check against
      */
     public final void setFormats(String[] regexps) {
-        this.patterns = new ArrayList<Pattern>(regexps.length);
+        this.patterns = new ArrayList<>(regexps.length);
         for (final String regexp: regexps) {
             final Pattern pattern = Pattern.compile(regexp, 0);
             patterns.add(pattern);
@@ -199,19 +201,19 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
             }
             patternsString = violatedPatterns.toString();
         }
-        log(member.getLineNo(), member.getColumnNo(), msgKey, enumName,
+        log(member, msgKey, enumName,
                 patternsString);
     }
 
     /**
      * Matches the specified enum name against the patterns, specified by
-     * {@code conformedPattenrs}.
+     * {@code conformedPatterns}.
      *
      * @param name
      *        name to validate
      * @param conformedPatterns
      *        bit set of patterns, which the method should match against.
-     * @return bit set of matched patterns. Returned value is alwais a subset of
+     * @return bit set of matched patterns. Returned value is always a subset of
      *         {@code conformedPatterns}
      */
     private BitSet match(String name, BitSet conformedPatterns) {
@@ -226,4 +228,5 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

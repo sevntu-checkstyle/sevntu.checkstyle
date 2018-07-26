@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,8 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.util.Set;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -31,47 +32,81 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * class declaration into the method body you will get an error.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
+ * @since 1.6.0
  */
 public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
     public static final String MSG_KEY = "forbid.c.comments.in.the.method.body";
 
-    /**
-     * Set contains C style comments from current file.
-     */
-    private Set<Integer> clangComments;
+    /** AST to use for null checks because {@link Deque} doesn't allow null elements. */
+    private static final DetailAST NULL_AST = new DetailAST();
+
+    /** Method stack. */
+    private final Deque<DetailAST> scopeStack = new ArrayDeque<>();
+
+    /** Reference to current method. */
+    private DetailAST methodAst;
 
     @Override
     public int[] getDefaultTokens() {
         return new int[] {
             TokenTypes.METHOD_DEF,
+            TokenTypes.OBJBLOCK,
+            TokenTypes.BLOCK_COMMENT_BEGIN,
         };
     }
 
     @Override
-    public void beginTree(DetailAST rootAST) {
-        clangComments = getFileContents().getCComments().keySet();
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
     }
 
     @Override
-    public void visitToken(DetailAST methodNode) {
-        if (!clangComments.isEmpty()) {
-            final DetailAST borders =
-                    methodNode.findFirstToken(TokenTypes.SLIST);
-            //Could be null when aMethodNode doesn't have body
-            //(into interface for example)
-            if (borders != null) {
-                final int methodBodyBegin = borders.getLineNo();
-                final int methodBodyEnd = borders.getLastChild().getLineNo();
-                for (final int commentLineNo : clangComments) {
-                    if (commentLineNo > methodBodyBegin
-                            && commentLineNo < methodBodyEnd) {
-                        log(commentLineNo, MSG_KEY);
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public boolean isCommentNodesRequired() {
+        return true;
+    }
+
+    @Override
+    public void beginTree(DetailAST rootAST) {
+        methodAst = NULL_AST;
+    }
+
+    @Override
+    public void visitToken(DetailAST ast) {
+        scopeStack.push(methodAst);
+
+        switch (ast.getType()) {
+            case TokenTypes.METHOD_DEF:
+                methodAst = ast;
+                break;
+            case TokenTypes.OBJBLOCK:
+                methodAst = NULL_AST;
+                break;
+            default:
+                if (methodAst != NULL_AST) {
+                    final DetailAST lcurly = methodAst.findFirstToken(TokenTypes.SLIST);
+                    if (lcurly != null
+                            && (ast.getLineNo() > lcurly.getLineNo()
+                                    || ast.getLineNo() == lcurly.getLineNo()
+                                        && ast.getColumnNo() > lcurly.getColumnNo())) {
+                        log(ast, MSG_KEY);
                     }
                 }
-            }
+                break;
         }
     }
+
+    @Override
+    public void leaveToken(DetailAST ast) {
+        methodAst = scopeStack.pop();
+    }
+
 }

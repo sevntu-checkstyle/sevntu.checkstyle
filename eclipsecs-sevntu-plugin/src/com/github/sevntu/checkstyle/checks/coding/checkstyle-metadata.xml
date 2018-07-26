@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE checkstyle-metadata PUBLIC
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
-"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+"http://checkstyle.org/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
   <rule-group-metadata name="SevNTU checks" priority="1600">
 
@@ -177,6 +177,19 @@
       </property-metadata>
 
       <message-key key="forbid.certain.imports"/>
+    </rule-metadata>
+
+    <rule-metadata name="%ForbidCertainMethodCheck.name" internal-name="ForbidCertainMethodCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck"/>
+      <description>%ForbidCertainMethodCheck.desc</description>
+      <property-metadata name="methodName" datatype="Regex" default-value="^$">
+        <description>%ForbidCertainMethodCheck.methodName</description>
+      </property-metadata>
+      <property-metadata name="argumentCount" datatype="String" default-value="0-">
+        <description>%ForbidCertainMethodCheck.argumentCount</description>
+      </property-metadata>
+
+      <message-key key="forbid.certain.method"/>
     </rule-metadata>
 
     <rule-metadata name="%ForbidInstantiationCheck.name" internal-name="ForbidInstantiationCheck" parent="TreeWalker">
@@ -431,6 +444,7 @@
 
       <message-key key="return.count.extended.method"/>
       <message-key key="return.count.extended.ctor"/>
+      <message-key key="return.count.extended.lambda"/>
     </rule-metadata>
 
     <rule-metadata name="%UnnecessaryParenthesesExtendedCheck.name" internal-name="UnnecessaryParenthesesExtendedCheck" parent="TreeWalker">
@@ -526,6 +540,20 @@
       <description>%WhitespaceBeforeArrayInitializerCheck.desc</description>
 
       <message-key key="whitespace.before.array.initializer"/>
+    </rule-metadata>
+
+    <rule-metadata name="%MoveVariableInsideIfCheck.name" internal-name="MoveVariableInsideIfCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck"/>
+      <description>%MoveVariableInsideIfCheck.desc</description>
+
+      <message-key key="move.variable.inside"/>
+    </rule-metadata>
+
+    <rule-metadata name="%RequireFailForTryCatchInJunitCheck.name" internal-name="RequireFailForTryCatchInJunitCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck"/>
+      <description>%RequireFailForTryCatchInJunitCheck.desc</description>
+
+      <message-key key="require.fail"/>
     </rule-metadata>
 
     <rule-metadata name="%EnumTrailingCommaAndSemicolonCheck.name" internal-name="EnumTrailingCommaAndSemicolonCheck" parent="TreeWalker">

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
+ * @since 1.8.0
  */
 public class InnerClassCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -48,6 +50,16 @@ public class InnerClassCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         // First root class
         if (rootClass) {
@@ -59,7 +71,7 @@ public class InnerClassCheck extends AbstractCheck {
                     && nextSibling.getType() != TokenTypes.CLASS_DEF) {
                 if (nextSibling.getType() == TokenTypes.VARIABLE_DEF
                         || nextSibling.getType() == TokenTypes.METHOD_DEF) {
-                    log(nextSibling.getLineNo(), nextSibling.getColumnNo(), MSG_KEY);
+                    log(nextSibling, MSG_KEY);
                 }
                 nextSibling = nextSibling.getNextSibling();
             }
@@ -73,4 +85,5 @@ public class InnerClassCheck extends AbstractCheck {
             rootClass = true;
         }
     }
+
 }

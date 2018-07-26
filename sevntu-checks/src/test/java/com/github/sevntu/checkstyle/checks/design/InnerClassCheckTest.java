@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,17 +23,22 @@ import static com.github.sevntu.checkstyle.checks.design.InnerClassCheck.MSG_KEY
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class InnerClassCheckTest extends BaseCheckTestSupport {
+public class InnerClassCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     @Test
     public void testMembersBeforeInner() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(InnerClassCheck.class);
+                createModuleConfig(InnerClassCheck.class);
         final String[] expected = {
             "15:17: " + warningMessage,
             "25:17: " + warningMessage,
@@ -49,4 +54,5 @@ public class InnerClassCheckTest extends BaseCheckTestSupport {
         };
         verify(checkConfig, getPath("InputInnerClassCheck.java"), expected);
     }
+
 }

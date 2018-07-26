@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -53,6 +53,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * considered to be a test. This option defaults to empty regex(one that matches
  * nothing). If for example this option set to "RunWith", then class "SomeClass"
  * is considered to be a test:
+ * </p>
  *
  * <pre>
  * <code>
@@ -69,6 +70,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * matching annotation, it is considered to be a test. This option defaults to
  * "Test|org.junit.Test". For example, if this option set to "Test", then class
  * "SomeClass" is considered to be a test.
+ * </p>
  *
  * <pre>
  * <code>
@@ -95,6 +97,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Following configuration will adjust Check to look for classes annotated with
  * annotation "RunWith" or classes with methods annotated with "Test" and verify
  * that classes names end with "Test" or "Tests".
+ * </p>
  *
  * <pre>
  *     &lt;module name="NameConventionForJUnit4TestClassesCheck"&gt;
@@ -105,8 +108,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
+ * @since 1.13.0
  */
 public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */
@@ -196,6 +201,16 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST classDefNode) {
         if ((isClassDefinitionAnnotated(classDefNode) || isAtleastOneMethodAnnotated(classDefNode))
                 && hasUnexpectedName(classDefNode)) {
@@ -222,19 +237,21 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *         defined annotation
      */
     private boolean isAtleastOneMethodAnnotated(DetailAST classDefNode) {
+        boolean result = false;
         DetailAST classMemberNode =
                 classDefNode.findFirstToken(TokenTypes.OBJBLOCK).getFirstChild();
 
         while (classMemberNode != null) {
             if (classMemberNode.getType() == TokenTypes.METHOD_DEF
                     && hasAnnotation(classMemberNode, methodAnnotationNameRegex)) {
-                return true;
+                result = true;
+                break;
             }
 
             classMemberNode = classMemberNode.getNextSibling();
         }
 
-        return false;
+        return result;
     }
 
     /**
@@ -331,11 +348,14 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *         against regex.
      */
     private static boolean isMatchesRegex(Pattern regexPattern, String str) {
+        final boolean result;
         if (regexPattern != null) {
-            return regexPattern.matcher(str).matches();
+            result = regexPattern.matcher(str).matches();
         }
         else {
-            return false;
+            result = false;
         }
+        return result;
     }
+
 }

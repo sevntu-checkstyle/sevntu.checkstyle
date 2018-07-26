@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
+ * Validates finalize method implementation.
  * <p>
  * This Check detects 3 most common cases of incorrect finalize() method implementation:
  * </p>
@@ -50,7 +51,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }</pre>
  *
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
- *
+ * @since 1.11.0
  */
 public class FinalizeImplementationCheck extends AbstractCheck {
 
@@ -93,13 +94,22 @@ public class FinalizeImplementationCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST methodDefToken) {
         if (isFinalizeMethodSignature(methodDefToken)) {
-
             final String warningMessage = validateFinalizeMethod(methodDefToken);
 
             if (warningMessage != null) {
-                log(methodDefToken.getLineNo(), warningMessage);
+                log(methodDefToken, warningMessage);
             }
         }
     }
@@ -124,7 +134,6 @@ public class FinalizeImplementationCheck extends AbstractCheck {
                 else {
                     warningMessage = MSG_KEY_MISSED_TRY_FINALLY;
                 }
-
             }
             else {
                 final DetailAST literalFinally = literalTry
@@ -135,7 +144,6 @@ public class FinalizeImplementationCheck extends AbstractCheck {
                     warningMessage = MSG_KEY_MISSED_SUPER_FINALIZE_CALL;
                 }
             }
-
         }
         else {
             warningMessage = MSG_KEY_PUBLIC_FINALIZE;
@@ -160,7 +168,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      * @param modifierType
      *        modifier type.
      * @param methodToken
-     *        MODIFIRES Token.
+     *        MODIFIERS Token.
      * @return true, if finalize() has "protected" access modifier.
      */
     private static boolean hasModifier(int modifierType, DetailAST methodToken) {
@@ -207,13 +215,16 @@ public class FinalizeImplementationCheck extends AbstractCheck {
      * @return true, if method has super.finalize() call.
      */
     private static boolean containsSuperFinalizeCall(DetailAST openingBrace) {
+        boolean result = false;
         final DetailAST methodCallToken = openingBrace.getFirstChild().getFirstChild();
-        if (methodCallToken != null) {
+        if (methodCallToken != null && methodCallToken.getType() == TokenTypes.METHOD_CALL) {
             final DetailAST dotToken = methodCallToken.getFirstChild();
-            if (dotToken.findFirstToken(TokenTypes.LITERAL_SUPER) != null) {
-                return true;
+            if (dotToken.getType() == TokenTypes.DOT
+                    && dotToken.findFirstToken(TokenTypes.LITERAL_SUPER) != null) {
+                result = true;
             }
         }
-        return false;
+        return result;
     }
+
 }

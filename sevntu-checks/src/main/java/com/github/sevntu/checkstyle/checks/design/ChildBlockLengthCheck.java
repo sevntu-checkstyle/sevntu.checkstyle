@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -45,6 +45,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class ChildBlockLengthCheck extends AbstractCheck {
 
@@ -55,7 +56,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     public static final String MSG_KEY = "child.block.length";
 
     /**
-     * The constant is used in percantage arifmethic operations. Represents
+     * The constant is used in percentage arithmetic operations. Represents
      * '100%'
      */
     private static final double PERCENTS_FACTOR = 100.0;
@@ -132,18 +133,26 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         final DetailAST aOpeningBrace = openingBrace(ast);
 
         // if the block has braces at all
         if (aOpeningBrace != null) {
-
             final DetailAST aClosingBrace = closingBrace(ast);
             final int parentBlockSize =
                     linesCount(aOpeningBrace, aClosingBrace);
 
             if (parentBlockSize > ignoreBlockLinesCount) {
-
                 final List<DetailAST> childBlocks = getChildBlocks(
                         aOpeningBrace, aClosingBrace);
 
@@ -157,7 +166,6 @@ public class ChildBlockLengthCheck extends AbstractCheck {
                 }
                 else {
                     for (DetailAST badBlock : badChildBlocks) {
-
                         final int blockSize = linesCount(badBlock);
 
                         final double allowedBlockSize = (int) (parentBlockSize
@@ -186,16 +194,9 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
         DetailAST curNode = blockOpeningBrace;
 
-        while (curNode != null) {
-            // before node visiting
-            if (curNode == blockClosingBrace) {
-                // stop at closing brace
-                break;
-            }
-            else {
-                if (isAllowedBlockType(curNode.getType())) {
-                    childBlocks.add(curNode);
-                }
+        while (curNode != blockClosingBrace) {
+            if (isAllowedBlockType(curNode.getType())) {
+                childBlocks.add(curNode);
             }
             // before node leaving
             DetailAST nextNode = curNode.getFirstChild();
@@ -207,7 +208,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
                 nextNode = curNode.getNextSibling();
             }
 
-            while ((curNode != null) && (nextNode == null)) {
+            while (nextNode == null) {
                 // leave the visited node
                 nextNode = curNode.getNextSibling();
                 if (nextNode == null) {

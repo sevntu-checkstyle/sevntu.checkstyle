@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,21 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExcepti
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
-public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
+public class AvoidHidingCauseExceptionCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void issue52Test() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidHidingCauseExceptionCheck.class);
 
         final String[] expected = {};
 
@@ -39,7 +46,8 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
 
     @Test
     public final void test() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidHidingCauseExceptionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidHidingCauseExceptionCheck.class);
 
         final String[] expected = {
             "18:13: " + getCheckMessage(MSG_KEY, "e"),
@@ -61,6 +69,15 @@ public class AvoidHidingCauseExceptionCheckTest extends BaseCheckTestSupport {
         };
 
         verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);
+    }
+
+    @Test
+    public final void testWrappingException() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidHidingCauseExceptionCheck.class);
+
+        verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheckWrapping.java"),
+                CommonUtils.EMPTY_STRING_ARRAY);
     }
 
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -38,6 +38,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * value="METHOD_DEF,CLASS_DEF"/&gt; &lt;/module&gt;
  * </pre>
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
+ * @since 1.12.0
  */
 
 public class ForbidAnnotationCheck extends AbstractCheck {
@@ -88,8 +89,17 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     }
 
     @Override
-    public void visitToken(DetailAST annotation) {
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
 
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public void visitToken(DetailAST annotation) {
         final String annotationName = getAnnotationName(annotation);
         // first parent - 'MODIFIERS', second parent - annotation's target
         final DetailAST annotationTarget = annotation.getParent().getParent();
@@ -98,10 +108,9 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
         if (isRequiredAnnotationName(annotationName)
                 && isForbiddenAnnotationTarget(targetType)) {
-
             final String currentTarget = annotationTarget.getText();
 
-            log(annotation.getLineNo(), MSG_KEY,
+            log(annotation, MSG_KEY,
                     currentTarget, annotationName);
         }
     }
@@ -113,15 +122,18 @@ public class ForbidAnnotationCheck extends AbstractCheck {
      * @return The name of the annotation.
      */
     private static String getAnnotationName(DetailAST annotation) {
+        final String result;
         final DetailAST directname = annotation.findFirstToken(TokenTypes.IDENT);
 
         if (directname != null) {
-            return directname.getText();
+            result = directname.getText();
         }
         else {
             //This means that annotation is specified with the full package name
-            return annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
+            result = annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
         }
+
+        return result;
     }
 
     /**
@@ -130,8 +142,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
      * @return boolean
      */
     private boolean isRequiredAnnotationName(String annotationName) {
-        return annotationName != null
-                && annotationNames.contains(annotationName);
+        return annotationNames.contains(annotationName);
     }
 
     /**
@@ -142,4 +153,5 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     private boolean isForbiddenAnnotationTarget(int targetType) {
         return Arrays.binarySearch(annotationTargets, targetType) > -1;
     }
+
 }

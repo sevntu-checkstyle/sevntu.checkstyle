@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,44 +23,53 @@ import static com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethod
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidCCommentsInMethodsCheckTest extends
-        BaseCheckTestSupport {
+public class ForbidCCommentsInMethodsCheckTest extends AbstractModuleTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void defaultTest()
             throws Exception {
-
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {
-            "10: " + warningMessage,
-            "17: " + warningMessage,
-            "26: " + warningMessage,
-            "33: " + warningMessage,
-            "45: " + warningMessage,
-            "52: " + warningMessage,
-            "61: " + warningMessage,
-            "68: " + warningMessage,
+            "10:9: " + warningMessage,
+            "17:9: " + warningMessage,
+            "26:13: " + warningMessage,
+            "33:13: " + warningMessage,
+            "45:9: " + warningMessage,
+            "52:9: " + warningMessage,
+            "61:13: " + warningMessage,
+            "68:13: " + warningMessage,
+            "78:22: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods.java"), expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck.java"), expected);
     }
 
     @Test
     public void testFileWithoutComments()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods2.java"), expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck2.java"), expected);
     }
 
     @Test
     public void testInterface()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidCCommentsInMethodsCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidCCommentsInMethodsCheck.class);
         final String[] expected = {};
-        verify(checkConfig, getPath("InputForbidCCommentsInMethods3.java"), expected);
+        verify(checkConfig, getPath("InputForbidCCommentsInMethodsCheck3.java"), expected);
     }
+
 }

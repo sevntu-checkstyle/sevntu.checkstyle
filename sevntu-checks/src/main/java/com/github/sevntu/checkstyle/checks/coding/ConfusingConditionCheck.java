@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -48,7 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * and swapped code in "if" and "else" block:
  * </p>
  * <pre>
- *  if (a == b &amp;&amp; c == d)
+ *  if (a == b || c == d)
  *      {
  *          smth2();
  *      }
@@ -59,8 +59,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
+ * @since 1.9.0
  */
 public class ConfusingConditionCheck extends AbstractCheck {
+
     /**
      * The key is pointing to the message text String in
      * "messages.properties file".This message used for common cases.
@@ -158,6 +160,16 @@ public class ConfusingConditionCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST literalIf) {
         if (isIfEndsWithElse(literalIf)
                 && !(ignoreSequentialIf && isSequentialIf(literalIf))
@@ -166,7 +178,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
             if (isRatioBetweenIfAndElseBlockSuitable(literalIf)
                     && !(ignoreNullCaseInIf && isIfWithNull(literalIf))
                     && isConditionAllNegative(literalIf)) {
-                log(literalIf.getLineNo(), MSG_KEY);
+                log(literalIf, MSG_KEY);
             }
         }
     }
@@ -231,9 +243,9 @@ public class ConfusingConditionCheck extends AbstractCheck {
         boolean result = true;
 
         final DetailAST lastChildAfterIf = literalIf.getLastChild();
-        final int linesOfCodeInIfBlock = getAmounOfCodeRowsInBlock(literalIf);
-        final int linesOfCodeInElseBlock = getAmounOfCodeRowsInBlock(lastChildAfterIf);
+        final int linesOfCodeInElseBlock = getAmountOfCodeRowsInBlock(lastChildAfterIf);
         if (linesOfCodeInElseBlock > 0) {
+            final int linesOfCodeInIfBlock = getAmountOfCodeRowsInBlock(literalIf);
             result = linesOfCodeInIfBlock / linesOfCodeInElseBlock < multiplyFactorForElseBlocks;
         }
         return result;
@@ -245,23 +257,51 @@ public class ConfusingConditionCheck extends AbstractCheck {
      * @param detailAST The token to examine.
      * @return linesOfCodeInIfBlock line of code in block.
      */
-    private static int getAmounOfCodeRowsInBlock(DetailAST detailAST) {
+    private static int getAmountOfCodeRowsInBlock(DetailAST detailAST) {
+        final DetailAST firstBrace = getFirstBrace(detailAST);
+        int linesOfCodeInIfBlock;
+
+        if (firstBrace == null) {
+            linesOfCodeInIfBlock = 0;
+        }
+        else {
+            final DetailAST lastBrace = firstBrace.getLastChild();
+            linesOfCodeInIfBlock = lastBrace.getLineNo()
+                    - firstBrace.getLineNo();
+            // If the closing brace on a separate line - ignore this line.
+            if (lastBrace.getLineNo() != lastBrace.getParent().getLineNo()) {
+                linesOfCodeInIfBlock -= 1;
+            }
+        }
+
+        return linesOfCodeInIfBlock;
+    }
+
+    /**
+     * Retrieves the first, opening brace of an {@code if} or {@code else} statement.
+     * @param detailAST The token to examine.
+     * @return The opening brace token or {@code null} if it doesn't exist.
+     */
+    private static DetailAST getFirstBrace(DetailAST detailAST) {
         DetailAST firstBrace = null;
+
         if (detailAST.getType() == TokenTypes.LITERAL_ELSE) {
             firstBrace = detailAST.getFirstChild();
+
+            if (firstBrace.getType() == TokenTypes.LITERAL_IF) {
+                firstBrace = getFirstBrace(firstBrace);
+            }
         }
-        else if (detailAST.getType() == TokenTypes.LITERAL_IF) {
+        else {
             firstBrace = detailAST.getFirstChild().getNextSibling()
                     .getNextSibling().getNextSibling();
         }
-        final DetailAST lastBrace = firstBrace.getLastChild();
-        int linesOfCodeInIfBlock = lastBrace.getLineNo()
-                - firstBrace.getLineNo();
-        // If the closing brace on a separate line - ignore this line.
-        if (lastBrace.getLineNo() != lastBrace.getParent().getLineNo()) {
-            linesOfCodeInIfBlock -= 1;
+
+        if (firstBrace != null && firstBrace.getType() != TokenTypes.SLIST) {
+            firstBrace = null;
         }
-        return linesOfCodeInIfBlock;
+
+        return firstBrace;
     }
 
     /**

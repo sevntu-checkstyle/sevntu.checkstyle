@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,24 +23,32 @@ import static com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernar
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ReturnBooleanFromTernaryCheckTest extends BaseCheckTestSupport {
+public class ReturnBooleanFromTernaryCheckTest extends AbstractModuleTestSupport {
 
-    private final String warninigMessage = getCheckMessage(MSG_KEY);
+    private final String warningMessage = getCheckMessage(MSG_KEY);
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ReturnBooleanFromTernaryCheck.class);
+                createModuleConfig(ReturnBooleanFromTernaryCheck.class);
         final String[] expected = {
-            "6:35: " + warninigMessage,
-            "7:38: " + warninigMessage,
-            "8:38: " + warninigMessage,
-            "9:35: " + warninigMessage,
-            "9:43: " + warninigMessage,
+            "6:35: " + warningMessage,
+            "7:38: " + warningMessage,
+            "8:38: " + warningMessage,
+            "9:35: " + warningMessage,
+            "9:43: " + warningMessage,
+            "10:28: " + warningMessage,
+            "11:27: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputReturnBooleanFromTernary.java"), expected);
+        verify(checkConfig, getPath("InputReturnBooleanFromTernaryCheck.java"), expected);
     }
+
 }

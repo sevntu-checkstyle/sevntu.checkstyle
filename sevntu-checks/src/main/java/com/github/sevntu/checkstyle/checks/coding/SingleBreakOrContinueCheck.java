@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -109,6 +109,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
+ * @since 1.18.0
  */
 public class SingleBreakOrContinueCheck extends AbstractCheck {
 
@@ -126,9 +127,19 @@ public class SingleBreakOrContinueCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         if (getNumberOfContinueAndBreaks(ast.getFirstChild()) > 1) {
-            log(ast.getLineNo(), MSG_KEY);
+            log(ast, MSG_KEY);
         }
     }
 
@@ -171,4 +182,5 @@ public class SingleBreakOrContinueCheck extends AbstractCheck {
                 || TokenTypes.LITERAL_WHILE == node.getType()
                 || TokenTypes.LITERAL_DO == node.getType();
     }
+
 }

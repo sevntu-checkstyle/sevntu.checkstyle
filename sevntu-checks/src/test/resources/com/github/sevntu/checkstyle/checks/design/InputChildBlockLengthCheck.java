@@ -14,7 +14,7 @@ public class InputChildBlockLengthCheck {
           if (isTrue()) { // 2: simple if with braces
               number = 2;
           }
-                    
+
           if (isTrue()) { // 3: if-else     
               number = 3; 
           } else {
@@ -57,8 +57,17 @@ public class InputChildBlockLengthCheck {
           default:
               number = 15;
               break;          
-          }        
+          }
 
+          try {
+          } 
+          catch (Exception e) {
+          }
+          finally
+          {
+          }
+
+          if (isTrue()) {}
         }
 
     }

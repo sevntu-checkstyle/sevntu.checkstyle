@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE checkstyle-metadata PUBLIC
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
-"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+"http://checkstyle.org/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
   <rule-group-metadata name="SevNTU checks" priority="500">
 
@@ -20,18 +20,11 @@
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck"/>
       <description>%EnumValueNameCheck.desc</description>
 
-      <property-metadata name="constFormat" datatype="String" default-value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
-        <description>%EnumValueNameCheck.constFormat</description>
-      </property-metadata>
-      <property-metadata name="objFormat" datatype="String" default-value="^[A-Z][a-zA-Z0-9]*$">
-        <description>%EnumValueNameCheck.objFormat</description>
-      </property-metadata>
-      <property-metadata name="excludes" datatype="String" default-value="toString">
-        <description>%EnumValueNameCheck.excludes</description>
+      <property-metadata name="format" datatype="String" default-value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$">
+        <description>%EnumValueNameCheck.format</description>
       </property-metadata>
 
-      <message-key key="enum.name.const.invalidPattern"/>
-      <message-key key="enum.name.obj.invalidPattern"/>
+      <message-key key="name.invalidPattern"/>
     </rule-metadata>
 
     <rule-metadata name="%UniformEnumConstantNameCheck.name" internal-name="UniformEnumConstantNameCheck" parent="TreeWalker">

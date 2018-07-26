@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -84,6 +84,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  * <a href=https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/412> issue 412</a></p>.
  *
  * @author <a href="mailto:Sergey.Dudoladov@gmail.com">Sergey Dudoladov</a>
+ * @since 1.20.0
  */
 public class ConstructorWithoutParamsCheck extends AbstractCheck {
 
@@ -149,23 +150,24 @@ public class ConstructorWithoutParamsCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
+        final DetailAST firstChild = ast.getFirstChild();
+        if (firstChild != null) {
+            final String className = firstChild.getText();
 
-        final String className = ast.getFirstChild().getText();
+            // The "new" keyword either creates objects or declares arrays.
+            // In the case of arrays, no objects (array elements) are automatically created,
+            // and this check does not apply.
+            if (regexp.matcher(className).find()
+                && !ignoredRegexp.matcher(className).find()
+                && ast.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
+                final DetailAST parameterListAST = ast.findFirstToken(TokenTypes.ELIST);
+                final int numberOfParameters = parameterListAST.getChildCount();
 
-        // The "new" keyword either creates objects or declares arrays.
-        // In the case of arrays, no objects (array elements) are automatically created,
-        // and this check does not apply.
-        if (regexp.matcher(className).find()
-            && !ignoredRegexp.matcher(className).find()
-            && !ast.branchContains(TokenTypes.ARRAY_DECLARATOR)) {
-
-            final DetailAST parameterListAST = ast.findFirstToken(TokenTypes.ELIST);
-            final int numberOfParameters = parameterListAST.getChildCount();
-
-            if (numberOfParameters == 0) {
-                log(ast, MSG_KEY, className);
+                if (numberOfParameters == 0) {
+                    log(ast, MSG_KEY, className);
+                }
             }
-
         }
     }
+
 }

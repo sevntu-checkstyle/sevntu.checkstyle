@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
-import org.apache.commons.beanutils.ConversionException;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -88,8 +86,10 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
  *
  * @author Lars Kühne
  * @author <a href="mailto:ryly@mail.ru">Ruslan Dyachenko</a>
+ * @since 1.5.1
  */
 public class LineLengthExtendedCheck extends AbstractCheck {
+
     /** Warning message key. */
     public static final String MSG_KEY = "maxLineLen";
 
@@ -195,12 +195,23 @@ public class LineLengthExtendedCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
-        final DetailAST endOfIgnoreLine = ast.findFirstToken(TokenTypes.SLIST);
         if (ast.getParent() != null
                 && ast.getParent().getType() == TokenTypes.OBJBLOCK
                 || ast.getType() == TokenTypes.CLASS_DEF) {
             final int mNumberOfLine = ast.getLineNo();
+            final DetailAST endOfIgnoreLine = ast.findFirstToken(TokenTypes.SLIST);
+
             if (endOfIgnoreLine == null) {
                 lines[mNumberOfLine - 1] = null;
             }
@@ -222,7 +233,6 @@ public class LineLengthExtendedCheck extends AbstractCheck {
     @Override
     public void finishTree(DetailAST rootAST) {
         for (int i = 0; i < lines.length; i++) {
-
             if (lines[i] == null) {
                 continue;
             }
@@ -251,15 +261,16 @@ public class LineLengthExtendedCheck extends AbstractCheck {
      *
      * @param format
      *            a <code>String</code> value
-     * @throws ConversionException
+     * @throws IllegalArgumentException
      *             unable to parse aFormat
      */
-    public final void setIgnorePattern(String format) throws ConversionException {
+    public final void setIgnorePattern(String format) {
         try {
             ignorePattern = Pattern.compile(format);
         }
         catch (final PatternSyntaxException ex) {
-            throw new ConversionException("unable to parse " + format, ex);
+            throw new IllegalArgumentException("unable to parse " + format, ex);
         }
     }
+
 }

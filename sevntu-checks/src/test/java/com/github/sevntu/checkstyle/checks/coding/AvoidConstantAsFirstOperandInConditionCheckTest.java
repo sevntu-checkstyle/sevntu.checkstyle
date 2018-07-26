@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,57 +23,133 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOpe
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class AvoidConstantAsFirstOperandInConditionCheckTest extends BaseCheckTestSupport {
+public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testAll() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
         final String[] expected = {
-            "24: " + getCheckMessage(MSG_KEY, "=="),
-            "25: " + getCheckMessage(MSG_KEY, "=="),
-            "27: " + getCheckMessage(MSG_KEY, "=="),
-            "28: " + getCheckMessage(MSG_KEY, "=="),
-            "29: " + getCheckMessage(MSG_KEY, "=="),
-            "30: " + getCheckMessage(MSG_KEY, "=="),
-            "31: " + getCheckMessage(MSG_KEY, "=="),
-            "46: " + getCheckMessage(MSG_KEY, "=="),
-            "47: " + getCheckMessage(MSG_KEY, "!="),
-            "52: " + getCheckMessage(MSG_KEY, "=="),
-            "53: " + getCheckMessage(MSG_KEY, "!="),
-            "58: " + getCheckMessage(MSG_KEY, "=="),
-            "59: " + getCheckMessage(MSG_KEY, "!="),
-            "67: " + getCheckMessage(MSG_KEY, "=="),
-            "71: " + getCheckMessage(MSG_KEY, "=="),
-            "72: " + getCheckMessage(MSG_KEY, "=="),
-            "73: " + getCheckMessage(MSG_KEY, "=="),
-            "74: " + getCheckMessage(MSG_KEY, "=="),
-            "76: " + getCheckMessage(MSG_KEY, "=="),
-            "77: " + getCheckMessage(MSG_KEY, "=="),
-            "78: " + getCheckMessage(MSG_KEY, "=="),
-            "84: " + getCheckMessage(MSG_KEY, "=="),
-            "85: " + getCheckMessage(MSG_KEY, "=="),
-            "86: " + getCheckMessage(MSG_KEY, "=="),
-            "97: " + getCheckMessage(MSG_KEY, "=="),
-            "101: " + getCheckMessage(MSG_KEY, "=="),
-            "111: " + getCheckMessage(MSG_KEY, "=="),
-            "112: " + getCheckMessage(MSG_KEY, "=="),
+            "24:20: " + getCheckMessage(MSG_KEY, "=="),
+            "25:15: " + getCheckMessage(MSG_KEY, "=="),
+            "27:18: " + getCheckMessage(MSG_KEY, "=="),
+            "28:18: " + getCheckMessage(MSG_KEY, "=="),
+            "29:16: " + getCheckMessage(MSG_KEY, "=="),
+            "30:18: " + getCheckMessage(MSG_KEY, "=="),
+            "31:19: " + getCheckMessage(MSG_KEY, "=="),
+            "46:18: " + getCheckMessage(MSG_KEY, "=="),
+            "47:18: " + getCheckMessage(MSG_KEY, "!="),
+            "52:18: " + getCheckMessage(MSG_KEY, "=="),
+            "53:18: " + getCheckMessage(MSG_KEY, "!="),
+            "58:18: " + getCheckMessage(MSG_KEY, "=="),
+            "59:18: " + getCheckMessage(MSG_KEY, "!="),
+            "67:30: " + getCheckMessage(MSG_KEY, "=="),
+            "71:36: " + getCheckMessage(MSG_KEY, "=="),
+            "72:37: " + getCheckMessage(MSG_KEY, "=="),
+            "73:19: " + getCheckMessage(MSG_KEY, "=="),
+            "74:37: " + getCheckMessage(MSG_KEY, "=="),
+            "76:42: " + getCheckMessage(MSG_KEY, "=="),
+            "77:18: " + getCheckMessage(MSG_KEY, "=="),
+            "78:18: " + getCheckMessage(MSG_KEY, "=="),
+            "78:42: " + getCheckMessage(MSG_KEY, "=="),
+            "84:25: " + getCheckMessage(MSG_KEY, "=="),
+            "85:23: " + getCheckMessage(MSG_KEY, "=="),
+            "86:33: " + getCheckMessage(MSG_KEY, "=="),
+            "97:21: " + getCheckMessage(MSG_KEY, "=="),
+            "101:23: " + getCheckMessage(MSG_KEY, "=="),
+            "111:19: " + getCheckMessage(MSG_KEY, "=="),
+            "112:40: " + getCheckMessage(MSG_KEY, "=="),
+            "118:15: " + getCheckMessage(MSG_KEY, "=="),
+            "119:15: " + getCheckMessage(MSG_KEY, "!="),
+            "120:15: " + getCheckMessage(MSG_KEY, "!="),
+            "121:18: " + getCheckMessage(MSG_KEY, "!="),
+            "129:15: " + getCheckMessage(MSG_KEY, "<"),
+            "130:15: " + getCheckMessage(MSG_KEY, "<="),
+            "131:15: " + getCheckMessage(MSG_KEY, ">"),
+            "132:15: " + getCheckMessage(MSG_KEY, ">="),
         };
-        verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
+                expected);
     }
 
     @Test
     public void testAttributes() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
         checkConfig.addAttribute("targetConstantTypes", "LITERAL_FALSE,NUM_INT,NUM_FLOAT");
         final String[] expected = {
-            "25: " + getCheckMessage(MSG_KEY, "=="),
-            "28: " + getCheckMessage(MSG_KEY, "=="),
-            "31: " + getCheckMessage(MSG_KEY, "=="),
+            "25:15: " + getCheckMessage(MSG_KEY, "=="),
+            "28:18: " + getCheckMessage(MSG_KEY, "=="),
+            "31:19: " + getCheckMessage(MSG_KEY, "=="),
+            "118:15: " + getCheckMessage(MSG_KEY, "=="),
+            "119:15: " + getCheckMessage(MSG_KEY, "!="),
+            "120:15: " + getCheckMessage(MSG_KEY, "!="),
+            "129:15: " + getCheckMessage(MSG_KEY, "<"),
+            "130:15: " + getCheckMessage(MSG_KEY, "<="),
+            "131:15: " + getCheckMessage(MSG_KEY, ">"),
+            "132:15: " + getCheckMessage(MSG_KEY, ">="),
         };
-        verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"), expected);
-
+        verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
+                expected);
     }
+
+    @Test
+    public void testNullProperties() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
+
+        checkConfig.addAttribute("targetConstantTypes", null);
+
+        final String[] expected = {
+            "24:20: " + getCheckMessage(MSG_KEY, "=="),
+            "25:15: " + getCheckMessage(MSG_KEY, "=="),
+            "27:18: " + getCheckMessage(MSG_KEY, "=="),
+            "28:18: " + getCheckMessage(MSG_KEY, "=="),
+            "29:16: " + getCheckMessage(MSG_KEY, "=="),
+            "30:18: " + getCheckMessage(MSG_KEY, "=="),
+            "31:19: " + getCheckMessage(MSG_KEY, "=="),
+            "46:18: " + getCheckMessage(MSG_KEY, "=="),
+            "47:18: " + getCheckMessage(MSG_KEY, "!="),
+            "52:18: " + getCheckMessage(MSG_KEY, "=="),
+            "53:18: " + getCheckMessage(MSG_KEY, "!="),
+            "58:18: " + getCheckMessage(MSG_KEY, "=="),
+            "59:18: " + getCheckMessage(MSG_KEY, "!="),
+            "67:30: " + getCheckMessage(MSG_KEY, "=="),
+            "71:36: " + getCheckMessage(MSG_KEY, "=="),
+            "72:37: " + getCheckMessage(MSG_KEY, "=="),
+            "73:19: " + getCheckMessage(MSG_KEY, "=="),
+            "74:37: " + getCheckMessage(MSG_KEY, "=="),
+            "76:42: " + getCheckMessage(MSG_KEY, "=="),
+            "77:18: " + getCheckMessage(MSG_KEY, "=="),
+            "78:18: " + getCheckMessage(MSG_KEY, "=="),
+            "78:42: " + getCheckMessage(MSG_KEY, "=="),
+            "84:25: " + getCheckMessage(MSG_KEY, "=="),
+            "85:23: " + getCheckMessage(MSG_KEY, "=="),
+            "86:33: " + getCheckMessage(MSG_KEY, "=="),
+            "97:21: " + getCheckMessage(MSG_KEY, "=="),
+            "101:23: " + getCheckMessage(MSG_KEY, "=="),
+            "111:19: " + getCheckMessage(MSG_KEY, "=="),
+            "112:40: " + getCheckMessage(MSG_KEY, "=="),
+            "118:15: " + getCheckMessage(MSG_KEY, "=="),
+            "119:15: " + getCheckMessage(MSG_KEY, "!="),
+            "120:15: " + getCheckMessage(MSG_KEY, "!="),
+            "121:18: " + getCheckMessage(MSG_KEY, "!="),
+            "129:15: " + getCheckMessage(MSG_KEY, "<"),
+            "130:15: " + getCheckMessage(MSG_KEY, "<="),
+            "131:15: " + getCheckMessage(MSG_KEY, ">"),
+            "132:15: " + getCheckMessage(MSG_KEY, ">="),
+        };
+
+        verify(checkConfig, getPath("InputAvoidConstantAsFirstOperandInConditionCheck.java"),
+                expected);
+    }
+
 }

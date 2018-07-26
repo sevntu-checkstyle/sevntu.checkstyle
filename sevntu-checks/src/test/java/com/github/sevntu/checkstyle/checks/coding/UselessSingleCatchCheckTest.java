@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,16 +23,21 @@ import static com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
+public class UselessSingleCatchCheckTest extends AbstractModuleTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
-    private final DefaultConfiguration config = createCheckConfig(UselessSingleCatchCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testMultiCatch() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(UselessSingleCatchCheck.class);
         final String[] expected = {};
 
         verify(config, getPath("InputUselessSingleCatchCheck1.java"), expected);
@@ -40,6 +45,7 @@ public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testWrappingCatch() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(UselessSingleCatchCheck.class);
         final String[] expected = {};
 
         verify(config, getPath("InputUselessSingleCatchCheck2.java"), expected);
@@ -47,6 +53,7 @@ public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testLoggingCatch() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(UselessSingleCatchCheck.class);
         final String[] expected = {};
 
         verify(config, getPath("InputUselessSingleCatchCheck3.java"), expected);
@@ -54,6 +61,7 @@ public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testThrowsAnotherException() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(UselessSingleCatchCheck.class);
         final String[] expected = {};
 
         verify(config, getPath("InputUselessSingleCatchCheck4.java"), expected);
@@ -61,10 +69,12 @@ public class UselessSingleCatchCheckTest extends BaseCheckTestSupport {
 
     @Test
     public void testUselessCatch() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(UselessSingleCatchCheck.class);
         final String[] expected = {
             "15:9: " + warningMessage,
         };
 
         verify(config, getPath("InputUselessSingleCatchCheck5.java"), expected);
     }
+
 }

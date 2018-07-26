@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * Case 1. no-argument "super()" is called from class ctor if class is not derived, for example:
+ * </p>
  * <pre>
  * <code>
  * class Dummy {
@@ -45,6 +46,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Case 2. no-argument "super()" is called without parameters from class ctor if class is
  * derived, for example:
+ * </p>
  * <pre>
  * <code>
  * class Derived extends Base {
@@ -67,6 +69,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * violations when "super()" called inside derived class. This option defaults to "false".
  * If for example this option set to "true", then Check will not generate violation for
  * cases like following:
+ * </p>
  * <pre>
  * <code>
  * class Base {
@@ -87,9 +90,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Check will not generate violation when "super()" called inside class ctor when class
  * has multiple public ctors(however, setting this option to "true" will not prevent Check
  * from logging violation if class does not extend anything). This option defaults to "false".
- * This option may be usefull for cases in which class`s ctors just forward its arguments to
+ * This option may be useful for cases in which class`s ctors just forward its arguments to
  * super ctors, thus removing "super()" in this case will make default ctors look not like
  * others. For example:
+ * </p>
  * <pre>
  * <code>
  * class Base {
@@ -128,6 +132,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Checkstyle configuration example with options "allowCallToNoArgsSuperCtor" and
  * "allowCallToNoArgsSuperCtorIfMultiplePublicCtor" set to true.
+ * </p>
  * <pre>
  *   &lt;module name="UselessSuperCtorCallCheck"&gt;
  *     &lt;property name="allowCallToNoArgsSuperCtor" value="true"/&gt;
@@ -136,8 +141,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
+ * @since 1.13.0
  */
 public class UselessSuperCtorCallCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */
@@ -186,6 +193,16 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
         return new int[] {
             TokenTypes.SUPER_CTOR_CALL,
         };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
     }
 
     @Override
@@ -269,7 +286,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     }
 
     /**
-     * Checks whether given ctor is public
+     * Checks whether given ctor is public.
      * @param aCtorDefNode
      *          a ctor definition node(TokenTypes.CTOR_DEF)
      * @return true, if given ctor is public

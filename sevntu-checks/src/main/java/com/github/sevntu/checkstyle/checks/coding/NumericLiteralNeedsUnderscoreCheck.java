@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -138,6 +138,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * int passingBinary = 0b0000_1111;
  * </pre>
  * @author Cheng-Yu Pai
+ * @since 1.18.0
  */
 
 public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
@@ -151,6 +152,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * Type of numeric literal.
      */
     protected enum NumericType {
+
         /**
          * Denotes a decimal literal. For example, 1.2f
          */
@@ -165,6 +167,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
          * Denotes a binary literal. For example, 0b0011
          */
         BINARY,
+
     }
 
     /**
@@ -338,9 +341,19 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(final DetailAST ast) {
         if (!passesCheck(ast)) {
-            log(ast.getLineNo(), MSG_KEY);
+            log(ast, MSG_KEY);
         }
     }
 
@@ -356,8 +369,10 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
             current = current.getParent();
         }
         return current.getType() == TokenTypes.VARIABLE_DEF
-                && current.branchContains(TokenTypes.LITERAL_STATIC)
-                && current.branchContains(TokenTypes.FINAL);
+                && current.findFirstToken(TokenTypes.MODIFIERS)
+                    .findFirstToken(TokenTypes.LITERAL_STATIC) != null
+                && current.findFirstToken(TokenTypes.MODIFIERS)
+                    .findFirstToken(TokenTypes.FINAL) != null;
     }
 
     /**
@@ -542,23 +557,23 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      */
     private static boolean numericSegmentPassesRequirement(String numericSegment,
             int minLength, int symbolsUntilUnderscore) {
-        if (numericSegment.length() < minLength) {
-            return true;
-        }
-        final char underscore = '_';
-        int symbolCount = 0;
         boolean passes = true;
-        for (int i = 0; i < numericSegment.length(); i++) {
-            final char current = numericSegment.charAt(i);
-            if (symbolCount >= symbolsUntilUnderscore && current != underscore) {
-                passes = false;
-                break;
-            }
-            if (current == underscore) {
-                symbolCount = 0;
-            }
-            else {
-                symbolCount++;
+        if (numericSegment.length() >= minLength) {
+            final char underscore = '_';
+            int symbolCount = 0;
+
+            for (int i = 0; i < numericSegment.length(); i++) {
+                final char current = numericSegment.charAt(i);
+                if (symbolCount >= symbolsUntilUnderscore && current != underscore) {
+                    passes = false;
+                    break;
+                }
+                if (current == underscore) {
+                    symbolCount = 0;
+                }
+                else {
+                    symbolCount++;
+                }
             }
         }
         return passes;

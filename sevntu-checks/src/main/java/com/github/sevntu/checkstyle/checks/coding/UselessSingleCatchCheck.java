@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -37,8 +37,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *  </pre>
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
+ * @since 1.13.0
  */
 public class UselessSingleCatchCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -50,6 +52,16 @@ public class UselessSingleCatchCheck extends AbstractCheck {
         return new int[] {
             TokenTypes.LITERAL_TRY,
         };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
     }
 
     @Override
@@ -78,10 +90,10 @@ public class UselessSingleCatchCheck extends AbstractCheck {
 
     /**
      * Determines whether throw node is of form
-     * <code>throw exceptionObject;</code>
+     * <code>throw exceptionObject;</code>.
      * @param throwNode
      *        node of type TokenTypes.LITERAL_THROW
-     * @return wheather this throw node is of specified form
+     * @return whether this throw node is of specified form
      */
     private static boolean isSimpleRethrow(DetailAST throwNode) {
         final DetailAST exprNode = throwNode.findFirstToken(TokenTypes.EXPR);
@@ -91,7 +103,7 @@ public class UselessSingleCatchCheck extends AbstractCheck {
     }
 
     /**
-     * Gets catch parameter name
+     * Gets catch parameter name.
      * @param catchNode
      *        node of type TokenTypes.LITERAL_CATCH
      * @return catch parameter name

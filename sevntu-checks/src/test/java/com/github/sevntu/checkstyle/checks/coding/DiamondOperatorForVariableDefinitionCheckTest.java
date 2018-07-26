@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,20 @@ import static com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVaria
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class DiamondOperatorForVariableDefinitionCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration checkConfig = createCheckConfig(DiamondOperatorForVariableDefinitionCheck.class);
+public class DiamondOperatorForVariableDefinitionCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testDefault() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(DiamondOperatorForVariableDefinitionCheck.class);
         final String[] expected = {
             "25:58: " + getCheckMessage(MSG_KEY),
             "27:26: " + getCheckMessage(MSG_KEY),

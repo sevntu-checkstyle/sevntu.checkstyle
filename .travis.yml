@@ -1,31 +1,102 @@
 language: java
 sudo: false
 
-jdk:
-  - oraclejdk8
-
-before_install: git clone git://git.code.sf.net/p/eclipse-cs/git eclipse-cs-git
-      && cd eclipse-cs-git/ && git checkout 7.2.0
-      && cd net.sf.eclipsecs.parent/ && mvn install
-      && cd ../../
-
-install: cd sevntu-checks && mvn clean install && mvn javadoc:javadoc
-      && cd ../eclipsecs-sevntu-plugin && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checkstyle-maven-plugin && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checkstyle-idea-extension && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checkstyle-sonar-plugin && mvn verify && mvn javadoc:javadoc
-      && cd ../sevntu-checks && mvn jacoco:report coveralls:jacoco
-      && cd ../sevntu-checks && mvn verify -Pselftesting
-
-after_success:
-
 cache:
   directories:
   - ~/.m2
+
+addons:
+  apt:
+    packages:
+      - xmlstarlet
 
 branches:
   only:
     - master
 
+install:
+  -
+
 matrix:
   fast_finish: true
+  include:
+    # eclipse-cs
+    - jdk: oraclejdk8
+      env:
+        - DESC="eclipse-cs"
+        - CMD="./.ci/travis.sh eclipse-cs"
+
+    # maven-plugin
+    - jdk: oraclejdk8
+      env:
+        - DESC="maven-plugin"
+        - CMD="./.ci/travis.sh maven-plugin"
+
+    # idea-extension
+    - jdk: oraclejdk8
+      env:
+        - DESC="idea-extension"
+        - CMD="./.ci/travis.sh idea-extension"
+
+    # sonar-plugin
+    - jdk: oraclejdk8
+      env:
+        - DESC="sonar-plugin"
+        - CMD="./.ci/travis.sh sonar-plugin"
+
+    # checks
+    - jdk: oraclejdk8
+      env:
+        - DESC="checks"
+        - CMD="./.ci/travis.sh sevntu-checks"
+
+    # Ensure that all sevntu checks are used in contribution
+    - jdk: oraclejdk8
+      env:
+        - DESC="All sevntu checks should be used in contribution"
+        - CMD="./.ci/travis.sh all-sevntu-checks-contribution"
+
+    # regression on checkstyle
+    - jdk: oraclejdk8
+      env:
+        - DESC="checkstyle-regression"
+        - CMD="./.ci/travis.sh checkstyle-regression"
+
+    # eclipse static analysis
+    - jdk: oraclejdk8
+      env:
+        - DESC="eclipse-analysis"
+        - CMD="./.ci/travis.sh eclipse-analysis"
+
+    # testing of PR format
+    - env:
+        - DESC="test Issue ref in PR description"
+        - CMD="./.ci/travis.sh pr-description"
+
+
+script:
+  - SKIP_FILES1=".github|codeship-*|buddy.yml|appveyor.yml|circleci|distelli-manifest.yml"
+  - SKIP_FILES2="|fast-forward-merge.sh|LICENSE|LICENSE.apache20|README.md|release.sh|RIGHTS.antlr"
+  - SKIP_FILES3="|shippable.yml|shippable.sh|wercker.yml|wercker.sh|intellij-idea-inspections.xml"
+  - SKIP_FILES=$SKIP_FILES1$SKIP_FILES2$SKIP_FILES3
+  - |
+    if [[ $SKIP_CI != 'false' ]]; then
+         if [[ $(git diff --name-only HEAD HEAD~1 | grep -vE "$SKIP_FILES" \
+                    | cat | wc -c | sed 's/^ *//' ) > 0 ]]; then
+              SKIP_CI="false"
+         else
+              SKIP_CI="true"
+         fi
+    fi
+  - echo "SKIP_CI="$SKIP_CI
+  - |
+    set -e
+    if [[ $SKIP_CI == 'false' ]];
+    then
+         eval $CMD;
+         echo "eval of CMD is completed"
+    else
+         echo "CI is skipped"
+    fi
+
+after_success:

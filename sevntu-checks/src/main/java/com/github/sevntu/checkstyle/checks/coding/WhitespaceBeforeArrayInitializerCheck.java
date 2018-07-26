@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -36,14 +36,18 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * };
  * </pre>
  *
+ * <p>
  * This example is valid too:
+ * </p>
  *
  * <pre>
  * int[] tab = new int[]
  *                 {0, 1, 2, 3}
  * </pre>
  *
+ * <p>
  * But this violates check:
+ * </p>
  *
  * <pre>
  * int[] ints = new int[]{0, 1, 2, 3};
@@ -51,6 +55,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  *
  * @author <a href="mailto:piotr.listkiewicz@gmail.com">liscju</a>
+ * @since 1.14.0
  */
 public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
 
@@ -65,10 +70,20 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         final DetailAST previousAst = getPreviousAst(ast);
         if (!areTokensSeparatedByWhitespace(previousAst, ast) && isNestedArrayInitializer(ast)) {
-            log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY);
+            log(ast, MSG_KEY);
         }
     }
 
@@ -120,4 +135,5 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
         }
         return previousAst;
     }
+
 }

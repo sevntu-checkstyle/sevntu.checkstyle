@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,45 +23,124 @@ import static com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
  */
-public class ConfusingConditionCheckTest extends BaseCheckTestSupport {
+public class ConfusingConditionCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(ConfusingConditionCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testDefault() throws Exception {
-        checkConfig.addAttribute("ignoreInnerIf", "true");
-        checkConfig.addAttribute("ignoreNullCaseInIf", "true");
-        checkConfig.addAttribute("ignoreSequentialIf", "true");
-        checkConfig.addAttribute("ignoreThrowInElse", "true");
-        checkConfig.addAttribute("multiplyFactorForElseBlocks", "4");
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
         final String[] expected = {
-            "10: " + warningMessage,
-            "13: " + warningMessage,
-            "16: " + warningMessage,
-            "19: " + warningMessage,
-            "22: " + warningMessage,
-            "105: " + warningMessage,
-            "108: " + warningMessage,
-            "111: " + warningMessage,
-            "149: " + warningMessage,
-            "166: " + warningMessage,
-            "177: " + warningMessage,
-            "181: " + warningMessage,
-            "200: " + warningMessage,
-            "215: " + warningMessage,
-            "231: " + warningMessage,
+            "10:9: " + warningMessage,
+            "13:9: " + warningMessage,
+            "16:9: " + warningMessage,
+            "19:9: " + warningMessage,
+            "22:9: " + warningMessage,
+            "105:9: " + warningMessage,
+            "108:9: " + warningMessage,
+            "111:9: " + warningMessage,
+            "149:9: " + warningMessage,
+            "166:9: " + warningMessage,
+            "177:14: " + warningMessage,
+            "181:9: " + warningMessage,
+            "200:13: " + warningMessage,
+            "215:9: " + warningMessage,
+            "231:13: " + warningMessage,
+            "250:14: " + warningMessage,
+            "259:14: " + warningMessage,
         };
 
         verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
                 expected);
     }
+
+    @Test
+    public void testFalseProperties() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
+
+        checkConfig.addAttribute("ignoreInnerIf", "false");
+        checkConfig.addAttribute("ignoreNullCaseInIf", "false");
+        checkConfig.addAttribute("ignoreSequentialIf", "false");
+        checkConfig.addAttribute("ignoreThrowInElse", "false");
+
+        final String[] expected = {
+            "10:9: " + warningMessage,
+            "13:9: " + warningMessage,
+            "16:9: " + warningMessage,
+            "19:9: " + warningMessage,
+            "22:9: " + warningMessage,
+            "105:9: " + warningMessage,
+            "108:9: " + warningMessage,
+            "111:9: " + warningMessage,
+            "127:21: " + warningMessage,
+            "134:9: " + warningMessage,
+            "138:9: " + warningMessage,
+            "145:9: " + warningMessage,
+            "149:9: " + warningMessage,
+            "157:9: " + warningMessage,
+            "160:9: " + warningMessage,
+            "162:9: " + warningMessage,
+            "166:9: " + warningMessage,
+            "177:14: " + warningMessage,
+            "181:9: " + warningMessage,
+            "199:9: " + warningMessage,
+            "200:13: " + warningMessage,
+            "215:9: " + warningMessage,
+            "227:9: " + warningMessage,
+            "231:13: " + warningMessage,
+            "247:9: " + warningMessage,
+            "250:14: " + warningMessage,
+            "257:9: " + warningMessage,
+            "259:14: " + warningMessage,
+        };
+
+        verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
+                expected);
+    }
+
+    @Test
+    public void testMultiplyFactor() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
+
+        checkConfig.addAttribute("multiplyFactorForElseBlocks", "0");
+
+        final String[] expected = {
+            "10:9: " + warningMessage,
+            "13:9: " + warningMessage,
+            "16:9: " + warningMessage,
+            "19:9: " + warningMessage,
+            "22:9: " + warningMessage,
+            "105:9: " + warningMessage,
+            "108:9: " + warningMessage,
+            "111:9: " + warningMessage,
+            "177:14: " + warningMessage,
+            "259:14: " + warningMessage,
+        };
+
+        verify(checkConfig, getPath("InputConfusingConditionCheck.java"),
+                expected);
+    }
+
+    @Test
+    public void testExceptions() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputConfusingConditionCheck2.java"),
+                expected);
+    }
+
 }

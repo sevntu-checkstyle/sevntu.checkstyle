@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -49,17 +49,17 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * TreeSet, Vector, Collection, List, Map, Set.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
+ * @since 1.9.0
  */
 public class NoNullForCollectionReturnCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
     public static final String MSG_KEY = "no.null.for.collections";
 
     /**
-     * <p>
      * Default list of collection implementing classes.
-     * <p>
      */
     private static final String DEFAULT_COLLECTIONS = "AbstractCollection AbstractList "
             + "AbstractQueue AbstractSequentialList AbstractSet ArrayBlockingQueue ArrayDeque "
@@ -70,9 +70,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
             + "LinkedList LinkedTransferQueue PriorityBlockingQueue PriorityQueue RoleList "
             + "RoleUnresolvedList Stack SynchronousQueue TreeSet Vector Collection List Map Set";
     /**
-     * <p>
      * List of collection, that will be check.
-     * </p>
      */
     private Set<String> collectionList = new HashSet<>();
 
@@ -129,6 +127,16 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void beginTree(DetailAST rootAST) {
         methodDefs.clear();
     }
@@ -149,7 +157,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
                         && (hasNullLiteralInReturn(detailAST)
                             || (searchThroughMethodBody
                                 && isReturnedValueBeNull(detailAST)))) {
-                        log(detailAST.getLineNo(), MSG_KEY);
+                        log(detailAST, MSG_KEY);
                     }
                 }
                 break;
@@ -269,7 +277,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_TRY));
         final List<DetailAST> nestedSubblocks = new LinkedList<>();
         for (DetailAST currentSubblock : subblocks) {
-            if (currentSubblock.branchContains(TokenTypes.SLIST)) {
+            if (currentSubblock.findFirstToken(TokenTypes.SLIST) != null) {
                 nestedSubblocks.addAll(getAllSubblocks(currentSubblock));
             }
         }
@@ -352,7 +360,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      */
     private static DetailAST getMethodDef(DetailAST returnLit) {
         DetailAST methodDef = returnLit;
-        while (methodDef.getType() != TokenTypes.METHOD_DEF) {
+        while (methodDef != null && methodDef.getType() != TokenTypes.METHOD_DEF) {
             methodDef = methodDef.getParent();
         }
         return methodDef;
@@ -373,4 +381,5 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
         }
         return blockBody;
     }
+
 }

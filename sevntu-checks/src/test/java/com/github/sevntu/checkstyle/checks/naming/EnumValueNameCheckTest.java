@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,192 +19,53 @@
 
 package com.github.sevntu.checkstyle.checks.naming;
 
-import java.text.MessageFormat;
+import static com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck.DEFAULT_PATTERN;
+import static com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck.MSG_INVALID_PATTERN;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
-/**
- * Test unit for
- * {@link EnumValueNameCheck}.
- * @author Pavel Baranchikov
- */
-public class EnumValueNameCheckTest extends BaseCheckTestSupport {
-    private final String msgObj = getCheckMessage(EnumValueNameCheck.MSG_OBJ);
-    private final String msgConst = getCheckMessage(EnumValueNameCheck.MSG_CONST);
-    private final String inputFile;
+public class EnumValueNameCheckTest extends AbstractModuleTestSupport {
 
-    public EnumValueNameCheckTest() {
-        inputFile = getPath("InputEnumValueNameCheck.java");
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/naming";
     }
 
-    /**
-     * Tests for a default naming pattern.
-     *
-     * @throws Exception
-     *         on some errors during verification.
-     */
     @Test
     public void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
-        final MessageContext constContext = new MessageContext(false,
-                EnumValueNameCheck.DEFAULT_CONST_PATTERN);
-        final MessageContext objContext = new MessageContext(true,
-                EnumValueNameCheck.DEFAULT_OBJ_PATTERN);
+                createModuleConfig(EnumValueNameCheck.class);
         final String[] expected = {
-                buildMessage(35, 9, "FirstSimple", constContext),
-                buildMessage(43, 26, "SECOND_COMPLEX", objContext),
-                buildMessage(66, 19, "MoSecond", constContext),
-                buildMessage(76, 9, "FO_FIRST", objContext),
+            "35:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FirstSimple", DEFAULT_PATTERN),
+            "43:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FirstComplex", DEFAULT_PATTERN),
+            "66:19: " + getCheckMessage(MSG_INVALID_PATTERN, "MoSecond", DEFAULT_PATTERN),
+            "76:19: " + getCheckMessage(MSG_INVALID_PATTERN, "FoSecond", DEFAULT_PATTERN),
         };
-        verify(checkConfig, inputFile, expected);
+        verify(checkConfig, getPath("InputEnumValueNameCheck.java"), expected);
     }
 
-    /**
-     * Tests for a default naming pattern with exclusion of "some*" member
-     * names.
-     *
-     * @throws Exception
-     *         on some errors during verification.
-     */
     @Test
-    public void testExcludes()
+    public void testCustomFormat()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
-        final MessageContext constContext = new MessageContext(false,
-                EnumValueNameCheck.DEFAULT_CONST_PATTERN);
-        final MessageContext objContext = new MessageContext(true,
-                EnumValueNameCheck.DEFAULT_OBJ_PATTERN);
-        checkConfig.addAttribute("excludes", "some*");
-        final String[] expected = {
-                buildMessage(35, 9, "FirstSimple", constContext),
-                buildMessage(43, 26, "SECOND_COMPLEX", objContext),
-                buildMessage(66, 9, "MO_FIRST", objContext),
-                buildMessage(76, 19, "FoSecond", constContext),
-        };
-        verify(checkConfig, inputFile, expected);
-    }
+                createModuleConfig(EnumValueNameCheck.class);
 
-    /**
-     * Tests for wrong formatter string.
-     *
-     * @throws Exception
-     *         on some errors during verification.
-     */
-    @Test
-    public void testInvalidFormat()
-            throws Exception {
-        final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
-        checkConfig.addAttribute("constFormat", "\\");
-        final String[] expected = {};
-        try {
-            verify(checkConfig, inputFile, expected);
-            fail();
-        }
-        catch (CheckstyleException ex) {
-            Assert.assertTrue(ex.getMessage().startsWith("cannot initialize module "
-                    + "com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'constFormat' to '\\' in module "));
-        }
-    }
-
-    /**
-     * Tests for upset naming - Values Enumeration in camel notation while Class
-     * Enumeration - in upper-case notation.
-     *
-     * @throws Exception
-     *         on some errors during verification.
-     */
-    @Test
-    public void testUpset()
-            throws Exception {
-        final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
-        final MessageContext constContext = new MessageContext(false,
-                EnumValueNameCheck.DEFAULT_OBJ_PATTERN);
-        final MessageContext objContext = new MessageContext(true,
-                EnumValueNameCheck.DEFAULT_CONST_PATTERN);
-
-        checkConfig.addAttribute("constFormat", constContext.getPattern());
-        checkConfig.addAttribute("objFormat", objContext.getPattern());
+        checkConfig.addAttribute("format", "[a-z]+");
 
         final String[] expected = {
-                buildMessage(35, 22, "SECOND_SIMPLE", constContext),
-                buildMessage(43, 9, "FirstComplex", objContext),
-                buildMessage(66, 9, "MO_FIRST", constContext),
-                buildMessage(76, 19, "FoSecond", objContext),
+            "35:22: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_SIMPLE", "[a-z]+"),
+            "35:37: " + getCheckMessage(MSG_INVALID_PATTERN, "DB2", "[a-z]+"),
+            "35:42: " + getCheckMessage(MSG_INVALID_PATTERN, "V1", "[a-z]+"),
+            "43:26: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_COMPLEX", "[a-z]+"),
+            "43:45: " + getCheckMessage(MSG_INVALID_PATTERN, "V2", "[a-z]+"),
+            "66:9: " + getCheckMessage(MSG_INVALID_PATTERN, "MO_FIRST", "[a-z]+"),
+            "76:9: " + getCheckMessage(MSG_INVALID_PATTERN, "FO_FIRST", "[a-z]+"),
         };
-        verify(checkConfig, inputFile, expected);
-    }
-
-    /**
-     * Tests equal values for constants and static final object references.
-     *
-     * @throws Exception
-     *         on some errors during verification.
-     */
-    @Test
-    public void testEqualRegexps()
-            throws Exception {
-        final DefaultConfiguration checkConfig =
-                createCheckConfig(EnumValueNameCheck.class);
-        final MessageContext constContext = new MessageContext(false,
-                EnumValueNameCheck.DEFAULT_CONST_PATTERN);
-        final MessageContext objContext = new MessageContext(true,
-                EnumValueNameCheck.DEFAULT_CONST_PATTERN);
-        checkConfig.addAttribute("constFormat", constContext.getPattern());
-        checkConfig.addAttribute("objFormat", objContext.getPattern());
-
-        final String[] expected = {
-                buildMessage(35, 9, "FirstSimple", constContext),
-                buildMessage(43, 9, "FirstComplex", objContext),
-                buildMessage(66, 19, "MoSecond", constContext),
-                buildMessage(76, 19, "FoSecond", objContext),
-        };
-        verify(checkConfig, inputFile, expected);
-    }
-
-    private String buildMessage(int lineNumber, int colNumber,
-            String constName, MessageContext context) {
-        final String msg;
-        if (context.isEnumObj()) {
-            msg = msgObj;
-        }
-        else {
-            msg = msgConst;
-        }
-        return lineNumber + ":" + colNumber + ": "
-                + MessageFormat.format(msg, constName, context.getPattern());
-    }
-
-    /**
-     * Class containing pattern and is-object flag.
-     */
-    private static final class MessageContext {
-        private final boolean enumObj;
-        private final String pattern;
-
-        private MessageContext(boolean enumIsObj, String pattern) {
-            this.enumObj = enumIsObj;
-            this.pattern = pattern;
-        }
-
-        public boolean isEnumObj() {
-            return enumObj;
-        }
-
-        public String getPattern() {
-            return pattern;
-        }
-
+        verify(checkConfig, getPath("InputEnumValueNameCheck.java"), expected);
     }
 
 }

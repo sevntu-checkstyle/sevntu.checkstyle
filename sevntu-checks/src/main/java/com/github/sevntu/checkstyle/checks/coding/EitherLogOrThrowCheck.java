@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -41,6 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * <b>Examples:</b>
+ * </p>
  *
  * <pre>
  * catch (NoSuchMethodException e) {
@@ -70,6 +71,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * <b>What check can detect:</b> <br>
  * <b>Loggers</b>
+ * </p>
  * <ul>
  * <li>logger is declared as class field</li>
  * <li>logger is declared as method's local variable</li>
@@ -86,6 +88,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ul>
  * <p>
  * <b>What check can not detect:</b> <br>
+ * </p>
  * <ul>
  * <li>loggers that is used like method's return value. Example:
  *
@@ -103,6 +106,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ul>
  * <p>
  * Default parameters are:
+ * </p>
  * <ul>
  * <li><b>loggerFullyQualifiedClassName</b> - fully qualified class name of
  * logger type. Default value is <i>"org.slf4j.Logger"</i>.</li>
@@ -114,8 +118,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * different loggers, then create another instance of this check.
  * </p>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
+ * @since 1.9.0
  */
 public class EitherLogOrThrowCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */
@@ -205,6 +211,16 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(final DetailAST ast) {
         switch (ast.getType()) {
             case TokenTypes.IMPORT:
@@ -246,6 +262,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     }
 
     /**
+     * Checks if AST object is logger import.
      * @param importAst
      *        DetailAST of import statement.
      * @return true if import equals logger full class name.
@@ -333,7 +350,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      */
     private void processCatchNode(final DetailAST catchAst) {
         boolean isLoggingExceptionFound = false;
-        int loggingExceptionLineNumber = 0;
+        DetailAST loggingExceptionAst = null;
         final List<String> exceptionVariableNames = new LinkedList<>();
         final String catchParameterName = getCatchParameterName(catchAst);
         final DetailAST statementsAst =
@@ -365,7 +382,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
                         && (isLoggingExceptionArgument(currentStatementAst, catchParameterName)
                         || isPrintStackTrace(currentStatementAst, catchParameterName))) {
                         isLoggingExceptionFound = true;
-                        loggingExceptionLineNumber = currentStatementAst.getLineNo();
+                        loggingExceptionAst = currentStatementAst;
                     }
                     break;
                     // throw exception
@@ -377,7 +394,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
                         if (exceptionVariableNames.contains(getIdentifier(thrownExceptionAst))
                             || isInstanceCreationBasedOnException(
                                 thrownExceptionAst, catchParameterName)) {
-                            log(loggingExceptionLineNumber, MSG_KEY);
+                            log(loggingExceptionAst, MSG_KEY);
                             break;
                         }
                     }
@@ -567,11 +584,11 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that method is invoked on aUsedInstanceName.
-     * @param usedInstanseName name of instance.
+     * @param usedInstanceName name of instance.
      * @param methodCallAst DetailAST of METHOD_CALL.
      * @return true if method is invoked on aUsedInstanceName.
      */
-    private static boolean isInstanceMethodCall(final String usedInstanseName,
+    private static boolean isInstanceMethodCall(final String usedInstanceName,
             final DetailAST methodCallAst) {
         boolean result = false;
         if (methodCallAst != null
@@ -582,7 +599,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
             if (firstDotIndex != -1) {
                 final String usedObjectName =
                         methodCallIdent.substring(0, firstDotIndex);
-                if (usedObjectName.equals(usedInstanseName)) {
+                if (usedObjectName.equals(usedInstanceName)) {
                     result = true;
                 }
             }

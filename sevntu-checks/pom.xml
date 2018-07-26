@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.sevntu.checkstyle</groupId>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+  </parent>
+
+  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
-  <version>1.22.0</version>
+  <version>1.30.0</version>
 
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
-    <checkstyle.version>7.3</checkstyle.version>
-    <!-- this version has to be the same as eclispe-cs depends on -->
-    <checkstyle.eclipse-cs.version>7.2</checkstyle.eclipse-cs.version>
+    <!-- It is compile dependency to checkstyle, this version has to be the same as eclipse-cs depends on -->
+    <checkstyle.eclipse-cs.version>8.10</checkstyle.eclipse-cs.version>
+    <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.eclipse-cs.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
   </properties>
+
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
 
   <dependencies>
     <dependency>
@@ -62,14 +75,6 @@
     </dependency>
   </dependencies>
 
-  <distributionManagement>
-    <repository>
-      <id>com.github.sevntu.checkstyle</id>
-      <name>sevntu-checks</name>
-      <url>file://${basedir}/../gh-pages/maven2/</url>
-    </repository>
-  </distributionManagement>
-
   <build>
     <plugins>
       <plugin>
@@ -81,6 +86,53 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.10.4</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <phase>package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+           </execution>
+         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- serverId is ID of a <server> section from Maven's settings.xml
+              to pick authentication information from
+          -->
+          <serverId>sonatype-nexus-staging</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <skipStaging>true</skipStaging>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -118,7 +170,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>${checkstyle.version}</version>
+            <version>${checkstyle.eclipse-cs.version}</version>
           </dependency>
         </dependencies>
         <executions>
@@ -131,7 +183,7 @@
               <goal>check</goal>
             </goals>
             <configuration>
-              <configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</configLocation>
+              <configLocation>${checkstyle.configLocation}</configLocation>
               <failOnViolation>true</failOnViolation>
               <linkXRef>false</linkXRef>
               <propertiesLocation>checkstyle.properties</propertiesLocation>
@@ -148,48 +200,20 @@
         <configuration>
           <check>
             <haltOnFailure>true</haltOnFailure>
-            <!-- only integer values are accepted, all values should 100 after all whole regexes group 
+            <!-- only integer values are accepted, all values should 100 after all whole regexes group
               is removed -->
             <branchRate>100</branchRate>
             <lineRate>100</lineRate>
             <totalBranchRate>88</totalBranchRate>
             <totalLineRate>96</totalLineRate>
             <regexes>
-              <regex><pattern>.*.checks.annotation.ForbidAnnotationCheck</pattern><branchRate>70</branchRate><lineRate>96</lineRate></regex>
-              <regex><pattern>.*.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</pattern><branchRate>87</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ConfusingConditionCheck</pattern><branchRate>82</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.CustomDeclarationOrderCheck.*</pattern><branchRate>81</branchRate><lineRate>83</lineRate></regex>
-              <regex><pattern>.*.checks.coding.DiamondOperatorForVariableDefinitionCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>
               <regex><pattern>.*.checks.coding.EitherLogOrThrowCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
-              <regex><pattern>.*.checks.coding.EmptyPublicCtorInClassCheck</pattern><branchRate>89</branchRate><lineRate>95</lineRate></regex>
-              <regex><pattern>.*.checks.coding.FinalizeImplementationCheck</pattern><branchRate>68</branchRate><lineRate>92</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ForbidCertainImportsCheck</pattern><branchRate>61</branchRate><lineRate>84</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ForbidInstantiationCheck</pattern><branchRate>94</branchRate><lineRate>91</lineRate></regex>
               <regex><pattern>.*.checks.coding.ForbidThrowAnonymousExceptionsCheck</pattern><branchRate>81</branchRate><lineRate>97</lineRate></regex>
-              <regex><pattern>.*.checks.coding.IllegalCatchExtendedCheck</pattern><branchRate>88</branchRate><lineRate>97</lineRate></regex>
               <regex><pattern>.*.checks.coding.MapIterationInForEachLoopCheck</pattern><branchRate>90</branchRate><lineRate>98</lineRate></regex>
-              <regex><pattern>.*.checks.coding.MultipleStringLiteralsExtendedCheck</pattern><branchRate>92</branchRate><lineRate>96</lineRate></regex>
-              <regex><pattern>.*.checks.coding.MultipleVariableDeclarationsExtendedCheck</pattern><branchRate>95</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.NameConventionForJunit4TestClassesCheck</pattern><branchRate>86</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
-              <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>88</branchRate><lineRate>99</lineRate></regex>
-              <regex><pattern>.*.checks.coding.RedundantReturnCheck</pattern><branchRate>98</branchRate><lineRate>97</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ReturnBooleanFromTernaryCheck</pattern><branchRate>75</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ReturnCountExtendedCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.ReturnNullInsteadOfBooleanCheck</pattern><branchRate>80</branchRate><lineRate>88</lineRate></regex>
-              <regex><pattern>.*.checks.coding.SimpleAccessorNameNotationCheck</pattern><branchRate>72</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.coding.UnnecessaryParenthesesExtendedCheck</pattern><branchRate>90</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.design.AvoidConditionInversionCheck</pattern><branchRate>97</branchRate><lineRate>96</lineRate></regex>
-              <regex><pattern>.*.checks.design.CauseParameterInExceptionCheck</pattern><branchRate>96</branchRate><lineRate>98</lineRate></regex>
-              <regex><pattern>.*.checks.design.ChildBlockLengthCheck</pattern><branchRate>89</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.design.ForbidWildcardAsReturnTypeCheck</pattern><branchRate>98</branchRate><lineRate>100</lineRate></regex>
+              <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>94</branchRate><lineRate>99</lineRate></regex>
               <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>94</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.design.InnerClassCheck</pattern><branchRate>91</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.design.NoMainMethodInAbstractClassCheck</pattern><branchRate>92</branchRate><lineRate>98</lineRate></regex>
-              <regex><pattern>.*.checks.design.PublicReferenceToPrivateTypeCheck</pattern><branchRate>97</branchRate><lineRate>90</lineRate></regex>
-              <regex><pattern>.*.checks.naming.EnumValueNameCheck</pattern><branchRate>86</branchRate><lineRate>100</lineRate></regex>
-              <regex><pattern>.*.checks.sizes.LineLengthExtendedCheck</pattern><branchRate>100</branchRate><lineRate>6</lineRate></regex>
-              <regex><pattern>com.github.sevntu.checkstyle.Utils</pattern><branchRate>0</branchRate><lineRate>0</lineRate></regex>
             </regexes>
           </check>
         </configuration>
@@ -207,13 +231,7 @@
 
   <profiles>
     <profile>
-      <id>travis</id>
-      <activation>
-        <property>
-          <name>env.TRAVIS</name>
-          <value>true</value>
-        </property>
-      </activation>
+      <id>coverall</id>
       <build>
         <plugins>
           <plugin>
@@ -222,40 +240,74 @@
             <version>0.7.1.201405082137</version>
             <executions>
               <execution>
-                <id>prepare-agent</id>
+                <id>pre-unit-test</id>
                 <goals>
                   <goal>prepare-agent</goal>
                 </goals>
               </execution>
               <execution>
-                <id>report</id>
+                <id>post-unit-test</id>
                 <goals>
                   <goal>report</goal>
                 </goals>
-                <phase>prepare-package</phase>
+                <phase>test</phase>
               </execution>
             </executions>
           </plugin>
           <plugin>
             <groupId>org.eluder.coveralls</groupId>
             <artifactId>coveralls-maven-plugin</artifactId>
-            <version>2.2.0</version>
+            <version>4.3.0</version>
           </plugin>
         </plugins>
       </build>
     </profile>
     <profile>
-      <id>selftesting</id>
+      <id>eclipse-compiler</id>
+      <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.annotation</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <configuration>
+              <executable>.ci/eclipse-compiler-javac.sh</executable>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <classpath/>
+                <argument>${checkstyle.eclipse-cs.version}</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>no-validations</id>
       <properties>
         <skipTests>true</skipTests>
         <linkcheck.skip>true</linkcheck.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
+        <checkstyle.skip>true</checkstyle.skip>
         <pmd.skip>true</pmd.skip>
         <xml.skip>true</xml.skip>
         <forbiddenapis.skip>true</forbiddenapis.skip>
         <findbugs.skip>true</findbugs.skip>
         <cobertura.skip>true</cobertura.skip>
         <maven.site.skip>true</maven.site.skip>
+      </properties>
+    </profile>
+    <profile>
+      <id>selftesting</id>
+      <properties>
+        <checkstyle.skip>false</checkstyle.skip>
       </properties>
       <build>
         <plugins>
@@ -267,11 +319,11 @@
               <dependency>
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
-                <version>${checkstyle.version}</version>
+                <version>${checkstyle.eclipse-cs.version}</version>
               </dependency>
-              <!-- atention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
+              <!-- attention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
               <dependency>
-                <groupId>com.github.sevntu.checkstyle</groupId>
+                <groupId>com.github.sevntu-checkstyle</groupId>
                 <artifactId>sevntu-checks</artifactId>
                 <version>${project.version}</version>
               </dependency>
@@ -298,6 +350,41 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>local-deploy</id>
+      <distributionManagement>
+        <repository>
+          <id>com.github.sevntu-checkstyle</id>
+          <name>sevntu-checks</name>
+          <url>file://${deployDir}/maven2/</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+
+    <profile>
+      <!-- first part of profile is in settings.xml with defined gpg.passphrase and gpg.keyname -->
+      <id>gpg</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 
   <pluginRepositories>

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,28 +23,35 @@ import static com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBl
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidReturnInFinallyBlockCheckTest
-        extends BaseCheckTestSupport {
+public class ForbidReturnInFinallyBlockCheckTest extends AbstractModuleTestSupport {
+
     /**
      * An error message for current check.
      */
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
+
     @Test
     public void testDefault()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(ForbidReturnInFinallyBlockCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidReturnInFinallyBlockCheck.class);
         final String[] expected = {
-            "13: " + warningMessage,
-            "28: " + warningMessage,
-            "49: " + warningMessage,
-            "56: " + warningMessage,
-            "82: " + warningMessage,
+            "13:13: " + warningMessage,
+            "28:13: " + warningMessage,
+            "49:13: " + warningMessage,
+            "56:17: " + warningMessage,
+            "82:13: " + warningMessage,
         };
         verify(checkConfig, getPath("InputForbidReturnInFinallyBlockCheck.java"),
                 expected);
     }
+
 }

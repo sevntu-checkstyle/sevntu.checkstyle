@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -33,8 +33,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * "Effective Java (2nd edition)" chapter 11, item 74, page 294.
  * </p>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
+ * @since 1.8.0
  */
 public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -65,6 +67,16 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST detailAST) {
         final boolean topLevelClass = detailAST.getParent() == null;
         if (!topLevelClass && isSerializable(detailAST)
@@ -72,7 +84,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
                 && !hasSerialazableMethods(detailAST)) {
             final DetailAST implementsBlock = detailAST
                     .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
-            log(implementsBlock.getLineNo(),
+            log(implementsBlock,
                     MSG_KEY);
         }
     }
@@ -97,10 +109,9 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     /**
-     * <p>
-     * Return true, if inner class contain override method readObject() and
-     * writeObject();
-     * </p>
+     * Return {@code true}, if inner class contain override method {@code readObject()} and
+     * {@code writeObject()}.
+     *
      * @param classNode
      *        the start node of class definition.
      * @return The boolean value. True, if method was override.
@@ -188,9 +199,8 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     /**
-     * <p>
-     * Return true, if class implement Serializable interface;
-     * </p>
+     * Return {@code true}, if class implement Serializable interface.
+     *
      * @param classDefNode
      *        - the start node for class definition.
      * @return boolean value. True, if class implements Serializable interface.
@@ -218,6 +228,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      *</b>
      */
     private final class SiblingIterator {
+
         /**
         *<b>
         *Next.
@@ -262,5 +273,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
             }
             return result;
         }
+
     }
+
 }

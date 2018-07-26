@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -76,6 +76,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * @author <a href="mailto:fishh1991@gmail.com">Troshin Sergey</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Alexey Nesterenko</a>
+ * @since 1.8.0
  */
 public class RedundantReturnCheck extends AbstractCheck {
 
@@ -107,8 +108,17 @@ public class RedundantReturnCheck extends AbstractCheck {
     }
 
     @Override
-    public void visitToken(DetailAST ast) {
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
 
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public void visitToken(DetailAST ast) {
         final DetailAST blockAst = ast.getLastChild();
 
         switch (ast.getType()) {
@@ -139,8 +149,8 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return true if the block can be ignored.
      */
     private boolean ignoreLonelyReturn(DetailAST objectBlockAst) {
-
         return allowReturnInEmptyMethodsAndConstructors
+                    && objectBlockAst.getFirstChild() != null
                     && objectBlockAst.getFirstChild().getType()
                         == TokenTypes.LITERAL_RETURN;
     }
@@ -160,7 +170,6 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return true if void method has non-empty body.
      */
     private static boolean isVoidMethodWithNonEmptyBody(DetailAST methodDefAst) {
-
         return methodDefAst.getLastChild().getType() == TokenTypes.SLIST
                     && methodDefAst.findFirstToken(TokenTypes.TYPE)
                         .findFirstToken(TokenTypes.LITERAL_VOID) != null
@@ -174,7 +183,7 @@ public class RedundantReturnCheck extends AbstractCheck {
      */
     private void log(List<DetailAST> redundantReturnsAst) {
         for (DetailAST redundantLiteralReturnAst : redundantReturnsAst) {
-            log(redundantLiteralReturnAst.getLineNo(), MSG_KEY);
+            log(redundantLiteralReturnAst, MSG_KEY);
         }
     }
 
@@ -186,25 +195,21 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return list of redundant returns or empty list if none were found
      */
     private static List<DetailAST> getRedundantReturns(DetailAST objectBlockAst) {
-
         final List<DetailAST> redundantReturns = new ArrayList<>();
 
         final int placeForRedundantReturn = objectBlockAst
             .getLastChild().getPreviousSibling().getType();
 
         if (placeForRedundantReturn == TokenTypes.LITERAL_RETURN) {
-
             final DetailAST lastChildAst = objectBlockAst.getLastChild();
 
             final DetailAST redundantReturnAst = lastChildAst.getPreviousSibling();
 
             redundantReturns.add(redundantReturnAst);
-
         }
         else if (placeForRedundantReturn == TokenTypes.LITERAL_TRY
                 && !getRedundantReturnsInTryCatchBlock(objectBlockAst
                     .findFirstToken(TokenTypes.LITERAL_TRY)).isEmpty()) {
-
             final List<DetailAST> redundantsAst = getRedundantReturnsInTryCatchBlock(objectBlockAst
                     .findFirstToken(TokenTypes.LITERAL_TRY));
 
@@ -221,7 +226,6 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return list of redundant returns or empty list if none were found
      */
     private static List<DetailAST> getRedundantReturnsInTryCatchBlock(DetailAST tryAst) {
-
         final List<DetailAST> redundantReturns = new ArrayList<>();
 
         DetailAST tryBlockAst = null;
@@ -262,7 +266,6 @@ public class RedundantReturnCheck extends AbstractCheck {
 
         // if redundant return is in finally block
         if (blockAst.getNextSibling() != null) {
-
             final DetailAST afterCatchBlockAst = blockAst.getNextSibling().getLastChild()
                 .getLastChild();
 
@@ -285,7 +288,6 @@ public class RedundantReturnCheck extends AbstractCheck {
         DetailAST catchBlockAst = null;
         if (blockAst.getNextSibling() != null
                 && blockAst.getNextSibling().getType() == TokenTypes.LITERAL_CATCH) {
-
             catchBlockAst = blockAst.getNextSibling();
         }
         return catchBlockAst;
@@ -298,11 +300,9 @@ public class RedundantReturnCheck extends AbstractCheck {
      * @return redundant literal return if found, else null.
      */
     private static DetailAST getRedundantReturnInBlock(DetailAST statementAst) {
-
         DetailAST redundantReturnAst = null;
 
         if (statementAst != null) {
-
             if (statementAst.getType() == TokenTypes.LITERAL_RETURN) {
                 redundantReturnAst = statementAst;
             }
@@ -328,24 +328,21 @@ public class RedundantReturnCheck extends AbstractCheck {
     private static DetailAST findRedundantReturnInCatch(DetailAST lastStatementInCatchBlockAst) {
         DetailAST redundantReturnAst = null;
         DetailAST currentNodeAst = lastStatementInCatchBlockAst;
-        DetailAST toVisitAst = currentNodeAst;
         DetailAST returnAst = null;
+        DetailAST toVisitAst = Utils.getNextSubTreeNode(currentNodeAst, currentNodeAst);
+
         while (toVisitAst != null) {
-
-            toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
-
-            if (toVisitAst != null
-                    && (toVisitAst.getParent().getParent().getNextSibling() == null
-                        || toVisitAst.getParent().getParent().getNextSibling().getType()
-                            == TokenTypes.RCURLY)
-                    && toVisitAst.getType() == TokenTypes.LITERAL_RETURN
-                    && toVisitAst.getParent().getNextSibling() == null) {
-
+            if (toVisitAst.getType() == TokenTypes.OBJBLOCK) {
+                while (toVisitAst.getNextSibling() == null) {
+                    toVisitAst = toVisitAst.getParent();
+                }
+                toVisitAst = toVisitAst.getNextSibling();
+            }
+            else if (isFinalReturn(toVisitAst)) {
                 returnAst = toVisitAst;
 
                 while (toVisitAst != null
                             && toVisitAst.getParent() != currentNodeAst.getLastChild()) {
-
                     toVisitAst = toVisitAst.getParent();
                 }
 
@@ -355,9 +352,25 @@ public class RedundantReturnCheck extends AbstractCheck {
 
                 toVisitAst = returnAst;
             }
+
+            toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
         }
 
         currentNodeAst = Utils.getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
         return redundantReturnAst;
     }
+
+    /**
+     * Checks if the {@code ast} is the final return statement.
+     * @param ast the AST to examine.
+     * @return {@code true} if the {@code ast} is the final return statement.
+     */
+    private static boolean isFinalReturn(DetailAST ast) {
+        return (ast.getParent().getParent().getNextSibling() == null
+                    || ast.getParent().getParent().getNextSibling().getType()
+                    == TokenTypes.RCURLY)
+                && ast.getType() == TokenTypes.LITERAL_RETURN
+                && ast.getParent().getNextSibling() == null;
+    }
+
 }

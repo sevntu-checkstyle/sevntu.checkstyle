@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesE
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
@@ -37,11 +37,17 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
  * @author Eric K. Roe
  * @author Antonenko Dmitriy
  */
-public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSupport {
+public class UnnecessaryParenthesesExtendedCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
+
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
+                createModuleConfig(UnnecessaryParenthesesExtendedCheck.class);
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "false");
@@ -93,22 +99,24 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
             "86:16: " + getCheckMessage(MSG_KEY_EXPR),
         };
 
-        verify(checkConfig, getPath("InputUnnecessaryParentheses.java"), expected);
+        verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheck.java"), expected);
     }
 
     @Test
     public void test15Extensions() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(UnnecessaryParenthesesExtendedCheck.class);
         final String[] expected = {};
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "false");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "false");
-        verify(checkConfig, getPath("Input15Extensions.java"), expected);
+        verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheck2.java"), expected);
     }
 
     @Test
     public void testUbv() throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(UnnecessaryParenthesesExtendedCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(UnnecessaryParenthesesExtendedCheck.class);
         final String[] expected = {
             "5:22: " + getCheckMessage(MSG_KEY_ASSIGN),
             "5:29: " + getCheckMessage(MSG_KEY_EXPR),
@@ -156,10 +164,12 @@ public class UnnecessaryParenthesesExtendedCheckTest extends BaseCheckTestSuppor
             "82:27: " + getCheckMessage(MSG_KEY_ASSIGN),
             "96:19: " + getCheckMessage(MSG_KEY_ASSIGN),
             "100:24: " + getCheckMessage(MSG_KEY_EXPR),
+            "123:27: " + getCheckMessage(MSG_KEY_IDENT, "i"),
         };
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");
         checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "true");
-        verify(checkConfig, getPath("InputUnnecessaryParenthesesUbv.java"), expected);
+        verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheckUbv.java"), expected);
     }
+
 }

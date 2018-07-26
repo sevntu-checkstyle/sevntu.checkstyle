@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -27,17 +27,20 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 /**
- * If comparing values, C(C++) developers prefer to put the constant first in the equality check,
- * to prevent situations of assignment rather than equality checking.
+ * Checks that constants do not appear in the first operand of any condition.
  *
  * <p>
- * But in Java, in IF condition it is impossible to use assignment,
- * so that habit become unnecessary and do damage readability of code.
+ * If comparing values, C(C++) developers prefer to put the constant first in the equality check,
+ * to prevent situations of assignment rather than equality checking. It is easy to write "="
+ * instead of "==", and no compile error will be produced but condition will work in a different
+ * way then intended. However, in Java it is impossible to use assignment inside the
+ * <code>if</code> condition, so that habit becomes unnecessary and does damage to the readability
+ * of the code.
  * </p>
  *
  * <p>
- * In C(C++), comparison for null is tricky, and it is easy to write "=" instead of "==",
- * and no complication error will be but condition will work in different way
+ * This check was extended to include all equality checks like "&gt;", "&gt;=", "&lt;", "&lt;="
+ * for users who prefer constants always be on the right-hand side for any condition.
  * </p>
  *
  * <p>
@@ -51,8 +54,10 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
  * </p>
  *
  * @author Sergey Burtsev
+ * @since 1.9.0
  */
 public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -92,13 +97,27 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
         return new int[] {
             TokenTypes.EQUAL,
             TokenTypes.NOT_EQUAL,
+            TokenTypes.LT,
+            TokenTypes.LE,
+            TokenTypes.GT,
+            TokenTypes.GE,
         };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
     }
 
     @Override
     public void visitToken(DetailAST detailAST) {
         if (isRefactoringRequired(detailAST)) {
-            log(detailAST.getLineNo(), MSG_KEY,
+            log(detailAST, MSG_KEY,
                     detailAST.getText());
         }
     }
@@ -117,8 +136,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
         final int constantType = firstOperand.getType();
 
         return isTargetConstantType(constantType)
-                && firstOperand.branchContains(constantType)
-                && !secondOperand.branchContains(constantType);
+                && secondOperand.getType() != firstOperand.getType();
     }
 
     /**
@@ -149,4 +167,5 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
     private boolean isTargetConstantType(int targetType) {
         return Arrays.binarySearch(targetConstantTypes, targetType) > -1;
     }
+
 }

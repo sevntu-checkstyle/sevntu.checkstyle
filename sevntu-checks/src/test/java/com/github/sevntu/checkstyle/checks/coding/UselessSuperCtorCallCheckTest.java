@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,82 +24,99 @@ import static com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallChe
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class UselessSuperCtorCallCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration mDefaultConfig = createCheckConfig(UselessSuperCtorCallCheck.class);
+public class UselessSuperCtorCallCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testSingleCtorWithSuperWithinNotDerivedClass()
             throws Exception {
+        final DefaultConfiguration mDefaultConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         final String[] expected = {
-            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCall1"),
+            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCallCheck1"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall1.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck1.java"), expected);
     }
 
     @Test
     public void testSingleCtorWithSuperWithinDerivedClass()
             throws Exception {
+        final DefaultConfiguration mDefaultConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         final String[] expected = {
-            "7:9: " + getCheckMessage(MSG_WITHOUT_ARGS, "InputUselessSuperCtorCall2"),
+            "7:9: " + getCheckMessage(MSG_WITHOUT_ARGS, "InputUselessSuperCtorCallCheck2"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall2.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck2.java"), expected);
     }
 
     @Test
     public void testMultipleCtorsWithSuperWithinNotDerivedClass()
             throws Exception {
+        final DefaultConfiguration mDefaultConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         final String[] expected = {
-            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCall3"),
-            "12:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCall3"),
+            "7:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCallCheck3"),
+            "12:9: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "InputUselessSuperCtorCallCheck3"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall3.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck3.java"), expected);
     }
 
     @Test
     public void testInnerClassWithCtorWithSuper()
             throws Exception {
+        final DefaultConfiguration mDefaultConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         final String[] expected = {
             "9:13: " + getCheckMessage(MSG_IN_NOT_DERIVED_CLASS, "Inner"),
         };
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall4.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck4.java"), expected);
     }
 
     @Test
     public void testClassWithSuperCtorWithArgs()
             throws Exception {
+        final DefaultConfiguration mDefaultConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         final String[] expected = {};
 
-        verify(mDefaultConfig, getPath("InputUselessSuperCtorCall5.java"), expected);
+        verify(mDefaultConfig, getPath("InputUselessSuperCtorCallCheck5.java"), expected);
     }
 
     @Test
     public void testOptionAllowCallToNoArgsSuperCtor()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(UselessSuperCtorCallCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         checkConfig.addAttribute("allowCallToNoArgsSuperCtor", "true");
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputUselessSuperCtorCall6.java"), expected);
+        verify(checkConfig, getPath("InputUselessSuperCtorCallCheck6.java"), expected);
     }
 
     @Test
     public void testOptionAllowCallToNoArgsSuperCtorIfMultiplePublicCtor()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(UselessSuperCtorCallCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(UselessSuperCtorCallCheck.class);
         checkConfig.addAttribute("allowCallToNoArgsSuperCtorIfMultiplePublicCtor", "true");
 
         final String[] expected = {
             "26:13: " + getCheckMessage(MSG_WITHOUT_ARGS, "DerivedTwo"),
         };
 
-        verify(checkConfig, getPath("InputUselessSuperCtorCall7.java"), expected);
+        verify(checkConfig, getPath("InputUselessSuperCtorCallCheck7.java"), expected);
     }
+
 }

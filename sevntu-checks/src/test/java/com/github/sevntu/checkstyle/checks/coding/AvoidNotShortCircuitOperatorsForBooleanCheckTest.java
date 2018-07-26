@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,21 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOpe
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
-public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckTestSupport {
+public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractModuleTestSupport {
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void testAll() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
 
         final String[] expected = {
             "6:23: " + getCheckMessage(MSG_KEY, "|"),
@@ -50,6 +56,26 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends BaseCheckT
             "97:11: " + getCheckMessage(MSG_KEY, "|="),
         };
 
-        verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"), expected);
+        verify(checkConfig, getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheck.java"),
+                expected);
     }
+
+    @Test
+    public final void testNonClasses() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
+        verify(checkConfig,
+                getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckNonClasses.java"),
+                CommonUtils.EMPTY_STRING_ARRAY);
+    }
+
+    @Test
+    public final void testExpressionBeforeTry() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
+        verify(checkConfig,
+            getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckLambdaWithMultiCatch.java"),
+            CommonUtils.EMPTY_STRING_ARRAY);
+    }
+
 }

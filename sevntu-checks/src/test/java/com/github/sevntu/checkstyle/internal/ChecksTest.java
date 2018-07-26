@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -44,10 +44,13 @@ import org.w3c.dom.NodeList;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractFileSetCheck;
 import com.puppycrawl.tools.checkstyle.checks.javadoc.AbstractJavadocCheck;
+import com.puppycrawl.tools.checkstyle.internal.utils.XmlUtil;
 
 public final class ChecksTest {
+
     private static final Set<String> CHECK_PROPERTIES = getProperties(AbstractCheck.class);
-    private static final Set<String> JAVADOC_CHECK_PROPERTIES = getProperties(AbstractJavadocCheck.class);
+    private static final Set<String> JAVADOC_CHECK_PROPERTIES =
+            getProperties(AbstractJavadocCheck.class);
     private static final Set<String> FILESET_PROPERTIES = getProperties(AbstractFileSetCheck.class);
 
     @Test
@@ -77,14 +80,14 @@ public final class ChecksTest {
             Assert.assertTrue("folder " + p + " must exist in eclipsecs", new File(
                     getEclipseCsPath(p)).exists());
 
-            final Set<Class<?>> packgeModules = CheckUtil.getModulesInPackage(modules, p);
+            final Set<Class<?>> pkgModules = CheckUtil.getModulesInPackage(modules, p);
 
             validateEclipseCsMetaXmlFile(
                     new File(getEclipseCsPath(p + "/checkstyle-metadata.xml")), p, new HashSet<>(
-                            packgeModules));
+                            pkgModules));
 
             validateEclipseCsMetaPropFile(new File(getEclipseCsPath(p
-                    + "/checkstyle-metadata.properties")), p, new HashSet<>(packgeModules));
+                    + "/checkstyle-metadata.properties")), p, new HashSet<>(pkgModules));
         }
     }
 
@@ -95,7 +98,7 @@ public final class ChecksTest {
             final Node rule = rules.item(position);
             final Set<Node> children = XmlUtil.getChildrenElements(rule);
 
-            final String key = XmlUtil.findElementByTag(children, "key").getTextContent();
+            final String key = SevntuXmlUtil.findElementByTag(children, "key").getTextContent();
 
             final Class<?> module = findModule(modules, key);
             modules.remove(module);
@@ -103,13 +106,13 @@ public final class ChecksTest {
             Assert.assertNotNull("Unknown class found in sonar: " + key, module);
 
             final String moduleName = module.getName();
-            final Node name = XmlUtil.findElementByTag(children, "name");
+            final Node name = SevntuXmlUtil.findElementByTag(children, "name");
 
             Assert.assertNotNull(moduleName + " requires a name in sonar", name);
             Assert.assertFalse(moduleName + " requires a name in sonar", name.getTextContent()
                     .isEmpty());
 
-            final Node categoryNode = XmlUtil.findElementByTag(children, "category");
+            final Node categoryNode = SevntuXmlUtil.findElementByTag(children, "category");
 
             String expectedCategory = module.getCanonicalName();
             final int lastIndex = expectedCategory.lastIndexOf('.');
@@ -125,18 +128,18 @@ public final class ChecksTest {
             Assert.assertEquals(moduleName + " requires a valid category in sonar",
                     expectedCategory, categoryAttribute.getTextContent());
 
-            final Node description = XmlUtil.findElementByTag(children, "description");
+            final Node description = SevntuXmlUtil.findElementByTag(children, "description");
 
             Assert.assertNotNull(moduleName + " requires a description in sonar", description);
 
-            final Node configKey = XmlUtil.findElementByTag(children, "configKey");
+            final Node configKey = SevntuXmlUtil.findElementByTag(children, "configKey");
             final String expectedConfigKey = "Checker/TreeWalker/" + key;
 
             Assert.assertNotNull(moduleName + " requires a configKey in sonar", configKey);
             Assert.assertEquals(moduleName + " requires a valid configKey in sonar",
                     expectedConfigKey, configKey.getTextContent());
 
-            validateSonarProperties(module, XmlUtil.findElementsByTag(children, "param"));
+            validateSonarProperties(module, SevntuXmlUtil.findElementsByTag(children, "param"));
         }
 
         for (Class<?> module : modules) {
@@ -170,9 +173,9 @@ public final class ChecksTest {
         }
     }
 
-    private static void validateEclipseCsMetaXmlFile(File file, String packge,
-            Set<Class<?>> packgeModules) throws Exception {
-        Assert.assertTrue("'checkstyle-metadata.xml' must exist in eclipsecs in inside " + packge,
+    private static void validateEclipseCsMetaXmlFile(File file, String pkg,
+            Set<Class<?>> pkgModules) throws Exception {
+        Assert.assertTrue("'checkstyle-metadata.xml' must exist in eclipsecs in inside " + pkg,
                 file.exists());
 
         final String input = new String(Files.readAllBytes(file.toPath()), UTF_8);
@@ -180,62 +183,62 @@ public final class ChecksTest {
 
         final NodeList ruleGroups = document.getElementsByTagName("rule-group-metadata");
 
-        Assert.assertTrue(packge + " checkstyle-metadata.xml must contain only one rule group",
+        Assert.assertTrue(pkg + " checkstyle-metadata.xml must contain only one rule group",
                 ruleGroups.getLength() == 1);
 
         for (int position = 0; position < ruleGroups.getLength(); position++) {
             final Node ruleGroup = ruleGroups.item(position);
             final Set<Node> children = XmlUtil.getChildrenElements(ruleGroup);
 
-            validateEclipseCsMetaXmlFileRules(packge, packgeModules, children);
+            validateEclipseCsMetaXmlFileRules(pkg, pkgModules, children);
         }
 
-        for (Class<?> module : packgeModules) {
-            Assert.fail("Module not found in " + packge + " checkstyle-metadata.xml: "
+        for (Class<?> module : pkgModules) {
+            Assert.fail("Module not found in " + pkg + " checkstyle-metadata.xml: "
                     + module.getCanonicalName());
         }
     }
 
-    private static void validateEclipseCsMetaXmlFileRules(String packge,
-            Set<Class<?>> packgeModules, Set<Node> rules) throws Exception {
+    private static void validateEclipseCsMetaXmlFileRules(String pkg,
+            Set<Class<?>> pkgModules, Set<Node> rules) throws Exception {
         for (Node rule : rules) {
             final NamedNodeMap attributes = rule.getAttributes();
             final Node internalNameNode = attributes.getNamedItem("internal-name");
 
-            Assert.assertNotNull(packge + " checkstyle-metadata.xml must contain an internal name",
+            Assert.assertNotNull(pkg + " checkstyle-metadata.xml must contain an internal name",
                     internalNameNode);
 
             final String internalName = internalNameNode.getTextContent();
-            final String classpath = "com.github.sevntu.checkstyle.checks." + packge + "."
+            final String classpath = "com.github.sevntu.checkstyle.checks." + pkg + "."
                     + internalName;
 
-            final Class<?> module = findModule(packgeModules, classpath);
-            packgeModules.remove(module);
+            final Class<?> module = findModule(pkgModules, classpath);
+            pkgModules.remove(module);
 
-            Assert.assertNotNull("Unknown class found in " + packge + " checkstyle-metadata.xml: "
+            Assert.assertNotNull("Unknown class found in " + pkg + " checkstyle-metadata.xml: "
                     + internalName, module);
 
             final Node nameAttribute = attributes.getNamedItem("name");
 
-            Assert.assertNotNull(packge + " checkstyle-metadata.xml requires a name for "
+            Assert.assertNotNull(pkg + " checkstyle-metadata.xml requires a name for "
                     + internalName, nameAttribute);
-            Assert.assertEquals(packge + " checkstyle-metadata.xml requires a valid name for "
+            Assert.assertEquals(pkg + " checkstyle-metadata.xml requires a valid name for "
                     + internalName, "%" + internalName + ".name", nameAttribute.getTextContent());
 
             final Node parentAttribute = attributes.getNamedItem("parent");
 
-            Assert.assertNotNull(packge + " checkstyle-metadata.xml requires a parent for "
+            Assert.assertNotNull(pkg + " checkstyle-metadata.xml requires a parent for "
                     + internalName, parentAttribute);
-            Assert.assertEquals(packge + " checkstyle-metadata.xml requires a valid parent for "
+            Assert.assertEquals(pkg + " checkstyle-metadata.xml requires a valid parent for "
                     + internalName, "TreeWalker", parentAttribute.getTextContent());
 
             final Set<Node> children = XmlUtil.getChildrenElements(rule);
 
-            validateEclipseCsMetaXmlFileRule(packge, module, children);
+            validateEclipseCsMetaXmlFileRule(pkg, module, children);
         }
     }
 
-    private static void validateEclipseCsMetaXmlFileRule(String packge, Class<?> module,
+    private static void validateEclipseCsMetaXmlFileRule(String pkg, Class<?> module,
             Set<Node> children) throws Exception {
         final String moduleName = module.getSimpleName();
         final Set<String> properties = getFinalProperties(module);
@@ -258,95 +261,100 @@ public final class ChecksTest {
                 case "alternative-name":
                     final Node internalNameNode = attributes.getNamedItem("internal-name");
 
-                    Assert.assertNotNull(packge
+                    Assert.assertNotNull(pkg
                             + " checkstyle-metadata.xml must contain an internal name for "
                             + moduleName, internalNameNode);
 
                     final String internalName = internalNameNode.getTextContent();
 
-                    Assert.assertEquals(packge
+                    Assert.assertEquals(pkg
                             + " checkstyle-metadata.xml requires a valid internal-name for "
                             + moduleName, module.getName(), internalName);
                     break;
                 case "description":
                     Assert.assertEquals(
-                            packge + " checkstyle-metadata.xml requires a valid description for "
-                                    + moduleName, "%" + moduleName + ".desc", child.getTextContent());
+                            pkg + " checkstyle-metadata.xml requires a valid description for "
+                                    + moduleName, "%" + moduleName + ".desc",
+                            child.getTextContent());
                     break;
                 case "property-metadata":
                     final String propertyName = attributes.getNamedItem("name").getTextContent();
 
-                    Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown parameter for "
+                    Assert.assertTrue(pkg
+                            + " checkstyle-metadata.xml has an unknown parameter for "
                             + moduleName + ": " + propertyName, properties.remove(propertyName));
 
                     final Node firstChild = child.getFirstChild().getNextSibling();
 
-                    Assert.assertNotNull(packge
-                            + " checkstyle-metadata.xml requires atleast one child for " + moduleName
-                            + ", " + propertyName, firstChild);
+                    Assert.assertNotNull(pkg
+                            + " checkstyle-metadata.xml requires atleast one child for "
+                            + moduleName + ", " + propertyName, firstChild);
                     Assert.assertEquals(
-                            packge
-                                    + " checkstyle-metadata.xml should have a description for the first child of "
+                            pkg
+                                    + " checkstyle-metadata.xml should have a description for the "
+                                    + "first child of "
                                     + moduleName + ", " + propertyName, "description",
                             firstChild.getNodeName());
-                    Assert.assertEquals(packge
-                            + " checkstyle-metadata.xml requires a valid description for " + moduleName
-                            + ", " + propertyName, "%" + moduleName + "." + propertyName,
+                    Assert.assertEquals(pkg
+                            + " checkstyle-metadata.xml requires a valid description for "
+                            + moduleName + ", " + propertyName, "%" + moduleName + "."
+                            + propertyName,
                             firstChild.getTextContent());
                     break;
                 case "message-key":
                     final String key = attributes.getNamedItem("key").getTextContent();
 
-                    Assert.assertTrue(packge + " checkstyle-metadata.xml has an unknown message for "
+                    Assert.assertTrue(pkg
+                            + " checkstyle-metadata.xml has an unknown message for "
                             + moduleName + ": " + key, messages.remove(key));
                     break;
                 default:
-                    Assert.fail(packge + " checkstyle-metadata.xml unknown node for " + moduleName
+                    Assert.fail(pkg + " checkstyle-metadata.xml unknown node for " + moduleName
                             + ": " + child.getNodeName());
                     break;
             }
         }
 
         for (String property : properties) {
-            Assert.fail(packge + " checkstyle-metadata.xml missing parameter for " + moduleName
+            Assert.fail(pkg + " checkstyle-metadata.xml missing parameter for " + moduleName
                     + ": " + property);
         }
 
         for (String message : messages) {
-            Assert.fail(packge + " checkstyle-metadata.xml missing message for " + moduleName
+            Assert.fail(pkg + " checkstyle-metadata.xml missing message for " + moduleName
                     + ": " + message);
         }
     }
 
-    private static void validateEclipseCsMetaPropFile(File file, String packge,
-            Set<Class<?>> packgeModules) throws Exception {
+    private static void validateEclipseCsMetaPropFile(File file, String pkg,
+            Set<Class<?>> pkgModules) throws Exception {
         Assert.assertTrue("'checkstyle-metadata.properties' must exist in eclipsecs in inside "
-                + packge, file.exists());
+                + pkg, file.exists());
 
         final Properties prop = new Properties();
         prop.load(new FileInputStream(file));
 
         final Set<Object> properties = new HashSet<>(Collections.list(prop.keys()));
 
-        for (Class<?> module : packgeModules) {
+        for (Class<?> module : pkgModules) {
             final String moduleName = module.getSimpleName();
 
-            Assert.assertTrue(moduleName + " requires a name in eclipsecs properties " + packge,
+            Assert.assertTrue(moduleName + " requires a name in eclipsecs properties " + pkg,
                     properties.remove(moduleName + ".name"));
-            Assert.assertTrue(moduleName + " requires a desc in eclipsecs properties " + packge,
+            Assert.assertTrue(moduleName + " requires a desc in eclipsecs properties " + pkg,
                     properties.remove(moduleName + ".desc"));
 
             final Set<String> moduleProperties = getFinalProperties(module);
 
             for (String moduleProperty : moduleProperties) {
                 Assert.assertTrue(moduleName + " requires the property " + moduleProperty
-                        + " in eclipsecs properties " + packge,
+                        + " in eclipsecs properties " + pkg,
                         properties.remove(moduleName + "." + moduleProperty));
             }
         }
 
         for (Object property : properties) {
-            Assert.fail("Unknown property found in eclipsecs properties " + packge + ": "
+            Assert.fail("Unknown property found in eclipsecs properties " + pkg + ": "
                     + property);
         }
     }
@@ -420,4 +428,5 @@ public final class ChecksTest {
                 "../sevntu-checkstyle-sonar-plugin/src/main/resources/com/github/sevntu/"
                         + "checkstyle/sonar/" + filename).getCanonicalPath();
     }
+
 }

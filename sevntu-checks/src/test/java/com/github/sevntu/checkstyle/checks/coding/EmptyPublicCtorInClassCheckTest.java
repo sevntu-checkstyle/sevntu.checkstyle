@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,105 +20,174 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck.MSG_KEY;
+import static org.junit.Assert.fail;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class EmptyPublicCtorInClassCheckTest extends BaseCheckTestSupport {
+public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
+
     private final String message = getCheckMessage(MSG_KEY);
 
-    private DefaultConfiguration checkConfig = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testEmptyPublicCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {
             "5:5: " + message,
         };
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass1.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck1.java"), expected);
     }
 
     @Test
     public void testEmptyPrivateCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass2.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck2.java"), expected);
     }
 
     @Test
     public void testEmptyProtectedCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass6.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck6.java"), expected);
     }
 
     @Test
     public void testClassWithMultiplePublicCtors()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass3.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck3.java"), expected);
     }
 
     @Test
     public void testPublicNotEmptyCtor()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass4.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck4.java"), expected);
     }
 
     @Test
     public void testClassWithInnerClasses()
             throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(EmptyPublicCtorInClassCheck.class);
         final String[] expected = {
             "5:5: " + message,
             "14:9: " + message,
         };
 
-        verify(checkConfig, getPath("InputEmptyPublicCtorInClass5.java"), expected);
+        verify(checkConfig, getPath("InputEmptyPublicCtorInClassCheck5.java"), expected);
     }
 
     @Test
     public void testCtorAnnotatedWithAnnotation() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName");
+        config.addAttribute("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\."
+                + "coding\\.AnnotationName");
 
         final String[] expected = {};
 
-        verify(config, getPath("InputEmptyPublicCtorInClass7.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck7.java"), expected);
     }
 
     @Test
     public void testClassAnnotatedWithAnnotation1() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("classAnnotationNames",
                 "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName|"
                 + "org\\.junit\\.runner\\.RunWith|"
                 + "org\\.junit\\.Ignore|"
-                + "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.InputEmptyPublicCtorInClass9\\.InnerAnnotation");
+                + "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\."
+                + "InputEmptyPublicCtorInClassCheck9\\.InnerAnnotation");
 
         final String[] expected = {};
 
-        verify(config, getPath("InputEmptyPublicCtorInClass8.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck8.java"), expected);
     }
 
     @Test
     public void testClassAnnotatedWithAnnotation2() throws Exception {
-        final DefaultConfiguration config = createCheckConfig(EmptyPublicCtorInClassCheck.class);
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
         config.addAttribute("classAnnotationNames",
                 "org\\.junit\\.runner\\.RunWith|org\\.junit\\.Ignore|");
 
         final String[] expected = {};
 
-        verify(config, getPath("InputEmptyPublicCtorInClass10.java"), expected);
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck10.java"), expected);
     }
+
+    @Test
+    public void testNullProperties1() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
+
+        config.addAttribute("classAnnotationNames", null);
+        config.addAttribute("ctorAnnotationNames", null);
+
+        final String[] expected = {
+            "5:5: " + message,
+            "14:9: " + message,
+        };
+
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck5.java"), expected);
+    }
+
+    @Test
+    public void testNullProperties2() throws Exception {
+        final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
+
+        config.addAttribute("classAnnotationNames", "");
+        config.addAttribute("ctorAnnotationNames", "");
+
+        final String[] expected = {
+            "5:5: " + message,
+            "14:9: " + message,
+        };
+
+        verify(config, getPath("InputEmptyPublicCtorInClassCheck5.java"), expected);
+    }
+
+    @Test
+    public void testUnsupportedNode() {
+        final DetailAST sync = new DetailAST();
+        sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
+
+        try {
+            final EmptyPublicCtorInClassCheck check = new EmptyPublicCtorInClassCheck();
+            check.visitToken(sync);
+
+            fail();
+        }
+        catch (IllegalArgumentException ex) {
+            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -69,6 +69,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
  * </pre>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck {
 
@@ -101,12 +102,25 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     }
 
     @Override
-    public final void visitToken(final DetailAST detailAST) {
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
 
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public final void visitToken(final DetailAST detailAST) {
         DetailAST currentNode = detailAST;
         // look for EXPR which is always around BOR/BAND... operators
         while (currentNode != null && currentNode.getType() != TokenTypes.EXPR) {
             currentNode = currentNode.getParent();
+
+            if (currentNode.getType() == TokenTypes.PARAMETER_DEF) {
+                currentNode = null;
+            }
         }
 
         if (currentNode != null && isBooleanExpression(currentNode)) {
@@ -144,7 +158,10 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
 
         while (curNode.getType() != TokenTypes.CTOR_DEF
                 && curNode.getType() != TokenTypes.METHOD_DEF
-                && curNode.getType() != TokenTypes.CLASS_DEF) {
+                && curNode.getType() != TokenTypes.CLASS_DEF
+                && curNode.getType() != TokenTypes.INTERFACE_DEF
+                && curNode.getType() != TokenTypes.ANNOTATION_DEF
+                && curNode.getType() != TokenTypes.ENUM_DEF) {
             curNode = curNode.getParent();
         }
 
@@ -152,7 +169,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         for (DetailAST currentNode : getChildren(curNode.getLastChild())) {
             if (currentNode.getLineNo() < line
                     && currentNode.getType() == TokenTypes.VARIABLE_DEF) {
-
                 if (isBooleanType(currentNode)) {
                     booleanVariablesNames.add(currentNode.findFirstToken(
                             TokenTypes.IDENT).getText());
@@ -161,7 +177,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         }
 
         boolean result = false;
-
         for (String name : childNames) {
             if (booleanVariablesNames.contains(name)) {
                 result = true;
@@ -180,9 +195,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      */
     public final List<String> getSupportedOperandsNames(
             final DetailAST exprParentAST) {
-
         for (DetailAST currentNode : getChildren(exprParentAST)) {
-
             if (currentNode.getNumberOfChildren() > 0
                     && currentNode.getType() != TokenTypes.METHOD_CALL) {
                 getSupportedOperandsNames(currentNode);
@@ -191,10 +204,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
             if (currentNode.getType() == TokenTypes.IDENT
                     && currentNode.getParent().getType() != TokenTypes.DOT) {
                 supportedOperands.add(currentNode.getText());
-            }
-
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
             }
         }
         return supportedOperands;
@@ -208,9 +217,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      *     "true" or "false" keywords and false otherwise.
      */
     public final boolean hasTrueOrFalseLiteral(final DetailAST parentAST) {
-
         for (DetailAST currentNode : getChildren(parentAST)) {
-
             if (currentNode.getNumberOfChildren() > 0) {
                 hasTrueOrFalseLiteral(currentNode);
             }
@@ -219,10 +226,6 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
             if (type == TokenTypes.LITERAL_TRUE
                     || type == TokenTypes.LITERAL_FALSE) {
                 hasTrueOrFalseLiteral = true;
-            }
-
-            if (currentNode.getNextSibling() != null) {
-                currentNode = currentNode.getNextSibling();
             }
 
             if (hasTrueOrFalseLiteral) {

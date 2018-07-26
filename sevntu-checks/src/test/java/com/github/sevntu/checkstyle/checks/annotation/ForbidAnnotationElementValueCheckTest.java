@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,20 @@ import static com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationEle
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport {
+public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/annotation";
+    }
+
     @Test
     public void testAnnotationWithStringParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
         checkConfig.addAttribute("annotationName", "Anno1");
         checkConfig.addAttribute("elementName", "str");
         checkConfig.addAttribute("forbiddenElementValueRegexp", "someString\\d+");
@@ -45,7 +51,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithIntegerParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Anno2");
         checkConfig.addAttribute("elementName", "intVal");
@@ -61,7 +67,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithFloatParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Anno3");
         checkConfig.addAttribute("elementName", "floatVal");
@@ -77,7 +83,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithBooleanParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Anno4");
         checkConfig.addAttribute("elementName", "boolVal");
@@ -93,7 +99,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithDotSplittedParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Bean");
         checkConfig.addAttribute("elementName", "name");
@@ -109,7 +115,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithSeveralParameters() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Anno5");
         checkConfig.addAttribute("elementName", "stringValue");
@@ -125,7 +131,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithSingleParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "SuppressWarnings");
         checkConfig.addAttribute("elementName", "value");
@@ -139,9 +145,9 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     }
 
     @Test
-    public void testAnnotationWtithBooleanParameterValueDoesntMatch() throws Exception {
+    public void testAnnotationWithBooleanParameterValueDoesntMatch() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Anno4");
         checkConfig.addAttribute("elementName", "boolVal");
@@ -155,7 +161,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithListAsParameterValue() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "SuppressWarnings");
         checkConfig.addAttribute("elementName", "value");
@@ -172,7 +178,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithAnnotationAsParameter() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "Name");
         checkConfig.addAttribute("elementName", "last");
@@ -188,7 +194,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testAnnotationWithDefaultValues() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         final String[] expected = {
             "114:11: " + getCheckMessage(MSG_KEY, "expected", "Test"),
@@ -200,7 +206,7 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
     @Test
     public void testFullAnnotationClasspath() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidAnnotationElementValueCheck.class);
+                createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
         checkConfig.addAttribute("annotationName", "SuppressWarnings");
         checkConfig.addAttribute("elementName", "value");
@@ -212,4 +218,5 @@ public class ForbidAnnotationElementValueCheckTest extends BaseCheckTestSupport 
 
         verify(checkConfig, getPath("InputForbidAnnotationElementValueCheck2.java"), expected);
     }
+
 }

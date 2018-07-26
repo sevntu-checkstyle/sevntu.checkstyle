@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,38 +20,44 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck.MSG_KEY;
+import static org.junit.Assert.assertArrayEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class ConstructorWithoutParamsCheckTest extends BaseCheckTestSupport {
+public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport {
 
-    private DefaultConfiguration defaultConfig;
-
-    @Before
-    public void getDefaultConfiguration() {
-        defaultConfig = createCheckConfig(ConstructorWithoutParamsCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
     }
 
     @Test
     public void testDefaultConfigProhibitsExceptionsWithoutParams() throws Exception {
-        final String[] expectedViolationMsg = {"30:37: " + getCheckMessage(MSG_KEY, "RuntimeException")};
-        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        final DefaultConfiguration defaultConfig =
+                createModuleConfig(ConstructorWithoutParamsCheck.class);
+        final String[] expectedViolationMsg = {
+            "35:37: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+        };
+        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"),
+                expectedViolationMsg);
     }
 
     @Test
     public void testUserDefinedConfigProhibitsCustomClasses() throws Exception {
+        final DefaultConfiguration defaultConfig =
+                createModuleConfig(ConstructorWithoutParamsCheck.class);
         defaultConfig.addAttribute("classNameFormat", "Clazz[1-9]");
         defaultConfig.addAttribute("ignoredClassNameFormat", "Clazz4");
         final String[] expectedViolationMsg = {
-            "64:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
-            "67:27: " + getCheckMessage(MSG_KEY, "Clazz2"),
+            "69:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
+            "72:27: " + getCheckMessage(MSG_KEY, "Clazz2"),
         };
-        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"), expectedViolationMsg);
+        verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"),
+                expectedViolationMsg);
     }
 
     /*

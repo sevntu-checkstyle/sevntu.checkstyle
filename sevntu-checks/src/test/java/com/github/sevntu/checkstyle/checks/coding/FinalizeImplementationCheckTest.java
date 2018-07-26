@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,29 +26,43 @@ import static com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationC
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class FinalizeImplementationCheckTest extends BaseCheckTestSupport {
+public class FinalizeImplementationCheckTest extends AbstractModuleTestSupport {
 
-    /**
-     * Default check configuration
-     */
-    private final DefaultConfiguration checkConfig =
-        createCheckConfig(FinalizeImplementationCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public final void basicTest() throws Exception {
-
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(FinalizeImplementationCheck.class);
         final String[] expected = {
-            "22: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
-            "35: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
-            "48: " + getCheckMessage(MSG_KEY_PUBLIC_FINALIZE),
-            "62: " + getCheckMessage(MSG_KEY_USELESS_FINALIZE),
-            "75: " + getCheckMessage(MSG_KEY_MISSED_SUPER_FINALIZE_CALL),
+            "22:5: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+            "35:5: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+            "48:5: " + getCheckMessage(MSG_KEY_PUBLIC_FINALIZE),
+            "62:5: " + getCheckMessage(MSG_KEY_USELESS_FINALIZE),
+            "75:3: " + getCheckMessage(MSG_KEY_MISSED_SUPER_FINALIZE_CALL),
         };
 
         verify(checkConfig,
                 getPath("InputFinalizeImplementationCheck.java"), expected);
     }
+
+    @Test
+    public final void testSpecialFinalize() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(FinalizeImplementationCheck.class);
+        final String[] expected = {
+            "5:5: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+            "18:5: " + getCheckMessage(MSG_KEY_MISSED_TRY_FINALLY),
+        };
+
+        verify(checkConfig, getPath("InputFinalizeImplementationCheckSpecial.java"),
+                expected);
+    }
+
 }

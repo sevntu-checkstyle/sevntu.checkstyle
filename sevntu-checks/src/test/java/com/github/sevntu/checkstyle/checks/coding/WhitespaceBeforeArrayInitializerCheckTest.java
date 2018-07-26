@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,20 @@ import static com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayIn
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class WhitespaceBeforeArrayInitializerCheckTest extends BaseCheckTestSupport {
-    private final DefaultConfiguration mDefaultConfig = createCheckConfig(WhitespaceBeforeArrayInitializerCheck.class);
+public class WhitespaceBeforeArrayInitializerCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void testWhitespaceBeforeArrayInitializer() throws Exception {
+        final DefaultConfiguration mDefaultConfig =
+                createModuleConfig(WhitespaceBeforeArrayInitializerCheck.class);
         final String[] expected = {
             "5:28: " + getCheckMessage(MSG_KEY),
             "13:32: " + getCheckMessage(MSG_KEY),
@@ -38,6 +44,8 @@ public class WhitespaceBeforeArrayInitializerCheckTest extends BaseCheckTestSupp
             "17:21: " + getCheckMessage(MSG_KEY),
             "24:56: " + getCheckMessage(MSG_KEY),
         };
-        verify(mDefaultConfig, getPath("InputWhitespaceBeforeArrayIntializer.java"), expected);
+        verify(mDefaultConfig, getPath("InputWhitespaceBeforeArrayInitializerCheck.java"),
+                expected);
     }
+
 }

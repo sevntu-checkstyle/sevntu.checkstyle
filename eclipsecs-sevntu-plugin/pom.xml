@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -8,24 +7,31 @@
 
   <parent>
     <relativePath>../eclipse-pom.xml</relativePath>
-    <groupId>com.github.sevntu.checkstyle</groupId>
+    <groupId>com.github.sevntu-checkstyle</groupId>
     <artifactId>parent</artifactId>
-    <version>1.22.0</version>
+    <version>1.30.0</version>
   </parent>
 
-  <groupId>com.github.sevntu.checkstyle</groupId>
+  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>eclipsecs-sevntu-plugin</artifactId>
   <packaging>eclipse-plugin</packaging>
 
   <name>eclipse-cs Sevntu Checkstyle Plugin</name>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
   <properties>
-    <eclipsecs.version>7.2.0-SNAPSHOT</eclipsecs.version>
+    <eclipsecs.version>8.10.0-SNAPSHOT</eclipsecs.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>com.github.sevntu.checkstyle</groupId>
+      <groupId>com.github.sevntu-checkstyle</groupId>
       <artifactId>sevntu-checks</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -79,7 +85,7 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>com.github.sevntu.checkstyle</groupId>
+                  <groupId>com.github.sevntu-checkstyle</groupId>
                   <artifactId>sevntu-checks</artifactId>
                   <version>${sevntu.checks.version}</version>
                   <type>jar</type>

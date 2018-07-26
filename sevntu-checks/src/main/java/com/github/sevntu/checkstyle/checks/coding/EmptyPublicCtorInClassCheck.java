@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -37,6 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * Example 1. Check will generate violation for this code:
+ * </p>
  *
  * <pre>
  * class Dummy {
@@ -47,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * <p>
  * Example 2. Check will not generate violation for this code:
+ * </p>
  *
  * <pre>
  * class Dummy {
@@ -55,9 +57,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * class Dummy has only one ctor, which is not public.
+ * </p>
  * <p>
  * Example 3. Check will not generate violation for this code:
+ * </p>
  *
  * <pre>
  * class Dummy {
@@ -68,7 +73,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * class Dummy has multiple ctors.
+ * </p>
  * <p>
  * Check has two properties:
  * </p>
@@ -94,8 +101,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
+ * @since 1.13.0
  */
 public class EmptyPublicCtorInClassCheck extends AbstractCheck {
+
     /**
      * Violation message key.
      */
@@ -167,6 +176,16 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void beginTree(DetailAST aRootNode) {
         singleTypeImports.clear();
         onDemandImports.clear();
@@ -176,7 +195,6 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST node) {
         switch (node.getType()) {
-
             case TokenTypes.IMPORT:
                 final String packageMemberName = getIdentifierName(node);
 
@@ -223,7 +241,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     }
 
     /**
-     * Gets first constructor defininition for class.
+     * Gets first constructor definition for class.
      * @param classDefNode
      *        a class definition node.
      * @return first ctor definition node for class or null if class has no ctor.
@@ -408,15 +426,18 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      */
     private static String
             joinSingleTypeImportWithIdentifier(String importEntry, String identifierName) {
+        final String result;
         final String importEntryLastPart = getSimpleIdentifierNameFromQualifiedName(importEntry);
         final String annotationNameFirstPart = getQualifiedNameFirstPart(identifierName);
 
         if (importEntryLastPart.equals(annotationNameFirstPart)) {
-            return importEntry + identifierName.substring(annotationNameFirstPart.length());
+            result = importEntry + identifierName.substring(annotationNameFirstPart.length());
         }
         else {
-            return null;
+            result = null;
         }
+
+        return result;
     }
 
     /**
@@ -465,14 +486,17 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      *         argument.
      */
     private static String getQualifiedNameFirstPart(String canonicalName) {
+        final String result;
         final int firstDotIndex = canonicalName.indexOf('.');
 
         if (firstDotIndex == -1) {
-            return canonicalName;
+            result = canonicalName;
         }
         else {
-            return canonicalName.substring(0, firstDotIndex);
+            result = canonicalName.substring(0, firstDotIndex);
         }
+
+        return result;
     }
 
     /**
@@ -521,4 +545,5 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
         return result;
     }
+
 }

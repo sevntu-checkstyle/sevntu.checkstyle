@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
@@ -31,14 +30,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * The finally block is always executed unless there is abnormal program termination, either
  * resulting from a JVM crash or from a call to System.exit(0). On top of that, any value returned
- * from within the finnally block will override the value returned prior to execution of the finally
+ * from within the finally block will override the value returned prior to execution of the finally
  * block. This check reports if the finally block contains a return statement.
  * </p>
  *
  * @author <a href="mailto:andrew.uljanenko@gmail.com">Andrew Uljanenko</a>
+ * @since 1.13.0
  */
 
 public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -53,6 +54,16 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST finallyNode) {
         final DetailAST firstSlistNode = finallyNode.findFirstToken(TokenTypes.SLIST);
 
@@ -60,7 +71,7 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
 
         for (DetailAST returnNode : listOfReturnNodes) {
             if (!isReturnInMethodDefinition(returnNode)) {
-                log(finallyNode.getLineNo(), MSG_KEY);
+                log(finallyNode, MSG_KEY);
             }
         }
     }
@@ -76,7 +87,8 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
         DetailAST child = node.getFirstChild();
         while (child != null) {
             if (child.getType() == TokenTypes.LITERAL_RETURN) {
-                return Collections.singletonList(child);
+                result.add(child);
+                break;
             }
             result.addAll(getReturnNodes(child));
             child = child.getNextSibling();
@@ -101,4 +113,5 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -42,6 +42,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class ForbidInstantiationCheck extends AbstractCheck {
 
@@ -100,9 +101,18 @@ public class ForbidInstantiationCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
-
             case TokenTypes.IMPORT:
                 importsList.add(getText(ast));
                 break;
@@ -117,7 +127,6 @@ public class ForbidInstantiationCheck extends AbstractCheck {
                     final String instanceClassName = getClassName(instanceClass);
 
                     for (String forbiddenClass : forbiddenClasses) {
-
                         if (forbiddenClass.startsWith("java.lang.")
                             && forbiddenClass.endsWith(instanceClassName)) {
                             log(ast, MSG_KEY, instanceClassName);
@@ -143,7 +152,6 @@ public class ForbidInstantiationCheck extends AbstractCheck {
                 Utils.reportInvalidToken(ast.getType());
                 break;
         }
-
     }
 
     /**
@@ -228,7 +236,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      *        - DetailAST node is pointing to import definition or to the "new"
      *        literal node ("IMPORT" or "LITERAL_NEW" node types).
      * @return Import text without "import" word and semicolons for given
-     *         "IMPORT" node or instanstiated class Name&Path for given
+     *         "IMPORT" node or instantiated class Name&Path for given
      *         "LITERAL_NEW" node.
      */
     private static String getText(final DetailAST ast) {

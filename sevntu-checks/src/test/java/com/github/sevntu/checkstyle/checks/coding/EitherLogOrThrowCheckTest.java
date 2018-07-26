@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,41 +23,47 @@ import static com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck.M
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * Test for EitherLogOrThrowCheck.
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
-public class EitherLogOrThrowCheckTest extends BaseCheckTestSupport {
+public class EitherLogOrThrowCheckTest extends AbstractModuleTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
-    private final DefaultConfiguration checkConfig = createCheckConfig(EitherLogOrThrowCheck.class);
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
 
     @Test
     public void test() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(EitherLogOrThrowCheck.class);
         checkConfig.addAttribute("loggerFullyQualifiedClassName", "org.slf4j.Logger");
         checkConfig.addAttribute("loggingMethodNames", "error, warn");
 
         final String[] expected = {
-            "19: " + warningMessage,
-            "31: " + warningMessage,
-            "43: " + warningMessage,
-            "82: " + warningMessage,
-            "93: " + warningMessage,
-            "102: " + warningMessage,
-            "112: " + warningMessage,
-            "124: " + warningMessage,
-            "154: " + warningMessage,
-            "164: " + warningMessage,
-            "207: " + warningMessage,
-            "231: " + warningMessage,
-            "241: " + warningMessage,
-            "252: " + warningMessage,
-            "262: " + warningMessage,
+            "19:28: " + warningMessage,
+            "31:27: " + warningMessage,
+            "43:31: " + warningMessage,
+            "82:28: " + warningMessage,
+            "93:28: " + warningMessage,
+            "102:28: " + warningMessage,
+            "112:22: " + warningMessage,
+            "124:23: " + warningMessage,
+            "154:28: " + warningMessage,
+            "164:28: " + warningMessage,
+            "207:28: " + warningMessage,
+            "231:30: " + warningMessage,
+            "241:30: " + warningMessage,
+            "252:25: " + warningMessage,
+            "262:38: " + warningMessage,
         };
         verify(checkConfig, getPath("InputEitherLogOrThrowCheck.java"),
                 expected);
     }
+
 }

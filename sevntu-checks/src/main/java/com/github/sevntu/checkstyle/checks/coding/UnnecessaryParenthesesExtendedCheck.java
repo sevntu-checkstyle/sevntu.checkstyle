@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,6 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import antlr.collections.AST;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -38,7 +37,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * The check is not "type aware", that is to say, it can't tell if parentheses
  * are unnecessary based on the types in an expression.  It also doesn't know
- * about operator precedence and associatvity; therefore it won't catch
+ * about operator precedence and associativity; therefore it won't catch
  * something like
  * </p>
  * <pre>
@@ -51,8 +50,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author Eric Roe
  * @author Antonenko Dmitriy
+ * @since 1.8.0
  */
 public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
+
     /**Warning message key.*/
     public static final String MSG_KEY_ASSIGN = "unnecessary.paren.assign";
     /**Warning message key.*/
@@ -154,50 +155,54 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         final int type = ast.getType();
-        final boolean surrounded = isSurrounded(ast);
         final DetailAST parent = ast.getParent();
 
-        if ((type == TokenTypes.ASSIGN)
-            && (parent.getType() == TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
-            // shouldn't process assign in annotation pairs
-            return;
-        }
+        // shouldn't process assign in annotation pairs
+        if ((type != TokenTypes.ASSIGN)
+            || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
+            final boolean surrounded = isSurrounded(ast);
 
-        // An identifier surrounded by parentheses.
-        if (surrounded && (type == TokenTypes.IDENT)) {
-            parentToSkip = ast.getParent();
-            log(ast, MSG_KEY_IDENT, ast.getText());
-            return;
-        }
-
-        // A literal (numeric or string) surrounded by parentheses.
-        if (surrounded && inTokenList(type, LITERALS)) {
-            parentToSkip = ast.getParent();
-            if (type == TokenTypes.STRING_LITERAL) {
-                log(ast, MSG_KEY_STRING,
-                    chopString(ast.getText()));
+            // An identifier surrounded by parentheses.
+            if (surrounded && (type == TokenTypes.IDENT)) {
+                parentToSkip = ast.getParent();
+                log(ast, MSG_KEY_IDENT, ast.getText());
             }
-            else {
-                log(ast, MSG_KEY_LITERAL, ast.getText());
-            }
-            return;
-        }
-
-        // The rhs of an assignment surrounded by parentheses.
-        if (inTokenList(type, ASSIGNMENTS)) {
-            assignDepth++;
-            final DetailAST last = ast.getLastChild();
-            if (last.getType() == TokenTypes.RPAREN) {
-                final DetailAST subtree = ast.getFirstChild().getNextSibling()
-                    .getNextSibling();
-                final int subtreeType = subtree.getType();
-                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
-                    subtreeType, EQUALS)) {
-                    log(ast, MSG_KEY_ASSIGN);
+            // A literal (numeric or string) surrounded by parentheses.
+            else if (surrounded && inTokenList(type, LITERALS)) {
+                parentToSkip = ast.getParent();
+                if (type == TokenTypes.STRING_LITERAL) {
+                    log(ast, MSG_KEY_STRING,
+                        chopString(ast.getText()));
                 }
-
+                else {
+                    log(ast, MSG_KEY_LITERAL, ast.getText());
+                }
+            }
+            // The rhs of an assignment surrounded by parentheses.
+            else if (inTokenList(type, ASSIGNMENTS)) {
+                assignDepth++;
+                final DetailAST last = ast.getLastChild();
+                if (last.getType() == TokenTypes.RPAREN) {
+                    final DetailAST subtree = ast.getFirstChild().getNextSibling()
+                        .getNextSibling();
+                    final int subtreeType = subtree.getType();
+                    if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                        subtreeType, EQUALS)) {
+                        log(ast, MSG_KEY_ASSIGN);
+                    }
+                }
             }
         }
     }
@@ -212,39 +217,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
             || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
             // An expression is surrounded by parentheses.
             if (type == TokenTypes.EXPR) {
-
-                // If 'mParentToSkip' == 'aAST', then we've already logged a
-                // warning about an immediate child node in visitToken, so we don't
-                // need to log another one here.
-
-                if ((parentToSkip != ast) && exprSurrounded(ast)) {
-                    if (assignDepth >= 1) {
-                        if (!ignoreCalculationOfBooleanVariables || !inTokenList(
-                            subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_ASSIGN);
-                        }
-                    }
-                    else if (ast.getParent().getType()
-                        == TokenTypes.LITERAL_RETURN) {
-                        if (!ignoreCalculationOfBooleanVariablesWithReturn
-                                || !inTokenList(subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_RETURN);
-                        }
-                    }
-                    else if (ast.getParent().getType()
-                            == TokenTypes.LITERAL_ASSERT) {
-                        if (!ignoreCalculationOfBooleanVariablesWithAssert
-                                || !inTokenList(subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_EXPR);
-                        }
-                    }
-                    else {
-                        if (!ignoreCalculationOfBooleanVariables || !inTokenList(
-                            subtreeType(ast), EQUALS)) {
-                            log(ast, MSG_KEY_EXPR);
-                        }
-                    }
-                }
+                leaveTokenExpression(ast);
 
                 parentToSkip = null;
             }
@@ -253,6 +226,45 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
             }
 
             super.leaveToken(ast);
+        }
+    }
+
+    /**
+     * Examines the expression AST for violations.
+     * @param ast The AST to examine.
+     */
+    private void leaveTokenExpression(DetailAST ast) {
+        // If 'mParentToSkip' == 'aAST', then we've already logged a
+        // warning about an immediate child node in visitToken, so we don't
+        // need to log another one here.
+
+        if ((parentToSkip != ast) && exprSurrounded(ast)) {
+            if (assignDepth >= 1) {
+                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                    subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_ASSIGN);
+                }
+            }
+            else if (ast.getParent().getType()
+                == TokenTypes.LITERAL_RETURN) {
+                if (!ignoreCalculationOfBooleanVariablesWithReturn
+                        || !inTokenList(subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_RETURN);
+                }
+            }
+            else if (ast.getParent().getType()
+                    == TokenTypes.LITERAL_ASSERT) {
+                if (!ignoreCalculationOfBooleanVariablesWithAssert
+                        || !inTokenList(subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_EXPR);
+                }
+            }
+            else {
+                if (!ignoreCalculationOfBooleanVariables || !inTokenList(
+                    subtreeType(ast), EQUALS)) {
+                    log(ast, MSG_KEY_EXPR);
+                }
+            }
         }
     }
 
@@ -271,8 +283,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         final DetailAST next = ast.getNextSibling();
 
         return (prev != null) && (next != null)
-            && (prev.getType() == TokenTypes.LPAREN)
-            && (next.getType() == TokenTypes.RPAREN);
+            && (prev.getType() == TokenTypes.LPAREN);
     }
 
     /**
@@ -285,15 +296,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      *         equal to <code>TokenTypes.EXPR</code>.
      */
     private static boolean exprSurrounded(DetailAST ast) {
-        boolean surrounded = false;
-        if (ast.getChildCount() >= MIN_CHILDREN_FOR_MATCH) {
-            final AST n1 = ast.getFirstChild();
-            final AST nn = ast.getLastChild();
-
-            surrounded = (n1.getType() == TokenTypes.LPAREN)
-                && (nn.getType() == TokenTypes.RPAREN);
-        }
-        return surrounded;
+        return ast.getChildCount() >= MIN_CHILDREN_FOR_MATCH;
     }
 
     /**
@@ -324,10 +327,14 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      *         <code>MAX_QUOTED_LENGTH</code>; otherwise <code>aString</code>.
      */
     private static String chopString(String string) {
+        final String result;
         if (string.length() > MAX_QUOTED_LENGTH) {
-            return string.substring(0, MAX_QUOTED_LENGTH) + "...\"";
+            result = string.substring(0, MAX_QUOTED_LENGTH) + "...\"";
         }
-        return string;
+        else {
+            result = string;
+        }
+        return result;
     }
 
     /**
@@ -381,4 +388,5 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         this.ignoreCalculationOfBooleanVariablesWithAssert =
             ignoreCalculationOfBooleanVariablesWithAssert;
     }
+
 }

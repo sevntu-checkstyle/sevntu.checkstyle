@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,75 +23,80 @@ import static com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstru
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class HideUtilityClassConstructorCheckTest
-    extends BaseCheckTestSupport {
+public class HideUtilityClassConstructorCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
+
     /** Only static methods and no constructor - default ctor is visible */
     @Test
     public void testUtilClass() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
             "11:1: " + getCheckMessage(MSG_KEY),
         };
-        verify(checkConfig, getPath("InputArrayTypeStyle.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck.java"), expected);
     }
 
     /** Non static methods - always OK */
     @Test
     public void testNonUtilClass() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputDesignForExtension.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck4.java"), expected);
     }
 
     @Test
     public void testDerivedNonUtilClass() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputNonUtilityClass.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck5.java"), expected);
     }
 
     @Test
     public void testOnlyNonstaticFieldNonUtilClass() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputRegression.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck6.java"), expected);
     }
 
     @Test
     public void testEmptyAbstractClass() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputHideUtilityClassContructor1.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck1.java"), expected);
     }
 
     @Test
     public void testEmptyClassWithOnlyPrivateFields() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputHideUtilityClassContructor2.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck2.java"), expected);
     }
 
     @Test
     public void testClassWithStaticInnerClass() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(HideUtilityClassConstructorCheck.class);
+            createModuleConfig(HideUtilityClassConstructorCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, getPath("InputHideUtilityClassContructor3.java"), expected);
+        verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck3.java"), expected);
     }
 
 }

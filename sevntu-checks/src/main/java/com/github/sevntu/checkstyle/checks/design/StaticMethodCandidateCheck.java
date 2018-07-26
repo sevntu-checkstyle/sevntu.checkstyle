@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -62,6 +62,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
  * </li>
  * </ul>
  * @author Vladislav Lisetskiy
+ * @since 1.17.0
  */
 public class StaticMethodCandidateCheck extends AbstractCheck {
 
@@ -247,11 +248,11 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         final DetailAST modifiersAst = ast.findFirstToken(TokenTypes.MODIFIERS);
         final String methodName = ast.findFirstToken(TokenTypes.IDENT).getText();
         final Frame frame = new Frame(parentFrame);
-        if (modifiersAst.branchContains(TokenTypes.LITERAL_PRIVATE)
-                && !modifiersAst.branchContains(TokenTypes.LITERAL_STATIC)
+        if (modifiersAst.findFirstToken(TokenTypes.LITERAL_PRIVATE) != null
+                && modifiersAst.findFirstToken(TokenTypes.LITERAL_STATIC) == null
                 && !skippedMethods.contains(methodName)) {
             frame.isPrivateMethod = true;
-            frame.lineNo = ast.getLineNo();
+            frame.ast = ast;
             frame.frameName = getIdentText(ast);
         }
         else {
@@ -270,7 +271,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     private static boolean isAnonymousClass(DetailAST ast) {
         final int astType = ast.getType();
         return astType == TokenTypes.LITERAL_NEW
-                && ast.branchContains(TokenTypes.LCURLY);
+                && ast.findFirstToken(TokenTypes.OBJBLOCK) != null;
     }
 
     /**
@@ -332,7 +333,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                             && isFrameTypesAcceptable(frame);
                     if (frame.isPrivateMethod) {
                         if (isStaticCandidate) {
-                            log(frame.lineNo, MSG_KEY, frame.frameName);
+                            log(frame.ast, MSG_KEY, frame.frameName);
                         }
                     }
                     else if (!isStaticCandidate) {
@@ -360,7 +361,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      */
     private static boolean hasStaticModifier(DetailAST ast) {
         return ast.findFirstToken(TokenTypes.MODIFIERS)
-            .branchContains(TokenTypes.LITERAL_STATIC);
+            .findFirstToken(TokenTypes.LITERAL_STATIC) != null;
     }
 
     /**
@@ -387,7 +388,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      *     is still a static method candidate.
      */
     private static boolean isFrameTypesAcceptable(final Frame frame) {
-        Predicate<String> predicate = new Predicate<String>() {
+        final Predicate<String> predicate = new Predicate<String>() {
             @Override
             public boolean apply(String type) {
                 final Optional<Frame> typeFrame = findFrameByName(frame, type);
@@ -643,7 +644,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                             || parametersAst.branchContains(TokenTypes.ELLIPSIS))) {
                     final DetailAST modifiersAst = method.findFirstToken(TokenTypes.MODIFIERS);
 
-                    if (modifiersAst.branchContains(TokenTypes.LITERAL_STATIC)) {
+                    if (modifiersAst.findFirstToken(TokenTypes.LITERAL_STATIC) != null) {
                         // if a static method is found, we keep searching for a similar
                         // non-static one to the end of the frame and if a non-static
                         // method is not found, then the checked method is still
@@ -695,6 +696,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * Contains information about the frame.
      */
     private static class Frame {
+
         /** Name of the class, enum or method. */
         private String frameName;
 
@@ -739,8 +741,8 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         /** Whether the frame has LITERAL_THIS or LITERAL_SUPER. */
         private boolean hasLiteralThisOrSuper;
 
-        /** Number of the line where the frame is declared. */
-        private int lineNo;
+        /** AST where the frame is declared. */
+        private DetailAST ast;
 
         /**
          * Creates new frame.
@@ -752,10 +754,10 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add method call to this Frame.
-         * @param ast EXPR ast.
+         * @param exprAst EXPR ast.
          */
-        public void addExpr(DetailAST ast) {
-            expressions.add(ast);
+        public void addExpr(DetailAST exprAst) {
+            expressions.add(exprAst);
         }
 
         /**
@@ -835,5 +837,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
             };
             return Iterables.tryFind(enumConstants, predicate);
         }
+
     }
+
 }

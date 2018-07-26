@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -33,8 +33,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author lkuehne
  * @version $Revision: 1.12 $
+ * @since 1.8.0
  */
 public class HideUtilityClassConstructorCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -45,6 +47,16 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
         return new int[] {
             TokenTypes.CLASS_DEF,
         };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
     }
 
     @Override
@@ -68,9 +80,9 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                     final DetailAST modifiers =
                         child.findFirstToken(TokenTypes.MODIFIERS);
                     final boolean isStatic =
-                        modifiers.branchContains(TokenTypes.LITERAL_STATIC);
+                        modifiers.findFirstToken(TokenTypes.LITERAL_STATIC) != null;
                     final boolean isPrivate =
-                        modifiers.branchContains(TokenTypes.LITERAL_PRIVATE);
+                        modifiers.findFirstToken(TokenTypes.LITERAL_PRIVATE) != null;
 
                     if (!isStatic && !isPrivate) {
                         hasNonStaticMethodOrField = true;
@@ -83,13 +95,12 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                     hasDefaultCtor = false;
                     final DetailAST modifiers =
                         child.findFirstToken(TokenTypes.MODIFIERS);
-                    if (!modifiers.branchContains(TokenTypes.LITERAL_PRIVATE)
-                        && !modifiers.branchContains(TokenTypes.LITERAL_PROTECTED)) {
+                    if (modifiers.findFirstToken(TokenTypes.LITERAL_PRIVATE) == null
+                        && modifiers.findFirstToken(TokenTypes.LITERAL_PROTECTED) == null) {
                         // treat package visible as public
                         // for the purpose of this Check
                         hasPublicCtor = true;
                     }
-
                 }
                 child = child.getNextSibling();
             }
@@ -109,12 +120,13 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
                 && hasNonPrivateStaticMethodOrField;
 
             if (isUtilClass && (hasAccessibleCtor && !hasStaticModifier)) {
-                log(ast.getLineNo(), ast.getColumnNo(), MSG_KEY);
+                log(ast, MSG_KEY);
             }
         }
     }
 
     /**
+     * Test is AST object has abstract modifier.
      * @param ast class definition for check.
      * @return true if a given class declared as abstract.
      */
@@ -126,6 +138,7 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
     }
 
     /**
+     * Test is AST object has static modifier.
      * @param ast class definition for check.
      * @return true if a given class declared as static.
      */
@@ -135,4 +148,5 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
 
         return staticAST != null;
     }
+
 }

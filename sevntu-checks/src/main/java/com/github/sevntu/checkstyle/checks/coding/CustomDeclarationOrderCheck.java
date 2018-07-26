@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -32,8 +32,6 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.apache.commons.beanutils.ConversionException;
-
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -42,6 +40,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * Checks that the parts of a class(main, nested, member inner) declaration
  * appear in the rules order set by user using regular expressions.
+ * </p>
  * <p>
  * The check forms line which consists of class member annotations, modifiers,
  * type and name from your code and compares it with your RegExp.
@@ -55,7 +54,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * insensitive):
  * <ol>
  * <li>"Field" to denote the Fields</li>
- * <li>"DeclareAnnonClassField" to denote the fields keeping objects of anonymous classes</li>
+ * <li>"DeclareAnonClassField" to denote the fields keeping objects of anonymous classes</li>
  * <li>"Ctor" to denote the Constructors</li>
  * <li>"Method" to denote the Methods</li>
  * <li>"GetterSetter" to denote the group of getter and setter methods</li>
@@ -116,8 +115,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  *
  * <p><b>What is group of getters and setters(<code>GetterSetter</code>)?</b></p>
+ *
  * <p>
  * It is ordered sequence of getters and setters like:
+ * </p>
+ *
  * <pre>
  * public int getValue() {
  *     log.info("Getting value");
@@ -150,8 +152,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:solid.danil@gmail.com">Danil Lopatin</a>
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
+ * @since 1.8.0
  */
 public class CustomDeclarationOrderCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -194,28 +198,40 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      */
     public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
 
+    /** Macro string for inner enumeration. */
     private static final String INNER_ENUM_MACRO = "InnerEnum";
 
+    /** Macro string for inner interface. */
     private static final String INNER_INTERFACE_MACRO = "InnerInterface";
 
+    /** Macro string for inner class. */
     private static final String INNER_CLASS_MACRO = "InnerClass";
 
+    /** Macro string for constructor. */
     private static final String CTOR_MACRO = "Ctor";
 
+    /** Macro string for method. */
     private static final String METHOD_MACRO = "Method";
 
-    private static final String ANNON_CLASS_FIELD_MACRO = "DeclareAnnonClassField";
+    /** Macro string for anonymous class field. */
+    private static final String ANON_CLASS_FIELD_MACRO = "DeclareAnonClassField";
 
+    /** Macro string for field. */
     private static final String FIELD_MACRO = "Field";
 
+    /** Macro string for getter and setter. */
     private static final String GETTER_SETTER_MACRO = "GetterSetter";
 
+    /** Macro string for main method. */
     private static final String MAIN_METHOD_MACRO = "MainMethod";
 
+    /** Prefix for boolean getter method name. */
     private static final String BOOLEAN_GETTER_PREFIX = "is";
 
+    /** Prefix for getter method name. */
     private static final String GETTER_PREFIX = "get";
 
+    /** Prefix for setter method name. */
     private static final String SETTER_PREFIX = "set";
 
     /** Default format for custom declaration check. */
@@ -336,13 +352,21 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
-
             case TokenTypes.CLASS_DEF:
                 if (!isClassDefInMethodDef(ast)) {
                     if (checkInnerClasses && !classDetails.isEmpty()) {
-
                         final int position = getPositionInOrderDeclaration(ast);
 
                         if (position != -1) {
@@ -363,7 +387,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 final DetailAST objBlockAst = ast.getParent();
                 if (objBlockAst != null
                     && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
-
                     final DetailAST classDefAst = objBlockAst.getParent();
 
                     if (classDefAst.getType() == TokenTypes.CLASS_DEF
@@ -384,7 +407,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                         }
                     }
                 }
-
         }
     }
 
@@ -392,10 +414,11 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     public void leaveToken(DetailAST ast) {
         if (ast.getType() == TokenTypes.CLASS_DEF
                 && !isClassDefInMethodDef(ast)) {
+            // -@cs[MoveVariableInsideIf] assignment value is a modification
+            // call so it can't be moved
             final ClassDetail classDetail = classDetails.pop();
 
             if (checkGettersSetters) {
-
                 final Map<DetailAST, DetailAST> gettersSetters =
                         classDetail.getWrongOrderedGettersSetters();
 
@@ -406,7 +429,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Parse input current declaration rule and create new instance of
-     * FormatMather with matcher
+     * FormatMather with matcher.
      *
      * @param currentState input string with MemberDefinition and RegExp.
      * @return new FormatMatcher with parsed and compile rule
@@ -418,7 +441,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         final int classMember = convertMacroToTokenType(macro);
         if (classMember == -1) {
             // if Class Member has been specified wrong
-            throw new ConversionException("Unable to parse " + macro);
+            throw new IllegalArgumentException("Unable to parse " + macro);
         }
 
         // parse regExp
@@ -448,7 +471,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             String inputMemberName) {
         int result = -1;
         if (FIELD_MACRO.equalsIgnoreCase(inputMemberName)
-                || ANNON_CLASS_FIELD_MACRO.equalsIgnoreCase(inputMemberName)) {
+                || ANON_CLASS_FIELD_MACRO.equalsIgnoreCase(inputMemberName)) {
             result = TokenTypes.VARIABLE_DEF;
         }
         else if (GETTER_SETTER_MACRO.equalsIgnoreCase(inputMemberName)
@@ -549,11 +572,10 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      */
     private void logWrongOrderedSetters(Map<DetailAST, DetailAST> gettersSetters) {
         for (Entry<DetailAST, DetailAST> entry: gettersSetters.entrySet()) {
-
             final DetailAST setterAst = entry.getKey();
             final DetailAST getterAst = entry.getValue();
 
-            log(setterAst.getLineNo(),
+            log(setterAst,
                     MSG_KEY_INVALID_SETTER,
                     getIdentifier(setterAst),
                     getIdentifier(getterAst));
@@ -600,10 +622,9 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final FormatMatcher currentRule = customOrderDeclaration.get(index);
             if (currentRule.getClassMember() == ast.getType()
                     && currentRule.getRegexp().matcher(modifiers).find()) {
-                if (currentRule.hasRule(ANNON_CLASS_FIELD_MACRO)
+                if (currentRule.hasRule(ANON_CLASS_FIELD_MACRO)
                         || currentRule.hasRule(GETTER_SETTER_MACRO)
                         || currentRule.hasRule(MAIN_METHOD_MACRO)) {
-
                     final String methodName = getIdentifier(ast);
                     final ClassDetail classDetail = classDetails.peek();
 
@@ -689,14 +710,10 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private boolean isGetterCorrect(DetailAST methodDef, String methodPrefix) {
         boolean result = false;
 
-        final String methodName = getIdentifier(methodDef);
-        final String methodNameWithoutPrefix = getNameWithoutPrefix(methodName, methodPrefix);
-
         final DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
 
         // no parameters
         if (parameters.getChildCount() == 0) {
-
             final DetailAST statementsAst = methodDef.findFirstToken(TokenTypes.SLIST);
             if (statementsAst != null) {
                 final DetailAST returnStatementAst = statementsAst
@@ -705,6 +722,9 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 if (returnStatementAst != null) {
                     final DetailAST exprAst = returnStatementAst.getFirstChild();
                     final String returnedFieldName = getNameOfGetterField(exprAst);
+                    final String methodName = getIdentifier(methodDef);
+                    final String methodNameWithoutPrefix = getNameWithoutPrefix(methodName,
+                            methodPrefix);
                     if (returnedFieldName != null
                             && !localVariableHidesField(statementsAst, returnedFieldName)
                             && verifyFieldAndMethodName(returnedFieldName,
@@ -750,15 +770,13 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private boolean isSetterCorrect(DetailAST methodDefAst, String methodPrefix) {
         boolean result = false;
 
-        final String methodName = getIdentifier(methodDefAst);
-        final String setterFieldName = fieldPrefix
-                + getNameWithoutPrefix(methodName, methodPrefix);
-
         final DetailAST methodTypeAst = methodDefAst.findFirstToken(TokenTypes.TYPE);
 
-        if (methodTypeAst.branchContains(TokenTypes.LITERAL_VOID)) {
-
+        if (methodTypeAst.findFirstToken(TokenTypes.LITERAL_VOID) != null) {
             final DetailAST statementsAst = methodDefAst.findFirstToken(TokenTypes.SLIST);
+            final String methodName = getIdentifier(methodDefAst);
+            final String setterFieldName = fieldPrefix
+                    + getNameWithoutPrefix(methodName, methodPrefix);
 
             result = statementsAst != null
                     && !localVariableHidesField(statementsAst, setterFieldName)
@@ -801,7 +819,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         }
 
         while (astNode.getType() != TokenTypes.IDENT) {
-            if (astNode != null && astNode.getFirstChild() != null) {
+            if (astNode.getFirstChild() != null) {
                 modifiers.append(getModifiersAsText(astNode.getFirstChild()));
                 modifiers.append(" ");
             }
@@ -868,11 +886,12 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * @return identifier of AST, null if AST does not have name.
      */
     private static String getIdentifier(final DetailAST ast) {
+        String result = null;
         final DetailAST ident = ast.findFirstToken(TokenTypes.IDENT);
         if (ident != null) {
-            return ident.getText();
+            result = ident.getText();
         }
-        return null;
+        return result;
     }
 
     /**
@@ -886,7 +905,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         DetailAST currentStatement = statementsAst.getFirstChild();
 
         while (currentStatement != null && currentStatement != statementsAst) {
-
             String nameOfSetterField = null;
             if (currentStatement.getType() == TokenTypes.ASSIGN) {
                 nameOfSetterField = getNameOfAssignedField(currentStatement);
@@ -928,7 +946,6 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         if (assignAst.getChildCount() > 0
                         && (assignAst.getLastChild().getType() == TokenTypes.IDENT
                         || assignAst.getLastChild().getType() == TokenTypes.METHOD_CALL)) {
-
             final DetailAST methodCallDot = assignAst.getFirstChild();
             if (methodCallDot.getChildCount() == 2
                 && "this".equals(methodCallDot.getFirstChild().getText())) {
@@ -960,9 +977,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * <p>
-     * Gets name of the field, that was used in calling setter from a super class
-     * </p>
+     * Gets name of the field, that was used in calling setter from a super class.
+     *
      * @param methodCallDotAst The token to examine.
      * @return
      *      name of field in method parameter.
@@ -1007,9 +1023,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
-
                 nameOfGetterField = exprFirstChild.getText();
-
             }
             else if (exprFirstChild.getType() == TokenTypes.DOT
                     && exprFirstChild.getChildCount() == 2
@@ -1068,9 +1082,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      */
     private static boolean isVoidType(final DetailAST methodAST) {
         boolean result = true;
-        DetailAST methodTypeAST = null;
         if (hasChildToken(methodAST, TokenTypes.TYPE)) {
-            methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
+            final DetailAST methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
             result = hasChildToken(methodTypeAST, TokenTypes.LITERAL_VOID);
         }
         return result;
@@ -1169,6 +1182,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * Private class for members of class and their patterns.
      */
     private static final class FormatMatcher {
+
         /** The regexp to match against. */
         private Pattern regExp;
         /** The Member of Class. */
@@ -1235,7 +1249,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 this.format = newFormat;
             }
             catch (final PatternSyntaxException ex) {
-                throw new ConversionException("unable to parse " + newFormat, ex);
+                throw new IllegalArgumentException("unable to parse " + newFormat, ex);
             }
         }
 
@@ -1252,12 +1266,14 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         public String toString() {
             return rule;
         }
+
     }
 
     /**
      * Class to keep current position and collect getters, setters.
      */
     private static class ClassDetail {
+
         /**
          * Current position in custom order declaration.
          */
@@ -1319,13 +1335,12 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         /**
          * Compare order of getters and setters. Order should be like "getX; setX; getY; setY; ...".
          * If it is wrong order, then wrong ordered setters and getters will be returned as map.
-         * @param allGettersSetters collection of all gettter and setters
+         * @param allGettersSetters collection of all getter and setters
          * @param index index from upper loo
          * @return Map with setter AST as key and getter AST as value.
          */
         private static Map<DetailAST, DetailAST> getWrongOrderedGettersSetters(
                 List<DetailAST> allGettersSetters, int index) {
-
             final DetailAST getterAst = allGettersSetters.get(index);
             final String getterName = getIdentifier(getterAst);
             String getterField = null;
@@ -1345,9 +1360,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                         // method is NOT getter
                         final DetailAST setterAst = allGettersSetters.get(j);
                         final String setterName = getIdentifier(setterAst);
-                        String setterField = null;
                         if (isSetterName(setterName)) {
-                            setterField = getNameWithoutPrefix(
+                            final String setterField = getNameWithoutPrefix(
                                     getIdentifier(setterAst), SETTER_PREFIX);
 
                             // if fields are same and setter is sibling with getter
@@ -1394,6 +1408,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             }
             return result;
         }
+
     }
 
 }

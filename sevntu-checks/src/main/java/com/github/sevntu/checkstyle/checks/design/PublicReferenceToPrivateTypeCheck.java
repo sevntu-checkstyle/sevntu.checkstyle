@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,6 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
- * <p>
  * This Check warns on propagation of inner private types to outer classes:<br>
  * - Externally accessible method if it returns private inner type.<br>
  * - Externally accessible field if it's type is a private inner type.<br>
@@ -71,8 +70,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * dead/useless code<br>
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
+ * @since 1.12.0
  */
 public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
+
     /**
      * Check message key for private types.
      */
@@ -97,6 +98,16 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
             TokenTypes.ENUM_DEF,
             TokenTypes.VARIABLE_DEF,
         };
+    }
+
+    @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
     }
 
     @Override
@@ -141,7 +152,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                         outReturnedType.getText())
                         && !isExtendsOrImplementsSmth(privateType
                                 .getParent())) {
-                    log(outReturnedType.getLineNo(), MSG_KEY,
+                    log(outReturnedType, MSG_KEY,
                             outReturnedType.getText());
                 }
             }
@@ -193,7 +204,6 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private static List<DetailAST>
             getMethodOrFieldReferencedTypes(DetailAST typeAst) {
-
         DetailAST returnedType = null;
         final List<DetailAST> returnedTypes = new ArrayList<>();
         DetailAST currentNode = typeAst;
@@ -214,11 +224,11 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private static List<DetailAST>
             getMethodParameterTypes(DetailAST parametersDefAst) {
-        DetailAST parameterType = null;
         final List<DetailAST> parameterTypes = new ArrayList<>();
 
         if (parametersDefAst.getFirstChild() != null) {
             DetailAST currentNode = parametersDefAst;
+            DetailAST parameterType = null;
 
             while (currentNode != null) {
                 if (currentNode.getType() == TokenTypes.PARAMETER_DEF) {
@@ -232,11 +242,9 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                             parameterTypes.add(parameterType);
                         }
                     }
-
                 }
                 currentNode = Utils.getNextSubTreeNode(currentNode, parametersDefAst);
             }
-
         }
 
         return parameterTypes;
@@ -250,9 +258,9 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private boolean isExtendsOrImplementsSmth(DetailAST classOrInterfaceDefAst) {
         return (classOrInterfaceDefAst
-                .branchContains(TokenTypes.EXTENDS_CLAUSE)
+                .findFirstToken(TokenTypes.EXTENDS_CLAUSE) != null
                 || classOrInterfaceDefAst
-                .branchContains(TokenTypes.IMPLEMENTS_CLAUSE))
+                .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE) != null)
                 && !isExtendsOrImplementsPrivate(classOrInterfaceDefAst);
     }
 
@@ -284,7 +292,6 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                                 .add(implementingOrExtendingAst.getText());
                     }
                 }
-
             }
             currentNode = Utils.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
         }

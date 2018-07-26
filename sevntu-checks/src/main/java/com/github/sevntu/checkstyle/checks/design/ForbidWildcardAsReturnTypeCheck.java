@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,10 +26,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import antlr.collections.AST;
-
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
 
 /**
  * Prevents using wildcards as return type of methods.
@@ -44,10 +44,31 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * to accept the parameters they should accept and reject those they should
  * reject. If the user of a class has to think about wildcard types, there is
  * probably something wrong with the class’s API."
+ * Attention: some JDK classes have public methods with "?"(wildcard) in return type
+ * so it might not always possible to avoid wildcards in return type, as they do not demand user
+ * to bother about it (invisible for user or method). So suppressions should be used.
+ * </p>
+ * <p>
+ * Examples:
+ * <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html">
+ * JDK Collectors</a>, so usage
+ * of methods that return wildcard could force user customizations over Collectors use wildcard in
+ * public methods
+ * </p>
+ * <pre>{@code
+ * // custom util method, wildcard come from Collectors.toList()
+ * public <T> Collector<T, ?, T> singleResult(Function<? super Iterable<T>, T> collector) {
+ *   return Collectors.collectingAndThen(Collectors.toList(), collected -> collected.get(0));
+ * }
+ * }</pre>
+ * <p>If suppressions become too wide spread and annoying it might be reasonable to update Check
+ * with option to ignore wildcard if used with another type (not alone).
  * </p>
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
+ * @since 1.9.0
  */
 public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */
@@ -62,6 +83,19 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      */
     private static final int WILDCARD_SUPER_IDENT =
             TokenTypes.TYPE_LOWER_BOUNDS;
+
+    /** {@link Deprecated Deprecated} annotation name. */
+    private static final String DEPRECATED = "Deprecated";
+
+    /** Fully-qualified {@link Deprecated Deprecated} annotation name. */
+    private static final String FQ_DEPRECATED = "java.lang." + DEPRECATED;
+
+    /** {@link Override Override} annotation name. */
+    private static final String OVERRIDE = "Override";
+
+    /** Fully-qualified {@link Override Override} annotation name. */
+    private static final String FQ_OVERRIDE = "java.lang." + OVERRIDE;
+
     /**
      * Empty array of DetailAST.
      */
@@ -185,23 +219,45 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST methodDefAst) {
         final String methodScope = getVisibilityScope(methodDefAst);
-        if (((checkPublicMethods && "public".equals(methodScope))
-                || (checkPrivateMethods && "private".equals(methodScope))
-                || (checkProtectedMethods && "protected".equals(methodScope))
-                || (checkPackageMethods && "package".equals(methodScope)))
+        if (isCheckableMethodScope(methodScope)
                 && (checkOverrideMethods
-                        || !hasAnnotation(methodDefAst, "Override"))
+                        || (!AnnotationUtility.containsAnnotation(methodDefAst, OVERRIDE)
+                            && !AnnotationUtility.containsAnnotation(methodDefAst, FQ_OVERRIDE)))
                 && (checkDeprecatedMethods
-                        || !hasAnnotation(methodDefAst, "Deprecated"))) {
+                        || (!AnnotationUtility.containsAnnotation(methodDefAst, DEPRECATED)
+                            && !AnnotationUtility.containsAnnotation(methodDefAst,
+                                FQ_DEPRECATED)))) {
             final List<DetailAST> wildcardTypeArguments =
                     getWildcardArgumentsAsMethodReturnType(methodDefAst);
             if (!wildcardTypeArguments.isEmpty()
                     && !isIgnoreCase(methodDefAst, wildcardTypeArguments)) {
-                log(methodDefAst.getLineNo(), MSG_KEY);
+                log(methodDefAst, MSG_KEY);
             }
         }
+    }
+
+    /**
+     * Checks if the method scope is defined as one of the types to check.
+     * @param methodScope The string version of the scope.
+     * @return {@code true} if the method should be checked.
+     */
+    private boolean isCheckableMethodScope(String methodScope) {
+        return (checkPublicMethods && "public".equals(methodScope))
+                || (checkPrivateMethods && "private".equals(methodScope))
+                || (checkProtectedMethods && "protected".equals(methodScope))
+                || (checkPackageMethods && "package".equals(methodScope));
     }
 
     /**
@@ -266,35 +322,8 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return identifier of aAST, null if AST does not have identifier.
      */
     private static String getIdentifier(final DetailAST ast) {
-        String result = null;
         final DetailAST identifier = ast.findFirstToken(TokenTypes.IDENT);
-        if (identifier != null) {
-            result = identifier.getText();
-        }
-        return result;
-    }
-
-    /**
-     * Verify that method definition contains specified annotation.
-     * @param methodDefAst DetailAST of method definition.
-     * @param annotationTitle Annotation title
-     * @return true if method definition contains specified annotation.
-     */
-    private static boolean hasAnnotation(DetailAST methodDefAst,
-            String annotationTitle) {
-        boolean result = false;
-        final DetailAST modifiersAst = methodDefAst.getFirstChild();
-        if (hasChildToken(modifiersAst, TokenTypes.ANNOTATION)) {
-            DetailAST modifierAst = modifiersAst.getFirstChild();
-            while (modifierAst != null) {
-                if (modifierAst.getType() == TokenTypes.ANNOTATION
-                        && annotationTitle.equals(getIdentifier(modifierAst))) {
-                    result = true;
-                    break;
-                }
-                modifierAst = modifierAst.getNextSibling();
-            }
-        }
+        final String result = identifier.getText();
         return result;
     }
 
@@ -431,4 +460,5 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
         }
         return result;
     }
+
 }

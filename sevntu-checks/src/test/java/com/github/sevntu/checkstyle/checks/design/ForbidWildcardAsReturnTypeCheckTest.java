@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -27,14 +27,16 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
 
 /**
  * Test class for ForbidWildcardInReturnTypeCheck.
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
-public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
+public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSupport {
+
     /**
      * Line numbers with methods which have wildcard in return type.
      */
@@ -94,10 +96,6 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     private static final SortedSet<Integer> LINES_WITH_IGNORE_CLASS_NAMES =
             newSetOfLines(new Integer[] {214, 218, 221, });
     /**
-     * Ignore list for class names. Regexp.
-     */
-    private static final String IGNORE_LIST_PATTERN = "(Compar.+)|Collection";
-    /**
      * Message for this check.
      */
     private final String warningMessage = getCheckMessage(MSG_KEY);
@@ -112,6 +110,11 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         LINES.addAll(LINES_WITH_PUBLIC_METHODS);
     }
 
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
+
     /**
      * Main test.
      * @throws Exception
@@ -121,7 +124,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testDefault()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -134,7 +137,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(LINES);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -147,7 +150,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testOnlyPublicMethods()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "false");
         checkConfig.addAttribute("checkProtectedMethods", "false");
@@ -161,7 +164,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PUBLIC_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -174,7 +177,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testOnlyPrivateMethods()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "false");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "false");
@@ -188,7 +191,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PRIVATE_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -201,7 +204,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testOnlyProtectedMethods()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "false");
         checkConfig.addAttribute("checkPrivateMethods", "false");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -215,7 +218,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PROTECTED_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -228,7 +231,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testOnlyPackageMethods()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "false");
         checkConfig.addAttribute("checkPrivateMethods", "false");
         checkConfig.addAttribute("checkProtectedMethods", "false");
@@ -242,7 +245,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
                 createExpectedMessages(LINES_WITH_PACKAGE_METHODS);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -255,7 +258,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testAllowSuper()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -271,7 +274,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptSuper);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -284,7 +287,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testAllowExtends()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -300,7 +303,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptExtends);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -313,7 +316,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testAllowExtendsAndSuper()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -330,7 +333,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptSuperAndExtends);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -343,7 +346,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testWithIgnoreList()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -353,14 +356,14 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
         checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
         checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex",
-                IGNORE_LIST_PATTERN);
+                "(Compar.+)|Collection");
         final SortedSet<Integer> exceptSuperAndExtends =
                 new TreeSet<>(LINES);
         exceptSuperAndExtends.removeAll(LINES_WITH_IGNORE_CLASS_NAMES);
         final String[] expected = createExpectedMessages(exceptSuperAndExtends);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -373,7 +376,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testAllExceptOverrideMethods()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -389,7 +392,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptOverride);
 
         verify(checkConfig,
-                getPath("InputForbidWildcardAsReturnType.java"),
+                getPath("InputForbidWildcardAsReturnTypeCheck.java"),
                 expected);
     }
 
@@ -402,7 +405,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
     public final void testAllExceptDeprecatedMethods()
             throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(ForbidWildcardAsReturnTypeCheck.class);
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
         checkConfig.addAttribute("checkPublicMethods", "true");
         checkConfig.addAttribute("checkPrivateMethods", "true");
         checkConfig.addAttribute("checkProtectedMethods", "true");
@@ -418,8 +421,19 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = createExpectedMessages(exceptOverride);
 
         verify(checkConfig,
-            getPath("InputForbidWildcardAsReturnType.java"),
+            getPath("InputForbidWildcardAsReturnTypeCheck.java"),
             expected);
+    }
+
+    @Test
+    public final void testFullyQualifiedAnnotation()
+            throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
+
+        verify(checkConfig,
+            getPath("InputForbidWildcardAsReturnTypeCheckQualifiedAnnotation.java"),
+            CommonUtils.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -429,7 +443,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
      * @return sorted set of line numbers.
      */
     private static SortedSet<Integer> newSetOfLines(Integer[] aLines) {
-        return new TreeSet<Integer>(Arrays.asList(aLines));
+        return new TreeSet<>(Arrays.asList(aLines));
     }
 
     /**
@@ -441,9 +455,26 @@ public class ForbidWildcardAsReturnTypeCheckTest extends BaseCheckTestSupport {
         final String[] expected = new String[aLines.size()];
         int index = 0;
         for (Integer element : aLines) {
-            expected[index] = element + ": " + warningMessage;
+            expected[index] = element + ":" + getColumnNumber(element) + ": " + warningMessage;
             index++;
         }
         return expected;
     }
+
+    private static int getColumnNumber(int lineNumber) {
+        final int result;
+
+        if (lineNumber >= 264 && lineNumber < 280) {
+            result = 13;
+        }
+        else if (lineNumber < 228 || lineNumber >= 280 && lineNumber < 290 || lineNumber >= 304) {
+            result = 5;
+        }
+        else {
+            result = 9;
+        }
+
+        return result;
+    }
+
 }

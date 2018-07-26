@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * This Check warns on throwing anonymous exception.<br>
+ * This Check warns on throwing anonymous exception.
+ * </p>
  * Examples:
  * <pre>
  * catch (Exception e) {
@@ -57,8 +58,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <br>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
+ * @since 1.11.0
  */
 public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
+
     /**
      * Warning message key.
      */
@@ -90,6 +93,16 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST literalThrowOrVariableDefAst) {
         switch (literalThrowOrVariableDefAst.getType()) {
             case TokenTypes.LITERAL_THROW:
@@ -113,7 +126,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
         if (throwingLiteralNewAst != null
                 && hasObjectBlock(throwingLiteralNewAst)) {
-            log(throwDefAst.getLineNo(), MSG_KEY);
+            log(throwDefAst, MSG_KEY);
         }
         else if (throwingLiteralNewAst == null) {
             final DetailAST throwingExceptionNameAst = getThrowingExceptionNameAst(throwDefAst
@@ -121,7 +134,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
             if (throwingExceptionNameAst != null
                     && anonymousExceptions.contains(throwingExceptionNameAst
                             .getText())) {
-                log(throwDefAst.getLineNo(), MSG_KEY);
+                log(throwDefAst, MSG_KEY);
             }
         }
     }
@@ -129,7 +142,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Analyzes variable definition for anonymous exception definition. if found
      * - adds it to list of anonymous exceptions
-     * @param variableDefAst The token to exmaine.
+     * @param variableDefAst The token to examine.
      */
     private void
             lookForAnonymousExceptionDefinition(DetailAST variableDefAst) {
@@ -157,7 +170,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Gets the literal new node from variable definition node or throw node.
-     * @param literalThrowOrVariableDefAst The token to exmaine.
+     * @param literalThrowOrVariableDefAst The token to examine.
      * @return the specified node.
      */
     private static DetailAST
@@ -168,7 +181,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Retrieves the AST node which contains the name of throwing exception.
-     * @param expressionAst The token to exmaine.
+     * @param expressionAst The token to examine.
      * @return the specified node.
      */
     private static DetailAST
@@ -178,7 +191,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Checks if definition with a literal new has an ObjBlock.
-     * @param literalNewAst The token to exmaine.
+     * @param literalNewAst The token to examine.
      * @return true if the new has an object block.
      */
     private static boolean hasObjectBlock(DetailAST literalNewAst) {
@@ -188,7 +201,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Checks if variable name is definitely an exception name. It is so if
      * variable type ends with "Exception" suffix
-     * @param variableNameAst The token to exmaine.
+     * @param variableNameAst The token to examine.
      * @return true if the name is an exception.
      */
     private boolean isExceptionName(DetailAST variableNameAst) {

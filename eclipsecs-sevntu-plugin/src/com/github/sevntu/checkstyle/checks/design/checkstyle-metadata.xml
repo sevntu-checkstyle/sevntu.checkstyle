@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE checkstyle-metadata PUBLIC
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
-"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+"http://checkstyle.org/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
   <rule-group-metadata name="SevNTU checks" priority="1600">
 
@@ -158,6 +158,25 @@
       <description>%InnerClassCheck.desc</description>
 
       <message-key key="arrangement.members.before.inner"/>
+    </rule-metadata>
+
+    <rule-metadata name="%CheckstyleTestMakeupCheck.name" internal-name="CheckstyleTestMakeupCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck"/>
+      <description>%CheckstyleTestMakeupCheck.desc</description>
+
+      <property-metadata name="createMethodRegexp" datatype="Regex" default-value="create(Root|Module)Config|getModuleConfig">
+        <description>%CheckstyleTestMakeupCheck.createMethodRegexp</description>
+      </property-metadata>
+
+      <property-metadata name="verifyMethodRegexp" datatype="Regex" default-value="verify(Warns|Suppressed)?">
+        <description>%CheckstyleTestMakeupCheck.verifyMethodRegexp</description>
+      </property-metadata>
+
+      <message-key key="tester.config.not.assigned"/>
+      <message-key key="tester.config.not.assigned.with"/>
+      <message-key key="tester.config.not.assigned.properly"/>
+      <message-key key="tester.unknown.property"/>
+      <message-key key="tester.config.not.found"/>
     </rule-metadata>
 
   </rule-group-metadata>

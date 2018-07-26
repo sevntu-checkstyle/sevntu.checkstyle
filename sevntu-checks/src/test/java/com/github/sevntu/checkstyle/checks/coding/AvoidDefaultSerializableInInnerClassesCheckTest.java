@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,79 +23,93 @@ import static com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializabl
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class AvoidDefaultSerializableInInnerClassesCheckTest extends
-    BaseCheckTestSupport {
+public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractModuleTestSupport {
+
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
+    }
+
     @Test
-    public void testWithAllowPartiaFalse()
+    public void testWithAllowPartialFalse()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {
-            "33: " + warningMessage,
-            "45: " + warningMessage,
-            "52: " + warningMessage,
-            "59: " + warningMessage,
-            "67: " + warningMessage,
-            "74: " + warningMessage,
-            "97: " + warningMessage,
-            "104: " + warningMessage,
-            "121: " + warningMessage,
-            "134: " + warningMessage,
-            "145: " + warningMessage,
-            "159: " + warningMessage,
-            "171: " + warningMessage,
-            "179: " + warningMessage,
-            "187: " + warningMessage,
+            "33:48: " + warningMessage,
+            "45:31: " + warningMessage,
+            "52:31: " + warningMessage,
+            "59:30: " + warningMessage,
+            "67:9: " + warningMessage,
+            "74:30: " + warningMessage,
+            "97:30: " + warningMessage,
+            "104:34: " + warningMessage,
+            "121:30: " + warningMessage,
+            "134:30: " + warningMessage,
+            "145:36: " + warningMessage,
+            "159:42: " + warningMessage,
+            "171:39: " + warningMessage,
+            "179:42: " + warningMessage,
+            "187:35: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
+                expected);
     }
 
     @Test
     public void testPrivateNotRealReadObject()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
 
         final String[] expected = {
-            "10: " + warningMessage,
+            "10:22: " + warningMessage,
         };
 
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses2.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck2.java"),
+                expected);
     }
 
     @Test
     public void testRealReadObjectNotRealReadObjectRealPrivate()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
 
         final String[] expected = {};
 
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses3.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck3.java"),
+                expected);
     }
 
     @Test
-    public void testWithAllowPartiaTrue()
+    public void testWithAllowPartialTrue()
             throws Exception {
-        final DefaultConfiguration checkConfig = createCheckConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
         checkConfig.addAttribute("allowPartialImplementation", "true");
         final String[] expected = {
-            "33: " + warningMessage,
-            "59: " + warningMessage,
-            "67: " + warningMessage,
-            "74: " + warningMessage,
-            "97: " + warningMessage,
-            "104: " + warningMessage,
-            "121: " + warningMessage,
-            "134: " + warningMessage,
-            "145: " + warningMessage,
-            "171: " + warningMessage,
-            "187: " + warningMessage,
+            "33:48: " + warningMessage,
+            "59:30: " + warningMessage,
+            "67:9: " + warningMessage,
+            "74:30: " + warningMessage,
+            "97:30: " + warningMessage,
+            "104:34: " + warningMessage,
+            "121:30: " + warningMessage,
+            "134:30: " + warningMessage,
+            "145:36: " + warningMessage,
+            "171:39: " + warningMessage,
+            "187:35: " + warningMessage,
         };
-        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClasses1.java"), expected);
+        verify(checkConfig, getPath("InputAvoidDefaultSerializableInInnerClassesCheck1.java"),
+                expected);
     }
+
 }

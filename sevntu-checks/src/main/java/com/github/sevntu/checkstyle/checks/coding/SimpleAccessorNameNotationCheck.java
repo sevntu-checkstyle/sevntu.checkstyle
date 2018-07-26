@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * , for example:</p>
  *
  * <pre>
- * &lt;module name="SimpleAccesorNameNotationCheck"&gt; &lt;
+ * &lt;module name="SimpleAccessorNameNotationCheck"&gt; &lt;
  * property name="prefix" value="m_"/&gt;
  * &lt;/module&gt;
  * </pre>
@@ -47,8 +47,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  * @author <a href="mailto:iliadubinin91@gmail.com">Ilja Dubinin</a>
+ * @since 1.9.0
  */
 public class SimpleAccessorNameNotationCheck extends AbstractCheck {
+
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
@@ -92,23 +94,33 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void visitToken(DetailAST methodDef) {
-        final String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
         if (hasBody(methodDef) && !isMethodAtAnonymousClass(methodDef)) {
+            final String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
             if (methodName.startsWith(BOOLEAN_GETTER_PREFIX)) {
                 if (!isGetterCorrect(methodDef,
                         methodName.substring(BOOLEAN_GETTER_PREFIX.length()))) {
-                    log(methodDef.getLineNo(), MSG_KEY_GETTER);
+                    log(methodDef, MSG_KEY_GETTER);
                 }
             }
             else if (methodName.startsWith(SETTER_PREFIX)) {
                 if (!isSetterCorrect(methodDef, methodName.substring(SETTER_PREFIX.length()))) {
-                    log(methodDef.getLineNo(), MSG_KEY_SETTER);
+                    log(methodDef, MSG_KEY_SETTER);
                 }
             }
             else if (methodName.startsWith(GETTER_PREFIX)) {
                 if (!isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length()))) {
-                    log(methodDef.getLineNo(), MSG_KEY_GETTER);
+                    log(methodDef, MSG_KEY_GETTER);
                 }
             }
         }
@@ -127,17 +139,14 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private boolean isSetterCorrect(DetailAST methodDef, String methodName) {
         final DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
         boolean result = true;
-        if (methodType.branchContains(TokenTypes.LITERAL_VOID)) {
-
+        if (methodType.findFirstToken(TokenTypes.LITERAL_VOID) != null) {
             DetailAST currentVerifiedTop = methodDef.findFirstToken(TokenTypes.SLIST);
 
             if (containsOnlyExpression(currentVerifiedTop)) {
-
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
-                final boolean containsOnlyOneAssignment = currentVerifiedTop.getChildCount() == 1
-                        && currentVerifiedTop.getFirstChild().getType() == TokenTypes.ASSIGN;
+                final boolean containsOnlyOneAssignment = currentVerifiedTop.getFirstChild()
+                        .getType() == TokenTypes.ASSIGN;
                 if (containsOnlyOneAssignment) {
-
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
                     final DetailAST parameters =
                             methodDef.findFirstToken(TokenTypes.PARAMETERS);
@@ -147,7 +156,6 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
                     if (nameOfSettingField != null
                             && verifyFieldAndMethodName(nameOfSettingField,
                                     methodName)) {
-
                         result = false;
                     }
                 }
@@ -171,22 +179,18 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
         final DetailAST parameters = methodDef.findFirstToken(TokenTypes.PARAMETERS);
         boolean result = true;
         if (parameters.getChildCount() == 0) {
-
             DetailAST currentVerifiedTop =
                     methodDef.findFirstToken(TokenTypes.SLIST);
             if (containsOnlyReturn(currentVerifiedTop)) {
-
                 currentVerifiedTop = currentVerifiedTop.getFirstChild();
 
                 if (isCorrectReturn(currentVerifiedTop)) {
-
                     currentVerifiedTop = currentVerifiedTop.getFirstChild();
                     final String nameOfGettingField = getNameOfGettingField(currentVerifiedTop);
 
                     if (nameOfGettingField != null
                             && verifyFieldAndMethodName(nameOfGettingField,
                                     methodName)) {
-
                         result = false;
                     }
                 }
@@ -207,8 +211,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private static boolean containsOnlyExpression(DetailAST objectBlock) {
         //three child: EXPR, SEMI and RCURLY
         return objectBlock.getChildCount() == EXPRESSION_BLOCK_CHILD_COUNT
-                && objectBlock.getFirstChild().getType() == TokenTypes.EXPR
-                && objectBlock.findFirstToken(TokenTypes.SEMI) != null;
+                && objectBlock.getFirstChild().getType() == TokenTypes.EXPR;
     }
 
     /**
@@ -225,32 +228,23 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             DetailAST parameters) {
         String nameOfSettingField = null;
 
-        final DetailAST assigningFirstChild = assign.getFirstChild();
-
         if (assign.getChildCount() == 2
                 && assign.getLastChild().getType() == TokenTypes.IDENT) {
+            final DetailAST assigningFirstChild = assign.getFirstChild();
 
             if (assigningFirstChild.getType() == TokenTypes.IDENT) {
-
                 nameOfSettingField = assigningFirstChild.getText();
 
                 if (checkNameOfParameters(parameters, nameOfSettingField)) {
                     nameOfSettingField = null;
                 }
-
             }
             else {
                 if (assigningFirstChild.getType() == TokenTypes.DOT) {
-
-                    if (assigningFirstChild.getChildCount() == 2
-                            && "this".equals(assigningFirstChild
-                                    .getFirstChild().getText())
-                            && assigningFirstChild.getLastChild().getType() == TokenTypes.IDENT) {
-
+                    if ("this".equals(assigningFirstChild.getFirstChild().getText())) {
                         nameOfSettingField = assigningFirstChild.getLastChild()
                                 .getText();
                     }
-
                 }
             }
         }
@@ -292,14 +286,13 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Return true when getter has correct arguments of return.
      * </p>
      * @param literalReturn
-     *        - DeailAST contains LITERAL_RETURN
+     *        - DetailAST contains LITERAL_RETURN
      * @return - true when getter has correct return.
      */
     private static boolean isCorrectReturn(DetailAST literalReturn) {
         //two child: EXPR and SEMI
         return literalReturn.getChildCount() == 2
-                && literalReturn.getFirstChild().getType() == TokenTypes.EXPR
-                && literalReturn.getLastChild().getType() == TokenTypes.SEMI;
+                && literalReturn.getFirstChild().getType() == TokenTypes.EXPR;
     }
 
     /**
@@ -317,16 +310,12 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
             final DetailAST exprFirstChild = expr.getFirstChild();
 
             if (exprFirstChild.getType() == TokenTypes.IDENT) {
-
                 nameOfGettingField = exprFirstChild.getText();
-
             }
             else {
                 if (exprFirstChild.getType() == TokenTypes.DOT
                         && exprFirstChild.getChildCount() == 2
-                        && exprFirstChild.getFirstChild().getType() == TokenTypes.LITERAL_THIS
-                        && exprFirstChild.getLastChild().getType() == TokenTypes.IDENT) {
-
+                        && exprFirstChild.getFirstChild().getType() == TokenTypes.LITERAL_THIS) {
                     nameOfGettingField = exprFirstChild.getLastChild().getText();
                 }
             }
@@ -340,26 +329,23 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Return true when name of the field is not contained in parameters of the
      * setter method.
      * </p>
-     * @param paramrters
+     * @param parameters
      *        - DetailAST contains parameters of the setter.
      * @param fieldName
      *        - name of the field.
      * @return true when name of the field is not contained in parameters.
      */
-    private static boolean checkNameOfParameters(DetailAST paramrters,
+    private static boolean checkNameOfParameters(DetailAST parameters,
             String fieldName) {
-
         boolean isNameOfParameter = false;
-        final int parametersChildCount = paramrters.getChildCount();
+        final int parametersChildCount = parameters.getChildCount();
 
-        final DetailAST parameterDef = paramrters
+        final DetailAST parameterDef = parameters
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
 
         for (int i = 0; i < parametersChildCount && !isNameOfParameter; i++) {
-
             isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText()
                     .equals(fieldName);
-
         }
 
         return isNameOfParameter;
@@ -389,4 +375,5 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
         final DetailAST body = methodDef.findFirstToken(TokenTypes.SLIST);
         return body != null;
     }
+
 }

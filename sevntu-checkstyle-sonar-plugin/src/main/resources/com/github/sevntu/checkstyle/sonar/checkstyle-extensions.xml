@@ -135,7 +135,7 @@
     </param>
     <param key="checkOverrideMethods" type="BOOLEAN">
       <defaultValue>false</defaultValue>
-      <description>Check overrided methods.</description>
+      <description>Check overridden methods.</description>
     </param>
     <param key="checkDeprecatedMethods" type="BOOLEAN">
       <defaultValue>false</defaultValue>
@@ -159,7 +159,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</key>
     <name>No Main Method In Abstract Class</name>
     <category name="design"/>
-    <description>Forbids main methods in abstract classes. Rationale: existance of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
+    <description>Forbids main methods in abstract classes. Rationale: existence of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</configKey>
   </rule>
 
@@ -378,6 +378,22 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck</key>
+    <name>Forbid Certain Method</name>
+    <category name="coding"/>
+    <description>Forbids certain method in class.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck</configKey>
+    <param key="methodName" type="REGULAR_EXPRESSION">
+      <defaultValue>^$</defaultValue>
+      <description>Regex to match method name.</description>
+    </param>
+    <param key="argumentCount" type="STRING">
+      <defaultValue>0-</defaultValue>
+      <description>Number or range to match number of arguments. Multiple numbers/ranges must be comma separated.</description>
+    </param>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</key>
     <name>Forbid Instantiation</name>
     <category name="coding"/>
@@ -486,7 +502,7 @@
     </param>
     <param key="highlightAllDuplicates" type="BOOLEAN">
       <defaultValue>false</defaultValue>
-      <description>Check to highlight all dublicates.</description>
+      <description>Check to highlight all duplicates.</description>
     </param>
   </rule>
 
@@ -607,7 +623,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</key>
     <name>Public Reference To Private Type</name>
     <category name="design"/>
-    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classe, interfaces or enumerations.</description>
+    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classes, interfaces or enumerations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</configKey>
   </rule>
 
@@ -777,20 +793,12 @@
     <key>com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</key>
     <name>Check for enum values name</name>
     <category name="naming"/>
-    <description>Check forces enum values to match the specific pattern</description>
+    <description>Checks that enumeration value names conform to a format specified by the format property.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</configKey>
 
-    <param key="constFormat" type="STRING">
-      <description>Regex for Values Enumeration name to conform</description>
+    <param key="format" type="STRING">
+      <description>Regex for enumeration value names to conform</description>
       <defaultValue>^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$</defaultValue>
-    </param>
-    <param key="objFormat" type="STRING">
-      <description>Regex for Class Enumeration name to conform</description>
-      <defaultValue>^[A-Z][a-zA-Z0-9]*$</defaultValue>
-    </param>
-    <param key="excludes" type="STRING">
-      <description>Exclude method and field names regexp list (comma-separated)</description>
-      <defaultValue>toString</defaultValue>
     </param>
   </rule>
 
@@ -903,5 +911,37 @@
     <category name="design"/>
     <description>Check nested (internal) classes to be declared at the bottom of the class after all methods (fields) declaration.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.InnerClassCheck</configKey>
+  </rule>
+
+  <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</key>
+    <name>Move variable inside if check</name>
+    <category name="coding"/>
+    <description>Checks if a variable is only used inside if statements and asks for it's declaration to be moved there too.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</configKey>
+  </rule>
+
+  <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</key>
+    <name>Require fail for try/catch in junit check</name>
+    <category name="coding"/>
+    <description>Checks if a try/catch block has a junit fail assertion inside the try  for a junit method.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</configKey>
+  </rule>
+
+  <rule>
+    <key>com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</key>
+    <name>Custom check to ensure Checkstyle tests are designed correctly.</name>
+    <category name="design"/>
+    <description>Custom check to ensure Checkstyle tests are designed correctly.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</configKey>
+    <param key="createMethodRegexp" type="REGULAR_EXPRESSION">
+      <defaultValue>create(Root|Module)Config|getModuleConfig</defaultValue>
+      <description>Regular expression for matching a create configuration method by name.</description>
+    </param>
+    <param key="verifyMethodRegexp" type="REGULAR_EXPRESSION">
+      <defaultValue>verify(Warns|Suppressed)?</defaultValue>
+      <description>Regular expression for matching a verify method by name.</description>
+    </param>
   </rule>
 </rules>

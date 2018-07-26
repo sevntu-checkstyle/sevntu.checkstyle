@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Forbids main methods in abstract classes. Existence of 'main' method can
  * mislead a developer to consider this class as a ready-to-use implementation.
  * @author Baratali Izmailov <a href="mailto:barataliba@gmail.com">email</a>
+ * @since 1.9.0
  */
 public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
+
     /**
      * Key for error message.
      */
@@ -55,6 +57,16 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public final void visitToken(final DetailAST ast) {
         if (ast.getType() == TokenTypes.CLASS_DEF) {
             if (isNotInnerClass(ast)) {
@@ -68,7 +80,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
         }
         // type of token is METHOD_DEF
         else if (isChildOfCurrentObjBlockToken(ast) && isMainMethod(ast)) {
-            log(ast.getLineNo(), MSG_KEY);
+            log(ast, MSG_KEY);
             // remove current objblock
             objBlockTokensStack.pop();
         }
@@ -110,13 +122,9 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      * @return true if AST has abstract modifier, false otherwise.
      */
     private static boolean hasAbstractModifier(final DetailAST classDefAST) {
-        boolean result = false;
-        if (hasChildToken(classDefAST, TokenTypes.MODIFIERS)) {
-            final DetailAST modifiers =
-                    classDefAST.findFirstToken(TokenTypes.MODIFIERS);
-            result = hasChildToken(modifiers, TokenTypes.ABSTRACT);
-        }
-        return result;
+        final DetailAST modifiers =
+                classDefAST.findFirstToken(TokenTypes.MODIFIERS);
+        return hasChildToken(modifiers, TokenTypes.ABSTRACT);
     }
 
     /**
@@ -148,10 +156,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      */
     private static String getIdentifier(final DetailAST ast) {
         final DetailAST ident = ast.findFirstToken(TokenTypes.IDENT);
-        if (ident != null) {
-            return ident.getText();
-        }
-        return null;
+        return ident.getText();
     }
 
     /**
@@ -162,14 +167,10 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      *         false otherwise.
      */
     private static boolean isMainMethodModifiers(final DetailAST methodAST) {
-        boolean result = false;
-        if (hasChildToken(methodAST, TokenTypes.MODIFIERS)) {
-            final DetailAST modifiers =
-                    methodAST.findFirstToken(TokenTypes.MODIFIERS);
-            result = hasChildToken(modifiers, TokenTypes.LITERAL_PUBLIC)
-                    && hasChildToken(modifiers, TokenTypes.LITERAL_STATIC);
-        }
-        return result;
+        final DetailAST modifiers =
+                methodAST.findFirstToken(TokenTypes.MODIFIERS);
+        return hasChildToken(modifiers, TokenTypes.LITERAL_PUBLIC)
+                && hasChildToken(modifiers, TokenTypes.LITERAL_STATIC);
     }
 
     /**
@@ -179,13 +180,8 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
      * @return true if AST's type void, false otherwise.
      */
     private static boolean isVoidType(final DetailAST methodAST) {
-        boolean result = true;
-        DetailAST methodTypeAST = null;
-        if (hasChildToken(methodAST, TokenTypes.TYPE)) {
-            methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
-            result = hasChildToken(methodTypeAST, TokenTypes.LITERAL_VOID);
-        }
-        return result;
+        final DetailAST methodTypeAST = methodAST.findFirstToken(TokenTypes.TYPE);
+        return hasChildToken(methodTypeAST, TokenTypes.LITERAL_VOID);
     }
 
     /**
@@ -276,4 +272,5 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     private static boolean hasChildToken(DetailAST ast, int tokenType) {
         return ast.findFirstToken(tokenType) != null;
     }
+
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,44 +20,51 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck.MSG_KEY;
+import static org.junit.Assert.assertArrayEquals;
 
 import java.io.File;
 
 import org.junit.Test;
 
-import com.github.sevntu.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
+public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
+
+    @Override
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/design";
+    }
 
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
-            "37: " + getCheckMessage(MSG_KEY, "foo11"),
-            "56: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
-            "86: " + getCheckMessage(MSG_KEY, "doSomething"),
-            "123: " + getCheckMessage(MSG_KEY, "main"),
-            "176: " + getCheckMessage(MSG_KEY, "bar"),
-            "184: " + getCheckMessage(MSG_KEY, "fooBar"),
-            "186: " + getCheckMessage(MSG_KEY, "barFoo"),
-            "188: " + getCheckMessage(MSG_KEY, "fooo"),
-            "190: " + getCheckMessage(MSG_KEY, "baar"),
-            "192: " + getCheckMessage(MSG_KEY, "fOo"),
-            "194: " + getCheckMessage(MSG_KEY, "foO"),
+            "37:5: " + getCheckMessage(MSG_KEY, "foo11"),
+            "56:9: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
+            "86:9: " + getCheckMessage(MSG_KEY, "doSomething"),
+            "123:5: " + getCheckMessage(MSG_KEY, "main"),
+            "176:5: " + getCheckMessage(MSG_KEY, "bar"),
+            "184:5: " + getCheckMessage(MSG_KEY, "fooBar"),
+            "186:5: " + getCheckMessage(MSG_KEY, "barFoo"),
+            "188:5: " + getCheckMessage(MSG_KEY, "fooo"),
+            "190:5: " + getCheckMessage(MSG_KEY, "baar"),
+            "192:5: " + getCheckMessage(MSG_KEY, "fOo"),
+            "194:5: " + getCheckMessage(MSG_KEY, "foO"),
         };
-        verify(checkConfig, getPath("InputStaticMethodCandidate.java"), expected);
+        verify(checkConfig, getPath("InputStaticMethodCandidateCheck.java"), expected);
     }
 
     @Test
     public void testSkippedMethods() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         checkConfig.addAttribute("skippedMethods", "foo, bar,foobar");
         final String[] expected = {};
-        verify(checkConfig, getPath("InputStaticMethodCandidateSkippedMethods.java"), expected);
+        verify(checkConfig, getPath("InputStaticMethodCandidateCheckSkippedMethods.java"),
+                expected);
     }
 
     @Test
@@ -125,22 +132,23 @@ public class StaticMethodCandidateCheckTest extends BaseCheckTestSupport {
     @Test
     public void testLambda() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
         };
         verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "design/InputStaticMethodCandidateLambda.java", expected);
+                + "design/InputStaticMethodCandidateCheckLambda.java", expected);
     }
 
     @Test
     public void testInterface() throws Exception {
         final DefaultConfiguration checkConfig =
-                createCheckConfig(StaticMethodCandidateCheck.class);
+                createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
-            "16: " + getCheckMessage(MSG_KEY, "bar"),
+            "16:5: " + getCheckMessage(MSG_KEY, "bar"),
         };
         verify(checkConfig, new File("src/test/resources-noncompilable/com/github/"
-            + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateInterfaceMethod.java")
+            + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateCheckInterfaceMethod.java")
                 .getCanonicalPath(), expected);
     }
+
 }

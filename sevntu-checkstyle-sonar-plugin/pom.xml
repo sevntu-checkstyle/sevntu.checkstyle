@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.sevntu.checkstyle</groupId>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+  </parent>
+
+  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checkstyle-sonar-plugin</artifactId>
-  <version>1.22.0</version>
+  <version>1.30.0</version>
   <packaging>sonar-plugin</packaging>
 
   <name>SevNTU Checkstyle Sonar Extension Plugin</name>
   <description>SevNTU Checkstyle extension plugin for Sonar</description>
 
+  <licenses>
+    <license>
+      <name>LGPL-2.1+</name>
+      <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+    </license>
+  </licenses>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <checkstyle.version>7.2</checkstyle.version>
+    <checkstyle.version>8.7</checkstyle.version>
     <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
   </properties>
 
@@ -25,7 +38,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.sevntu.checkstyle</groupId>
+      <groupId>com.github.sevntu-checkstyle</groupId>
       <artifactId>sevntu-checks</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -39,6 +52,52 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- serverId is ID of a <server> section from Maven's settings.xml
+              to pick authentication information from
+          -->
+          <serverId>sonatype-nexus-staging</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <skipStaging>true</skipStaging>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
@@ -74,7 +133,7 @@
         <version>1.0-beta-4</version>
         <configuration>
           <fromFile>${project.build.directory}/${project.build.finalName}.jar</fromFile>
-          <url>file://${basedir}/../gh-pages/sonar/</url>
+          <url>file://${deployDir}/sonar/</url>
         </configuration>
       </plugin>
       <plugin>
@@ -138,7 +197,7 @@
     </plugins>
   </build>
 
-  <!-- That profile is from https://github.com/SonarSource/sonar-developer-toolset/tree/master/eclipse/m2e-error-disabler-plugin 
+  <!-- That profile is from https://github.com/SonarSource/sonar-developer-toolset/tree/master/eclipse/m2e-error-disabler-plugin
     to avoid errors in Eclipse -->
   <profiles>
     <profile>
@@ -238,7 +297,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore></ignore>
+                        <ignore/>
                       </action>
                     </pluginExecution>
                   </pluginExecutions>
@@ -249,6 +308,30 @@
         </pluginManagement>
       </build>
     </profile>
+
+    <profile>
+      <!-- first part of profile is in settings.xml with defined gpg.passphrase and gpg.keyname -->
+      <id>gpg</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 
 </project>

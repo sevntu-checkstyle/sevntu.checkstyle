@@ -80,3 +80,10 @@ class Temp3 {
         return new int[]{1, };
     }
 }
+
+class Temp4 {
+    class InnerCheck1 {
+    }
+    class InnerCheck2 {
+    }
+}

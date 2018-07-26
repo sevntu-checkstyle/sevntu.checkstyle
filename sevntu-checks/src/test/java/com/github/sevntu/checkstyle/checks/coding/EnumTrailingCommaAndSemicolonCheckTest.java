@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -22,34 +22,29 @@ package com.github.sevntu.checkstyle.checks.coding;
 import static com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaAndSemicolonCheck.MSG_KEY;
 import static com.github.sevntu.checkstyle.checks.coding.EnumTrailingCommaAndSemicolonCheck.MSG_KEY_SEMI;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.puppycrawl.tools.checkstyle.BaseCheckTestSupport;
+import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-public class EnumTrailingCommaAndSemicolonCheckTest
-    extends BaseCheckTestSupport {
+public class EnumTrailingCommaAndSemicolonCheckTest extends AbstractModuleTestSupport {
+
     @Override
-    protected String getPath(String filename) throws IOException {
-        final URL resource = getClass().getResource(filename);
-        return new File(resource.getPath()).getCanonicalPath();
+    protected String getPackageLocation() {
+        return "com/github/sevntu/checkstyle/checks/coding";
     }
 
     @Test
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
-            createCheckConfig(EnumTrailingCommaAndSemicolonCheck.class);
+            createModuleConfig(EnumTrailingCommaAndSemicolonCheck.class);
         final String[] expected = {
             "14: " + getCheckMessage(MSG_KEY),
             "20: " + getCheckMessage(MSG_KEY),
             "26: " + getCheckMessage(MSG_KEY_SEMI),
         };
-        verify(checkConfig, getPath("InputEnumTrailingComma.java"), expected);
+        verify(checkConfig, getPath("InputEnumTrailingCommaAndSemicolonCheck.java"), expected);
     }
 
     @Test

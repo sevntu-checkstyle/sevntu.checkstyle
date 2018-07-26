@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -21,8 +21,6 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
@@ -49,7 +47,12 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
  * <li>Methods by name ("ignoreMethodsNames" property). Note, that the "ignoreMethodsNames"
  * property type is a RegExp:
  * using this property you can list the names of ignored methods separated by comma (but you
- * can also use '|' to separate different method names in usual for RegExp style).</li>
+ * can also use '|' to separate different method names in usual for RegExp style).
+ * If the violation is on a lambda, since it has no method name, you can specify the string
+ * {@code null} to ignore all lambda violations for now. It should be noted, that ignoring lambdas
+ * this way may not always be supported as it is a hack and giving all lambdas the same name. It
+ * could be changed if a better way to single out individual lambdas if found.
+ * </li>
  * <li>Methods which linelength less than given value ("linesLimit" property).
  * <li>"return" statements which depth is greater or equal to the given value ("returnDepthLimit"
  * property). There are few supported <br>
@@ -63,6 +66,7 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
  * <br>
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
+ * @since 1.8.0
  */
 public class ReturnCountExtendedCheck extends AbstractCheck {
 
@@ -81,12 +85,19 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
             "return.count.extended.ctor";
 
     /**
-     * Default maximum allowed "return" literals count per method/ctor.
+     * A key is pointing to the warning message text in "messages.properties"
+     * file.
+     */
+    public static final String MSG_KEY_LAMBDA =
+            "return.count.extended.lambda";
+
+    /**
+     * Default maximum allowed "return" literals count per method/ctor/lambda.
      */
     private static final int DEFAULT_MAX_RETURN_COUNT = 1;
 
     /**
-     * Default number of lines of which method/ctor body may consist to be
+     * Default number of lines of which method/ctor/lambda body may consist to be
      * skipped by check.
      */
     private static final int DEFAULT_IGNORE_METHOD_LINES_COUNT = 20;
@@ -99,7 +110,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
 
     /**
      * Number which defines, how many lines of code on the top of current
-     * processed method/ctor will be ignored by check.
+     * processed method/ctor/lambda will be ignored by check.
      */
     private static final int DEFAULT_TOP_LINES_TO_IGNORE_COUNT = 5;
 
@@ -109,12 +120,12 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     private Set<String> ignoreMethodsNames = new HashSet<>();
 
     /**
-     * Maximum allowed "return" literals count per method/ctor (1 by default).
+     * Maximum allowed "return" literals count per method/ctor/lambda (1 by default).
      */
     private int maxReturnCount = DEFAULT_MAX_RETURN_COUNT;
 
     /**
-     * Maximum number of lines of which method/ctor body may consist to be
+     * Maximum number of lines of which method/ctor/lambda body may consist to be
      * skipped by check. 20 by default.
      */
     private int ignoreMethodLinesCount = DEFAULT_IGNORE_METHOD_LINES_COUNT;
@@ -125,14 +136,14 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     private int minIgnoreReturnDepth = DEFAULT_MIN_IGNORE_RETURN_DEPTH;
 
     /**
-     * Option to ignore "empty" return statements in void methods and ctors.
+     * Option to ignore "empty" return statements in void methods and ctors and lambdas.
      * "true" by default.
      */
     private boolean ignoreEmptyReturns = true;
 
     /**
      * Number which defines, how many lines of code on the top of each
-     * processed method/ctor will be ignored by check. 5 by default.
+     * processed method/ctor/lambda will be ignored by check. 5 by default.
      */
     private int topLinesToIgnoreCount = DEFAULT_TOP_LINES_TO_IGNORE_COUNT;
 
@@ -159,7 +170,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Sets maximum allowed "return" literals count per method/ctor.
+     * Sets maximum allowed "return" literals count per method/ctor/lambda.
      * @param maxReturnCount - the new "maxReturnCount" property value.
      * @see ReturnCountExtendedCheck#maxReturnCount
      */
@@ -168,7 +179,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the maximum number of lines of which method/ctor body may consist to
+     * Sets the maximum number of lines of which method/ctor/lambda body may consist to
      * be skipped by check.
      * @param ignoreMethodLinesCount
      *        - the new value of "ignoreMethodLinesCount" property.
@@ -189,7 +200,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the "ignoring empty return statements in void methods and ctors"
+     * Sets the "ignoring empty return statements in void methods and ctors and lambdas"
      * option state.
      * @param ignoreEmptyReturns
      *        the new "allowEmptyReturns" property value.
@@ -212,16 +223,30 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
 
     @Override
     public int[] getDefaultTokens() {
-        return new int[] {TokenTypes.METHOD_DEF, TokenTypes.CTOR_DEF, };
+        return new int[] {
+            TokenTypes.METHOD_DEF,
+            TokenTypes.CTOR_DEF,
+            TokenTypes.LAMBDA,
+        };
     }
 
     @Override
-    public void visitToken(final DetailAST methodDefNode) {
-        final DetailAST openingBrace = methodDefNode
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public void visitToken(final DetailAST node) {
+        final DetailAST openingBrace = node
                 .findFirstToken(TokenTypes.SLIST);
-        final String methodName = getMethodName(methodDefNode);
+        final String nodeName = getMethodName(node);
         if (openingBrace != null
-                && !matches(methodName, ignoreMethodsNames)) {
+                && !matches(nodeName, ignoreMethodsNames)) {
             final DetailAST closingBrace = openingBrace.getLastChild();
 
             int curMethodLinesCount = getLinesCount(openingBrace,
@@ -232,34 +257,48 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
             }
 
             if (curMethodLinesCount >= ignoreMethodLinesCount) {
-
-                final int mCurReturnCount = getReturnCount(methodDefNode,
+                final int mCurReturnCount = getReturnCount(node,
                         openingBrace);
 
                 if (mCurReturnCount > maxReturnCount) {
-                    final String mKey;
-
-                    if (methodDefNode.getType() == TokenTypes.METHOD_DEF) {
-                        mKey = MSG_KEY_METHOD;
-                    }
-                    else {
-                        mKey = MSG_KEY_CTOR;
-                    }
-
-                    final DetailAST methodNameToken = methodDefNode
-                            .findFirstToken(TokenTypes.IDENT);
-
-                    log(methodNameToken, mKey,
-                            methodName, mCurReturnCount,
-                            maxReturnCount);
+                    logViolation(node, nodeName, mCurReturnCount);
                 }
             }
         }
     }
 
     /**
-     * Gets the "return" statements count for given method/ctor and saves the
-     * last "return" statement DetailAST node for given method/ctor body. Uses
+     * Reports violation to user based on the parameters given.
+     * @param node The node that the violation is on.
+     * @param nodeName The name given to the node.
+     * @param mCurReturnCount The return count violation amount.
+     */
+    private void logViolation(DetailAST node, String nodeName, int mCurReturnCount) {
+        if (node.getType() == TokenTypes.LAMBDA) {
+            // lambdas have no name
+            log(node, MSG_KEY_LAMBDA, mCurReturnCount, maxReturnCount);
+        }
+        else {
+            final DetailAST nodeNameToken = node
+                    .findFirstToken(TokenTypes.IDENT);
+            final String mKey;
+
+            if (node.getType() == TokenTypes.METHOD_DEF) {
+                mKey = MSG_KEY_METHOD;
+            }
+            else {
+                mKey = MSG_KEY_CTOR;
+            }
+
+            log(nodeNameToken, mKey,
+                    nodeName, mCurReturnCount,
+                    maxReturnCount);
+        }
+    }
+
+    /**
+     * Gets the "return" statements count for given method/ctor/lambda and saves the
+     * last "return" statement DetailAST node for given method/ctor/lambda body. Uses
      * an iterative algorithm.
      * @param methodOpeningBrace
      *        a DetailAST node that points to the current method`s opening
@@ -275,22 +314,15 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
 
         DetailAST curNode = methodOpeningBrace;
 
-        while (curNode != null) {
-
-            // before node visiting
-            if (curNode.getType() == TokenTypes.RCURLY
-                    && curNode.getParent() == methodOpeningBrace) {
-                // stop at closing brace
-                break;
-            }
-            else {
-                if (curNode.getType() == TokenTypes.LITERAL_RETURN
-                        && getDepth(methodDefNode, curNode) < minIgnoreReturnDepth
-                        && shouldEmptyReturnStatementBeCounted(curNode)
-                        && getLinesCount(methodOpeningBrace,
-                                curNode) > topLinesToIgnoreCount) {
-                    result++;
-                }
+        // stop at closing brace
+        while (curNode.getType() != TokenTypes.RCURLY
+                || curNode.getParent() != methodOpeningBrace) {
+            if (curNode.getType() == TokenTypes.LITERAL_RETURN
+                    && getDepth(methodDefNode, curNode) < minIgnoreReturnDepth
+                    && shouldEmptyReturnStatementBeCounted(curNode)
+                    && getLinesCount(methodOpeningBrace,
+                            curNode) > topLinesToIgnoreCount) {
+                result++;
             }
 
             // before node leaving
@@ -300,11 +332,13 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
             // skip nested methods (UI listeners, Runnable.run(), etc.)
             if (type == TokenTypes.METHOD_DEF
                   // skip anonymous classes
-                  || type == TokenTypes.CLASS_DEF) {
+                  || type == TokenTypes.CLASS_DEF
+                  // skip lambdas which is like an anonymous class/method
+                  || type == TokenTypes.LAMBDA) {
                 nextNode = curNode.getNextSibling();
             }
 
-            while ((curNode != null) && (nextNode == null)) {
+            while (nextNode == null) {
                 // leave the visited Node
                 nextNode = curNode.getNextSibling();
                 if (nextNode == null) {
@@ -371,12 +405,13 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      */
     private static String getMethodName(DetailAST methodDefNode) {
         String result = null;
-        for (DetailAST curNode : getChildren(methodDefNode)) {
-            if (curNode.getType() == TokenTypes.IDENT) {
-                result = curNode.getText();
-                break;
-            }
+        final DetailAST ident = methodDefNode.findFirstToken(TokenTypes.IDENT);
+
+        // lambdas don't have a name
+        if (ident != null && methodDefNode.getType() != TokenTypes.LAMBDA) {
+            result = ident.getText();
         }
+
         return result;
     }
 
@@ -394,23 +429,6 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Gets all the children which are one level below on the current DetailAST
-     * parent node.
-     * @param node
-     *        Current parent node.
-     * @return The list of children one level below on the current parent node.
-     */
-    private static List<DetailAST> getChildren(final DetailAST node) {
-        final List<DetailAST> result = new LinkedList<>();
-        DetailAST curNode = node.getFirstChild();
-        while (curNode != null) {
-            result.add(curNode);
-            curNode = curNode.getNextSibling();
-        }
-        return result;
-    }
-
-    /**
      * Matches string to given list of RegExp patterns.
      *
      * @param string
@@ -420,10 +438,16 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * @return true if given string could be fully matched by one of given patterns, false otherwise
      */
     private static boolean matches(String string, Collection<String> patterns) {
+        String match = string;
+
+        if (match == null) {
+            match = "null";
+        }
+
         boolean result = false;
         if (!patterns.isEmpty()) {
             for (String pattern : patterns) {
-                if (string.matches(pattern)) {
+                if (match.matches(pattern)) {
                     result = true;
                     break;
                 }

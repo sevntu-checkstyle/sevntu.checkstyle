@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // checkstyle: Checks Java source code for adherence to a set of rules.
-// Copyright (C) 2001-2016 the original author or authors.
+// Copyright (C) 2001-2018 the original author or authors.
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -36,13 +36,14 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * <p>
  * This check can help you to write the whole for-each map iteration more
- * correctly:
+ * correctly.
  * </p>
  * <p>
  * 1. If you iterate over a map using map.keySet() or map.entrySet(), but your
  * code uses only map values, Check will propose you to use map.values() instead
  * of map.keySet() or map.entrySet(). Replacing map.keySet() or map.entrySet()
  * with map.values() for such cases can a bit improve an iteration performance.
+ * </p>
  * <p>
  * Bad:
  * </p>
@@ -71,9 +72,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * 2. If you iterate over a map using map.entrySet(), but never call
  * entry.getValue(), Check will propose you to use map.keySet() instead of
  * map.entrySet(). to iterate over map keys only.
+ * </p>
  * <p>
  * Bad:
  * </p>
@@ -95,10 +98,12 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
+ * <p>
  * 3. If you iterate over a map with map.keySet() and use both keys and values,
  * check will propose you to use map.entrySet() to improve an iteration
  * performance by avoiding search operations inside a map. For this case,
  * iteration can significantly grow up a performance.
+ * </p>
  * <p>
  * Bad:
  * </p>
@@ -120,6 +125,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
+ * @since 1.11.0
  */
 
 public class MapIterationInForEachLoopCheck extends AbstractCheck {
@@ -274,6 +280,16 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     }
 
     @Override
+    public int[] getAcceptableTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
+    public int[] getRequiredTokens() {
+        return getDefaultTokens();
+    }
+
+    @Override
     public void beginTree(DetailAST ast) {
         qualifiedImportList.clear();
         mapNamesList.clear();
@@ -282,7 +298,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         switch (ast.getType()) {
-
             case TokenTypes.IMPORT:
                 final String qualifiedMapImportText = getMapImportQualifiedName(ast);
                 if (qualifiedMapImportText != null) {
@@ -330,14 +345,10 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         final DetailAST forEachNode = forLiteralNode.findFirstToken(TokenTypes.FOR_EACH_CLAUSE);
         final DetailAST keySetOrEntrySetNode =
                 getKeySetOrEntrySetNode(forEachNode);
-        boolean isMapClassField = false;
         // Search for keySet or entrySet
         if (keySetOrEntrySetNode != null) {
-            if (keySetOrEntrySetNode.getPreviousSibling().getChildCount() != 0) {
-                isMapClassField = true;
-            }
-            final DetailAST variableDefNode = forEachNode.getFirstChild();
-            final String keyOrEntryVariableName = variableDefNode.getLastChild().getText();
+            final boolean isMapClassField = keySetOrEntrySetNode.getPreviousSibling()
+                    .getChildCount() != 0;
 
             final String currentMapVariableName;
 
@@ -351,6 +362,8 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
             final DetailAST forEachOpeningBrace = forLiteralNode.getLastChild();
 
             if (!isMapPassedIntoAnyMethod(forEachOpeningBrace)) {
+                final DetailAST variableDefNode = forEachNode.getFirstChild();
+                final String keyOrEntryVariableName = variableDefNode.getLastChild().getText();
 
                 if (proposeKeySetUsage
                         && KEY_SET_METHOD_NAME.equals(
@@ -370,7 +383,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Checks if the not is a for each.
-     * @param forNode The token to exmaine.
+     * @param forNode The token to examine.
      * @return true if is for each.
      */
     private static boolean isForEach(DetailAST forNode) {
@@ -400,10 +413,22 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                     || ENTRY_SET_METHOD_NAME.equals(identNode.getText())) {
                 final String mapClassName;
                 if (isMapClassField) {
-                    mapClassName = identNode.getPreviousSibling().getLastChild().getText();
+                    final DetailAST lastChild = identNode.getPreviousSibling().getLastChild();
+                    if (lastChild == null) {
+                        mapClassName = null;
+                    }
+                    else {
+                        mapClassName = lastChild.getText();
+                    }
                 }
                 else {
-                    mapClassName = identNode.getPreviousSibling().getText();
+                    final DetailAST previousSibling = identNode.getPreviousSibling();
+                    if (previousSibling == null) {
+                        mapClassName = null;
+                    }
+                    else {
+                        mapClassName = previousSibling.getText();
+                    }
                 }
                 if (mapNamesList.contains(mapClassName)) {
                     keySetOrEntrySetNode = identNode;
@@ -422,14 +447,16 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * @return true, if any Method Call contains Map Parameter.
      */
     private boolean isMapPassedIntoAnyMethod(DetailAST forEachOpeningBraceNode) {
+        boolean result = false;
         final List<DetailAST> methodCallNodeList = getSubTreeNodesOfType(
                 forEachOpeningBraceNode, TokenTypes.METHOD_CALL);
         for (DetailAST methodCallNode : methodCallNodeList) {
             if (hasMapAsParameter(methodCallNode)) {
-                return true;
+                result = true;
+                break;
             }
         }
-        return false;
+        return result;
     }
 
     /**
@@ -480,7 +507,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
             }
             if (mapIdentNode != null && GET_NODE_NAME.equals(identOrLiteralIfNode.getText())
                     && mapName.equals(mapIdentNode.getText())) {
-
                 methodGetCallCount++;
             }
 
@@ -489,10 +515,33 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
             }
         }
 
+        if (methodGetCallCount != 0 && keyIdentCount != 0) {
+            if (proposeValuesUsage && methodGetCallCount == keyIdentCount) {
+                result = MSG_KEY_VALUES;
+            }
+            else if (methodGetCallCount < keyIdentCount
+                    && methodGetCallCount > 0
+                    && getMethodGetCallInsideIfCount(identAndLiteralIfNodesList, mapName,
+                            isMapClassField) != methodGetCallCount) {
+                result = MSG_KEY_ENTRYSET;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Counts the getter methods called inside the if statement.
+     * @param identAndLiteralIfNodesList the nodes to examine.
+     * @param mapName Current map name.
+     * @param isMapClassField if the map is a class field.
+     * @return The number of methods.
+     */
+    private static int getMethodGetCallInsideIfCount(List<DetailAST> identAndLiteralIfNodesList,
+            String mapName, boolean isMapClassField) {
         final DetailAST literalIfNode =
                 getFirstNodeOfType(identAndLiteralIfNodesList,
                         TokenTypes.LITERAL_IF);
-        int methodGetCallInsideIfCount = 0;
+        int result = 0;
         if (literalIfNode != null) {
             for (DetailAST node : getSubTreeNodesOfType(literalIfNode, TokenTypes.IDENT)) {
                 DetailAST mapIdentNode = node.getPreviousSibling();
@@ -502,20 +551,8 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
                 if (mapIdentNode != null && GET_NODE_NAME.equals(node.getText())
                         && mapName.equals(mapIdentNode.getText())) {
-                    methodGetCallInsideIfCount++;
+                    result++;
                 }
-            }
-        }
-
-        if (methodGetCallCount != 0 && keyIdentCount != 0) {
-
-            if (proposeValuesUsage && methodGetCallCount == keyIdentCount) {
-                result = MSG_KEY_VALUES;
-            }
-
-            else if (methodGetCallCount < keyIdentCount && methodGetCallCount > 0
-                    && methodGetCallInsideIfCount != methodGetCallCount) {
-                result = MSG_KEY_ENTRYSET;
             }
         }
         return result;
@@ -537,7 +574,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         int methodGetKeyCallCount = 0;
         int methodGetValueCallCount = 0;
         for (DetailAST identNode : identNodesList) {
-
             final DetailAST entryNode = identNode.getPreviousSibling();
 
             if (entryNode != null && GET_KEY_NODE_NAME.equals(identNode.getText())
@@ -557,7 +593,6 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         }
         else if (methodGetKeyCallCount > 0 && methodGetValueCallCount == 0) {
             result = MSG_KEY_KEYSET;
-
         }
         return result;
     }
@@ -570,12 +605,12 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      */
     private boolean isMapVariable(DetailAST variableDefNode) {
         boolean result = false;
-        final List<DetailAST> literaNewNodeslList =
+        final List<DetailAST> literalNewNodeslList =
                 getSubTreeNodesOfType(variableDefNode,
                         TokenTypes.LITERAL_NEW, TokenTypes.ASSIGN);
-        final String className = getClassName(literaNewNodeslList);
+        final String className = getClassName(literalNewNodeslList);
         if (className != null
-                && getFirstNodeOfType(literaNewNodeslList, TokenTypes.ASSIGN) != null) {
+                && getFirstNodeOfType(literalNewNodeslList, TokenTypes.ASSIGN) != null) {
             result = isMapImplementation(className);
         }
         return result;
@@ -635,19 +670,21 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Returns the instance's class name.
-     * @param literaNewNodesList
+     * @param literalNewNodesList
      *        This list contains "new" literals.
      * @return object's class name,
      *        if class name is missed, returns null.
      */
-    private static String getClassName(final List<DetailAST> literaNewNodesList) {
-        for (DetailAST literalNewNode : literaNewNodesList) {
+    private static String getClassName(final List<DetailAST> literalNewNodesList) {
+        String result = null;
+        for (DetailAST literalNewNode : literalNewNodesList) {
             final DetailAST exprNode = literalNewNode.getParent();
             if (exprNode.getParent().getType() == TokenTypes.ASSIGN) {
-                return literalNewNode.getFirstChild().getText();
+                result = literalNewNode.getFirstChild().getText();
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     /**
@@ -661,12 +698,14 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      */
     private static DetailAST getFirstNodeOfType(List<DetailAST> nodesList,
             int aSpecificType) {
+        DetailAST result = null;
         for (DetailAST node : nodesList) {
             if (node.getType() == aSpecificType) {
-                return node;
+                result = node;
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     /**
@@ -677,14 +716,16 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * @return full path of map implementation or null.
      */
     private String getMapImportQualifiedName(DetailAST importNode) {
+        String result = null;
         final String mapClassQualifiedName = FullIdent.createFullIdent(
                 importNode.getFirstChild()).getText();
         for (String qualifiedName : supportedMapImplQualifiedNames) {
             if (mapClassQualifiedName.equals(qualifiedName)) {
-                return mapClassQualifiedName;
+                result = mapClassQualifiedName;
+                break;
             }
         }
-        return null;
+        return result;
     }
 
     /**
@@ -723,4 +764,5 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
         }
         return result;
     }
+
 }
