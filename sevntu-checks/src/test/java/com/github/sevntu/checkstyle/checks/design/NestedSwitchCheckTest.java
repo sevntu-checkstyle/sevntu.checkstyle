@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -60,7 +60,7 @@ public class NestedSwitchCheckTest extends AbstractModuleTestSupport {
     public void testMax() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(NestedSwitchCheck.class);
         checkConfig.addAttribute("max", "99");
-        final String[] expected = CommonUtils.EMPTY_STRING_ARRAY;
+        final String[] expected = CommonUtil.EMPTY_STRING_ARRAY;
 
         verify(checkConfig, getPath("InputNestedSwitchCheck.java"),
                 expected);

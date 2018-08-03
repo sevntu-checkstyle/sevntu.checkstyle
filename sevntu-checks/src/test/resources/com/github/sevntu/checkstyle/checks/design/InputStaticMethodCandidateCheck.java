@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.Map;
 
-import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
+import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
 
 public class InputStaticMethodCandidateCheck extends ClassB {
     protected int instanceField;
@@ -177,7 +177,7 @@ class TestExtended extends InputStaticMethodCandidateCheck {
     
     private void bar1() {instanceVar.getClass().getName().equals("");}    // ok, as static methods can't use instance variables
     
-    private void foobar() {ScopeUtils.getSurroundingScope(null);}    // ok, as we cannot determine that ScopeUtils is not inherited instance field
+    private void foobar() {ScopeUtil.getSurroundingScope(null);}    // ok, as we cannot determine that ScopeUtils is not inherited instance field
 
     private void barfoo() {String i = StaticMethodCandidateCheck.MSG_KEY;}    // ok, we cannot check class StaticMethodCandidateCheck
 

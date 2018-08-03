@@ -24,7 +24,7 @@ import java.util.Arrays;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * Checks that constants do not appear in the first operand of any condition.
@@ -86,7 +86,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
         if (targets != null) {
             targetConstantTypes = new int[targets.length];
             for (int i = 0; i < targets.length; i++) {
-                targetConstantTypes[i] = TokenUtils.getTokenId(targets[i]);
+                targetConstantTypes[i] = TokenUtil.getTokenId(targets[i]);
             }
             Arrays.sort(targetConstantTypes);
         }

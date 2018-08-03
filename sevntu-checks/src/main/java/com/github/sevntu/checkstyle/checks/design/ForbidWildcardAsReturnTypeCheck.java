@@ -29,7 +29,7 @@ import antlr.collections.AST;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
+import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
 
 /**
  * Prevents using wildcards as return type of methods.
@@ -233,11 +233,11 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
         final String methodScope = getVisibilityScope(methodDefAst);
         if (isCheckableMethodScope(methodScope)
                 && (checkOverrideMethods
-                        || (!AnnotationUtility.containsAnnotation(methodDefAst, OVERRIDE)
-                            && !AnnotationUtility.containsAnnotation(methodDefAst, FQ_OVERRIDE)))
+                        || (!AnnotationUtil.containsAnnotation(methodDefAst, OVERRIDE)
+                            && !AnnotationUtil.containsAnnotation(methodDefAst, FQ_OVERRIDE)))
                 && (checkDeprecatedMethods
-                        || (!AnnotationUtility.containsAnnotation(methodDefAst, DEPRECATED)
-                            && !AnnotationUtility.containsAnnotation(methodDefAst,
+                        || (!AnnotationUtil.containsAnnotation(methodDefAst, DEPRECATED)
+                            && !AnnotationUtil.containsAnnotation(methodDefAst,
                                 FQ_DEPRECATED)))) {
             final List<DetailAST> wildcardTypeArguments =
                     getWildcardArgumentsAsMethodReturnType(methodDefAst);

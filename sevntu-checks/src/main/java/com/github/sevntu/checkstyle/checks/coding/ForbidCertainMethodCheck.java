@@ -30,7 +30,7 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 /**
  * Check that forbidden method is not used. We can forbid a method by method name and number of
@@ -93,7 +93,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
     private static final Pattern COMMA_REGEX = Pattern.compile(",");
 
     /** Name of the method. */
-    private Pattern methodName = CommonUtils.createPattern("^$");
+    private Pattern methodName = CommonUtil.createPattern("^$");
 
     /** Range for number of arguments. */
     private String argumentCount = "0-";
@@ -106,7 +106,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
      * @param methodName regex for the method name
      */
     public void setMethodName(String methodName) {
-        this.methodName = CommonUtils.createPattern(methodName);
+        this.methodName = CommonUtil.createPattern(methodName);
     }
 
     /**

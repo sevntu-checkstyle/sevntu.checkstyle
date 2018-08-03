@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractModuleTestSupport {
 
@@ -66,7 +66,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractMo
                 createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
         verify(checkConfig,
                 getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckNonClasses.java"),
-                CommonUtils.EMPTY_STRING_ARRAY);
+                CommonUtil.EMPTY_STRING_ARRAY);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractMo
                 createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
         verify(checkConfig,
             getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckLambdaWithMultiCatch.java"),
-            CommonUtils.EMPTY_STRING_ARRAY);
+            CommonUtil.EMPTY_STRING_ARRAY);
     }
 
 }

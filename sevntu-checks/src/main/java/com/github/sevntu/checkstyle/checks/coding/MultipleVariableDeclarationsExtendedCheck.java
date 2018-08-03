@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
+import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 
 /**
  * <p>
@@ -120,13 +120,13 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
 
             if ((nextNode != null)
                     && (nextNode.getType() == TokenTypes.VARIABLE_DEF)) {
-                final DetailAST firstNode = CheckUtils.getFirstNode(ast);
+                final DetailAST firstNode = CheckUtil.getFirstNode(ast);
                 if (isCommaSeparated) {
                     log(firstNode, MSG_VAR_DECLARATIONS_COMMA);
                 }
                 else {
                     final DetailAST lastNode = getLastNode(ast);
-                    final DetailAST firstNextNode = CheckUtils.getFirstNode(nextNode);
+                    final DetailAST firstNextNode = CheckUtil.getFirstNode(nextNode);
 
                     if (firstNextNode.getLineNo() == lastNode.getLineNo()) {
                         log(firstNode, MSG_VAR_DECLARATIONS);

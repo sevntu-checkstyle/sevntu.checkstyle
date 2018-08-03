@@ -36,7 +36,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.puppycrawl.tools.checkstyle.PackageNamesLoader;
-import com.puppycrawl.tools.checkstyle.utils.ModuleReflectionUtils;
+import com.puppycrawl.tools.checkstyle.utils.ModuleReflectionUtil;
 
 public final class CheckUtil {
 
@@ -108,11 +108,11 @@ public final class CheckUtil {
 
         final ClassLoader loader = Thread.currentThread()
                 .getContextClassLoader();
-        final Set<Class<?>> checkstyleModules = ModuleReflectionUtils.getCheckstyleModules(
+        final Set<Class<?>> checkstyleModules = ModuleReflectionUtil.getCheckstyleModules(
                 PackageNamesLoader.getPackageNames(loader), loader);
 
         for (Class<?> clazz : checkstyleModules) {
-            if (ModuleReflectionUtils.isCheckstyleTreeWalkerCheck(clazz)) {
+            if (ModuleReflectionUtil.isCheckstyleTreeWalkerCheck(clazz)) {
                 checkstyleChecks.add(clazz);
             }
         }
@@ -153,7 +153,7 @@ public final class CheckUtil {
      */
     public static Set<Class<?>> getCheckstyleModules() throws Exception {
         final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        return ModuleReflectionUtils.getCheckstyleModules(
+        return ModuleReflectionUtil.getCheckstyleModules(
                 PackageNamesLoader.getPackageNames(loader), loader);
     }
 

@@ -26,7 +26,7 @@ import java.util.Set;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * Forbid specific annotation of variable,methods,class,package and other. If
@@ -77,7 +77,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
         if (targets != null) {
             annotationTargets = new int[targets.length];
             for (int i = 0; i < targets.length; i++) {
-                annotationTargets[i] = TokenUtils.getTokenId(targets[i]);
+                annotationTargets[i] = TokenUtil.getTokenId(targets[i]);
             }
             Arrays.sort(annotationTargets);
         }

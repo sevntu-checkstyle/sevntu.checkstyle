@@ -25,7 +25,7 @@ import java.util.List;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CheckUtils;
+import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 
 /**
  * This check limits using of not short-circuit operators
@@ -138,7 +138,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      * @return "true" if current method or variable has a Boolean type.
      */
     private static boolean isBooleanType(final DetailAST node) {
-        return BOOLEAN.equals(CheckUtils.createFullType(
+        return BOOLEAN.equals(CheckUtil.createFullType(
                 node.findFirstToken(TokenTypes.TYPE)).getText());
     }
 

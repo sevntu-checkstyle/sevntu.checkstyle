@@ -24,7 +24,7 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
+import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
 
 /**
  * <p>
@@ -178,8 +178,8 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
      */
     private boolean isTestMethod(DetailAST method) {
         return method != null
-            && ((importTest && AnnotationUtility.containsAnnotation(method, "Test"))
-                    || AnnotationUtility.containsAnnotation(method, FQ_JUNIT_TEST));
+            && ((importTest && AnnotationUtil.containsAnnotation(method, "Test"))
+                    || AnnotationUtil.containsAnnotation(method, FQ_JUNIT_TEST));
     }
 
     /**

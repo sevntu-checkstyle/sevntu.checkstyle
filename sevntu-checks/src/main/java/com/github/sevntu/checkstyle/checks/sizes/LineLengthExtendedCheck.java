@@ -27,7 +27,7 @@ import java.util.regex.PatternSyntaxException;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 /**
  * Checks for long lines.
@@ -238,7 +238,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
             }
 
             final String line = lines[i];
-            final int realLength = CommonUtils.lengthExpandedTabs(line,
+            final int realLength = CommonUtil.lengthExpandedTabs(line,
                     line.length(), getTabWidth());
 
             if ((realLength > max) && !ignorePattern.matcher(line).find()) {

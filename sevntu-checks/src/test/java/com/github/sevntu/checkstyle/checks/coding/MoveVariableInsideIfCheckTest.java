@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 public class MoveVariableInsideIfCheckTest extends AbstractModuleTestSupport {
 
@@ -39,7 +39,7 @@ public class MoveVariableInsideIfCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MoveVariableInsideIfCheck.class);
         verify(checkConfig, getPath("InputMoveVariableInsideIfCheckNoViolations.java"),
-                CommonUtils.EMPTY_STRING_ARRAY);
+                CommonUtil.EMPTY_STRING_ARRAY);
     }
 
     @Test
