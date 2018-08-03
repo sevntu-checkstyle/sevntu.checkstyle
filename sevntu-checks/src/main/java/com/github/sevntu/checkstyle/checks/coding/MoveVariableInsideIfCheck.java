@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
+import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
 
 /**
  * <p>
@@ -139,7 +139,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        if (ScopeUtils.isLocalVariableDef(ast)) {
+        if (ScopeUtil.isLocalVariableDef(ast)) {
             validateLocalVariable(ast);
         }
     }

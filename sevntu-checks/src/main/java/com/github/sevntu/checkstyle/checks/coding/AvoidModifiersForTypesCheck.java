@@ -30,7 +30,7 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * <p>
@@ -425,7 +425,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
 
             for (int modifierType : modifiersSet) {
                 if (match(modifierType, className)) {
-                    String tokenName = TokenUtils.getTokenName(modifierType);
+                    String tokenName = TokenUtil.getTokenName(modifierType);
 
                     // Remove literal prefix and switch to lower case for better readability
                     tokenName = tokenName.toLowerCase().replaceAll("literal_", "");

@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 public class AvoidHidingCauseExceptionCheckTest extends AbstractModuleTestSupport {
 
@@ -77,7 +77,7 @@ public class AvoidHidingCauseExceptionCheckTest extends AbstractModuleTestSuppor
                 createModuleConfig(AvoidHidingCauseExceptionCheck.class);
 
         verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheckWrapping.java"),
-                CommonUtils.EMPTY_STRING_ARRAY);
+                CommonUtil.EMPTY_STRING_ARRAY);
     }
 
 }

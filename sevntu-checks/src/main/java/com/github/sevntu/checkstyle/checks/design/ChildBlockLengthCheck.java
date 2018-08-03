@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * This check detects the child blocks, which length is more then 80% of parent
@@ -102,7 +102,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     public void setBlockTypes(final String[] blockTypes) {
         this.blockTypes = new int[blockTypes.length];
         for (int i = 0; i < blockTypes.length; i++) {
-            this.blockTypes[i] = TokenUtils.getTokenId(blockTypes[i]);
+            this.blockTypes[i] = TokenUtil.getTokenId(blockTypes[i]);
         }
     }
 

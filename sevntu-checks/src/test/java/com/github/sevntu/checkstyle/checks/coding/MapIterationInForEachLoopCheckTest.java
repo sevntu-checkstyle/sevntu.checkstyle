@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 public class MapIterationInForEachLoopCheckTest extends AbstractModuleTestSupport {
 
@@ -105,7 +105,7 @@ public class MapIterationInForEachLoopCheckTest extends AbstractModuleTestSuppor
 
         verify(checkConfig,
                 getPath("InputMapIterationInForEachLoopCheckExtendingMap.java"),
-                CommonUtils.EMPTY_STRING_ARRAY);
+                CommonUtil.EMPTY_STRING_ARRAY);
     }
 
 }

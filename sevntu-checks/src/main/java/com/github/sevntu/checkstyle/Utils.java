@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
-import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * Simple utility class for all sevntu checks.
@@ -46,7 +46,7 @@ public final class Utils {
      */
     public static void reportInvalidToken(int token) {
         throw new IllegalArgumentException("Found unsupported token: "
-                + TokenUtils.getTokenName(token));
+                + TokenUtil.getTokenName(token));
     }
 
     /**

@@ -32,7 +32,7 @@ import com.google.common.collect.Sets;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
+import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
 
 /**
  * Checks whether {@code private} methods can be declared as {@code static}.
@@ -287,7 +287,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         if (astType == TokenTypes.CLASS_DEF
                 || astType == TokenTypes.ENUM_DEF) {
             if (astType == TokenTypes.CLASS_DEF
-                    && !ScopeUtils.isOuterMostType(ast)
+                    && !ScopeUtil.isOuterMostType(ast)
                     && !hasStaticModifier(ast)) {
                 // local and inner classes can't have static methods
                 frame.isShouldBeChecked = false;

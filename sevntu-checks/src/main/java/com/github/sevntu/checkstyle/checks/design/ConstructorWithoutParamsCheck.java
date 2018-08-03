@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CommonUtils;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 /**
  * This check prohibits usage of parameterless constructors,
@@ -106,12 +106,12 @@ public class ConstructorWithoutParamsCheck extends AbstractCheck {
     /**
      * The regexp to match against.
      */
-    private Pattern regexp = CommonUtils.createPattern(classNameFormat);
+    private Pattern regexp = CommonUtil.createPattern(classNameFormat);
 
     /**
      * The regexp to select class names to ignore.
      */
-    private Pattern ignoredRegexp = CommonUtils.createPattern(ignoredClassNameFormat);
+    private Pattern ignoredRegexp = CommonUtil.createPattern(ignoredClassNameFormat);
 
     /**
      * Sets the classNameFormat based on the XML configuration value.
@@ -120,7 +120,7 @@ public class ConstructorWithoutParamsCheck extends AbstractCheck {
      */
     public void setClassNameFormat(String classNameFormat) {
         this.classNameFormat = classNameFormat;
-        regexp = CommonUtils.createPattern(classNameFormat);
+        regexp = CommonUtil.createPattern(classNameFormat);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ConstructorWithoutParamsCheck extends AbstractCheck {
      */
     public void setIgnoredClassNameFormat(String ignoredClassNameFormat) {
         this.ignoredClassNameFormat = ignoredClassNameFormat;
-        ignoredRegexp = CommonUtils.createPattern(this.ignoredClassNameFormat);
+        ignoredRegexp = CommonUtil.createPattern(this.ignoredClassNameFormat);
     }
 
     @Override

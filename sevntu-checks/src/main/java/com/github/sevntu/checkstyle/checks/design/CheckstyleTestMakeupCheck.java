@@ -29,8 +29,8 @@ import com.github.sevntu.checkstyle.Utils;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.AnnotationUtility;
-import com.puppycrawl.tools.checkstyle.utils.ScopeUtils;
+import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
+import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
 
 /**
  * <p>
@@ -168,8 +168,8 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
      * @param ast The method to examine.
      */
     private void checkMethod(DetailAST ast) {
-        if (methodAst == null && AnnotationUtility.containsAnnotation(ast, "Test")
-                || AnnotationUtility.containsAnnotation(ast, "org.junit.Test")) {
+        if (methodAst == null && AnnotationUtil.containsAnnotation(ast, "Test")
+                || AnnotationUtil.containsAnnotation(ast, "org.junit.Test")) {
             methodAst = ast;
         }
     }
@@ -183,7 +183,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
      * @param ast The variable to examine.
      */
     private void checkVariable(DetailAST ast) {
-        if (methodAst != null && ScopeUtils.isLocalVariableDef(ast)) {
+        if (methodAst != null && ScopeUtil.isLocalVariableDef(ast)) {
             final DetailAST type = ast.findFirstToken(TokenTypes.TYPE).findFirstToken(
                     TokenTypes.IDENT);
 
