@@ -73,6 +73,12 @@ matrix:
         - DESC="test Issue ref in PR description"
         - CMD="./.ci/travis.sh pr-description"
 
+    # https://sonarcloud.io (oraclejdk8)
+    - jdk: oraclejdk8
+      env:
+        - DESC="sonarcloud.io"
+        - CMD="./.ci/travis.sh sonarqube"
+
 
 script:
   - SKIP_FILES1=".github|codeship-*|buddy.yml|appveyor.yml|circleci|distelli-manifest.yml"
