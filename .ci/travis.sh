@@ -14,7 +14,7 @@ eclipse-cs)
   cd ..
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
-  git checkout 8.11.0
+  git checkout 8.12.0
   mvn -e install
   cd ../
   cd eclipsecs-sevntu-plugin
@@ -82,7 +82,7 @@ checkstyle-regression)
   cd checkstyle
   mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
       -Dfindbugs.skip=true -Dcobertura.skip=true \
-      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.11
+      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.12
   ;;
 
 eclipse-analysis)
