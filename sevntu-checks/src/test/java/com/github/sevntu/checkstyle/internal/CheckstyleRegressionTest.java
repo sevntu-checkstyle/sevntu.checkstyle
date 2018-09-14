@@ -101,7 +101,7 @@ public class CheckstyleRegressionTest {
 
                 System.out.println("-- Adding Check: " + name);
 
-                configAdditions += "<module name=\"" + name + "\"></module>\r\n";
+                configAdditions += "<module name=\r\n\"" + name + "\"\r\n></module>\r\n";
 
                 if (ADD_CHECK_SUPPRESSIONS.contains(simpleName)) {
                     System.out.println("-- Adding Suppression: " + simpleName);
