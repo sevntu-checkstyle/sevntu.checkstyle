@@ -161,7 +161,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
                 else {
                     methodNameInCode = dot.getLastChild().getText();
                 }
-                final int numArgsInCode = dot.getNextSibling().getChildCount(TokenTypes.EXPR);
+                final int numArgsInCode = getMethodCallParameterCount(ast);
                 if (isForbiddenMethod(methodNameInCode, numArgsInCode)) {
                     log(ast, MSG_KEY, methodNameInCode, methodName,
                         numArgsInCode, argumentCount);
@@ -171,6 +171,24 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
                 Utils.reportInvalidToken(ast.getType());
                 break;
         }
+    }
+
+    /**
+     * Count the parameters given to a method call.
+     * @param ast The method call AST.
+     * @return The number of parameters.
+     */
+    private static int getMethodCallParameterCount(DetailAST ast) {
+        int paramCount = 0;
+        final DetailAST expressionList = ast.getFirstChild().getNextSibling();
+        // This works by counting the number of commas separating the
+        // expressions passed to the method, if any
+        if (expressionList.getChildCount() > 0) {
+            // We have at least one parameter, so the total number of
+            // parameters is the number of commas plus one
+            paramCount = expressionList.getChildCount(TokenTypes.COMMA) + 1;
+        }
+        return paramCount;
     }
 
     /**
