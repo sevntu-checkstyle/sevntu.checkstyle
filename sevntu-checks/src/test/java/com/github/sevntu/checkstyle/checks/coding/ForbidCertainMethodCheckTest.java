@@ -339,6 +339,7 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             "52:26: " + getCheckMessage(MSG_KEY, "asList", "asList", 10, "-3, 5-7, 9-"),
             "53:26: " + getCheckMessage(MSG_KEY, "asList", "asList", 11, "-3, 5-7, 9-"),
             "54:26: " + getCheckMessage(MSG_KEY, "asList", "asList", 12, "-3, 5-7, 9-"),
+            "55:64: " + getCheckMessage(MSG_KEY, "asList", "asList", 2, "-3, 5-7, 9-"),
         };
         verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
     }
