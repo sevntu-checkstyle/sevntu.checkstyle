@@ -100,7 +100,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /** Regular expression for matching a create method by name. */
     private Pattern createMethodRegexp = Pattern
-            .compile("create(Root|Module)Config|getModuleConfig");
+            .compile("create(Root|Module|TreeWalker)Config|getModuleConfig");
 
     /** Regular expression for matching a verify method by name. */
     private Pattern verifyMethodRegexp = Pattern.compile("verify(Warns|Suppressed)?");
