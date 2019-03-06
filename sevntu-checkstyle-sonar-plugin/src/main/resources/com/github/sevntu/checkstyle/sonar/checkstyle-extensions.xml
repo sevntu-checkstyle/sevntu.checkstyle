@@ -1,4 +1,30 @@
 <rules>
+  <!-- 'jsr305' checks -->
+  <rule>
+    <key>com.github.sevntu.checkstyle.checks.jsr305.Jsr305AnnotationsCheck</key>
+    <name>Line Length Extended</name>
+    <category name="jsr305"/>
+    <description>Checks for long lines.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.jsr305.Jsr305AnnotationsCheck</configKey>
+
+    <param key="packages" type="STRING">
+      <defaultValue></defaultValue>
+      <description>Packages to be checked.</description>
+    </param>
+    <param key="excludePackages" type="STRING">
+      <defaultValue></defaultValue>
+      <description>Packages excluded from checking.</description>
+    </param>
+    <param key="allowOverridingReturnValue" type="BOOLEAN">
+      <defaultValue>false</defaultValue>
+      <description>Allow Overriding return values, useful for upgrading.</description>
+    </param>
+    <param key="allowOverridingParameter" type="BOOLEAN">
+      <defaultValue>false</defaultValue>
+      <description>Allow Overriding paramaters, useful for upgrading.</description>
+    </param>
+  </rule>
+
   <!-- 'sizes' checks -->
   <rule>
     <key>com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck</key>

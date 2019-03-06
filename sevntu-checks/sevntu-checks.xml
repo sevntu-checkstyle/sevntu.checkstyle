@@ -216,6 +216,14 @@
       <property name="ignoreMethod" value="false"/>
     </module>
 
+    <!-- Jsr305 -->
+    <module name="com.github.sevntu.checkstyle.checks.jsr305.Jsr305AnnotationsCheck">
+      <property name="packages" value="your.package.path.to.check,another.package.path.to.check"/>
+      <property name="excludePackages" value="your.package.path.not.to.check,another.package.path.not.to.check"/>
+      <property name="allowOverridingReturnValue" value="false"/>
+      <property name="allowOverridingParameter" value="false"/>
+    </module>
+
     <!-- moved to checkstyle project since 1.21.0 -->
     <!--
         <module name="com.github.sevntu.checkstyle.checks.whitespace.SingleSpaceSeparatorCheck">

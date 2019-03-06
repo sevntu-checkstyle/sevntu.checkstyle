@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!DOCTYPE checkstyle-metadata PUBLIC "-//eclipse-cs//DTD Check Metadata 1.0//EN" "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_0.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="SevNTU checks" priority="1450">
+
+        <rule-metadata name="Jsr305AnnotationsCheck" internal-name="Jsr305AnnotationsCheck" parent="TreeWalker">
+            <alternative-name internal-name="com.github.sevntu.checkstyle.checks.jsr305.Jsr305AnnotationsCheck"/>
+            <description>Checks method parameters and return values for the presence of @Nonnull, @Nullable, or @CheckForNull annotations.</description>
+            <property-metadata name="packages" datatype="String">
+                <description>Packages to be checked.</description>
+            </property-metadata>
+            <property-metadata name="excludePackages" datatype="String">
+                <description>Packages excluded from checking.</description>
+            </property-metadata>
+            <property-metadata name="allowOverridingReturnValue" datatype="Boolean" default-value="false">
+                <description>Allow Overriding return values, useful for upgrading.</description>
+            </property-metadata>
+            <property-metadata name="allowOverridingParameter" datatype="Boolean" default-value="false">
+                <description>Allow Overriding paramaters, useful for upgrading.</description>
+            </property-metadata>
+        </rule-metadata>
+
+    </rule-group-metadata>
+</checkstyle-metadata>

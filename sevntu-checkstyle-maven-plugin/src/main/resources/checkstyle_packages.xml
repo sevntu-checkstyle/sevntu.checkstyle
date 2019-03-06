@@ -8,6 +8,7 @@
       <package name="annotation"/>
       <package name="coding"/>
       <package name="design"/>
+      <package name="jsr305"/>
       <package name="naming"/>
       <package name="sizes"/>
       <package name="whitespace"/>
@@ -25,6 +26,7 @@
       <package name="indentation"/>
       <package name="j2ee"/>
       <package name="javadoc"/>
+      <package name="jsr305"/>
       <package name="metrics"/>
       <package name="modifier"/>
       <package name="naming"/>

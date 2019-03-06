@@ -15,6 +15,7 @@
       <package name="annotation"/>
       <package name="coding"/>
       <package name="design"/>
+      <package name="jsr305"/>
       <package name="naming"/>
       <package name="sizes"/>
     </package>
