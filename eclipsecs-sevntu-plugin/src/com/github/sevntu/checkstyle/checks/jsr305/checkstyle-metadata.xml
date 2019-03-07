@@ -1,24 +1,52 @@
-<?xml version="1.0" ?>
-<!DOCTYPE checkstyle-metadata PUBLIC "-//eclipse-cs//DTD Check Metadata 1.0//EN" "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://checkstyle.org/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
     <rule-group-metadata name="SevNTU checks" priority="1450">
 
-        <rule-metadata name="Jsr305AnnotationsCheck" internal-name="Jsr305AnnotationsCheck" parent="TreeWalker">
+        <rule-metadata name="%Jsr305AnnotationsCheck.name" internal-name="Jsr305AnnotationsCheck" parent="TreeWalker">
             <alternative-name internal-name="com.github.sevntu.checkstyle.checks.jsr305.Jsr305AnnotationsCheck"/>
-            <description>Checks method parameters and return values for the presence of @Nonnull, @Nullable, or @CheckForNull annotations.</description>
+            <description>%Jsr305AnnotationsCheck.desc</description>
             <property-metadata name="packages" datatype="String">
-                <description>Packages to be checked.</description>
+                <description>%Jsr305AnnotationsCheck.packages</description>
             </property-metadata>
             <property-metadata name="excludePackages" datatype="String">
-                <description>Packages excluded from checking.</description>
+                <description>%Jsr305AnnotationsCheck.excludePackages</description>
             </property-metadata>
             <property-metadata name="allowOverridingReturnValue" datatype="Boolean" default-value="false">
-                <description>Allow Overriding return values, useful for upgrading.</description>
+                <description>%Jsr305AnnotationsCheck.allowOverridingReturnValue</description>
             </property-metadata>
             <property-metadata name="allowOverridingParameter" datatype="Boolean" default-value="false">
-                <description>Allow Overriding paramaters, useful for upgrading.</description>
+                <description>%Jsr305AnnotationsCheck.allowOverridingParameter</description>
             </property-metadata>
-        </rule-metadata>
+
+            <message-key key="illegal.class.level.annotation" />
+            <message-key key="contradicting.class.level.annotations" />
+            <message-key key="param.definitions.with.check.annotation" />
+            <message-key key="param.definition.with.override.annotation" />
+            <message-key key="param.definition.with.nonnull.by.default.annotation" />
+            <message-key key="param.definition.with.nullable.by.default.annotation" />
+            <message-key key="param.definition.with.return.values.default.annotation" />
+            <message-key key="param.nonnull.and.nullable.annotation" />
+            <message-key key="primitives.with.nullness.annotation" />
+            <message-key key="overridden.definitions.with.increased.param.constraint" />
+            <message-key key="redundant.nonnull.param.annotation" />
+            <message-key key="redundant.nullable.param.annotation" />
+            <message-key key="parameter.without.nullness.annotation" />
+            <message-key key="return.value.with.nonnull.by.default.annotation" />
+            <message-key key="return.value.with.nullable.annotation" />
+            <message-key key="contradicting.return.value.annotations" />
+            <message-key key="overridden.method.with.check.return.value.annotation" />
+            <message-key key="redundant.nonnull.by.default.annotation" />
+            <message-key key="redundant.nullable.by.default.annotation" />
+            <message-key key="void.with.check.return.value.annotation" />
+            <message-key key="redundant.nonnull.return.annotation" />
+            <message-key key="return.without.nullness.annotation" />
+            <message-key key="overridden.methods.allow.only.nonnull" />
+            <message-key key="need.to.inherit.param.annotations" />
+            <message-key key="constructor.with.return.annotation" />
+       </rule-metadata>
 
     </rule-group-metadata>
 </checkstyle-metadata>
