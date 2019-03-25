@@ -125,9 +125,11 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             fail();
         }
         catch (CheckstyleException ex) {
-            final String messagePrefix = "cannot initialize module "
-                + "com.puppycrawl.tools.checkstyle.TreeWalker - "
-                + "Cannot set property 'formats' to '\\' in module ";
+            final String messagePrefix = "cannot initialize module"
+                    + " com.puppycrawl.tools.checkstyle.TreeWalker -"
+                    + " cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck -"
+                    + " Cannot set property 'formats' to '\\'";
             Assert.assertTrue("Exception's message does not start with: " + messagePrefix,
                 ex.getMessage().startsWith(messagePrefix));
         }

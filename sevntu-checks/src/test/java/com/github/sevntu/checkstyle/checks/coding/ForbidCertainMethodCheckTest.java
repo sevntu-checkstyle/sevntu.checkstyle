@@ -68,8 +68,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
         catch (CheckstyleException ex) {
             checkExceptionMessage(ex,
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'argumentCount' to '' in module "
-                    + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+                    + "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+                    + " Cannot set property 'argumentCount' to ''");
         }
     }
 
@@ -86,8 +87,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
         catch (CheckstyleException ex) {
             checkExceptionMessage(ex,
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'argumentCount' to '  ' in module "
-                    + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+                    + "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+                    + " Cannot set property 'argumentCount' to '  '");
         }
     }
 
@@ -104,8 +106,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
         catch (CheckstyleException ex) {
             checkExceptionMessage(ex,
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'argumentCount' to ' , ' in module "
-                    + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+                    + "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+                    + " Cannot set property 'argumentCount' to ' , '");
         }
     }
 
@@ -122,8 +125,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
         catch (CheckstyleException ex) {
             checkExceptionMessage(ex,
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'argumentCount' to 'null' in module "
-                    + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+                    + "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+                    + " Cannot set property 'argumentCount' to 'null'");
         }
     }
 
@@ -167,8 +171,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
         catch (CheckstyleException ex) {
             checkExceptionMessage(ex,
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'methodName' to 'null' in module "
-                    + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+                    + "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+                    + " Cannot set property 'methodName' to 'null'");
         }
     }
 
@@ -192,8 +197,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
         catch (CheckstyleException ex) {
             checkExceptionMessage(ex,
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-                    + "Cannot set property 'methodName' to '[exit' in module "
-                    + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+                    + "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+                    + " Cannot set property 'methodName' to '[exit'");
         }
     }
 
@@ -201,48 +207,54 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testBadRangeForArgumentCount() throws Exception {
         testBadRangeInner("badArgCount",
             "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-            + "Cannot set property 'argumentCount' to 'badArgCount' in module "
-            + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+            + "cannot initialize module"
+            + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+            + " Cannot set property 'argumentCount' to 'badArgCount'");
     }
 
     @Test
     public void testBadRange2ForArgumentCount() throws Exception {
         testBadRangeInner("badStart-badEnd",
             "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-            + "Cannot set property 'argumentCount' to 'badStart-badEnd' in module "
-            + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+            + "cannot initialize module"
+            + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+            + " Cannot set property 'argumentCount' to 'badStart-badEnd'");
     }
 
     @Test
     public void testBadRange3ForArgumentCount() throws Exception {
         testBadRangeInner("2, badStart-badEnd",
             "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-            + "Cannot set property 'argumentCount' to '2, badStart-badEnd' in module "
-            + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+            + "cannot initialize module"
+            + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+            + " Cannot set property 'argumentCount' to '2, badStart-badEnd'");
     }
 
     @Test
     public void testBadRange4ForArgumentCount() throws Exception {
         testBadRangeInner(" , 1-4 ",
             "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-            + "Cannot set property 'argumentCount' to ' , 1-4 ' in module "
-            + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+            + "cannot initialize module"
+            + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+            + " Cannot set property 'argumentCount' to ' , 1-4 '");
     }
 
     @Test
     public void testUnboundedRangeForArgumentCount() throws Exception {
         testBadRangeInner(" - ",
             "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-            + "Cannot set property 'argumentCount' to ' - ' in module "
-            + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+            + "cannot initialize module"
+            + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+            + " Cannot set property 'argumentCount' to ' - '");
     }
 
     @Test
     public void testRangeWithBadBoundsForArgumentCount() throws Exception {
         testBadRangeInner("10-1",
             "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
-            + "Cannot set property 'argumentCount' to '10-1' in module "
-            + "com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck");
+            + "cannot initialize module"
+            + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
+            + " Cannot set property 'argumentCount' to '10-1'");
     }
 
     private void testBadRangeInner(String value, String expectedMessage) throws Exception {

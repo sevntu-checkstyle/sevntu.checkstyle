@@ -96,9 +96,10 @@ public class LineLengthExtendedCheckTest extends AbstractModuleTestSupport {
             fail();
         }
         catch (CheckstyleException ex) {
-            final String messagePrefix = "cannot initialize module "
-                + "com.puppycrawl.tools.checkstyle.TreeWalker - "
-                + "Cannot set property 'ignorePattern' to '[' in module ";
+            final String messagePrefix = "cannot initialize module"
+                    + " com.puppycrawl.tools.checkstyle.TreeWalker - cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck -"
+                    + " Cannot set property 'ignorePattern' to '['";
             Assert.assertTrue("Exception's message does not start with: " + messagePrefix,
                 ex.getMessage().startsWith(messagePrefix));
         }
