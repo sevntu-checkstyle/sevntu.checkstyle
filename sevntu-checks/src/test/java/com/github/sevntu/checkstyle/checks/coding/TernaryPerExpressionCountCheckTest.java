@@ -84,9 +84,9 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
         }
         catch (CheckstyleException ex) {
             final String errorMsg = ex.getMessage();
-            final String expectedMessage = "Cannot set property 'maxTernaryPerExpressionCount' "
-                + "to '-1' in module com.github.sevntu.checkstyle.checks.coding."
-                + "TernaryPerExpressionCountCheck";
+            final String expectedMessage = "cannot initialize module"
+                    + " com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck -"
+                    + " Cannot set property 'maxTernaryPerExpressionCount' to '-1'";
             Assert.assertTrue("Expected error message is missing: " + expectedMessage,
                 errorMsg.contains(expectedMessage));
         }
