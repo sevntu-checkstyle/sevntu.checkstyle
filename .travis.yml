@@ -63,10 +63,10 @@ matrix:
         - CMD="./.ci/travis.sh checkstyle-regression"
 
     # eclipse static analysis
-    - jdk: oraclejdk8
-      env:
-        - DESC="eclipse-analysis"
-        - CMD="./.ci/travis.sh eclipse-analysis"
+    #- jdk: oraclejdk8
+    #  env:
+    #    - DESC="eclipse-analysis"
+    #    - CMD="./.ci/travis.sh eclipse-analysis"
 
     # testing of PR format
     - env:
