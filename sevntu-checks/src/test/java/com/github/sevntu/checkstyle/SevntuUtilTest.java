@@ -27,19 +27,19 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class UtilsTest {
+public class SevntuUtilTest {
 
     @Test
     public void testIsProperUtilsClass() throws ReflectiveOperationException {
         Assert.assertTrue("Constructor is not private",
-                isUtilsClassHasPrivateConstructor(Utils.class, true));
+                isUtilsClassHasPrivateConstructor(SevntuUtil.class, true));
     }
 
     @Test
     public void testReportInvalidToken() {
         try {
-            Utils.reportInvalidToken(TokenTypes.CLASS_DEF);
-            fail();
+            SevntuUtil.reportInvalidToken(TokenTypes.CLASS_DEF);
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: CLASS_DEF", ex.getMessage());

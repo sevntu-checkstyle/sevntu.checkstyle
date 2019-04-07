@@ -32,6 +32,7 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -363,50 +364,48 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        switch (ast.getType()) {
-            case TokenTypes.CLASS_DEF:
-                if (!isClassDefInMethodDef(ast)) {
-                    if (checkInnerClasses && !classDetails.isEmpty()) {
-                        final int position = getPositionInOrderDeclaration(ast);
+        if (ast.getType() == TokenTypes.CLASS_DEF) {
+            if (!isClassDefInMethodDef(ast)) {
+                if (checkInnerClasses && !classDetails.isEmpty()) {
+                    final int position = getPositionInOrderDeclaration(ast);
 
-                        if (position != -1) {
-                            if (isWrongPosition(position)) {
-                                logWrongOrderedElement(ast, position);
-                            }
-                            else {
-                                classDetails.peek().setCurrentPosition(position);
-                            }
+                    if (position != -1) {
+                        if (isWrongPosition(position)) {
+                            logWrongOrderedElement(ast, position);
                         }
-                    }
-
-                    classDetails.push(new ClassDetail());
-                }
-                break;
-
-            default:
-                final DetailAST objBlockAst = ast.getParent();
-                if (objBlockAst != null
-                    && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
-                    final DetailAST classDefAst = objBlockAst.getParent();
-
-                    if (classDefAst.getType() == TokenTypes.CLASS_DEF
-                        && !isClassDefInMethodDef(classDefAst)) {
-                        if (checkGettersSetters) {
-                            collectGetterSetter(ast);
-                        }
-
-                        final int position = getPositionInOrderDeclaration(ast);
-
-                        if (position != -1) {
-                            if (isWrongPosition(position)) {
-                                logWrongOrderedElement(ast, position);
-                            }
-                            else {
-                                classDetails.peek().setCurrentPosition(position);
-                            }
+                        else {
+                            classDetails.peek().setCurrentPosition(position);
                         }
                     }
                 }
+
+                classDetails.push(new ClassDetail());
+            }
+        }
+        else {
+            final DetailAST objBlockAst = ast.getParent();
+            if (objBlockAst != null
+                && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
+                final DetailAST classDefAst = objBlockAst.getParent();
+
+                if (classDefAst.getType() == TokenTypes.CLASS_DEF
+                    && !isClassDefInMethodDef(classDefAst)) {
+                    if (checkGettersSetters) {
+                        collectGetterSetter(ast);
+                    }
+
+                    final int position = getPositionInOrderDeclaration(ast);
+
+                    if (position != -1) {
+                        if (isWrongPosition(position)) {
+                            logWrongOrderedElement(ast, position);
+                        }
+                        else {
+                            classDetails.peek().setCurrentPosition(position);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -540,7 +539,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 token = MSG_KEY_ENUM;
                 break;
             default:
-                com.github.sevntu.checkstyle.Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
 
@@ -821,7 +820,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         while (astNode.getType() != TokenTypes.IDENT) {
             if (astNode.getFirstChild() != null) {
                 modifiers.append(getModifiersAsText(astNode.getFirstChild()));
-                modifiers.append(" ");
+                modifiers.append(' ');
             }
             astNode = astNode.getNextSibling();
         }
@@ -840,22 +839,22 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private static String getModifiersAsText(final DetailAST ast) {
         DetailAST astNode = ast;
         String separator = "";
-        final StringBuffer modifiers = new StringBuffer();
+        final StringBuilder modifiers = new StringBuilder();
 
         if (astNode.getParent().getType() == TokenTypes.MODIFIERS) {
             // add separator between access modifiers and annotations
             separator = " ";
         }
         while (astNode != null) {
-            if (astNode.getFirstChild() != null) {
-                modifiers.append(getModifiersAsText(astNode.getFirstChild()));
-            }
-            else {
+            if (astNode.getFirstChild() == null) {
                 if (astNode.getType() == TokenTypes.RBRACK) {
                     //if array
-                    modifiers.append("[");
+                    modifiers.append('[');
                 }
                 modifiers.append(astNode.getText());
+            }
+            else {
+                modifiers.append(getModifiersAsText(astNode.getFirstChild()));
             }
             modifiers.append(separator);
             astNode = astNode.getNextSibling();
@@ -1198,7 +1197,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          * @param inputRule input string with MemberDefinition and RegExp.
          * @param classMember the member of class
          */
-        private FormatMatcher(final String inputRule,
+        /* package */ FormatMatcher(final String inputRule,
                 final int classMember) {
             this.classMember = classMember;
             rule = inputRule;

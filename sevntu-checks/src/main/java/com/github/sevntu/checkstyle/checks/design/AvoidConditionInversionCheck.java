@@ -21,7 +21,7 @@ package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.Set;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.google.common.collect.ImmutableSet;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -187,7 +187,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
                 break;
 
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -244,8 +244,8 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * @return true if token can be skipped.
      */
     private boolean isSkipCondition(DetailAST inversionConditionAst) {
-        return (applyOnlyToRelationalOperands
-                    && !containsRelationalOperandsOnly(inversionConditionAst))
+        return applyOnlyToRelationalOperands
+                    && !containsRelationalOperandsOnly(inversionConditionAst)
                 || !containsConditionalOrRelationalOperands(inversionConditionAst);
     }
 
@@ -263,18 +263,17 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
         final DetailAST operatorInInversionAst = inversionConditionAst.getFirstChild()
                 .getNextSibling();
 
-        if (operatorInInversionAst != null) {
-            if (!RELATIONAL_OPERATORS_SET.contains(operatorInInversionAst.getType())) {
-                DetailAST currentNode = operatorInInversionAst.getFirstChild();
+        if (operatorInInversionAst != null
+                && !RELATIONAL_OPERATORS_SET.contains(operatorInInversionAst.getType())) {
+            DetailAST currentNode = operatorInInversionAst.getFirstChild();
 
-                while (currentNode != null) {
-                    if ((currentNode.getType() == TokenTypes.IDENT)
-                            || (!isRelationalOperand(currentNode))) {
-                        result = false;
-                    }
-
-                    currentNode = currentNode.getNextSibling();
+            while (currentNode != null) {
+                if (currentNode.getType() == TokenTypes.IDENT
+                        || !isRelationalOperand(currentNode)) {
+                    result = false;
                 }
+
+                currentNode = currentNode.getNextSibling();
             }
         }
 

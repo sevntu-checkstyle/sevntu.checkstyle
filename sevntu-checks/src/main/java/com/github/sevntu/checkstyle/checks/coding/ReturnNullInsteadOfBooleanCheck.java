@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -92,7 +92,7 @@ public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
                 }
                 break;
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -107,7 +107,7 @@ public class ReturnNullInsteadOfBooleanCheck extends AbstractCheck {
                 // Do nothing
                 break;
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }

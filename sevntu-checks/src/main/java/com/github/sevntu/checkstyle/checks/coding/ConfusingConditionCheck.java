@@ -172,15 +172,23 @@ public class ConfusingConditionCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST literalIf) {
         if (isIfEndsWithElse(literalIf)
-                && !(ignoreSequentialIf && isSequentialIf(literalIf))
-                && !(ignoreInnerIf && isInnerIf(literalIf))
-                && !(ignoreThrowInElse && isElseWithThrow(literalIf))) {
-            if (isRatioBetweenIfAndElseBlockSuitable(literalIf)
-                    && !(ignoreNullCaseInIf && isIfWithNull(literalIf))
-                    && isConditionAllNegative(literalIf)) {
-                log(literalIf, MSG_KEY);
-            }
+                && !canIgnore(literalIf)
+                && isRatioBetweenIfAndElseBlockSuitable(literalIf)
+                && isConditionAllNegative(literalIf)) {
+            log(literalIf, MSG_KEY);
         }
+    }
+
+    /**
+     * Checks if the given AST can be ignored.
+     * @param literalIf The AST to check.
+     * @return {@code true} if it can be ignored.
+     */
+    private boolean canIgnore(DetailAST literalIf) {
+        return ignoreSequentialIf && isSequentialIf(literalIf)
+            || ignoreInnerIf && isInnerIf(literalIf)
+            || ignoreThrowInElse && isElseWithThrow(literalIf)
+            || ignoreNullCaseInIf && isIfWithNull(literalIf);
     }
 
     /**
@@ -202,9 +210,8 @@ public class ConfusingConditionCheck extends AbstractCheck {
      */
     private static boolean isSequentialIf(DetailAST literalIf) {
         final DetailAST lastChildAfterIf = literalIf.getLastChild();
-        final boolean isSequentialIf = lastChildAfterIf.getFirstChild()
-                .getType() == (TokenTypes.LITERAL_IF);
-        return isSequentialIf;
+        return lastChildAfterIf.getFirstChild()
+                .getType() == TokenTypes.LITERAL_IF;
     }
 
     /**

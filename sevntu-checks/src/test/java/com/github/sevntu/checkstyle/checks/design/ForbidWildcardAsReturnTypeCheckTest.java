@@ -442,7 +442,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
      *        arrays of line numbers
      * @return sorted set of line numbers.
      */
-    private static SortedSet<Integer> newSetOfLines(Integer[] aLines) {
+    private static SortedSet<Integer> newSetOfLines(Integer... aLines) {
         return new TreeSet<>(Arrays.asList(aLines));
     }
 

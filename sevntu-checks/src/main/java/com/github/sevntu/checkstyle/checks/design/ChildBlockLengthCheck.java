@@ -19,6 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -99,7 +100,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      *        - DetailAST tokenTypes that are related to the types which are
      *        allowed by user in check preferences.
      **/
-    public void setBlockTypes(final String[] blockTypes) {
+    public void setBlockTypes(final String... blockTypes) {
         this.blockTypes = new int[blockTypes.length];
         for (int i = 0; i < blockTypes.length; i++) {
             this.blockTypes[i] = TokenUtil.getTokenId(blockTypes[i]);
@@ -129,7 +130,14 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     // Issue: https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/166
     @Override
     public int[] getDefaultTokens() {
-        return blockTypes;
+        final int[] result;
+        if (blockTypes == null) {
+            result = null;
+        }
+        else {
+            result = Arrays.copyOf(blockTypes, blockTypes.length);
+        }
+        return result;
     }
 
     @Override

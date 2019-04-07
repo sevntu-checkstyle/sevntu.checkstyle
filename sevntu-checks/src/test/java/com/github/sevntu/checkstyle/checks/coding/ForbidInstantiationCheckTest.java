@@ -133,7 +133,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
             final ForbidInstantiationCheck check = new ForbidInstantiationCheck();
             check.visitToken(sync);
 
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());

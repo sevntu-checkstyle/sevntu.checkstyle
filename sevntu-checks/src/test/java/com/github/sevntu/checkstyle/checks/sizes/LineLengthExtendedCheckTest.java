@@ -93,7 +93,7 @@ public class LineLengthExtendedCheckTest extends AbstractModuleTestSupport {
 
         try {
             verify(checkConfig, getPath("InputLineLengthExtendedCheck.java"), expected);
-            fail();
+            fail("exception expected");
         }
         catch (CheckstyleException ex) {
             final String messagePrefix = "cannot initialize module"

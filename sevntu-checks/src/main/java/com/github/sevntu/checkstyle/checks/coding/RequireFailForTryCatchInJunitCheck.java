@@ -19,7 +19,7 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -146,7 +146,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
                 examineTry(ast);
                 break;
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -178,7 +178,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
      */
     private boolean isTestMethod(DetailAST method) {
         return method != null
-            && ((importTest && AnnotationUtil.containsAnnotation(method, "Test"))
+            && (importTest && AnnotationUtil.containsAnnotation(method, "Test")
                     || AnnotationUtil.containsAnnotation(method, FQ_JUNIT_TEST));
     }
 

@@ -117,7 +117,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * List contains RegExp patterns for methods' names which would be ignored by check.
      */
-    private Set<String> ignoreMethodsNames = new HashSet<>();
+    private final Set<String> ignoreMethodsNames = new HashSet<>();
 
     /**
      * Maximum allowed "return" literals count per method/ctor/lambda (1 by default).
@@ -160,7 +160,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * @param ignoreMethodNames
      *            list of the RegExp patterns for methods' names which should be ignored by check
      */
-    public void setIgnoreMethodsNames(String[] ignoreMethodNames) {
+    public void setIgnoreMethodsNames(String... ignoreMethodNames) {
         ignoreMethodsNames.clear();
         if (ignoreMethodNames != null) {
             for (String name : ignoreMethodNames) {

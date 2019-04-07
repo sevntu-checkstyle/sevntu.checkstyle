@@ -183,7 +183,7 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
             final EmptyPublicCtorInClassCheck check = new EmptyPublicCtorInClassCheck();
             check.visitToken(sync);
 
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());

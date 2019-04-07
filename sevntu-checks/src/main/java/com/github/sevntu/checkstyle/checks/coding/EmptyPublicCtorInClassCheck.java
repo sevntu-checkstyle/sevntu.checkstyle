@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -113,12 +113,12 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     /**
      * List of single-type-imports for current AST.
      */
-    private List<String> singleTypeImports = new ArrayList<>();
+    private final List<String> singleTypeImports = new ArrayList<>();
 
     /**
      * List of on-demand-imports for current AST.
      */
-    private List<String> onDemandImports = new ArrayList<>();
+    private final List<String> onDemandImports = new ArrayList<>();
 
     /**
      * Package name for current AST or empty string if AST does not contain package name.
@@ -144,11 +144,11 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      *        regex to match annotation names.
      */
     public void setClassAnnotationNames(String regex) {
-        if (regex != null && !regex.isEmpty()) {
-            classAnnotationNames = Pattern.compile(regex);
+        if (regex == null || regex.isEmpty()) {
+            classAnnotationNames = null;
         }
         else {
-            classAnnotationNames = null;
+            classAnnotationNames = Pattern.compile(regex);
         }
     }
 
@@ -158,11 +158,11 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      *        regex to match annotation names.
      */
     public void setCtorAnnotationNames(String regex) {
-        if (regex != null && !regex.isEmpty()) {
-            ctorAnnotationNames = Pattern.compile(regex);
+        if (regex == null || regex.isEmpty()) {
+            ctorAnnotationNames = null;
         }
         else {
-            ctorAnnotationNames = null;
+            ctorAnnotationNames = Pattern.compile(regex);
         }
     }
 
@@ -212,11 +212,10 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
                     if (isCtorPublic(ctorDef)
                             && isCtorHasNoParameters(ctorDef)
-                            && isCtorHasNoStatements(ctorDef)) {
-                        if (!isClassHasRegisteredAnnotation(node)
-                                && !isCtorHasRegisteredAnnotation(ctorDef)) {
-                            log(ctorDef, MSG_KEY);
-                        }
+                            && isCtorHasNoStatements(ctorDef)
+                            && !isClassHasRegisteredAnnotation(node)
+                            && !isCtorHasRegisteredAnnotation(ctorDef)) {
+                        log(ctorDef, MSG_KEY);
                     }
                 }
                 break;
@@ -225,7 +224,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
                 filePackageName = getIdentifierName(node);
                 break;
             default:
-                Utils.reportInvalidToken(node.getType());
+                SevntuUtil.reportInvalidToken(node.getType());
                 break;
         }
     }
@@ -525,10 +524,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
         final DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
         final String result;
 
-        if (identNode != null) {
-            result = identNode.getText();
-        }
-        else {
+        if (identNode == null) {
             final StringBuilder builder = new StringBuilder(40);
             DetailAST node = identifierNode.findFirstToken(TokenTypes.DOT);
 
@@ -541,6 +537,9 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
             builder.insert(0, node.getText());
 
             result = builder.toString();
+        }
+        else {
+            result = identNode.getText();
         }
 
         return result;

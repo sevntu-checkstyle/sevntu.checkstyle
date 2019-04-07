@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -137,7 +137,7 @@ public class RedundantReturnCheck extends AbstractCheck {
                 break;
 
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -329,7 +329,7 @@ public class RedundantReturnCheck extends AbstractCheck {
         DetailAST redundantReturnAst = null;
         DetailAST currentNodeAst = lastStatementInCatchBlockAst;
         DetailAST returnAst = null;
-        DetailAST toVisitAst = Utils.getNextSubTreeNode(currentNodeAst, currentNodeAst);
+        DetailAST toVisitAst = SevntuUtil.getNextSubTreeNode(currentNodeAst, currentNodeAst);
 
         while (toVisitAst != null) {
             if (toVisitAst.getType() == TokenTypes.OBJBLOCK) {
@@ -353,10 +353,11 @@ public class RedundantReturnCheck extends AbstractCheck {
                 toVisitAst = returnAst;
             }
 
-            toVisitAst = Utils.getNextSubTreeNode(toVisitAst, currentNodeAst);
+            toVisitAst = SevntuUtil.getNextSubTreeNode(toVisitAst, currentNodeAst);
         }
 
-        currentNodeAst = Utils.getNextSubTreeNode(currentNodeAst, lastStatementInCatchBlockAst);
+        currentNodeAst = SevntuUtil.getNextSubTreeNode(currentNodeAst,
+                lastStatementInCatchBlockAst);
         return redundantReturnAst;
     }
 

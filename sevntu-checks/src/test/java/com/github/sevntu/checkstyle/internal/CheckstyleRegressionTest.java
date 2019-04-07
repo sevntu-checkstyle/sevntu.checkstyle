@@ -89,7 +89,10 @@ public class CheckstyleRegressionTest {
 
         trimSevntuChecksNotReferenced(configChecks, sevntuChecks);
 
-        if (sevntuChecks.size() > 0) {
+        if (sevntuChecks.isEmpty()) {
+            System.out.println("All sevntu checks listed in config");
+        }
+        else {
             System.out.println("Adding " + sevntuChecks.size() + " missing check(s)");
 
             String configAdditions = "";
@@ -132,9 +135,6 @@ public class CheckstyleRegressionTest {
                 Files.write(suppression.toPath(), suppressionContents.getBytes(UTF_8),
                         StandardOpenOption.CREATE);
             }
-        }
-        else {
-            System.out.println("All sevntu checks listed in config");
         }
     }
 

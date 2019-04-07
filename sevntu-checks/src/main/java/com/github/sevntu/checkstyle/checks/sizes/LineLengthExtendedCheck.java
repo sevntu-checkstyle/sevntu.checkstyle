@@ -241,7 +241,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
             final int realLength = CommonUtil.lengthExpandedTabs(line,
                     line.length(), getTabWidth());
 
-            if ((realLength > max) && !ignorePattern.matcher(line).find()) {
+            if (realLength > max && !ignorePattern.matcher(line).find()) {
                 log(i + 1, MSG_KEY, max, realLength);
             }
         }

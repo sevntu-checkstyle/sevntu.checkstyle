@@ -212,11 +212,9 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
             final String className = getClassName(classDefNode);
 
             if (isClassDerived(classDefNode)) {
-                if (!allowCallToNoArgsSuperCtor) {
-                    if (!allowCallToNoArgsSuperCtorIfMultiplePublicCtor
-                            || getClassPublicCtorCount(classDefNode) <= 1) {
-                        log(aSuperCallNode, MSG_WITHOUT_ARGS, className);
-                    }
+                if (!allowCallToNoArgsSuperCtor && (!allowCallToNoArgsSuperCtorIfMultiplePublicCtor
+                        || getClassPublicCtorCount(classDefNode) <= 1)) {
+                    log(aSuperCallNode, MSG_WITHOUT_ARGS, className);
                 }
             }
             else {

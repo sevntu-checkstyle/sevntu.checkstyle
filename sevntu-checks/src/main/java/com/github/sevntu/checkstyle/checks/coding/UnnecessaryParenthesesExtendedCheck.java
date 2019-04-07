@@ -170,12 +170,12 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         final DetailAST parent = ast.getParent();
 
         // shouldn't process assign in annotation pairs
-        if ((type != TokenTypes.ASSIGN)
-            || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
+        if (type != TokenTypes.ASSIGN
+            || parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR) {
             final boolean surrounded = isSurrounded(ast);
 
             // An identifier surrounded by parentheses.
-            if (surrounded && (type == TokenTypes.IDENT)) {
+            if (surrounded && type == TokenTypes.IDENT) {
                 parentToSkip = ast.getParent();
                 log(ast, MSG_KEY_IDENT, ast.getText());
             }
@@ -213,8 +213,8 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         final DetailAST parent = ast.getParent();
 
         // shouldn't process assign in annotation pairs
-        if ((type != TokenTypes.ASSIGN)
-            || (parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR)) {
+        if (type != TokenTypes.ASSIGN
+            || parent.getType() != TokenTypes.ANNOTATION_MEMBER_VALUE_PAIR) {
             // An expression is surrounded by parentheses.
             if (type == TokenTypes.EXPR) {
                 leaveTokenExpression(ast);
@@ -238,7 +238,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         // warning about an immediate child node in visitToken, so we don't
         // need to log another one here.
 
-        if ((parentToSkip != ast) && exprSurrounded(ast)) {
+        if (parentToSkip != ast && exprSurrounded(ast)) {
             if (assignDepth >= 1) {
                 if (!ignoreCalculationOfBooleanVariables || !inTokenList(
                     subtreeType(ast), EQUALS)) {
@@ -282,8 +282,8 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         final DetailAST prev = ast.getPreviousSibling();
         final DetailAST next = ast.getNextSibling();
 
-        return (prev != null) && (next != null)
-            && (prev.getType() == TokenTypes.LPAREN);
+        return prev != null && next != null
+            && prev.getType() == TokenTypes.LPAREN;
     }
 
     /**
@@ -306,13 +306,13 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      * @return <code>true</code> if <code>aType</code> was found in <code>
      *         aTokens</code>.
      */
-    private static boolean inTokenList(int type, int[] tokens) {
+    private static boolean inTokenList(int type, int... tokens) {
         // NOTE: Given the small size of the two arrays searched, I'm not sure
         //       it's worth bothering with doing a binary search or using a
         //       HashMap to do the searches.
 
         boolean found = false;
-        for (int i = 0; (i < tokens.length) && !found; i++) {
+        for (int i = 0; i < tokens.length && !found; i++) {
             found = tokens[i] == type;
         }
         return found;

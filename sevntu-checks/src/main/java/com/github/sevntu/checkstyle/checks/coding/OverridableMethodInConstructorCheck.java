@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -298,7 +298,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
                     break;
 
                 default:
-                    Utils.reportInvalidToken(detailAST.getType());
+                    SevntuUtil.reportInvalidToken(detailAST.getType());
                     break;
             }
         }
@@ -382,12 +382,9 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
         final DetailAST methodDef = getMethodDef(methodCallAST);
 
         if (methodName != null
-                && methodDef != null) {
-            if (hasModifier(methodDef, TokenTypes.LITERAL_STATIC)) {
-                // do nothing
-            }
-            else if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
-                    || hasModifier(methodDef, TokenTypes.FINAL)) {
+                && methodDef != null && !hasModifier(methodDef, TokenTypes.LITERAL_STATIC)) {
+            if (hasModifier(methodDef, TokenTypes.LITERAL_PRIVATE)
+                || hasModifier(methodDef, TokenTypes.FINAL)) {
                 final List<DetailAST> methodCallsList = getMethodCallsList(
                         methodDef);
                 for (DetailAST curNode : methodCallsList) {
@@ -443,10 +440,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
         final DetailAST ident = methodCallAST.findFirstToken(TokenTypes.IDENT);
 
-        if (ident != null) {
-            result = ident.getText();
-        }
-        else {
+        if (ident == null) {
             final DetailAST childAST = methodCallAST.getFirstChild();
 
             if (childAST != null && childAST.getType() == TokenTypes.DOT) {
@@ -469,6 +463,9 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
                     }
                 }
             }
+        }
+        else {
+            result = ident.getText();
         }
         return result;
     }
@@ -646,8 +643,9 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     private static boolean
             isItCallMethodViaKeywordThis(String firstPartOfTheMethodCall, DetailAST classDefNode) {
         final String className = classDefNode.findFirstToken(TokenTypes.IDENT).getText();
+        // -@cs[EqualsAvoidNull] need parenthesis around '+' otherwise PMD will complain
         return LITERAL_THIS.equals(firstPartOfTheMethodCall)
-                || (className + PATH_SEPARATOR + LITERAL_THIS).equals(firstPartOfTheMethodCall);
+                || firstPartOfTheMethodCall.equals(className + PATH_SEPARATOR + LITERAL_THIS);
     }
 
     /**
@@ -839,19 +837,18 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
             while (curClass != null) {
                 result.add(curClass);
                 baseClassName = getBaseClassName(curClass);
-                if (baseClassName != null) {
-                    final DetailAST nextClass = getClassDef(treeRootAST, baseClassName);
+                if (baseClassName == null) {
+                    break;
+                }
 
-                    // prevent infinite loop with similar named classes
-                    if (nextClass == curClass) {
-                        curClass = null;
-                    }
-                    else {
-                        curClass = nextClass;
-                    }
+                final DetailAST nextClass = getClassDef(treeRootAST, baseClassName);
+
+                // prevent infinite loop with similar named classes
+                if (nextClass == curClass) {
+                    curClass = null;
                 }
                 else {
-                    break;
+                    curClass = nextClass;
                 }
             }
         }
@@ -872,12 +869,12 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
         if (extendsClause != null) {
             final DetailAST dot = extendsClause.findFirstToken(TokenTypes.DOT);
-            if (dot != null) {
-                result = dot.findFirstToken(TokenTypes.IDENT).getText();
-            }
-            else {
+            if (dot == null) {
                 result = extendsClause.findFirstToken(TokenTypes.IDENT)
                         .getText();
+            }
+            else {
+                result = dot.findFirstToken(TokenTypes.IDENT).getText();
             }
         }
         return result;
@@ -913,11 +910,11 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
          * DetailAST node is related to the method call that leads to
          *           call of the overridable method.
          */
-        private DetailAST metCallAST;
+        private final DetailAST metCallAST;
         /**
          * The name of an overridable method.
          */
-        private String overridableMetName;
+        private final String overridableMetName;
 
         /**
          * Creates an instance of OverridableMetCall and initializes fields.
@@ -927,7 +924,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
          * @param overridableMetName
          *            The name of an overridable method.
          */
-        private OverridableMetCall(DetailAST methodCallAST,
+        /* package */ OverridableMetCall(DetailAST methodCallAST,
                 String overridableMetName) {
             this.metCallAST = methodCallAST;
             this.overridableMetName = overridableMetName;

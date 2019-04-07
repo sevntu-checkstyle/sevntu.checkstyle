@@ -153,15 +153,13 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
     private void validateLocalVariable(DetailAST ast) {
         final Holder holder = new Holder(ast);
 
-        for (DetailAST child = ast.getNextSibling(); (!holder.exit) && (child != null);
+        for (DetailAST child = ast.getNextSibling(); !holder.exit && child != null;
                 child = child.getNextSibling()) {
-            switch (child.getType()) {
-                case TokenTypes.LITERAL_IF:
-                    validateIf(holder, child);
-                    break;
-                default:
-                    validateOther(holder, child);
-                    break;
+            if (child.getType() == TokenTypes.LITERAL_IF) {
+                validateIf(holder, child);
+            }
+            else {
+                validateOther(holder, child);
             }
         }
 
@@ -279,7 +277,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
     private static class Holder {
 
         /** The name of the variable being examined. */
-        private String variableName;
+        private final String variableName;
         /** Switch to trigger ending examining more nodes. */
         private boolean exit;
         /** The node to report violations on. */
@@ -290,7 +288,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
          *
          * @param ast The variable the holder is for.
          */
-        Holder(DetailAST ast) {
+        /* package */ Holder(DetailAST ast) {
             variableName = ast.findFirstToken(TokenTypes.IDENT).getText();
         }
 
@@ -302,11 +300,11 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
          * @param blockNode The given block node to report for.
          */
         public void setBlockNode(DetailAST blockNode) {
-            if (this.blockNode != null) {
-                setExit();
+            if (this.blockNode == null) {
+                this.blockNode = blockNode;
             }
             else {
-                this.blockNode = blockNode;
+                setExit();
             }
         }
 
@@ -331,8 +329,8 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
 
             // -@cs[SingleBreakOrContinue] Too complex to break apart
             while (curNode != null) {
-                if ((curNode.getType() == TokenTypes.IDENT)
-                        && (variableName.equals(curNode.getText()))) {
+                if (curNode.getType() == TokenTypes.IDENT
+                        && variableName.equals(curNode.getText())) {
                     found = true;
                     break;
                 }

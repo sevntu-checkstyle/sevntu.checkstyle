@@ -191,7 +191,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "minSymbolsBeforeChecking", mockType);
-            fail();
+            fail("exception expected");
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
@@ -206,7 +206,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "maxSymbolsUntilUnderscore", mockType);
-            fail();
+            fail("exception expected");
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
@@ -221,7 +221,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "getNumericSegments", "", mockType);
-            fail();
+            fail("exception expected");
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
@@ -236,7 +236,7 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
                     new NumericLiteralNeedsUnderscoreCheck();
             final NumericType mockType = PowerMockito.mock(NumericType.class);
             WhiteboxImpl.invokeMethod(check, "removePrePostfixByType", "", mockType);
-            fail();
+            fail("exception expected");
         }
         catch (IllegalStateException ex) {
             Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,

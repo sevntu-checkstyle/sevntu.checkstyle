@@ -82,7 +82,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
      *
      * @param targets target constant types
      */
-    public void setTargetConstantTypes(String[] targets) {
+    public void setTargetConstantTypes(String... targets) {
         if (targets != null) {
             targetConstantTypes = new int[targets.length];
             for (int i = 0; i < targets.length; i++) {

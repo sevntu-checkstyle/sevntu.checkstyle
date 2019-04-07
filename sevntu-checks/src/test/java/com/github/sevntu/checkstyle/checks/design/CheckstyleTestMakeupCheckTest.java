@@ -119,7 +119,7 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
         final CheckstyleTestMakeupCheck check = new CheckstyleTestMakeupCheck();
         try {
             check.visitToken(parent);
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: OBJBLOCK", ex.getMessage());

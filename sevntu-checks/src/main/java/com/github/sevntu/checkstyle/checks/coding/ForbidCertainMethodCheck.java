@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -117,16 +117,15 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
      */
     public void setArgumentCount(String argumentCount) throws CheckstyleException {
         this.argumentCount = argumentCount;
-        if (argumentCount.trim().length() > 0) {
-            final String[] rangeTokens = COMMA_REGEX.split(argumentCount);
-            argumentCountRanges.clear();
-            for (String oneToken : rangeTokens) {
-                argumentCountRanges.add(IntRange.from(oneToken));
-            }
-        }
-        else {
+        if (CommonUtil.isBlank(argumentCount)) {
             throw new CheckstyleException(
                 "argumentCount must be non-empty, found: " + argumentCount);
+        }
+
+        final String[] rangeTokens = COMMA_REGEX.split(argumentCount);
+        argumentCountRanges.clear();
+        for (String oneToken : rangeTokens) {
+            argumentCountRanges.add(IntRange.from(oneToken));
         }
     }
 
@@ -149,27 +148,25 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        switch (ast.getType()) {
-            case TokenTypes.METHOD_CALL:
-                final DetailAST dot = ast.getFirstChild();
-                // method that looks like: method()
-                final String methodNameInCode;
-                if (dot.getType() == TokenTypes.IDENT) {
-                    methodNameInCode = dot.getText();
-                }
-                // method that looks like: obj.method()
-                else {
-                    methodNameInCode = dot.getLastChild().getText();
-                }
-                final int numArgsInCode = getMethodCallParameterCount(ast);
-                if (isForbiddenMethod(methodNameInCode, numArgsInCode)) {
-                    log(ast, MSG_KEY, methodNameInCode, methodName,
-                        numArgsInCode, argumentCount);
-                }
-                break;
-            default:
-                Utils.reportInvalidToken(ast.getType());
-                break;
+        if (ast.getType() == TokenTypes.METHOD_CALL) {
+            final DetailAST dot = ast.getFirstChild();
+            // method that looks like: method()
+            final String methodNameInCode;
+            if (dot.getType() == TokenTypes.IDENT) {
+                methodNameInCode = dot.getText();
+            }
+            // method that looks like: obj.method()
+            else {
+                methodNameInCode = dot.getLastChild().getText();
+            }
+            final int numArgsInCode = getMethodCallParameterCount(ast);
+            if (isForbiddenMethod(methodNameInCode, numArgsInCode)) {
+                log(ast, MSG_KEY, methodNameInCode, methodName,
+                    numArgsInCode, argumentCount);
+            }
+        }
+        else {
+            SevntuUtil.reportInvalidToken(ast.getType());
         }
     }
 
@@ -223,7 +220,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
      * <li>1: same as 1-1</li>
      * </ul>
      */
-    static class IntRange {
+    /* package */ static class IntRange {
         /** Regex for matching range. */
         private static final Pattern RANGE_PATTERN =
             Pattern.compile("^\\s*+(\\d*+)\\s*+-\\s*+(\\d*+)\\s*+$");
@@ -237,7 +234,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
          * @param lowerLimit lower limit of the range, must be >= 0, null is equivalent to 0
          * @param upperLimit upper limit of the range, null is equivalent to infinity
          */
-        IntRange(int lowerLimit, int upperLimit) {
+        /* package */ IntRange(int lowerLimit, int upperLimit) {
             this.lowerLimit = lowerLimit;
             this.upperLimit = upperLimit;
         }
@@ -249,14 +246,10 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
          *
          * @throws CheckstyleException if the specified range is not valid
          */
-        static IntRange from(String range) throws CheckstyleException {
+        private static IntRange from(String range) throws CheckstyleException {
             int lowerLimit = 0;
             int upperLimit = Integer.MAX_VALUE;
-            if (!range.contains("-")) {
-                lowerLimit = Integer.parseInt(range.trim());
-                upperLimit = lowerLimit;
-            }
-            else {
+            if (range.contains("-")) {
                 final Matcher matcher = RANGE_PATTERN.matcher(range);
                 if (!matcher.find()) {
                     throw new CheckstyleException("Specified range is not valid: " + range);
@@ -277,6 +270,10 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
                     throw new CheckstyleException(
                         "Lower limit of the range is larger than the upper limit: " + range);
                 }
+            }
+            else {
+                lowerLimit = Integer.parseInt(range.trim());
+                upperLimit = lowerLimit;
             }
             return new IntRange(lowerLimit, upperLimit);
         }

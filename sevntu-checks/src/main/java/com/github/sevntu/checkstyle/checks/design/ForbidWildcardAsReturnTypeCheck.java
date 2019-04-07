@@ -233,12 +233,12 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
         final String methodScope = getVisibilityScope(methodDefAst);
         if (isCheckableMethodScope(methodScope)
                 && (checkOverrideMethods
-                        || (!AnnotationUtil.containsAnnotation(methodDefAst, OVERRIDE)
-                            && !AnnotationUtil.containsAnnotation(methodDefAst, FQ_OVERRIDE)))
+                        || !AnnotationUtil.containsAnnotation(methodDefAst, OVERRIDE)
+                            && !AnnotationUtil.containsAnnotation(methodDefAst, FQ_OVERRIDE))
                 && (checkDeprecatedMethods
-                        || (!AnnotationUtil.containsAnnotation(methodDefAst, DEPRECATED)
+                        || !AnnotationUtil.containsAnnotation(methodDefAst, DEPRECATED)
                             && !AnnotationUtil.containsAnnotation(methodDefAst,
-                                FQ_DEPRECATED)))) {
+                                FQ_DEPRECATED))) {
             final List<DetailAST> wildcardTypeArguments =
                     getWildcardArgumentsAsMethodReturnType(methodDefAst);
             if (!wildcardTypeArguments.isEmpty()
@@ -254,10 +254,10 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return {@code true} if the method should be checked.
      */
     private boolean isCheckableMethodScope(String methodScope) {
-        return (checkPublicMethods && "public".equals(methodScope))
-                || (checkPrivateMethods && "private".equals(methodScope))
-                || (checkProtectedMethods && "protected".equals(methodScope))
-                || (checkPackageMethods && "package".equals(methodScope));
+        return checkPublicMethods && "public".equals(methodScope)
+                || checkPrivateMethods && "private".equals(methodScope)
+                || checkProtectedMethods && "protected".equals(methodScope)
+                || checkPackageMethods && "package".equals(methodScope);
     }
 
     /**
@@ -323,8 +323,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      */
     private static String getIdentifier(final DetailAST ast) {
         final DetailAST identifier = ast.findFirstToken(TokenTypes.IDENT);
-        final String result = identifier.getText();
-        return result;
+        return identifier.getText();
     }
 
     /**
@@ -419,12 +418,12 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
             final boolean isAllowedBoundedWildcards =
                     allowReturnWildcardWithExtends
                     && allowReturnWildcardWithSuper;
-            result = (isAllowedBoundedWildcards
-                            && hasBoundedWildcardAsReturnType)
-                    || (allowReturnWildcardWithExtends
-                            && hasOnlyExtendsWildcardAsReturnType)
-                    || (allowReturnWildcardWithSuper
-                            && hasOnlySuperWildcardAsReturnType);
+            result = isAllowedBoundedWildcards
+                            && hasBoundedWildcardAsReturnType
+                    || allowReturnWildcardWithExtends
+                            && hasOnlyExtendsWildcardAsReturnType
+                    || allowReturnWildcardWithSuper
+                            && hasOnlySuperWildcardAsReturnType;
         }
         return result;
     }

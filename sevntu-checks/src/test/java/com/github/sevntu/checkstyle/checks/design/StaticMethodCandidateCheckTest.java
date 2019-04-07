@@ -95,7 +95,7 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
             TokenTypes.LITERAL_SUPER,
         };
         final StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
-        assertArrayEquals(expected, check.getAcceptableTokens());
+        assertArrayEquals("invalid tokens", expected, check.getAcceptableTokens());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
             TokenTypes.LITERAL_SUPER,
         };
         final StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
-        assertArrayEquals(expected, check.getRequiredTokens());
+        assertArrayEquals("invalid tokens", expected, check.getRequiredTokens());
     }
 
     @Test

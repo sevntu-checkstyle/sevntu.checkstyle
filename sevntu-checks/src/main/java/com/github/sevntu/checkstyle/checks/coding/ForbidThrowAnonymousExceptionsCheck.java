@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -70,11 +70,11 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /** Regular expression of exception naming. */
     private static final String DEFAULT_EXCEPTION_CLASS_NAME_REGEX = "^.*Exception";
 
+    /** List of anonymous exceptions to ignore. */
+    private final List<String> anonymousExceptions = new ArrayList<>();
+
     /** User set expression for exception names. */
     private Pattern pattern = Pattern.compile(DEFAULT_EXCEPTION_CLASS_NAME_REGEX);
-
-    /** List of anonymous exceptions to ignore. */
-    private List<String> anonymousExceptions = new ArrayList<>();
 
     /**
      * Setter for pattern.
@@ -112,7 +112,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
                 lookForAnonymousExceptionDefinition(literalThrowOrVariableDefAst);
                 break;
             default:
-                Utils.reportInvalidToken(literalThrowOrVariableDefAst.getType());
+                SevntuUtil.reportInvalidToken(literalThrowOrVariableDefAst.getType());
                 break;
         }
     }

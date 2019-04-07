@@ -22,10 +22,11 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -428,7 +429,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
                     String tokenName = TokenUtil.getTokenName(modifierType);
 
                     // Remove literal prefix and switch to lower case for better readability
-                    tokenName = tokenName.toLowerCase().replaceAll("literal_", "");
+                    tokenName = tokenName.toLowerCase(Locale.ENGLISH).replaceAll("literal_", "");
 
                     log(ast, MSG_KEY, className, tokenName);
                 }
@@ -484,7 +485,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
                 result = forbiddenClassesRegexpPublic;
                 break;
             default:
-                Utils.reportInvalidToken(modifierType);
+                SevntuUtil.reportInvalidToken(modifierType);
                 break;
         }
 

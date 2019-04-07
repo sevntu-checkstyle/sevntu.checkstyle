@@ -93,7 +93,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      * Variable, that indicates keywords "true" or "false" in current
      * expression.
      * */
-    private boolean hasTrueOrFalseLiteral;
+    private boolean hasTrueOrFalseLiteralInExpression;
 
     @Override
     public final int[] getDefaultTokens() {
@@ -128,7 +128,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         }
 
         supportedOperands.clear();
-        hasTrueOrFalseLiteral = false;
+        hasTrueOrFalseLiteralInExpression = false;
     }
 
     /**
@@ -168,11 +168,10 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         final int line = node.getLineNo();
         for (DetailAST currentNode : getChildren(curNode.getLastChild())) {
             if (currentNode.getLineNo() < line
-                    && currentNode.getType() == TokenTypes.VARIABLE_DEF) {
-                if (isBooleanType(currentNode)) {
-                    booleanVariablesNames.add(currentNode.findFirstToken(
-                            TokenTypes.IDENT).getText());
-                }
+                    && currentNode.getType() == TokenTypes.VARIABLE_DEF
+                    && isBooleanType(currentNode)) {
+                booleanVariablesNames.add(currentNode.findFirstToken(
+                        TokenTypes.IDENT).getText());
             }
         }
 
@@ -225,14 +224,14 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
             final int type = currentNode.getType();
             if (type == TokenTypes.LITERAL_TRUE
                     || type == TokenTypes.LITERAL_FALSE) {
-                hasTrueOrFalseLiteral = true;
+                hasTrueOrFalseLiteralInExpression = true;
             }
 
-            if (hasTrueOrFalseLiteral) {
+            if (hasTrueOrFalseLiteralInExpression) {
                 break;
             }
         }
-        return hasTrueOrFalseLiteral;
+        return hasTrueOrFalseLiteralInExpression;
     }
 
     /**

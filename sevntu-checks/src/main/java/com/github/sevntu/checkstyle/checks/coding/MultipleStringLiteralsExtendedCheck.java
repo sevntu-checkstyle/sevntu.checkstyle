@@ -97,8 +97,8 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
      *            regexp pattern for ignored strings
      */
     public final void setIgnoreStringsRegexp(String ignoreStringsRegexp) {
-        if ((ignoreStringsRegexp != null)
-                && (ignoreStringsRegexp.length() > 0)) {
+        if (ignoreStringsRegexp != null
+                && ignoreStringsRegexp.length() > 0) {
             pattern = Pattern.compile(ignoreStringsRegexp);
         }
         else {
@@ -123,7 +123,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
      * @param strRep
      *            the string representation of the tokens interested in
      */
-    public final void setIgnoreOccurrenceContext(String[] strRep) {
+    public final void setIgnoreOccurrenceContext(String... strRep) {
         ignoreOccurrenceContext.clear();
         for (final String s : strRep) {
             final int type = TokenUtil.getTokenId(s);
@@ -152,7 +152,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
     public void visitToken(DetailAST ast) {
         if (!isInIgnoreOccurrenceContext(ast)) {
             final String currentString = ast.getText();
-            if ((pattern == null) || !pattern.matcher(currentString).find()) {
+            if (pattern == null || !pattern.matcher(currentString).find()) {
                 List<DetailAST> hitList = stringMap.get(currentString);
                 if (hitList == null) {
                     hitList = Lists.newArrayList();

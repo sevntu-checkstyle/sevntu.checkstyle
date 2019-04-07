@@ -252,7 +252,6 @@ public class AllChecksTest {
 
     private static void verifyInputFile(Map<String, List<String>> allTests, File file) {
         if (file.isFile()) {
-            String fileName = file.getName().toString();
             String path = null;
 
             try {
@@ -262,10 +261,12 @@ public class AllChecksTest {
                 throw new IllegalStateException(ex);
             }
 
+            String fileName = file.getName().toString();
+
             Assert.assertTrue("Resource must start with 'Input': " + path,
                     fileName.startsWith("Input"));
 
-            final int period = fileName.lastIndexOf(".");
+            final int period = fileName.lastIndexOf('.');
 
             Assert.assertTrue("Resource must have an extension: " + path, period > 0);
 

@@ -20,7 +20,7 @@
   <allow pkg="com.puppycrawl.tools.checkstyle"/>
   <allow pkg="java.lang.reflect"/>
 
-  <allow class="com.github.sevntu.checkstyle.Utils"/>
+  <allow class="com.github.sevntu.checkstyle.SevntuUtil"/>
 
   <!-- The local ones -->
   <allow class="java.security.MessageDigest" local-only="true"/>
