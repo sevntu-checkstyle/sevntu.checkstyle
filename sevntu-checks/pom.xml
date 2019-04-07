@@ -63,7 +63,7 @@
     <dependency>
       <groupId>org.eclipse.jgit</groupId>
       <artifactId>org.eclipse.jgit</artifactId>
-      <version> 4.5.0.201609210915-r</version>
+      <version>5.3.0.201903130848-r</version>
       <scope>test</scope>
     </dependency>
     <!-- required for package/import test cases because creating dummy ones interferes with cobertura -->
