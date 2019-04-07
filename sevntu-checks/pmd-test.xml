@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<ruleset name="PMD ruleset for Checkstyle"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
+                             http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>
+        PMD ruleset for Sevntu tests
+    </description>
+    <exclude-pattern>.*/src/main/.*</exclude-pattern>
+
+    <rule ref="pmd.xml">
+        <!--We do throws Exception, as any exception that in not caught in test should fail
+            a test that is expected behavior and we like it as it follow fail-fast and helps
+            to avoid extra catch blocks-->
+        <exclude name="SignatureDeclareThrowsException"/>
+        <!--it madness to move all string values to common variables,
+            it will be hard to read test code-->
+        <exclude name="AvoidDuplicateLiterals"/>
+        <!--we do not need javadoc on test code-->
+        <exclude name="CommentRequired"/>
+        <!--we like static imports in UTs as them minimize the code and we know that most of
+            such methods are from UT+moks frameworks-->
+        <exclude name="TooManyStaticImports"/>
+        <!--we have too much UTs for each main class, it is better to keep all tests in one
+            file to ease navigation and search for tes-->
+        <exclude name="CouplingBetweenObjects"/>
+        <!--we have too much UTs for each main class, it is better to keep all tests in one
+            file to ease navigation and search for test-->
+        <exclude name="ExcessiveImports"/>
+        <!--test should be named as their main class-->
+        <exclude name="ClassNamingConventions"/>
+        <!--checkstyle do not use IP in configuration, so all values in tests are ok to use,
+            they just another test string data-->
+        <exclude name="AvoidUsingHardCodedIP"/>
+        <!--UTests are required to be public by design-->
+        <exclude name="ExcessivePublicCount"/>
+        <!--we want to avoid wide throws signature, it is just test-->
+        <exclude name="AvoidCatchingGenericException"/>
+        <!--conflicts with checkstyle rule-->
+        <exclude name="JUnitUseExpected"/>
+        <!--will be addressed in https://github.com/checkstyle/checkstyle/projects/5-->
+        <exclude name="NonThreadSafeSingleton"/>
+    </rule>
+
+    <rule ref="category/java/design.xml/NcssCount">
+        <properties>
+            <!-- We want to keep it all in one place. -->
+            <property name="classReportLevel" value="1000"/>
+            <!-- A big enough value to satisfy the most cases. -->
+            <property name="methodReportLevel" value="100"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert">
+        <!-- PMD cannot find assert if it is located in private method of this class called from
+               the test method or method of another class. -->
+        <properties>
+            <!-- In AllChecksTest PMD does not find asserts in private methods of the test class called from the
+                   test method.
+                 CheckstyleRegressionTest is not a test. -->
+            <property name="violationSuppressXPath"
+                      value="//ClassOrInterfaceDeclaration[@Image='AllChecksTest'
+              or @Image='CheckstyleRegressionTest']"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseBeforeAnnotation">
+        <properties>
+            <!-- A false positive. -->
+            <property name="violationSuppressXPath"
+                      value="//ClassOrInterfaceDeclaration[@Image='CommitValidationTest']"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
+        <properties>
+            <property name="maximumAsserts" value="11"/>
+            <!-- GeneratedJavadocTokenTypesTest.testTokenNumbers and
+                   GeneratedJavadocTokenTypesTest.testRuleNumbers contains several asserts
+                   as they check each token and each rule explicitly.
+                 JavadocTokenTypes.testTokenValues contains several asserts as it checks each
+                   token explicitly. -->
+            <property name="violationSuppressXPath"
+                      value="//ClassOrInterfaceDeclaration[@Image='JavadocTokenTypesTest']
+                                 //MethodDeclaration[@Name='testTokenValues']
+            | //ClassOrInterfaceDeclaration[@Image='GeneratedJavadocTokenTypesTest']
+                  //MethodDeclaration[@Name='testTokenNumbers' or @Name='testRuleNumbers']"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ConfusingTernary">
+        <properties>
+            <!-- A false positive: commit validation is a sequence of checks, if we shuffle them
+                   it would be broken. -->
+            <property name="violationSuppressXPath"
+                      value="//ClassOrInterfaceDeclaration[@Image='CommitValidationTest']
+                                //MethodDeclaration[@Name='validateCommitMessage']"/>
+        </properties>
+    </rule>
+</ruleset>

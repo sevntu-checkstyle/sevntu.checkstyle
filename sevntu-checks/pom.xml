@@ -20,6 +20,9 @@
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.eclipse-cs.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
+    <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
+    <pmd.version>6.13.0</pmd.version>
+    <java.version>1.8</java.version>
   </properties>
 
   <licenses>
@@ -76,6 +79,59 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${maven.pmd.plugin.version}</version>
+          <configuration>
+            <analysisCache>false</analysisCache>
+            <targetJdk>${java.version}</targetJdk>
+            <minimumTokens>20</minimumTokens>
+            <skipEmptyReport>false</skipEmptyReport>
+            <failOnViolation>true</failOnViolation>
+            <printFailingErrors>true</printFailingErrors>
+            <includeTests>true</includeTests>
+            <rulesets>
+              <ruleset>pmd-main.xml</ruleset>
+              <ruleset>pmd-test.xml</ruleset>
+            </rulesets>
+            <excludeRoots>
+              <excludeRoot>src/it/resources</excludeRoot>
+              <excludeRoot>src/test/resources</excludeRoot>
+              <excludeRoot>target/generated-sources/antlr</excludeRoot>
+              <excludeRoot>
+                target/generated-sources/antlr/com/puppycrawl/tools/checkstyle/grammar/javadoc
+              </excludeRoot>
+            </excludeRoots>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-java</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-core</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-javascript</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-jsp</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -192,6 +248,18 @@
               </sourceDirectories>
               <excludes>**/test/resources/**/*,**/test/resources-noncompilable/**/*</excludes>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
