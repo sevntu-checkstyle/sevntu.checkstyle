@@ -51,7 +51,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     /**
      * Set of annotation's names.
      */
-    private Set<String> annotationNames = new HashSet<>();
+    private final Set<String> annotationNames = new HashSet<>();
     /**
      * Array of type forbidden annotation's target.
      */
@@ -61,7 +61,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
      * Setter for annotationNames.
      * @param names - array of annotation's names
      */
-    public void setAnnotationNames(final String[] names) {
+    public void setAnnotationNames(final String... names) {
         if (names != null) {
             for (String name : names) {
                 annotationNames.add(name);
@@ -73,7 +73,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
      * Getter for annotationNames.
      * @param targets - array of type's names
      */
-    public void setAnnotationTargets(String[] targets) {
+    public void setAnnotationTargets(String... targets) {
         if (targets != null) {
             annotationTargets = new int[targets.length];
             for (int i = 0; i < targets.length; i++) {
@@ -125,12 +125,12 @@ public class ForbidAnnotationCheck extends AbstractCheck {
         final String result;
         final DetailAST directname = annotation.findFirstToken(TokenTypes.IDENT);
 
-        if (directname != null) {
-            result = directname.getText();
-        }
-        else {
+        if (directname == null) {
             //This means that annotation is specified with the full package name
             result = annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
+        }
+        else {
+            result = directname.getText();
         }
 
         return result;

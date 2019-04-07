@@ -527,7 +527,10 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         final boolean result;
         final int parentType = identAst.getParent().getType();
         if (parentType == TokenTypes.DOT) {
-            if (identAst.getNextSibling() != null) {
+            if (identAst.getNextSibling() == null) {
+                result = true;
+            }
+            else {
                 final Optional<DetailAST> field = findField(frame, identAst);
                 if (field.isPresent()) {
                     result = isAcceptableField(field.get());
@@ -535,9 +538,6 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                 else {
                     result = findFrameByName(frame, identAst.getText()).isPresent();
                 }
-            }
-            else {
-                result = true;
             }
         }
         else if (parentType == TokenTypes.METHOD_CALL) {
@@ -644,18 +644,18 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                             || parametersAst.branchContains(TokenTypes.ELLIPSIS))) {
                     final DetailAST modifiersAst = method.findFirstToken(TokenTypes.MODIFIERS);
 
-                    if (modifiersAst.findFirstToken(TokenTypes.LITERAL_STATIC) != null) {
+                    if (modifiersAst.findFirstToken(TokenTypes.LITERAL_STATIC) == null) {
+                        // if a non-static method is found, then the checked method
+                        // cannot be static
+                        hasNonStaticMethod = true;
+                        break;
+                    }
+                    else {
                         // if a static method is found, we keep searching for a similar
                         // non-static one to the end of the frame and if a non-static
                         // method is not found, then the checked method is still
                         // a static method candidate
                         hasStaticMethod = true;
-                    }
-                    else {
-                        // if a non-static method is found, then the checked method
-                        // cannot be static
-                        hasNonStaticMethod = true;
-                        break;
                     }
                 }
             }
@@ -748,7 +748,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          * Creates new frame.
          * @param parent parent frame.
          */
-        Frame(Frame parent) {
+        /* package */ Frame(Frame parent) {
             this.parent = parent;
         }
 

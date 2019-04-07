@@ -156,7 +156,7 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
             final RedundantReturnCheck check = new RedundantReturnCheck();
             check.visitToken(sync);
 
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());

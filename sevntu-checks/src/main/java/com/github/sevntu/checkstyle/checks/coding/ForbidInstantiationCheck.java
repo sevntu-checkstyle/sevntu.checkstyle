@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -59,13 +59,13 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      * Set which contains classNames for objects that are forbidden to
      * instantiate.
      */
-    private Set<String> forbiddenClasses = new HashSet<>();
+    private final Set<String> forbiddenClasses = new HashSet<>();
 
     /**
      * List which contains String representation of imports for class is
      * currently being processed.
      */
-    private List<String> importsList = new LinkedList<>();
+    private final List<String> importsList = new LinkedList<>();
 
     /**
      * Creates the check instance.
@@ -81,7 +81,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      *        full, such as "java.lang.NullpointerException", do not use short
      *        name - NullpointerException;
      */
-    public void setForbiddenClasses(final String[] classNames) {
+    public void setForbiddenClasses(final String... classNames) {
         forbiddenClasses.clear();
         if (classNames != null) {
             for (String name : classNames) {
@@ -149,7 +149,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
                 break;
 
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -197,8 +197,9 @@ public class ForbidInstantiationCheck extends AbstractCheck {
         final String importTextWithoutAsterisk =
                 importText.substring(0, importText.length() - 1);
 
+        // -@cs[EqualsAvoidNull] need parenthesis around '+' otherwise PMD will complain
         return importText.endsWith("*")
-                && (importTextWithoutAsterisk + className).equals(forbiddenClassNameAndPath);
+                && forbiddenClassNameAndPath.equals(importTextWithoutAsterisk + className);
     }
 
     /**

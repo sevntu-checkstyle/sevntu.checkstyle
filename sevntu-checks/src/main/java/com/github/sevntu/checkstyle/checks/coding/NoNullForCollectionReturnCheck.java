@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -72,7 +72,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
     /**
      * List of collection, that will be check.
      */
-    private Set<String> collectionList = new HashSet<>();
+    private final Set<String> collectionList = new HashSet<>();
 
     /**
      * <p>
@@ -86,7 +86,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * List of the method definition tokens, that returns collection.
      * </p>
      */
-    private LinkedList<DetailAST> methodDefs = new LinkedList<>();
+    private final List<DetailAST> methodDefs = new LinkedList<>();
 
     /** Default constructor. */
     public NoNullForCollectionReturnCheck() {
@@ -146,7 +146,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
         switch (detailAST.getType()) {
             case TokenTypes.METHOD_DEF:
                 if (isReturnCollection(detailAST)) {
-                    methodDefs.push(detailAST);
+                    methodDefs.add(detailAST);
                 }
                 break;
 
@@ -155,15 +155,15 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
                     final DetailAST currentMethodDef = getMethodDef(detailAST);
                     if (methodDefs.contains(currentMethodDef)
                         && (hasNullLiteralInReturn(detailAST)
-                            || (searchThroughMethodBody
-                                && isReturnedValueBeNull(detailAST)))) {
+                            || searchThroughMethodBody
+                                && isReturnedValueBeNull(detailAST))) {
                         log(detailAST, MSG_KEY);
                     }
                 }
                 break;
 
             default:
-                Utils.reportInvalidToken(detailAST.getType());
+                SevntuUtil.reportInvalidToken(detailAST.getType());
                 break;
         }
     }
@@ -220,8 +220,8 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
             if (variable != null) {
                 final String variableName = variable.getText();
                 final DetailAST methodDef = getMethodDef(returnLit);
-                final LinkedList<DetailAST> subblocks = getAllSubblocks(methodDef);
-                subblocks.addFirst(methodDef);
+                final List<DetailAST> subblocks = getAllSubblocks(methodDef);
+                subblocks.add(0, methodDef);
 
                 result = hasNullInDefinition(subblocks, variableName);
 
@@ -258,7 +258,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      *        - node of the block.
      * @return all the nested subblocks in block.
      */
-    private static LinkedList<DetailAST> getAllSubblocks(DetailAST blockDef) {
+    private static List<DetailAST> getAllSubblocks(DetailAST blockDef) {
         final DetailAST blockBody = getBlockBody(blockDef);
         final LinkedList<DetailAST> subblocks = new LinkedList<>();
         subblocks.addAll(getChildren(blockBody, TokenTypes.LITERAL_IF));
@@ -307,12 +307,12 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
                 if (variableName.equals(variable.getText())) {
                     final DetailAST variableDef = currentDef;
                     DetailAST variableValue = variableDef.findFirstToken(TokenTypes.ASSIGN);
-                    if (variableValue != null) {
-                        variableValue = variableValue.findFirstToken(TokenTypes.EXPR);
-                        result = variableValue.getFirstChild().getType() == TokenTypes.LITERAL_NULL;
+                    if (variableValue == null) {
+                        result = true;
                     }
                     else {
-                        result = true;
+                        variableValue = variableValue.findFirstToken(TokenTypes.EXPR);
+                        result = variableValue.getFirstChild().getType() == TokenTypes.LITERAL_NULL;
                     }
                     isFinded = true;
                     break;

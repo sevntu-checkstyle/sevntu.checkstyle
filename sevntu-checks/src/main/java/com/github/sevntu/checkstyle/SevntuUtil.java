@@ -28,10 +28,10 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  *
  * @author Damian Szczepanik
  */
-public final class Utils {
+public final class SevntuUtil {
 
     /** Prevent instances. */
-    private Utils() {
+    private SevntuUtil() {
     }
 
     /**

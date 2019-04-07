@@ -209,8 +209,8 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      * @return true if can skip ternary operator.
      */
     private boolean isSkipTernaryOperator(DetailAST questionAST) {
-        return (ignoreTernaryOperatorsInBraces && isTernaryOperatorInBraces(questionAST))
-                || (ignoreIsolatedTernaryOnLine && isIsolatedTernaryOnLine(questionAST));
+        return ignoreTernaryOperatorsInBraces && isTernaryOperatorInBraces(questionAST)
+                || ignoreIsolatedTernaryOnLine && isIsolatedTernaryOnLine(questionAST);
     }
 
     /**

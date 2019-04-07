@@ -131,8 +131,8 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
         // second lvl child must be IDENT or LITERAL_NEW with
         // appropriate boolean flags.
         final boolean noWarning = secondLvlChild != null
-             && ((allowThrow && secondLvlChild.getType() == TokenTypes.IDENT)
-             || (allowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW));
+             && (allowThrow && secondLvlChild.getType() == TokenTypes.IDENT
+             || allowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW);
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
         final FullIdent ident = CheckUtil.createFullType(excType);

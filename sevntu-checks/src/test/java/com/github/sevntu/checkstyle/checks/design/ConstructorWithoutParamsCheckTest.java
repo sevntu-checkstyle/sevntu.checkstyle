@@ -67,7 +67,7 @@ public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport
     public void testGetAcceptableTokens() {
         final ConstructorWithoutParamsCheck check = new ConstructorWithoutParamsCheck();
         final int[] expectedAcceptableTokens = {TokenTypes.LITERAL_NEW};
-        assertArrayEquals(expectedAcceptableTokens, check.getAcceptableTokens());
+        assertArrayEquals("invalid tokens", expectedAcceptableTokens, check.getAcceptableTokens());
     }
 
 }

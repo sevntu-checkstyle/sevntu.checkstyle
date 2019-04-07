@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -72,13 +72,13 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      * List contains the names of classes which would be considered as Exception
      * cause. Default value = "Throwable, Exception".
      */
-    private Set<String> allowedCauseTypes = new HashSet<>();
+    private final Set<String> allowedCauseTypes = new HashSet<>();
 
     /**
      * List of DetailAST objects which are related to Exception classes that
      * need to be warned.
      */
-    private List<DetailAST> exceptionClassesToWarn =
+    private final List<DetailAST> exceptionClassesToWarn =
             new LinkedList<>();
 
     /**
@@ -131,7 +131,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      *        short, such as "NullpointerException", do not use full name -
      *        java.lang.NullpointerException;
      */
-    public void setAllowedCauseTypes(final String[] allowedCauseTypes) {
+    public void setAllowedCauseTypes(final String... allowedCauseTypes) {
         this.allowedCauseTypes.clear();
         for (String name : allowedCauseTypes) {
             this.allowedCauseTypes.add(name);
@@ -180,7 +180,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
                 }
                 break;
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }

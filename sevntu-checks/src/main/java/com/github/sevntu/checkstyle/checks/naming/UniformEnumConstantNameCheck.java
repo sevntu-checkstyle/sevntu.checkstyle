@@ -125,7 +125,7 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
      * Method sets format to match Class Enumeration names.
      * @param regexps format to check against
      */
-    public final void setFormats(String[] regexps) {
+    public final void setFormats(String... regexps) {
         this.patterns = new ArrayList<>(regexps.length);
         for (final String regexp: regexps) {
             final Pattern pattern = Pattern.compile(regexp, 0);

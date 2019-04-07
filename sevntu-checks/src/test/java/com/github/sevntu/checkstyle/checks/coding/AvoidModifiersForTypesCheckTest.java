@@ -317,7 +317,7 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         final AvoidModifiersForTypesCheck check = new AvoidModifiersForTypesCheck();
         try {
             check.visitToken(node);
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());

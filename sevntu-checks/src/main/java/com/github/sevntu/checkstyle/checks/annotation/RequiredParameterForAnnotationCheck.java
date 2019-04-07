@@ -106,14 +106,14 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
     public static final String MSG_KEY = "annotation.missing.required.parameter";
 
     /**
+     * Parameters that should be in annotation.
+     */
+    private final Set<String> requiredParameters = new TreeSet<>();
+
+    /**
      * The annotation name we are interested in.
      */
     private String annotationName;
-
-    /**
-     * Parameters that should be in annotation.
-     */
-    private Set<String> requiredParameters = new TreeSet<>();
 
     /**
      * The annotation name we are interested in.
@@ -127,7 +127,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
      * The required list of parameters we have to use.
      * @param requiredPropertiesParameter set required list of parameters
      */
-    public void setRequiredParameters(String[] requiredPropertiesParameter) {
+    public void setRequiredParameters(String... requiredPropertiesParameter) {
         for (String item : requiredPropertiesParameter) {
             this.requiredParameters.add(item);
         }
@@ -176,10 +176,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
         final DetailAST identNode = annotationNode.findFirstToken(TokenTypes.IDENT);
         final String result;
 
-        if (identNode != null) {
-            result = identNode.getText();
-        }
-        else {
+        if (identNode == null) {
             final StringBuilder builder = new StringBuilder();
             DetailAST separationDotNode = annotationNode.findFirstToken(TokenTypes.DOT);
             while (separationDotNode.getType() == TokenTypes.DOT) {
@@ -188,6 +185,9 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
             }
             builder.insert(0, separationDotNode.getText());
             result = builder.toString();
+        }
+        else {
+            result = identNode.getText();
         }
         return result;
     }

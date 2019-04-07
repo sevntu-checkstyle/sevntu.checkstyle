@@ -93,7 +93,7 @@ public class AvoidConditionInversionCheckTest extends AbstractModuleTestSupport 
             final AvoidConditionInversionCheck check = new AvoidConditionInversionCheck();
             check.visitToken(sync);
 
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());

@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -134,6 +134,17 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
             .compile(".+\\.printStackTrace");
 
     /**
+     * Variables names of logger variables.
+     */
+    private final List<String> loggerFieldNames = new LinkedList<>();
+
+    /**
+     * Current local variable names of logger type. It can be method's parameter
+     * or method's local variable.
+     */
+    private final List<String> currentLocalLoggerVariableNames = new ArrayList<>();
+
+    /**
      * Logger fully qualified class name.
      */
     private String loggerFullyQualifiedClassName = "org.slf4j.Logger";
@@ -150,11 +161,6 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
             Arrays.asList("error", "warn", "info", "debug");
 
     /**
-     * Variables names of logger variables.
-     */
-    private List<String> loggerFieldNames = new LinkedList<>();
-
-    /**
      * Logger class is in imports.
      */
     private boolean hasLoggerClassInImports;
@@ -168,12 +174,6 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      * Considered method definition.
      */
     private DetailAST currentMethodDefAst;
-
-    /**
-     * Current local variable names of logger type. It can be method's parameter
-     * or method's local variable.
-     */
-    private List<String> currentLocalLoggerVariableNames = new ArrayList<>();
 
     /**
      * Set logger full class name and logger simple class name.
@@ -196,7 +196,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      * Set logging method names.
      * @param loggingMethodNames Logger method names.
      */
-    public void setLoggingMethodNames(String[] loggingMethodNames) {
+    public void setLoggingMethodNames(String... loggingMethodNames) {
         this.loggingMethodNames = Arrays.asList(loggingMethodNames);
     }
 
@@ -256,7 +256,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
                 processCatchNode(ast);
                 break;
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -427,8 +427,8 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      * @return true aClassName is class name of logger type.
      */
     private boolean isLoggerClassName(String className) {
-        return (hasLoggerClassInImports
-                && className.equals(loggerSimpleClassName))
+        return hasLoggerClassInImports
+                && className.equals(loggerSimpleClassName)
                 || className.equals(loggerFullyQualifiedClassName);
     }
 

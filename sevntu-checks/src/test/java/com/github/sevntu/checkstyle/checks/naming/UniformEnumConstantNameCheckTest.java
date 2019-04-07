@@ -122,7 +122,7 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
         final String[] expected = {};
         try {
             verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
-            fail();
+            fail("exception expected");
         }
         catch (CheckstyleException ex) {
             final String messagePrefix = "cannot initialize module"
@@ -150,7 +150,7 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
         final String[] expected = {};
         try {
             verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
-            fail();
+            fail("exception expected");
         }
         catch (CheckstyleException ex) {
             final String messagePrefix = "cannot initialize module "

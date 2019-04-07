@@ -121,7 +121,10 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
      */
     private static DetailAST getPreviousAst(DetailAST ast) {
         final DetailAST previousAst;
-        if (ast.getPreviousSibling() != null) {
+        if (ast.getPreviousSibling() == null) {
+            previousAst = ast.getParent();
+        }
+        else {
             final DetailAST previousSibling = ast.getPreviousSibling();
             if (previousSibling.getChildCount() > 0) {
                 previousAst = previousSibling.getLastChild();
@@ -129,9 +132,6 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
             else {
                 previousAst = previousSibling;
             }
-        }
-        else {
-            previousAst = ast.getParent();
         }
         return previousAst;
     }

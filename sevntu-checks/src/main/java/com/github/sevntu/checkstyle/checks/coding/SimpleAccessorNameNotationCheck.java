@@ -118,10 +118,9 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
                     log(methodDef, MSG_KEY_SETTER);
                 }
             }
-            else if (methodName.startsWith(GETTER_PREFIX)) {
-                if (!isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length()))) {
-                    log(methodDef, MSG_KEY_GETTER);
-                }
+            else if (methodName.startsWith(GETTER_PREFIX)
+                    && !isGetterCorrect(methodDef, methodName.substring(GETTER_PREFIX.length()))) {
+                log(methodDef, MSG_KEY_GETTER);
             }
         }
     }
@@ -239,13 +238,10 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
                     nameOfSettingField = null;
                 }
             }
-            else {
-                if (assigningFirstChild.getType() == TokenTypes.DOT) {
-                    if ("this".equals(assigningFirstChild.getFirstChild().getText())) {
-                        nameOfSettingField = assigningFirstChild.getLastChild()
-                                .getText();
-                    }
-                }
+            else if (assigningFirstChild.getType() == TokenTypes.DOT
+                    && "this".equals(assigningFirstChild.getFirstChild().getText())) {
+                nameOfSettingField = assigningFirstChild.getLastChild()
+                        .getText();
             }
         }
 

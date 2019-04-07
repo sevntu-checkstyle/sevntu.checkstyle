@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -139,7 +139,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                 }
                 break;
             default:
-                Utils.reportInvalidToken(defAst.getType());
+                SevntuUtil.reportInvalidToken(defAst.getType());
                 break;
         }
     }
@@ -212,7 +212,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                 returnedType = currentNode;
                 returnedTypes.add(returnedType);
             }
-            currentNode = Utils.getNextSubTreeNode(currentNode, typeAst);
+            currentNode = SevntuUtil.getNextSubTreeNode(currentNode, typeAst);
         }
         return returnedTypes;
     }
@@ -235,7 +235,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                     parameterType = currentNode;
 
                     while (parameterType != null) {
-                        parameterType = Utils.getNextSubTreeNode(parameterType,
+                        parameterType = SevntuUtil.getNextSubTreeNode(parameterType,
                                 currentNode);
                         if (parameterType != null
                                 && parameterType.getType() == TokenTypes.IDENT) {
@@ -243,7 +243,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                         }
                     }
                 }
-                currentNode = Utils.getNextSubTreeNode(currentNode, parametersDefAst);
+                currentNode = SevntuUtil.getNextSubTreeNode(currentNode, parametersDefAst);
             }
         }
 
@@ -284,7 +284,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                 DetailAST implementingOrExtendingAst = currentNode;
 
                 while (implementingOrExtendingAst != null) {
-                    implementingOrExtendingAst = Utils.getNextSubTreeNode(
+                    implementingOrExtendingAst = SevntuUtil.getNextSubTreeNode(
                             implementingOrExtendingAst, currentNode);
                     if (implementingOrExtendingAst != null
                             && implementingOrExtendingAst.getType() == TokenTypes.IDENT) {
@@ -293,7 +293,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
                     }
                 }
             }
-            currentNode = Utils.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
+            currentNode = SevntuUtil.getNextSubTreeNode(currentNode, classOrInterfaceDefAst);
         }
 
         final Set<String> existingPrivateTypes = new HashSet<>();

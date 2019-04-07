@@ -242,7 +242,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
         *</b>
         *@param parent - child parent.
         */
-        private SiblingIterator(DetailAST parent) {
+        /* package */ SiblingIterator(DetailAST parent) {
             next = parent.findFirstToken(TokenTypes.METHOD_DEF);
         }
 

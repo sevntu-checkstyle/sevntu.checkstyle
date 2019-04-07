@@ -23,7 +23,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.beans.PropertyDescriptor;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
@@ -58,7 +57,7 @@ public final class ChecksTest {
         final Set<Class<?>> modules = CheckUtil.getCheckstyleModules();
         final Set<String> packages = CheckUtil.getPackages(modules);
 
-        Assert.assertTrue("no modules", modules.size() > 0);
+        Assert.assertFalse("no modules", modules.isEmpty());
 
         // sonar
 
@@ -332,7 +331,7 @@ public final class ChecksTest {
                 + pkg, file.exists());
 
         final Properties prop = new Properties();
-        prop.load(new FileInputStream(file));
+        prop.load(Files.newBufferedReader(file.toPath()));
 
         final Set<Object> properties = new HashSet<>(Collections.list(prop.keys()));
 

@@ -167,7 +167,7 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
             final CauseParameterInExceptionCheck check = new CauseParameterInExceptionCheck();
             check.visitToken(sync);
 
-            fail();
+            fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());

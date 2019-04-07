@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -48,31 +49,30 @@ import org.junit.Test;
 /**
  * Validate commit message has proper structure.
  *
- * Commits to check are resolved from different places according
+ * <p>Commits to check are resolved from different places according
  * to type of commit in current HEAD. If current HEAD commit is
  * non-merge commit , previous commits are resolved due to current
  * HEAD commit. Otherwise if it is a merge commit, it will invoke
- * resolving previous commits due to commits which was merged.
+ * resolving previous commits due to commits which was merged.</p>
  *
- * After calculating commits to start with ts resolves previous
+ * <p>After calculating commits to start with ts resolves previous
  * commits according to COMMITS_RESOLUTION_MODE variable.
  * At default(BY_LAST_COMMIT_AUTHOR) it checks first commit author
  * and return all consecutive commits with same author. Second
  * mode(BY_COUNTER) makes returning first PREVIOUS_COMMITS_TO_CHECK_COUNT
- * commits after starter commit.
+ * commits after starter commit.</p>
  *
- * Resolved commits are filtered according to author. If commit author
+ * <p>Resolved commits are filtered according to author. If commit author
  * belong to list USERS_EXCLUDED_FROM_VALIDATION then this commit will
- * not be validated.
+ * not be validated.</p>
  *
- * Filtered commit list is checked if their messages has proper structure.
+ * <p>Filtered commit list is checked if their messages has proper structure.</p>
  *
- * @author <a href="mailto:piotr.listkiewicz@gmail.com">liscju</a>
  */
 public class CommitValidationTest {
 
     private static final List<String> USERS_EXCLUDED_FROM_VALIDATION =
-            Collections.singletonList("Roman Ivanov");
+            Arrays.asList("Roman Ivanov");
 
     private static final String ISSUE_COMMIT_MESSAGE_REGEX_PATTERN = "^Issue #\\d+: .*$";
     private static final String PR_COMMIT_MESSAGE_REGEX_PATTERN = "^Pull #\\d+: .*$";
@@ -103,7 +103,7 @@ public class CommitValidationTest {
 
     @Test
     public void testHasCommits() {
-        assertTrue("must have atleast one commit to validate",
+        assertTrue("must have at least one commit to validate",
                 lastCommits != null && !lastCommits.isEmpty());
     }
 
@@ -129,6 +129,11 @@ public class CommitValidationTest {
                 validateCommitMessage("minor: Test\n\n"));
         assertEquals("should accept commit message that ends properly", 0,
                 validateCommitMessage("minor: Test. Test"));
+        assertEquals("should accept commit message with less than or equal to 200 characters",
+                4, validateCommitMessage("minor: Test Test Test Test Test"
+                + "Test Test Test Test Test Test Test Test Test Test Test Test Test Test "
+                + "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test "
+                + "Test Test Test Test Test Test Test  Test Test Test Test Test Test"));
     }
 
     @Test
@@ -139,6 +144,7 @@ public class CommitValidationTest {
 
             if (error != 0) {
                 final String commitId = commit.getId().getName();
+
                 fail(getInvalidCommitMessageFormattingError(commitId, commitMessage) + error);
             }
         }
@@ -161,6 +167,10 @@ public class CommitValidationTest {
         else if (INVALID_POSTFIX_PATTERN.matcher(message).matches()) {
             // improper postfix
             result = 3;
+        }
+        else if (message.length() > 200) {
+            // commit message has more than 200 characters
+            result = 4;
         }
         else {
             result = 0;
@@ -199,7 +209,7 @@ public class CommitValidationTest {
     private static RevCommitsPair resolveRevCommitsPair(Repository repo) {
         RevCommitsPair revCommitIteratorPair;
 
-        try (RevWalk revWalk = new RevWalk(repo)) {
+        try (RevWalk revWalk = new RevWalk(repo); Git git = new Git(repo)) {
             final Iterator<RevCommit> first;
             final Iterator<RevCommit> second;
             final ObjectId headId = repo.resolve(Constants.HEAD);
@@ -208,16 +218,11 @@ public class CommitValidationTest {
             if (isMergeCommit(headCommit)) {
                 final RevCommit firstParent = headCommit.getParent(0);
                 final RevCommit secondParent = headCommit.getParent(1);
-
-                try (Git git = new Git(repo)) {
-                    first = git.log().add(firstParent).call().iterator();
-                    second = git.log().add(secondParent).call().iterator();
-                }
+                first = git.log().add(firstParent).call().iterator();
+                second = git.log().add(secondParent).call().iterator();
             }
             else {
-                try (Git git = new Git(repo)) {
-                    first = git.log().call().iterator();
-                }
+                first = git.log().call().iterator();
                 second = Collections.emptyIterator();
             }
 
@@ -225,7 +230,7 @@ public class CommitValidationTest {
                     new RevCommitsPair(new OmitMergeCommitsIterator(first),
                             new OmitMergeCommitsIterator(second));
         }
-        catch (GitAPIException | IOException ex) {
+        catch (GitAPIException | IOException ignored) {
             revCommitIteratorPair = new RevCommitsPair();
         }
 
@@ -278,6 +283,7 @@ public class CommitValidationTest {
                 + "        " + OTHER_COMMIT_MESSAGE_REGEX_PATTERN + "\n"
                 + "    2) It contains only one line of text\n"
                 + "    3) Must not end with a period, space, or tab\n"
+                + "    4) Commit message should be less than or equal to 200 characters\n"
                 + "\n"
                 + "The rule broken was: ";
     }
@@ -291,7 +297,8 @@ public class CommitValidationTest {
 
     private enum CommitsResolutionMode {
 
-        BY_COUNTER, BY_LAST_COMMIT_AUTHOR
+        BY_COUNTER,
+        BY_LAST_COMMIT_AUTHOR,
 
     }
 
@@ -300,12 +307,12 @@ public class CommitValidationTest {
         private final Iterator<RevCommit> first;
         private final Iterator<RevCommit> second;
 
-        RevCommitsPair() {
+        /* package */ RevCommitsPair() {
             first = Collections.emptyIterator();
             second = Collections.emptyIterator();
         }
 
-        RevCommitsPair(Iterator<RevCommit> first, Iterator<RevCommit> second) {
+        /* package */ RevCommitsPair(Iterator<RevCommit> first, Iterator<RevCommit> second) {
             this.first = first;
             this.second = second;
         }
@@ -324,7 +331,7 @@ public class CommitValidationTest {
 
         private final Iterator<RevCommit> revCommitIterator;
 
-        OmitMergeCommitsIterator(Iterator<RevCommit> revCommitIterator) {
+        /* package */ OmitMergeCommitsIterator(Iterator<RevCommit> revCommitIterator) {
             this.revCommitIterator = revCommitIterator;
         }
 

@@ -157,11 +157,11 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *        regexp to match 'correct' JUnit test class names.
      */
     public void setExpectedClassNameRegex(String expectedClassNameRegex) {
-        if (expectedClassNameRegex != null && !expectedClassNameRegex.isEmpty()) {
-            this.expectedClassNameRegex = Pattern.compile(expectedClassNameRegex);
+        if (expectedClassNameRegex == null || expectedClassNameRegex.isEmpty()) {
+            this.expectedClassNameRegex = null;
         }
         else {
-            this.expectedClassNameRegex = null;
+            this.expectedClassNameRegex = Pattern.compile(expectedClassNameRegex);
         }
     }
 
@@ -171,11 +171,11 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *        regexp to match annotations for unit test classes.
      */
     public void setClassAnnotationNameRegex(String annotationNameRegex) {
-        if (annotationNameRegex != null && !annotationNameRegex.isEmpty()) {
-            classAnnotationNameRegex = Pattern.compile(annotationNameRegex);
+        if (annotationNameRegex == null || annotationNameRegex.isEmpty()) {
+            classAnnotationNameRegex = null;
         }
         else {
-            classAnnotationNameRegex = null;
+            classAnnotationNameRegex = Pattern.compile(annotationNameRegex);
         }
     }
 
@@ -185,11 +185,11 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *        regexp to match annotations for unit test classes.
      */
     public void setMethodAnnotationNameRegex(String annotationNameRegex) {
-        if (annotationNameRegex != null && !annotationNameRegex.isEmpty()) {
-            methodAnnotationNameRegex = Pattern.compile(annotationNameRegex);
+        if (annotationNameRegex == null || annotationNameRegex.isEmpty()) {
+            methodAnnotationNameRegex = null;
         }
         else {
-            methodAnnotationNameRegex = null;
+            methodAnnotationNameRegex = Pattern.compile(annotationNameRegex);
         }
     }
 
@@ -318,10 +318,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
         final DetailAST identNode = identifierNode.findFirstToken(TokenTypes.IDENT);
         String result;
 
-        if (identNode != null) {
-            result = identNode.getText();
-        }
-        else {
+        if (identNode == null) {
             result = "";
 
             DetailAST node = identifierNode.findFirstToken(TokenTypes.DOT);
@@ -333,6 +330,9 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
             }
 
             result = node.getText() + result;
+        }
+        else {
+            result = identNode.getText();
         }
 
         return result;
@@ -349,11 +349,11 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      */
     private static boolean isMatchesRegex(Pattern regexPattern, String str) {
         final boolean result;
-        if (regexPattern != null) {
-            result = regexPattern.matcher(str).matches();
+        if (regexPattern == null) {
+            result = false;
         }
         else {
-            result = false;
+            result = regexPattern.matcher(str).matches();
         }
         return result;
     }

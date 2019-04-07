@@ -19,14 +19,17 @@
 
 package com.github.sevntu.checkstyle.checks.design;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
+import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
+import com.puppycrawl.tools.checkstyle.api.Configuration;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
@@ -89,9 +92,9 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
     /** AST of method that is currently being examined. */
     private DetailAST methodAst;
     /** List of variable names that reference a file. */
-    private Set<String> fileVariableNames = new HashSet<>();
+    private final Set<String> fileVariableNames = new HashSet<>();
     /** List of variable names that reference a configuration. */
-    private Set<String> checkConfigNames = new HashSet<>();
+    private final Set<String> checkConfigNames = new HashSet<>();
     /** {@code true} if the 'verify' method was found in the method. */
     private boolean foundVerify;
 
@@ -158,7 +161,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
                 checkMethodCall(ast);
                 break;
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }

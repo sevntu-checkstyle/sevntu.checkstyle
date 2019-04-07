@@ -20,14 +20,11 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
-import com.github.sevntu.checkstyle.Utils;
+import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
@@ -197,12 +194,12 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * This list contains Map object's names.
      */
-    private List<String> mapNamesList = new ArrayList<>();
+    private final List<String> mapNamesList = new ArrayList<>();
 
     /**
      * This list contains all qualified imports.
      */
-    private List<String> qualifiedImportList = new ArrayList<>();
+    private final List<String> qualifiedImportList = new ArrayList<>();
 
     /**
      * Set of allowable map implementations. You can set your own map
@@ -215,9 +212,9 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      */
     public MapIterationInForEachLoopCheck() {
         setSupportedMapImplQualifiedNames(new String[] {
-                Map.class.getName(),
-                TreeMap.class.getName(),
-                HashMap.class.getName(),
+            "java.util.Map",
+            "java.util.TreeMap",
+            "java.util.HashMap",
         });
     }
 
@@ -229,7 +226,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      *        User's set of map implementations.
      */
     public final void setSupportedMapImplQualifiedNames(
-            final String[] setSupportedMapImplQualifiedNames) {
+            final String... setSupportedMapImplQualifiedNames) {
         supportedMapImplQualifiedNames.clear();
         if (setSupportedMapImplQualifiedNames != null) {
             for (String name : setSupportedMapImplQualifiedNames) {
@@ -327,7 +324,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                 break;
 
             default:
-                Utils.reportInvalidToken(ast.getType());
+                SevntuUtil.reportInvalidToken(ast.getType());
                 break;
         }
     }
@@ -754,7 +751,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                 }
             }
             DetailAST toVisit = curNode.getFirstChild();
-            while ((curNode != null) && (toVisit == null)) {
+            while (curNode != null && toVisit == null) {
                 toVisit = curNode.getNextSibling();
                 if (toVisit == null) {
                     curNode = curNode.getParent();

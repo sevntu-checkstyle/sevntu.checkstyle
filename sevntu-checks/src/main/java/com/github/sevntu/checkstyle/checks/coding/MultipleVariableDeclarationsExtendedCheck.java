@@ -113,13 +113,13 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
             // it can't be moved
             final boolean isCommaSeparated = nextNode.getType() == TokenTypes.COMMA;
 
-            if ((nextNode.getType() == TokenTypes.COMMA)
-                    || (nextNode.getType() == TokenTypes.SEMI)) {
+            if (nextNode.getType() == TokenTypes.COMMA
+                    || nextNode.getType() == TokenTypes.SEMI) {
                 nextNode = nextNode.getNextSibling();
             }
 
-            if ((nextNode != null)
-                    && (nextNode.getType() == TokenTypes.VARIABLE_DEF)) {
+            if (nextNode != null
+                    && nextNode.getType() == TokenTypes.VARIABLE_DEF) {
                 final DetailAST firstNode = CheckUtil.getFirstNode(ast);
                 if (isCommaSeparated) {
                     log(firstNode, MSG_VAR_DECLARATIONS_COMMA);
@@ -166,10 +166,10 @@ public class MultipleVariableDeclarationsExtendedCheck extends AbstractCheck {
         DetailAST child = node.getFirstChild();
         while (child != null) {
             final DetailAST newNode = getLastNode(child);
-            if ((newNode.getLineNo() > currentNode.getLineNo())
-                    || ((newNode.getLineNo()
-                        == currentNode.getLineNo()) && (newNode
-                            .getColumnNo() > currentNode.getColumnNo()))) {
+            if (newNode.getLineNo() > currentNode.getLineNo()
+                    || newNode.getLineNo()
+                        == currentNode.getLineNo() && newNode
+                            .getColumnNo() > currentNode.getColumnNo()) {
                 currentNode = newNode;
             }
             child = child.getNextSibling();
