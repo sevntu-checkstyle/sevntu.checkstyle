@@ -12,31 +12,57 @@ if [ -z "$2" ]; then
     exit 1
 fi
 
-ECJ_JAR="ecj-4.7.jar"
-ECJ_MAVEN_VERSION="R-4.7-201706120950"
+ECJ_JAR="ecj-4.10.jar"
+ECJ_MAVEN_VERSION="R-4.10-201812060815"
 ECJ_PATH=~/.m2/repository/$ECJ_MAVEN_VERSION/$ECJ_JAR
 
 if [ ! -f $ECJ_PATH ]; then
     echo "$ECJ_PATH is not found, downloading ..."
     mkdir -p $(dirname "$ECJ_PATH")
-    wget http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4/$ECJ_MAVEN_VERSION/$ECJ_JAR -O $ECJ_PATH
+    ECLIPSE_URL="http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4"
+    wget $ECLIPSE_URL/$ECJ_MAVEN_VERSION/$ECJ_JAR -O $ECJ_PATH
 fi
 
 wget https://github.com/checkstyle/checkstyle/blob/checkstyle-$2/config/org.eclipse.jdt.core.prefs
 
-mkdir -p target/classes
-mkdir -p target/eclipse
+mkdir -p target/classes target/test-classes target/eclipse
 
 RESULT_FILE=target/eclipse/report.txt
 
 echo "Executing eclipse compiler, output is redirected to $RESULT_FILE..."
-java -jar $ECJ_PATH -target 1.8 -source 1.8 -cp $1 \
-        -d target/eclipse-compile \
-        -enableJavadoc src/main/java src/test/java -properties org.eclipse.jdt.core.prefs \
-    > $RESULT_FILE 2>&1 | true
+echo "java -jar $ECJ_PATH -target 1.8 -source 1.8 -cp $1  ..."
 
-echo "Checking for ERROR|WARNING|INFO  in $RESULT_FILE ..."
-if [[ $(grep -E "ERROR|WARNING|INFO" $RESULT_FILE | cat | wc -l) > 0 ]]; then
+set +e
+java -jar $ECJ_PATH -target 1.8 -source 1.8 -encoding UTF-8 -cp $1 \
+        -d target/eclipse-compile \
+        -properties org.eclipse.jdt.core.prefs \
+        -enableJavadoc \
+        src/main/java \
+        src/test/java \
+    > $RESULT_FILE 2>&1
+EXIT_CODE=$?
+set -e
+
+if [[ $EXIT_CODE != 0 ]]; then
+  echo "Content of $RESULT_FILE:"
   cat $RESULT_FILE
   false
+else
+    # check compilation of resources, all WARN and INFO are ignored
+    set +e
+    java -jar $ECJ_PATH -target 1.8 -source 1.8 -cp $1 \
+            -d target/eclipse-compile \
+            -nowarn \
+            src/main/java \
+            src/test/java \
+            src/test/resources \
+        > $RESULT_FILE 2>&1
+    EXIT_CODE=$?
+    set -e
+
+    if [[ $EXIT_CODE != 0 ]]; then
+      echo "Content of $RESULT_FILE:"
+      cat $RESULT_FILE
+      false
+    fi
 fi
