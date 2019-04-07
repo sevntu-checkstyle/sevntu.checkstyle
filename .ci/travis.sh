@@ -10,7 +10,7 @@ pr-description)
 
 eclipse-cs)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true
+  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
@@ -24,7 +24,7 @@ eclipse-cs)
 
 maven-plugin)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true
+  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
   cd sevntu-checkstyle-maven-plugin
   mvn -e verify
@@ -33,7 +33,7 @@ maven-plugin)
 
 idea-extension)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true
+  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
   cd sevntu-checkstyle-idea-extension
   mvn -e verify
@@ -42,7 +42,7 @@ idea-extension)
 
 sonar-plugin)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true -Dcobertura.skip=true
+  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
   cd sevntu-checkstyle-sonar-plugin
   mvn -e verify
@@ -76,7 +76,7 @@ all-sevntu-checks-contribution)
 checkstyle-regression)
   git clone https://github.com/checkstyle/checkstyle
   cd sevntu-checks
-  mvn -e install -DskipTests -Dcheckstyle.skip=true -Dcobertura.skip=true
+  mvn -e install -Pno-validations
   mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../
   cd ../
   cd checkstyle
