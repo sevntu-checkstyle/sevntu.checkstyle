@@ -83,7 +83,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
                         && newNode.findFirstToken(TokenTypes.ARRAY_DECLARATOR) == null) {
                     final DetailAST typeArgs = getFirstTypeArgumentsToken(newNode);
 
-                    if (varDefArguments.equalsTree(typeArgs)) {
+                    if (typeArgs != null && isTreeEqual(varDefArguments, typeArgs)) {
                         log(typeArgs, MSG_KEY);
                     }
                 }
@@ -111,6 +111,48 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
         }
 
         return resultNode;
+    }
+
+    /**
+     * Checks if the 2 given trees have the same children, type, and text.
+     * @param left One of the trees to compare.
+     * @param right The other tree to compare.
+     * @return {@code true} if the trees are equal.
+     */
+    private static boolean isTreeEqual(DetailAST left, DetailAST right) {
+        boolean result;
+
+        if (isAstEqual(left, right)) {
+            result = true;
+
+            DetailAST leftChild = left.getFirstChild();
+            DetailAST rightChild = right.getFirstChild();
+
+            while (leftChild != rightChild) {
+                if (!isTreeEqual(leftChild, rightChild)) {
+                    result = false;
+                    break;
+                }
+
+                leftChild = leftChild.getNextSibling();
+                rightChild = rightChild.getNextSibling();
+            }
+        }
+        else {
+            result = false;
+        }
+
+        return result;
+    }
+
+    /**
+     * Checks if the 2 given ASTs have the same type and text.
+     * @param left One of the ASTs to compare.
+     * @param right The other AST to compare.
+     * @return {@code true} if the ASTs are equal.
+     */
+    private static boolean isAstEqual(DetailAST left, DetailAST right) {
+        return left.getType() == right.getType() && left.getText().equals(right.getText());
     }
 
 }

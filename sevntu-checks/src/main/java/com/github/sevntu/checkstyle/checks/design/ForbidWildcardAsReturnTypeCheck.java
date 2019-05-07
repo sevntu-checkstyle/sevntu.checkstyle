@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import antlr.collections.AST;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -305,9 +304,9 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return the set of modifier Strings for aMethodDefAST
      */
     private static Set<String> getModifiers(DetailAST methodDefAst) {
-        final AST modifiersAst = methodDefAst.getFirstChild();
+        final DetailAST modifiersAst = methodDefAst.getFirstChild();
         final Set<String> modifiersSet = new HashSet<>();
-        AST modifierAst = modifiersAst.getFirstChild();
+        DetailAST modifierAst = modifiersAst.getFirstChild();
         while (modifierAst != null) {
             modifiersSet.add(modifierAst.getText());
             modifierAst = modifierAst.getNextSibling();
