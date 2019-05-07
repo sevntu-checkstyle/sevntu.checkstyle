@@ -41,13 +41,10 @@ public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
      */
     public static final String MSG_KEY = "forbid.c.comments.in.the.method.body";
 
-    /** AST to use for null checks because {@link Deque} doesn't allow null elements. */
-    private static final DetailAST NULL_AST = new DetailAST();
-
     /** Method stack. */
     private final Deque<DetailAST> scopeStack = new ArrayDeque<>();
 
-    /** Reference to current method. */
+    /** Reference to current token being tracked. */
     private DetailAST methodAst;
 
     @Override
@@ -76,7 +73,7 @@ public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
 
     @Override
     public void beginTree(DetailAST rootAST) {
-        methodAst = NULL_AST;
+        methodAst = rootAST;
     }
 
     @Override
@@ -85,13 +82,11 @@ public class ForbidCCommentsInMethodsCheck extends AbstractCheck {
 
         switch (ast.getType()) {
             case TokenTypes.METHOD_DEF:
+            case TokenTypes.OBJBLOCK:
                 methodAst = ast;
                 break;
-            case TokenTypes.OBJBLOCK:
-                methodAst = NULL_AST;
-                break;
             default:
-                if (methodAst != NULL_AST) {
+                if (methodAst.getType() == TokenTypes.METHOD_DEF) {
                     final DetailAST lcurly = methodAst.findFirstToken(TokenTypes.SLIST);
                     if (lcurly != null
                             && (ast.getLineNo() > lcurly.getLineNo()
