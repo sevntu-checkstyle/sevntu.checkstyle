@@ -922,6 +922,31 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck</key>
+    <name>Jsr305AnnotationsCheck</name>
+    <category name="coding"/>
+    <description>Checks method parameters and return values for the presence of @Nonnull, @Nullable, or @CheckForNull annotations.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck</configKey>
+
+    <param key="packages" type="STRING">
+      <defaultValue></defaultValue>
+      <description>Sets the parent package for all classes that will be checked.</description>
+    </param>
+    <param key="excludePackages" type="STRING">
+      <defaultValue></defaultValue>
+      <description>Packages excluded from checking. This can be useful if under the parent package set with "packages" there are subpackages which should not be checked.</description>
+    </param>
+    <param key="allowOverridingReturnValue" type="BOOLEAN">
+      <defaultValue>false</defaultValue>
+      <description>In overridden methods annotating return values "@CheckForNull" is flagged as a violation. When setting this property to true, this will be ignored (useful for upgrading).</description>
+    </param>
+    <param key="allowOverridingParameter" type="BOOLEAN">
+      <defaultValue>false</defaultValue>
+      <description>In overridden methods annotating parameters "@Nonnull" is flagged as a violation. When setting this property to true, this will be ignored (useful for upgrading).</description>
+    </param>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</key>
     <name>Custom check to ensure Checkstyle tests are designed correctly.</name>
     <category name="design"/>

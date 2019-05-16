@@ -45,6 +45,18 @@
       <scope>test</scope>
       <version>${checkstyle.eclipse-cs.version}</version>
     </dependency>
+    <!-- required for Jsr305AnnotationsCheck -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <!-- required for Jsr305AnnotationsCheck -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>annotations</artifactId>
+      <version>3.0.1</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -283,7 +295,7 @@
               <regex><pattern>.*.checks.coding.MapIterationInForEachLoopCheck</pattern><branchRate>90</branchRate><lineRate>98</lineRate></regex>
               <regex><pattern>.*.checks.coding.NoNullForCollectionReturnCheck</pattern><branchRate>85</branchRate><lineRate>96</lineRate></regex>
               <regex><pattern>.*.checks.coding.OverridableMethodInConstructorCheck</pattern><branchRate>94</branchRate><lineRate>99</lineRate></regex>
-              <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>94</branchRate><lineRate>100</lineRate></regex>
+              <regex><pattern>.*.checks.design.HideUtilityClassConstructorCheck</pattern><branchRate>96</branchRate><lineRate>100</lineRate></regex>
             </regexes>
           </check>
         </configuration>
