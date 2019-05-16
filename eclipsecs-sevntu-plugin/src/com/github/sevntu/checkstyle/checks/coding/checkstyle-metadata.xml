@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE checkstyle-metadata PUBLIC
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
-"http://checkstyle.org/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
+"https://checkstyle.org/eclipse-cs/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
   <rule-group-metadata name="SevNTU checks" priority="1600">
 
@@ -555,6 +555,49 @@
 
       <message-key key="require.fail"/>
     </rule-metadata>
+
+    <rule-metadata name="%Jsr305AnnotationsCheck.name" internal-name="Jsr305AnnotationsCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck"/>
+      <description>%Jsr305AnnotationsCheck.desc</description>
+      <property-metadata name="packages" datatype="String">
+        <description>%Jsr305AnnotationsCheck.packages</description>
+      </property-metadata>
+      <property-metadata name="excludePackages" datatype="String">
+        <description>%Jsr305AnnotationsCheck.excludePackages</description>
+      </property-metadata>
+      <property-metadata name="allowOverridingReturnValue" datatype="Boolean" default-value="false">
+        <description>%Jsr305AnnotationsCheck.allowOverridingReturnValue</description>
+      </property-metadata>
+      <property-metadata name="allowOverridingParameter" datatype="Boolean" default-value="false">
+        <description>%Jsr305AnnotationsCheck.allowOverridingParameter</description>
+      </property-metadata>
+
+      <message-key key="jsr305.illegal.class.level.annotation" />
+      <message-key key="jsr305.contradicting.class.level.annotations" />
+      <message-key key="jsr305.param.definitions.with.check.annotation" />
+      <message-key key="jsr305.param.definition.with.override.annotation" />
+      <message-key key="jsr305.param.definition.with.nonnull.by.default.annotation" />
+      <message-key key="jsr305.param.definition.with.nullable.by.default.annotation" />
+      <message-key key="jsr305.param.definition.with.return.values.default.annotation" />
+      <message-key key="jsr305.param.nonnull.and.nullable.annotation" />
+      <message-key key="jsr305.primitives.with.nullness.annotation" />
+      <message-key key="jsr305.overridden.definitions.with.increased.param.constraint" />
+      <message-key key="jsr305.redundant.nonnull.param.annotation" />
+      <message-key key="jsr305.redundant.nullable.param.annotation" />
+      <message-key key="jsr305.parameter.without.nullness.annotation" />
+      <message-key key="jsr305.return.value.with.nonnull.by.default.annotation" />
+      <message-key key="jsr305.return.value.with.nullable.annotation" />
+      <message-key key="jsr305.contradicting.return.value.annotations" />
+      <message-key key="jsr305.overridden.method.with.check.return.value.annotation" />
+      <message-key key="jsr305.redundant.nonnull.by.default.annotation" />
+      <message-key key="jsr305.redundant.nullable.by.default.annotation" />
+      <message-key key="jsr305.void.with.check.return.value.annotation" />
+      <message-key key="jsr305.redundant.nonnull.return.annotation" />
+      <message-key key="jsr305.return.without.nullness.annotation" />
+      <message-key key="jsr305.overridden.methods.allow.only.nonnull" />
+      <message-key key="jsr305.need.to.inherit.param.annotations" />
+      <message-key key="jsr305.constructor.with.return.annotation" />
+   </rule-metadata>
 
   </rule-group-metadata>
 </checkstyle-metadata>
