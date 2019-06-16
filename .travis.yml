@@ -21,49 +21,49 @@ matrix:
   fast_finish: true
   include:
     # eclipse-cs
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="eclipse-cs"
         - CMD="./.ci/travis.sh eclipse-cs"
 
     # maven-plugin
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="maven-plugin"
         - CMD="./.ci/travis.sh maven-plugin"
 
     # idea-extension
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="idea-extension"
         - CMD="./.ci/travis.sh idea-extension"
 
     # sonar-plugin
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="sonar-plugin"
         - CMD="./.ci/travis.sh sonar-plugin"
 
     # checks
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="checks"
         - CMD="./.ci/travis.sh sevntu-checks"
 
     # Ensure that all sevntu checks are used in contribution
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="All sevntu checks should be used in contribution"
         - CMD="./.ci/travis.sh all-sevntu-checks-contribution"
 
     # regression on checkstyle
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="checkstyle-regression"
         - CMD="./.ci/travis.sh checkstyle-regression"
 
     # eclipse static analysis
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
         - DESC="eclipse-analysis"
         - CMD="./.ci/travis.sh eclipse-analysis"
@@ -73,8 +73,8 @@ matrix:
         - DESC="test Issue ref in PR description"
         - CMD="./.ci/travis.sh pr-description"
 
-    # https://sonarcloud.io (oraclejdk8)
-    - jdk: oraclejdk8
+    # https://sonarcloud.io (openjdk8)
+    - jdk: openjdk8
       env:
         - DESC="sonarcloud.io"
         - CMD="./.ci/travis.sh sonarqube"
