@@ -264,10 +264,12 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
-            "33:10: " + getCheckMessage(
+            "34:10: " + getCheckMessage(
                     Jsr305AnnotationsCheck.MSG_OVERRIDDEN_WITH_INCREASED_CONSTRAINT, "e"),
-            "42:5: " + getCheckMessage(
+            "43:5: " + getCheckMessage(
                     Jsr305AnnotationsCheck.MSG_RETURN_WITHOUT_NULLNESS_ANNOTATION, "e"),
+            "47:28: " + getCheckMessage(
+                    Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
         };
 
         verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithLambda.java"), expected);
@@ -303,8 +305,10 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
         checkConfig.addAttribute("allowOverridingParameter", "true");
 
         final String[] expected = {
-            "42:5: " + getCheckMessage(
+            "43:5: " + getCheckMessage(
                     Jsr305AnnotationsCheck.MSG_RETURN_WITHOUT_NULLNESS_ANNOTATION, "e"),
+            "47:28: " + getCheckMessage(
+                    Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
         };
 
         verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithLambda.java"), expected);
@@ -371,7 +375,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
      * of token types not in 'acceptable tokens' (which should normally not occur).
      *
      * @throws Exception
-     *         if there is an unexcpected error.
+     *         if there is an unexpected error.
      */
     @Test
     public void testHandleDefinition() throws Exception {
@@ -389,6 +393,17 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
             Assert.assertTrue("IllegalArgumentException expected from 'handleDefinition'",
                     exc.getCause().getClass().equals(IllegalArgumentException.class));
         }
+    }
+
+    @Test
+    public void testNestedAnnotations() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
+        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+
+        final String[] expected = {};
+
+        verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithNestedAnnotation.java"),
+                expected);
     }
 
 }
