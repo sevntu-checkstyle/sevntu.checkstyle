@@ -19,33 +19,15 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.ToIntFunction;
+public class InputJsr305AnnotationsCheckWithNestedAnnotation {
 
-import javax.annotation.Nonnull;
+	private @interface FieldMatch {
+	    @interface List {
+		String[] value();
+	    }
+	}
 
-public final class InputJsr305AnnotationsCheckWithLambda {
-
-    public static final Function<Object, String> TO_STRING =
-        object -> object.toString(); // ok
-
-    public static final ToIntFunction<Object> HASH_CODE =
-        (@Nonnull Object object) -> object.hashCode(); // violation
-
-    /**
-     * Private util class constructor.
-     */
-    private InputJsr305AnnotationsCheckWithLambda() {
-        // empty
-    }
-
-    public String violation() { // violation
-        return "";
-    }
-
-    public void withReduce(List<String> list) {
-        list.stream().reduce((first, second) -> second);
-    }
-
+	@FieldMatch.List({""})
+	public class Inner {
+	}
 }

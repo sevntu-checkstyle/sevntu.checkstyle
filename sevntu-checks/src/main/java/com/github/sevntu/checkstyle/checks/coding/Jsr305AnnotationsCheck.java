@@ -532,11 +532,78 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
     private static void addNextNullnessAnnotation(final Set<NullnessAnnotation> result,
             DetailAST ast) {
         final DetailAST identifier = ast.findFirstToken(TokenTypes.IDENT);
-        final String annotationName = identifier.getText();
-        final NullnessAnnotation annotation = STRING2ANNOTATION.get(annotationName);
-        if (annotation != null) {
-            result.add(annotation);
+        if (identifier != null) {
+            final String annotationName = identifier.getText();
+            final NullnessAnnotation annotation = STRING2ANNOTATION.get(annotationName);
+            if (annotation != null) {
+                result.add(annotation);
+            }
         }
+    }
+
+    /**
+     * Is the current symbol a primitive type.
+     * @param ast
+     *        the ast
+     * @return true if yes
+     */
+    private static boolean isPrimitiveType(DetailAST ast) {
+        boolean result = false;
+        final DetailAST parameterType = ast.findFirstToken(TokenTypes.TYPE);
+        final DetailAST identToken = parameterType.getFirstChild();
+
+        if (identToken != null) {
+            switch (identToken.getType()) {
+                case TokenTypes.LITERAL_BOOLEAN:
+                case TokenTypes.LITERAL_INT:
+                case TokenTypes.LITERAL_LONG:
+                case TokenTypes.LITERAL_SHORT:
+                case TokenTypes.LITERAL_BYTE:
+                case TokenTypes.LITERAL_CHAR:
+                case TokenTypes.LITERAL_VOID:
+                case TokenTypes.LITERAL_DOUBLE:
+                case TokenTypes.LITERAL_FLOAT:
+                    result = !isArrayOrElipsis(parameterType);
+                    break;
+                default:
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Checks whether token is array or elipsis.
+     *
+     * @param identToken
+     *        the token
+     * @return true if yes
+     */
+    private static boolean isArrayOrElipsis(final DetailAST identToken) {
+        final DetailAST next = identToken.getNextSibling();
+        final boolean result;
+        switch (next.getType()) {
+            case TokenTypes.ARRAY_DECLARATOR:
+            case TokenTypes.ELLIPSIS:
+                result = true;
+                break;
+            default:
+                result = false;
+        }
+        return result;
+    }
+
+    /**
+     * Is the current symbol of void type.
+     * @param ast
+     *        the ast
+     * @return true if yes
+     */
+    protected static boolean isVoid(DetailAST ast) {
+        final DetailAST parameterType = ast.findFirstToken(TokenTypes.TYPE);
+        boolean result = false;
+        final DetailAST identToken = parameterType.getFirstChild();
+        result = identToken.getType() == TokenTypes.LITERAL_VOID;
+        return result;
     }
 
     /**
@@ -600,7 +667,8 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
             checkContainsAll(MSG_PARAM_NONNULL_AND_NULLABLE,
                     NullnessAnnotation.NONNULL, NullnessAnnotation.NULLABLE);
 
-            if (isPrimitiveType()) {
+            final DetailAST ast = getAst();
+            if (isPrimitiveType(ast)) {
                 checkContainsAny(MSG_PRIMITIVES_WITH_NULLNESS_ANNOTATION,
                         NullnessAnnotation.CHECK_FOR_NULL, NullnessAnnotation.NONNULL,
                         NullnessAnnotation.NULLABLE);
@@ -702,11 +770,12 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
             checkRedundancyDueToClassLevelAnnotation(MSG_REDUNDANT_NULLABLE_BY_DEFAULT_ANNOTATION,
                     NullnessAnnotation.PARAMETERS_ARE_NULLABLE_BY_DEFAULT);
 
-            if (isVoid()) {
+            final DetailAST ast = getAst();
+            if (isVoid(ast)) {
                 checkContainsAny(MSG_VOID_WITH_CHECK_RETURN_VALUE_ANNOTATION,
                         NullnessAnnotation.CHECK_RETURN_VALUE);
             }
-            if (isPrimitiveType()) {
+            if (isPrimitiveType(ast)) {
                 checkContainsAny(MSG_PRIMITIVES_WITH_NULLNESS_ANNOTATION,
                         NullnessAnnotation.CHECK_FOR_NULL, NullnessAnnotation.NONNULL,
                         NullnessAnnotation.NULLABLE);
@@ -811,6 +880,15 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
          * Run the actual handler.
          */
         protected abstract void runHandler();
+
+        /**
+         * Returns the ast.
+         *
+         * @return the ast
+         */
+        protected DetailAST getAst() {
+            return ast;
+        }
 
         /**
          * Emits a violation if any of the given annotations are found.
@@ -925,65 +1003,6 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
         private void violation(final String msg) {
             log(ast, msg);
             violationFound = true;
-        }
-
-        /**
-         * Is the current symbol a primitive type.
-         * @return true if yes
-         */
-        protected boolean isPrimitiveType() {
-            final DetailAST parameterType = ast.findFirstToken(TokenTypes.TYPE);
-            final boolean result;
-            final DetailAST identToken = parameterType.getFirstChild();
-
-            switch (identToken.getType()) {
-                case TokenTypes.LITERAL_BOOLEAN:
-                case TokenTypes.LITERAL_INT:
-                case TokenTypes.LITERAL_LONG:
-                case TokenTypes.LITERAL_SHORT:
-                case TokenTypes.LITERAL_BYTE:
-                case TokenTypes.LITERAL_CHAR:
-                case TokenTypes.LITERAL_VOID:
-                case TokenTypes.LITERAL_DOUBLE:
-                case TokenTypes.LITERAL_FLOAT:
-                    result = !isArrayOrElipsis(parameterType);
-                    break;
-                default:
-                    result = false;
-            }
-            return result;
-        }
-
-        /**
-         * Checks whether token is array or elipsis.
-         * @param identToken
-         *        the token
-         * @return true if yes
-         */
-        private boolean isArrayOrElipsis(final DetailAST identToken) {
-            final DetailAST next = identToken.getNextSibling();
-            final boolean result;
-            switch (next.getType()) {
-                case TokenTypes.ARRAY_DECLARATOR:
-                case TokenTypes.ELLIPSIS:
-                    result = true;
-                    break;
-                default:
-                    result = false;
-            }
-            return result;
-        }
-
-        /**
-         * Is the current symbol of void type.
-         * @return true if yes
-         */
-        protected boolean isVoid() {
-            final DetailAST parameterType = ast.findFirstToken(TokenTypes.TYPE);
-            final boolean result;
-            final DetailAST identToken = parameterType.getFirstChild();
-            result = identToken.getType() == TokenTypes.LITERAL_VOID;
-            return result;
         }
 
         /**
