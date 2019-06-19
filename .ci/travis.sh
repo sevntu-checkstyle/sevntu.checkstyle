@@ -75,14 +75,17 @@ all-sevntu-checks-contribution)
 
 checkstyle-regression)
   git clone https://github.com/checkstyle/checkstyle
+  # update checkstyle_sevntu_checks.xml file in checkstyle for new modules
   cd sevntu-checks
   mvn -e install -Pno-validations
   mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../
   cd ../
+  # execute checkstyle validation on updated config file
   cd checkstyle
   mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
       -Dfindbugs.skip=true -Dcobertura.skip=true \
-      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.12
+      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.18 \
+      -Dmaven.sevntu.checkstyle.plugin.version=1.34.0
   ;;
 
 eclipse-analysis)
