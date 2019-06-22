@@ -77,6 +77,13 @@ checkstyle-regression)
   git clone https://github.com/checkstyle/checkstyle
   # update checkstyle_sevntu_checks.xml file in checkstyle for new modules
   cd sevntu-checks
+  SEVNTU_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+                   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  echo sevntu version:$SEVNTU_VERSION
+  ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+                   -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  echo eclipse-cs version:$ECLIPSE_CS_VERSION
   mvn -e install -Pno-validations
   mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../
   cd ../
@@ -84,8 +91,8 @@ checkstyle-regression)
   cd checkstyle
   mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
       -Dfindbugs.skip=true -Dcobertura.skip=true \
-      -Dmaven.sevntu-checkstyle-check.checkstyle.version=8.18 \
-      -Dmaven.sevntu.checkstyle.plugin.version=1.34.0
+      -Dmaven.sevntu-checkstyle-check.checkstyle.version=$ECLIPSE_CS_VERSION \
+      -Dmaven.sevntu.checkstyle.plugin.version=$SEVNTU_VERSION
   ;;
 
 eclipse-analysis)
