@@ -32,7 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * This Check warns on propagation of inner private types to outer classes:<br>
  * - Externally accessible method if it returns private inner type.<br>
- * - Externally accessible field if it's type is a private inner type.<br>
+ * - Externally accessible field if its type is a private inner type.<br>
  * These types could be <a href=
  * 'http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html'>private
  * inner classes</a>, interfaces or enumerations.<br>

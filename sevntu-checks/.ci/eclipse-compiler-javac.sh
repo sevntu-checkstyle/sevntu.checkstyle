@@ -3,7 +3,7 @@ set -e
 
 if [ -z "$1" ]; then
     echo "No parameters supplied!"
-    echo "      The classpath of the project and it's libraries to compile must be supplied."
+    echo "      The classpath of the project and its libraries to compile must be supplied."
     exit 1
 fi
 if [ -z "$2" ]; then

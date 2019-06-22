@@ -80,7 +80,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ul>
  * <b>Exceptions</b>
  * <ul>
- * <li>logger logs <code>catch</code> parameter exception or it's message</li>
+ * <li>logger logs <code>catch</code> parameter exception or its message</li>
  * <li>throw <code>catch</code> parameter exception</li>
  * <li>throw another exception which is based on <code>catch</code> parameter
  * exception</li>

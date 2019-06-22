@@ -234,7 +234,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
     /**
      * Examines the method call and verify it is defined correctly.
      * addAttribute method which is called by one of the configurations found earlier, must have
-     * all it's parameters be acceptable to {@link #isValidMethodCallExpression(DetailAST)}.
+     * all its parameters be acceptable to {@link #isValidMethodCallExpression(DetailAST)}.
      * Any method that matches {@link #verifyMethodRegexp} are tracked for future purposes.
      * @param ast The method call to examine.
      */
