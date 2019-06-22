@@ -26,7 +26,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
 
 /**
  * <p>
- * Checks if a variable is only used inside if statements and asks for it's
+ * Checks if a variable is only used inside if statements and asks for its
  * declaration to be moved there too.
  * </p>
  * <p>
@@ -173,7 +173,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * identifier was used inside it.
      *
      * @param holder The object holder with the specified variable to check and
-     *        it's current state.
+     *        its current state.
      * @param ifNodeGiven The current if node to examine.
      */
     private static void validateIf(Holder holder, DetailAST ifNodeGiven) {
@@ -234,7 +234,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * variable identifier was used inside it.
      *
      * @param holder The object holder with the specified variable to check and
-     *        it's current state.
+     *        its current state.
      * @param ifNode The if node of the specified else.
      * @param elseNode The current else node to examine.
      */
@@ -258,7 +258,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * If the variable is used, no violations are reported for it.
      *
      * @param holder The object holder with the specified variable to check and
-     *        it's current state.
+     *        its current state.
      * @param child The current node to examine.
      */
     private static void validateOther(Holder holder, DetailAST child) {

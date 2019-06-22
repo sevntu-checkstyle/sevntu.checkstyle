@@ -623,7 +623,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</key>
     <name>Public Reference To Private Type</name>
     <category name="design"/>
-    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if it's type is a private inner type. These types could be private inner classes, interfaces or enumerations.</description>
+    <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if its type is a private inner type. These types could be private inner classes, interfaces or enumerations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</configKey>
   </rule>
 
@@ -909,7 +909,7 @@
     <key>com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</key>
     <name>Move variable inside if check</name>
     <category name="coding"/>
-    <description>Checks if a variable is only used inside if statements and asks for it's declaration to be moved there too.</description>
+    <description>Checks if a variable is only used inside if statements and asks for its declaration to be moved there too.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</configKey>
   </rule>
 
