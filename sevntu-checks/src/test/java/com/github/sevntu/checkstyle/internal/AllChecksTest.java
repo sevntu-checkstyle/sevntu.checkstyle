@@ -301,8 +301,7 @@ public class AllChecksTest {
      * @return a set of simple names.
      */
     private static Set<String> getFullNames(Set<Class<?>> checks) {
-        return checks.stream().map(check -> check.getName())
-            .collect(Collectors.toSet());
+        return checks.stream().map(Class::getName).collect(Collectors.toSet());
     }
 
     private static String getSimplePath(String path) {
