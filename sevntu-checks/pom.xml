@@ -37,6 +37,7 @@
       <groupId>com.puppycrawl.tools</groupId>
       <artifactId>checkstyle</artifactId>
       <version>${checkstyle.eclipse-cs.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.puppycrawl.tools</groupId>
