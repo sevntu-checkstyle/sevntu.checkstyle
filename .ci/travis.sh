@@ -22,15 +22,6 @@ eclipse-cs)
   mvn -e javadoc:javadoc
   ;;
 
-maven-plugin)
-  cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
-  cd ..
-  cd sevntu-checkstyle-maven-plugin
-  mvn -e verify
-  mvn -e javadoc:javadoc
-  ;;
-
 idea-extension)
   cd sevntu-checks
   mvn -e clean install -Dmaven.test.skip=true -Pno-validations

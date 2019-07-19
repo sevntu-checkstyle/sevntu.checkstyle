@@ -2,7 +2,6 @@ h3. Information "!https://secure.travis-ci.org/sevntu-checkstyle/sevntu.checksty
 
 sevntu-checks: !https://img.shields.io/maven-central/v/com.github.sevntu-checkstyle/sevntu-checks.svg?label=Maven%20Central!:https://search.maven.org/search?q=g:%22com.github.sevntu-checkstyle%22%20AND%20a:%22sevntu-checks%22
 sevntu-checkstyle-idea-extension:!https://img.shields.io/maven-central/v/com.github.sevntu-checkstyle/sevntu-checkstyle-idea-extension.svg?label=Maven%20Central!:https://search.maven.org/search?q=g:%22com.github.sevntu-checkstyle%22%20AND%20a:%22sevntu-checkstyle-idea-extension%22
-sevntu-checkstyle-maven-plugin:!https://img.shields.io/maven-central/v/com.github.sevntu-checkstyle/sevntu-checkstyle-maven-plugin.svg?label=Maven%20Central!:https://search.maven.org/search?q=g:%22com.github.sevntu-checkstyle%22%20AND%20a:%22sevntu-checkstyle-maven-plugin%22
 sevntu-checkstyle-sonar-plugin:!https://img.shields.io/maven-central/v/com.github.sevntu-checkstyle/sevntu-checkstyle-sonar-plugin.svg?label=Maven%20Central!:https://search.maven.org/search?q=g:%22com.github.sevntu-checkstyle%22%20AND%20a:%22sevntu-checkstyle-sonar-plugin%22
 eclipsecs-sevntu-plugin: "all versions":https://github.com/sevntu-checkstyle/sevntu.checkstyle/tree/gh-pages/update-site/plugins
 

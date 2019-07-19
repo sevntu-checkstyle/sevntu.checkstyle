@@ -15,7 +15,6 @@ fi
 POM_FILES=(eclipse-pom.xml
 sevntu-checks/pom.xml
 sevntu-checkstyle-idea-extension/pom.xml
-sevntu-checkstyle-maven-plugin/pom.xml
 sevntu-checkstyle-sonar-plugin/pom.xml
 )
 for i in "${POM_FILES[@]}"
@@ -40,15 +39,7 @@ do
 	mv $i.new $i
 done
 
-#additional version reference in dependency
-FILE=sevntu-checkstyle-maven-plugin/pom.xml
-echo "Updating: "$FILE
-xmlstarlet ed --ps -N pom="http://maven.apache.org/POM/4.0.0" \
-    -u '//pom:project/pom:dependencies/pom:dependency[pom:artifactId="sevntu-checks"]/pom:version' -v $NEW_VERSION \
-    $FILE > $FILE.new
-mv $FILE.new $FILE
-
-#additional version reference, eclipse file 
+#additional version reference, eclipse file
 FILE=eclipsecs-sevntu-plugin-feature/feature.xml
 echo "Updating: "$FILE
 xmlstarlet ed --ps \
