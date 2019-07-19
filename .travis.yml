@@ -26,12 +26,6 @@ matrix:
         - DESC="eclipse-cs"
         - CMD="./.ci/travis.sh eclipse-cs"
 
-    # maven-plugin
-    - jdk: openjdk8
-      env:
-        - DESC="maven-plugin"
-        - CMD="./.ci/travis.sh maven-plugin"
-
     # idea-extension
     - jdk: openjdk8
       env:

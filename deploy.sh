@@ -6,14 +6,13 @@ PROJECT_NAME="sevntu.checkstyle"
 GH_SEVNTU_HOMR_DIR="$GH_SEVNTU_DIR/$PROJECT_NAME"
 GITHUB_PROJECT="sevntu-checkstyle/$PROJECT_NAME"
 
-usage="$(basename "$0") [--help --all --eclipse-cs --sonar --maven --idea]
+usage="$(basename "$0") [--help --all --eclipse-cs --sonar --idea]
 where:
 
     --help       show this help text
     --all        deploy all projects;
     --eclipse-cs deploy only 'sevntu-checkstyle-eclipsecs-plugin' project;
     --sonar      deploy only 'sevntu-checkstyle-sonar-plugin' project;
-    --maven      deploy only 'sevntu-checkstyle-maven-plugin' project;
     --idea       deploy only 'sevntu-checkstyle-idea-extension' project;
     --maven-central deploy to maven central;
     --gh-pages   deploy only gh-pages binaries with version argument;
@@ -129,31 +128,12 @@ deployToMavenCentral()
             exit 1
         fi
 
-        cd $SEVNTU_DIR/sevntu-checkstyle-maven-plugin/
-        mvn clean deploy -DskipStaging=false -Pgpg
-
         cd $SEVNTU_DIR/sevntu-checkstyle-idea-extension/
         mvn clean deploy -DskipStaging=false -Pgpg
 
         cd $SEVNTU_DIR/sevntu-checkstyle-sonar-plugin/
         mvn clean deploy -DskipStaging=false -Pgpg
 
-        return
-    }
-
-deployMavenPlugin()
-    {
-        echo "Deploying Maven Plugin"
-        cd $SEVNTU_DIR/sevntu-checkstyle-maven-plugin/
-        mvn clean deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
-        if [ "$?" != "0" ]
-        then
-            echo "build for $SEVNTU_DIR/sevntu-checkstyle-maven-plugin/."
-            exit 1
-        fi
-
-        cd $GH_SEVNTU_HOMR_DIR
-        echo "$manualDeploy"
         return
     }
 
@@ -184,7 +164,7 @@ deployToGhPages()
         CURRENT_COMMIT=$(git rev-parse HEAD)
         git push origin $CURRENT_COMMIT:gh-pages
         return
-    }    
+    }
 
 if [ $# -eq 0 ]
   then
@@ -201,7 +181,6 @@ do
         --all)
             prepareForDeploy
             deployMavenLibrary
-            deployMavenPlugin
             deployEclipse
             deployIdea
             deploySonar
@@ -218,12 +197,6 @@ do
             prepareForDeploy
             deployMavenLibrary
             deploySonar
-            shift 1
-            ;;
-        --maven)
-            prepareForDeploy
-            deployMavenLibrary
-            deployMavenPlugin
             shift 1
             ;;
         --idea)
