@@ -1,0 +1,4 @@
+box: alpine
+
+build:
+  steps:
