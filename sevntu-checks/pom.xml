@@ -16,9 +16,8 @@
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
     <!-- It is compile dependency to checkstyle, this version has to be the same as eclipse-cs depends on -->
-    <checkstyle.version>8.20</checkstyle.version>
+    <checkstyle.version>8.23</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
-    <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.eclipse-cs.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>

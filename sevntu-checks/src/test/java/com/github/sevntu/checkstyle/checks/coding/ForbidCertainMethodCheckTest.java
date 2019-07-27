@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
@@ -151,7 +152,7 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
 
     @Test
     public void testUnsupportedToken() {
-        final DetailAST sync = new DetailAST();
+        final DetailAST sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
         try {
             final ForbidCertainMethodCheck check = new ForbidCertainMethodCheck();

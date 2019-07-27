@@ -28,6 +28,7 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class ReturnNullInsteadOfBooleanCheckTest extends AbstractModuleTestSupport {
@@ -52,7 +53,7 @@ public class ReturnNullInsteadOfBooleanCheckTest extends AbstractModuleTestSuppo
 
     @Test
     public void testUnsupportedNodeVisit() {
-        final DetailAST sync = new DetailAST();
+        final DetailAST sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
 
         try {
@@ -68,7 +69,7 @@ public class ReturnNullInsteadOfBooleanCheckTest extends AbstractModuleTestSuppo
 
     @Test
     public void testUnsupportedNodeLeave() {
-        final DetailAST sync = new DetailAST();
+        final DetailAST sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
 
         try {

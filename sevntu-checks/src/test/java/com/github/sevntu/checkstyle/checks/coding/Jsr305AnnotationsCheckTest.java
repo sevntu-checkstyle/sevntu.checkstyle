@@ -28,6 +28,7 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.internal.utils.TestUtil;
 
@@ -379,7 +380,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
      */
     @Test
     public void testHandleDefinition() throws Exception {
-        final DetailAST ast = new DetailAST();
+        final DetailAST ast = new DetailAstImpl();
         ast.setType(TokenTypes.WILDCARD_TYPE);
 
         final Method handleDefinition =

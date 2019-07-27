@@ -32,6 +32,7 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
@@ -113,7 +114,7 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
 
     @Test
     public void testInvalidToken() {
-        final DetailAST parent = new DetailAST();
+        final DetailAST parent = new DetailAstImpl();
         parent.setType(TokenTypes.OBJBLOCK);
 
         final CheckstyleTestMakeupCheck check = new CheckstyleTestMakeupCheck();
