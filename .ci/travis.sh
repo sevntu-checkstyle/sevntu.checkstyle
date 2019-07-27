@@ -14,7 +14,7 @@ eclipse-cs)
   cd ..
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
-  git checkout 8.12.0
+  git checkout 8.18.0
   mvn -e install
   cd ../
   cd eclipsecs-sevntu-plugin
