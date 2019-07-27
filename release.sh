@@ -51,7 +51,7 @@ git clean -f -d
 git checkout origin/master
 
 cd sevntu-checks
-ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${checkstyle.eclipse-cs.version}' \
+ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${checkstyle.version}' \
   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
 cd ..
 

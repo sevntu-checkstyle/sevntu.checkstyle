@@ -22,7 +22,7 @@ case $1 in
 
 no-exception-struts)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -41,7 +41,7 @@ no-exception-struts)
 
 no-exception-guava)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -60,7 +60,7 @@ no-exception-guava)
 
 no-exception-hibernate-orm)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -79,7 +79,7 @@ no-exception-hibernate-orm)
 
 no-exception-spotbugs)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -98,7 +98,7 @@ no-exception-spotbugs)
 
 no-exception-spring-framework)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -117,7 +117,7 @@ no-exception-spring-framework)
 
 no-exception-hbase)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -136,7 +136,7 @@ no-exception-hbase)
 
 no-exception-Pmd-elasticsearch-lombok-ast)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -157,7 +157,7 @@ no-exception-Pmd-elasticsearch-lombok-ast)
 
 no-exception-alot-of-projects)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     -Dexec.args='${checkstyle.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)

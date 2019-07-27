@@ -72,7 +72,7 @@ checkstyle-regression)
                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo sevntu version:$SEVNTU_VERSION
   ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                   -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                   -Dexec.args='${checkstyle.version}' \
                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo eclipse-cs version:$ECLIPSE_CS_VERSION
   mvn -e install -Pno-validations

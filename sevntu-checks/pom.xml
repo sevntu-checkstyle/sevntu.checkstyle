@@ -16,8 +16,8 @@
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
     <!-- It is compile dependency to checkstyle, this version has to be the same as eclipse-cs depends on -->
-    <checkstyle.eclipse-cs.version>8.18</checkstyle.eclipse-cs.version>
-    <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.eclipse-cs.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
+    <checkstyle.version>8.18</checkstyle.version>
+    <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
@@ -36,7 +36,7 @@
     <dependency>
       <groupId>com.puppycrawl.tools</groupId>
       <artifactId>checkstyle</artifactId>
-      <version>${checkstyle.eclipse-cs.version}</version>
+      <version>${checkstyle.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -44,7 +44,7 @@
       <artifactId>checkstyle</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
-      <version>${checkstyle.eclipse-cs.version}</version>
+      <version>${checkstyle.version}</version>
     </dependency>
     <!-- required for Jsr305AnnotationsCheck -->
     <dependency>
@@ -239,7 +239,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>${checkstyle.eclipse-cs.version}</version>
+            <version>${checkstyle.version}</version>
           </dependency>
         </dependencies>
         <executions>
@@ -365,7 +365,7 @@
               <classpathScope>test</classpathScope>
               <arguments>
                 <classpath/>
-                <argument>${checkstyle.eclipse-cs.version}</argument>
+                <argument>${checkstyle.version}</argument>
               </arguments>
             </configuration>
           </plugin>
@@ -402,7 +402,7 @@
               <dependency>
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
-                <version>${checkstyle.eclipse-cs.version}</version>
+                <version>${checkstyle.version}</version>
               </dependency>
               <!-- attention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
               <dependency>
