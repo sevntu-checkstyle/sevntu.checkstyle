@@ -181,4 +181,12 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck7.java"), expected);
     }
 
+    @Test
+    public void testOverride() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(SimpleAccessorNameNotationCheck.class);
+        final String[] expected = {};
+        verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheckOverride.java"), expected);
+    }
+
 }
