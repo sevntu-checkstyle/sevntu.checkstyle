@@ -22,6 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
 
 /**
  * <p>
@@ -67,6 +68,12 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private static final String GETTER_PREFIX = "get";
     /** Prefix for setter methods. */
     private static final String SETTER_PREFIX = "set";
+    /** {@link Override Override} annotation name. */
+    private static final String OVERRIDE = "Override";
+
+    /** Fully-qualified {@link Override Override} annotation name. */
+    private static final String FQ_OVERRIDE = "java.lang." + OVERRIDE;
+
     /**
      * Number of children in expression only block. Expecting three children:
      * EXPR, SEMI and RCURLY.
@@ -105,7 +112,8 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST methodDef) {
-        if (hasBody(methodDef) && !isMethodAtAnonymousClass(methodDef)) {
+        if (!isOverrideMethod(methodDef) && hasBody(methodDef)
+                && !isMethodAtAnonymousClass(methodDef)) {
             final String methodName = methodDef.findFirstToken(TokenTypes.IDENT).getText();
             if (methodName.startsWith(BOOLEAN_GETTER_PREFIX)) {
                 if (!isGetterCorrect(methodDef,
@@ -370,6 +378,16 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
     private static boolean hasBody(DetailAST methodDef) {
         final DetailAST body = methodDef.findFirstToken(TokenTypes.SLIST);
         return body != null;
+    }
+
+    /**
+     * Returns true when method has an override annotation.
+     * @param methodDef method definition node
+     * @return true when method has an override annotation.
+     */
+    private static boolean isOverrideMethod(DetailAST methodDef) {
+        return AnnotationUtil.containsAnnotation(methodDef, OVERRIDE)
+                || AnnotationUtil.containsAnnotation(methodDef, FQ_OVERRIDE);
     }
 
 }
