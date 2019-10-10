@@ -1211,7 +1211,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             return regExp;
         }
 
-        /** Getter for the rule field.
+        /**
+         * Getter for the rule field.
          * @return the original immutable input rule
          */
         public String getRule() {

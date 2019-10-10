@@ -108,14 +108,22 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         TokenTypes.BOR,
     };
 
-    /** Used to ignore unnecessary parentheses check
-     *  in calculation of boolean. */
+    /**
+     * Used to ignore unnecessary parentheses check
+     * in calculation of boolean.
+     */
     private boolean ignoreCalculationOfBooleanVariables;
-    /** Used to ignore unnecessary parentheses check
-     *  in calculation of boolean with return state. */
+
+    /**
+     * Used to ignore unnecessary parentheses check
+     * in calculation of boolean with return state.
+     */
     private boolean ignoreCalculationOfBooleanVariablesWithReturn;
-    /** Used to ignore unnecessary parentheses check
-     *  in calculation of boolean with assert state. */
+
+    /**
+     * Used to ignore unnecessary parentheses check
+     * in calculation of boolean with assert state.
+     */
     private boolean ignoreCalculationOfBooleanVariablesWithAssert;
 
     /**
