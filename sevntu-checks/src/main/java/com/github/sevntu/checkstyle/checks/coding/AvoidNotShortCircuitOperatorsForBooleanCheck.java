@@ -186,7 +186,8 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
         return result;
     }
 
-    /** Searches for all supported operands names in current expression.
+    /**
+     * Searches for all supported operands names in current expression.
      * When checking, treatments to external class variables, method calls,
      * etc are not considered as expression operands.
      * @param exprParentAST - the current TokenTypes.EXPR parent node.

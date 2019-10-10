@@ -48,12 +48,16 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
                           "java.lang.Error", "java.lang.Exception", "java.lang.RuntimeException",
                           "java.lang.Throwable", }).collect(Collectors.toSet());
 
-    /** Disable warnings for "catch" blocks containing
-     * throwing an exception. */
+    /**
+     * Disable warnings for "catch" blocks containing
+     * throwing an exception.
+     */
     private boolean allowThrow = true;
 
-    /** Disable warnings for "catch" blocks containing
-     * rethrowing an exception. */
+    /**
+     * Disable warnings for "catch" blocks containing
+     * rethrowing an exception.
+     */
     private boolean allowRethrow = true;
 
     /**
