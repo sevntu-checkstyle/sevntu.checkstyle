@@ -10,13 +10,13 @@ pr-description)
 
 eclipse-cs)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
+  mvn -B -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
   git checkout 8.26.0
   mkdir net.sf.eclipsecs.doc/docs
-  mvn -e install
+  mvn -B -e install
   cd ../
   cd eclipsecs-sevntu-plugin
   mvn -e verify
