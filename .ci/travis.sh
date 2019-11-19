@@ -15,6 +15,7 @@ eclipse-cs)
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
   git checkout 8.26.0
+  mkdir net.sf.eclipsecs.doc/docs
   mvn -e install
   cd ../
   cd eclipsecs-sevntu-plugin
