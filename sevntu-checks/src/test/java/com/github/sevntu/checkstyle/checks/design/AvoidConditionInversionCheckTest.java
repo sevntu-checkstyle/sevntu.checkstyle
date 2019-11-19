@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
@@ -86,7 +86,7 @@ public class AvoidConditionInversionCheckTest extends AbstractModuleTestSupport 
 
     @Test
     public void testUnsupportedNode() {
-        final DetailAST sync = new DetailAST();
+        final DetailAstImpl sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
 
         try {
