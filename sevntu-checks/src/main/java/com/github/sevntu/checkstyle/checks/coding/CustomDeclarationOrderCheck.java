@@ -88,7 +88,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * It is important to write exact order of modifiers in rules. So rule
  * <code><i>Field(public final)</i></code> does not match to
  * <code><i>final public value;</i></code>.
- * <a href='http://checkstyle.sourceforge.net/config_modifier.html#ModifierOrder'>
+ * <a href='https://checkstyle.org/config_modifier.html#ModifierOrder'>
  * ModifierOrderCheck</a>
  * is recommended to use.
  * </p>

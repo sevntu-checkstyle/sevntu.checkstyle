@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
-import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
@@ -291,26 +291,26 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
      */
     @Test
     public void testUnsupportedModifier() {
-        final DetailAST sync = new DetailAST();
+        final DetailAstImpl sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
 
-        final DetailAST ident = new DetailAST();
+        final DetailAstImpl ident = new DetailAstImpl();
         ident.setType(TokenTypes.IDENT);
         ident.setText("dummy");
 
-        final DetailAST type = new DetailAST();
+        final DetailAstImpl type = new DetailAstImpl();
         type.setType(TokenTypes.TYPE);
         type.addChild(ident);
 
-        final DetailAST child = new DetailAST();
+        final DetailAstImpl child = new DetailAstImpl();
         child.setType(TokenTypes.MODIFIERS);
         child.addChild(sync);
 
-        final DetailAST node = new DetailAST();
+        final DetailAstImpl node = new DetailAstImpl();
         node.addChild(type);
         node.addChild(child);
 
-        final DetailAST parent = new DetailAST();
+        final DetailAstImpl parent = new DetailAstImpl();
         parent.setType(TokenTypes.OBJBLOCK);
         parent.addChild(node);
 
