@@ -139,6 +139,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      *
      * @param maxTernaryPerExpressionCount
      *            Number of ternary operators per expression
+     * @throws IllegalArgumentException when maxTernaryPerExpressionCount less zero
      */
     public void setMaxTernaryPerExpressionCount(int maxTernaryPerExpressionCount) {
         if (maxTernaryPerExpressionCount < 0) {

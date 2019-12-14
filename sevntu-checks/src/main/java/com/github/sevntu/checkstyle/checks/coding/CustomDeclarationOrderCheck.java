@@ -1242,6 +1242,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @param newFormat the format of the regular expression.
          * @param compileFlags the compiler flags to use.
+         * @throws IllegalArgumentException when there some problems during parsing of newFormat
          */
         private void updateRegexp(final String newFormat, final int compileFlags) {
             try {
