@@ -3,7 +3,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck</key>
     <name>Line Length Extended</name>
-    <category name="sizes"/>
+    <tag>sizes</tag>
     <description>Checks for long lines.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck</configKey>
 
@@ -37,7 +37,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck</key>
     <name>Interface type parameter name check</name>
-    <category name="naming"/>
+    <tag>naming</tag>
     <description>Checks that interface type parameter names conform to a format specified by the format property.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck</configKey>
 
@@ -52,7 +52,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck</key>
     <name>Cause Parameter In Exception</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Checks that any Exception class which matches the defined className regexp have at least one constructor with Exception cause as a parameter.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck</configKey>
 
@@ -71,7 +71,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck</key>
     <name>Child Block Length</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>This check detects the child blocks, which length is more then 90% of parent block length.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck</configKey>
 
@@ -92,7 +92,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck</key>
     <name>Diamond Operator For Variable Definition</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Highlights variable definition statements where diamond operator could be used</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck</configKey>
   </rule>
@@ -100,7 +100,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck</key>
     <name>Avoid Condition Inversion</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>This Check helps to catch condition inversion cases which could be rewritten in a more readable manner. There're cases where it's justified to get rid of such inversion without changing the main logic.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck</configKey>
 
@@ -113,7 +113,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck</key>
     <name>Forbid Wildcard As Return Type</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Prevents using wildcards as return type of methods.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck</configKey>
 
@@ -158,7 +158,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</key>
     <name>No Main Method In Abstract Class</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Forbids main methods in abstract classes. Rationale: existence of 'main' method can mislead a developer to consider this class as a ready-to-use implementation.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck</configKey>
   </rule>
@@ -166,7 +166,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck</key>
     <name>Constructor Without Params</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Forbids usage of parameterless constructors including the default ones. Rationale: constructors of certain classes must always take arguments
       to properly instantiate objects. Exception classes are the primary example.
     </description>
@@ -186,7 +186,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</key>
     <name>Avoid Constant As First Operand In Condition</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>If comparing values, C(C++) developers prefer to put the constant first in the equality check, to prevent situations of assignment rather than equality checking. But in Java, in IF condition it is impossible to use assignment, so that habit become unnecessary and do damage readability of code. In C(C++), comparison for null is tricky, and it is easy to write "=" instead of "==", and no complication error will be but condition will work in different way.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck</configKey>
 
@@ -199,7 +199,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck</key>
     <name>Avoid default implementation of serializable interface</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check prevents the default implementation Serializable interface in inner classes (Serializable interface are default if methods readObject() or writeObject() are not override in class). Check has option, that allow implementation only one method, if it true, but if it false - class must implement both methods. For more information read 'Effective Java (2nd edition)' chapter 11, item 74, page 294.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck</configKey>
 
@@ -212,7 +212,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck</key>
     <name>Avoid Hiding Cause of the Exception</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Warns when you try to hide cause of an exception when rethrowing.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck</configKey>
   </rule>
@@ -220,7 +220,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck</key>
     <name>Avoid Modifiers For Types</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Disallow some set of modifiers for Java types specified by regexp.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck</configKey>
 
@@ -257,7 +257,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck</key>
     <name>Avoid using bitwise operations for boolean expressions</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Avoid using bitwise operations for boolean expressions.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck</configKey>
   </rule>
@@ -265,7 +265,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck</key>
     <name>Confusing Condition Check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check prevents negation within an "if" expression if "else" is present.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck</configKey>
 
@@ -294,25 +294,28 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck</key>
     <name>Custom Declaration Order</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks the class for a custom oder of declarations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck</configKey>
 
     <param key="customDeclarationOrder" type="REGULAR_EXPRESSION">
       <defaultValue>Field(public) ### Field(protected) ### Field(private) ### CTOR(.*) ### Method(.*)### InnerClass()</defaultValue>
+      <description>Regular expression, which sets the order of the parts of a class(main, nested, member inner).</description>
     </param>
     <param key="caseSensitive" type="BOOLEAN">
       <defaultValue>true</defaultValue>
+      <description>Set false to ignore case.</description>
     </param>
     <param key="fieldPrefix" type="STRING">
       <defaultValue></defaultValue>
+      <description>Prefix of field's name.</description>
     </param>
   </rule>
 
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck</key>
     <name>Either log exception or throw exception</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Either log the exception, or throw it, but never do both.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck</configKey>
 
@@ -329,7 +332,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck</key>
     <name>Empty Public Ctor In Class</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This Check looks for useless empty public constructors. Class constructor is considered useless by this Check if and only if class has exactly one ctor, which is public, empty(one that has no statements) and default.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck</configKey>
 
@@ -346,7 +349,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</key>
     <name>Finalize Implementation Check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description><p>This Check detects 3 most common cases of incorrect finalize() method implementation:</p><ul><li>negates effect of superclass finalize<br/><code>protected void finalize() { } <br/> protected void finalize() { doSomething(); }</code></li><li>useless (or worse) finalize<br/><code>protected void finalize() { super.finalize(); }</code></li><li>public finalize<br/><code>public void finalize() { try { doSomething(); } finally { super.finalize() } }</code></li></ul></description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</configKey>
   </rule>
@@ -354,7 +357,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck</key>
     <name>Forbid C comments in method body</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Forbid C-style comments (/* ... */) in method body.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck</configKey>
   </rule>
@@ -362,7 +365,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck</key>
     <name>Forbid Certain Imports</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Forbids certain imports usage in class.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck</configKey>
 
@@ -380,7 +383,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck</key>
     <name>Forbid Certain Method</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Forbids certain method in class.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck</configKey>
     <param key="methodName" type="REGULAR_EXPRESSION">
@@ -396,7 +399,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</key>
     <name>Forbid Instantiation</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Forbids instantiation of certain object types by their full classname.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</configKey>
 
@@ -409,7 +412,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck</key>
     <name>Forbid return statement in finally block</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Verifies the finally block design.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck</configKey>
   </rule>
@@ -417,7 +420,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck</key>
     <name>Forbid Throw Anonymous Exceptions</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This Check warns on throwing anonymous exception.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck</configKey>
 
@@ -430,7 +433,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck</key>
     <name>Illegal Catch Check Extended</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Check for illegal catch but with option to ignore these catches in some cases.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck</configKey>
 
@@ -451,7 +454,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck</key>
     <name>Logic condition need optimization</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check prevents the placement of local variables and fields after calling methods in &amp;&amp; and || conditions.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck</configKey>
   </rule>
@@ -459,7 +462,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck</key>
     <name>Map Iteration In For Each Loop</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check can help you to write the whole for-each map iteration more correctly.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck</configKey>
 
@@ -484,7 +487,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck</key>
     <name>Multiple String Literals Extended</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks for multiple occurrences of the same string literal within a single file.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck</configKey>
 
@@ -509,7 +512,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck</key>
     <name>Multiple Variable Declarations Extended</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Warn when declaring several variables in one line.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck</configKey>
 
@@ -526,7 +529,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck</key>
     <name>Name Convention For JUnit4 Test Classes Check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check verifies the name of JUnit4 test class for compliance with user defined naming convention(by default Check expects test classes names matching ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*" regex ).Class is considered to be a test if its definition or one of its method definitions annotated with user defined annotations. By default Check looks for classes which contain methods annotated with "Test" or "org.junit."Test.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck</configKey>
 
@@ -547,7 +550,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck</key>
     <name>No null for collection return</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Check report you, when method, that must return array or collection, return null value instead of empty collection or empty array.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck</configKey>
 
@@ -564,7 +567,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck</key>
     <name>Numeric literal needs underscore</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Warn that long numeric literals should be spaced by underscores.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck</configKey>
 
@@ -601,7 +604,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck</key>
     <name>Overridable Method In Constructor</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check prevents any calls to overridable methods that are take place in: any constructor body (verification is always done by default and not configurable); any method which works same as a constructor.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck</configKey>
 
@@ -622,7 +625,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</key>
     <name>Public Reference To Private Type</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>This Check warns on propagation of inner private types to outer classes: - Externally accessible method if it returns private inner type. - Externally accessible field if its type is a private inner type. These types could be private inner classes, interfaces or enumerations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</configKey>
   </rule>
@@ -630,7 +633,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck</key>
     <name>Redundant Return Check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description><p>Highlight usage redundant returns inside constructors and methods with  void result.</p><p>For example:</p><p>1. Non empty constructor</p><br/><code><pre>public HelloWorld(){<br/>    doStuff();<br/>    return;<br/>}</pre></code><p>2. Method with void result</p><br/><code><pre>public void testMethod1(){<br/>    doStuff();<br/>    return;<br/>}</pre></code><p>However, if your IDE does not support breakpoints on the method entry, you can allow the use of redundant returns in constructors and methodswith void result without code except for 'return;'.</p><p>For example:</p><p>1. Empty constructor</p><br/><code><pre>public HelloWorld(){<br/>    return;<br/>}</pre></code><p>2. Method with void result and empty body</p><br/><code><pre>public void testMethod1(){<br/>    return;<br/>}</pre></code></description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck</configKey>
 
@@ -643,7 +646,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck</key>
     <name>Returning Boolean from Ternary Operator</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Avoid returning boolean values from ternary operator - use the boolean value from the inside directly.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck</configKey>
   </rule>
@@ -651,7 +654,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck</key>
     <name>Return Count Check Extended</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks that method/ctor "return" literal count is not greater than the given value ("maxReturnCount" property).</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck</configKey>
 
@@ -684,7 +687,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck</key>
     <name>Returning Null Instead of Boolean</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Method declares to return Boolean, but returns null.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck</configKey>
   </rule>
@@ -692,7 +695,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck</key>
     <name>Simple Accessor Name Notation</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This check verify incorrect name of setter or getter methods if it used field with other name.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck</configKey>
 
@@ -704,7 +707,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck</key>
     <name>Single break or continue inside a loop</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Restricts the number of break and continue statements inside cycle body (only one is allowed).</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck</configKey>
   </rule>
@@ -712,7 +715,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</key>
     <name>Ternary Per Expression Count</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Restricts the number of ternary operators in expression to a specified limit</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</configKey>
 
@@ -733,7 +736,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck</key>
     <name>Unnecessary Parentheses Extended</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks for the use of unnecessary parentheses.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck</configKey>
 
@@ -754,7 +757,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck</key>
     <name>Useless single catch check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks for the presence of useless single catch blocks.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck</configKey>
   </rule>
@@ -762,7 +765,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck</key>
     <name>Nested switch should be avoided</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Nested switch should be avoided, extract nested switch block into separate method.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck</configKey>
 
@@ -775,7 +778,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck</key>
     <name>Useless super constructor call</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks for useless "super()" calls in ctors. "super()" call could be considered by Check as "useless" in two cases: Case 1. no-argument "super()" is called from class ctor if class is not derived Case 2. no-argument "super()" is called without parameters from class ctor if class is derived</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck</configKey>
 
@@ -792,7 +795,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</key>
     <name>Check for enum values name</name>
-    <category name="naming"/>
+    <tag>naming</tag>
     <description>Checks that enumeration value names conform to a format specified by the format property.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck</configKey>
 
@@ -805,7 +808,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck</key>
     <name>Check for enum constants name</name>
-    <category name="naming"/>
+    <tag>naming</tag>
     <description>Check forces enum constants to match one of the specified patterns and forces all the values to follow only one of the specified patterns.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck</configKey>
 
@@ -819,7 +822,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</key>
     <name>Forbid Annotation</name>
-    <category name="annotation"/>
+    <tag>annotation</tag>
     <description>Forbid specific annotation of variable,methods,class,package and other.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck</configKey>
 
@@ -835,7 +838,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck</key>
     <name>Required Parameters Annotation</name>
-    <category name="annotation"/>
+    <tag>annotation</tag>
     <description>Enforce the use of configured parameters on a given annotation.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck</configKey>
 
@@ -850,7 +853,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</key>
     <name>Static Method Candidate</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Check whether <code>private</code> methods should be declared as <code>static</code>.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</configKey>
 
@@ -863,7 +866,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck</key>
     <name>Forbid Annotation Element Value</name>
-    <category name="annotation"/>
+    <tag>annotation</tag>
     <description>Forbids specific element value for specific annotation.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck</configKey>
 
@@ -884,7 +887,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck</key>
     <name>Hide Utility Class Constructor</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Make sure that utility classes (classes that contain only static methods) do not have a public constructor.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck</configKey>
   </rule>
@@ -892,7 +895,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck</key>
     <name>Whitespace Before Array Initializer</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>This checks enforces whitespace before array initializer.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck</configKey>
   </rule>
@@ -900,7 +903,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.InnerClassCheck</key>
     <name>Inner Class</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Check nested (internal) classes to be declared at the bottom of the class after all methods (fields) declaration.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.InnerClassCheck</configKey>
   </rule>
@@ -908,7 +911,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</key>
     <name>Move variable inside if check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks if a variable is only used inside if statements and asks for its declaration to be moved there too.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck</configKey>
   </rule>
@@ -916,7 +919,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</key>
     <name>Require fail for try/catch in junit check</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks if a try/catch block has a junit fail assertion inside the try  for a junit method.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck</configKey>
   </rule>
@@ -924,7 +927,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck</key>
     <name>Jsr305AnnotationsCheck</name>
-    <category name="coding"/>
+    <tag>coding</tag>
     <description>Checks method parameters and return values for the presence of @Nonnull, @Nullable, or @CheckForNull annotations.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck</configKey>
 
@@ -949,7 +952,7 @@
   <rule>
     <key>com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</key>
     <name>Custom check to ensure Checkstyle tests are designed correctly.</name>
-    <category name="design"/>
+    <tag>design</tag>
     <description>Custom check to ensure Checkstyle tests are designed correctly.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck</configKey>
     <param key="createMethodRegexp" type="REGULAR_EXPRESSION">

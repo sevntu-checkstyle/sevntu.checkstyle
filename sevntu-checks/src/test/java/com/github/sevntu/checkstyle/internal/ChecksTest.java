@@ -111,21 +111,17 @@ public final class ChecksTest {
             Assert.assertFalse(moduleName + " requires a name in sonar", name.getTextContent()
                     .isEmpty());
 
-            final Node categoryNode = SevntuXmlUtil.findElementByTag(children, "category");
+            final Node tagNode = SevntuXmlUtil.findElementByTag(children, "tag");
 
-            String expectedCategory = module.getCanonicalName();
-            final int lastIndex = expectedCategory.lastIndexOf('.');
-            expectedCategory = expectedCategory.substring(
-                    expectedCategory.lastIndexOf('.', lastIndex - 1) + 1, lastIndex);
+            String expectedTag = module.getCanonicalName();
+            final int lastIndex = expectedTag.lastIndexOf('.');
+            expectedTag = expectedTag.substring(
+                    expectedTag.lastIndexOf('.', lastIndex - 1) + 1, lastIndex);
 
-            Assert.assertNotNull(moduleName + " requires a category in sonar", categoryNode);
+            Assert.assertNotNull(moduleName + " requires a tag in sonar", tagNode);
 
-            final Node categoryAttribute = categoryNode.getAttributes().getNamedItem("name");
-
-            Assert.assertNotNull(moduleName + " requires a category name in sonar",
-                    categoryAttribute);
-            Assert.assertEquals(moduleName + " requires a valid category in sonar",
-                    expectedCategory, categoryAttribute.getTextContent());
+            Assert.assertEquals(moduleName + " requires a valid tag in sonar",
+                    expectedTag, tagNode.getTextContent());
 
             final Node description = SevntuXmlUtil.findElementByTag(children, "description");
 

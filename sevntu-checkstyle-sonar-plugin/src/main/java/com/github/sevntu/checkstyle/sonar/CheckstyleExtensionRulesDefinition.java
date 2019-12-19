@@ -19,19 +19,14 @@
 
 package com.github.sevntu.checkstyle.sonar;
 
-import java.io.InputStream;
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleRepository;
-import org.sonar.api.rules.XMLRuleParser;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 /**
- * Sonar RuleRepository with Checkstyle Sevntu extensions.
+ * Sonar rules definition for Checkstyle Sevntu extensions.
  * @author rdiachenko
  */
-public final class CheckstyleExtensionRepository extends RuleRepository {
+public final class CheckstyleExtensionRulesDefinition implements RulesDefinition {
 
     /**
      * Repository key.
@@ -55,29 +50,29 @@ public final class CheckstyleExtensionRepository extends RuleRepository {
             "/com/github/sevntu/checkstyle/sonar/checkstyle-extensions.xml";
 
     /**
-     * XML Parser.
+     * XML loader for rules definition.
      */
-    private final XMLRuleParser xmlRuleParser;
+    private final RulesDefinitionXmlLoader xmlRuleLoader;
 
     /**
      * Useless JavaDoc for a Constructor.
-     * @param xmlRuleParser obviously the XML Parser as it already says, what else?!
+     * @param xmlRuleLoader rules definition xml loader.
      */
-    public CheckstyleExtensionRepository(XMLRuleParser xmlRuleParser) {
-        super(REPOSITORY_KEY, REPOSITORY_LANGUAGE);
-        setName(REPOSITORY_NAME);
-        this.xmlRuleParser = xmlRuleParser;
+    public CheckstyleExtensionRulesDefinition(RulesDefinitionXmlLoader xmlRuleLoader) {
+        this.xmlRuleLoader = xmlRuleLoader;
     }
 
-    @Override
-    public List<Rule> createRules() {
-        final InputStream input = getClass().getResourceAsStream(RULES_RELATIVE_FILE_PATH);
-        try {
-            return xmlRuleParser.parse(input);
-        }
-        finally {
-            IOUtils.closeQuietly(input);
-        }
-    }
+    /**
+     * {@inheritDoc}
+     */
+    public void define(Context context) {
+        final NewRepository repository = context
+            .createRepository(REPOSITORY_KEY, REPOSITORY_LANGUAGE)
+            .setName(REPOSITORY_NAME);
 
+        xmlRuleLoader.load(repository, getClass().getResourceAsStream(RULES_RELATIVE_FILE_PATH),
+            "UTF-8");
+
+        repository.done();
+    }
 }

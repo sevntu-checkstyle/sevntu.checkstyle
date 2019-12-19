@@ -19,20 +19,15 @@
 
 package com.github.sevntu.checkstyle.sonar;
 
-import java.util.Arrays;
-import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
 
-import org.sonar.api.SonarPlugin;
+public class CheckstyleExtensionPluginTest {
 
-/**
- * Sonar Plugin with {@link CheckstyleExtensionRulesDefinition} extension.
- * @author rdiachenko
- */
-public final class CheckstyleExtensionPlugin extends SonarPlugin {
-
-    @Override
-    public List<?> getExtensions() {
-        return Arrays.asList(CheckstyleExtensionRulesDefinition.class);
+    @Test
+    public void testGetExtensions() {
+        final CheckstyleExtensionPlugin plugin = new CheckstyleExtensionPlugin();
+        Assert.assertEquals("Incorrect number of plugin extensions",
+            1, plugin.getExtensions().size());
     }
-
 }
