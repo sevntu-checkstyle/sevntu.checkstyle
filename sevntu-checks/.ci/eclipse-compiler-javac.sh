@@ -12,8 +12,8 @@ if [ -z "$2" ]; then
     exit 1
 fi
 
-ECJ_JAR="ecj-4.11.jar"
-ECJ_MAVEN_VERSION="R-4.11-201903070500"
+ECJ_JAR="ecj-4.14.jar"
+ECJ_MAVEN_VERSION="R-4.14-201912100610"
 ECJ_PATH=~/.m2/repository/$ECJ_MAVEN_VERSION/$ECJ_JAR
 
 if [ ! -f $ECJ_PATH ]; then
