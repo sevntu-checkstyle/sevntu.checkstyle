@@ -169,6 +169,9 @@
               <linkXRef>false</linkXRef>
               <propertiesLocation>checkstyle.properties</propertiesLocation>
               <resourceIncludes>**/*.*</resourceIncludes>
+              <sourceDirectories>
+                <sourceDirectory>${project.basedir}/src</sourceDirectory>
+              </sourceDirectories>
             </configuration>
           </execution>
         </executions>

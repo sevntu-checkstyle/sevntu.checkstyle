@@ -6,4 +6,7 @@
 <suppressions>
     <!-- till https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/731 -->
     <suppress checks="RegexpSingleline" files=".*[\\/]sonar[\\/]checkstyle-extensions.xml"/>
+
+    <!-- Tone down the checking for test code -->
+    <suppress checks="Javadoc" files=".*[\\/]src[\\/]test[\\/]"/>
 </suppressions>
