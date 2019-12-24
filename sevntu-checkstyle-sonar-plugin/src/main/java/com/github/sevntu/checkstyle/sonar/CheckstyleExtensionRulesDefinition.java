@@ -65,6 +65,7 @@ public final class CheckstyleExtensionRulesDefinition implements RulesDefinition
     /**
      * {@inheritDoc}
      */
+    @Override
     public void define(Context context) {
         final NewRepository repository = context
             .createRepository(REPOSITORY_KEY, REPOSITORY_LANGUAGE)
