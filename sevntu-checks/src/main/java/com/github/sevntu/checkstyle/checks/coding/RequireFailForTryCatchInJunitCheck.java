@@ -19,6 +19,9 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -77,7 +80,15 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
     /**
      * Fully qualified junit test annotation.
      */
-    private static final String FQ_JUNIT_TEST = "org.junit.Test";
+    private static final List<String> FQ_JUNIT_TESTS = Arrays.asList(
+            "org.junit.Test",
+            "org.junit.jupiter.api.Test");
+    /**
+     * Fully qualified junit `fail` methods.
+     */
+    private static final List<String> FQ_JUNIT_FAIL_METHODS = Arrays.asList(
+            "org.junit.Assert.fail",
+            "org.junit.jupiter.api.Assertions.fail");
     /**
      * JUnit's fail assertion method name.
      */
@@ -88,9 +99,13 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
      */
     private boolean importTest;
     /**
-     * {@code true} if the junit assert is imported.
+     * {@code true} if the junit 4 assert is imported.
      */
-    private boolean importAssert;
+    private boolean importJunit4Assert;
+    /**
+     * {@code true} if the junit 5 assertions is imported.
+     */
+    private boolean importJunit5Assertions;
     /**
      * {@code true} if the junit fail assertion method is statically imported.
      */
@@ -118,7 +133,8 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
     @Override
     public void beginTree(DetailAST rootAST) {
         importTest = false;
-        importAssert = false;
+        importJunit4Assert = false;
+        importJunit5Assertions = false;
         importStaticFail = false;
     }
 
@@ -128,17 +144,20 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
             case TokenTypes.IMPORT:
                 final String imprt = getImportText(ast);
 
-                if (FQ_JUNIT_TEST.equals(imprt)) {
+                if (FQ_JUNIT_TESTS.contains(imprt)) {
                     importTest = true;
                 }
                 if ("org.junit.Assert".equals(imprt)) {
-                    importAssert = true;
+                    importJunit4Assert = true;
+                }
+                if ("org.junit.jupiter.api.Assertions".equals(imprt)) {
+                    importJunit5Assertions = true;
                 }
                 break;
             case TokenTypes.STATIC_IMPORT:
                 final String staticImprt = getImportText(ast);
 
-                if ("org.junit.Assert.fail".equals(staticImprt)) {
+                if (FQ_JUNIT_FAIL_METHODS.contains(staticImprt)) {
                     importStaticFail = true;
                 }
                 break;
@@ -177,9 +196,14 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
      * @return {@code true} if the method is a test method.
      */
     private boolean isTestMethod(DetailAST method) {
-        return method != null
-            && (importTest && AnnotationUtil.containsAnnotation(method, "Test")
-                    || AnnotationUtil.containsAnnotation(method, FQ_JUNIT_TEST));
+        boolean result = false;
+        if (method != null) {
+            result = importTest && AnnotationUtil.containsAnnotation(method, "Test");
+            for (int i = 0; !result && i < FQ_JUNIT_TESTS.size(); i++) {
+                result = AnnotationUtil.containsAnnotation(method, FQ_JUNIT_TESTS.get(i));
+            }
+        }
+        return result;
     }
 
     /**
@@ -193,10 +217,12 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
         if (expression.getFirstChild().getType() == TokenTypes.METHOD_CALL) {
             final DetailAST ident = expression.getFirstChild().getFirstChild();
 
-            if (importAssert && ident.getType() == TokenTypes.DOT) {
+            if ((importJunit4Assert || importJunit5Assertions)
+                    && ident.getType() == TokenTypes.DOT) {
                 final DetailAST firstChild = ident.getFirstChild();
 
-                result = "Assert".equals(firstChild.getText())
+                result = (importJunit4Assert && "Assert".equals(firstChild.getText())
+                            || importJunit5Assertions && "Assertions".equals(firstChild.getText()))
                         && FAIL.equals(firstChild.getNextSibling().getText());
             }
             else if (importStaticFail) {

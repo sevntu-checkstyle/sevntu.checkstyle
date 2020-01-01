@@ -96,6 +96,27 @@ public class RequireFailForTryCatchInJunitCheckTest extends AbstractModuleTestSu
     }
 
     @Test
+    public void testJunit5() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
+        final String[] expected = {
+            "33:9: " + getCheckMessage(MSG_KEY),
+        };
+        verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck6.java"), expected);
+    }
+
+    @Test
+    public void testJunit4And5Mix() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
+        final String[] expected = {
+            "9:9: " + getCheckMessage(MSG_KEY),
+            "18:9: " + getCheckMessage(MSG_KEY),
+        };
+        verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck7.java"), expected);
+    }
+
+    @Test
     public void testUnsupportedNode() {
         final DetailAstImpl sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
