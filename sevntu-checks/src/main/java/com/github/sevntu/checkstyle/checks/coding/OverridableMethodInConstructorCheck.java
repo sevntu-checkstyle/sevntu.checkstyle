@@ -416,7 +416,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
         final List<DetailAST> result = new LinkedList<>();
 
         for (DetailAST curNode : getChildren(parentAST)) {
-            if (curNode.getNumberOfChildren() > 0) {
+            if (curNode.getFirstChild() != null) {
                 if (curNode.getType() == TokenTypes.METHOD_CALL) {
                     result.add(curNode);
                 }
@@ -554,7 +554,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
         List<DetailAST> definitionsList = new LinkedList<>();
 
         for (DetailAST curNode : getChildren(parentAST)) {
-            if (curNode.getNumberOfChildren() > 0) {
+            if (curNode.getFirstChild() != null) {
                 if (curNode.getType() == TokenTypes.METHOD_DEF) {
                     final String curMethodName = curNode.findFirstToken(
                             TokenTypes.IDENT).getText();

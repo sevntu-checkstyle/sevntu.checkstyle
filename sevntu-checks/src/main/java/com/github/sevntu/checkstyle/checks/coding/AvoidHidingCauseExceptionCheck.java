@@ -149,7 +149,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
-                    && currentNode.getNumberOfChildren() > 0) {
+                    && currentNode.getFirstChild() != null) {
                 buildThrowParamNamesList(currentNode, paramNamesAST);
             }
         }
@@ -174,7 +174,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
                     && currentNode.getType() != TokenTypes.LITERAL_THROW
                     && currentNode.getType() != TokenTypes.LITERAL_TRY
-                    && currentNode.getNumberOfChildren() > 0) {
+                    && currentNode.getFirstChild() != null) {
                 throwList.addAll(makeThrowList(currentNode));
             }
         }
@@ -222,7 +222,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
             }
 
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getNumberOfChildren() > 0) {
+                    && currentNode.getFirstChild() != null) {
                 wrapExcNames.addAll(makeExceptionsList(currentCatchAST,
                         currentNode, currentExcName));
             }

@@ -196,7 +196,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     public final List<String> getSupportedOperandsNames(
             final DetailAST exprParentAST) {
         for (DetailAST currentNode : getChildren(exprParentAST)) {
-            if (currentNode.getNumberOfChildren() > 0
+            if (currentNode.getFirstChild() != null
                     && currentNode.getType() != TokenTypes.METHOD_CALL) {
                 getSupportedOperandsNames(currentNode);
             }
@@ -218,7 +218,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      */
     public final boolean hasTrueOrFalseLiteral(final DetailAST parentAST) {
         for (DetailAST currentNode : getChildren(parentAST)) {
-            if (currentNode.getNumberOfChildren() > 0) {
+            if (currentNode.getFirstChild() != null) {
                 hasTrueOrFalseLiteral(currentNode);
             }
 
