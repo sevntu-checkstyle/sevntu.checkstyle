@@ -158,7 +158,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
 
         for (DetailAST currentNode : asts) {
             if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                    && currentNode.getNumberOfChildren() > 0) {
+                    && currentNode.getFirstChild() != null) {
                 result = getThrowAST(currentNode);
             }
             if (currentNode.getType() == TokenTypes.LITERAL_THROW) {
@@ -181,7 +181,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
 
         DetailAST currNode = node.getFirstChild();
 
-        for (int i = 0; i < node.getNumberOfChildren(); i++) {
+        for (int i = 0; i < result.length; i++) {
             result[i] = currNode;
             currNode = currNode.getNextSibling();
         }
