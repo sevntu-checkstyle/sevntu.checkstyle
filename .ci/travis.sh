@@ -13,8 +13,8 @@ eclipse-cs)
   cat pom.xml
   sleep 5s
   ECLIPSECS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
-                    -Dexec.args='${eclipsecs.version}' \
-                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+                   -Dexec.args='${eclipsecs.version}' \
+                   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   sleep 5s
   ECLIPSECS_TAG_NAME=$(echo $ECLIPSECS_POM_VERSION | sed "s/-SNAPSHOT//")
   cd ../
