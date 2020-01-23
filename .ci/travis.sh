@@ -9,15 +9,26 @@ pr-description)
   ;;
 
 eclipse-cs)
+  cd eclipsecs-sevntu-plugin
+  # we can not use here 'exec-maven-plugin' as requies all dependencies resolved
+  ECLIPSECS_TAG_NAME=$(grep "eclipsecs.version" pom.xml \
+                           | head -n 1 \
+                           | sed -E "s/<(\w|\.|\/)*>//g" \
+                           | tr -d '[:space:]' \
+                           | sed "s/-SNAPSHOT//")
+  cd ../
   cd sevntu-checks
   mvn -B -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
+  mkdir -p .ci-temp
+  cd .ci-temp
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
-  git checkout 8.26.0
+  echo "Eclipse-cs tag: "$ECLIPSECS_TAG_NAME
+  git checkout $ECLIPSECS_TAG_NAME
   mkdir net.sf.eclipsecs.doc/docs
   mvn -B -e install
-  cd ../
+  cd ../../
   cd eclipsecs-sevntu-plugin
   mvn -e verify
   mvn -e javadoc:javadoc
