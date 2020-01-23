@@ -1,6 +1,6 @@
 #!/bin/bash
 # Attention, there is no "-x" to avoid problems on Travis
-#set -e
+set -e
 
 case $1 in
 
@@ -10,14 +10,10 @@ pr-description)
 
 eclipse-cs)
   cd eclipsecs-sevntu-plugin
-  mvn -e -q -Dexec.executable='echo' -Dexec.args='${eclipsecs.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec
-  echo "--"
   ECLIPSECS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                     -Dexec.args='${eclipsecs.version}' \
                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  echo $?
   ECLIPSECS_TAG_NAME=$(echo $ECLIPSECS_POM_VERSION | sed "s/-SNAPSHOT//")
-  echo $?
   cd ../
   cd sevntu-checks
   mvn -B -e clean install -Dmaven.test.skip=true -Pno-validations
