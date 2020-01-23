@@ -17,6 +17,7 @@ gh-pages/
 
 # No temp files
 *~
+.ci-temp/
 
 # No magic files used by the OS
 .DS_Store
