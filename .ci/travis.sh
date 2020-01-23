@@ -9,12 +9,17 @@ pr-description)
   ;;
 
 eclipse-cs)
+  cd eclipsecs-sevntu-plugin
+  ECLIPSECS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${eclipsecs.version}' \
+                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  ECLIPSECS_TAG_NAME=$(echo $ECLIPSECS_POM_VERSION | sed "s/-SNAPSHOT//")
+  cd ../
   cd sevntu-checks
   mvn -B -e clean install -Dmaven.test.skip=true -Pno-validations
   cd ..
   git clone https://github.com/checkstyle/eclipse-cs.git
   cd eclipse-cs/
-  git checkout 8.26.0
+  git checkout $ECLIPSECS_TAG_NAME
   mkdir net.sf.eclipsecs.doc/docs
   mvn -B -e install
   cd ../
