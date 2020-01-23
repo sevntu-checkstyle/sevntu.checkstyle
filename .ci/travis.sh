@@ -13,6 +13,7 @@ eclipse-cs)
   ECLIPSECS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${eclipsecs.version}' \
                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   ECLIPSECS_TAG_NAME=$(echo $ECLIPSECS_POM_VERSION | sed "s/-SNAPSHOT//")
+  echo $ECLIPSECS_TAG_NAME
   cd ../
   cd sevntu-checks
   mvn -B -e clean install -Dmaven.test.skip=true -Pno-validations
