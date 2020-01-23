@@ -24,24 +24,28 @@ matrix:
     - jdk: openjdk8
       env:
         - DESC="eclipse-cs"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh eclipse-cs"
 
     # idea-extension
     - jdk: openjdk8
       env:
         - DESC="idea-extension"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh idea-extension"
 
     # sonar-plugin
     - jdk: openjdk8
       env:
         - DESC="sonar-plugin"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh sonar-plugin"
 
     # checks
     - jdk: openjdk8
       env:
         - DESC="checks"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh sevntu-checks"
 
     # Ensure that all sevntu checks are used in contribution
@@ -54,12 +58,14 @@ matrix:
     - jdk: openjdk8
       env:
         - DESC="checkstyle-regression"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh checkstyle-regression"
 
     # eclipse static analysis
     - jdk: openjdk8
       env:
         - DESC="eclipse-analysis"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh eclipse-analysis"
 
     # testing of PR format
@@ -71,6 +77,7 @@ matrix:
     - jdk: openjdk8
       env:
         - DESC="sonarcloud.io"
+        - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh sonarqube"
 
 
@@ -93,7 +100,9 @@ script:
       fi
       if [[ $USE_MAVEN_REPO == 'true' && ! -d "~/.m2" ]]; then
        echo "Maven local repo cache is not found, initializing it ..."
-       mvn -B install -Pno-validations;
+       cd sevntu-checks
+       mvn -B install -Pno-validations
+       cd ../
       fi
       echo "eval of CMD is starting";
       echo "CMD=$CMD";
