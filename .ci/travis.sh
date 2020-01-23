@@ -1,6 +1,6 @@
 #!/bin/bash
 # Attention, there is no "-x" to avoid problems on Travis
-set -e
+#set -e
 
 case $1 in
 
