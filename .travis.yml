@@ -100,3 +100,6 @@ script:
     fi
 
 after_success:
+
+after_script:
+  - sleep 1
