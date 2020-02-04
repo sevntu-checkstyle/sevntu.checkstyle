@@ -225,7 +225,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
 
                 result = hasNullInDefinition(subblocks, variableName);
 
-                //searching for not a null value into variable assignment
+                // searching for not a null value into variable assignment
                 if (result) {
                     for (DetailAST subblock : subblocks) {
                         final List<DetailAST> expressions =

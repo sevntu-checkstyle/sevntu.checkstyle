@@ -307,7 +307,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
                     final DetailAST mapIdentNode = ast.findFirstToken(TokenTypes.TYPE)
                             .getNextSibling();
                     final String mapName = mapIdentNode.getText();
-                    //If Map name is contains into mMapNamesList, it doesn't need second inclusion
+                    // If Map name is contains into mMapNamesList, it doesn't need second inclusion
                     if (!mapNamesList.contains(mapName)) {
                         mapNamesList.add(mapIdentNode.getText());
                     }

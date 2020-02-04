@@ -525,8 +525,8 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
                             sameDefinitionCounter++;
                         }
                     }
-                    //you have a lot same method definitions and you can't
-                    //select one of them and be sure that you are right
+                    // you have a lot same method definitions and you can't
+                    // select one of them and be sure that you are right
                     if (sameDefinitionCounter > 1) {
                         result = null;
                     }

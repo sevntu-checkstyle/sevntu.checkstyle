@@ -216,7 +216,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * @return true if object block is correct
      */
     private static boolean containsOnlyExpression(DetailAST objectBlock) {
-        //three child: EXPR, SEMI and RCURLY
+        // three child: EXPR, SEMI and RCURLY
         return objectBlock.getChildCount() == EXPRESSION_BLOCK_CHILD_COUNT
                 && objectBlock.getFirstChild().getType() == TokenTypes.EXPR;
     }
@@ -294,7 +294,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * @return - true when getter has correct return.
      */
     private static boolean isCorrectReturn(DetailAST literalReturn) {
-        //two child: EXPR and SEMI
+        // two child: EXPR and SEMI
         return literalReturn.getChildCount() == 2
                 && literalReturn.getFirstChild().getType() == TokenTypes.EXPR;
     }

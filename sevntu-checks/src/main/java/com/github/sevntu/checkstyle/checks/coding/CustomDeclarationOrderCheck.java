@@ -296,7 +296,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                         .add(parseInputDeclarationRule(currentState));
             }
             catch (StringIndexOutOfBoundsException exp) {
-                //if the structure of the input rule isn't correct
+                // if the structure of the input rule isn't correct
                 throw new IllegalArgumentException("Unable to parse input rule: "
                         + currentState, exp);
             }
@@ -813,7 +813,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         final StringBuilder modifiers = new StringBuilder();
         DetailAST astNode = ast.findFirstToken(TokenTypes.MODIFIERS);
         if (astNode.getFirstChild() == null) {
-            //if we met package level modifier
+            // if we met package level modifier
             modifiers.append("package ");
         }
 
@@ -848,7 +848,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         while (astNode != null) {
             if (astNode.getFirstChild() == null) {
                 if (astNode.getType() == TokenTypes.RBRACK) {
-                    //if array
+                    // if array
                     modifiers.append('[');
                 }
                 modifiers.append(astNode.getText());

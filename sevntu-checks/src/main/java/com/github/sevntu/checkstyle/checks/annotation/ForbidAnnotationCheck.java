@@ -126,7 +126,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
         final DetailAST directname = annotation.findFirstToken(TokenTypes.IDENT);
 
         if (directname == null) {
-            //This means that annotation is specified with the full package name
+            // This means that annotation is specified with the full package name
             result = annotation.findFirstToken(TokenTypes.DOT).getLastChild().getText();
         }
         else {
