@@ -198,59 +198,60 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      *     exception object.
      */
     private List<String> makeExceptionsList(final DetailAST currentCatchAST,
-                                        final DetailAST parentAST,
-                                        final String currentExcName) {
-    // Test if the current node is currentCatchAST or of token type ASSIGN
-    final Predicate<DetailAST> testIfCurrentAstOrAssign = node -> {
-        return currentCatchAST.equals(node)
-                || Objects.equals(node.getType(), TokenTypes.ASSIGN);
-    };
+                                            final DetailAST parentAST,
+                                            final String currentExcName) {
+        // Test if the current node is currentCatchAST or of token type ASSIGN
+        final Predicate<DetailAST> testIfCurrentAstOrAssign = node -> {
+            return currentCatchAST.equals(node)
+                    || Objects.equals(node.getType(), TokenTypes.ASSIGN);
+        };
 
-    // Iterate through a node and its parent till testIfCurrentAstOrAssign passes once
-    final UnaryOperator<DetailAST> getParentNode = (final DetailAST temp) -> {
-        return Stream.iterate(temp, DetailAST::getParent)
-                .filter(Objects::nonNull)
-                .filter(testIfCurrentAstOrAssign)
-                .findFirst()
-                .orElse(temp);
-    };
-
-    final List<String> wrapExcNames = new LinkedList<>();
-
-    // Iterate through child nodes
-    for (DetailAST currentNode : getChildNodes(parentAST)) {
-        if (currentNode.getType() == TokenTypes.IDENT
-                && currentNode.getText().equals(currentExcName)
-                && currentNode.getParent().getType() != TokenTypes.DOT) {
-
-            // Assignable T\token type node
-            final Optional<DetailAST> optAst = Optional.of(currentNode)
-                    .map(getParentNode)
-                    .filter(temp -> temp.getType() == TokenTypes.ASSIGN);
-
-            // Find firast identity token
-            final Optional<DetailAST> optResult = optAst.map(temp -> {
-                final DetailAST convertedExc = Optional.of(temp)
-                    .filter(node -> {
-                        return node.getParent().getType() == TokenTypes.VARIABLE_DEF;
-                    })
-                    .map(DetailAST::getParent)
+        // Iterate through a node and its parent till testIfCurrentAstOrAssign passes once
+        final UnaryOperator<DetailAST> getParentNode = (final DetailAST temp) -> {
+            return Stream.iterate(temp, DetailAST::getParent)
+                    .filter(Objects::nonNull)
+                    .filter(testIfCurrentAstOrAssign)
+                    .findFirst()
                     .orElse(temp);
-                return convertedExc.findFirstToken(TokenTypes.IDENT);
-            });
+        };
 
-            // Add to exception names
-            optResult.map(DetailAST::getText).ifPresent(wrapExcNames::add);
-        }
+        final List<String> wrapExcNames = new LinkedList<>();
 
-        if (currentNode.getType() != TokenTypes.PARAMETER_DEF
-                && currentNode.getFirstChild() != null) {
-            wrapExcNames.addAll(makeExceptionsList(currentCatchAST,
-                    currentNode, currentExcName));
+        // Iterate through child nodes
+        for (DetailAST currentNode : getChildNodes(parentAST)) {
+            if (currentNode.getType() == TokenTypes.IDENT
+                    && currentNode.getText().equals(currentExcName)
+                    && currentNode.getParent().getType() != TokenTypes.DOT) {
+
+                // Assignable T\token type node
+                final Optional<DetailAST> optAst = Optional.of(currentNode)
+                        .map(getParentNode)
+                        .filter(temp -> temp.getType() == TokenTypes.ASSIGN);
+
+                // Find firast identity token
+                final Optional<DetailAST> optResult = optAst.map(temp -> {
+                    final DetailAST convertedExc = Optional.of(temp)
+                        .filter(node -> {
+                            return node.getParent().getType() == TokenTypes.VARIABLE_DEF;
+                        })
+                        .map(DetailAST::getParent)
+                        .orElse(temp);
+                    return convertedExc.findFirstToken(TokenTypes.IDENT);
+                });
+
+                // Add to exception names
+                optResult.map(DetailAST::getText).ifPresent(wrapExcNames::add);
+            }
+
+            if (currentNode.getType() != TokenTypes.PARAMETER_DEF
+                    && currentNode.getFirstChild() != null) {
+                wrapExcNames.addAll(makeExceptionsList(currentCatchAST,
+                        currentNode, currentExcName));
+            }
         }
+        return wrapExcNames;
     }
-    return wrapExcNames;
-}
+
     /**
      * Gets all the children one level below on the current parent node.
      * @param node Current parent node.
