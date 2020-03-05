@@ -20,7 +20,7 @@
     <!-- verify time version -->
     <checkstyle.version>8.30</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
-    <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
+    <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
     <pmd.version>6.13.0</pmd.version>
