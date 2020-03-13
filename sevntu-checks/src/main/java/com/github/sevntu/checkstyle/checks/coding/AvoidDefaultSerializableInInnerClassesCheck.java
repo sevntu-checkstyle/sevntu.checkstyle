@@ -44,9 +44,9 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     public static final String MSG_KEY = "avoid.default.serializable.in.inner.classes";
 
     /**
-    *<b>
-    *Option, that allow partial implementation of serializable interface.
-    *</b>
+    * <b>
+    * Option, that allow partial implementation of serializable interface.
+    * </b>
     */
     private boolean allowPartialImplementation;
 
@@ -223,44 +223,44 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
     }
 
     /**
-     *<b>
+     * <b>
      * Nested class, that implements custom iterator for DetailAST method nodes.
-     *</b>
+     * </b>
      */
     private final class SiblingIterator {
 
         /**
-        *<b>
-        *Next.
-        *</b>
+        * <b>
+        * Next.
+        * </b>
         */
         private DetailAST next;
 
         /**
-        *<b>
-        *Children Iterator constructor.
-        *</b>
-        *@param parent - child parent.
+        * <b>
+        * Children Iterator constructor.
+        * </b>
+        * @param parent - child parent.
         */
         /* package */ SiblingIterator(DetailAST parent) {
             next = parent.findFirstToken(TokenTypes.METHOD_DEF);
         }
 
         /**
-        *<b>
-        *Return boolean value, if has next element.
-        *</b>
-        *@return boolean value
+        * <b>
+        * Return boolean value, if has next element.
+        * </b>
+        * @return boolean value
         */
         public boolean hasNextSibling() {
             return next != null;
         }
 
         /**
-        *<b>
-        *Return next DetailAST element.
-        *</b>
-        *@return next DetailAST.
+        * <b>
+        * Return next DetailAST element.
+        * </b>
+        * @return next DetailAST.
         */
 
         public DetailAST nextSibling() {
