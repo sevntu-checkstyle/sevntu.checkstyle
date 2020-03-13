@@ -114,7 +114,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *   }
  * } </pre>
  *
- *<p><br>
+ * <p><br>
  * <i>Some specific method call types that aren`t supported by check:</i>
  * </p>
  * <ul>
@@ -122,7 +122,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li>InnerClass.this.methodName();</li>
  * <li>and so on, using a similar hierarchy</li>
  * </ul>
- *<br>
+ * <br>
  *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
