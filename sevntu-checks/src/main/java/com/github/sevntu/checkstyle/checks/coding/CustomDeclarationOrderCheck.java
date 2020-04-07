@@ -1247,7 +1247,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         private void updateRegexp(final String newFormat, final int compileFlags) {
             try {
                 regExp = Pattern.compile(newFormat, compileFlags);
-                this.format = newFormat;
+                format = newFormat;
             }
             catch (final PatternSyntaxException ex) {
                 throw new IllegalArgumentException("unable to parse " + newFormat, ex);
@@ -1260,7 +1260,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          * @return true if format matcher contains rule.
          */
         public boolean hasRule(String ruleCheck) {
-            return this.rule.indexOf(ruleCheck) > -1;
+            return rule.indexOf(ruleCheck) > -1;
         }
 
         @Override

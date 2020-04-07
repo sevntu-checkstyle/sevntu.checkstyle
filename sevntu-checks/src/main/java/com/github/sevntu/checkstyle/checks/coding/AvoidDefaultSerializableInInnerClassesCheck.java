@@ -58,7 +58,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      *        of serializable interface.
      */
     public void setAllowPartialImplementation(boolean allow) {
-        this.allowPartialImplementation = allow;
+        allowPartialImplementation = allow;
     }
 
     @Override

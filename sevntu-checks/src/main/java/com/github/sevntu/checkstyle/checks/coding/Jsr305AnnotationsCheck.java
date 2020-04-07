@@ -310,7 +310,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
          */
         NullnessAnnotation(final String annotationName, final String packageName) {
             this.annotationName = annotationName;
-            this.fullyQualifiedClassName = packageName + "." + annotationName;
+            fullyQualifiedClassName = packageName + "." + annotationName;
         }
 
     }
@@ -397,7 +397,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
      *        true if yes
      */
     public void setAllowOverridingReturnValue(final boolean newAllowOverridingReturnValue) {
-        this.allowOverridingReturnValue = newAllowOverridingReturnValue;
+        allowOverridingReturnValue = newAllowOverridingReturnValue;
     }
 
     /**
@@ -406,7 +406,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
      *        true if yes
      */
     public void setAllowOverridingParameter(final boolean newAllowOverridingParameter) {
-        this.allowOverridingParameter = newAllowOverridingParameter;
+        allowOverridingParameter = newAllowOverridingParameter;
     }
 
     /**
@@ -865,7 +865,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
          */
         private AbstractJsr305Handler(final DetailAST ast) {
             this.ast = ast;
-            this.violationFound = false;
+            violationFound = false;
             annotations = findAnnotations(ast);
         }
 
@@ -911,9 +911,9 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
          */
         private boolean containsAny(final NullnessAnnotation... search) {
             boolean result = false;
-            if (!this.annotations.isEmpty()) {
+            if (!annotations.isEmpty()) {
                 for (final NullnessAnnotation obj : search) {
-                    if (this.annotations.contains(obj)) {
+                    if (annotations.contains(obj)) {
                         result = true;
                         break;
                     }
@@ -946,7 +946,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
                 final NullnessAnnotation... search) {
             if (!violationFound) {
                 for (final NullnessAnnotation nullnessAnnotation : search) {
-                    final boolean thisIsAnnotated = this.annotations.contains(nullnessAnnotation);
+                    final boolean thisIsAnnotated = annotations.contains(nullnessAnnotation);
                     final boolean parentIsAnnotated =
                             getParentMethodOrClassAnnotation(nullnessAnnotation) != null;
                     if (thisIsAnnotated && parentIsAnnotated) {
@@ -965,13 +965,13 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
          */
         private boolean containsAll(final NullnessAnnotation... search) {
             boolean result = true;
-            if (this.annotations.isEmpty()) {
+            if (annotations.isEmpty()) {
                 // an empty list of annotations can never contain all
                 result = false;
             }
             else {
                 for (final NullnessAnnotation obj : search) {
-                    if (!this.annotations.contains(obj)) {
+                    if (!annotations.contains(obj)) {
                         result = false;
                         break;
                     }

@@ -129,7 +129,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
      */
     public void setRequiredParameters(String... requiredPropertiesParameter) {
         for (String item : requiredPropertiesParameter) {
-            this.requiredParameters.add(item);
+            requiredParameters.add(item);
         }
     }
 
@@ -156,13 +156,13 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
     public void visitToken(DetailAST annotationNode) {
         final String annotationNameCheck = getAnnotationName(annotationNode);
 
-        if (annotationNameCheck.equals(this.annotationName)) {
+        if (annotationNameCheck.equals(annotationName)) {
             final Set<String> missingParameters =
                     Sets.difference(requiredParameters, getAnnotationParameters(annotationNode));
 
             if (!missingParameters.isEmpty()) {
                 final String missingParametersAsString = Joiner.on(", ").join(missingParameters);
-                log(annotationNode, MSG_KEY, this.annotationName, missingParametersAsString);
+                log(annotationNode, MSG_KEY, annotationName, missingParametersAsString);
             }
         }
     }
