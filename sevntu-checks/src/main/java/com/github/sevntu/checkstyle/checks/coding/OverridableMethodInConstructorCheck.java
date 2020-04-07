@@ -926,7 +926,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
          */
         /* package */ OverridableMetCall(DetailAST methodCallAST,
                 String overridableMetName) {
-            this.metCallAST = methodCallAST;
+            metCallAST = methodCallAST;
             this.overridableMetName = overridableMetName;
         }
 

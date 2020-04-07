@@ -81,7 +81,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
      * @param exceptionClassNameRegex The regular expression to set.
      */
     public void setExceptionClassNameRegex(String exceptionClassNameRegex) {
-        this.pattern = Pattern.compile(exceptionClassNameRegex);
+        pattern = Pattern.compile(exceptionClassNameRegex);
     }
 
     @Override
