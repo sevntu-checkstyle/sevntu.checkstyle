@@ -535,6 +535,13 @@
       <message-key key="single.break.or.continue.in.loops"/>
     </rule-metadata>
 
+    <rule-metadata name="%SingleMethodTypeParameterCheck.name" internal-name="SingleMethodTypeParameterCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.SingleMethodTypeParameterCheck"/>
+      <description>%SingleMethodTypeParameterCheck.desc</description>
+
+      <message-key key="single.method.type.parameter"/>
+    </rule-metadata>
+
     <rule-metadata name="%WhitespaceBeforeArrayInitializerCheck.name" internal-name="WhitespaceBeforeArrayInitializerCheck" parent="TreeWalker">
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
       <description>%WhitespaceBeforeArrayInitializerCheck.desc</description>
