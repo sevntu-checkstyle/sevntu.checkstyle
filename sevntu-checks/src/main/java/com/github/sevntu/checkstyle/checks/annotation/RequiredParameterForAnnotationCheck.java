@@ -67,7 +67,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * class SomeClass {}
  * </code>
  * </pre>
- <p>
+ * <p>
  * <b>Example 2.</b><br>
  * Configuration:
  * </p>
