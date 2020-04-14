@@ -21,6 +21,8 @@ package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.FullIdent;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
@@ -74,6 +76,32 @@ public final class SevntuUtil {
             }
         }
         return toVisitAst;
+    }
+
+    /**
+     * Gets package/import text representation from node of PACKAGE_DEF or IMPORT type.
+     * @param packageDefOrImportNode
+     *        - DetailAST node is pointing to package or import definition
+     *        (should be a PACKAGE_DEF or IMPORT type).
+     * @return The fully qualified name of package or import without
+     *         "package"/"import" words or semicolons.
+     */
+    public static String getText(DetailAST packageDefOrImportNode) {
+        String result = null;
+
+        final DetailAST identNode = packageDefOrImportNode.findFirstToken(TokenTypes.IDENT);
+
+        if (identNode == null) {
+            final DetailAST parentDotAST = packageDefOrImportNode.findFirstToken(TokenTypes.DOT);
+            final FullIdent dottedPathIdent = FullIdent
+                    .createFullIdentBelow(parentDotAST);
+            final DetailAST nameAST = parentDotAST.getLastChild();
+            result = dottedPathIdent.getText() + "." + nameAST.getText();
+        }
+        else {
+            result = identNode.getText();
+        }
+        return result;
     }
 
 }

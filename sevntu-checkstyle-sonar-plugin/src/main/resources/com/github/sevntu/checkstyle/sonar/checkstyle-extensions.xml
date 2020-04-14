@@ -397,6 +397,26 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.ForbidFieldAccessCheck</key>
+    <name>Forbid Certain Method</name>
+    <tag>coding</tag>
+    <description>Forbids certain method in class.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.ForbidFieldAccessCheck</configKey>
+    <param key="packageName" type="String">
+      <defaultValue>java.util</defaultValue>
+      <description>The field package class name to be forbidden.</description>
+    </param>
+    <param key="className" type="String">
+      <defaultValue>Locale</defaultValue>
+      <description>The field class name to be forbidden.</description>
+    </param>
+    <param key="fieldName" type="String">
+      <defaultValue>ROOT</defaultValue>
+      <description>The field name to be forbidden.</description>
+    </param>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</key>
     <name>Forbid Instantiation</name>
     <tag>coding</tag>

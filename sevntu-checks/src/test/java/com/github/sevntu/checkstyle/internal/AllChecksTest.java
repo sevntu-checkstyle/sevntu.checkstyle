@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -54,7 +53,7 @@ public class AllChecksTest {
                 final int[] acceptableTokens = testedCheck.getAcceptableTokens();
 
                 if (!isSubset(defaultTokens, acceptableTokens)) {
-                    final String errorMessage = String.format(Locale.ROOT,
+                    final String errorMessage = String.format(
                             "%s's default tokens must be a subset"
                             + " of acceptable tokens.", check.getName());
                     Assert.fail(errorMessage);
@@ -73,7 +72,7 @@ public class AllChecksTest {
                 final int[] acceptableTokens = testedCheck.getAcceptableTokens();
 
                 if (!isSubset(requiredTokens, acceptableTokens)) {
-                    final String errorMessage = String.format(Locale.ROOT,
+                    final String errorMessage = String.format(
                             "%s's required tokens must be a subset"
                             + " of acceptable tokens.", check.getName());
                     Assert.fail(errorMessage);
@@ -92,7 +91,7 @@ public class AllChecksTest {
                 final int[] requiredTokens = testedCheck.getRequiredTokens();
 
                 if (!isSubset(requiredTokens, defaultTokens)) {
-                    final String errorMessage = String.format(Locale.ROOT,
+                    final String errorMessage = String.format(
                             "%s's required tokens must be a subset"
                             + " of default tokens.", check.getName());
                     Assert.fail(errorMessage);
@@ -108,7 +107,7 @@ public class AllChecksTest {
 
         checksNames.stream().filter(check -> !checksReferencedInConfig.contains(check))
             .forEach(check -> {
-                final String errorMessage = String.format(Locale.ROOT,
+                final String errorMessage = String.format(
                     "%s is not referenced in sevntu-checks.xml", check);
                 Assert.fail(errorMessage);
             });

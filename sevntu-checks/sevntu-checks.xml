@@ -84,6 +84,11 @@
       <property name="methodName" value="assert(True|False)"/>
       <property name="argumentCount" value="1"/>
     </module>
+    <module name="com.github.sevntu.checkstyle.checks.coding.ForbidFieldAccessCheck">
+      <property name="packageName" value="java.util"/>
+      <property name="className" value="Locale"/>
+      <property name="fieldName" value="ROOT"/>
+    </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck">
       <property name="checkCloneMethod" value="false"/>
       <property name="checkReadObjectMethod" value="false"/>
