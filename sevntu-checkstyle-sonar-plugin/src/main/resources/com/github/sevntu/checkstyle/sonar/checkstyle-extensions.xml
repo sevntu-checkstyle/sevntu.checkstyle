@@ -347,6 +347,19 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.FieldSingleDeclarationCheck</key>
+    <name>Field Single Declaration Check</name>
+    <tag>coding</tag>
+    <description>This checks ensures that classes have at most 1 field of the given className.  This can be useful for example to ensure that only one Logger is used.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.FieldSingleDeclarationCheck</configKey>
+
+    <param key="fullyQualifiedClassName" type="STRING">
+      <defaultValue>java.util.logging.Logger</defaultValue>
+      <description>Fully qualified name of class of which there should only be max. 1 field per class. Example: "java.util.logging.Logger".</description>
+    </param>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</key>
     <name>Finalize Implementation Check</name>
     <tag>coding</tag>
