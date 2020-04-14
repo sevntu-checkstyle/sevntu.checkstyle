@@ -103,6 +103,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
     /**
      * Set method name regex for the forbidden method.
+     *
      * @param methodName regex for the method name
      */
     public void setMethodName(String methodName) {
@@ -112,6 +113,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
     /**
      * Set number or range to match number of arguments of the forbidden method.
      * Multiple values must be comma separated.
+     *
      * @param argumentCount range for matching number of arguments
      * @throws CheckstyleException when argumentCount is not a valid range
      */
@@ -172,6 +174,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
     /**
      * Count the parameters given to a method call.
+     *
      * @param ast The method call AST.
      * @return The number of parameters.
      */
@@ -190,6 +193,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
     /**
      * Check if the method/constructor call against defined rules.
+     *
      * @param name ruleName of the the method
      * @param argCount number of arguments of the method
      * @return true if method name and argument matches, false otherwise.
@@ -231,6 +235,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
         /**
          * Initialize IntRange object with a lower limit and an upper limit.
+         *
          * @param lowerLimit lower limit of the range, must be >= 0, null is equivalent to 0
          * @param upperLimit upper limit of the range, null is equivalent to infinity
          */
@@ -241,6 +246,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
 
         /**
          * Create a range object corresponding to it string representation.
+         *
          * @param range string representation of the range
          * @return IntRange object for the string
          *
@@ -281,6 +287,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
         /**
          * Check if range contain given number. Range is closed.
          * If lower/upper bound is absent, it is considered unbounded on lower/upper side.
+         *
          * @param num the number to be checked
          * @return true if number is contained in the range, false otherwise
          */

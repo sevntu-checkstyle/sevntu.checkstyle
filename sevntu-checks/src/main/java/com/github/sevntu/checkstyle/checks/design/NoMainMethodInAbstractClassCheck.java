@@ -29,6 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * Forbids main methods in abstract classes. Existence of 'main' method can
  * mislead a developer to consider this class as a ready-to-use implementation.
+ *
  * @author Baratali Izmailov <a href="mailto:barataliba@gmail.com">email</a>
  * @since 1.9.0
  */
@@ -88,6 +89,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Verify that class is not inner.
+     *
      * @param classDefAST
      *        DetailAST of class definition.
      * @return true if class is not inner, false otherwise.
@@ -106,6 +108,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Verify that aMethodDefAST is child token of considered objblock.
+     *
      * @param methodDefAST DetailAST of method definition.
      * @return true if aMethodDefAST is child of of considered objblock.
      */
@@ -117,6 +120,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Return true if AST has abstract modifier.
+     *
      * @param classDefAST
      *        AST which has modifier
      * @return true if AST has abstract modifier, false otherwise.
@@ -129,6 +133,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Verifies that the given DetailAST is a main method.
+     *
      * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST is a main method, false otherwise.
@@ -150,6 +155,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     /**
      * Get identifier of AST. These can be names of types, subpackages,
      * fields, methods, parameters, and local variables.
+     *
      * @param ast
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
@@ -161,6 +167,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Verifies that given AST has appropriate modifiers for main method.
+     *
      * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST has (public & static & !abstract) modifiers,
@@ -175,6 +182,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Verifies that given AST has type and this type is void.
+     *
      * @param methodAST
      *        DetailAST instance.
      * @return true if AST's type void, false otherwise.
@@ -186,6 +194,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Verifies that given AST has appropriate for main method parameters.
+     *
      * @param methodAST
      *        instance of a method
      * @return true if parameters of aMethodAST are appropriate for main method,
@@ -201,6 +210,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     /**
      * Return true if AST of method parameters has String[] parameter child
      * token.
+     *
      * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if AST has String[] parameter child token, false otherwise.
@@ -233,6 +243,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     /**
      * Return true if AST of method parameters has String... parameter child
      * token.
+     *
      * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if aParametersAST has String... parameter child token, false
@@ -263,6 +274,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
 
     /**
      * Return true if aAST has token of aTokenType type.
+     *
      * @param ast
      *        DetailAST instance.
      * @param tokenType

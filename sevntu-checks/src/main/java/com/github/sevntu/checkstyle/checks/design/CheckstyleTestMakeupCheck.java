@@ -110,6 +110,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Setter for {@link #createMethodRegexp}.
+     *
      * @param createMethodRegexp The value to set.
      */
     public void setCreateMethodRegexp(Pattern createMethodRegexp) {
@@ -118,6 +119,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Setter for {@link #verifyMethodRegexp}.
+     *
      * @param verifyMethodRegexp The value to set.
      */
     public void setVerifyMethodRegexp(Pattern verifyMethodRegexp) {
@@ -168,6 +170,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Examines the method to see if it is part of a Test.
+     *
      * @param ast The method to examine.
      */
     private void checkMethod(DetailAST ast) {
@@ -183,6 +186,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
      * a {@code null}, createModuleConfig, or createRootConfig and is tracked for future purposes.
      * Variables of type {@link File} with the modifier {@code final} are tracked for future
      * purposes.
+     *
      * @param ast The variable to examine.
      */
     private void checkVariable(DetailAST ast) {
@@ -208,6 +212,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
     /**
      * Examines the configuration variable to see if it is defined as described in
      * {@link #checkVariable(DetailAST)}.
+     *
      * @param ast The variable to examine.
      */
     private void checkConfigurationVariable(DetailAST ast) {
@@ -236,6 +241,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
      * addAttribute method which is called by one of the configurations found earlier, must have
      * all its parameters be acceptable to {@link #isValidMethodCallExpression(DetailAST)}.
      * Any method that matches {@link #verifyMethodRegexp} are tracked for future purposes.
+     *
      * @param ast The method call to examine.
      */
     private void checkMethodCall(DetailAST ast) {
@@ -266,6 +272,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Retrieves the name of the method being called.
+     *
      * @param ast The method call token to examine.
      * @return The name of the method.
      */
@@ -282,6 +289,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Retrieves the name of the variable calling the method.
+     *
      * @param ast The method call token to examine.
      * @return The name of who is calling the method.
      */
@@ -303,6 +311,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
      * Plain {@code null} is allowed due to backward compatibility.
      * Method calls are allowed only if they are any form of getPath, converting an enum to a
      * string, or retrieving the path of a final {@link File} variable.
+     *
      * @param expression The expression to examine.
      * @return {@code true} if the method call is defined correctly.
      */
@@ -334,6 +343,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
     /**
      * Identifies if the inner method call of a method call is valid as defined in
      * {@link #isValidMethodCallExpression(DetailAST)}.
+     *
      * @param firstChild The first child of the method call.
      * @return {@code true} if the method call is defined correctly.
      */
@@ -361,6 +371,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Checks if the method call is calling toString, getName, or name on an enumeration.
+     *
      * @param ast The AST to examine.
      * @return {@code true} if the method call is on a enumeration.
      */
@@ -383,6 +394,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Checks if the method call is 'getPath' on a {@link File} variable.
+     *
      * @param firstChild The AST to examine.
      * @return {@code true} if the method call is on a file variable.
      */
@@ -393,6 +405,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Checks if the method name is a form of 'getPath'.
+     *
      * @param methodName The name to examine.
      * @return {@code true} if the method is of the form.
      */

@@ -49,6 +49,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <pre>
  * &lt;module name=&quot;NestedSwitchCheck&quot;/&gt;
  * </pre>
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  * @since 1.13.0
  */
@@ -67,6 +68,7 @@ public class NestedSwitchCheck extends AbstractCheck {
 
     /**
      * Setter for maximum allowed nesting depth.
+     *
      * @param max maximum allowed nesting depth.
      */
     public final void setMax(int max) {

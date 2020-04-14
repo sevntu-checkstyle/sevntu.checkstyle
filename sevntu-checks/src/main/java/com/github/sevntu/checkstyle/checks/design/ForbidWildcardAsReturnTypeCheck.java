@@ -63,6 +63,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
  * <p>If suppressions become too wide spread and annoying it might be reasonable to update Check
  * with option to ignore wildcard if used with another type (not alone).
  * </p>
+ *
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  * @since 1.9.0
  */
@@ -139,6 +140,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for checkPublicMethods.
+     *
      * @param checkPublicMethods New value for the field.
      */
     public void setCheckPublicMethods(boolean checkPublicMethods) {
@@ -147,6 +149,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for checkProtectedMethods.
+     *
      * @param checkProtectedMethods New value for the field.
      */
     public void setCheckProtectedMethods(boolean checkProtectedMethods) {
@@ -155,6 +158,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for checkPackageMethods.
+     *
      * @param checkPackageMethods New value for the field.
      */
     public void setCheckPackageMethods(boolean checkPackageMethods) {
@@ -163,6 +167,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for checkPrivateMethods.
+     *
      * @param checkPrivateMethods New value for the field.
      */
     public void setCheckPrivateMethods(boolean checkPrivateMethods) {
@@ -171,6 +176,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for checkOverrideMethods.
+     *
      * @param checkOverrideMethods New value for the field.
      */
     public void setCheckOverrideMethods(boolean checkOverrideMethods) {
@@ -179,6 +185,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for checkDeprecatedMethods.
+     *
      * @param checkDeprecatedMethods New value for the field.
      */
     public void setCheckDeprecatedMethods(boolean checkDeprecatedMethods) {
@@ -187,6 +194,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for allowReturnWildcardWithSuper.
+     *
      * @param allowReturnWildcardWithSuper New value for the field.
      */
     public void setAllowReturnWildcardWithSuper(boolean allowReturnWildcardWithSuper) {
@@ -195,6 +203,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for allowReturnWildcardWithExtends.
+     *
      * @param allowReturnWildcardWithExtends New value for the field.
      */
     public void setAllowReturnWildcardWithExtends(boolean allowReturnWildcardWithExtends) {
@@ -203,6 +212,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Setter for returnTypeClassNamesIgnoreRegex.
+     *
      * @param returnTypeClassNamesIgnoreRegex New value for the field.
      */
     public void setReturnTypeClassNamesIgnoreRegex(String returnTypeClassNamesIgnoreRegex) {
@@ -249,6 +259,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Checks if the method scope is defined as one of the types to check.
+     *
      * @param methodScope The string version of the scope.
      * @return {@code true} if the method should be checked.
      */
@@ -261,6 +272,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Returns the visibility scope of method.
+     *
      * @param methodDefAst DetailAST of method definition.
      * @return one of "public", "private", "protected", "package"
      */
@@ -285,6 +297,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Verify that method definition is inside interface definition.
+     *
      * @param methodDefAst DetailAST of method definition.
      * @return true if method definition is inside interface definition.
      */
@@ -300,6 +313,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Returns the set of modifier Strings for a METHOD_DEF AST.
+     *
      * @param methodDefAst AST for a method definition
      * @return the set of modifier Strings for aMethodDefAST
      */
@@ -316,6 +330,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Get identifier of aAST.
+     *
      * @param ast
      *        DetailAST instance
      * @return identifier of aAST, null if AST does not have identifier.
@@ -327,6 +342,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Receive list of arguments(AST nodes) which have wildcard.
+     *
      * @param methodDefAst
      *        DetailAST of method definition.
      * @return list of arguments which have wildcard.
@@ -347,6 +363,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Get all type arguments of TypeAST.
+     *
      * @param typeAst
      *        DetailAST of type definition.
      * @return array of type arguments.
@@ -375,6 +392,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Verify that aAST has token of aTokenType type.
+     *
      * @param ast
      *        DetailAST instance.
      * @param tokenType
@@ -388,6 +406,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     /**
      * Verify that method with wildcards as return type is allowed by current
      * check configuration.
+     *
      * @param methodDefAst DetailAST of method definition.
      * @param wildcardTypeArguments list of wildcard type arguments.
      * @return true if method is allowed by current check configuration.
@@ -429,6 +448,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Verify that method's return type name matches ignore regexp.
+     *
      * @param methodDefAst DetailAST of method.
      * @return true if aMethodDefAST's name matches ignore regexp.
      *      false otherwise.
@@ -443,6 +463,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
 
     /**
      * Verify that method has bounded wildcard in type arguments list.
+     *
      * @param typeArgumentsList list of type arguments.
      * @param boundedWildcardType type of bounded wildcard.
      * @return true if aTypeArgumentsList contains bounded wildcard.

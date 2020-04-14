@@ -40,6 +40,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Map&lt;String, Map&lt;String, Integer&gt;&gt; someMap = new HashMap&lt;&gt;();
  * </code>
  * </p>
+ *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @since 1.12.0
  */
@@ -93,6 +94,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
 
     /**
      * Get first occurrence of TYPE_ARGUMENTS if exists.
+     *
      * @param rootToken the token to start search from.
      * @return TYPE_ARGUMENTS token if found.
      */
@@ -115,6 +117,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
 
     /**
      * Checks if the 2 given trees have the same children, type, and text.
+     *
      * @param left One of the trees to compare.
      * @param right The other tree to compare.
      * @return {@code true} if the trees are equal.
@@ -147,6 +150,7 @@ public class DiamondOperatorForVariableDefinitionCheck extends AbstractCheck {
 
     /**
      * Checks if the 2 given ASTs have the same type and text.
+     *
      * @param left One of the ASTs to compare.
      * @param right The other AST to compare.
      * @return {@code true} if the ASTs are equal.

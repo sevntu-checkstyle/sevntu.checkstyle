@@ -181,6 +181,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
 
     /**
      * Checks if the given AST can be ignored.
+     *
      * @param literalIf The AST to check.
      * @return {@code true} if it can be ignored.
      */
@@ -286,6 +287,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
 
     /**
      * Retrieves the first, opening brace of an {@code if} or {@code else} statement.
+     *
      * @param detailAST The token to examine.
      * @return The opening brace token or {@code null} if it doesn't exist.
      */

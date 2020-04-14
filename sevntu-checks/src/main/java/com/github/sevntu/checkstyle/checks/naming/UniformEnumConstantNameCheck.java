@@ -123,6 +123,7 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
 
     /**
      * Method sets format to match Class Enumeration names.
+     *
      * @param regexps format to check against
      */
     public final void setFormats(String... regexps) {

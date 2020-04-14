@@ -86,6 +86,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
 
     /**
      * Setter for prefix.
+     *
      * @param prefix
      *        - prefix of field's name
      */
@@ -137,6 +138,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Returns true when setter is correct.
      * </p>
+     *
      * @param methodDef
      *        - DetailAST contains method definition.
      * @param methodName
@@ -176,6 +178,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Returns true when getter is correct.
      * </p>
      * .
+     *
      * @param methodDef
      *        - DetailAST contains method definition.
      * @param methodName
@@ -211,6 +214,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Returns true, when object block contains only three child: EXPR, SEMI and
      * RCURLY.
      * </p>
+     *
      * @param objectBlock
      *        - is a link to checked block
      * @return true if object block is correct
@@ -225,6 +229,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Return name of the field, that use in the setter.
      * </p>
+     *
      * @param assign
      *        - DetailAST contains ASSIGN from EXPR of the setter.
      * @param parameters
@@ -261,6 +266,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Compare name of the field and part of name of the method. Return true
      * when they are different.
      * </p>
+     *
      * @param fieldName
      *        - name of the field.
      * @param methodName
@@ -277,6 +283,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Returns true, when object block contains only one child: LITERAL_RETURN.
      * </p>
+     *
      * @param methodBody
      *        - DetailAST contains object block of the getter.
      * @return true when object block correct.
@@ -289,6 +296,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Return true when getter has correct arguments of return.
      * </p>
+     *
      * @param literalReturn
      *        - DetailAST contains LITERAL_RETURN
      * @return - true when getter has correct return.
@@ -303,6 +311,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Return name of the field, that use in the getter.
      * </p>
+     *
      * @param expr
      *        - DetailAST contains expression from getter.
      * @return name of the field, that use in getter.
@@ -333,6 +342,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * Return true when name of the field is not contained in parameters of the
      * setter method.
      * </p>
+     *
      * @param parameters
      *        - DetailAST contains parameters of the setter.
      * @param fieldName
@@ -359,6 +369,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Returns true when method has contained into an anonymous class.
      * </p>
+     *
      * @param methodDef the METHOD_DEF token.
      * @return true when method has contained into an anonymous class.
      */
@@ -371,6 +382,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
      * <p>
      * Returns true when method or other block has a body.
      * </p>
+     *
      * @param methodDef
      *        - method definition node
      * @return true when method or other block has a body.
@@ -382,6 +394,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
 
     /**
      * Returns true when method has an override annotation.
+     *
      * @param methodDef method definition node
      * @return true when method has an override annotation.
      */

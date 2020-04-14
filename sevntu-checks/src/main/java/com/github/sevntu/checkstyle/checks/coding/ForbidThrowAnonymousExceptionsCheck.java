@@ -56,6 +56,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * In that case, after literal new, there would be an expression type finishing
  * with and ObjBlock.<br>
  * <br>
+ *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @since 1.11.0
@@ -78,6 +79,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Setter for pattern.
+     *
      * @param exceptionClassNameRegex The regular expression to set.
      */
     public void setExceptionClassNameRegex(String exceptionClassNameRegex) {
@@ -119,6 +121,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Warns on throwing anonymous exception.
+     *
      * @param throwDefAst The token to examine.
      */
     private void identifyThrowingAnonymousException(DetailAST throwDefAst) {
@@ -142,6 +145,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Analyzes variable definition for anonymous exception definition. if found
      * - adds it to list of anonymous exceptions
+     *
      * @param variableDefAst The token to examine.
      */
     private void
@@ -170,6 +174,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Gets the literal new node from variable definition node or throw node.
+     *
      * @param literalThrowOrVariableDefAst The token to examine.
      * @return the specified node.
      */
@@ -181,6 +186,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Retrieves the AST node which contains the name of throwing exception.
+     *
      * @param expressionAst The token to examine.
      * @return the specified node.
      */
@@ -191,6 +197,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
 
     /**
      * Checks if definition with a literal new has an ObjBlock.
+     *
      * @param literalNewAst The token to examine.
      * @return true if the new has an object block.
      */
@@ -201,6 +208,7 @@ public class ForbidThrowAnonymousExceptionsCheck extends AbstractCheck {
     /**
      * Checks if variable name is definitely an exception name. It is so if
      * variable type ends with "Exception" suffix
+     *
      * @param variableNameAst The token to examine.
      * @return true if the name is an exception.
      */

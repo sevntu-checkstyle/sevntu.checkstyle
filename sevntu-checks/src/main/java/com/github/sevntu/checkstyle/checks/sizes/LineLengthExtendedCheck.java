@@ -249,6 +249,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
 
     /**
      * Setter for the field max.
+     *
      * @param length
      *            the maximum length of a line
      */

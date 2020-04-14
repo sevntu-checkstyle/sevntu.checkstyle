@@ -37,6 +37,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  * value="XXX"/&gt; &lt;property name="annotationTargets"
  * value="METHOD_DEF,CLASS_DEF"/&gt; &lt;/module&gt;
  * </pre>
+ *
  * @author <a href="mailto:hidoyatov.v.i@gmail.com">Hidoyatov Victor</a>
  * @since 1.12.0
  */
@@ -59,6 +60,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
     /**
      * Setter for annotationNames.
+     *
      * @param names - array of annotation's names
      */
     public void setAnnotationNames(final String... names) {
@@ -71,6 +73,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
     /**
      * Getter for annotationNames.
+     *
      * @param targets - array of type's names
      */
     public void setAnnotationTargets(String... targets) {
@@ -138,6 +141,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
     /**
      * Return true if mAnnotationNames contains aAnnotationName.
+     *
      * @param annotationName - name of current annotation
      * @return boolean
      */
@@ -147,6 +151,7 @@ public class ForbidAnnotationCheck extends AbstractCheck {
 
     /**
      * Return true if mAnnotationTargets contains aTargetType.
+     *
      * @param targetType - type of current annotation
      * @return boolean
      */

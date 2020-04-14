@@ -117,6 +117,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
     /**
      * Checks, if finalize implementation is correct. If implementation is bad,
      * this method will call log() with suitable warning message.
+     *
      * @param finalizeMethodToken
      *        current finalize() token
      * @return warning message or null, if all is well.
@@ -153,6 +154,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * Checks, if current method is finalize().
+     *
      * @param methodDefToken
      *        current method definition.
      * @return true, if method is finalize() method.
@@ -165,6 +167,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * Checks, if finalize() has "static" access modifier.
+     *
      * @param modifierType
      *        modifier type.
      * @param methodToken
@@ -178,6 +181,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * Checks, if current method name is "finalize".
+     *
      * @param methodDefToken
      *        method definition Token.
      * @return true, if current method name is "finalize".
@@ -189,6 +193,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * Checks, if method is void.
+     *
      * @param methodDefToken
      *        method definition Token.
      * @return true, if method is void.
@@ -200,6 +205,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * Counts number of parameters.
+     *
      * @param methodDefToken
      *        method definition Token.
      * @return number of parameters.
@@ -210,6 +216,7 @@ public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
      * Checks, if current method has super.finalize() call.
+     *
      * @param openingBrace
      *        current method definition.
      * @return true, if method has super.finalize() call.

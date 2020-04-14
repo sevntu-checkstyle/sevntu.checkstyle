@@ -140,6 +140,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     /**
      * Sets regex which matches names of class annotations which require class to have public
      * no-argument ctor.
+     *
      * @param regex
      *        regex to match annotation names.
      */
@@ -154,6 +155,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Sets regex which matches names of ctor annotations which make empty public ctor essential.
+     *
      * @param regex
      *        regex to match annotation names.
      */
@@ -231,6 +233,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Calculates constructor count for class.
+     *
      * @param classDefNode
      *        a class definition node.
      * @return ctor count for given class definition.
@@ -241,6 +244,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Gets first constructor definition for class.
+     *
      * @param classDefNode
      *        a class definition node.
      * @return first ctor definition node for class or null if class has no ctor.
@@ -253,6 +257,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Checks whether constructor is public.
+     *
      * @param ctorDefNode
      *        a ctor definition node(TokenTypes.CTOR_DEF).
      * @return true, if given ctor is public.
@@ -265,6 +270,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Checks whether ctor has no parameters.
+     *
      * @param ctorDefNode
      *        a ctor definition node(TokenTypes.CTOR_DEF).
      * @return true, if ctor has no parameters.
@@ -275,6 +281,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Checks whether ctor body has no statements.
+     *
      * @param ctorDefNode
      *        a ctor definition node(TokenTypes.CTOR_DEF).
      * @return true if ctor body has no statements.
@@ -286,6 +293,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     /**
      * Checks whether class definition has annotation with name specified in
      * {@link #classAnnotationNames} regexp.
+     *
      * @param classDefNode
      *        the node of type TokenTypes.CLASS_DEF.
      * @return true, if class definition has annotation with name specified in regexp.
@@ -298,6 +306,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
     /**
      * Checks whether ctor definition has annotation with name specified in
      * {@link #ctorAnnotationNames} regexp.
+     *
      * @param ctorDefNode
      *        the node of type TokenTypes.CTOR_DEF.
      * @return true, if ctor definition has annotation with name specified in regexp.
@@ -309,6 +318,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Checks whether any name from the list matches regex.
+     *
      * @param annotationNames
      *        annotation names to match against regex.
      * @param pattern
@@ -333,6 +343,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Returns canonical names of annotations for given node.
+     *
      * @param node
      *        annotated node.
      * @return list of canonical annotation names for given node.
@@ -362,6 +373,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Checks whether import is on demand import(one that imports entire package).
+     *
      * @param importTargetName
      *        target of import statement.
      * @return true, if import is on demand import import.
@@ -374,6 +386,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      * <p>
      * Generates possible canonical annotation names.
      * </p>
+     *
      * @param annotationName
      *        simple annotation name.
      * @return list of possible canonical annotation names.
@@ -416,6 +429,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      * "package.Person", joinMemberImportWithIdentifier("package.Person","Person.Name") returns
      * "package.Person.Name".
      * </p>
+     *
      * @param importEntry
      *        single type import entry for join.
      * @param identifierName
@@ -447,6 +461,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      * For example: joinWildcardImportWithIdentifier("package.*","Person") returns "package.Person",
      * joinWildcardImportWithIdentifier("package.*","Person.Name") returns "package.Person.Name".
      * </p>
+     *
      * @param importEntry
      *        on demand import entry for join.
      * @param identifierName
@@ -466,6 +481,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      * For example: joinFilePackageNameWithIdentifier("com.example","Person") returns
      * "com.example.Person".
      * </p>
+     *
      * @param packageName
      *        package name to use for join.
      * @param identifierName
@@ -479,6 +495,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Returns first part of identifier name.
+     *
      * @param canonicalName
      *        identifier name.
      * @return first part of identifier name if name is qualified, otherwise returns identifier name
@@ -505,6 +522,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
      * <p>
      * For example: If method called for name "com.example.company.Person" it will return "Person".
      * </p>
+     *
      * @param qualifiedName
      *        qualified identifier name.
      * @return simple identifier name.
@@ -515,6 +533,7 @@ public class EmptyPublicCtorInClassCheck extends AbstractCheck {
 
     /**
      * Returns name of identifier contained in specified node.
+     *
      * @param identifierNode
      *        a node containing identifier or qualified identifier.
      * @return identifier name for specified node. If node contains qualified name then method

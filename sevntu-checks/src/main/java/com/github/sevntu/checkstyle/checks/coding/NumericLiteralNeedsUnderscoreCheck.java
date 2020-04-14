@@ -137,6 +137,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * int failingBinary = 0b00001111;
  * int passingBinary = 0b0000_1111;
  * </pre>
+ *
  * @author Cheng-Yu Pai
  * @since 1.18.0
  */
@@ -264,6 +265,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Sets how many characters in a decimal literal there must be before it checks for an
      * underscore.
+     *
      * @param length
      *        minimum checking length of the literal
      */
@@ -274,6 +276,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Sets how many characters there can be until there must be an underscore (for decimal
      * literals).
+     *
      * @param amount
      *        maximum number of characters between underscores
      */
@@ -284,6 +287,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Sets how many characters in a hex literal there must be before it checks for an
      * underscore.
+     *
      * @param length
      *        minimum checking length of the literal
      */
@@ -294,6 +298,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Sets how many characters there can be until there must be an underscore (for hex
      * literals).
+     *
      * @param amount
      *        maximum number of characters between underscores
      */
@@ -304,6 +309,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Sets how many characters in a byte literal there must be before it checks for an
      * underscore.
+     *
      * @param length
      *        minimum checking length of the literal
      */
@@ -314,6 +320,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Sets how many characters there can be until there must be an underscore (binary
      * literals).
+     *
      * @param amount
      *        maximum number of characters between underscores
      */
@@ -323,6 +330,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Sets the regexp pattern for field names to ignore.
+     *
      * @param pattern
      *        the regexp pattern of fields to ignore
      */
@@ -359,6 +367,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Checks if the provided token is a field.
+     *
      * @param ast
      *        the token to check
      * @return whether or not the token is a field
@@ -377,6 +386,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Returns the provided field's name.
+     *
      * @param ast
      *        the field for which the function looks for a name
      * @return the field's name
@@ -395,6 +405,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Returns true if the ast passes the check.
+     *
      * @param ast
      *        the numeric literal to check
      * @return if the numeric literal passes the check
@@ -425,6 +436,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Parses the numeric literal to return the minimum checking length for the literal's type.
+     *
      * @param type
      *        the type of numerical literal
      * @return minimum length before checking
@@ -450,6 +462,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Parses the numeric literal to return the maximum number of characters before there must
      * be an underscore for the literal's type.
+     *
      * @param type
      *        the type of numerical literal
      * @return maximum number of characters between underscores
@@ -482,6 +495,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * perfectly readable.
      * </p>
      * Additionally, Java will not compile underscores next to decimal points etc.
+     *
      * @param strippedLiteral
      *        numeric literal stripped of any prefixes and postfixes
      * @param type
@@ -520,6 +534,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * <p>
      * Binary literals are preceded by 0b. Example: 0b00001111
      * </p>
+     *
      * @param rawLiteral
      *        numeric literal
      * @return the type of literal (either decimal, hex, or binary)
@@ -547,6 +562,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Returns whether or not the text passes the underscore requirement given the text and
      * minimum length.
+     *
      * @param numericSegment
      *        the numeric segment to check
      * @param minLength
@@ -581,6 +597,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Removes 0x, 0b prefixes, and l, L, f, F, d, D postfixes from numeric literals.
+     *
      * @param rawLiteral
      *        the numeric literal that needs to be stripped of prefixes and postfixes
      * @param literalType
@@ -609,6 +626,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
 
     /**
      * Removes the prefixes 0x and 0b.
+     *
      * @param text
      *        the text to remove the prefixes
      * @return the text without the prefixes
@@ -620,6 +638,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Removes the postfix from the text if it exists. Does not handle hex literals correctly,
      * for that use removePostfixHex.
+     *
      * @param text
      *        the text to remove the postfixes
      * @return the text without the postfixes
@@ -639,6 +658,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     /**
      * Removes the postfix from the hex literal text if it exists. Does not handle other
      * literals correctly, for those use removeLetterPostfix.
+     *
      * @param text
      *        the text to remove the postfixes
      * @return the text without the postfixes

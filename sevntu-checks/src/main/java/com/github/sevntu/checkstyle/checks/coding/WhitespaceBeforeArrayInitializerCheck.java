@@ -89,6 +89,7 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
 
     /**
      * Checks if firstAst and secondAst are separated by whitespace.
+     *
      * @param firstAST DetailAST
      * @param secondAST DetailAST
      * @return true if firstAST and secondAST are separated by whitespace,false otherwise
@@ -107,6 +108,7 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
 
     /**
      * Checks whether inspected array initializer is nested in other array initializer.
+     *
      * @param ast {@link TokenTypes#ARRAY_INIT} token to inspect
      * @return true when this array initializer is nested in other initializer; false otherwise
      */
@@ -116,6 +118,7 @@ public class WhitespaceBeforeArrayInitializerCheck extends AbstractCheck {
 
     /**
      * Calculate previous ast from given.
+     *
      * @param ast given ast
      * @return previous ast
      */

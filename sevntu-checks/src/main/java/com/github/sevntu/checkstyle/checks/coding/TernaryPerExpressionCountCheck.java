@@ -180,6 +180,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     /**
      * Puts question nodes from current expression node into the list.
+     *
      * @param expressionNode
      *          Globally considering expression node
      * @return
@@ -206,6 +207,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
      * Checks if options <b>ignoreTernaryInBraces</b> or
      * <b>ignoreOneTernaryPerLine</b> were set, hence, count ternary
      * operators in current expression or not.
+     *
      * @param questionAST The token to examine.
      * @return true if can skip ternary operator.
      */
@@ -217,6 +219,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
     /**
      * Checks ternary operator if it is in braces, which are explicitly setting
      * the priority level.
+     *
      * @param questionAST The token to examine.
      * @return true if ternary operator is in braces.
      */
@@ -227,6 +230,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     /**
      * Checks if there's one ternary operator per line.
+     *
      * @param questionAST The token to examine.
      * @return true if ternary is isolated on line.
      */
@@ -239,6 +243,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     /**
      * Checks line parameter on containing more than 1 ternary operator.
+     *
      * @param line The line to examine.
      * @param lineNo The line number of the line.
      * @return true if line is single ternary.

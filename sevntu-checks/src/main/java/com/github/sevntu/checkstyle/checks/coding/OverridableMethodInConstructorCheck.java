@@ -473,6 +473,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     /**
      * Gets the method definition is related to the current METHOD_CALL
      * DetailAST node. If method definition doesn't find, will returned null.
+     *
      * @param methodCallAST
      *            A METHOD_CALL DetailAST node is currently being processed.
      * @return the METHOD_DEF DetailAST node is pointing to the method
@@ -580,6 +581,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * Return type of the variable, if it is declaration procedure.
+     *
      * @param methodCall The token to examine.
      * @return variables type name
      */
@@ -608,6 +610,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     /**
      * Return true when usedIbjectName contains current class name or base class
      * name.
+     *
      * @param objectTypeName The object type name to check against.
      * @param classDefNode The token to examine.
      * @return true if the type is the same as the current class.
@@ -636,6 +639,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     /**
      * Return true when the method called via keyword "this" (this.methodName
      * or ClassName.this.methodName)
+     *
      * @param firstPartOfTheMethodCall The first part of the method call.
      * @param classDefNode The token to examine.
      * @return If the method is called via keyword "this".
@@ -651,6 +655,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     /**
      * Gets the count of parameters for current method definition or
      * method call.
+     *
      * @param methodDefOrCallAST METHOD_DEF or METHOD_CALL
      *     DetailAST node
      * @return the count of parameters for current method.
@@ -918,6 +923,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
         /**
          * Creates an instance of OverridableMetCall and initializes fields.
+         *
          * @param methodCallAST
          *            DetailAST node related to the method call that leads
          *            to call of the overridable method.

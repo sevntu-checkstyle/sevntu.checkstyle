@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * This check forbid to use C style comments into the method body. If you use
  * class declaration into the method body you will get an error.
  * </p>
+ *
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  * @since 1.6.0
  */

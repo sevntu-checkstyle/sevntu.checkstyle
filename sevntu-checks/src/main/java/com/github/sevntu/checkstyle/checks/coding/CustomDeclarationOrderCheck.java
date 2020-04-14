@@ -305,6 +305,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Set prefix of class fields.
+     *
      * @param fieldPrefix string
      */
     public void setFieldPrefix(String fieldPrefix) {
@@ -495,6 +496,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verify that class definition is in method definition.
+     *
      * @param classDef
      *        DetailAST of CLASS_DEF.
      * @return true if class definition is in method definition.
@@ -514,6 +516,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Logs wrong ordered element.
+     *
      * @param ast DetailAST of any class element.
      * @param position Position in the custom order declaration.
      */
@@ -552,6 +555,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Check that position is wrong in custom declaration order.
+     *
      * @param position position of class member.
      * @return true if position is wrong.
      */
@@ -567,6 +571,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Log wrong ordered setters.
+     *
      * @param gettersSetters map that has getter as key and setter as value.
      */
     private void logWrongOrderedSetters(Map<DetailAST, DetailAST> gettersSetters) {
@@ -584,6 +589,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * If method definition is getter or setter,
      * then adds this method to collection.
+     *
      * @param methodDefAst DetailAST of method definition.
      */
     private void collectGetterSetter(DetailAST methodDefAst) {
@@ -648,6 +654,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Verify that there is anonymous class in variable definition and this
      * variable is a field.
+     *
      * @param varDefinitionAst
      *        DetailAST of variable definition.
      * @return true if there is anonymous class in variable definition and this
@@ -672,6 +679,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verify that method name starts with getter prefix (get).
+     *
      * @param methodName method name
      * @return true if method name starts with getter prefix.
      */
@@ -681,6 +689,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verify that method name starts with boolean getter prefix (is).
+     *
      * @param methodName method name
      * @return true if method name starts with boolean getter prefix.
      */
@@ -690,6 +699,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verify that method name starts with setter prefix (set).
+     *
      * @param methodName method name
      * @return true if method name starts with setter prefix.
      */
@@ -700,6 +710,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Returns true when getter is correct. Correct getter is method that has no parameters,
      * returns class field and has name 'get<i>FieldName</i>'.
+     *
      * @param methodDef
      *        - DetailAST contains method definition.
      * @param methodPrefix
@@ -738,6 +749,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Checks if a local variable hides a field.
+     *
      * @param slist The token to examine.
      * @param fieldName The name of the field.
      * @return true if the local variable is hidden from a field.
@@ -760,6 +772,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Returns true when setter is correct. Correct setter is method that has one parameter,
      * assigns this parameter to class field and has name 'set<i>FieldName</i>'.
+     *
      * @param methodDefAst
      *        - DetailAST contains method definition.
      * @param methodPrefix
@@ -786,6 +799,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verify that expression is anonymous class.
+     *
      * @param expressionAst
      *        DetailAST of expression.
      * @return true if expression is anonymous class.
@@ -864,6 +878,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Get name without prefix.
+     *
      * @param name name
      * @param prefix prefix
      * @return name without prefix or null if name does not have such prefix.
@@ -880,6 +895,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Get identifier of AST. These can be names of types, subpackages,
      * fields, methods, parameters, and local variables.
+     *
      * @param ast
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
@@ -895,6 +911,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verify that exists updating of a field.
+     *
      * @param statementsAst DetailAST of statements (SLIST).
      * @param fieldName name of target field.
      * @return true if there is updating of aFieldName in aStatementsAst.
@@ -935,6 +952,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * <p>
      * Return name of the field, that was assigned in current setter.
      * </p>
+     *
      * @param assignAst
      *        - DetailAST contains ASSIGN from EXPR of the setter.
      * @return name of field, that use in setter.
@@ -959,6 +977,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * <p>
      * Return name of the field of a super class, that was assigned in setter.
      * </p>
+     *
      * @param methodCallAst
      *        - DetailAST contains METHOD_CALL from EXPR of the setter.
      * @return name of field, that used in setter.
@@ -996,6 +1015,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * Compare name of the field and part of name of the method. Return true
      * when they are different.
      * </p>
+     *
      * @param fieldName
      *        - name of the field.
      * @param methodName
@@ -1011,6 +1031,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * <p>
      * Return name of the field, that use in the getter.
      * </p>
+     *
      * @param expr
      *        - DetailAST contains expression from getter.
      * @return name of the field, that use in getter.
@@ -1037,6 +1058,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verifies that the given DetailAST is a main method.
+     *
      * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST is a main method, false otherwise.
@@ -1057,6 +1079,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verifies that given AST has appropriate modifiers for main method.
+     *
      * @param methodAST
      *        DetailAST instance.
      * @return true if aMethodAST has (public & static & !abstract) modifiers,
@@ -1075,6 +1098,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verifies that given AST has type and this type is void.
+     *
      * @param methodAST
      *        DetailAST instance.
      * @return true if AST's type void, false otherwise.
@@ -1090,6 +1114,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Verifies that given AST has appropriate for main method parameters.
+     *
      * @param methodAST
      *        instance of a method
      * @return true if parameters of aMethodAST are appropriate for main method,
@@ -1105,6 +1130,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Return true if AST of method parameters has String[] parameter child
      * token.
+     *
      * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if AST has String[] parameter child token, false otherwise.
@@ -1137,6 +1163,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Return true if AST of method parameters has String... parameter child
      * token.
+     *
      * @param parametersAST
      *        DetailAST of method parameters.
      * @return true if aParametersAST has String... parameter child token, false
@@ -1167,6 +1194,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
      * Return true if aAST has token of aTokenType type.
+     *
      * @param ast
      *        DetailAST instance.
      * @param tokenType
@@ -1205,6 +1233,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Getter for the regexp field.
+         *
          * @return the RegExp to match against
          */
         public Pattern getRegexp() {
@@ -1213,6 +1242,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Getter for the rule field.
+         *
          * @return the original immutable input rule
          */
         public String getRule() {
@@ -1221,6 +1251,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Getter for the class member field.
+         *
          * @return the Class Member
          */
         public int getClassMember() {
@@ -1256,6 +1287,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Check that format matcher contains rule.
+         *
          * @param ruleCheck string
          * @return true if format matcher contains rule.
          */
@@ -1298,6 +1330,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Add getter.
+         *
          * @param getterAst DetailAST of getter.
          */
         public void addGetter(DetailAST getterAst) {
@@ -1306,6 +1339,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Add setter.
+         *
          * @param setterAst DetailAST of setter.
          */
         public void addSetter(DetailAST setterAst) {
@@ -1315,6 +1349,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         /**
          * Compare order of getters and setters. Order should be like "getX; setX; getY; setY; ...".
          * If it is wrong order, then wrong ordered setters and getters will be returned as map.
+         *
          * @return Map with setter AST as key and getter AST as value.
          */
         public Map<DetailAST, DetailAST> getWrongOrderedGettersSetters() {
@@ -1336,6 +1371,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         /**
          * Compare order of getters and setters. Order should be like "getX; setX; getY; setY; ...".
          * If it is wrong order, then wrong ordered setters and getters will be returned as map.
+         *
          * @param allGettersSetters collection of all getter and setters
          * @param index index from upper loo
          * @return Map with setter AST as key and getter AST as value.
@@ -1380,6 +1416,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Verify that specified method was saved as getter.
+         *
          * @param methodName name of method.
          * @return true if specified method was saved as getter.
          */
@@ -1396,6 +1433,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
         /**
          * Verify that specified method was saved as setter.
+         *
          * @param methodName name of method.
          * @return true if specified method was saved as setter.
          */

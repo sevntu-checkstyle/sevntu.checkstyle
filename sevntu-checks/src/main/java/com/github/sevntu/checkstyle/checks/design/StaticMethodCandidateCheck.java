@@ -61,6 +61,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
  * Private methods called by reflection are not supported and have to be suppressed.
  * </li>
  * </ul>
+ *
  * @author Vladislav Lisetskiy
  * @since 1.17.0
  */
@@ -107,6 +108,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Sets custom skipped methods.
+     *
      * @param skippedMethods user's skipped methods.
      */
     public void setSkippedMethods(String skippedMethods) {
@@ -240,6 +242,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Create a new Frame from METHOD_DEF ast.
+     *
      * @param ast METHOD_DEF ast.
      * @param parentFrame the parent frame for a new frame.
      * @return a new frame with the set fields.
@@ -265,6 +268,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether the ast is an anonymous class.
+     *
      * @param ast the ast to check.
      * @return if the checked ast is an anonymous class.
      */
@@ -277,6 +281,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     /**
      * Create a new Frame from CLASS_DEF, LITERAL_IF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO,
      * LITERAL_CATCH, LITERAL_TRY, CTOR_DEF, ENUM_DEF.
+     *
      * @param ast the processed ast.
      * @param parentFrame the parent frame for a new frame.
      * @return a new frame with the set fields.
@@ -306,6 +311,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether the ast is a Frame.
+     *
      * @param ast the ast to check.
      * @return true if the checked ast is a Frame.
      */
@@ -317,6 +323,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     /**
      * Check whether the frame or its parent, which is a private method,
      * is a static method candidate.
+     *
      * @param parentFrame the frame to check.
      * @return true if the frame or its parent, which is a private method,
      *     is a static method candidate.
@@ -347,6 +354,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Get the name of the field.
+     *
      * @param field to get the name from.
      * @return name of the field.
      */
@@ -356,6 +364,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Whether the ast has static modifier.
+     *
      * @param ast the ast to check.
      * @return true if the ast has static modifier.
      */
@@ -366,6 +375,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check expressions in the given frame for being acceptable is static methods.
+     *
      * @param frame the frame to check.
      * @return true if the currently checked method
      *     is still a static method candidate.
@@ -383,6 +393,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check types in the given frame for being acceptable in static methods.
+     *
      * @param frame the frame to check.
      * @return true if the currently checked method
      *     is still a static method candidate.
@@ -403,6 +414,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     /**
      * Check whether the expression only contains fields and method calls accepted
      * in static methods (which can be checked).
+     *
      * @param frame the frame where the expression is located.
      * @param expr the expression to check.
      * @return true if the currently checked method
@@ -439,6 +451,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Find a frame with the specified name among the current frame and its parents.
+     *
      * @param frame the frame to start searching from.
      * @param frameName the specified name.
      * @return search result.
@@ -461,6 +474,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Find a type variable with the specified name.
+     *
      * @param frame the frame to start searching from.
      * @param type the name of the type variable to find.
      * @return true if a type variable with the specified name is found.
@@ -477,6 +491,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether a {@code static} method is called.
+     *
      * @param frame the frame where the method call is located.
      * @param methodCallAst METHOD_CALL ast.
      * @return true if a {@code static} method is called.
@@ -507,6 +522,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Determine whether the method call should be checked.
+     *
      * @param parentAst parent ast of the ident.
      * @return true, if LITERAL_THIS is used or the usage is too complex to check.
      */
@@ -519,6 +535,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether a {@code static} field or a local variable is used.
+     *
      * @param frame the frame where the field is located.
      * @param identAst the identifier ast of the checked field.
      * @return true if the field is {@code static} or local.
@@ -552,6 +569,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Whether the type frame should be checked.
+     *
      * @param typeFrame the frame of the type to check.
      * @return true if the type frame should be checked.
      */
@@ -562,6 +580,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Get the leftmost ident of the method call.
+     *
      * @param mCall METHOD_CALL to get ident from.
      * @return the leftmost's ident DetailAST.
      */
@@ -576,6 +595,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Find a static field definition or local variable.
+     *
      * @param startFrame the frame to start searching from.
      * @param identAst the IDENT ast to check.
      * @return search result.
@@ -602,6 +622,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether the field is acceptable is a {@code static} method.
+     *
      * @param field the checked field.
      * @return true if the checked field is acceptable is a {@code static} method.
      */
@@ -619,6 +640,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * Find a {@code static} method definition of the specified method call
      * and ensure that there are no non-{@code static} methods with the same name and
      * number of parameters in the current frame or its parents.
+     *
      * @param startFrame the frame to start searching from.
      * @param methodCall METHOD_CALL ast.
      * @param checkedMethodName the name of the called method.
@@ -667,6 +689,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether the field is a local variable.
+     *
      * @param ast VARIABLE_DEF ast.
      * @return true if the field is a local variable.
      */
@@ -678,6 +701,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
     /**
      * Check whether the field is declared before its usage in case of methods.
+     *
      * @param field field to check.
      * @param objCalledOn object equals method called on.
      * @return true if the field is declared before the method call.
@@ -746,6 +770,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Creates new frame.
+         *
          * @param parent parent frame.
          */
         /* package */ Frame(Frame parent) {
@@ -754,6 +779,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add method call to this Frame.
+         *
          * @param exprAst EXPR ast.
          */
         public void addExpr(DetailAST exprAst) {
@@ -762,6 +788,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add child frame to this frame.
+         *
          * @param child frame to add.
          */
         public void addChild(Frame child) {
@@ -770,6 +797,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add field to this Frame.
+         *
          * @param field the ast of the field.
          */
         public void addField(DetailAST field) {
@@ -778,6 +806,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add method definition to this frame.
+         *
          * @param method METHOD_DEF ast.
          */
         public void addMethod(DetailAST method) {
@@ -786,6 +815,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add method call to this frame.
+         *
          * @param enumConst ENUM_CONST_DEF ast.
          */
         public void addEnumConst(DetailAST enumConst) {
@@ -794,6 +824,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add type variable name to this frame.
+         *
          * @param typeVariable the type variable name.
          */
         public void addTypeVariable(String typeVariable) {
@@ -802,6 +833,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Add type to this frame.
+         *
          * @param type the type name.
          */
         public void addType(String type) {
@@ -810,6 +842,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Determine whether this Frame contains the field.
+         *
          * @param name the name of the field to check.
          * @return search result.
          */
@@ -825,6 +858,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
         /**
          * Determine whether this Frame contains the enum constant.
+         *
          * @param name the name of the enum constant to check.
          * @return search result.
          */

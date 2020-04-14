@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * implement both methods. For more information read
  * "Effective Java (2nd edition)" chapter 11, item 74, page 294.
  * </p>
+ *
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  * @since 1.8.0
  */
@@ -54,6 +55,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      * <p>
      * Set allow partly implementation serializable interface.
      * </p>
+     *
      * @param allow - Option, that allow partial implementation
      *        of serializable interface.
      */
@@ -94,6 +96,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      * Return true if it is nested class. Terminology is here :
      * http://download.oracle.com/javase/tutorial/java/javaOO/nested.html
      * </p>
+     *
      * @param classNode - class node
      * @return - boolean variable
      */
@@ -147,6 +150,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      * Return true, if methods readObject() and writeObject() have correct
      * modifiers.
      * </p>
+     *
      * @param methodNode
      *        - current method node;
      * @return boolean value;
@@ -166,6 +170,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      * <p>
      * Return true, if method has void type.
      * </p>
+     *
      * @param methodNode - method node
      * @return boolean variable
      */
@@ -180,6 +185,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      * Return true, if method has correct parameters (ObjectInputStream for
      * readObject() and ObjectOutputStream for writeObject()).
      * </p>
+     *
      * @param methodNode - method node.
      * @param parameterText - correct parameter text.
      * @return boolean variable.
@@ -240,6 +246,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
         * <b>
         * Children Iterator constructor.
         * </b>
+        *
         * @param parent - child parent.
         */
         /* package */ SiblingIterator(DetailAST parent) {
@@ -250,6 +257,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
         * <b>
         * Return boolean value, if has next element.
         * </b>
+        *
         * @return boolean value
         */
         public boolean hasNextSibling() {
@@ -260,6 +268,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
         * <b>
         * Return next DetailAST element.
         * </b>
+        *
         * @return next DetailAST.
         */
 

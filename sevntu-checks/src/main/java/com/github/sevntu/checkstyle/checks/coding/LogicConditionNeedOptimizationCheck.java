@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * For example: if(getProperty() &amp;&amp; property) ==&gt; if(property &amp;&amp; getProperty()),
  * and similarly for any expression.
  * </p>
+ *
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilia Dubinin</a>
  * @since 1.8.0
  */
@@ -76,6 +77,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      * <p>
      * Return true, if current expression part need optimization.
      * </p>
+     *
      * @param logicNode
      *        - current logic operator node
      * @return - boolean variable
@@ -103,6 +105,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      * <p>
      * Return operands of current logic operator.
      * </p>
+     *
      * @param logicNode - current logic operator
      * @return operands
      */
@@ -141,6 +144,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
 
     /**
      * Checks if the node range contains a token of the provided type.
+     *
      * @param operands the list operands in order of start and stop
      * @param setNumber to retrieve the 1st or 2nd operand
      * @param type a TokenType
@@ -162,6 +166,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
 
     /**
      * Checks if the node range contains a token of the provided type.
+     *
      * @param start the token to start checking with (inclusive)
      * @param end the token to end with (inclusive)
      * @param type a TokenType

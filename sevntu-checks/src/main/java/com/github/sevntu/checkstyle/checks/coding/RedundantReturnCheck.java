@@ -73,6 +73,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *    public void testMethod1(){
  *        return;
  *    }</pre>
+ *
  * @author <a href="mailto:fishh1991@gmail.com">Troshin Sergey</a>
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Alexey Nesterenko</a>
@@ -93,6 +94,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Setter for allowReturnInEmptyMethodsAndConstructors.
+     *
      * @param allowEmptyBlocks allow 'return' in empty constructors and methods that return void.
      */
     public void setAllowReturnInEmptyMethodsAndConstructors(boolean allowEmptyBlocks) {
@@ -145,6 +147,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     /**
      * Ignores method or constructor if it contains <b>only</b> return statement
      * in its body.
+     *
      * @param objectBlockAst The token to examine.
      * @return true if the block can be ignored.
      */
@@ -157,6 +160,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Checks if method's or ctor's body is not empty.
+     *
      * @param defAst The token to examine.
      * @return true if body is not empty.
      */
@@ -166,6 +170,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Checks if method is void and has a body.
+     *
      * @param methodDefAst The token to examine.
      * @return true if void method has non-empty body.
      */
@@ -179,6 +184,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     /**
      * Puts violation on each redundant return met in object block of
      * method or ctor.
+     *
      * @param redundantReturnsAst The token to examine.
      */
     private void log(List<DetailAST> redundantReturnsAst) {
@@ -190,6 +196,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     /**
      * Returns the list of redundant returns found in method's or ctor's
      * object block.
+     *
      * @param objectBlockAst
      *            - a method or constructor object block
      * @return list of redundant returns or empty list if none were found
@@ -221,6 +228,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Returns the list of redundant returns found in try, catch, finally object blocks.
+     *
      * @param tryAst
      *            - Ast that contain a try node.
      * @return list of redundant returns or empty list if none were found
@@ -281,6 +289,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Gets next catch block in try block if exists.
+     *
      * @param blockAst The token to examine.
      * @return next found catchBlockAst, if no catch was found - returns null
      */
@@ -295,6 +304,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Returns redundant return from try-catch-finally block.
+     *
      * @param statementAst
      *            - a place where the redundantReturn is expected.
      * @return redundant literal return if found, else null.
@@ -322,6 +332,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Looks for literal return in the last statement of a catch block.
+     *
      * @param lastStatementInCatchBlockAst The token to examine.
      * @return redundant literal return, if there's no one - returns null
      */
@@ -363,6 +374,7 @@ public class RedundantReturnCheck extends AbstractCheck {
 
     /**
      * Checks if the {@code ast} is the final return statement.
+     *
      * @param ast the AST to examine.
      * @return {@code true} if the {@code ast} is the final return statement.
      */

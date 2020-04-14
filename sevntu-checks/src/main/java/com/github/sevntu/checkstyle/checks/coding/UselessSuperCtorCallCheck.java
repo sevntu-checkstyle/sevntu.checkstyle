@@ -171,6 +171,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Sets flag to allowCallToNoArgsSuperCtor.
+     *
      * @param aAllowCallToNoArgsSuperCtor
      *        if true, check will allow super() calls without arguments
      */
@@ -180,6 +181,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Sets flag to allowCallToNoArgsSuperCtorIfMultiplePublicCtor.
+     *
      * @param aAllowCall
      *        if true, check will allow super() calls without arguments if class
      *        has multiple public constructors
@@ -225,6 +227,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Returns class name for given class definition node.
+     *
      * @param aClassDefNode
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return class name for given class definition
@@ -235,6 +238,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Returns arguments count for super ctor call.
+     *
      * @param aMethodCallNode
      *        a super ctor call node(TokenTypes.SUPER_CTOR_CALL)
      * @return arguments count for super ctor call
@@ -247,6 +251,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Returns class definition node for class, which contains given AST node.
+     *
      * @param aNode
      *        AST node inside class
      * @return class definition node
@@ -263,6 +268,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Calculates public constructor count for given class.
+     *
      * @param aClassDefNode
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return public constructor count for given class
@@ -285,6 +291,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Checks whether given ctor is public.
+     *
      * @param aCtorDefNode
      *          a ctor definition node(TokenTypes.CTOR_DEF)
      * @return true, if given ctor is public
@@ -297,6 +304,7 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
 
     /**
      * Checks whether this class is derived from other class.
+     *
      * @param aClassDefNode
      *        class definition node
      * @return true, if this class extends anything

@@ -60,6 +60,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *        throw new RuntimeException("Runtime Exception!");
  *      }
  * </pre>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
@@ -114,6 +115,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 
     /**
      * Returns true when aThrowParamNamesList contains caught exception.
+     *
      * @param throwParamNamesList List of throw parameter names.
      * @param wrapExcNames List of caught exception names.
      * @return true when aThrowParamNamesList contains caught exception
@@ -134,6 +136,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
     /**
      * Returns a List of<code>DetailAST</code> that contains the names of
      * parameters  for current "throw" keyword.
+     *
      * @param startNode The start node for exception name searching.
      * @param paramNamesAST The list, that will be contain names of the
      *     parameters
@@ -160,6 +163,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      * Recursive method which searches for the <code>LITERAL_THROW</code>
      * DetailASTs all levels below on the current <code>aParentAST</code> node
      * without entering into nested try/catch blocks.
+     *
      * @param parentAST A start node for "throw" keyword <code>DetailASTs
      * </code> searching.
      * @return null-safe list of <code>LITERAL_THROW</code> literals
@@ -184,6 +188,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
     /**
      * Searches for all exceptions that wraps the original exception
      * object (only in current "catch" block).
+     *
      * @param currentCatchAST A LITERAL_CATCH node of the
      *     current "catch" block.
      * @param parentAST Current parent node to start search.
@@ -232,6 +237,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 
     /**
      * Gets all the children one level below on the current parent node.
+     *
      * @param node Current parent node.
      * @return List of children one level below on the current
      *         parent node (aNode).
