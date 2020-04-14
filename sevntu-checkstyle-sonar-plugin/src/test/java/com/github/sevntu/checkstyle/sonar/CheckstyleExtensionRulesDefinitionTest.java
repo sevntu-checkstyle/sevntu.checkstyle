@@ -40,7 +40,7 @@ public class CheckstyleExtensionRulesDefinitionTest {
         Assert.assertEquals("Incorrect repository language", "java", repository.language());
 
         final List<RulesDefinition.Rule> rules = repository.rules();
-        Assert.assertEquals("Incorrect number of loaded rules", 59, rules.size());
+        Assert.assertEquals("Incorrect number of loaded rules", 60, rules.size());
 
         for (RulesDefinition.Rule rule : rules) {
             Assert.assertNotNull("Rule key is not set", rule.key());

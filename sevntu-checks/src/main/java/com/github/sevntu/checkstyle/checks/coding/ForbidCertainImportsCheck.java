@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
 import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
-import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
@@ -160,20 +159,20 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
         switch (ast.getType()) {
             case TokenTypes.PACKAGE_DEF:
                 if (packageNamesRegexp != null) {
-                    final String packageQualifiedName = getText(ast);
+                    final String packageQualifiedName = SevntuUtil.getText(ast);
                     packageMatches = packageNamesRegexp.matcher(packageQualifiedName)
                         .matches();
                 }
                 break;
             case TokenTypes.IMPORT:
-                final String importQualifiedText = getText(ast);
+                final String importQualifiedText = SevntuUtil.getText(ast);
                 if (isImportForbidden(importQualifiedText)) {
                     log(ast, importQualifiedText);
                 }
                 break;
             case TokenTypes.LITERAL_NEW:
                 if (ast.findFirstToken(TokenTypes.DOT) != null) {
-                    final String classQualifiedText = getText(ast);
+                    final String classQualifiedText = SevntuUtil.getText(ast);
                     if (isImportForbidden(classQualifiedText)) {
                         log(ast, classQualifiedText);
                     }
@@ -209,32 +208,6 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
     private void log(DetailAST nodeToWarn, String importText) {
         log(nodeToWarn, MSG_KEY,
                 getForbiddenImportRegexp(), importText);
-    }
-
-    /**
-     * Gets package/import text representation from node of PACKAGE_DEF or IMPORT type.
-     * @param packageDefOrImportNode
-     *        - DetailAST node is pointing to package or import definition
-     *        (should be a PACKAGE_DEF or IMPORT type).
-     * @return The fully qualified name of package or import without
-     *         "package"/"import" words or semicolons.
-     */
-    private static String getText(DetailAST packageDefOrImportNode) {
-        String result = null;
-
-        final DetailAST identNode = packageDefOrImportNode.findFirstToken(TokenTypes.IDENT);
-
-        if (identNode == null) {
-            final DetailAST parentDotAST = packageDefOrImportNode.findFirstToken(TokenTypes.DOT);
-            final FullIdent dottedPathIdent = FullIdent
-                    .createFullIdentBelow(parentDotAST);
-            final DetailAST nameAST = parentDotAST.getLastChild();
-            result = dottedPathIdent.getText() + "." + nameAST.getText();
-        }
-        else {
-            result = identNode.getText();
-        }
-        return result;
     }
 
 }
