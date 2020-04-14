@@ -54,6 +54,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * You can cover more sophisticated rules by means of few check instances.
  * </p>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @since 1.8.0
@@ -90,6 +91,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Sets the regexp for matching package fully qualified name.
+     *
      * @param packageNameRegexp
      *        regexp for package fully qualified name matching.
      */
@@ -101,6 +103,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Gets the regexp is used for matching forbidden imports.
+     *
      * @return regexp for forbidden imports matching.
      */
     public String getForbiddenImportRegexp() {
@@ -109,6 +112,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Sets the regexp for matching forbidden imports.
+     *
      * @param forbiddenImportsRegexp
      *        regexp for matching forbidden imports.
      */
@@ -120,6 +124,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Sets the regexp for excluding imports from checking.
+     *
      * @param forbiddenImportsExcludesRegexp
      *        String contains a regexp for excluding imports from checking.
      */
@@ -187,6 +192,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Checks if given import both matches 'include' and not matches 'exclude' patterns.
+     *
      * @param importText package fully qualified name
      * @return true is given import is forbidden in current
      *     classes package, false otherwise
@@ -201,6 +207,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Logs message on the part of code.
+     *
      * @param nodeToWarn
      *        A DetailAST node is pointing to the part of code to warn on.
      * @param importText
@@ -213,6 +220,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
      * Gets package/import text representation from node of PACKAGE_DEF or IMPORT type.
+     *
      * @param packageDefOrImportNode
      *        - DetailAST node is pointing to package or import definition
      *        (should be a PACKAGE_DEF or IMPORT type).

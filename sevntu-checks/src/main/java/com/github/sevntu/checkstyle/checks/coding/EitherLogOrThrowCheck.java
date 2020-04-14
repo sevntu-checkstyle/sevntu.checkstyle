@@ -117,6 +117,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Note that check works with only one logger type. If you have multiple
  * different loggers, then create another instance of this check.
  * </p>
+ *
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  * @since 1.9.0
  */
@@ -177,6 +178,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Set logger full class name and logger simple class name.
+     *
      * @param loggerFullyQualifiedClassName
      *        Logger full class name. Example: org.slf4j.Logger.
      */
@@ -194,6 +196,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Set logging method names.
+     *
      * @param loggingMethodNames Logger method names.
      */
     public void setLoggingMethodNames(String... loggingMethodNames) {
@@ -263,6 +266,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Checks if AST object is logger import.
+     *
      * @param importAst
      *        DetailAST of import statement.
      * @return true if import equals logger full class name.
@@ -275,6 +279,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that class is inner.
+     *
      * @param classDefAst
      *        DetailAST of class definition.
      * @return true if class is inner, false otherwise.
@@ -294,6 +299,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Save names of parameters which have logger type.
+     *
      * @param parametersAst
      *        DetailAST of parameters.
      */
@@ -314,6 +320,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that method's parent is class, stored in mCurrentClassDefAst.
+     *
      * @param methodDefAst DetailAST of METHOD_DEF.
      * @return true if method's parent is class, stored in mCurrentClassDefAst.
      */
@@ -324,6 +331,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Find all logger fields in aClassDefAst and save them.
+     *
      * @param classDefAst
      *        DetailAST of class definition.
      */
@@ -345,6 +353,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
      * Look at the each statement of catch block to find logging and throwing.
      * If same exception is being logged and throwed, then prints warning
      * message.
+     *
      * @param catchAst
      *        DetailAST of catch block.
      */
@@ -409,6 +418,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that aVariableDefAst is variable of logger type.
+     *
      * @param variableDefAst
      *        DetailAST of variable definition.
      * @return true if variable is of logger type.
@@ -423,6 +433,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that aClassName is class name of logger type.
+     *
      * @param className name of checked class.
      * @return true aClassName is class name of logger type.
      */
@@ -434,6 +445,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Get parameter name of catch block.
+     *
      * @param catchAst
      *        DetailAST of catch block.
      * @return name of parameter.
@@ -447,6 +459,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     /**
      * Get identifier of AST. These can be names of types, subpackages, fields,
      * methods, parameters, and local variables.
+     *
      * @param ast
      *        DetailAST instance
      * @return identifier of AST, null if AST does not have name.
@@ -465,6 +478,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
     /**
      * Verify that expression is creating instance. And this instance is created
      * with exception argument. Example: new MyException("message", exception).
+     *
      * @param expressionAst
      *        DetailAST of expression.
      * @param exceptionArgumentName
@@ -490,6 +504,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that expression is logging exception.
+     *
      * @param expressionAst DetailAST of expression(EXPR).
      * @param exceptionVariableName name of exception variable.
      * @return true if expression is logging exception.
@@ -510,6 +525,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that aExpressionAst is a logging expression.
+     *
      * @param expressionAst
      *        DetailAST of expression.
      * @return true if aExpressionAst is a logging expression.
@@ -535,6 +551,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that aExceptionVariableName is in aParametersAst.
+     *
      * @param parametersAst
      *            DetailAST of expression list(ELIST).
      * @param exceptionVariableName
@@ -562,6 +579,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that expression is call of exception's printStackTrace method.
+     *
      * @param expressionAst
      *        DetailAST of expression.
      * @param exceptionVariableName
@@ -584,6 +602,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Verify that method is invoked on aUsedInstanceName.
+     *
      * @param usedInstanceName name of instance.
      * @param methodCallAst DetailAST of METHOD_CALL.
      * @return true if method is invoked on aUsedInstanceName.
@@ -609,6 +628,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Return true if aAST has token of aTokenType type.
+     *
      * @param ast
      *        DetailAST instance.
      * @param tokenType

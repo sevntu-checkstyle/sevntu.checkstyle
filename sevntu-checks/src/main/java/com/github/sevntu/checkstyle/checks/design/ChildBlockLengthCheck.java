@@ -44,6 +44,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  * to read in case child block is long(few display screens). Such child blocks
  * should be refactored or moved to separate method.
  * </p>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @since 1.8.0
@@ -96,6 +97,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      * Sets allowed types of blocks to be checked. Supported block types:
      * LITERAL_IF, LITERAL_SWITCH, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE,
      * LITERAL_TRY, LITERAL_ELSE, LITERAL_CATCH.
+     *
      * @param blockTypes
      *        - DetailAST tokenTypes that are related to the types which are
      *        allowed by user in check preferences.
@@ -110,6 +112,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     /**
      * Sets the maximum percentage ratio between child and parent block. (sets
      * "maxChildBlockPercentage" option value)
+     *
      * @param maxChildBlockPercentage
      *        the new "maxChildBlockPercentage" option value.
      */
@@ -119,6 +122,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
      * Sets the maximum linelength of blocks that will be ignored by check.
+     *
      * @param ignoreBlockLinesCount
      *        the maximum linelength of the block to be ignored.
      */
@@ -189,6 +193,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     /**
      * Gets all the child blocks for given parent block. Uses an iterative
      * algorithm.
+     *
      * @param blockOpeningBrace
      *        a DetailAST node that points to the current method`s opening
      *        brace.
@@ -230,6 +235,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
      * Checks that given child block type is allowed.
+     *
      * @param blockType
      *        the token type ID for the given block.
      * @return true, if the given child block type is allowed.
@@ -248,6 +254,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     /**
      * Gets the child blocks which occupies too much size (in percentage) of
      * given parent block size.
+     *
      * @param blocksList
      *        the blocks
      * @param parentBlockSize
@@ -268,6 +275,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     /**
      * Checks if the child block size percentage from parent block is greater
      * than.
+     *
      * @param childBlock
      *        the a child block node
      * @param parentBlockSize
@@ -289,6 +297,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     /**
      * Gets the percentage which the child block occupies inside the parent
      * block.
+     *
      * @param parentBlockSize
      *        the parent block size in lines
      * @param childBlockSize
@@ -304,6 +313,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
      * Gets the opening brace for the given block.
+     *
      * @param parentBlock
      *        the DetailAST node is related to the given parent block.
      * @return the DetailAST node is related to the given block opening brace
@@ -321,6 +331,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
      * Gets the closing brace for the given block.
+     *
      * @param parentBlockNode
      *        the DetailAST node is related to the given parent block.
      * @return the DetailAST node is related to the given block closing brace
@@ -339,6 +350,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
      * Gets the lines count between braces of the given block.
+     *
      * @param blockAst
      *        - the DetailAST node is related to the given block (the block
      *        should have braces!).
@@ -350,6 +362,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
      * Gets the lines count between the given block opening and closing braces.
+     *
      * @param openingBrace
      *        the block opening brace DetailAST (LCURLY or SLIST type)
      * @param closingBrace

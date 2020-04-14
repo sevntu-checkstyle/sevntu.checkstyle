@@ -67,6 +67,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
  *     }
  *   }
  * </pre>
+ *
  * @author Richard Veach
  * @since 1.25.0
  */
@@ -172,6 +173,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
 
     /**
      * Examines the try block for violations.
+     *
      * @param ast The try block to examine.
      */
     private void examineTry(DetailAST ast) {
@@ -192,6 +194,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
 
     /**
      * Checks if the given method is a test method, defined by the junit annotation Test.
+     *
      * @param method the method AST to examine.
      * @return {@code true} if the method is a test method.
      */
@@ -208,6 +211,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
 
     /**
      * Checks if the expression is an junit fail assertion.
+     *
      * @param expression The expression to examine.
      * @return {@code true} if the expression is a valid junit fail assertion.
      */
@@ -236,6 +240,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
     /**
      * Retrieves the method definition AST parent from the specified node, as long as it doesn't
      * contain a lambda.
+     *
      * @param node The node to examine.
      * @return The parent method definition.
      */

@@ -69,6 +69,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Such situation usually happens after bulk refactoring and usually means
  * dead/useless code<br>
  * <br>
+ *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
  * @since 1.12.0
  */
@@ -161,6 +162,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
 
     /**
      * Adds type to the list of private types.
+     *
      * @param classOrInterfaceOrEnumDefAst
      *        AST subtree that represent inner private type definition.
      */
@@ -173,6 +175,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * Appends non-private, defined in top-level class method's returned or
      * parameter type, or field's type to general list of out referenced types.
+     *
      * @param methodDefAst
      *        AST subtree that represent method definition.
      */
@@ -188,6 +191,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * Appends non-private, defined in top-level class field's type to general
      * list of out referenced types.
+     *
      * @param fieldDefAst
      *        AST subtree that represent field definition.
      */
@@ -198,6 +202,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
 
     /**
      * Gets the return type of method or field type.
+     *
      * @param typeAst
      *        AST subtree to process.
      * @return the return types of the token.
@@ -219,6 +224,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
 
     /**
      * Gets method's parameters types.
+     *
      * @param parametersDefAst The token to examine.
      * @return The parameter types of the method.
      */
@@ -253,6 +259,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * Checks if defined type or interface extends or implements any
      * <u>non-private type</u>.
+     *
      * @param classOrInterfaceDefAst The token to examine.
      * @return Method returns true if class extends or implements something.
      */
@@ -267,6 +274,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * Checks if inner class or interface extends or implements <u>inner private
      * type</u>.
+     *
      * @param classOrInterfaceDefAst The token to examine.
      * @return true if extending or implementing type is in collection of inner
      *         private types
@@ -310,6 +318,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     /**
      * Checks if class, interface, enumeration, method or field definition has an
      * access modifier of specified type.
+     *
      * @param modifierType modifier type
      * @param defAst definition ast (METHOD_DEF, FIELD_DEF, etc.)
      * @return true if class, interface, enumeration, method or field definition has an
@@ -323,6 +332,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
 
     /**
      * Checks if method or field is defined in top-level class.
+     *
      * @param methodOrFieldDefAst The token to examine.
      * @return true if method is defined in top-level class
      */

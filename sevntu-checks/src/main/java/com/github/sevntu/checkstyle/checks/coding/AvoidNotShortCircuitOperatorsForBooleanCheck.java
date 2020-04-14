@@ -67,6 +67,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
  *             || isModifier() &amp;&amp; isNotTrue();
  * }
  * </pre>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @since 1.8.0
@@ -134,6 +135,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     /**
      * Checks whether the current method/variable definition type
      * is "Boolean".
+     *
      * @param node - current method or variable definition node.
      * @return "true" if current method or variable has a Boolean type.
      */
@@ -145,6 +147,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     /**
      * Checks that current expression is calculated using "|", "&amp;", "|=", "&amp;="
      * operators contains at least one Boolean operand.
+     *
      * @param node - current TokenTypes.EXPR node to check.
      * @return "true" if current expression is calculated using "|", "&amp;",
      *     "|=". "&amp;=" operators contains at least one Boolean operand or false
@@ -190,6 +193,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      * Searches for all supported operands names in current expression.
      * When checking, treatments to external class variables, method calls,
      * etc are not considered as expression operands.
+     *
      * @param exprParentAST - the current TokenTypes.EXPR parent node.
      * @return List of supported operands contained in current expression.
      */
@@ -212,6 +216,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     /**
      * Checks is the current expression has
      * keywords "true" or "false".
+     *
      * @param parentAST - the current TokenTypes.EXPR parent node.
      * @return true if the current processed expression contains
      *     "true" or "false" keywords and false otherwise.
@@ -237,6 +242,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
 
     /**
      * Gets all the children one level below on the current top node.
+     *
      * @param node - current parent node.
      * @return an array of children one level below on the current parent node
      *         aNode.

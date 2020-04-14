@@ -214,6 +214,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'annotation'
      * modifier.
+     *
      * @param forbiddenClassesRegexpAnnotation
      *        String contains the regex to set for the names of classes, that
      *        could not have 'annotation' modifier.
@@ -234,6 +235,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'final'
      * modifier.
+     *
      * @param forbiddenClassesRegexpFinal
      *        String contains the regex to set for the names of classes, that
      *        could not have 'final' modifier.
@@ -254,6 +256,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'static'
      * modifier.
+     *
      * @param forbiddenClassesRegexpStatic
      *        String contains the regex to set for the names of classes, that
      *        could not have 'static' modifier.
@@ -274,6 +277,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'transient'
      * modifier.
+     *
      * @param forbiddenClassesRegexpTransient
      *        String contains the regex to set for the names of classes, that
      *        could not have 'transient' modifier.
@@ -294,6 +298,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'volatile'
      * modifier.
+     *
      * @param forbiddenClassesRegexpVolatile
      *        String contains the regex to set for the names of classes, that
      *        could not have 'volatile' modifier.
@@ -314,6 +319,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'private'
      * modifier.
+     *
      * @param forbiddenClassesRegexpPrivate
      *        String contains the regex to set for the names of classes, that
      *        could not have 'private' modifier.
@@ -334,6 +340,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have no modifier
      * ('package-private').
+     *
      * @param forbiddenClassesRegexpPackagePrivate
      *        String contains the regex to set for the names of classes, that
      *        could not have no modifier ('package-private').
@@ -355,6 +362,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'protected'
      * modifier.
+     *
      * @param forbiddenClassesRegexpProtected
      *        String contains the regex to set for the names of classes, that
      *        could not have 'protected' modifier.
@@ -375,6 +383,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that could not have 'public'
      * modifier.
+     *
      * @param forbiddenClassesRegexpPublic
      *        String contains the regex to set for the names of classes, that
      *        could not have 'public' modifier.
@@ -440,6 +449,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Checks whether a specific Java modifier is used in a given class with
      * the specified regular expression.
+     *
      * @param modifierType the modifier type
      * @param className the class name
      * @return either <code>true</code> if the regexp match the className,
@@ -452,6 +462,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
 
     /**
      * Maps the modifierType to a regular expression.
+     *
      * @param modifierType the modifier type
      * @return the Pattern object storing the regexp for the names of classes,
      *     that must not have the modifierType.
@@ -494,6 +505,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
 
     /**
      * Gets the full className of the defined variable.
+     *
      * @param variableDefNode
      *        A DetailAST node is related to variable definition (VARIABLE_DEF
      *        node type).
@@ -525,6 +537,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
 
     /**
      * Gets the class name from full (dotted) classPath.
+     *
      * @param classNameAndPath
      *        - the full (dotted) classPath. Must not be null.
      * @return the name of the class is specified by the current full name&path.
@@ -537,6 +550,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Gets the modifiers of the defined variable (annotation, public, private, final, static,
      * transient or volatile).
+     *
      * @param variableDefAst
      *        A DetailAST node is related to the variable definition
      *        (VARIABLE_DEF type)
@@ -556,6 +570,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     /**
      * Gets all the children which are one level below on the current DetailAST
      * parent node.
+     *
      * @param node
      *        The parent node.
      * @return The list of children one level below on the current parent node.

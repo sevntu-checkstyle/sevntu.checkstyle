@@ -153,6 +153,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Sets regexp to match 'expected' class names for JUnit tests.
+     *
      * @param expectedClassNameRegex
      *        regexp to match 'correct' JUnit test class names.
      */
@@ -167,6 +168,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Sets class test annotation name regexp for JUnit tests.
+     *
      * @param annotationNameRegex
      *        regexp to match annotations for unit test classes.
      */
@@ -181,6 +183,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Sets method test annotation name regexp for JUnit tests.
+     *
      * @param annotationNameRegex
      *        regexp to match annotations for unit test classes.
      */
@@ -220,6 +223,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Checks whether class definition annotated with user defined annotation.
+     *
      * @param classDefNode
      *        a class definition node
      * @return true, if class definition annotated with user defined annotation
@@ -231,6 +235,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     /**
      * Checks whether class contains at least one method annotated with user
      * defined annotation.
+     *
      * @param classDefNode
      *        a class definition node
      * @return true, if class contains at least one method annotated with user
@@ -256,6 +261,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Returns true, if class has unexpected name.
+     *
      * @param classDefNode
      *        a class definition node
      * @return true, if class has unexpected name
@@ -268,6 +274,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     /**
      * Returns true, if class or method has annotation with name specified in
      * regexp.
+     *
      * @param methodOrClassDefNode
      *        the node of type TokenTypes.METHOD_DEF or TokenTypes.CLASS_DEF
      * @param annotationNamesRegexp
@@ -300,6 +307,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Logs unexpected class name.
+     *
      * @param classDef
      *        the node of type TokenTypes.CLASS_DEF
      */
@@ -309,6 +317,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Returns name of identifier contained in specified node.
+     *
      * @param identifierNode
      *        a node containing identifier or qualified identifier.
      * @return identifier name for specified node. If node contains qualified
@@ -340,6 +349,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
 
     /**
      * Matches string against regexp.
+     *
      * @param regexPattern
      *        regex to match string with. May be null.
      * @param str

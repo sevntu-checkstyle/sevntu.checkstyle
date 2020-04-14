@@ -44,6 +44,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).
  * </li><li>The names of classes which would be considered as Exception cause
  * ("allowedCauseTypes" option).</li></ol><br>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @since 1.8.0
@@ -91,6 +92,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
 
     /**
      * Sets the regexp for the names of classes, that should be checked.
+     *
      * @param classNamesRegexp
      *        String contains the regex to set for the names of classes, that
      *        should be checked.
@@ -109,6 +111,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     /**
      * Sets the regexp for the names of classes, that should be ignored by
      * check.
+     *
      * @param ignoredClassNamesRegexp
      *        String contains the regex to set for the names of classes, that
      *        should be ignored by check.
@@ -126,6 +129,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
 
     /**
      * Sets the names of classes which would be considered as Exception cause.
+     *
      * @param allowedCauseTypes
      *        - the list of classNames separated by a comma. ClassName should be
      *        short, such as "NullpointerException", do not use full name -
@@ -195,6 +199,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     /**
      * Checks that the given constructor contains exception cause as a
      * parameter.
+     *
      * @param ctorDefNode
      *        The CTOR_DEF DetailAST node is related to the constructor
      *        definition.
@@ -216,6 +221,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
 
     /**
      * Gets the list of classNames for given constructor parameters types.
+     *
      * @param parametersAST - A PARAMETERS DetailAST.
      * @return the list of classNames for given constructor parameters types.
      */
@@ -235,6 +241,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
 
     /**
      * Gets the name of given class or constructor.
+     *
      * @param classOrCtorDefNode
      *        the a CLASS_DEF or CTOR_DEF node
      * @return the name of class or constructor is related to CLASS_DEF or
@@ -248,6 +255,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
 
     /**
      * Gets the parent CLASS_DEF DetailAST node for given DetailAST node.
+     *
      * @param node
      *        The DetailAST node.
      * @return The parent CLASS_DEF node for the class that owns a token is
@@ -265,6 +273,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     /**
      * Gets all the children which are one level below on the current DetailAST
      * parent node.
+     *
      * @param node
      *        Current parent node.
      * @return The list of children one level below on the current parent node.

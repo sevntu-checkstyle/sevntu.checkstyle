@@ -171,6 +171,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
 
     /**
      * Sets maximum allowed "return" literals count per method/ctor/lambda.
+     *
      * @param maxReturnCount - the new "maxReturnCount" property value.
      * @see ReturnCountExtendedCheck#maxReturnCount
      */
@@ -181,6 +182,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Sets the maximum number of lines of which method/ctor/lambda body may consist to
      * be skipped by check.
+     *
      * @param ignoreMethodLinesCount
      *        - the new value of "ignoreMethodLinesCount" property.
      * @see ReturnCountExtendedCheck#ignoreMethodLinesCount
@@ -192,6 +194,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Sets the minimum "return" statement depth with that will be skipped by
      * check.
+     *
      * @param minIgnoreReturnDepth
      *        - the new "minIgnoreReturnDepth" property value.
      */
@@ -202,6 +205,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Sets the "ignoring empty return statements in void methods and ctors and lambdas"
      * option state.
+     *
      * @param ignoreEmptyReturns
      *        the new "allowEmptyReturns" property value.
      * @see ReturnCountExtendedCheck#ignoreEmptyReturns
@@ -213,6 +217,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Sets the count of code lines on the top of each
      * processed method/ctor that will be ignored by check.
+     *
      * @param topLinesToIgnoreCount
      *        the new "rowsToIgnoreCount" property value.
      * @see ReturnCountExtendedCheck#topLinesToIgnoreCount
@@ -269,6 +274,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
 
     /**
      * Reports violation to user based on the parameters given.
+     *
      * @param node The node that the violation is on.
      * @param nodeName The name given to the node.
      * @param mCurReturnCount The return count violation amount.
@@ -300,6 +306,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * Gets the "return" statements count for given method/ctor/lambda and saves the
      * last "return" statement DetailAST node for given method/ctor/lambda body. Uses
      * an iterative algorithm.
+     *
      * @param methodOpeningBrace
      *        a DetailAST node that points to the current method`s opening
      *        brace.
@@ -353,6 +360,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Checks that the current processed "return" statement is "empty" and
      * should to be counted.
+     *
      * @param returnNode
      *        the DetailAST node is pointing to the current "return" statement.
      *        is being processed.
@@ -369,6 +377,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * Gets the depth level of given "return" statement. There are few supported
      * coding blocks when depth counting: "if-else", "for", "while"/"do-while"
      * and "switch".
+     *
      * @param methodDefNode
      *        a DetailAST node that points to the current method`s definition.
      * @param returnStmtNode
@@ -399,6 +408,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Gets the name of given method by DetailAST node is pointing to desired
      * method definition.
+     *
      * @param methodDefNode
      *        a DetailAST node that points to the current method`s definition.
      * @return the method name.
@@ -418,6 +428,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     /**
      * Gets the line count between the two DetailASTs which are related to the
      * given "begin" and "end" tokens.
+     *
      * @param beginAst
      *        the "begin" token AST node.
      * @param endAST

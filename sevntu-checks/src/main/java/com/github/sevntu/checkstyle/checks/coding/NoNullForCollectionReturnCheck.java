@@ -48,6 +48,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * PriorityBlockingQueue, PriorityQueue, RoleList, RoleUnresolvedList, Stack, SynchronousQueue,
  * TreeSet, Vector, Collection, List, Map, Set.
  * </p>
+ *
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  * @since 1.9.0
  */
@@ -97,6 +98,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Setter for list of known collections.
      * </p>
+     *
      * @param collectionList
      *        - line contains all collection names.
      */
@@ -111,6 +113,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Setter for searching through body of the method.
      * </p>
+     *
      * @param searchThroughMethodBody
      *        - deep search value.
      */
@@ -172,6 +175,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Returns true, when method type is a collection or an array.
      * </p>
+     *
      * @param methodDef
      *        - DetailAST contains method definition node.
      * @return true, when method return collection.
@@ -187,6 +191,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Returns true when null literal has in return expression.
      * </p>
+     *
      * @param returnLit
      *        - DetailAST contains return literal
      * @return true when null literal has in return expression.
@@ -208,6 +213,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Returns true, when variable in return may be null.
      * </p>
+     *
      * @param returnLit
      *        - DetailAST contains LITERAL_RETURN
      * @return true, when variable may be null.
@@ -254,6 +260,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Return all the nested subblocks in block.
      * </p>
+     *
      * @param blockDef
      *        - node of the block.
      * @return all the nested subblocks in block.
@@ -289,6 +296,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Return true when variable is null into the variable definition.
      * </p>
+     *
      * @param subBlocks
      *        - list contains subblocks.
      * @param variableName
@@ -329,6 +337,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Returns all children of that have the specified type.
      * </p>
+     *
      * @param root
      *        - root token of a block
      * @param type
@@ -354,6 +363,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Return DetailAST that contained method definition.
      * </p>
+     *
      * @param returnLit
      *        - DetailAST contains LITERAL_RETURN.
      * @return DetailAST contains METHOD_DEF
@@ -370,6 +380,7 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * <p>
      * Return body of the block.
      * </p>
+     *
      * @param blockDef
      *        - block definition node
      * @return body of the block.

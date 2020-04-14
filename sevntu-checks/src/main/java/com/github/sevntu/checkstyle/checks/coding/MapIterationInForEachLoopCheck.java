@@ -121,6 +121,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     System.out.println(entry.getValue() + "   " + entry.getKey());
  * }
  * </pre>
+ *
  * @author <a href="mailto:maxvetrenko2241@gmail.com">Max Vetrenko</a>
  * @since 1.11.0
  */
@@ -222,6 +223,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * Set user's map implementations. It must state the full paths of imported
      * classes. Import paths must be separated by commas. For example:
      * java.util.Map, java.util.HashMap.
+     *
      * @param setSupportedMapImplQualifiedNames
      *        User's set of map implementations.
      */
@@ -241,6 +243,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Set aProcessingValue. If value is true, Check will process cases, where
      * values() method will be suitable.
+     *
      * @param proposeValuesUsage
      *        User's value of mProcessingValue.
      */
@@ -252,6 +255,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Set aProcessingKeySet. If value is true, Check will process cases, where
      * keySet() method will be suitable.
+     *
      * @param proposeKeySetUsage
      *        User's value of mIsCheckKeySetProcessingEnabled.
      */
@@ -263,6 +267,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Set aProcessingEntrySet. If value is true, Check will process cases,
      * where entrySet() method will be suitable.
+     *
      * @param proposeEntrySetUsage
      *        User's value of mIsCheckEntrySetProcessingEnabled.
      */
@@ -333,6 +338,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      * Processes "for-each" loop.
      * It searches for keySet() or entrySet() nodes,
      * iterated maps, keys or entries.
+     *
      * @param forLiteralNode
      *        DetailAST of literal for.
      * @return warning message key.
@@ -380,6 +386,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Checks if the not is a for each.
+     *
      * @param forNode The token to examine.
      * @return true if is for each.
      */
@@ -389,6 +396,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Searches for keySet() or entrySet() node.
+     *
      * @param forEachNode
      *        Contains current for node.
      * @return keySet() or entrySet() node. If such node didn't found, method
@@ -439,6 +447,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Returns true, if any method call inside for loop contains map
      * object as parameter.
+     *
      * @param forEachOpeningBraceNode
      *        List with subtree IDENT nodes.
      * @return true, if any Method Call contains Map Parameter.
@@ -458,6 +467,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Checks is map instance passed into method call, or not.
+     *
      * @param methodCallNode
      *        DetailAST node of Method Call.
      * @return return true, if method call contain map as parameter.
@@ -479,6 +489,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Searches for wrong ketSet() usage into for cycles.
+     *
      * @param forEachOpeningBraceNode
      *        For-each opening brace.
      * @param keyName
@@ -528,6 +539,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Counts the getter methods called inside the if statement.
+     *
      * @param identAndLiteralIfNodesList the nodes to examine.
      * @param mapName Current map name.
      * @param isMapClassField if the map is a class field.
@@ -596,6 +608,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Checks if the new variable is Map object, or not.
+     *
      * @param variableDefNode
      *        DetailAST node of Variable Definition.
      * @return true, if the new variable is Map object.
@@ -615,6 +628,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Checks, is current class a Map implementation or not.
+     *
      * @param className
      *        Current class's name.
      * @return true, if current class is contained inside mQualifiedImportList.
@@ -627,6 +641,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Checks, is mSupportedMapImplQualifiedNames List contains
      * current class.
+     *
      * @param className
      *        current class name.
      * @return true, if List contains current class.
@@ -650,6 +665,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Checks, is mQualifiedImportList contains
      * current class.
+     *
      * @param className
      *        current class name.
      * @return true, if List contains current class.
@@ -667,6 +683,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Returns the instance's class name.
+     *
      * @param literalNewNodesList
      *        This list contains "new" literals.
      * @return object's class name,
@@ -687,6 +704,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Searches the first specific
      * DetailAST node inside List.
+     *
      * @param nodesList
      *        DetailAST List witch maybe contains specific token.
      * @param aSpecificType
@@ -708,6 +726,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     /**
      * Returns full path of map implementation. If path doesn't
      * contain full map implementation path, null will be returned.
+     *
      * @param importNode
      *        Import node.
      * @return full path of map implementation or null.
@@ -727,6 +746,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
      * Searches over subtree for all tokens of necessary types.
+     *
      * @param rootNode
      *        The root of subtree.
      * @param tokenTypes

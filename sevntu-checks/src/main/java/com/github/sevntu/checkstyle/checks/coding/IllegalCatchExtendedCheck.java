@@ -32,6 +32,7 @@ import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 /**
  * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
  * is almost never acceptable.
+ *
  * @author <a href="mailto:simon@redhillconsulting.com.au">Simon Harris</a>
  * @since 1.8.0
  */
@@ -83,6 +84,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * throwing an exception.
+     *
      * @param value Disable warning for throwing
      */
     public void setAllowThrow(final boolean value) {
@@ -92,6 +94,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
     /**
      * Enable(false) | Disable(true) warnings for "catch" blocks containing
      * rethrowing an exception.
+     *
      * @param value Disable warnings for rethrowing
      */
     public void setAllowRethrow(final boolean value) {
@@ -148,6 +151,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
 
     /**
      * Looking for the keyword "throw" among current (aParentAST) node childs.
+     *
      * @param parentAST - the current parent node.
      * @return null if the "throw" keyword was not found
      *     or the LITERAL_THROW DetailAST otherwise
@@ -173,6 +177,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
 
     /**
      * Gets all the children one level below on the current top node.
+     *
      * @param node - current parent node.
      * @return an array of childs one level below
      *     on the current parent node aNode. */

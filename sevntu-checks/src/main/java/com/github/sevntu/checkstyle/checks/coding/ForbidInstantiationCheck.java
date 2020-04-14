@@ -40,6 +40,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Note: className should to be full: use "java.lang.NullPointerException"
  * instead of "NullpointerException".
  * </p>
+ *
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
  *         Yaroslavtsev</a>
  * @since 1.8.0
@@ -76,6 +77,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
 
     /**
      * Sets a classNames&amp;Paths for objects that are forbidden to instantiate.
+     *
      * @param classNames
      *        - the list of classNames separated by a comma. ClassName should be
      *        full, such as "java.lang.NullpointerException", do not use short
@@ -157,6 +159,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
     /**
      * Checks that the class with given className is visible because of the
      * forbidden import.
+     *
      * @param className
      *        - the name of the class to check.
      * @param forbiddenClassNameAndPath
@@ -223,6 +226,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
 
     /**
      * Gets the class name from full (dotted) classPath.
+     *
      * @param classNameAndPath
      *        - the full (dotted) classPath
      * @return the name of the class is specified by the current full name&path.
@@ -233,6 +237,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
 
     /**
      * Gets the text representation from the given DetailAST node.
+     *
      * @param ast
      *        - DetailAST node is pointing to import definition or to the "new"
      *        literal node ("IMPORT" or "LITERAL_NEW" node types).

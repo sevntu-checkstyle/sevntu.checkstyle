@@ -239,6 +239,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
 
     /**
      * Examines the expression AST for violations.
+     *
      * @param ast The AST to examine.
      */
     private void leaveTokenExpression(DetailAST ast) {
@@ -281,6 +282,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      * In short, does <code>aAST</code> have a previous sibling whose type is
      * <code>TokenTypes.LPAREN</code> and a next sibling whose type is <code>
      * TokenTypes.RPAREN</code>.
+     *
      * @param ast the <code>DetailAST</code> to check if it is surrounded by
      *        parentheses.
      * @return <code>true</code> if <code>aAST</code> is surrounded by
@@ -296,6 +298,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
 
     /**
      * Tests if the given expression node is surrounded by parentheses.
+     *
      * @param ast a <code>DetailAST</code> whose type is
      *        <code>TokenTypes.EXPR</code>.
      * @return <code>true</code> if the expression is surrounded by
@@ -309,6 +312,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
 
     /**
      * Check if the given token type can be found in an array of token types.
+     *
      * @param type the token type.
      * @param tokens an array of token types to search.
      * @return <code>true</code> if <code>aType</code> was found in <code>
@@ -330,6 +334,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      * Returns the specified string chopped to <code>MAX_QUOTED_LENGTH</code>
      * plus an ellipsis (...) if the length of the string exceeds <code>
      * MAX_QUOTED_LENGTH</code>.
+     *
      * @param string the string to potentially chop.
      * @return the chopped string if <code>aString</code> is longer than
      *         <code>MAX_QUOTED_LENGTH</code>; otherwise <code>aString</code>.
@@ -348,6 +353,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     /**
      * Returns the type of the subtree, witch need to detect equals
      * in boolean calculation.
+     *
      * @param ast the <code>DetailAST</code>
      * @return integer value of subtree
      */

@@ -98,6 +98,7 @@ public class ForbidReturnInFinallyBlockCheck extends AbstractCheck {
 
     /**
      * Checks if there is a method definition in the node.
+     *
      * @param returnNode The token to examine.
      * @return true if a method definition was found.
      */

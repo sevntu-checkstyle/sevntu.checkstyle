@@ -117,6 +117,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
 
     /**
      * The annotation name we are interested in.
+     *
      * @param annotationName set annotation name
      */
     public void setAnnotationName(String annotationName) {
@@ -125,6 +126,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
 
     /**
      * The required list of parameters we have to use.
+     *
      * @param requiredPropertiesParameter set required list of parameters
      */
     public void setRequiredParameters(String... requiredPropertiesParameter) {
@@ -169,6 +171,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
 
     /**
      * Returns full name of an annotation.
+     *
      * @param annotationNode The node to examine.
      * @return name of an annotation.
      */
@@ -194,6 +197,7 @@ public class RequiredParameterForAnnotationCheck extends AbstractCheck {
 
     /**
      * Returns the name of annotations properties.
+     *
      * @param annotationNode The node to examine.
      * @return name of annotation properties.
      */

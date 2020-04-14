@@ -303,6 +303,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Constructor.
+         *
          * @param annotationName
          *        the annotation's name
          * @param packageName
@@ -375,6 +376,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Sets the included packages property.
+     *
      * @param packageNames
      *        the package names, comma separated
      */
@@ -384,6 +386,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Sets the excluded packages property.
+     *
      * @param packageNames
      *        the package names, comma separated
      */
@@ -393,6 +396,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Sets the property for allowing overriding return values.
+     *
      * @param newAllowOverridingReturnValue
      *        true if yes
      */
@@ -402,6 +406,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Sets the property for allowing overriding parameters.
+     *
      * @param newAllowOverridingParameter
      *        true if yes
      */
@@ -411,6 +416,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Maps annotations to their respective names.
+     *
      * @return the map
      */
     private static Map<String, NullnessAnnotation> createString2AnnotationMap() {
@@ -426,6 +432,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Removes duplicates from an array of strings.
+     *
      * @param input
      *        the array
      * @return a new, duplicate-free array
@@ -437,6 +444,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Checks whether a package is excluded.
+     *
      * @param fullIdent
      *        the identifier
      * @return true if yes
@@ -504,6 +512,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Find the nullness annotations.
+     *
      * @param ast
      *        the ast
      * @return the annotations.
@@ -524,6 +533,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Adds the nullness annotation from the argument's first token if any.
+     *
      * @param result
      *        the result
      * @param ast
@@ -543,6 +553,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Is the current symbol a primitive type.
+     *
      * @param ast
      *        the ast
      * @return true if yes
@@ -594,6 +605,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
     /**
      * Is the current symbol of void type.
+     *
      * @param ast
      *        the ast
      * @return true if yes
@@ -613,6 +625,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Constructor.
+         *
          * @param ast
          *        the ast
          */
@@ -642,6 +655,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Constructor.
+         *
          * @param ast
          *        the ast
          */
@@ -713,6 +727,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Constructor.
+         *
          * @param ast
          *        the ast
          */
@@ -745,6 +760,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Constructor.
+         *
          * @param ast
          *        the ast
          */
@@ -820,6 +836,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Constructor.
+         *
          * @param ast
          *        the ast
          */
@@ -860,6 +877,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Construtor.
+         *
          * @param ast
          *        the ast
          */
@@ -892,6 +910,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Emits a violation if any of the given annotations are found.
+         *
          * @param msg
          *        the violation message to emit
          * @param search
@@ -905,6 +924,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Check whether any of the given annotations are found.
+         *
          * @param search
          *        the annotations to look for
          * @return true if yes
@@ -924,6 +944,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Emits a violation if all given annotations are found.
+         *
          * @param msg
          *        the violation message to emit
          * @param search
@@ -937,6 +958,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Emits a violation if both this and the parent class have redundant nullness annotations.
+         *
          * @param msg
          *        the violation message to emit
          * @param search
@@ -959,6 +981,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Check whether all the given annotations are present.
+         *
          * @param search
          *        the annotations to look for
          * @return true if yes
@@ -982,6 +1005,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Make sure that none of the given annotations are present.
+         *
          * @param msg
          *        the violation message to emit if one of the given annotations was found
          * @param search
@@ -1007,6 +1031,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Gets the nullness annotation for the parent method or class.
+         *
          * @param annotationsToLookFor
          *        the annotations to look for.
          * @return the annotation or null if none was found
@@ -1044,6 +1069,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Is the current tokenType a possible type for nullness annotations.
+         *
          * @param tokenType the token type
          * @return true if yes
          */
@@ -1055,6 +1081,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Extracts all given annotations from the current ast.
+         *
          * @param current the current ast
          * @param annotationsToLookFor the annotations we are looking for
          * @return the annotations
@@ -1073,6 +1100,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
 
         /**
          * Is the current method overridden.
+         *
          * @return true if yes
          */
         protected boolean isMethodOverridden() {

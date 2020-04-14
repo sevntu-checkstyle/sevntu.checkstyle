@@ -127,6 +127,7 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
 
     /**
      * Test is AST object has abstract modifier.
+     *
      * @param ast class definition for check.
      * @return true if a given class declared as abstract.
      */
@@ -139,6 +140,7 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
 
     /**
      * Test is AST object has static modifier.
+     *
      * @param ast class definition for check.
      * @return true if a given class declared as static.
      */
