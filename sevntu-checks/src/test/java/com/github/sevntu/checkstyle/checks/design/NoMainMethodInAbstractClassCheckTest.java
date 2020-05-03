@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * Test class for NoMainMethodInAbstractClass check.
+ *
  * @author Baratali Izmailov
  */
 public class NoMainMethodInAbstractClassCheckTest extends AbstractModuleTestSupport {
@@ -48,6 +49,7 @@ public class NoMainMethodInAbstractClassCheckTest extends AbstractModuleTestSupp
 
     /**
      * Main test.
+     *
      * @throws Exception
      *         exceptions while verify()
      */

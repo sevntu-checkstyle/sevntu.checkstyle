@@ -28,6 +28,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 /**
  * Test for EitherLogOrThrowCheck.
+ *
  * @author <a href="mailto:barataliba@gmail.com">Baratali Izmailov</a>
  */
 public class EitherLogOrThrowCheckTest extends AbstractModuleTestSupport {

@@ -100,6 +100,7 @@ public final class CheckUtil {
 
     /**
      * Gets the checkstyle's non abstract checks.
+     *
      * @return the set of checkstyle's non abstract check classes.
      * @throws Exception if the attempt to read class path resources failed.
      */
@@ -159,6 +160,7 @@ public final class CheckUtil {
 
     /**
      * Get's the check's messages.
+     *
      * @param module class to examine.
      * @return a set of checkstyle's module message fields.
      * @throws ClassNotFoundException if the attempt to read a protected class fails.
