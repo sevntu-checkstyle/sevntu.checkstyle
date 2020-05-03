@@ -297,6 +297,7 @@ public class AllChecksTest {
 
     /**
      * Removes 'Check' suffix from each class name in the set.
+     *
      * @param checks class instances.
      * @return a set of simple names.
      */
@@ -310,6 +311,7 @@ public class AllChecksTest {
 
     /**
      * Checks that an array is a subset of other array.
+     *
      * @param array to check whether it is a subset.
      * @param arrayToCheckIn array to check in.
      */

@@ -33,6 +33,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 /**
  * Test class for ForbidWildcardInReturnTypeCheck.
+ *
  * @author <a href='mailto:barataliba@gmail.com'>Baratali Izmailov</a>
  */
 public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSupport {
@@ -117,6 +118,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Main test.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -143,6 +145,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Test only public methods.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -170,6 +173,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Test only private methods.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -197,6 +201,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Test only protected methods.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -224,6 +229,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Test only package methods.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -251,6 +257,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Allow wildcard with super.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -280,6 +287,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Allow wildcard with extends.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -309,6 +317,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Allow wildcard with extends and super.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -339,6 +348,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Allow certain types in ignoreListForClassNames.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -369,6 +379,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Don't check override methods.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -398,6 +409,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Don't check deprecated methods.
+     *
      * @throws Exception
      *         exceptions while verify()
      */
@@ -438,6 +450,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Create new set of line numbers.
+     *
      * @param aLines
      *        arrays of line numbers
      * @return sorted set of line numbers.
@@ -448,6 +461,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
 
     /**
      * Create array of expected messages.
+     *
      * @param aLines sorted set of line numbers.
      * @return array of messages.
      */
