@@ -287,6 +287,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      *
      * @param inputOrderDeclaration The string line with the user custom
      *            declaration.
+     * @throws IllegalArgumentException if the input rule could not be parsed
      */
     public final void setCustomDeclarationOrder(final String inputOrderDeclaration) {
         customOrderDeclaration.clear();
@@ -433,6 +434,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      *
      * @param currentState input string with MemberDefinition and RegExp.
      * @return new FormatMatcher with parsed and compile rule
+     * @throws IllegalArgumentException if the macro could not be parsed
      */
     private FormatMatcher parseInputDeclarationRule(final String currentState) {
         // parse mClassMember

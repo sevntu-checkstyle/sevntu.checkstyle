@@ -440,6 +440,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * @param type
      *        the type of numerical literal
      * @return minimum length before checking
+     * @throws IllegalStateException if the given type is not recognized
      */
     private int minSymbolsBeforeChecking(NumericType type) {
         final int minLength;
@@ -466,6 +467,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * @param type
      *        the type of numerical literal
      * @return maximum number of characters between underscores
+     * @throws IllegalStateException if the given type is not recognized
      */
     private int maxSymbolsUntilUnderscore(NumericType type) {
         final int maxSymbols;
@@ -501,6 +503,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * @param type
      *        the numeric type of the literal
      * @return numeric tokens (segments) without non-numeric characters
+     * @throws IllegalStateException if the given type is not recognized
      */
     private static String[] getNumericSegments(String strippedLiteral, NumericType type) {
         final String[] numericSegments;
@@ -603,6 +606,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      * @param literalType
      *        the type of the literal being passed in
      * @return a stripped version of the raw literal
+     * @throws IllegalStateException if literalType is not a recognized type
      */
     private static String removePrePostfixByType(String rawLiteral, NumericType literalType) {
         String processedLiteral;
