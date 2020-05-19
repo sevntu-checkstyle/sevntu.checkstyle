@@ -117,6 +117,24 @@ public class RequireFailForTryCatchInJunitCheckTest extends AbstractModuleTestSu
     }
 
     @Test
+    public void testStaticWildCardImport() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
+        final String[] expected = CommonUtil.EMPTY_STRING_ARRAY;
+        verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck8.java"), expected);
+    }
+
+    @Test
+    public void testStaticWildCardImportFailMissing() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
+        final String[] expected = {
+            "9:9: " + getCheckMessage(MSG_KEY),
+        };
+        verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck9.java"), expected);
+    }
+
+    @Test
     public void testUnsupportedNode() {
         final DetailAstImpl sync = new DetailAstImpl();
         sync.setType(TokenTypes.LITERAL_SYNCHRONIZED);
@@ -132,5 +150,4 @@ public class RequireFailForTryCatchInJunitCheckTest extends AbstractModuleTestSu
             Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
         }
     }
-
 }

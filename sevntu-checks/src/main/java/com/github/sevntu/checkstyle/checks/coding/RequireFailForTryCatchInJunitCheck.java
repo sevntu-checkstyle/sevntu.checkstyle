@@ -85,15 +85,17 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
             "org.junit.Test",
             "org.junit.jupiter.api.Test");
     /**
-     * Fully qualified junit `fail` methods.
-     */
-    private static final List<String> FQ_JUNIT_FAIL_METHODS = Arrays.asList(
-            "org.junit.Assert.fail",
-            "org.junit.jupiter.api.Assertions.fail");
-    /**
      * JUnit's fail assertion method name.
      */
     private static final String FAIL = "fail";
+    /**
+     * Import statements that import junit's static `fail` method.
+     */
+    private static final List<String> JUNIT_FAIL_STATIC_IMPORTS = Arrays.asList(
+            "org.junit.Assert.*",
+            "org.junit.Assert." + FAIL,
+            "org.junit.jupiter.api.Assertions.*",
+            "org.junit.jupiter.api.Assertions." + FAIL);
 
     /**
      * {@code true} if the junit test is imported.
@@ -158,7 +160,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
             case TokenTypes.STATIC_IMPORT:
                 final String staticImprt = getImportText(ast);
 
-                if (FQ_JUNIT_FAIL_METHODS.contains(staticImprt)) {
+                if (JUNIT_FAIL_STATIC_IMPORTS.contains(staticImprt)) {
                     importStaticFail = true;
                 }
                 break;
