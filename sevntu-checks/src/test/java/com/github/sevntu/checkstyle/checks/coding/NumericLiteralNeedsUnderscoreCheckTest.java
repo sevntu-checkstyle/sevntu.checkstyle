@@ -20,27 +20,15 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck.MSG_KEY;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.internal.WhiteboxImpl;
 
-import com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck.NumericType;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(NumericType.class)
 public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSupport {
-
-    private static final String EXCEPTION_MESSAGE = "Unexpected numeric type ";
 
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
@@ -182,66 +170,6 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
                 new File("src/test/resources-noncompilable/com/github/sevntu/"
                         + "checkstyle/checks/coding/InputNumericLiteralNeedsUnderscoreCheck3.java")
                         .getCanonicalPath(), expected);
-    }
-
-    @Test
-    public void testMinSymbolsBeforeCheckingSwitchReflection() throws Exception {
-        try {
-            final NumericLiteralNeedsUnderscoreCheck check =
-                    new NumericLiteralNeedsUnderscoreCheck();
-            final NumericType mockType = PowerMockito.mock(NumericType.class);
-            WhiteboxImpl.invokeMethod(check, "minSymbolsBeforeChecking", mockType);
-            fail("exception expected");
-        }
-        catch (IllegalStateException ex) {
-            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
-                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
-        }
-    }
-
-    @Test
-    public void testMaxSymbolsUntilUnderscoreSwitchReflection() throws Exception {
-        try {
-            final NumericLiteralNeedsUnderscoreCheck check =
-                    new NumericLiteralNeedsUnderscoreCheck();
-            final NumericType mockType = PowerMockito.mock(NumericType.class);
-            WhiteboxImpl.invokeMethod(check, "maxSymbolsUntilUnderscore", mockType);
-            fail("exception expected");
-        }
-        catch (IllegalStateException ex) {
-            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
-                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
-        }
-    }
-
-    @Test
-    public void testGetNumericSegmentsSwitchReflection() throws Exception {
-        try {
-            final NumericLiteralNeedsUnderscoreCheck check =
-                    new NumericLiteralNeedsUnderscoreCheck();
-            final NumericType mockType = PowerMockito.mock(NumericType.class);
-            WhiteboxImpl.invokeMethod(check, "getNumericSegments", "", mockType);
-            fail("exception expected");
-        }
-        catch (IllegalStateException ex) {
-            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
-                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
-        }
-    }
-
-    @Test
-    public void testRemovePrePostfixByTypeSwitchReflection() throws Exception {
-        try {
-            final NumericLiteralNeedsUnderscoreCheck check =
-                    new NumericLiteralNeedsUnderscoreCheck();
-            final NumericType mockType = PowerMockito.mock(NumericType.class);
-            WhiteboxImpl.invokeMethod(check, "removePrePostfixByType", "", mockType);
-            fail("exception expected");
-        }
-        catch (IllegalStateException ex) {
-            Assert.assertTrue("Exception's message does not start with: " + EXCEPTION_MESSAGE,
-                ex.getMessage().startsWith(EXCEPTION_MESSAGE));
-        }
     }
 
 }
