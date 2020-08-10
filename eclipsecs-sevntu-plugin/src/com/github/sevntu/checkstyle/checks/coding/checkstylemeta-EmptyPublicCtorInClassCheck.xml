@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<checkstyle-metadata>
+  <module>
+    <check name="EmptyPublicCtorInClass" fully-qualified-name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck" parent="com.puppycrawl.tools.checkstyle.TreeWalker">
+      <description><![CDATA[Meta integration test description]]></description>
+      <properties>
+        <property name="classAnnotationNames" type="java.util.Regex.Pattern" default-value="javax\.persistence\.Entity">
+          <description><![CDATA[Updated desc for testing]]></description>
+        </property>
+		<property name="ctorAnnotationNames" type="java.util.Regex.Pattern" default-value="com\.google\.inject\.Inject">
+          <description><![CDATA[Updated desc for testing]]></description>
+        </property>
+      </properties>
+      <message-keys>
+        <message-key key="array.trailing.comma"/>
+      </message-keys>
+    </check>
+  </module>
+</checkstyle-metadata>
+ 
