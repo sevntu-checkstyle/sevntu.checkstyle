@@ -1,0 +1,6 @@
+---
+ruleGroups:
+  - name: "SevNTU checks"
+    description: "Check extensions developed by SevNTU"
+    priority: 50
+    package: "com.github.sevntu"

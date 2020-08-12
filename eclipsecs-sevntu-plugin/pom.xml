@@ -66,6 +66,7 @@
               <dir>src</dir>
               <excludes>
                 <exclude>**/*.properties</exclude>
+                <exclude>**/*.yml</exclude>
               </excludes>
             </validationSet>
           </validationSets>
