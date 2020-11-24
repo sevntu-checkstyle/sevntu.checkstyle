@@ -1,4 +1,7 @@
-box: maven:3.5.2-jdk-8
+box:
+  id: maven:3.5.2-jdk-8
+  username: $DOCKERHUB_USER
+  password: $DOCKERHUB_TOKEN
 
 build:
   steps:
