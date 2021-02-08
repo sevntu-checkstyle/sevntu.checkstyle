@@ -26,7 +26,6 @@ eclipse-cs)
   cd eclipse-cs/
   echo "Eclipse-cs tag: "$ECLIPSECS_TAG_NAME
   git checkout $ECLIPSECS_TAG_NAME
-  mkdir net.sf.eclipsecs.doc/docs
   mvn -B -e install
   cd ../../
   cd eclipsecs-sevntu-plugin
