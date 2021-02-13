@@ -21,6 +21,7 @@ function checkout_from {
 case $1 in
 
 no-exception-struts)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -32,14 +33,17 @@ no-exception-struts)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i'' 's/^guava/#guava/' projects-for-wercker.properties
   sed -i'' 's/#apache-struts/apache-struts/' projects-for-wercker.properties
-  groovy ./launch.groovy --listOfProjects projects-for-wercker.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-for-wercker.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-guava)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -51,14 +55,17 @@ no-exception-guava)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i'' 's/^guava/#guava/' projects-for-wercker.properties
   sed -i'' 's/#guava/guava/' projects-for-wercker.properties
-  groovy ./launch.groovy --listOfProjects projects-for-wercker.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-for-wercker.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-hibernate-orm)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -70,14 +77,17 @@ no-exception-hibernate-orm)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#hibernate-orm/hibernate-orm/' projects-to-test-on.properties
-  groovy ./launch.groovy --listOfProjects projects-for-wercker.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-for-wercker.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-spotbugs)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -89,14 +99,17 @@ no-exception-spotbugs)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#spotbugs/spotbugs/' projects-to-test-on.properties
-  groovy ./launch.groovy --listOfProjects projects-to-test-on.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-spring-framework)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -108,14 +121,17 @@ no-exception-spring-framework)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#spring-framework/spring-framework/' projects-to-test-on.properties
-  groovy ./launch.groovy --listOfProjects projects-to-test-on.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-hbase)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -127,14 +143,17 @@ no-exception-hbase)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#Hbase/Hbase/' projects-to-test-on.properties
-  groovy ./launch.groovy --listOfProjects projects-to-test-on.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-Pmd-elasticsearch-lombok-ast)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -142,20 +161,23 @@ no-exception-Pmd-elasticsearch-lombok-ast)
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
-  checkout_from https://github.com/checkstyle/contribution.git
+  checkout_from "-b issue-529 https://github.com/nmancus1/contribution "
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#pmd/pmd/' projects-to-test-on.properties
   sed -i.'' 's/#elasticsearch/elasticsearch/' projects-to-test-on.properties
   sed -i.'' 's/#lombok-ast/lombok-ast/' projects-to-test-on.properties
-  groovy ./launch.groovy --listOfProjects projects-to-test-on.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
 
 no-exception-alot-of-projects)
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
@@ -172,9 +194,11 @@ no-exception-alot-of-projects)
   sed -i.'' 's/#apache-ant/apache-ant/' projects-to-test-on.properties
   sed -i.'' 's/#apache-jsecurity/apache-jsecurity/' projects-to-test-on.properties
   sed -i.'' 's/#android-launcher/android-launcher/' projects-to-test-on.properties
-  groovy ./launch.groovy --listOfProjects projects-to-test-on.properties \
-      --config checks-sevntu-error.xml --checkstyleVersion ${CS_POM_VERSION} \
-      --sevntuVersion ${SEVNTU_POM_VERSION}
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
   ;;
