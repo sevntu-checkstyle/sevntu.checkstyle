@@ -19,8 +19,14 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.github.sevntu.checkstyle.SevntuUtil;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
@@ -31,21 +37,42 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
 
 /**
  * <p>
- * Checks if a try/catch block has a junit fail assertion inside the try for a junit method.
+ * Checks if a try/catch block has a fail assertion at the end of a try block in a JUnit test
+ * method.
  * </p>
  * <p>
  * Rationale: Tests should not complete the try block naturally if they are expecting a failure.
  * If the try completes normally the test will pass successfully and skip over any assertions in
  * the catch block.
  * If tests are not expecting exceptions, then they should remove the catch block and propagate
- * the exception to the junit caller which will display the full exception to the user.
+ * the exception to the JUnit caller which will display the full exception to the user.
  * </p>
  * <p>
- * A junit test method is identified by the annotations placed on it. It is only considered a junit
+ * A JUnit test method is identified by the annotations placed on it. It is only considered a JUnit
  * method if it contains the annotation 'org.junit.Test'. This check doesn't examine methods called
- * by a test method. It must contain the annotation. Failures are identified by the
- * method call to the method 'org.junit.Assert.fail'.
+ * by a test method. It must contain the annotation.
+ * Failures are identified by a method call to either:
  * </p>
+ * <ul>
+ * <li>
+ * <a href="https://truth.dev/api/latest/com/google/common/truth/StandardSubjectBuilder.html#fail()">
+ * com.google.common.truth.Truth#assert_.fail</a>
+ * <li>
+ * <a href="http://junit.sourceforge.net/junit3.8.1/javadoc/junit/framework/Assert.html#fail()">
+ * junit.framework.Assert#fail</a>
+ * <li>
+ * <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/Assertions.html#fail(java.lang.String)">
+ * org.assertj.core.api.Assertions#fail</a>
+ * <li>
+ * <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/Assertions.html#failBecauseExceptionWasNotThrown(java.lang.Class)">
+ * org.assertj.core.api.Assertions#failBecauseExceptionWasNotThrown</a>
+ * <li>
+ * <a href="https://junit.org/junit4/javadoc/latest/org/junit/Assert.html#fail()">
+ * org.junit.Assert#fail</a>
+ * <li>
+ * <a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html#fail()">
+ * org.junit.jupiter.api.Assertions#fail</a>
+ * </ul>
  * <p>
  * An example of how to configure the check is:
  * </p>
@@ -58,17 +85,19 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
  * <pre>
  *   &#064;Test
  *   public void testMyCase() {
- *     try { // violation here as try block has no 'Assert.fail()'.
- *       verifySomeResult();
+ *     try { // &lt;-- violation here because try block misses fail assertion.
+ *       verifySomeResult(); // &lt;-- add e.g. 'Assert.fail()' after this last statement
+ *                           //     of the try block to resolve the violation
  *     }
  *     catch (IllegalArgumentException ex) {
  *       assertEquals("expected exception message",
- *           "Some message that is expected", ex.getMessage());
+ *         "Some message that is expected", ex.getMessage());
  *     }
  *   }
  * </pre>
  *
  * @author Richard Veach
+ * @author Sebastian Thomschke
  * @since 1.25.0
  */
 public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
@@ -82,37 +111,123 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
      * Fully qualified junit test annotation.
      */
     private static final List<String> FQ_JUNIT_TESTS = Arrays.asList(
-            "org.junit.Test",
-            "org.junit.jupiter.api.Test");
+        "org.junit.Test",
+        "org.junit.jupiter.api.Test");
+
     /**
-     * JUnit's fail assertion method name.
+     * Fully qualified identifier of methods whose call would satisfies this check.
      */
-    private static final String FAIL = "fail";
+    private static final Set<String> FAIL_METHODS = new HashSet<>(Arrays.asList(
+        "com.google.common.truth.Truth#assert_.fail",
+        "junit.framework.Assert#fail",
+        "org.assertj.core.api.Assertions#fail",
+        "org.assertj.core.api.Assertions#failBecauseExceptionWasNotThrown",
+        "org.junit.Assert#fail",
+        "org.junit.jupiter.api.Assertions#fail"));
+
     /**
-     * Import statements that import junit's static `fail` method.
+     * Lookup map to determine which methods were imported based on a import.<br>
+     * <br>
+     * <b>Key:</b> FQ name of assertion class<br>
+     * <b>Value:</b> List of fail method names prefixed by simple class name<br>
+     * <br>
+     * Example:
+     * <pre>
+     * {
+     *    "org.assertj.core.api.Assertions": [
+     *      "Assertions.fail",
+     *      "Assertions.failBecauseExceptionWasNotThrown"
+     *    ],
+     *    "org.junit.Assert": [
+     *      "Assert.fail"
+     *    ]
+     * }
+     *  </pre>
      */
-    private static final List<String> JUNIT_FAIL_STATIC_IMPORTS = Arrays.asList(
-            "org.junit.Assert.*",
-            "org.junit.Assert." + FAIL,
-            "org.junit.jupiter.api.Assertions.*",
-            "org.junit.jupiter.api.Assertions." + FAIL);
+    private static final Map<String, List<String>> FAIL_METHOD_CALLS_BY_IMPORT =
+        new HashMap<>();
+
+    /**
+     * Lookup map to determine which methods were imported based on a static import.<br>
+     * <br>
+     * <b>Key:</b> static import value<br>
+     * <b>Value:</b> List of method names<br>
+     * <br>
+     * Example:
+     * <pre>
+     * {
+     *    "org.assertj.core.api.Assertions.*": [
+     *      "fail",
+     *      "failBecauseExceptionWasNotThrown"
+     *    ],
+     *    "org.assertj.core.api.Assertions.fail": [
+     *      "Assertions.fail"
+     *    ],
+     *    "org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown": [
+     *      "failBecauseExceptionWasNotThrown"
+     *    ],
+     * }
+     * </pre>
+     */
+    private static final Map<String, List<String>> FAIL_METHOD_CALLS_BY_STATIC_IMPORT =
+        new HashMap<>();
+
+    /**
+     * Reusable char to satisfy MultipleStringLiterals check.
+     */
+    private static final char CHAR_DOT = '.';
+
+    /**
+     * Reusable char to satisfy MultipleStringLiterals check.
+     */
+    private static final char CHAR_HASH = '#';
+
+    /**
+     * Same as FAIL_METHODS but with '#' replaced by '.'.
+     */
+    private static final Set<String> FAIL_METHODS_WITH_DOTS = FAIL_METHODS.stream()
+        // org.junit.Assert#fail to org.junit.Assert.fail
+        .map(entry -> entry.replace(CHAR_HASH, CHAR_DOT))
+        .collect(Collectors.toSet());
+
+    static {
+        for (final String failMethod : FAIL_METHODS) {
+            final int hashPos = failMethod.lastIndexOf(CHAR_HASH);
+            final String failMethodName =
+                failMethod.substring(hashPos + 1, failMethod.length());
+            final String failClassName = failMethod.substring(0, hashPos);
+            final int lastDotPos = failClassName.lastIndexOf(CHAR_DOT);
+            final String failClassSimpleName =
+                failClassName.substring(lastDotPos + 1, failClassName.length());
+
+            // when "import org.junit.Assert" -> accept "Assertions.fail()"
+            FAIL_METHOD_CALLS_BY_IMPORT
+                .computeIfAbsent(failClassName, key -> new ArrayList<>())
+                .add(failClassSimpleName + CHAR_DOT + failMethodName);
+
+            // when "import static org.junit.Assert.*" -> accept "fail()"
+            FAIL_METHOD_CALLS_BY_STATIC_IMPORT
+                .computeIfAbsent(failClassName + ".*", key -> new ArrayList<>())
+                .add(failMethodName);
+
+            // when "import static org.junit.Assert.fail" -> accept "fail()"
+            FAIL_METHOD_CALLS_BY_STATIC_IMPORT
+                .computeIfAbsent(failClassName + CHAR_DOT + failMethodName,
+                    key -> new ArrayList<>())
+                .add(failMethodName);
+        }
+    }
+
+    /**
+     * List of method invocations computed based on the actual class imports that satisfy
+     * this check.
+     */
+    private final Set<String> acceptedFailMethodCalls = new HashSet<>(FAIL_METHODS_WITH_DOTS);
 
     /**
      * {@code true} if the junit test is imported.
      */
     private boolean importTest;
-    /**
-     * {@code true} if the junit 4 assert is imported.
-     */
-    private boolean importJunit4Assert;
-    /**
-     * {@code true} if the junit 5 assertions is imported.
-     */
-    private boolean importJunit5Assertions;
-    /**
-     * {@code true} if the junit fail assertion method is statically imported.
-     */
-    private boolean importStaticFail;
 
     @Override
     public int[] getDefaultTokens() {
@@ -136,9 +251,6 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
     @Override
     public void beginTree(DetailAST rootAST) {
         importTest = false;
-        importJunit4Assert = false;
-        importJunit5Assertions = false;
-        importStaticFail = false;
     }
 
     @Override
@@ -150,19 +262,23 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
                 if (FQ_JUNIT_TESTS.contains(imprt)) {
                     importTest = true;
                 }
-                if ("org.junit.Assert".equals(imprt)) {
-                    importJunit4Assert = true;
+                else {
+                    final List<String> failMethodCalls = FAIL_METHOD_CALLS_BY_IMPORT.get(imprt);
+                    if (failMethodCalls != null) {
+                        acceptedFailMethodCalls.addAll(failMethodCalls);
+                    }
                 }
-                if ("org.junit.jupiter.api.Assertions".equals(imprt)) {
-                    importJunit5Assertions = true;
-                }
+
                 break;
             case TokenTypes.STATIC_IMPORT:
                 final String staticImprt = getImportText(ast);
 
-                if (JUNIT_FAIL_STATIC_IMPORTS.contains(staticImprt)) {
-                    importStaticFail = true;
+                final List<String> failMethodCall =
+                    FAIL_METHOD_CALLS_BY_STATIC_IMPORT.get(staticImprt);
+                if (failMethodCall != null) {
+                    acceptedFailMethodCalls.addAll(failMethodCall);
                 }
+
                 break;
             case TokenTypes.LITERAL_TRY:
                 examineTry(ast);
@@ -181,14 +297,33 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
     private void examineTry(DetailAST ast) {
         final DetailAST method = getMethod(ast);
 
-        if (isTestMethod(method)
-                && ast.findFirstToken(TokenTypes.LITERAL_CATCH) != null) {
-            final DetailAST last = ast.findFirstToken(TokenTypes.SLIST).getLastChild()
-                    .getPreviousSibling();
+        if (isTestMethod(method) && ast.findFirstToken(TokenTypes.LITERAL_CATCH) != null) {
 
-            if (last == null
-                    || last.getType() != TokenTypes.SEMI
-                    || !isValidFail(last.getPreviousSibling())) {
+            final DetailAST last = ast.findFirstToken(TokenTypes.SLIST)
+                .getLastChild()
+                .getPreviousSibling();
+
+            final boolean isValid;
+            if (last == null) {
+                isValid = false;
+            }
+            else {
+                switch (last.getType()) {
+                    case TokenTypes.LITERAL_THROW:
+                        // if the last statement within a try-catch block is a throw statement,
+                        // we do not need a fail() assertion
+                        isValid = true;
+                        break;
+                    case TokenTypes.SEMI:
+                        isValid = isValidFail(last.getPreviousSibling());
+                        break;
+                    default:
+                        isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                // report check violation
                 log(ast, MSG_KEY);
             }
         }
@@ -223,17 +358,25 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
         if (expression.getFirstChild().getType() == TokenTypes.METHOD_CALL) {
             final DetailAST ident = expression.getFirstChild().getFirstChild();
 
-            if ((importJunit4Assert || importJunit5Assertions)
-                    && ident.getType() == TokenTypes.DOT) {
-                final DetailAST firstChild = ident.getFirstChild();
-
-                result = (importJunit4Assert && "Assert".equals(firstChild.getText())
-                            || importJunit5Assertions && "Assertions".equals(firstChild.getText()))
-                        && FAIL.equals(firstChild.getNextSibling().getText());
+            final String methodCall;
+            if (ident.getType() == TokenTypes.IDENT) {
+                // e.g. fail("");
+                methodCall = ident.getText();
             }
-            else if (importStaticFail) {
-                result = FAIL.equals(ident.getText());
+            else {
+                final DetailAST identChild = ident.getFirstChild();
+                if (identChild.getType() == TokenTypes.METHOD_CALL) {
+                    // e.g. Truth.assert_().fail()
+                    methodCall = FullIdent.createFullIdent(identChild.getFirstChild()).getText()
+                        + "."
+                        + FullIdent.createFullIdent(ident.getLastChild()).getText();
+                }
+                else {
+                    // e.g. Assert.fail("");
+                    methodCall = FullIdent.createFullIdent(ident).getText();
+                }
             }
+            result = acceptedFailMethodCalls.contains(methodCall);
         }
 
         return result;
