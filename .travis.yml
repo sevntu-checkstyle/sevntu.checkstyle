@@ -74,7 +74,7 @@ matrix:
         - CMD="./.ci/travis.sh pr-description"
 
     # https://sonarcloud.io (openjdk8)
-    - jdk: openjdk8
+    - jdk: openjdk11
       env:
         - DESC="sonarcloud.io"
         - USE_MAVEN_REPO="true"
