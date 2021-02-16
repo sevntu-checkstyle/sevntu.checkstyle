@@ -1,5 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -37,6 +38,16 @@ public class InputRequireFailForTryCatchInJunitCheck1 {
         }
         try (MyAutoClosable test = new MyAutoClosable()) {
             test.close();
+        }
+    }
+
+    @Test
+    public void method5() {
+        try {
+            throw new NullPointerException();
+        }
+        catch (Exception expected) {
+            assertThat(expected).isInstanceOf(NullPointerException.class);
         }
     }
 }
