@@ -26,7 +26,7 @@
     <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
     <pmd.version>6.13.0</pmd.version>
     <java.version>1.8</java.version>
-    <junit.version>5.5.2</junit.version>
+    <junit.version>5.7.1</junit.version>
     <assertj.version>3.19.0</assertj.version>
     <truth.version>1.1.2</truth.version>
   </properties>
