@@ -26,9 +26,6 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-/**
- * @author <a href="mailto:vadim.panasiuk@gmail.com">Vadim Panasiuk</a>
- */
 public class ConfusingConditionCheckTest extends AbstractModuleTestSupport {
 
     private final String warningMessage = getCheckMessage(MSG_KEY);

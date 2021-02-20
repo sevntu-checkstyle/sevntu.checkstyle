@@ -14,10 +14,6 @@
     <!-- END of legacy code -->
 
     <!-- Tone down the checking for test code -->
-    <suppress checks="Javadoc|DesignForExtension" files=".*[\\/]src[\\/]test[\\/]"/>
-    <suppress checks="MagicNumber" files=".*[\\/]src[\\/]test[\\/]"/>
-    <suppress checks="AvoidStaticImport" files=".*[\\/]src[\\/]test[\\/]"/>
-    <suppress checks="WriteTag" files=".*[\\/]src[\\/]test[\\/]"/>
     <suppress checks="IllegalCatch" files="[\\/]internal[\\/]\w+Util\.java"/>
 
     <!-- we can not change name of pre-existing Check -->

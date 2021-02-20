@@ -24,10 +24,6 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-/**
- * @author <a href="mailto:denant0vz@gmail.com">Denis Antonenkov</a>
- * @author <a href="mailto:zuy_alexey@mail.ru">Zuy Alexey</a>
- */
 public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleTestSupport {
 
     @Override

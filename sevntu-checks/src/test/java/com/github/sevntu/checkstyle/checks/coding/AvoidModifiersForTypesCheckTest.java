@@ -30,13 +30,6 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.DetailAstImpl;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-/**
- * <p>
- *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
- * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
- * </p>
- */
 public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
 
     @Override

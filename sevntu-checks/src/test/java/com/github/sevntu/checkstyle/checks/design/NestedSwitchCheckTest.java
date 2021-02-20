@@ -27,9 +27,6 @@ import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
-/**
- * @author Damian Szczepanik (damianszczepanik@github)
- */
 public class NestedSwitchCheckTest extends AbstractModuleTestSupport {
 
     @Override

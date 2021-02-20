@@ -33,7 +33,7 @@ public class HideUtilityClassConstructorCheckTest extends AbstractModuleTestSupp
         return "com/github/sevntu/checkstyle/checks/design";
     }
 
-    /** Only static methods and no constructor - default ctor is visible */
+    /** Only static methods and no constructor - default ctor is visible. */
     @Test
     public void testUtilClass() throws Exception {
         final DefaultConfiguration checkConfig =
@@ -44,7 +44,7 @@ public class HideUtilityClassConstructorCheckTest extends AbstractModuleTestSupp
         verify(checkConfig, getPath("InputHideUtilityClassConstructorCheck.java"), expected);
     }
 
-    /** Non static methods - always OK */
+    /** Non static methods - always OK. */
     @Test
     public void testNonUtilClass() throws Exception {
         final DefaultConfiguration checkConfig =
