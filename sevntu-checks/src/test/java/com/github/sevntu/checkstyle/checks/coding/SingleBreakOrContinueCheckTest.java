@@ -26,9 +26,6 @@ import org.junit.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
-/**
- * @author <a href="mailto:yasser.aziza@gmail.com"> Yasser Aziza </a>
- */
 public class SingleBreakOrContinueCheckTest extends AbstractModuleTestSupport {
 
     /**
