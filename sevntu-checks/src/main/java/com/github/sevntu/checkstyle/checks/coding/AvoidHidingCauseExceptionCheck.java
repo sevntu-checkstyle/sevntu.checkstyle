@@ -165,7 +165,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      * without entering into nested try/catch blocks.
      *
      * @param parentAST A start node for "throw" keyword <code>DetailASTs
-     * </code> searching.
+     *     </code> searching.
      * @return null-safe list of <code>LITERAL_THROW</code> literals
      */
     private List<DetailAST> makeThrowList(DetailAST parentAST) {
