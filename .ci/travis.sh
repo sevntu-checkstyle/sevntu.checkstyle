@@ -96,7 +96,7 @@ checkstyle-regression)
   # execute checkstyle validation on updated config file
   cd .ci-temp/checkstyle
   mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
-      -Dfindbugs.skip=true -Dcobertura.skip=true \
+      -Dfindbugs.skip=true -Dcobertura.skip=true -Dxml.skip=true \
       -Dmaven.sevntu-checkstyle-check.checkstyle.version=$ECLIPSE_CS_VERSION \
       -Dmaven.sevntu.checkstyle.plugin.version=$SEVNTU_VERSION
   ;;
