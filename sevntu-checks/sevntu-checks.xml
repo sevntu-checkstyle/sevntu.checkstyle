@@ -161,6 +161,9 @@
     <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck" />
     <module name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck" />
+    <module name="com.github.sevntu.checkstyle.checks.coding.PreferMethodReferenceCheck">
+      <property name="detectForExpression" value="true" />
+    </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck">
       <!-- we ignore this Check only because we are not ready to follow it and refactor whole project for now-->
       <property name="severity" value="ignore"/>

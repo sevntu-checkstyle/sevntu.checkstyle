@@ -623,6 +623,19 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.PreferMethodReferenceCheck</key>
+    <name>Lambda usage can be replaced with method reference.</name>
+    <tag>coding</tag>
+    <description>Checks that lambda usage can be replaced with method reference.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.PreferMethodReferenceCheck</configKey>
+
+    <param key="detectForExpression" type="BOOLEAN">
+      <defaultValue>true</defaultValue>
+      <description>If true, enable detection for cases when method in lambda is invoked on expression.</description>
+    </param>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck</key>
     <name>Public Reference To Private Type</name>
     <tag>design</tag>
