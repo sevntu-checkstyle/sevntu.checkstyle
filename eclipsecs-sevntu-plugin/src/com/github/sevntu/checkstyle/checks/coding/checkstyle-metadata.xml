@@ -505,6 +505,17 @@
       <message-key key="either.log.or.throw"/>
     </rule-metadata>
 
+    <rule-metadata name="%PreferMethodReferenceCheck.name" internal-name="PreferMethodReferenceCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.PreferMethodReferenceCheck" />
+      <description>%PreferMethodReferenceCheck.desc</description>
+
+      <property-metadata name="detectForExpression" datatype="Boolean" default-value="true">
+        <description>%PreferMethodReferenceCheck.detectForExpression</description>
+      </property-metadata>
+
+      <message-key key="method.reference"/>
+    </rule-metadata>
+
     <rule-metadata name="%RedundantReturnCheck.name" internal-name="RedundantReturnCheck" parent="TreeWalker">
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck"/>
       <description>%RedundantReturnCheck.desc</description>
