@@ -22,5 +22,8 @@
     <!-- Fixing these cases will decrease code readability -->
     <suppress checks="MultipleStringLiterals" files=".*[\\/]src[\\/]test[\\/]"/>
     <suppress checks="Translation" files=".*"/>
+    
+    <!-- this is allowed and legacy use case -->
+    <suppress id="noUsageOfGetFileContents()Method" files="TernaryPerExpressionCountCheck.java"/>
 
 </suppressions>
