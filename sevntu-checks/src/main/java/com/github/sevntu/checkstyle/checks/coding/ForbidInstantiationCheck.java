@@ -188,10 +188,10 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      *
      * @param importText
      *        - String representation of imports from the processed class.
-     * @param className
-     *        - the name of the class to check.
      * @param forbiddenClassNameAndPath
      *        - full name&path of the given forbidden class.
+     * @param className
+     *        - the name of the class to check.
      * @return true if the class with given className is imported with the
      *         forbidden import and false otherwise.
      */
@@ -211,10 +211,10 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      *
      * @param importText
      *        - String representation of imports from the processed class.
-     * @param className
-     *        - the name of the class to check.
      * @param forbiddenClassNameAndPath
      *        - full name&path of the given forbidden class.
+     * @param className
+     *        - the name of the class to check.
      * @return true if the class with given className is imported with the
      *         forbidden import and false otherwise.
      */
