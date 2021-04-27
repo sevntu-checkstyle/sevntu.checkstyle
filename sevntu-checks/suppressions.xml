@@ -26,4 +26,10 @@
     <!-- this is allowed and legacy use case -->
     <suppress id="noUsageOfGetFileContents()Method" files="TernaryPerExpressionCountCheck.java"/>
 
+    <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/669 -->
+    <suppress id="MatchXPathBranchContains" files="[\\/]LogicConditionNeedOptimizationCheck.java"/>
+    <suppress id="MatchXPathBranchContains" files="[\\/]NoNullForCollectionReturnCheck.java"/>
+    <suppress id="MatchXPathBranchContains" files="[\\/]ConfusingConditionCheck.java"/>
+    <suppress id="MatchXPathBranchContains" files="[\\/]StaticMethodCandidateCheck.java"/>
+
 </suppressions>
