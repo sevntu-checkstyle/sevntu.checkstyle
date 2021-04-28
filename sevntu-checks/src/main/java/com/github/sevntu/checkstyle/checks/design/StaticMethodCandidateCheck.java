@@ -243,8 +243,8 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     /**
      * Create a new Frame from METHOD_DEF ast.
      *
-     * @param ast METHOD_DEF ast.
      * @param parentFrame the parent frame for a new frame.
+     * @param ast METHOD_DEF ast.
      * @return a new frame with the set fields.
      */
     private Frame createMethodFrame(Frame parentFrame, DetailAST ast) {
@@ -282,8 +282,8 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * Create a new Frame from CLASS_DEF, LITERAL_IF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO,
      * LITERAL_CATCH, LITERAL_TRY, CTOR_DEF, ENUM_DEF.
      *
-     * @param ast the processed ast.
      * @param parentFrame the parent frame for a new frame.
+     * @param ast the processed ast.
      * @return a new frame with the set fields.
      */
     private static Frame createFrame(Frame parentFrame, DetailAST ast) {

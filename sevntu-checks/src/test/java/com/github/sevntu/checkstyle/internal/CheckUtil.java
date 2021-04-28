@@ -191,7 +191,7 @@ public final class CheckUtil {
      * Gets the check message 'as is' from appropriate 'messages.properties'
      * file.
      *
-     * @param locale the locale to get the message for.
+     * @param module the module to load resources from.
      * @param messageKey the key of message in 'messages*.properties' file.
      * @param arguments the arguments of message in 'messages*.properties' file.
      * @return the check's formatted message.
