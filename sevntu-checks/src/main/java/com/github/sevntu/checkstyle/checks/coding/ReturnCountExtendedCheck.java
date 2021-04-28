@@ -307,12 +307,12 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * last "return" statement DetailAST node for given method/ctor/lambda body. Uses
      * an iterative algorithm.
      *
-     * @param methodOpeningBrace
-     *        a DetailAST node that points to the current method`s opening
-     *        brace.
      * @param methodDefNode
      *        DetailAST node is pointing to current method definition is being
      *        processed.
+     * @param methodOpeningBrace
+     *        a DetailAST node that points to the current method`s opening
+     *        brace.
      * @return "return" literals count for given method.
      */
     private int getReturnCount(final DetailAST methodDefNode,
