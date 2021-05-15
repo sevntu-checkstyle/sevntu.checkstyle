@@ -68,11 +68,6 @@ matrix:
         - USE_MAVEN_REPO="true"
         - CMD="./.ci/travis.sh eclipse-analysis"
 
-    # testing of PR format
-    - env:
-        - DESC="test Issue ref in PR description"
-        - CMD="./.ci/travis.sh pr-description"
-
     # https://sonarcloud.io (openjdk8)
     - jdk: openjdk11
       env:
