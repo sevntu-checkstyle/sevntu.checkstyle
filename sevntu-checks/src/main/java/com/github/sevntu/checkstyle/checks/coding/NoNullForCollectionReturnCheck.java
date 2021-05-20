@@ -181,10 +181,11 @@ public class NoNullForCollectionReturnCheck extends AbstractCheck {
      * @return true, when method return collection.
      */
     private boolean isReturnCollection(DetailAST methodDef) {
-        DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
-        methodType = methodType.getFirstChild();
-        return methodType.getType() == TokenTypes.ARRAY_DECLARATOR
-                || collectionList.contains(methodType.getText());
+        final DetailAST methodType = methodDef.findFirstToken(TokenTypes.TYPE);
+        final boolean isArrayType =
+                methodType.findFirstToken(TokenTypes.ARRAY_DECLARATOR) != null;
+        return isArrayType
+                || collectionList.contains(methodType.getFirstChild().getText());
     }
 
     /**

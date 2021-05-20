@@ -21,9 +21,11 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 
@@ -80,9 +82,9 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     public static final String MSG_KEY = "avoid.not.short.circuit.operators.for.boolean";
 
     /**
-     * A "boolean" String.
-     * */
-    private static final String BOOLEAN = "boolean";
+     * Pattern to match boolean types, including array types.
+     */
+    private static final Pattern BOOLEAN_TYPE_PATTERN = Pattern.compile("^boolean(\\[[^]]*])*");
 
     /**
      * A list contains all names of operands, which are used in the current
@@ -140,8 +142,11 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      * @return "true" if current method or variable has a Boolean type.
      */
     private static boolean isBooleanType(final DetailAST node) {
-        return BOOLEAN.equals(CheckUtil.createFullType(
-                node.findFirstToken(TokenTypes.TYPE)).getText());
+        final FullIdent methodOrVariableType =
+                CheckUtil.createFullType(node.findFirstToken(TokenTypes.TYPE));
+        return BOOLEAN_TYPE_PATTERN
+                .matcher(methodOrVariableType.getText())
+                .find();
     }
 
     /**
