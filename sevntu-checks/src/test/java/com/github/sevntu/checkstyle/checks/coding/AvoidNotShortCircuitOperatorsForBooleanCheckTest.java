@@ -78,4 +78,16 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractMo
             CommonUtil.EMPTY_STRING_ARRAY);
     }
 
+    @Test
+    public final void testBitwiseOrAfterArrayIndex() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(AvoidNotShortCircuitOperatorsForBooleanCheck.class);
+        final String[] expected = {
+            "6:19: " + getCheckMessage(MSG_KEY, "|="),
+            "8:20: " + getCheckMessage(MSG_KEY, "|="),
+        };
+        verify(checkConfig,
+                getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckBitwiseAfterArray.java"),
+                expected);
+    }
 }
