@@ -56,7 +56,8 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
  * <ul>
  * <li>
  * <a href="https://truth.dev/api/latest/com/google/common/truth/StandardSubjectBuilder.html#fail()">
- * com.google.common.truth.Truth#assert_.fail</a>
+ * com.google.common.truth.Truth#assert_.fail,
+ * com.google.common.truth.Truth#assertWithMessage.fail</a>
  * <li>
  * <a href="http://junit.sourceforge.net/junit3.8.1/javadoc/junit/framework/Assert.html#fail()">
  * junit.framework.Assert#fail</a>
@@ -119,6 +120,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
      */
     private static final Set<String> FAIL_METHODS = new HashSet<>(Arrays.asList(
         "com.google.common.truth.Truth#assert_.fail",
+        "com.google.common.truth.Truth#assertWithMessage.fail",
         "junit.framework.Assert#fail",
         "org.assertj.core.api.Assertions#fail",
         "org.assertj.core.api.Assertions#failBecauseExceptionWasNotThrown",
@@ -200,7 +202,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
             final String failClassSimpleName =
                 failClassName.substring(lastDotPos + 1, failClassName.length());
 
-            // when "import org.junit.Assert" -> accept "Assertions.fail()"
+            // when "import org.junit.jupiter.api.Assertions" -> accept "Assertions.fail()"
             FAIL_METHOD_CALLS_BY_IMPORT
                 .computeIfAbsent(failClassName, key -> new ArrayList<>())
                 .add(failClassSimpleName + CHAR_DOT + failMethodName);
@@ -211,8 +213,11 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
                 .add(failMethodName);
 
             // when "import static org.junit.Assert.fail" -> accept "fail()"
+            // when "import static com.google.common.truth.Truth#assertWithMessage"
+            //      -> accept "assertWithMessage.fail()"
             FAIL_METHOD_CALLS_BY_STATIC_IMPORT
-                .computeIfAbsent(failClassName + CHAR_DOT + failMethodName,
+                .computeIfAbsent(failClassName + CHAR_DOT
+                            + getMethodNameForStaticImport(failMethodName),
                     key -> new ArrayList<>())
                 .add(failMethodName);
         }
@@ -364,9 +369,10 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
                 methodCall = ident.getText();
             }
             else {
-                final DetailAST identChild = ident.getFirstChild();
+                DetailAST identChild = ident.getFirstChild();
                 if (identChild.getType() == TokenTypes.METHOD_CALL) {
-                    // e.g. Truth.assert_().fail()
+                    // e.g. Truth.assert_().withMessage("...").fail()
+                    identChild = getLastMethodInChain(identChild);
                     methodCall = FullIdent.createFullIdent(identChild.getFirstChild()).getText()
                         + "."
                         + FullIdent.createFullIdent(ident.getLastChild()).getText();
@@ -379,6 +385,24 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
             result = acceptedFailMethodCalls.contains(methodCall);
         }
 
+        return result;
+    }
+
+    /**
+     * Returns the last method in the method chain.
+     * For {@code Truth.assert_().withMessage().withMessage().fail()} this will be {@code fail}.
+     *
+     * @param methodCall the method call AST
+     * @return the AST of the last method call in the chain
+     */
+    private static DetailAST getLastMethodInChain(DetailAST methodCall) {
+        DetailAST result = methodCall;
+        DetailAST child = result.getFirstChild();
+        while (child.getType() == TokenTypes.DOT
+                && child.getFirstChild().getType() == TokenTypes.METHOD_CALL) {
+            result = child.getFirstChild();
+            child = result.getFirstChild();
+        }
         return result;
     }
 
@@ -420,6 +444,27 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
             imp = FullIdent.createFullIdent(ast.getFirstChild().getNextSibling());
         }
         return imp.getText();
+    }
+
+    /**
+     * Returns the method name to bind with static imports.
+     * For the regular methods like {@code junit.framework.Assert#fail}
+     * the result will be {@code fail}. For the chained methods like
+     * {@code com.google.common.truth.Truth#assert_.fail} the result will be {@code assert_}.
+     *
+     * @param methodName the accepted method(s) name
+     * @return the method name for static imports
+     */
+    private static String getMethodNameForStaticImport(String methodName) {
+        final String result;
+        final int dotPos = methodName.indexOf(CHAR_DOT);
+        if (dotPos < 0) {
+            result = methodName;
+        }
+        else {
+            result = methodName.substring(0, dotPos);
+        }
+        return result;
     }
 
 }
