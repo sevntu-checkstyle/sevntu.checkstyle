@@ -145,13 +145,29 @@ public class RequireFailForTryCatchInJunitCheckTest extends AbstractModuleTestSu
     }
 
     @Test
-    public void testTruthSupport() throws Exception {
+    public void testTruthSupportStaticImport() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = {
+            "106:9: " + getCheckMessage(MSG_KEY),
+            "117:9: " + getCheckMessage(MSG_KEY),
+            "49:9: " + getCheckMessage(MSG_KEY),
+        };
+        verify(checkConfig, getPath(
+            "InputRequireFailForTryCatchInJunitCheckTruthStaticImport.java"), expected);
+    }
+
+    @Test
+    public void testTruthSupportStarImport() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
+        final String[] expected = {
+            "104:9: " + getCheckMessage(MSG_KEY),
+            "115:9: " + getCheckMessage(MSG_KEY),
             "47:9: " + getCheckMessage(MSG_KEY),
         };
-        verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck11.java"), expected);
+        verify(checkConfig, getPath(
+            "InputRequireFailForTryCatchInJunitCheckTruthStarImport.java"), expected);
     }
 
     @Test
