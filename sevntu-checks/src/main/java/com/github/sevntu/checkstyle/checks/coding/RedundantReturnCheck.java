@@ -236,7 +236,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     private static List<DetailAST> getRedundantReturnsInTryCatchBlock(DetailAST tryAst) {
         final List<DetailAST> redundantReturns = new ArrayList<>();
 
-        DetailAST tryBlockAst = null;
+        final DetailAST tryBlockAst;
 
         if (tryAst.getFirstChild().getType() == TokenTypes.RESOURCE_SPECIFICATION) {
             tryBlockAst = tryAst.getFirstChild().getNextSibling();
@@ -338,9 +338,9 @@ public class RedundantReturnCheck extends AbstractCheck {
      */
     private static DetailAST findRedundantReturnInCatch(DetailAST lastStatementInCatchBlockAst) {
         DetailAST redundantReturnAst = null;
-        DetailAST currentNodeAst = lastStatementInCatchBlockAst;
-        DetailAST returnAst = null;
-        DetailAST toVisitAst = SevntuUtil.getNextSubTreeNode(currentNodeAst, currentNodeAst);
+        DetailAST returnAst;
+        DetailAST toVisitAst = SevntuUtil.getNextSubTreeNode(lastStatementInCatchBlockAst,
+                lastStatementInCatchBlockAst);
 
         while (toVisitAst != null) {
             if (toVisitAst.getType() == TokenTypes.OBJBLOCK) {
@@ -353,7 +353,7 @@ public class RedundantReturnCheck extends AbstractCheck {
                 returnAst = toVisitAst;
 
                 while (toVisitAst != null
-                            && toVisitAst.getParent() != currentNodeAst.getLastChild()) {
+                        && toVisitAst.getParent() != lastStatementInCatchBlockAst.getLastChild()) {
                     toVisitAst = toVisitAst.getParent();
                 }
 
@@ -364,11 +364,9 @@ public class RedundantReturnCheck extends AbstractCheck {
                 toVisitAst = returnAst;
             }
 
-            toVisitAst = SevntuUtil.getNextSubTreeNode(toVisitAst, currentNodeAst);
+            toVisitAst = SevntuUtil.getNextSubTreeNode(toVisitAst, lastStatementInCatchBlockAst);
         }
 
-        currentNodeAst = SevntuUtil.getNextSubTreeNode(currentNodeAst,
-                lastStatementInCatchBlockAst);
         return redundantReturnAst;
     }
 

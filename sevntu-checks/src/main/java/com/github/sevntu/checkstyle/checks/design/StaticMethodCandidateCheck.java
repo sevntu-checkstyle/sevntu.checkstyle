@@ -74,7 +74,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     private static final String COMMA_SEPARATOR = ",";
 
     /** Default method names to skip during the check. */
-    private static final String[] DEFAULT_SKIPPED_METHODS = new String[] {
+    private static final String[] DEFAULT_SKIPPED_METHODS = {
         "writeObject",
         "readObject",
         "readObjectNoData",
@@ -83,7 +83,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     };
 
     /** Array of tokens which are frames. */
-    private static final int[] FRAME_TOKENS = new int[] {
+    private static final int[] FRAME_TOKENS = {
         TokenTypes.CLASS_DEF,
         TokenTypes.METHOD_DEF,
         TokenTypes.LITERAL_IF,

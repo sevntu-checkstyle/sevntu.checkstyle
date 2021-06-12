@@ -24,7 +24,7 @@
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.jacoco.plugin.version>0.8.6</maven.jacoco.plugin.version>
     <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
-    <pmd.version>6.13.0</pmd.version>
+    <pmd.version>6.35.0</pmd.version>
     <java.version>1.8</java.version>
     <junit.version>5.7.1</junit.version>
     <assertj.version>3.19.0</assertj.version>
@@ -480,7 +480,7 @@
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.98</minimum>
+                      <minimum>0.97</minimum>
                     </limit>
                     <limit>
                       <counter>BRANCH</counter>

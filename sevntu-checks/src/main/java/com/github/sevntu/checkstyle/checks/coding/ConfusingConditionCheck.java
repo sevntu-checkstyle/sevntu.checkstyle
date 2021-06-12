@@ -292,7 +292,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
      * @return The opening brace token or {@code null} if it doesn't exist.
      */
     private static DetailAST getFirstBrace(DetailAST detailAST) {
-        DetailAST firstBrace = null;
+        DetailAST firstBrace;
 
         if (detailAST.getType() == TokenTypes.LITERAL_ELSE) {
             firstBrace = detailAST.getFirstChild();

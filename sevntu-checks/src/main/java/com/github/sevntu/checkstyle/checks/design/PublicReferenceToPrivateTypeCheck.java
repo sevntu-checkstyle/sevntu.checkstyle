@@ -209,7 +209,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private static List<DetailAST>
             getMethodOrFieldReferencedTypes(DetailAST typeAst) {
-        DetailAST returnedType = null;
+        DetailAST returnedType;
         final List<DetailAST> returnedTypes = new ArrayList<>();
         DetailAST currentNode = typeAst;
         while (currentNode != null) {
@@ -234,7 +234,7 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
 
         if (parametersDefAst.getFirstChild() != null) {
             DetailAST currentNode = parametersDefAst;
-            DetailAST parameterType = null;
+            DetailAST parameterType;
 
             while (currentNode != null) {
                 if (currentNode.getType() == TokenTypes.PARAMETER_DEF) {

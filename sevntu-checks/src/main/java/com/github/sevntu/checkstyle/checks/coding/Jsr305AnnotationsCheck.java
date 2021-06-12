@@ -612,7 +612,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
      */
     protected static boolean isVoid(DetailAST ast) {
         final DetailAST parameterType = ast.findFirstToken(TokenTypes.TYPE);
-        boolean result = false;
+        final boolean result;
         final DetailAST identToken = parameterType.getFirstChild();
         result = identToken.getType() == TokenTypes.LITERAL_VOID;
         return result;

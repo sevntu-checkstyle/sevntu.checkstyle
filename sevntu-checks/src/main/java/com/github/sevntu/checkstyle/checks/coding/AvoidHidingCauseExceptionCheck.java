@@ -213,7 +213,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
                 }
 
                 if (temp.getType() == TokenTypes.ASSIGN) {
-                    DetailAST convertedExc = null;
+                    final DetailAST convertedExc;
                     if (temp.getParent().getType() == TokenTypes.VARIABLE_DEF) {
                         convertedExc = temp.getParent().findFirstToken(TokenTypes.IDENT);
                     }

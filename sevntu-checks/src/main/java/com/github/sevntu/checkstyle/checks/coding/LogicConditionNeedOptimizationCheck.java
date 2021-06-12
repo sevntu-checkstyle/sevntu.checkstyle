@@ -174,7 +174,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      *     contains a token of type {@code type}.
      */
     private static boolean branchContains(DetailAST start, DetailAST end, int type) {
-        boolean result = false;
+        boolean result;
         DetailAST current = start;
 
         while (true) {
