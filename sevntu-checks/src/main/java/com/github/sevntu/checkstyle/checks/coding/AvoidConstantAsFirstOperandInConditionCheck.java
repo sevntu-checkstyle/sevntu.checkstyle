@@ -67,7 +67,7 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
     /**
      * Field is array of default target constant types.
      */
-    private int[] targetConstantTypes = new int[] {
+    private int[] targetConstantTypes = {
         TokenTypes.LITERAL_TRUE,
         TokenTypes.LITERAL_FALSE,
         TokenTypes.LITERAL_NULL,

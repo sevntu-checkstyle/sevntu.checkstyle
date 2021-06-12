@@ -413,7 +413,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      */
     private boolean isIgnoreCase(DetailAST methodDefAst,
             List<DetailAST> wildcardTypeArguments) {
-        boolean result = false;
+        final boolean result;
         if (matchesIgnoreClassNames(methodDefAst)) {
             result = true;
         }

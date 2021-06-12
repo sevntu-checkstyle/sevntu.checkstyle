@@ -9,4 +9,12 @@
     </description>
     <exclude-pattern>.*/src/test/.*</exclude-pattern>
     <rule ref="pmd.xml"/>
+
+    <!-- Till https://github.com/pmd/pmd/issues/3292 -->
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
+        <properties>
+            <property name="violationSuppressXPath"
+                     value="//ClassOrInterfaceDeclaration[@SimpleName ='ForbidCertainMethodCheck']"/>
+        </properties>
+    </rule>
 </ruleset>

@@ -226,7 +226,7 @@ public class AllChecksTest {
 
     private static void grabAllTests(Map<String, List<String>> allTests, File file) {
         if (file.isFile() && file.getName().endsWith("Test.java")) {
-            String path = null;
+            final String path;
 
             try {
                 path = getSimplePath(file.getCanonicalPath()).replace("Test.java", "");
@@ -252,7 +252,7 @@ public class AllChecksTest {
 
     private static void verifyInputFile(Map<String, List<String>> allTests, File file) {
         if (file.isFile()) {
-            String path = null;
+            final String path;
 
             try {
                 path = getSimplePath(file.getCanonicalPath());
@@ -261,7 +261,7 @@ public class AllChecksTest {
                 throw new IllegalStateException(ex);
             }
 
-            String fileName = file.getName().toString();
+            String fileName = file.getName();
 
             Assert.assertTrue("Resource must start with 'Input': " + path,
                     fileName.startsWith("Input"));

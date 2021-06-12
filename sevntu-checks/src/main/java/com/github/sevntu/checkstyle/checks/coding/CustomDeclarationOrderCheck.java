@@ -1066,7 +1066,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * @return true if aMethodAST is a main method, false otherwise.
      */
     private static boolean isMainMethod(final DetailAST methodAST) {
-        boolean result = true;
+        final boolean result;
         final String methodName = getIdentifier(methodAST);
         if ("main".equals(methodName)) {
             result = isVoidType(methodAST)
@@ -1138,7 +1138,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * @return true if AST has String[] parameter child token, false otherwise.
      */
     private static boolean hasOnlyStringArrayParameter(final DetailAST parametersAST) {
-        boolean result = true;
+        final boolean result;
         if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) == 1) {
             final DetailAST parameterDefinitionAST =
                     parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);
@@ -1172,7 +1172,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      *         otherwise.
      */
     private static boolean hasOnlyStringEllipsisParameter(final DetailAST parametersAST) {
-        boolean result = true;
+        final boolean result;
         if (parametersAST.getChildCount(TokenTypes.PARAMETER_DEF) == 1) {
             final DetailAST parameterDefinitionAST =
                     parametersAST.findFirstToken(TokenTypes.PARAMETER_DEF);

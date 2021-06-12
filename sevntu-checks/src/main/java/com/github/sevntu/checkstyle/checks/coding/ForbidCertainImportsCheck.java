@@ -228,7 +228,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
      *         "package"/"import" words or semicolons.
      */
     private static String getText(DetailAST packageDefOrImportNode) {
-        String result = null;
+        final String result;
 
         final DetailAST identNode = packageDefOrImportNode.findFirstToken(TokenTypes.IDENT);
 

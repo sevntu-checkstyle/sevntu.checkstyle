@@ -20,7 +20,7 @@
     <properties>
       <!-- it is ok to use println in CheckstyleRegression class. -->
       <property name="violationSuppressXPath"
-                value="//ClassOrInterfaceDeclaration[@Image='CheckstyleRegressionTest']"/>
+                value="//ClassOrInterfaceDeclaration[@SimpleName='CheckstyleRegressionTest']"/>
     </properties>
   </rule>
 
@@ -76,7 +76,7 @@
 
       <!-- Property name can't change or it would break compatibility. -->
       <property name="violationSuppressXPath"
-                value="//ClassOrInterfaceDeclaration[@Image='UselessSuperCtorCallCheck']"/>
+                value="//ClassOrInterfaceDeclaration[@SimpleName='UselessSuperCtorCallCheck']"/>
     </properties>
   </rule>
   <rule ref="category/java/errorprone.xml">
@@ -127,6 +127,7 @@
     <exclude name="LoosePackageCoupling"/>
 
     <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/525 -->
+    <exclude name="CognitiveComplexity"/>
     <exclude name="CyclomaticComplexity"/>
     <exclude name="NcssCount"/>
     <exclude name="TooManyMethods"/>
@@ -162,7 +163,7 @@
       <property name="xpath">
         <value>
           <![CDATA[
-          //VariableDeclaratorId[string-length(@Image) < 2]
+          //VariableDeclaratorId[string-length(@Name) < 2]
           [not(ancestor::ForInit)]
           [not(../../VariableDeclarator and ../../../LocalVariableDeclaration
                 and ../../../../ForStatement)]
