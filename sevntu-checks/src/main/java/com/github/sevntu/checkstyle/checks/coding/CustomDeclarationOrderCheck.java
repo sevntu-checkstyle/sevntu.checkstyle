@@ -1145,10 +1145,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             final DetailAST parameterTypeAST = parameterDefinitionAST
                     .findFirstToken(TokenTypes.TYPE);
             if (hasChildToken(parameterTypeAST, TokenTypes.ARRAY_DECLARATOR)) {
-                final DetailAST arrayDeclaratorAST = parameterTypeAST
-                        .findFirstToken(TokenTypes.ARRAY_DECLARATOR);
                 final String parameterName =
-                        getIdentifier(arrayDeclaratorAST);
+                        parameterTypeAST.getFirstChild().getText();
                 result = "String".equals(parameterName);
             }
             else {

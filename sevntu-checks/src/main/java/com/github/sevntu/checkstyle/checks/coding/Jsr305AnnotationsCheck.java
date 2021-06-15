@@ -31,6 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * <p>
@@ -585,22 +586,17 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
     /**
      * Checks whether token is array or elipsis.
      *
-     * @param identToken
+     * @param typeToken
      *        the token
      * @return true if yes
      */
-    private static boolean isArrayOrElipsis(final DetailAST identToken) {
-        final DetailAST next = identToken.getNextSibling();
-        final boolean result;
-        switch (next.getType()) {
-            case TokenTypes.ARRAY_DECLARATOR:
-            case TokenTypes.ELLIPSIS:
-                result = true;
-                break;
-            default:
-                result = false;
-        }
-        return result;
+    private static boolean isArrayOrElipsis(final DetailAST typeToken) {
+        final DetailAST next = typeToken.getNextSibling();
+        final boolean isArrayDeclarator =
+                typeToken.findFirstToken(TokenTypes.ARRAY_DECLARATOR) != null;
+        final boolean hasArrayOrEllipses =
+                TokenUtil.isOfType(next, TokenTypes.ARRAY_DECLARATOR, TokenTypes.ELLIPSIS);
+        return hasArrayOrEllipses || isArrayDeclarator;
     }
 
     /**

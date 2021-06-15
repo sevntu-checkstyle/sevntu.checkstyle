@@ -448,6 +448,21 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             CommonUtil.EMPTY_STRING_ARRAY);
     }
 
+    @Test
+    public final void testNewArrayStructure()
+            throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
+
+        final String[] expected = {
+            "4:5: " + getCheckMessage(MSG_KEY),
+        };
+
+        verify(checkConfig,
+            getPath("InputForbidWildcardAsReturnTypeCheckNewArrayStructure.java"),
+                expected);
+    }
+
     /**
      * Create new set of line numbers.
      *

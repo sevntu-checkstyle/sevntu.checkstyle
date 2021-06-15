@@ -424,17 +424,22 @@ public class PreferMethodReferenceCheck extends AbstractCheck {
      *     {@code false} otherwise
      */
     private static boolean isArgUsedInArrayInit(DetailAST declarator, String name) {
-        final DetailAST nestedDecl = declarator.findFirstToken(TokenTypes.ARRAY_DECLARATOR);
-        final DetailAST expr = declarator.findFirstToken(TokenTypes.EXPR);
-        boolean result = false;
-        if (nestedDecl == null && expr != null) {
-            final DetailAST ident = expr.findFirstToken(TokenTypes.IDENT);
-            result = ident != null && name.equals(ident.getText());
+        boolean hasNoMultiDimensionalArrayWithExpressions = true;
+        DetailAST nextSibling = declarator.getNextSibling();
+        while (nextSibling != null) {
+            if (nextSibling.getType() == TokenTypes.ARRAY_DECLARATOR
+                    && nextSibling.getFirstChild().getType() == TokenTypes.EXPR) {
+                hasNoMultiDimensionalArrayWithExpressions = false;
+            }
+            nextSibling = nextSibling.getNextSibling();
         }
-        else if (nestedDecl != null && expr == null) {
-            result = isArgUsedInArrayInit(nestedDecl, name);
-        }
-        return result;
+
+        final boolean isFirstArrayDeclaratorInit =
+                declarator.getFirstChild().findFirstToken(TokenTypes.IDENT) != null
+                && name.equals(declarator.getFirstChild()
+                    .findFirstToken(TokenTypes.IDENT).getText());
+
+        return isFirstArrayDeclaratorInit && hasNoMultiDimensionalArrayWithExpressions;
     }
 
     /**
