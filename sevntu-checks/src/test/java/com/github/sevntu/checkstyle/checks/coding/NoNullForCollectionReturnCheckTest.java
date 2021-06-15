@@ -182,4 +182,21 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
                 expected);
     }
 
+    @Test
+    public void testObjectArray()
+            throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(NoNullForCollectionReturnCheck.class);
+
+        final String[] expected = {
+            "15:13: " + warningMessage,
+            "33:13: " + warningMessage,
+            "52:9: " + warningMessage,
+            "64:15: " + warningMessage,
+        };
+
+        verify(checkConfig, getPath("InputNoNullForCollectionReturnCheckObjectArray.java"),
+                expected);
+    }
+
 }

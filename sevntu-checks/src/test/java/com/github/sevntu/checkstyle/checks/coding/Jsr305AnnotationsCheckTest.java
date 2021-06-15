@@ -150,7 +150,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
                     Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
             "76:43: " + getCheckMessage(
                     Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
-            "90:8: " + getCheckMessage(
+            "90:5: " + getCheckMessage(
                     Jsr305AnnotationsCheck.MSG_RETURN_WITHOUT_NULLNESS_ANNOTATION, "e"),
             "102:32: " + getCheckMessage(
                     Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
