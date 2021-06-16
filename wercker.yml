@@ -55,6 +55,18 @@ build:
         fi
 
   - script:
+      name: sevntu-checks 'mvn clean verify'
+      code: |
+        if [[ $SKIP_CI == 'false' ]]; then
+          cd sevntu-checks
+          echo "Command: mvn clean verify"
+          mvn clean verify
+          cd ..
+        else
+          echo "build is skipped ..."
+        fi
+
+  - script:
       name: NoExceptiontest - Apache Struts
       code: |
         if [[ $SKIP_CI == 'false' ]]; then
