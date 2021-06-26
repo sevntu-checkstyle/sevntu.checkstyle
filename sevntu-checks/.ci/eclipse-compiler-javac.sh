@@ -12,15 +12,22 @@ if [ -z "$2" ]; then
     exit 1
 fi
 
-ECJ_JAR="ecj-4.17.jar"
-ECJ_MAVEN_VERSION="R-4.17-202009021800"
+# Eclipse releases every 13 weeks: https://wiki.eclipse.org/SimRel/Simultaneous_Release_Cycle_FAQ
+# After that these variables should be updated.
+ECJ_MAVEN_VERSION="R-4.20-202106111600"
+ECJ_JAR="ecj-4.20.jar"
 ECJ_PATH=~/.m2/repository/$ECJ_MAVEN_VERSION/$ECJ_JAR
 
 if [ ! -f $ECJ_PATH ]; then
     echo "$ECJ_PATH is not found, downloading ..."
-    mkdir -p $(dirname "$ECJ_PATH")
     ECLIPSE_URL="http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4"
-    wget $ECLIPSE_URL/$ECJ_MAVEN_VERSION/$ECJ_JAR -O $ECJ_PATH
+    cd target
+    wget $ECLIPSE_URL/$ECJ_MAVEN_VERSION/$ECJ_JAR
+    echo "test jar after download:"
+    jar -tvf $ECJ_JAR > /dev/null
+    mkdir -p $(dirname "$ECJ_PATH")
+    cp $ECJ_JAR $ECJ_PATH
+    cd ..
 fi
 
 wget https://github.com/checkstyle/checkstyle/blob/checkstyle-$2/config/org.eclipse.jdt.core.prefs
