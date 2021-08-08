@@ -338,7 +338,8 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
      */
     private static boolean
             isDefinedInTopLevelClass(DetailAST methodOrFieldDefAst) {
-        return methodOrFieldDefAst.getParent().getParent().getParent() == null;
+        return methodOrFieldDefAst.getParent().getParent()
+                .getParent().getType() == TokenTypes.COMPILATION_UNIT;
     }
 
 }
