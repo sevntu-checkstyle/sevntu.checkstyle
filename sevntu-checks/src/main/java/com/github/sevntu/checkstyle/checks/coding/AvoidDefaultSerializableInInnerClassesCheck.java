@@ -80,7 +80,8 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST detailAST) {
-        final boolean topLevelClass = detailAST.getParent() == null;
+        final boolean topLevelClass =
+                detailAST.getParent().getType() == TokenTypes.COMPILATION_UNIT;
         if (!topLevelClass && isSerializable(detailAST)
                 && !isStatic(detailAST)
                 && !hasSerialazableMethods(detailAST)) {
