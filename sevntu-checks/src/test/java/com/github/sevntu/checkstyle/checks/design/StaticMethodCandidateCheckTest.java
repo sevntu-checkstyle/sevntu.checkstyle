@@ -151,4 +151,16 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
                 .getCanonicalPath(), expected);
     }
 
+    @Test
+    public void testTypeParameter() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(StaticMethodCandidateCheck.class);
+        final String[] expected = {
+            "20:5: " + getCheckMessage(MSG_KEY, "f2"),
+            "78:5: " + getCheckMessage(MSG_KEY, "f6"),
+            "91:5: " + getCheckMessage(MSG_KEY, "f7"),
+        };
+        verify(checkConfig, getPath("InputStaticMethodCandidateCheckTypeParameter.java"), expected);
+    }
+
 }
