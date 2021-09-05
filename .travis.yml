@@ -1,3 +1,9 @@
+os: linux
+arch:
+  - ppc64le
+# Above is required as is for Partner Queue Solution.
+# DO NOT MODIFY!
+
 language: java
 sudo: false
 
