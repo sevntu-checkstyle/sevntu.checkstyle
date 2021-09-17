@@ -62,7 +62,7 @@ matrix:
         - CMD="./.ci/travis.sh checkstyle-regression"
 
     # eclipse static analysis
-    - jdk: openjdk8
+    - jdk: openjdk11
       env:
         - DESC="eclipse-analysis"
         - USE_MAVEN_REPO="true"

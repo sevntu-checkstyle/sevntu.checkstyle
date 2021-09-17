@@ -678,13 +678,12 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                         hasNonStaticMethod = true;
                         break;
                     }
-                    else {
-                        // if a static method is found, we keep searching for a similar
-                        // non-static one to the end of the frame and if a non-static
-                        // method is not found, then the checked method is still
-                        // a static method candidate
-                        hasStaticMethod = true;
-                    }
+
+                    // if a static method is found, we keep searching for a similar
+                    // non-static one to the end of the frame and if a non-static
+                    // method is not found, then the checked method is still
+                    // a static method candidate
+                    hasStaticMethod = true;
                 }
             }
             frame = Optional.fromNullable(frame.get().parent);
