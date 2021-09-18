@@ -102,7 +102,7 @@ script:
       if [[ $USE_MAVEN_REPO == 'true' && ! -d "~/.m2" ]]; then
        echo "Maven local repo cache is not found, initializing it ..."
        cd sevntu-checks
-       mvn -B install -Pno-validations
+       mvn  -e --no-transfer-progress install -Pno-validations
        cd ../
       fi
       echo "eval of CMD is starting";
