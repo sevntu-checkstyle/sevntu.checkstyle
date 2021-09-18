@@ -56,9 +56,10 @@ sevntu-checks)
   mvn -e -Pcoverall install
   mvn -e verify -Pno-validations,selftesting
   mvn -e javadoc:javadoc
-  if [[ $TRAVIS == 'true' ]]; then
-    mvn -e -Pcoverall jacoco:report coveralls:report
-  fi
+  # until problem coverall back to online
+  #if [[ $TRAVIS == 'true' ]]; then
+  #  mvn -e -Pcoverall jacoco:report coveralls:report
+  #fi
   ;;
 
 all-sevntu-checks-contribution)
