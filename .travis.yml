@@ -28,6 +28,7 @@ matrix:
   include:
     # eclipse-cs
     - jdk: openjdk8
+      arch: s390x
       env:
         - DESC="eclipse-cs"
         - USE_MAVEN_REPO="true"
