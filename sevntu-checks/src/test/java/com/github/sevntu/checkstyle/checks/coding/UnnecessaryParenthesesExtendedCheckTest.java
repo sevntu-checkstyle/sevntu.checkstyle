@@ -26,7 +26,7 @@ import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesE
 import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_RETURN;
 import static com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck.MSG_KEY_STRING;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

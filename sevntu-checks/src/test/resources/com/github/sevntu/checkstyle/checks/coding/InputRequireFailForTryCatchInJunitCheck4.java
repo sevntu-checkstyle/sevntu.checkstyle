@@ -1,13 +1,13 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class InputRequireFailForTryCatchInJunitCheck4 {
     @Test
     public void method1() throws Exception {
         try {
-            Assert.assertEquals("", "");
+            Assertions.assertEquals("", "");
         }
         catch (Exception e) {
         }

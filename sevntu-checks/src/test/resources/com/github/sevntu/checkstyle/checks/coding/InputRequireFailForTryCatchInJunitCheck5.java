@@ -1,17 +1,17 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.function.Consumer;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class InputRequireFailForTryCatchInJunitCheck5 {
     @Test
     public void method1() throws Exception {
         try {
-            Assert.fail();
+            Assertions.fail();
         }
         catch (Exception e) {
         }
@@ -32,10 +32,10 @@ public class InputRequireFailForTryCatchInJunitCheck5 {
         };
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void method2() throws Exception {
         try {
-            Assert.fail();
+            Assertions.fail();
         }
         catch (Exception e) {
         }

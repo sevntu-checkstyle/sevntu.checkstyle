@@ -20,10 +20,10 @@
 package com.github.sevntu.checkstyle;
 
 import static com.puppycrawl.tools.checkstyle.internal.utils.TestUtil.isUtilsClassHasPrivateConstructor;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -31,8 +31,8 @@ public class SevntuUtilTest {
 
     @Test
     public void testIsProperUtilsClass() throws ReflectiveOperationException {
-        Assert.assertTrue("Constructor is not private",
-                isUtilsClassHasPrivateConstructor(SevntuUtil.class, true));
+        Assertions.assertTrue(isUtilsClassHasPrivateConstructor(SevntuUtil.class, true),
+                "Constructor is not private");
     }
 
     @Test
@@ -42,7 +42,7 @@ public class SevntuUtilTest {
             fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
-            Assert.assertEquals("Found unsupported token: CLASS_DEF", ex.getMessage());
+            Assertions.assertEquals("Found unsupported token: CLASS_DEF", ex.getMessage());
         }
     }
 

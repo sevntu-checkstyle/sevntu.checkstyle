@@ -19,12 +19,12 @@
 
 package com.github.sevntu.checkstyle.checks.naming;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -130,8 +130,8 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
                     + " cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck -"
                     + " Cannot set property 'formats' to '\\'";
-            Assert.assertTrue("Exception's message does not start with: " + messagePrefix,
-                ex.getMessage().startsWith(messagePrefix));
+            Assertions.assertTrue(ex.getMessage().startsWith(messagePrefix),
+                "Exception's message does not start with: " + messagePrefix);
         }
     }
 
@@ -157,8 +157,8 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
                 + "com.puppycrawl.tools.checkstyle.TreeWalker - "
                 + "Token \"INTERFACE_DEF\" was not found in "
                 + "Acceptable tokens list in check ";
-            Assert.assertTrue("Exception's message does not start with: " + messagePrefix,
-                ex.getMessage().startsWith(messagePrefix));
+            Assertions.assertTrue(ex.getMessage().startsWith(messagePrefix),
+                "Exception's message does not start with: " + messagePrefix);
         }
     }
 

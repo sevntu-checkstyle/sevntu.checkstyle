@@ -26,7 +26,7 @@ import static com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderC
 import static com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck.MSG_KEY_INVALID_SETTER;
 import static com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck.MSG_KEY_METHOD;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

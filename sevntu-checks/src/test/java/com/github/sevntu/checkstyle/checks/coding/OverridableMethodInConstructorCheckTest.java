@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck.MSG_KEY;
 import static com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck.MSG_KEY_LEADS;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

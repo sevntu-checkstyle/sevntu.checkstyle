@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck.MSG_VAR_DECLARATIONS;
 import static com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck.MSG_VAR_DECLARATIONS_COMMA;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

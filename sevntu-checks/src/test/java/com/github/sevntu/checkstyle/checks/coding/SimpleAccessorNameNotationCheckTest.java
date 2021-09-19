@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import static com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck.MSG_KEY_GETTER;
 import static com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck.MSG_KEY_SETTER;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class InputRequireFailForTryCatchInJunitCheck3 {
     @Test
@@ -37,7 +37,7 @@ public class InputRequireFailForTryCatchInJunitCheck3 {
         }
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void method2() throws Exception {
         try {
         }

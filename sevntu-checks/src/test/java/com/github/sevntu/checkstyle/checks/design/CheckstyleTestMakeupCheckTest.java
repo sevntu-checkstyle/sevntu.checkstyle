@@ -24,10 +24,10 @@ import static com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupChe
 import static com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck.MSG_KEY_CONFIG_NOT_ASSIGNED_WITH;
 import static com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck.MSG_KEY_CONFIG_NOT_FOUND;
 import static com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck.MSG_KEY_UNKNOWN_PROPERTY;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -122,7 +122,7 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
             fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
-            Assert.assertEquals("Found unsupported token: OBJBLOCK", ex.getMessage());
+            Assertions.assertEquals("Found unsupported token: OBJBLOCK", ex.getMessage());
         }
     }
 

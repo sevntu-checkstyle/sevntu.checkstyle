@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class InputAvoidModifiersForTypesCheck2 extends BaseClass
 {

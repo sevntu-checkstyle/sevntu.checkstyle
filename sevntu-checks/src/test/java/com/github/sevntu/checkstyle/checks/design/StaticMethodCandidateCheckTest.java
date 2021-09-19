@@ -20,11 +20,11 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck.MSG_KEY;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -95,7 +95,7 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
             TokenTypes.LITERAL_SUPER,
         };
         final StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
-        assertArrayEquals("invalid tokens", expected, check.getAcceptableTokens());
+        assertArrayEquals(expected, check.getAcceptableTokens(), "invalid tokens");
     }
 
     @Test
@@ -126,7 +126,7 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
             TokenTypes.LITERAL_SUPER,
         };
         final StaticMethodCandidateCheck check = new StaticMethodCandidateCheck();
-        assertArrayEquals("invalid tokens", expected, check.getRequiredTokens());
+        assertArrayEquals(expected, check.getRequiredTokens(), "invalid tokens");
     }
 
     @Test

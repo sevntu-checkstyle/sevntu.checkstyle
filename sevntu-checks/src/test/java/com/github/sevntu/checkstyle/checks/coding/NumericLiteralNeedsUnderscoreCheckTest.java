@@ -23,7 +23,7 @@ import static com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnde
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

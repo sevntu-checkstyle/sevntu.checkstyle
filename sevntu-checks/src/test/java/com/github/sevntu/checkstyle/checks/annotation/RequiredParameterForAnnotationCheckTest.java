@@ -21,8 +21,8 @@ package com.github.sevntu.checkstyle.checks.annotation;
 
 import static com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck.MSG_KEY;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -187,7 +187,7 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
     public void temporaryTestForCallGetRequiredTokens() {
         final RequiredParameterForAnnotationCheck check = new RequiredParameterForAnnotationCheck();
         final int[] tokens = check.getRequiredTokens();
-        Assert.assertNotNull(tokens);
+        Assertions.assertNotNull(tokens);
     }
 
 }

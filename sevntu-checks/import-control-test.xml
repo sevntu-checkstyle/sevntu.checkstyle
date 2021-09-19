@@ -7,6 +7,8 @@
 
   <allow pkg=".*" regex="true" />
 
+  <!-- Disallow obsolete Junit API -->
+  <disallow pkg="org.junit" exact-match="true"/>
   <disallow pkg="junit.framework" />
 
 </import-control>

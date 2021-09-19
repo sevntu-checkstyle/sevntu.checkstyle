@@ -22,8 +22,8 @@ package com.github.sevntu.checkstyle.checks.coding;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -387,11 +387,12 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
 
         try {
             handleDefinition.invoke(new Jsr305AnnotationsCheck(), ast);
-            Assert.fail("Exception expected.");
+            Assertions.fail("Exception expected.");
         }
         catch (final InvocationTargetException exc) {
-            Assert.assertTrue("IllegalArgumentException expected from 'handleDefinition'",
-                    exc.getCause().getClass().equals(IllegalArgumentException.class));
+            Assertions.assertTrue(
+                    exc.getCause().getClass().equals(IllegalArgumentException.class),
+                    "IllegalArgumentException expected from 'handleDefinition'");
         }
     }
 

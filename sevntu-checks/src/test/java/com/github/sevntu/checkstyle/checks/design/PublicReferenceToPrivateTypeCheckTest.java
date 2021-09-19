@@ -20,10 +20,10 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck.MSG_KEY;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -400,7 +400,8 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
             fail("exception expected");
         }
         catch (IllegalArgumentException ex) {
-            Assert.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED", ex.getMessage());
+            Assertions.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED",
+                    ex.getMessage());
         }
     }
 

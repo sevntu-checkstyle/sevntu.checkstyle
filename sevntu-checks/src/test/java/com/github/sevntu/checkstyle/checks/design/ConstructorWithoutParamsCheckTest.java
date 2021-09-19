@@ -20,9 +20,9 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import static com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck.MSG_KEY;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -67,7 +67,7 @@ public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport
     public void testGetAcceptableTokens() {
         final ConstructorWithoutParamsCheck check = new ConstructorWithoutParamsCheck();
         final int[] expectedAcceptableTokens = {TokenTypes.LITERAL_NEW};
-        assertArrayEquals("invalid tokens", expectedAcceptableTokens, check.getAcceptableTokens());
+        assertArrayEquals(expectedAcceptableTokens, check.getAcceptableTokens(), "invalid tokens");
     }
 
 }

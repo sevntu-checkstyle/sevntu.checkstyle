@@ -21,8 +21,8 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck.MSG_KEY;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -77,15 +77,15 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
             verify(checkConfig,
                     getPath("InputTernaryPerExpressionCountCheck.java"),
                     expected);
-            Assert.fail();
+            Assertions.fail();
         }
         catch (CheckstyleException ex) {
             final String errorMsg = ex.getMessage();
             final String expectedMessage = "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck -"
                     + " Cannot set property 'maxTernaryPerExpressionCount' to '-1'";
-            Assert.assertTrue("Expected error message is missing: " + expectedMessage,
-                errorMsg.contains(expectedMessage));
+            Assertions.assertTrue(errorMsg.contains(expectedMessage),
+                "Expected error message is missing: " + expectedMessage);
         }
     }
 
