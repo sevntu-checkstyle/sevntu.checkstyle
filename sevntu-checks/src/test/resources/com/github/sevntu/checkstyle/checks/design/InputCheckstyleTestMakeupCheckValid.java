@@ -2,7 +2,7 @@ package com.github.sevntu.checkstyle.checks.design;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class InputCheckstyleTestMakeupCheckValid {
     @Test

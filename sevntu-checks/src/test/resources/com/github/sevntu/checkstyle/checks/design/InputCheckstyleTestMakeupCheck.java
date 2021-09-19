@@ -1,6 +1,6 @@
 package com.github.sevntu.checkstyle.checks.design;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class InputCheckstyleTestMakeupCheck {
     private String s;
@@ -13,7 +13,7 @@ public class InputCheckstyleTestMakeupCheck {
         method1();
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void method3() {
     }
 

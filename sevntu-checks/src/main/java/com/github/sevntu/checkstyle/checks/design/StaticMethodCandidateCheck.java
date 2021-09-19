@@ -231,6 +231,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
 
                 currentFrame.addChild(frame);
                 currentFrame = frame;
+                break;
         }
     }
 

@@ -23,7 +23,7 @@ import static com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLo
 import static com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck.MSG_KEY_KEYSET;
 import static com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck.MSG_KEY_VALUES;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

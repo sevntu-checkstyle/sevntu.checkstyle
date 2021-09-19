@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

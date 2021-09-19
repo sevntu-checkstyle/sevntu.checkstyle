@@ -24,7 +24,7 @@ import static com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationC
 import static com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck.MSG_KEY_PUBLIC_FINALIZE;
 import static com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck.MSG_KEY_USELESS_FINALIZE;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

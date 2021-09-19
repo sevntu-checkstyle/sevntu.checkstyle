@@ -324,6 +324,7 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
                         break;
                     default:
                         isValid = false;
+                        break;
                 }
             }
 

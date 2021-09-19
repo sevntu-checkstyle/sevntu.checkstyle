@@ -175,6 +175,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
      */
     private void checkMethod(DetailAST ast) {
         if (methodAst == null && AnnotationUtil.containsAnnotation(ast, "Test")
+                || AnnotationUtil.containsAnnotation(ast, "org.junit.jupiter.api.Test")
                 || AnnotationUtil.containsAnnotation(ast, "org.junit.Test")) {
             methodAst = ast;
         }

@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.naming;
 import static com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck.DEFAULT_PATTERN;
 import static com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck.MSG_INVALID_PATTERN;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

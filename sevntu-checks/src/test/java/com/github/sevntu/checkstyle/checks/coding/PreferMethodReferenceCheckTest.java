@@ -21,8 +21,8 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.PreferMethodReferenceCheck.MSG_METHOD_REF;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
@@ -152,8 +152,8 @@ public class PreferMethodReferenceCheckTest extends AbstractModuleTestSupport {
         final int[] expected = {
             TokenTypes.LAMBDA,
         };
-        Assert.assertArrayEquals(check.getAcceptableTokens(), expected);
-        Assert.assertArrayEquals(check.getDefaultTokens(), expected);
-        Assert.assertArrayEquals(check.getRequiredTokens(), expected);
+        Assertions.assertArrayEquals(check.getAcceptableTokens(), expected);
+        Assertions.assertArrayEquals(check.getDefaultTokens(), expected);
+        Assertions.assertArrayEquals(check.getRequiredTokens(), expected);
     }
 }

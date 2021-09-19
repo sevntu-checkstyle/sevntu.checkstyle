@@ -37,8 +37,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 
@@ -57,7 +57,7 @@ public class AllChecksTest {
                     final String errorMessage = String.format(Locale.ROOT,
                             "%s's default tokens must be a subset"
                             + " of acceptable tokens.", check.getName());
-                    Assert.fail(errorMessage);
+                    Assertions.fail(errorMessage);
                 }
             }
         }
@@ -76,7 +76,7 @@ public class AllChecksTest {
                     final String errorMessage = String.format(Locale.ROOT,
                             "%s's required tokens must be a subset"
                             + " of acceptable tokens.", check.getName());
-                    Assert.fail(errorMessage);
+                    Assertions.fail(errorMessage);
                 }
             }
         }
@@ -95,7 +95,7 @@ public class AllChecksTest {
                     final String errorMessage = String.format(Locale.ROOT,
                             "%s's required tokens must be a subset"
                             + " of default tokens.", check.getName());
-                    Assert.fail(errorMessage);
+                    Assertions.fail(errorMessage);
                 }
             }
         }
@@ -110,7 +110,7 @@ public class AllChecksTest {
             .forEach(check -> {
                 final String errorMessage = String.format(Locale.ROOT,
                     "%s is not referenced in sevntu-checks.xml", check);
-                Assert.fail(errorMessage);
+                Assertions.fail(errorMessage);
             });
     }
 
@@ -121,17 +121,17 @@ public class AllChecksTest {
                     + module.getName().replace('.', File.separatorChar) + "Test.java";
             final File file = new File(path);
 
-            Assert.assertTrue("Test must exist for " + module.getName() + " and be located at "
-                    + path, file.exists());
+            Assertions.assertTrue(file.exists(), "Test must exist for " + module.getName()
+                    + " and be located at " + path);
         }
     }
 
     @Test
     public void testAllCheckstyleModulesHaveMessage() throws Exception {
         for (Class<?> module : CheckUtil.getCheckstyleChecks()) {
-            Assert.assertFalse(module.getSimpleName()
-                    + " should have atleast one 'MSG_*' field for error messages", CheckUtil
-                    .getCheckMessages(module).isEmpty());
+            Assertions.assertFalse(CheckUtil
+                    .getCheckMessages(module).isEmpty(), module.getSimpleName()
+                            + " should have atleast one 'MSG_*' field for error messages");
         }
     }
 
@@ -142,9 +142,9 @@ public class AllChecksTest {
         // test validity of messages from checks
         for (Class<?> module : CheckUtil.getCheckstyleModules()) {
             for (Field message : CheckUtil.getCheckMessages(module)) {
-                Assert.assertEquals(module.getSimpleName() + "." + message.getName()
-                        + " should be 'public static final'", Modifier.PUBLIC | Modifier.STATIC
-                        | Modifier.FINAL, message.getModifiers());
+                Assertions.assertEquals(Modifier.PUBLIC | Modifier.STATIC
+                        | Modifier.FINAL, message.getModifiers(), module.getSimpleName() + "."
+                                + message.getName() + " should be 'public static final'");
 
                 // below is required for package/private classes
                 if (!message.isAccessible()) {
@@ -162,8 +162,8 @@ public class AllChecksTest {
                     "/" + entry.getKey().replace('.', '/') + "/messages.properties"));
 
             for (Object key : pr.keySet()) {
-                Assert.assertTrue("property '" + key + "' isn't used by any check in package '"
-                        + entry.getKey() + "'", entry.getValue().contains(key.toString()));
+                Assertions.assertTrue(entry.getValue().contains(key.toString()), "property '" + key
+                        + "' isn't used by any check in package '" + entry.getKey() + "'");
             }
         }
     }
@@ -205,23 +205,21 @@ public class AllChecksTest {
             result = CheckUtil.getCheckMessage(module, messageString);
         }
         catch (IllegalArgumentException ex) {
-            Assert.fail(module.getSimpleName() + " with the message '" + messageString
+            Assertions.fail(module.getSimpleName() + " with the message '" + messageString
                     + "' failed with: "
                     + ex.getClass().getSimpleName() + " - " + ex.getMessage());
         }
 
-        Assert.assertNotNull(
-                module.getSimpleName() + " should have text for the message '"
-                        + messageString + "'",
-                result);
-        Assert.assertFalse(
-                module.getSimpleName() + " should have non-empty text for the message '"
-                        + messageString + "'",
-                result.trim().isEmpty());
-        Assert.assertFalse(
-                module.getSimpleName() + " should have non-TODO text for the message '"
-                        + messageString + "'",
-                result.trim().startsWith("TODO"));
+        Assertions.assertNotNull(
+                result, module.getSimpleName() + " should have text for the message '"
+                        + messageString + "'");
+        final String trimmedResult = result.trim();
+        Assertions.assertFalse(
+                trimmedResult.isEmpty(), module.getSimpleName()
+                        + " should have non-empty text for the message '" + messageString + "'");
+        Assertions.assertFalse(
+                trimmedResult.startsWith("TODO"), module.getSimpleName()
+                        + " should have non-TODO text for the message '" + messageString + "'");
     }
 
     private static void grabAllTests(Map<String, List<String>> allTests, File file) {
@@ -263,12 +261,12 @@ public class AllChecksTest {
 
             String fileName = file.getName();
 
-            Assert.assertTrue("Resource must start with 'Input': " + path,
-                    fileName.startsWith("Input"));
+            Assertions.assertTrue(
+                    fileName.startsWith("Input"), "Resource must start with 'Input': " + path);
 
             final int period = fileName.lastIndexOf('.');
 
-            Assert.assertTrue("Resource must have an extension: " + path, period > 0);
+            Assertions.assertTrue(period > 0, "Resource must have an extension: " + path);
 
             fileName = fileName.substring(5, period);
 
@@ -277,8 +275,8 @@ public class AllChecksTest {
             final List<String> classes = allTests.get(pkg);
 
             if (classes != null || !pkg.endsWith("external")) {
-                Assert.assertNotNull("Resource must be in a package that has tests: " + path,
-                        classes);
+                Assertions.assertNotNull(
+                        classes, "Resource must be in a package that has tests: " + path);
 
                 boolean found = false;
 
@@ -289,8 +287,8 @@ public class AllChecksTest {
                     }
                 }
 
-                Assert.assertTrue("Resource must be named after a Test like 'InputMyCheck.java' "
-                        + "and be in the same package as the test: " + path, found);
+                Assertions.assertTrue(found, "Resource must be named after a Test like "
+                        + "'InputMyCheck.java' and be in the same package as the test: " + path);
             }
         }
     }

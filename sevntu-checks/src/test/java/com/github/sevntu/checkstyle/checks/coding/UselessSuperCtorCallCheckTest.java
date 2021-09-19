@@ -22,7 +22,7 @@ package com.github.sevntu.checkstyle.checks.coding;
 import static com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck.MSG_IN_NOT_DERIVED_CLASS;
 import static com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck.MSG_WITHOUT_ARGS;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

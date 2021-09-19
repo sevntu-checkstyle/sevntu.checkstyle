@@ -23,7 +23,7 @@ import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedChec
 import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.MSG_KEY_LAMBDA;
 import static com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck.MSG_KEY_METHOD;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;

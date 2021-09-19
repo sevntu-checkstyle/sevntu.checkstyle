@@ -1,9 +1,9 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
+import org.junit.jupiter.api.Test;
+
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
 
 public class InputRequireFailForTryCatchInJunitCheck1 {
     static {
