@@ -350,7 +350,7 @@
     <key>com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</key>
     <name>Finalize Implementation Check</name>
     <tag>coding</tag>
-    <description><p>This Check detects 3 most common cases of incorrect finalize() method implementation:</p><ul><li>negates effect of superclass finalize<br/><code>protected void finalize() { } <br/> protected void finalize() { doSomething(); }</code></li><li>useless (or worse) finalize<br/><code>protected void finalize() { super.finalize(); }</code></li><li>public finalize<br/><code>public void finalize() { try { doSomething(); } finally { super.finalize() } }</code></li></ul></description>
+    <description>&lt;p&gt;This Check detects 3 most common cases of incorrect finalize() method implementation:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;negates effect of superclass finalize&lt;br/&gt;&lt;code&gt;protected void finalize() { } &lt;br/&gt; protected void finalize() { doSomething(); }&lt;/code&gt;&lt;/li&gt;&lt;li&gt;useless (or worse) finalize&lt;br/&gt;&lt;code&gt;protected void finalize() { super.finalize(); }&lt;/code&gt;&lt;/li&gt;&lt;li&gt;public finalize&lt;br/&gt;&lt;code&gt;public void finalize() { try { doSomething(); } finally { super.finalize() } }&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</configKey>
   </rule>
 
@@ -647,7 +647,7 @@
     <key>com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck</key>
     <name>Redundant Return Check</name>
     <tag>coding</tag>
-    <description><p>Highlight usage redundant returns inside constructors and methods with  void result.</p><p>For example:</p><p>1. Non empty constructor</p><br/><code><pre>public HelloWorld(){<br/>    doStuff();<br/>    return;<br/>}</pre></code><p>2. Method with void result</p><br/><code><pre>public void testMethod1(){<br/>    doStuff();<br/>    return;<br/>}</pre></code><p>However, if your IDE does not support breakpoints on the method entry, you can allow the use of redundant returns in constructors and methodswith void result without code except for 'return;'.</p><p>For example:</p><p>1. Empty constructor</p><br/><code><pre>public HelloWorld(){<br/>    return;<br/>}</pre></code><p>2. Method with void result and empty body</p><br/><code><pre>public void testMethod1(){<br/>    return;<br/>}</pre></code></description>
+    <description>&lt;p&gt;Highlight usage redundant returns inside constructors and methods with  void result.&lt;/p&gt;&lt;p&gt;For example:&lt;/p&gt;&lt;p&gt;1. Non empty constructor&lt;/p&gt;&lt;br/&gt;&lt;code&gt;&lt;pre&gt;public HelloWorld(){&lt;br/&gt;    doStuff();&lt;br/&gt;    return;&lt;br/&gt;}&lt;/pre&gt;&lt;/code&gt;&lt;p&gt;2. Method with void result&lt;/p&gt;&lt;br/&gt;&lt;code&gt;&lt;pre&gt;public void testMethod1(){&lt;br/&gt;    doStuff();&lt;br/&gt;    return;&lt;br/&gt;}&lt;/pre&gt;&lt;/code&gt;&lt;p&gt;However, if your IDE does not support breakpoints on the method entry, you can allow the use of redundant returns in constructors and methodswith void result without code except for 'return;'.&lt;/p&gt;&lt;p&gt;For example:&lt;/p&gt;&lt;p&gt;1. Empty constructor&lt;/p&gt;&lt;br/&gt;&lt;code&gt;&lt;pre&gt;public HelloWorld(){&lt;br/&gt;    return;&lt;br/&gt;}&lt;/pre&gt;&lt;/code&gt;&lt;p&gt;2. Method with void result and empty body&lt;/p&gt;&lt;br/&gt;&lt;code&gt;&lt;pre&gt;public void testMethod1(){&lt;br/&gt;    return;&lt;br/&gt;}&lt;/pre&gt;&lt;/code&gt;</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck</configKey>
 
     <param key="allowReturnInEmptyMethodsAndConstructors" type="BOOLEAN">
@@ -867,7 +867,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</key>
     <name>Static Method Candidate</name>
     <tag>design</tag>
-    <description>Check whether <code>private</code> methods should be declared as <code>static</code>.</description>
+    <description>Check whether &lt;code&gt;private&lt;/code&gt; methods should be declared as &lt;code&gt;static&lt;/code&gt;.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck</configKey>
 
     <param key="skippedMethods" type="STRING">
@@ -917,7 +917,7 @@
     <key>com.github.sevntu.checkstyle.checks.design.InnerClassCheck</key>
     <name>Inner Class</name>
     <tag>design</tag>
-    <description>Check nested (internal) classes to be declared at the bottom of the class after all methods (fields) declaration.</description>
+    <description>Check nested (internal) classes to be declared at the bottom of the class after all methods (fields) declaration.</description>
     <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.design.InnerClassCheck</configKey>
   </rule>
 
