@@ -1320,10 +1320,20 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          */
         private final List<DetailAST> setters = new LinkedList<>();
 
+        /**
+         * Returns the current position.
+         *
+         * @return the current position
+         */
         public int getCurrentPosition() {
             return currentPosition;
         }
 
+        /**
+         * Setter for the current position.
+         *
+         * @param position the new position
+         */
         public void setCurrentPosition(int position) {
             currentPosition = position;
         }
