@@ -4,6 +4,29 @@ set -e
 
 case $1 in
 
+init-m2-settings)
+  MVN_SETTINGS=${TRAVIS_HOME}/.m2/settings.xml
+  export JAVA_HOME="/usr/lib/jvm/"$(ls /usr/lib/jvm/ | head -n 1)"/"
+  echo "JAVA_HOME="$JAVA_HOME
+  export PATH=$JAVA_HOME/bin:$PATH
+  if [[ -f ${MVN_SETTINGS} ]]; then
+    if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+      sed -i'' -e "/<mirrors>/,/<\/mirrors>/ d" $MVN_SETTINGS
+    else
+      xmlstarlet ed --inplace -d "//mirrors" $MVN_SETTINGS
+    fi
+  fi
+  ;;
+
+init-m2-repo)
+  if [[ $USE_MAVEN_REPO == 'true' && ! -d "~/.m2" ]]; then
+   echo "Maven local repo cache is not found, initializing it ..."
+   cd sevntu-checks
+   mvn  -e --no-transfer-progress install -Pno-validations
+   cd ../
+  fi
+  ;;
+
 pr-description)
   .ci/xtr_pr-description.sh
   ;;
