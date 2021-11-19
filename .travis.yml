@@ -20,8 +20,8 @@ branches:
   only:
     - master
 
-install:
-  -
+install: true
+
 
 matrix:
   fast_finish: true
