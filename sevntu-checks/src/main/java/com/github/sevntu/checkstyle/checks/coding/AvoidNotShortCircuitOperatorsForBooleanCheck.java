@@ -27,7 +27,6 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 
 /**
  * This check limits using of not short-circuit operators
@@ -143,7 +142,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      */
     private static boolean isBooleanType(final DetailAST node) {
         final FullIdent methodOrVariableType =
-                CheckUtil.createFullType(node.findFirstToken(TokenTypes.TYPE));
+                FullIdent.createFullIdent(node.findFirstToken(TokenTypes.TYPE).getFirstChild());
         return BOOLEAN_TYPE_PATTERN
                 .matcher(methodOrVariableType.getText())
                 .find();

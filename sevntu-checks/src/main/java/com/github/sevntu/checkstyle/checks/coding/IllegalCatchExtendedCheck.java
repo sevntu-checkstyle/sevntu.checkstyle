@@ -27,7 +27,6 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 
 /**
  * Catching java.lang.Exception, java.lang.Error or java.lang.RuntimeException
@@ -142,7 +141,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
              || allowRethrow && secondLvlChild.getType() == TokenTypes.LITERAL_NEW);
 
         final DetailAST excType = paramDef.findFirstToken(TokenTypes.TYPE);
-        final FullIdent ident = CheckUtil.createFullType(excType);
+        final FullIdent ident = FullIdent.createFullIdent(excType.getFirstChild());
 
         if (!noWarning && isIllegalClassName(ident.getText())) {
             log(detailAST, MSG_KEY, ident.getText());
