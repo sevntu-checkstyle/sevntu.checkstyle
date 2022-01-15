@@ -331,6 +331,7 @@
                     <exclude>com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck</exclude>
                     <exclude>com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck</exclude>
                     <exclude>com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck</exclude>
+                    <exclude>com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck.AbstractJsr305Handler</exclude>
                     <exclude>com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck</exclude>
                     <exclude>com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck</exclude>
                     <exclude>com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck</exclude>
@@ -552,6 +553,24 @@
                       <counter>BRANCH</counter>
                       <value>COVEREDRATIO</value>
                       <minimum>0.97</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+                <rule>
+                  <element>CLASS</element>
+                  <includes>
+                    <include>com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck.AbstractJsr305Handler</include>
+                  </includes>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>1.00</minimum>
+                    </limit>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.98</minimum>
                     </limit>
                   </limits>
                 </rule>
