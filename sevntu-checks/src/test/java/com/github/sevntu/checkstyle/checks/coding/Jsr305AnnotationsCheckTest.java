@@ -383,7 +383,8 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
         ast.setType(TokenTypes.WILDCARD_TYPE);
 
         final Method handleDefinition =
-                TestUtil.getClassDeclaredMethod(Jsr305AnnotationsCheck.class, "handleDefinition");
+                TestUtil.getClassDeclaredMethod(Jsr305AnnotationsCheck.class,
+                        "handleDefinition", 1);
 
         try {
             handleDefinition.invoke(new Jsr305AnnotationsCheck(), ast);
