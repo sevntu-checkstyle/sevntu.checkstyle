@@ -88,7 +88,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
         final boolean secondTypeCast = branchContains(operands, 2, TokenTypes.TYPECAST);
         final boolean result;
 
-        if (firstInstanceOf && secondTypeCast) {
+        if (isPatternVariableIntroduced(logicNode) || firstInstanceOf && secondTypeCast) {
             result = false;
         }
         else {
@@ -188,6 +188,20 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
         }
 
         return result;
+    }
+
+    /**
+     *  If pattern variable is introduced, 'instanceof` must appear before condition
+     *  that checks pattern variable.
+     *
+     * @param logicNode logic node whose children we check
+     * @return true if a pattern variable is introduced
+     */
+    private static boolean isPatternVariableIntroduced(DetailAST logicNode) {
+        final DetailAST firstOperand = logicNode.getFirstChild();
+        return firstOperand.getType() == TokenTypes.LITERAL_INSTANCEOF
+                        && firstOperand.getLastChild() != null
+                        && firstOperand.getLastChild().getType() == TokenTypes.PATTERN_VARIABLE_DEF;
     }
 
 }

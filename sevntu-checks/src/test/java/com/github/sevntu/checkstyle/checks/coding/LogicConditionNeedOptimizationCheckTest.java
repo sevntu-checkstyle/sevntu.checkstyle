@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 public class LogicConditionNeedOptimizationCheckTest extends AbstractModuleTestSupport {
 
@@ -64,6 +65,16 @@ public class LogicConditionNeedOptimizationCheckTest extends AbstractModuleTestS
             "118:29: " + getCheckMessage(MSG_KEY, "&&", 118, 28),
         };
         verify(checkConfig, getPath("InputLogicConditionNeedOptimizationCheck.java"), expected);
+    }
+
+    @Test
+    public void testJava17Patterns() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(LogicConditionNeedOptimizationCheck.class);
+        final String[] expected = CommonUtil.EMPTY_STRING_ARRAY;
+        verify(checkConfig,
+                getNonCompilablePath("InputLogicConditionNeedOptimizationCheckPatterns.java"),
+                expected);
     }
 
 }
