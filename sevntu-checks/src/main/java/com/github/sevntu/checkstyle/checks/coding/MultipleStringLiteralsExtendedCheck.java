@@ -19,14 +19,14 @@
 
 package com.github.sevntu.checkstyle.checks.coding;
 
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -50,7 +50,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
      * The found strings and their positions. &lt;String, ArrayList&gt;, with
      * the ArrayList containing StringInfo objects.
      */
-    private final Map<String, List<DetailAST>> stringMap = Maps.newHashMap();
+    private final Map<String, List<DetailAST>> stringMap = new HashMap<>();
 
     /**
      * Marks the TokenTypes where duplicate strings should be ignored.
@@ -153,12 +153,9 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
         if (!isInIgnoreOccurrenceContext(ast)) {
             final String currentString = ast.getText();
             if (pattern == null || !pattern.matcher(currentString).find()) {
-                List<DetailAST> hitList = stringMap.get(currentString);
-                if (hitList == null) {
-                    hitList = Lists.newArrayList();
-                    stringMap.put(currentString, hitList);
-                }
-                hitList.add(ast);
+                stringMap
+                    .computeIfAbsent(currentString, key -> new ArrayList<>())
+                    .add(ast);
             }
         }
     }
