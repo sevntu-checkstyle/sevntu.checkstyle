@@ -21,14 +21,13 @@ package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -191,7 +190,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                 break;
             case TokenTypes.TYPE:
             case TokenTypes.TYPE_ARGUMENT:
-                final Optional<DetailAST> firstChild = Optional.fromNullable(ast.getFirstChild());
+                final Optional<DetailAST> firstChild = Optional.ofNullable(ast.getFirstChild());
                 if (firstChild.isPresent()
                         && firstChild.get().getType() == TokenTypes.IDENT) {
                     currentFrame.addType(firstChild.get().getText());
@@ -391,14 +390,10 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      *     is still a static method candidate.
      */
     private static boolean isFrameExpressionsAcceptable(final Frame frame) {
-        final Predicate<DetailAST> predicate = new Predicate<DetailAST>() {
-            @Override
-            public boolean apply(DetailAST ast) {
-                return !isExprAcceptable(frame, ast);
-            }
-        };
-        final Optional<DetailAST> result = Iterables.tryFind(frame.expressions, predicate);
-        return !result.isPresent();
+        return frame.expressions.stream()
+                .filter(expr -> !isExprAcceptable(frame, expr))
+                .findFirst()
+                .isEmpty();
     }
 
     /**
@@ -409,16 +404,15 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      *     is still a static method candidate.
      */
     private static boolean isFrameTypesAcceptable(final Frame frame) {
-        final Predicate<String> predicate = new Predicate<String>() {
-            @Override
-            public boolean apply(String type) {
-                final Optional<Frame> typeFrame = findFrameByName(frame, type);
-                return typeFrame.isPresent() && !typeFrame.get().isShouldBeChecked
-                        || findTypeVariable(frame, type);
-            }
+        final Predicate<String> predicate = frameName -> {
+            final Optional<Frame> typeFrame = findFrameByName(frame, frameName);
+            return typeFrame.isPresent()
+                    && !typeFrame.get().isShouldBeChecked || findTypeVariable(frame, frameName);
         };
-        final Optional<String> result = Iterables.tryFind(frame.types, predicate);
-        return !result.isPresent();
+        return frame.types.stream()
+            .filter(predicate)
+            .findFirst()
+            .isEmpty();
     }
 
     /**
@@ -467,9 +461,9 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * @return search result.
      */
     private static Optional<Frame> findFrameByName(Frame frame, String frameName) {
-        Optional<Frame> result = Optional.absent();
+        Optional<Frame> result = Optional.empty();
         Optional<Frame> parentFrame = Optional.of(frame.parent);
-        while (parentFrame.isPresent() && !result.isPresent()) {
+        while (parentFrame.isPresent() && result.isEmpty()) {
             for (Frame child: parentFrame.get().children) {
                 if (child.isClassOrEnum
                         && frameName.equals(child.frameName)) {
@@ -477,7 +471,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                     break;
                 }
             }
-            parentFrame = Optional.fromNullable(parentFrame.get().parent);
+            parentFrame = Optional.ofNullable(parentFrame.get().parent);
         }
         return result;
     }
@@ -494,7 +488,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         Optional<Frame> searchFrame = Optional.of(frame);
         while (!result && searchFrame.isPresent()) {
             result = searchFrame.get().typeVariables.contains(type);
-            searchFrame = Optional.fromNullable(searchFrame.get().parent);
+            searchFrame = Optional.ofNullable(searchFrame.get().parent);
         }
         return result;
     }
@@ -581,7 +575,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * @return true if the type frame should be checked.
      */
     private static boolean isTypeFrameShouldBeChecked(final Optional<Frame> typeFrame) {
-        return !typeFrame.isPresent()
+        return typeFrame.isEmpty()
                     || typeFrame.get().isShouldBeChecked;
     }
 
@@ -608,10 +602,10 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * @return search result.
      */
     private static Optional<DetailAST> findField(Frame startFrame, DetailAST identAst) {
-        Optional<DetailAST> result = Optional.absent();
+        Optional<DetailAST> result = Optional.empty();
         Optional<Frame> frame = Optional.of(startFrame);
         final String fieldName = identAst.getText();
-        while (frame.isPresent() && !result.isPresent()) {
+        while (frame.isPresent() && result.isEmpty()) {
             final Optional<DetailAST> field = frame.get().findFieldInFrame(fieldName);
             if (field.isPresent()) {
                 if (!isLocalVariable(field.get())
@@ -622,7 +616,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
             else {
                 result = frame.get().findEnumConstInFrame(fieldName);
             }
-            frame = Optional.fromNullable(frame.get().parent);
+            frame = Optional.ofNullable(frame.get().parent);
         }
         return result;
     }
@@ -687,7 +681,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
                     hasStaticMethod = true;
                 }
             }
-            frame = Optional.fromNullable(frame.get().parent);
+            frame = Optional.ofNullable(frame.get().parent);
         }
         return hasStaticMethod
                 && !hasNonStaticMethod;
@@ -749,10 +743,10 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
         private final List<DetailAST> expressions = new ArrayList<>();
 
         /** List of types. */
-        private final Set<String> types = Sets.newHashSet();
+        private final Set<String> types = new HashSet<>();
 
         /** Set of enumConstants. */
-        private final Set<DetailAST> enumConstants = Sets.newHashSet();
+        private final Set<DetailAST> enumConstants = new HashSet<>();
 
         /** Whether the frame is CLASS_DEF or ENUM_DEF. */
         private boolean isClassOrEnum;
@@ -853,13 +847,9 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          * @return search result.
          */
         public Optional<DetailAST> findFieldInFrame(final String name) {
-            final Predicate<DetailAST> predicate = new Predicate<DetailAST>() {
-                @Override
-                public boolean apply(DetailAST field) {
-                    return getIdentText(field).equals(name);
-                }
-            };
-            return Iterables.tryFind(fields, predicate);
+            return fields.stream()
+                .filter(field -> getIdentText(field).equals(name))
+                .findFirst();
         }
 
         /**
@@ -869,13 +859,9 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          * @return search result.
          */
         public Optional<DetailAST> findEnumConstInFrame(final String name) {
-            final Predicate<DetailAST> predicate = new Predicate<DetailAST>() {
-                @Override
-                public boolean apply(DetailAST enumConstant) {
-                    return getIdentText(enumConstant).equals(name);
-                }
-            };
-            return Iterables.tryFind(enumConstants, predicate);
+            return enumConstants.stream()
+                    .filter(enumConstant -> getIdentText(enumConstant).equals(name))
+                    .findFirst();
         }
 
     }

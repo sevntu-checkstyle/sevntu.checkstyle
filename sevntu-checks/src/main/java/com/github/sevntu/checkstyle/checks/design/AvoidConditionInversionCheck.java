@@ -20,9 +20,10 @@
 package com.github.sevntu.checkstyle.checks.design;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.github.sevntu.checkstyle.SevntuUtil;
-import com.google.common.collect.ImmutableSet;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -96,7 +97,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
      * relational</a> operators.
      */
-    private static final Set<Integer> RELATIONAL_OPERATORS_SET = ImmutableSet.of(
+    private static final Set<Integer> RELATIONAL_OPERATORS_SET = Set.of(
             TokenTypes.LT,
             TokenTypes.LE,
             TokenTypes.GT,
@@ -109,12 +110,10 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
      * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
      * relational</a> and conditional operators.
      */
-    private static final Set<Integer> RELATIONAL_AND_CONDITIONAL_OPERATORS_SET = new ImmutableSet
-            .Builder<Integer>()
-                .addAll(RELATIONAL_OPERATORS_SET)
-                .add(TokenTypes.LOR)
-                .add(TokenTypes.LAND)
-                .build();
+    private static final Set<Integer> RELATIONAL_AND_CONDITIONAL_OPERATORS_SET = Stream.concat(
+            RELATIONAL_OPERATORS_SET.stream(),
+            Stream.of(TokenTypes.LOR, TokenTypes.LAND))
+        .collect(Collectors.toUnmodifiableSet());
 
     /**
      * If <b>true</b> - Check only puts violation on conditions with

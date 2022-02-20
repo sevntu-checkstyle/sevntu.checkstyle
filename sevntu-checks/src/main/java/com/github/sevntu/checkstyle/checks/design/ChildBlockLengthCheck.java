@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -203,7 +202,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      */
     private List<DetailAST> getChildBlocks(DetailAST blockOpeningBrace,
             DetailAST blockClosingBrace) {
-        final List<DetailAST> childBlocks = Lists.newLinkedList();
+        final List<DetailAST> childBlocks = new LinkedList<>();
 
         DetailAST curNode = blockOpeningBrace;
 
