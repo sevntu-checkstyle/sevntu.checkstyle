@@ -75,18 +75,20 @@ public final class ChecksTest {
 
         // eclipsecs
 
-        for (String p : packages) {
+        for (String packageName : packages) {
             Assertions.assertTrue(new File(
-                    getEclipseCsPath(p)).exists(), "folder " + p + " must exist in eclipsecs");
+                    getEclipseCsPath(packageName)).exists(), "folder " + packageName
+                    + " must exist in eclipsecs");
 
-            final Set<Class<?>> pkgModules = CheckUtil.getModulesInPackage(modules, p);
+            final Set<Class<?>> pkgModules = CheckUtil.getModulesInPackage(modules, packageName);
 
             validateEclipseCsMetaXmlFile(
-                    new File(getEclipseCsPath(p + "/checkstyle-metadata.xml")), p, new HashSet<>(
+                    new File(getEclipseCsPath(packageName
+                            + "/checkstyle-metadata.xml")), packageName, new HashSet<>(
                             pkgModules));
 
-            validateEclipseCsMetaPropFile(new File(getEclipseCsPath(p
-                    + "/checkstyle-metadata.properties")), p, new HashSet<>(pkgModules));
+            validateEclipseCsMetaPropFile(new File(getEclipseCsPath(packageName
+                    + "/checkstyle-metadata.properties")), packageName, new HashSet<>(pkgModules));
         }
     }
 
@@ -389,9 +391,9 @@ public final class ChecksTest {
         final Set<String> result = new TreeSet<>();
         final PropertyDescriptor[] map = PropertyUtils.getPropertyDescriptors(clss);
 
-        for (PropertyDescriptor p : map) {
-            if (p.getWriteMethod() != null) {
-                result.add(p.getName());
+        for (PropertyDescriptor descriptor : map) {
+            if (descriptor.getWriteMethod() != null) {
+                result.add(descriptor.getName());
             }
         }
 

@@ -337,9 +337,9 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         final int size = customOrderDeclaration.size();
         final int[] tokenTypes = new int[size + 1];
 
-        for (int i = 0; i < size; i++) {
-            final FormatMatcher currentRule = customOrderDeclaration.get(i);
-            tokenTypes[i] = currentRule.getClassMember();
+        for (int index = 0; index < size; index++) {
+            final FormatMatcher currentRule = customOrderDeclaration.get(index);
+            tokenTypes[index] = currentRule.getClassMember();
 
             if (currentRule.hasRule(INNER_CLASS_MACRO)) {
                 checkInnerClasses = true;
@@ -1371,8 +1371,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 // sort by line numbers
                 Collections.sort(allGettersSetters, AST_LINE_COMPARATOR);
 
-                for (int i = 0; i < allGettersSetters.size(); i++) {
-                    result.putAll(getWrongOrderedGettersSetters(allGettersSetters, i));
+                for (int index = 0; index < allGettersSetters.size(); index++) {
+                    result.putAll(getWrongOrderedGettersSetters(allGettersSetters, index));
                 }
             }
             return result;
@@ -1402,17 +1402,19 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
 
             if (getterField != null) {
                 // review rest of the list to find a proper setter
-                for (int j = 0; j < allGettersSetters.size(); j++) {
-                    if (index != j) {
+                for (int allGettersSettersIndex = 0;
+                     allGettersSettersIndex < allGettersSetters.size();
+                     allGettersSettersIndex++) {
+                    if (index != allGettersSettersIndex) {
                         // method is NOT getter
-                        final DetailAST setterAst = allGettersSetters.get(j);
+                        final DetailAST setterAst = allGettersSetters.get(allGettersSettersIndex);
                         final String setterName = getIdentifier(setterAst);
                         if (isSetterName(setterName)) {
                             final String setterField = getNameWithoutPrefix(
                                     getIdentifier(setterAst), SETTER_PREFIX);
 
                             // if fields are same and setter is sibling with getter
-                            if (j != index + 1
+                            if (allGettersSettersIndex != index + 1
                                     && getterField.equals(setterField)) {
                                 result.put(setterAst, getterAst);
                                 break;

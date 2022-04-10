@@ -357,7 +357,7 @@ public class SimpleAccessorNameNotationCheck extends AbstractCheck {
         final DetailAST parameterDef = parameters
                 .findFirstToken(TokenTypes.PARAMETER_DEF);
 
-        for (int i = 0; i < parametersChildCount && !isNameOfParameter; i++) {
+        for (int index = 0; index < parametersChildCount && !isNameOfParameter; index++) {
             isNameOfParameter = parameterDef.findFirstToken(TokenTypes.IDENT).getText()
                     .equals(fieldName);
         }

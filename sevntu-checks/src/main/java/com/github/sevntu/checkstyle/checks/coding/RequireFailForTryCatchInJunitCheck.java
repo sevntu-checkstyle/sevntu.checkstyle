@@ -345,8 +345,8 @@ public class RequireFailForTryCatchInJunitCheck extends AbstractCheck {
         boolean result = false;
         if (method != null) {
             result = importTest && AnnotationUtil.containsAnnotation(method, "Test");
-            for (int i = 0; !result && i < FQ_JUNIT_TESTS.size(); i++) {
-                result = AnnotationUtil.containsAnnotation(method, FQ_JUNIT_TESTS.get(i));
+            for (int index = 0; !result && index < FQ_JUNIT_TESTS.size(); index++) {
+                result = AnnotationUtil.containsAnnotation(method, FQ_JUNIT_TESTS.get(index));
             }
         }
         return result;

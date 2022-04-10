@@ -185,8 +185,8 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
 
         DetailAST currNode = node.getFirstChild();
 
-        for (int i = 0; i < result.length; i++) {
-            result[i] = currNode;
+        for (int index = 0; index < result.length; index++) {
+            result[index] = currNode;
             currNode = currNode.getNextSibling();
         }
 

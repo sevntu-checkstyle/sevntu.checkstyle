@@ -251,10 +251,10 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
     private boolean isSingleTernaryLine(String line, int lineNo) {
         int questionsPerLine = 0;
         final char[] charArrayFromLine = line.toCharArray();
-        for (int i = 0; i < line.length(); i++) {
-            final char currentSymbol = charArrayFromLine[i];
+        for (int index = 0; index < line.length(); index++) {
+            final char currentSymbol = charArrayFromLine[index];
             if (currentSymbol == '?' && !getFileContents().hasIntersectionWithComment(lineNo + 1,
-                    i, lineNo + 1, i)) {
+                    index, lineNo + 1, index)) {
                 questionsPerLine++;
             }
             if (questionsPerLine > 1) {

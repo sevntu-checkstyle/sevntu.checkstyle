@@ -85,8 +85,8 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
     public void setTargetConstantTypes(String... targets) {
         if (targets != null) {
             targetConstantTypes = new int[targets.length];
-            for (int i = 0; i < targets.length; i++) {
-                targetConstantTypes[i] = TokenUtil.getTokenId(targets[i]);
+            for (int index = 0; index < targets.length; index++) {
+                targetConstantTypes[index] = TokenUtil.getTokenId(targets[index]);
             }
             Arrays.sort(targetConstantTypes);
         }
