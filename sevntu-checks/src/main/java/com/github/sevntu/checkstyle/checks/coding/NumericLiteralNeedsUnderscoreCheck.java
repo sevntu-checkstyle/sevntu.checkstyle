@@ -581,8 +581,8 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
             final char underscore = '_';
             int symbolCount = 0;
 
-            for (int i = 0; i < numericSegment.length(); i++) {
-                final char current = numericSegment.charAt(i);
+            for (int index = 0; index < numericSegment.length(); index++) {
+                final char current = numericSegment.charAt(index);
                 if (symbolCount >= symbolsUntilUnderscore && current != underscore) {
                     passes = false;
                     break;

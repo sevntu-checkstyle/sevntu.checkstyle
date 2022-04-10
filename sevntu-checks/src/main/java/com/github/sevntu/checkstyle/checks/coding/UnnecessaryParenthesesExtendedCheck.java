@@ -324,8 +324,8 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
         //       HashMap to do the searches.
 
         boolean found = false;
-        for (int i = 0; i < tokens.length && !found; i++) {
-            found = tokens[i] == type;
+        for (int index = 0; index < tokens.length && !found; index++) {
+            found = tokens[index] == type;
         }
         return found;
     }

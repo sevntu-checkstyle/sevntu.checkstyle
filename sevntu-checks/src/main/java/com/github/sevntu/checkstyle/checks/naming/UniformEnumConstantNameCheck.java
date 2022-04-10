@@ -219,11 +219,11 @@ public class UniformEnumConstantNameCheck extends AbstractCheck {
      */
     private BitSet match(String name, BitSet conformedPatterns) {
         final BitSet result = new BitSet(patternCount);
-        for (int i = 0; i < patterns.size(); i++) {
-            if (conformedPatterns.get(i)) {
-                final Pattern pattern = patterns.get(i);
+        for (int index = 0; index < patterns.size(); index++) {
+            if (conformedPatterns.get(index)) {
+                final Pattern pattern = patterns.get(index);
                 if (pattern.matcher(name).find()) {
-                    result.set(i);
+                    result.set(index);
                 }
             }
         }

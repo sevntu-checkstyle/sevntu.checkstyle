@@ -104,8 +104,8 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      **/
     public void setBlockTypes(final String... blockTypes) {
         this.blockTypes = new int[blockTypes.length];
-        for (int i = 0; i < blockTypes.length; i++) {
-            this.blockTypes[i] = TokenUtil.getTokenId(blockTypes[i]);
+        for (int index = 0; index < blockTypes.length; index++) {
+            this.blockTypes[index] = TokenUtil.getTokenId(blockTypes[index]);
         }
     }
 

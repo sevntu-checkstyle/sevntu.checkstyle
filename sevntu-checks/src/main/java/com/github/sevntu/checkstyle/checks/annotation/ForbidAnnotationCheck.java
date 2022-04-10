@@ -79,8 +79,8 @@ public class ForbidAnnotationCheck extends AbstractCheck {
     public void setAnnotationTargets(String... targets) {
         if (targets != null) {
             annotationTargets = new int[targets.length];
-            for (int i = 0; i < targets.length; i++) {
-                annotationTargets[i] = TokenUtil.getTokenId(targets[i]);
+            for (int index = 0; index < targets.length; index++) {
+                annotationTargets[index] = TokenUtil.getTokenId(targets[index]);
             }
             Arrays.sort(annotationTargets);
         }

@@ -231,17 +231,17 @@ public class LineLengthExtendedCheck extends AbstractCheck {
 
     @Override
     public void finishTree(DetailAST rootAST) {
-        for (int i = 0; i < lines.length; i++) {
-            if (lines[i] == null) {
+        for (int index = 0; index < lines.length; index++) {
+            if (lines[index] == null) {
                 continue;
             }
 
-            final String line = lines[i];
+            final String line = lines[index];
             final int realLength = CommonUtil.lengthExpandedTabs(line,
                     line.length(), getTabWidth());
 
             if (realLength > max && !ignorePattern.matcher(line).find()) {
-                log(i + 1, MSG_KEY, max, realLength);
+                log(index + 1, MSG_KEY, max, realLength);
             }
         }
     }
