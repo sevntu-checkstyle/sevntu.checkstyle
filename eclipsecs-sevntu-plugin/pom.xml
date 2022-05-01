@@ -26,7 +26,7 @@
   </licenses>
 
   <properties>
-    <eclipsecs.version>9.1.0-SNAPSHOT</eclipsecs.version>
+    <eclipsecs.version>10.0.0-SNAPSHOT</eclipsecs.version>
   </properties>
 
   <dependencies>

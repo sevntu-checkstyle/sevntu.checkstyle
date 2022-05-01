@@ -16,7 +16,7 @@
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
     <!-- It is compile dependency to checkstyle, this version has to be the same as eclipse-cs depends on -->
-    <checkstyle.eclipse-cs.version>9.1</checkstyle.eclipse-cs.version>
+    <checkstyle.eclipse-cs.version>10.0</checkstyle.eclipse-cs.version>
     <!-- verify time version -->
     <checkstyle.version>10.2</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
