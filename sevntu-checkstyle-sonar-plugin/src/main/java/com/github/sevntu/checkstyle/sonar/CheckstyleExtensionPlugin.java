@@ -26,6 +26,7 @@ import org.sonar.api.SonarPlugin;
 
 /**
  * Sonar Plugin with {@link CheckstyleExtensionRulesDefinition} extension.
+ *
  * @author rdiachenko
  */
 public final class CheckstyleExtensionPlugin extends SonarPlugin {

@@ -24,6 +24,7 @@ import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 /**
  * Sonar rules definition for Checkstyle Sevntu extensions.
+ *
  * @author rdiachenko
  */
 public final class CheckstyleExtensionRulesDefinition implements RulesDefinition {
@@ -56,6 +57,7 @@ public final class CheckstyleExtensionRulesDefinition implements RulesDefinition
 
     /**
      * Useless JavaDoc for a Constructor.
+     *
      * @param xmlRuleLoader rules definition xml loader.
      */
     public CheckstyleExtensionRulesDefinition(RulesDefinitionXmlLoader xmlRuleLoader) {

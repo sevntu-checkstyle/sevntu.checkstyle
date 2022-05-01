@@ -26,10 +26,11 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <checkstyle.version>8.29</checkstyle.version>
-    <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
+    <checkstyle.version>10.2</checkstyle.version>
+    <checkstyle.plugin.version>3.1.2</checkstyle.plugin.version>
     <sonar.version>7.9</sonar.version>
     <staxmate.version>2.0.1</staxmate.version>
+    <java.version>11</java.version>
     <junit.version>4.13.1</junit.version>
   </properties>
 
@@ -75,6 +76,16 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
       </plugin>
 
       <plugin>
