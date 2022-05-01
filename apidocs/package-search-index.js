@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.github.sevntu.checkstyle"},{"l":"com.github.sevntu.checkstyle.checks.annotation"},{"l":"com.github.sevntu.checkstyle.checks.coding"},{"l":"com.github.sevntu.checkstyle.checks.design"},{"l":"com.github.sevntu.checkstyle.checks.naming"},{"l":"com.github.sevntu.checkstyle.checks.sizes"}]
