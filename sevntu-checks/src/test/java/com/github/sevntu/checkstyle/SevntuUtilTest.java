@@ -31,7 +31,7 @@ public class SevntuUtilTest {
 
     @Test
     public void testIsProperUtilsClass() throws ReflectiveOperationException {
-        Assertions.assertTrue(isUtilsClassHasPrivateConstructor(SevntuUtil.class, true),
+        Assertions.assertTrue(isUtilsClassHasPrivateConstructor(SevntuUtil.class),
                 "Constructor is not private");
     }
 
