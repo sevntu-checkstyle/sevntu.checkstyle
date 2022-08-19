@@ -1,0 +1,41 @@
+#############################################################################
+# GitHub Action to Bump Checkstyle Version in repository.
+#
+# Workflow starts every day at the end of the day.
+#
+#############################################################################
+name: "Bump CS Version in REPO"
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bump:
+    name: Bump CS version in REPO
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the latest code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Version
+        id: VERSION
+        run: |
+          MAVEN_METADATA=https://repo1.maven.org/maven2/com/puppycrawl/tools/checkstyle/maven-metadata.xml
+          LATEST_VERSION=$(curl $MAVEN_METADATA | grep -oPm1 "(?<=<latest>)[^<]+")
+          echo "::set-output name=LATEST_VERSION::$LATEST_VERSION"
+      - name: Run Shell Script
+        run: |
+          ./.ci/bump-cs-version-in-sevntu-checks.sh ${{ steps.VERSION.outputs.LATEST_VERSION }}
+          ./.ci/bump-cs-version-in-sonar-plugin.sh ${{ steps.VERSION.outputs.LATEST_VERSION }}
+      - name: Commit and Push
+        run: |
+          if [ "$(git status | grep 'Changes not staged\|Untracked files')" ]; then
+            git diff
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git commit -am "minor: Bump project version to ${{ steps.VERSION.outputs.LATEST_VERSION }}"
+            git push
+          fi
