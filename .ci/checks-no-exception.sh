@@ -1,5 +1,4 @@
 #!/bin/bash
-# Attention, there is no "-x" to avoid problems on Wercker
 set -e
 
 function checkout_from {
@@ -20,7 +19,14 @@ function checkout_from {
 
 case $1 in
 
-no-exception-struts)
+setup)
+  cd sevntu-checks
+  mvn -e clean install -Pno-validations
+  cd ..
+  ;;
+
+struts)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -31,18 +37,20 @@ no-exception-struts)
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
   cd .ci-temp/contribution/checkstyle-tester
-  sed -i'' 's/^guava/#guava/' projects-for-wercker.properties
-  sed -i'' 's/#apache-struts/apache-struts/' projects-for-wercker.properties
-  groovy ./diff.groovy --listOfProjects projects-for-wercker.properties \
+  sed -i'' 's/^guava/#guava/' projects-to-test-on.properties
+  sed -i'' 's/#apache-struts/apache-struts/' projects-to-test-on.properties
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
       -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-guava)
+guava)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -53,18 +61,20 @@ no-exception-guava)
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
   cd .ci-temp/contribution/checkstyle-tester
-  sed -i'' 's/^guava/#guava/' projects-for-wercker.properties
-  sed -i'' 's/#guava/guava/' projects-for-wercker.properties
-  groovy ./diff.groovy --listOfProjects projects-for-wercker.properties \
+  sed -i'' 's/^guava/#guava/' projects-to-test-on.properties
+  sed -i'' 's/#guava/guava/' projects-to-test-on.properties
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
       -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-hibernate-orm)
+hibernate-orm)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -77,16 +87,18 @@ no-exception-hibernate-orm)
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#hibernate-orm/hibernate-orm/' projects-to-test-on.properties
-  groovy ./diff.groovy --listOfProjects projects-for-wercker.properties \
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
       -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-spotbugs)
+spotbugs)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -106,9 +118,11 @@ no-exception-spotbugs)
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-spring-framework)
+spring-framework)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -128,9 +142,11 @@ no-exception-spring-framework)
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-hbase)
+hbase)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -150,9 +166,11 @@ no-exception-hbase)
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-Pmd-elasticsearch-lombok-ast)
+pmd-elasticsearch-lombok-ast)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -174,9 +192,11 @@ no-exception-Pmd-elasticsearch-lombok-ast)
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
-no-exception-alot-of-projects)
+alot-of-projects)
+  cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
   CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
@@ -201,6 +221,7 @@ no-exception-alot-of-projects)
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
+  cd ..
   ;;
 
 *)
