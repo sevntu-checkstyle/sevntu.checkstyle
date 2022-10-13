@@ -2,13 +2,11 @@ version: ~> 1.0
 dist: focal
 # this arch is required as is for Partner Queue Solution - DO NOT MODIFY
 arch: ppc64le
-
 language: java
-sudo: false
 
 cache:
   directories:
-  - ~/.m2
+    - ~/.m2
 
 addons:
   apt:
@@ -23,7 +21,7 @@ branches:
 install: true
 
 
-matrix:
+jobs:
   fast_finish: true
   include:
     # eclipse-cs
@@ -32,73 +30,66 @@ matrix:
       env:
         - DESC="eclipse-cs"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh eclipse-cs"
+        - CMD="./.ci/validation.sh eclipse-cs"
 
     # idea-extension
     - jdk: openjdk11
       env:
         - DESC="idea-extension"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh idea-extension"
+        - CMD="./.ci/validation.sh idea-extension"
 
     # sonar-plugin
     - jdk: openjdk11
       env:
         - DESC="sonar-plugin"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh sonar-plugin"
+        - CMD="./.ci/validation.sh sonar-plugin"
 
     # checks
     - jdk: openjdk11
       env:
         - DESC="checks"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh sevntu-checks"
+        - CMD="./.ci/validation.sh sevntu-checks"
 
     # Ensure that all sevntu checks are used in contribution
     - jdk: openjdk11
       env:
         - DESC="All sevntu checks should be used in contribution"
-        - CMD="./.ci/travis.sh all-sevntu-checks-contribution"
+        - CMD="./.ci/validation.sh all-sevntu-checks-contribution"
 
     # regression on checkstyle
     - jdk: openjdk11
       env:
         - DESC="checkstyle-regression"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh checkstyle-regression"
+        - CMD="./.ci/validation.sh checkstyle-regression"
 
     # eclipse static analysis
     - jdk: openjdk11
       env:
         - DESC="eclipse-analysis"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh eclipse-analysis"
+        - CMD="./.ci/validation.sh eclipse-analysis"
 
     # https://sonarcloud.io (openjdk11)
     - jdk: openjdk11
       env:
         - DESC="sonarcloud.io"
         - USE_MAVEN_REPO="true"
-        - CMD="./.ci/travis.sh sonarqube"
-
+        - CMD="./.ci/validation.sh sonarqube"
 
 script:
-  - export RUN_JOB=1
-  - |
-    echo "Installed JVMs: "
-    ls /usr/lib/jvm/
-  - |
-    if [[ $RUN_JOB == 1 ]]; then
-      ./.ci/travis.sh init-m2-settings
-      ./.ci/travis.sh init-m2-repo
-      echo "eval of CMD is starting";
-      echo "CMD=$CMD";
-      eval $CMD;
-      echo "eval of CMD is completed";
-    else
-      echo "CI is skipped";
-    fi
-    sleep 5s
+  # required to run javadoc in travis
+  # this must be in yml to pass to other scripts
+  - export JAVA_HOME="/usr/lib/jvm/"$(ls /usr/lib/jvm/ | head -n 1)"/"
+  - echo "JAVA_HOME="$JAVA_HOME
+  - export PATH=$JAVA_HOME:$PATH
+  - echo "PATH="$PATH
+  - ./.ci/travis.sh init-m2-repo
+  - ./.ci/travis.sh run-command "$CMD"
+  - ./.ci/validation.sh git-diff
+  - sleep 5s
 
 after_success:
