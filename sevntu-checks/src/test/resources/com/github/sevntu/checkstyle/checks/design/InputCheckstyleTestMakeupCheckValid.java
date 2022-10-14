@@ -48,6 +48,24 @@ public class InputCheckstyleTestMakeupCheckValid {
         verify();
     }
 
+    @Test
+    public void method6() {
+        final Configuration config = createModuleConfig();
+        config.addProperty("", null);
+        config.addProperty("", "");
+        config.addProperty("", "" + "");
+        final File file = new File("");
+        config.addProperty("", file.getPath());
+        config.addProperty("", ENUM.TEST.toString());
+        config.addProperty("", ENUM.TEST.getName());
+        config.addProperty("", ENUM.TEST.name());
+        config.addProperty("", getPath(""));
+        config.addProperty("", getNonCompilablePath(""));
+        config.addProperty("", getUriString(""));
+        config.addProperty("", getResourcePath(""));
+        verify();
+    }
+
     private String getPath(String s) {
         return s;
     }
@@ -83,6 +101,10 @@ public class InputCheckstyleTestMakeupCheckValid {
 
     private static class Configuration {
         public void addAttribute(String s, String t) {
+        }
+
+
+        public void addProperty(String s, String t) {
         }
     }
 

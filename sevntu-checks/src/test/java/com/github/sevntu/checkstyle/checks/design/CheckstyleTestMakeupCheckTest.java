@@ -106,6 +106,7 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
             "16:36: " + getCheckMessage(MSG_KEY_CONFIG_NOT_ASSIGNED_WITH),
             "22:43: " + getCheckMessage(MSG_KEY_CONFIG_NOT_ASSIGNED_WITH),
             "28:36: " + getCheckMessage(MSG_KEY_CONFIG_NOT_ASSIGNED_WITH),
+            "53:36: " + getCheckMessage(MSG_KEY_CONFIG_NOT_ASSIGNED_WITH),
         };
 
         verify(checkConfig, getPath("InputCheckstyleTestMakeupCheckValid.java"), expected);

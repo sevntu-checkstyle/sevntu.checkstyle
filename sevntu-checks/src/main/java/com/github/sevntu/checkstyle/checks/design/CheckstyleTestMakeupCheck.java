@@ -239,8 +239,9 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
 
     /**
      * Examines the method call and verify it is defined correctly.
-     * addAttribute method which is called by one of the configurations found earlier, must have
-     * all its parameters be acceptable to {@link #isValidMethodCallExpression(DetailAST)}.
+     * addAttribute/addProperty method which is called by one of the configurations found earlier,
+     * must have all its parameters be acceptable to
+     * {@link #isValidMethodCallExpression(DetailAST)}.
      * Any method that matches {@link #verifyMethodRegexp} are tracked for future purposes.
      *
      * @param ast The method call to examine.
@@ -251,7 +252,7 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
             final String methodCallName = getMethodCallName(firstChild);
             final String methodCallerName = getMethodCallerName(firstChild);
 
-            if ("addAttribute".equals(methodCallName)
+            if (isAddPropertyMethod(methodCallName)
                     && checkConfigNames.contains(methodCallerName)) {
                 final DetailAST elist = ast.findFirstToken(TokenTypes.ELIST);
 
@@ -269,6 +270,17 @@ public class CheckstyleTestMakeupCheck extends AbstractCheck {
                 foundVerify = true;
             }
         }
+    }
+
+    /**
+     * Checks if the supplied {@code methodName} is addAttribute or addProperty.
+     *
+     * @param methodName The method name to examine.
+     * @return {@code true} if the method is the expected name.
+     */
+    private static boolean isAddPropertyMethod(String methodName) {
+        return "addAttribute".equals(methodName)
+                || "addProperty".equals(methodName);
     }
 
     /**
