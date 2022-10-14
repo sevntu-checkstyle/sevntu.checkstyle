@@ -46,8 +46,8 @@ public class IllegalCatchExtendedCheckTest extends AbstractModuleTestSupport {
             "34:9: " + getCheckMessage(MSG_KEY, "Throwable"),
         };
 
-        checkConfig.addAttribute("allowThrow", "false");
-        checkConfig.addAttribute("allowRethrow", "false");
+        checkConfig.addProperty("allowThrow", "false");
+        checkConfig.addProperty("allowRethrow", "false");
 
         verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
@@ -64,8 +64,8 @@ public class IllegalCatchExtendedCheckTest extends AbstractModuleTestSupport {
             "34:9: " + getCheckMessage(MSG_KEY, "Throwable"),
         };
 
-        checkConfig.addAttribute("allowThrow", "true");
-        checkConfig.addAttribute("allowRethrow", "false");
+        checkConfig.addProperty("allowThrow", "true");
+        checkConfig.addProperty("allowRethrow", "false");
 
         verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
@@ -74,7 +74,7 @@ public class IllegalCatchExtendedCheckTest extends AbstractModuleTestSupport {
     public final void testReThrowPermit() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(IllegalCatchExtendedCheck.class);
-        checkConfig.addAttribute("illegalClassNames",
+        checkConfig.addProperty("illegalClassNames",
                                  "java.lang.Error, java.lang.Exception, java.lang.Throwable");
 
         final String[] expected = {
@@ -82,8 +82,8 @@ public class IllegalCatchExtendedCheckTest extends AbstractModuleTestSupport {
             "13:9: " + getCheckMessage(MSG_KEY, "Throwable"),
         };
 
-        checkConfig.addAttribute("allowThrow", "false");
-        checkConfig.addAttribute("allowRethrow", "true");
+        checkConfig.addProperty("allowThrow", "false");
+        checkConfig.addProperty("allowRethrow", "true");
 
         verify(checkConfig, getPath("InputIllegalCatchExtendedCheckNew.java"), expected);
     }
@@ -92,11 +92,11 @@ public class IllegalCatchExtendedCheckTest extends AbstractModuleTestSupport {
     public void testIllegalClassNames() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(IllegalCatchExtendedCheck.class);
-        checkConfig.addAttribute("illegalClassNames",
+        checkConfig.addProperty("illegalClassNames",
                                  "java.lang.Error, java.lang.Exception, NullPointerException");
 
         // check that incorrect names don't break the Check
-        checkConfig.addAttribute("illegalClassNames",
+        checkConfig.addProperty("illegalClassNames",
                 "java.lang.IOException.");
 
         final String[] expected = {

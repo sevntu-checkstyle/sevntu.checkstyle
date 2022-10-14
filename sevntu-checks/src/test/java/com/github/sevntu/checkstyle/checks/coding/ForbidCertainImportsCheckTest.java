@@ -41,9 +41,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testNormalWork() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
-        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+        checkConfig.addProperty("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addProperty("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {
             "3:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
@@ -61,9 +61,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testNoPackageMatch() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.BAD\\..+");
-        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+        checkConfig.addProperty("packageNameRegexp", ".+\\.BAD\\..+");
+        checkConfig.addProperty("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {};
 
@@ -74,9 +74,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testNormalWorkWithExcludes() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
-        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
+        checkConfig.addProperty("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addProperty("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "com.puppycrawl.+");
 
         final String[] expected = {};
 
@@ -87,9 +87,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testEmptyImportsAndDefaultPackage() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.old\\..+");
-        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+        checkConfig.addProperty("packageNameRegexp", ".+\\.old\\..+");
+        checkConfig.addProperty("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {};
 
@@ -102,9 +102,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testEmptyParams() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", "");
-        checkConfig.addAttribute("forbiddenImportsRegexp", "");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+        checkConfig.addProperty("packageNameRegexp", "");
+        checkConfig.addProperty("forbiddenImportsRegexp", "");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {};
 
@@ -117,9 +117,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testNullParams() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", null);
-        checkConfig.addAttribute("forbiddenImportsRegexp", null);
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
+        checkConfig.addProperty("packageNameRegexp", null);
+        checkConfig.addProperty("forbiddenImportsRegexp", null);
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", null);
 
         final String[] expected = {};
 
@@ -132,9 +132,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testPackageMatchButNullParams() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
-        checkConfig.addAttribute("forbiddenImportsRegexp", null);
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
+        checkConfig.addProperty("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addProperty("forbiddenImportsRegexp", null);
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", null);
 
         final String[] expected = {};
 
@@ -145,9 +145,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testPackageForbiddenImportMatchButNullExclude() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", ".+\\.sevntu\\..+");
-        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", null);
+        checkConfig.addProperty("packageNameRegexp", ".+\\.sevntu\\..+");
+        checkConfig.addProperty("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", null);
 
         final String[] expected = {
             "3:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",
@@ -165,9 +165,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testNoImports() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", "");
-        checkConfig.addAttribute("forbiddenImportsRegexp", "");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+        checkConfig.addProperty("packageNameRegexp", "");
+        checkConfig.addProperty("forbiddenImportsRegexp", "");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {};
 
@@ -180,9 +180,9 @@ public class ForbidCertainImportsCheckTest extends AbstractModuleTestSupport {
     public void testSinglePackage() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainImportsCheck.class);
-        checkConfig.addAttribute("packageNameRegexp", "sevntu");
-        checkConfig.addAttribute("forbiddenImportsRegexp", ".+\\.api\\..+");
-        checkConfig.addAttribute("forbiddenImportsExcludesRegexp", "");
+        checkConfig.addProperty("packageNameRegexp", "sevntu");
+        checkConfig.addProperty("forbiddenImportsRegexp", ".+\\.api\\..+");
+        checkConfig.addProperty("forbiddenImportsExcludesRegexp", "");
 
         final String[] expected = {
             "3:1: " + getCheckMessage(MSG_KEY, ".+\\.api\\..+",

@@ -43,8 +43,8 @@ public class EitherLogOrThrowCheckTest extends AbstractModuleTestSupport {
     @Test
     public void test() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(EitherLogOrThrowCheck.class);
-        checkConfig.addAttribute("loggerFullyQualifiedClassName", "org.slf4j.Logger");
-        checkConfig.addAttribute("loggingMethodNames", "error, warn");
+        checkConfig.addProperty("loggerFullyQualifiedClassName", "org.slf4j.Logger");
+        checkConfig.addProperty("loggingMethodNames", "error, warn");
 
         final String[] expected = {
             "19:28: " + warningMessage,

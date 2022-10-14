@@ -61,7 +61,7 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
     public void testSkippedMethods() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(StaticMethodCandidateCheck.class);
-        checkConfig.addAttribute("skippedMethods", "foo, bar,foobar");
+        checkConfig.addProperty("skippedMethods", "foo, bar,foobar");
         final String[] expected = {};
         verify(checkConfig, getPath("InputStaticMethodCandidateCheckSkippedMethods.java"),
                 expected);

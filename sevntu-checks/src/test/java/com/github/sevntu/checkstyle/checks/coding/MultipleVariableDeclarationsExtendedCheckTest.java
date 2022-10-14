@@ -53,8 +53,8 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends AbstractModul
             "20:14: " + msgVarDeclarationsComa,
         };
 
-        checkConfig.addAttribute("ignoreCycles", "false");
-        checkConfig.addAttribute("ignoreMethods", "false");
+        checkConfig.addProperty("ignoreCycles", "false");
+        checkConfig.addProperty("ignoreMethods", "false");
 
         verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
                 expected);
@@ -74,8 +74,8 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends AbstractModul
             "15:5: " + msgVarDeclarations,
         };
 
-        checkConfig.addAttribute("ignoreCycles", "true");
-        checkConfig.addAttribute("ignoreMethods", "false");
+        checkConfig.addProperty("ignoreCycles", "true");
+        checkConfig.addProperty("ignoreMethods", "false");
         verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
                 expected);
     }
@@ -93,8 +93,8 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends AbstractModul
             "20:14: " + msgVarDeclarationsComa,
         };
 
-        checkConfig.addAttribute("ignoreCycles", "false");
-        checkConfig.addAttribute("ignoreMethods", "true");
+        checkConfig.addProperty("ignoreCycles", "false");
+        checkConfig.addProperty("ignoreMethods", "true");
         verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
                 expected);
     }
@@ -111,8 +111,8 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends AbstractModul
             "15:5: " + msgVarDeclarations,
         };
 
-        checkConfig.addAttribute("ignoreCycles", "true");
-        checkConfig.addAttribute("ignoreMethods", "true");
+        checkConfig.addProperty("ignoreCycles", "true");
+        checkConfig.addProperty("ignoreMethods", "true");
         verify(checkConfig, getPath("InputMultipleVariableDeclarationsExtendedCheck.java"),
                 expected);
     }

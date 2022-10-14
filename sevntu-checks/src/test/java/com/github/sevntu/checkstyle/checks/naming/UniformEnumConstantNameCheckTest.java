@@ -75,7 +75,7 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UniformEnumConstantNameCheck.class);
-        checkConfig.addAttribute("formats",
+        checkConfig.addProperty("formats",
                 "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$");
         final String[] expected = {
                 buildMessage(35, 9, "FirstSimple",
@@ -101,7 +101,7 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UniformEnumConstantNameCheck.class);
-        checkConfig.addAttribute("formats",
+        checkConfig.addProperty("formats",
                 "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$" + ",.*");
         final String[] expected = {};
         verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
@@ -118,7 +118,7 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UniformEnumConstantNameCheck.class);
-        checkConfig.addAttribute("formats", "\\");
+        checkConfig.addProperty("formats", "\\");
         final String[] expected = {};
         try {
             verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
@@ -146,7 +146,7 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UniformEnumConstantNameCheck.class);
-        checkConfig.addAttribute("tokens", "INTERFACE_DEF");
+        checkConfig.addProperty("tokens", "INTERFACE_DEF");
         final String[] expected = {};
         try {
             verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);

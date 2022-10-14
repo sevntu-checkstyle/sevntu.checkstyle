@@ -54,7 +54,7 @@ public class InterfaceTypeParameterNameCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(InterfaceTypeParameterNameCheck.class);
-        checkConfig.addAttribute("format", "^foo$");
+        checkConfig.addProperty("format", "^foo$");
         final String[] expected = {
             "5:56: " + getCheckMessage(MSG_KEY, "it", "^foo$"),
             "13:27: " + getCheckMessage(MSG_KEY, "A", "^foo$"),

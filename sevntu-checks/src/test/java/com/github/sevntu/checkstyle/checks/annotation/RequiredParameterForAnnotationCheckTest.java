@@ -40,8 +40,8 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationName", "testAnnotation1");
-        checkConfig.addAttribute("requiredParameters", "firstParameter");
+        checkConfig.addProperty("annotationName", "testAnnotation1");
+        checkConfig.addProperty("requiredParameters", "firstParameter");
 
         final String[] expected = {
             "6:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
@@ -60,8 +60,8 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationName", "testAnnotation1");
-        checkConfig.addAttribute("requiredParameters",
+        checkConfig.addProperty("annotationName", "testAnnotation1");
+        checkConfig.addProperty("requiredParameters",
                 "firstParameter,secondParameter,thirdParameter");
 
         final String[] expected = {
@@ -100,8 +100,8 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationName", "testAnnotation1");
-        checkConfig.addAttribute("requiredParameters", "firstParameter,secondParameter");
+        checkConfig.addProperty("annotationName", "testAnnotation1");
+        checkConfig.addProperty("requiredParameters", "firstParameter,secondParameter");
 
         final String[] expected = {
             "6:4: " + getCheckMessage(MSG_KEY,
@@ -129,9 +129,9 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationName", "com.github.sevntu.checkstyle.checks"
+        checkConfig.addProperty("annotationName", "com.github.sevntu.checkstyle.checks"
                 + ".annotation.InputRequiredParameterForAnnotationCheck.testAnnotation2");
-        checkConfig.addAttribute("requiredParameters", "par1");
+        checkConfig.addProperty("requiredParameters", "par1");
 
         final String[] expected = {
             "27:4: " + getCheckMessage(MSG_KEY,
@@ -159,9 +159,9 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequiredParameterForAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationName", "com.github.sevntu.checkstyle.checks"
+        checkConfig.addProperty("annotationName", "com.github.sevntu.checkstyle.checks"
                 + ".annotation.InputRequiredParameterForAnnotationCheck.testAnnotation2");
-        checkConfig.addAttribute("requiredParameters", "par1,par2");
+        checkConfig.addProperty("requiredParameters", "par1,par2");
 
         final String[] expected = {
             "27:4: " + getCheckMessage(MSG_KEY,

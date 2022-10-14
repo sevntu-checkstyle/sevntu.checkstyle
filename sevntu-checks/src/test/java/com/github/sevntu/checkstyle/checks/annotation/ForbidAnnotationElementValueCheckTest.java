@@ -37,9 +37,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
     public void testAnnotationWithStringParameter() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
-        checkConfig.addAttribute("annotationName", "Anno1");
-        checkConfig.addAttribute("elementName", "str");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "someString\\d+");
+        checkConfig.addProperty("annotationName", "Anno1");
+        checkConfig.addProperty("elementName", "str");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "someString\\d+");
 
         final String[] expected = {
             "47:12: " + getCheckMessage(MSG_KEY, "str", "Anno1"),
@@ -53,9 +53,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Anno2");
-        checkConfig.addAttribute("elementName", "intVal");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "[1-5]");
+        checkConfig.addProperty("annotationName", "Anno2");
+        checkConfig.addProperty("elementName", "intVal");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "[1-5]");
 
         final String[] expected = {
             "52:12: " + getCheckMessage(MSG_KEY, "intVal", "Anno2"),
@@ -69,9 +69,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Anno3");
-        checkConfig.addAttribute("elementName", "floatVal");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "2\\.\\d+f");
+        checkConfig.addProperty("annotationName", "Anno3");
+        checkConfig.addProperty("elementName", "floatVal");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "2\\.\\d+f");
 
         final String[] expected = {
             "57:12: " + getCheckMessage(MSG_KEY, "floatVal", "Anno3"),
@@ -85,9 +85,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Anno4");
-        checkConfig.addAttribute("elementName", "boolVal");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "true");
+        checkConfig.addProperty("annotationName", "Anno4");
+        checkConfig.addProperty("elementName", "boolVal");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "true");
 
         final String[] expected = {
             "63:12: " + getCheckMessage(MSG_KEY, "boolVal", "Anno4"),
@@ -101,9 +101,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Bean");
-        checkConfig.addAttribute("elementName", "name");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "AnnotationConfigUtils\\.[A-Z_]+");
+        checkConfig.addProperty("annotationName", "Bean");
+        checkConfig.addProperty("elementName", "name");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "AnnotationConfigUtils\\.[A-Z_]+");
 
         final String[] expected = {
             "62:11: " + getCheckMessage(MSG_KEY, "name", "Bean"),
@@ -117,9 +117,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Anno5");
-        checkConfig.addAttribute("elementName", "stringValue");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "[a-z]+111String");
+        checkConfig.addProperty("annotationName", "Anno5");
+        checkConfig.addProperty("elementName", "stringValue");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "[a-z]+111String");
 
         final String[] expected = {
             "69:47: " + getCheckMessage(MSG_KEY, "stringValue", "Anno5"),
@@ -133,9 +133,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "SuppressWarnings");
-        checkConfig.addAttribute("elementName", "value");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "unchecked");
+        checkConfig.addProperty("annotationName", "SuppressWarnings");
+        checkConfig.addProperty("elementName", "value");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "unchecked");
 
         final String[] expected = {
             "68:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),
@@ -149,9 +149,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Anno4");
-        checkConfig.addAttribute("elementName", "boolVal");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "false");
+        checkConfig.addProperty("annotationName", "Anno4");
+        checkConfig.addProperty("elementName", "boolVal");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "false");
 
         final String[] expected = {};
 
@@ -163,9 +163,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "SuppressWarnings");
-        checkConfig.addAttribute("elementName", "value");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "\\{.*\\}");
+        checkConfig.addProperty("annotationName", "SuppressWarnings");
+        checkConfig.addProperty("elementName", "value");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "\\{.*\\}");
 
         final String[] expected = {
             "74:23: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),
@@ -180,9 +180,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "Name");
-        checkConfig.addAttribute("elementName", "last");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "Hacker");
+        checkConfig.addProperty("annotationName", "Name");
+        checkConfig.addProperty("elementName", "last");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "Hacker");
 
         final String[] expected = {
             "96:34: " + getCheckMessage(MSG_KEY, "last", "Name"),
@@ -208,9 +208,9 @@ public class ForbidAnnotationElementValueCheckTest extends AbstractModuleTestSup
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidAnnotationElementValueCheck.class);
 
-        checkConfig.addAttribute("annotationName", "SuppressWarnings");
-        checkConfig.addAttribute("elementName", "value");
-        checkConfig.addAttribute("forbiddenElementValueRegexp", "rawtypes");
+        checkConfig.addProperty("annotationName", "SuppressWarnings");
+        checkConfig.addProperty("elementName", "value");
+        checkConfig.addProperty("forbiddenElementValueRegexp", "rawtypes");
 
         final String[] expected = {
             "8:33: " + getCheckMessage(MSG_KEY, "value", "SuppressWarnings"),

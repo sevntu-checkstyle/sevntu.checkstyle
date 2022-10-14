@@ -108,7 +108,7 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
     public void testCtorAnnotatedWithAnnotation() throws Exception {
         final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\."
+        config.addProperty("ctorAnnotationNames", "com\\.github\\.sevntu\\.checkstyle\\.checks\\."
                 + "coding\\.AnnotationName");
 
         final String[] expected = {};
@@ -120,7 +120,7 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
     public void testClassAnnotatedWithAnnotation1() throws Exception {
         final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("classAnnotationNames",
+        config.addProperty("classAnnotationNames",
                 "com\\.github\\.sevntu\\.checkstyle\\.checks\\.coding\\.AnnotationName|"
                 + "org\\.junit\\.runner\\.RunWith|"
                 + "org\\.junit\\.Ignore|"
@@ -136,7 +136,7 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
     public void testClassAnnotatedWithAnnotation2() throws Exception {
         final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("classAnnotationNames",
+        config.addProperty("classAnnotationNames",
                 "org\\.junit\\.runner\\.RunWith|org\\.junit\\.Ignore|");
 
         final String[] expected = {};
@@ -148,8 +148,8 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
     public void testNullProperties1() throws Exception {
         final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("classAnnotationNames", null);
-        config.addAttribute("ctorAnnotationNames", null);
+        config.addProperty("classAnnotationNames", null);
+        config.addProperty("ctorAnnotationNames", null);
 
         final String[] expected = {
             "5:5: " + message,
@@ -163,8 +163,8 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
     public void testNullProperties2() throws Exception {
         final DefaultConfiguration config = createModuleConfig(EmptyPublicCtorInClassCheck.class);
 
-        config.addAttribute("classAnnotationNames", "");
-        config.addAttribute("ctorAnnotationNames", "");
+        config.addProperty("classAnnotationNames", "");
+        config.addProperty("ctorAnnotationNames", "");
 
         final String[] expected = {
             "5:5: " + message,

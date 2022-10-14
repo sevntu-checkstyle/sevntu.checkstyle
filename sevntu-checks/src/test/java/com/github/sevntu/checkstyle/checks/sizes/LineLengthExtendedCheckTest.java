@@ -41,8 +41,8 @@ public class LineLengthExtendedCheckTest extends AbstractModuleTestSupport {
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(LineLengthExtendedCheck.class);
-        checkConfig.addAttribute("max", "80");
-        checkConfig.addAttribute("ignorePattern", "^.*is OK.*regexp.*$");
+        checkConfig.addProperty("max", "80");
+        checkConfig.addProperty("ignorePattern", "^.*is OK.*regexp.*$");
         final String[] expected = {
             "18: " + getCheckMessage(MSG_KEY, 80, 81),
             "145: " + getCheckMessage(MSG_KEY, 80, 83),
@@ -55,8 +55,8 @@ public class LineLengthExtendedCheckTest extends AbstractModuleTestSupport {
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(LineLengthExtendedCheck.class);
-        checkConfig.addAttribute("max", "40");
-        checkConfig.addAttribute("ignorePattern", "^.*is OK.*regexp.*$");
+        checkConfig.addProperty("max", "40");
+        checkConfig.addProperty("ignorePattern", "^.*is OK.*regexp.*$");
         final String[] expected = {
             "1: " + getCheckMessage(MSG_KEY, 40, 80),
             "5: " + getCheckMessage(MSG_KEY, 40, 80),
@@ -75,10 +75,10 @@ public class LineLengthExtendedCheckTest extends AbstractModuleTestSupport {
             "200: " + getCheckMessage(MSG_KEY, 40, 58),
             "207: " + getCheckMessage(MSG_KEY, 40, 50),
         };
-        checkConfig.addAttribute("ignoreClass", "true");
-        checkConfig.addAttribute("ignoreConstructor", "true");
-        checkConfig.addAttribute("ignoreField", "true");
-        checkConfig.addAttribute("ignoreMethod", "true");
+        checkConfig.addProperty("ignoreClass", "true");
+        checkConfig.addProperty("ignoreConstructor", "true");
+        checkConfig.addProperty("ignoreField", "true");
+        checkConfig.addProperty("ignoreMethod", "true");
         verify(checkConfig, getPath("InputLineLengthExtendedCheck.java"), expected);
     }
 
@@ -87,7 +87,7 @@ public class LineLengthExtendedCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(LineLengthExtendedCheck.class);
 
-        checkConfig.addAttribute("ignorePattern", "[");
+        checkConfig.addProperty("ignorePattern", "[");
 
         final String[] expected = {};
 

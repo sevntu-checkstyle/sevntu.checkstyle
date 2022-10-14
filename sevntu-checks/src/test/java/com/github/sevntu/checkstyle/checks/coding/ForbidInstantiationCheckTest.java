@@ -41,7 +41,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
     public void testNullProperties() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidInstantiationCheck.class);
-        checkConfig.addAttribute("forbiddenClasses", null);
+        checkConfig.addProperty("forbiddenClasses", null);
 
         final String[] expected = {};
 
@@ -52,7 +52,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
     public void testNullPointerException() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidInstantiationCheck.class);
-        checkConfig.addAttribute("forbiddenClasses", "java.lang.NullPointerException");
+        checkConfig.addProperty("forbiddenClasses", "java.lang.NullPointerException");
 
         final String[] expected = {
             "9:35: " + getCheckMessage(MSG_KEY, "NullPointerException"),
@@ -66,7 +66,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
     public void testNormalWork() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidInstantiationCheck.class);
-        checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
+        checkConfig.addProperty("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {
             "13:21: " + getCheckMessage(MSG_KEY, "File"),
@@ -81,7 +81,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
     public void testNormalWork2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidInstantiationCheck.class);
-        checkConfig.addAttribute("forbiddenClasses",
+        checkConfig.addProperty("forbiddenClasses",
                 "com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck");
 
         final String[] expected = {
@@ -95,7 +95,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
     public void testNormalWork3() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidInstantiationCheck.class);
-        checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
+        checkConfig.addProperty("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {
             "13:22: " + getCheckMessage(MSG_KEY, "File"),
@@ -109,7 +109,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
     public void testAsteriskInInput() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidInstantiationCheck.class);
-        checkConfig.addAttribute("forbiddenClasses", "java.io.File , java.lang.String , ");
+        checkConfig.addProperty("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {
             "13:21: " + getCheckMessage(MSG_KEY, "File"),

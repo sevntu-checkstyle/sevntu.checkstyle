@@ -50,8 +50,8 @@ public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport
     public void testUserDefinedConfigProhibitsCustomClasses() throws Exception {
         final DefaultConfiguration defaultConfig =
                 createModuleConfig(ConstructorWithoutParamsCheck.class);
-        defaultConfig.addAttribute("classNameFormat", "Clazz[1-9]");
-        defaultConfig.addAttribute("ignoredClassNameFormat", "Clazz4");
+        defaultConfig.addProperty("classNameFormat", "Clazz[1-9]");
+        defaultConfig.addProperty("ignoredClassNameFormat", "Clazz4");
         final String[] expectedViolationMsg = {
             "69:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
             "72:27: " + getCheckMessage(MSG_KEY, "Clazz2"),

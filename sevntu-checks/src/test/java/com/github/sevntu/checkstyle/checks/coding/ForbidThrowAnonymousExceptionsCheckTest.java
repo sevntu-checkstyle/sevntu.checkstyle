@@ -79,7 +79,7 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestS
     public final void nonStandardExceptionClassNameTest() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidThrowAnonymousExceptionsCheck.class);
-        checkConfig.addAttribute("exceptionClassNameRegex", "^.*bla");
+        checkConfig.addProperty("exceptionClassNameRegex", "^.*bla");
         final String[] expected = {
             "10:13: " + getCheckMessage(MSG_KEY),
             "12:13: " + getCheckMessage(MSG_KEY),

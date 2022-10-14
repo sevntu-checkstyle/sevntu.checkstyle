@@ -42,7 +42,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SimpleAccessorNameNotationCheck.class);
 
-        checkConfig.addAttribute("prefix", "m");
+        checkConfig.addProperty("prefix", "m");
 
         final String[] expected = {
             "7:9: " + warningSetterMessage,
@@ -71,7 +71,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
     public void correctWithPrefix() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SimpleAccessorNameNotationCheck.class);
-        checkConfig.addAttribute("prefix", "m");
+        checkConfig.addProperty("prefix", "m");
         final String[] expected = {
             "7:5: " + warningSetterMessage,
             "12:5: " + warningGetterMessage,
@@ -98,7 +98,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
     public void partlyWithPrefix() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SimpleAccessorNameNotationCheck.class);
-        checkConfig.addAttribute("prefix", "m");
+        checkConfig.addProperty("prefix", "m");
         final String[] expected = {
             "10:5: " + warningSetterMessage,
             "15:5: " + warningGetterMessage,
@@ -127,7 +127,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
     public void errorsWithPrefix() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SimpleAccessorNameNotationCheck.class);
-        checkConfig.addAttribute("prefix", "m");
+        checkConfig.addProperty("prefix", "m");
         final String[] expected = {
             "7:5: " + warningSetterMessage,
             "12:5: " + warningGetterMessage,
@@ -149,7 +149,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
     public void cleanWithPrefix() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(SimpleAccessorNameNotationCheck.class);
-        checkConfig.addAttribute("prefix", "m");
+        checkConfig.addProperty("prefix", "m");
         final String[] expected = {};
         verify(checkConfig, getPath("InputSimpleAccessorNameNotationCheck4.java"), expected);
     }

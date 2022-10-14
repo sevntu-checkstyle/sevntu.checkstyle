@@ -98,7 +98,7 @@ public class UselessSuperCtorCallCheckTest extends AbstractModuleTestSupport {
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UselessSuperCtorCallCheck.class);
-        checkConfig.addAttribute("allowCallToNoArgsSuperCtor", "true");
+        checkConfig.addProperty("allowCallToNoArgsSuperCtor", "true");
 
         final String[] expected = {};
 
@@ -110,7 +110,7 @@ public class UselessSuperCtorCallCheckTest extends AbstractModuleTestSupport {
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UselessSuperCtorCallCheck.class);
-        checkConfig.addAttribute("allowCallToNoArgsSuperCtorIfMultiplePublicCtor", "true");
+        checkConfig.addProperty("allowCallToNoArgsSuperCtorIfMultiplePublicCtor", "true");
 
         final String[] expected = {
             "26:13: " + getCheckMessage(MSG_WITHOUT_ARGS, "DerivedTwo"),
