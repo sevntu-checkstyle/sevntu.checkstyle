@@ -827,6 +827,15 @@
             <groupId>org.eluder.coveralls</groupId>
             <artifactId>coveralls-maven-plugin</artifactId>
             <version>4.3.0</version>
+
+            <!-- required to work for Java 11 -->
+            <dependencies>
+              <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.1</version>
+              </dependency>
+            </dependencies>
           </plugin>
         </plugins>
       </build>
