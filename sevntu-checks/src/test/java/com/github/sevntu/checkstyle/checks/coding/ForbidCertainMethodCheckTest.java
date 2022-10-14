@@ -48,7 +48,7 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testNoArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
+        checkConfig.addProperty("methodName", "exit");
         final String[] expected = {
             "22:20: " + getCheckMessage(MSG_KEY, "exit", "exit", "1", "0-"),
         };
@@ -59,8 +59,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testWithEmptyArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit2");
-        checkConfig.addAttribute("argumentCount", "");
+        checkConfig.addProperty("methodName", "exit2");
+        checkConfig.addProperty("argumentCount", "");
         try {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
@@ -79,8 +79,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testWithSpacesForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit2");
-        checkConfig.addAttribute("argumentCount", "  ");
+        checkConfig.addProperty("methodName", "exit2");
+        checkConfig.addProperty("argumentCount", "  ");
         try {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
@@ -99,8 +99,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testWithSpacesAndCommaForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit2");
-        checkConfig.addAttribute("argumentCount", " , ");
+        checkConfig.addProperty("methodName", "exit2");
+        checkConfig.addProperty("argumentCount", " , ");
         try {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
@@ -119,8 +119,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testWithNullArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit2");
-        checkConfig.addAttribute("argumentCount", null);
+        checkConfig.addProperty("methodName", "exit2");
+        checkConfig.addProperty("argumentCount", null);
         try {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
@@ -139,8 +139,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testWithRegexForMethodName() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "assert(True|False)");
-        checkConfig.addAttribute("argumentCount", "1");
+        checkConfig.addProperty("methodName", "assert(True|False)");
+        checkConfig.addProperty("argumentCount", "1");
 
         final String[] expected = {
             "29:26: " + getCheckMessage(MSG_KEY, "assertTrue", "assert(True|False)", 1,
@@ -168,7 +168,7 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testNullMethodNameRegex() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", null);
+        checkConfig.addProperty("methodName", null);
         try {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
@@ -187,7 +187,7 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testEmptyMethodNameRegex() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "");
+        checkConfig.addProperty("methodName", "");
         verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
     }
 
@@ -195,7 +195,7 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testBadMethodNameRegex() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "[exit");
+        checkConfig.addProperty("methodName", "[exit");
         try {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
@@ -214,8 +214,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testBadRangeForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
-        checkConfig.addAttribute("argumentCount", "badArgCount");
+        checkConfig.addProperty("methodName", "exit");
+        checkConfig.addProperty("argumentCount", "badArgCount");
         final String[] expected = {
         };
         try {
@@ -236,8 +236,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testBadRange2ForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
-        checkConfig.addAttribute("argumentCount", "badStart-badEnd");
+        checkConfig.addProperty("methodName", "exit");
+        checkConfig.addProperty("argumentCount", "badStart-badEnd");
         final String[] expected = {
         };
         try {
@@ -258,8 +258,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testBadRange3ForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
-        checkConfig.addAttribute("argumentCount", "2, badStart-badEnd");
+        checkConfig.addProperty("methodName", "exit");
+        checkConfig.addProperty("argumentCount", "2, badStart-badEnd");
         final String[] expected = {
         };
         try {
@@ -280,8 +280,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testBadRange4ForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
-        checkConfig.addAttribute("argumentCount", " , 1-4 ");
+        checkConfig.addProperty("methodName", "exit");
+        checkConfig.addProperty("argumentCount", " , 1-4 ");
         final String[] expected = {
         };
         try {
@@ -302,8 +302,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testUnboundedRangeForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
-        checkConfig.addAttribute("argumentCount", " - ");
+        checkConfig.addProperty("methodName", "exit");
+        checkConfig.addProperty("argumentCount", " - ");
         final String[] expected = {
         };
         try {
@@ -324,8 +324,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testRangeWithBadBoundsForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "exit");
-        checkConfig.addAttribute("argumentCount", "10-1");
+        checkConfig.addProperty("methodName", "exit");
+        checkConfig.addProperty("argumentCount", "10-1");
         final String[] expected = {
         };
         try {
@@ -346,8 +346,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testRangeForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "assert(True|False)");
-        checkConfig.addAttribute("argumentCount", "0-1");
+        checkConfig.addProperty("methodName", "assert(True|False)");
+        checkConfig.addProperty("argumentCount", "0-1");
 
         final String[] expected = {
             "29:26: " + getCheckMessage(MSG_KEY, "assertTrue", "assert(True|False)", 1,
@@ -360,8 +360,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testRangeWithSpaceForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "assert(True|False)");
-        checkConfig.addAttribute("argumentCount", "  0   - 1 ");
+        checkConfig.addProperty("methodName", "assert(True|False)");
+        checkConfig.addProperty("argumentCount", "  0   - 1 ");
 
         final String[] expected = {
             "29:26: " + getCheckMessage(MSG_KEY, "assertTrue", "assert(True|False)", 1,
@@ -374,8 +374,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testLeftOpenRangeForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "assert(True|False)");
-        checkConfig.addAttribute("argumentCount", "-1");
+        checkConfig.addProperty("methodName", "assert(True|False)");
+        checkConfig.addProperty("argumentCount", "-1");
 
         final String[] expected = {
             "29:26: " + getCheckMessage(MSG_KEY, "assertTrue", "assert(True|False)", 1,
@@ -388,8 +388,8 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testRightOpenRangeForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "assert(True|False)");
-        checkConfig.addAttribute("argumentCount", "0-");
+        checkConfig.addProperty("methodName", "assert(True|False)");
+        checkConfig.addProperty("argumentCount", "0-");
 
         final String[] expected = {
             "29:26: " + getCheckMessage(MSG_KEY,
@@ -404,9 +404,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
     public void testMultipleRangesForArgumentCount() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(ForbidCertainMethodCheck.class);
-        checkConfig.addAttribute("methodName", "asList");
+        checkConfig.addProperty("methodName", "asList");
         // allow arg count 4, 8
-        checkConfig.addAttribute("argumentCount", "-3, 5-7, 9-");
+        checkConfig.addProperty("argumentCount", "-3, 5-7, 9-");
 
         final String[] expected = {
             "43:26: " + getCheckMessage(MSG_KEY, "asList", "asList", 1, "-3, 5-7, 9-"),

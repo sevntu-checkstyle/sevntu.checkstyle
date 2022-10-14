@@ -41,7 +41,7 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
     public void testInputWithIgnoreEmptyConstructorsTrue()
             throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
-        checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors",
+        checkConfig.addProperty("allowReturnInEmptyMethodsAndConstructors",
                 "false");
 
         final String[] expected = {
@@ -70,7 +70,7 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
     public void testInputWithIgnoreEmptyConstructorsFalse()
             throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
-        checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors",
+        checkConfig.addProperty("allowReturnInEmptyMethodsAndConstructors",
                 "true");
 
         final String[] expected = {
@@ -129,7 +129,7 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
     public void testForNullPointerExceptionsInEmptyMethod()
             throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(RedundantReturnCheck.class);
-        checkConfig.addAttribute("allowReturnInEmptyMethodsAndConstructors",
+        checkConfig.addProperty("allowReturnInEmptyMethodsAndConstructors",
                 "true");
 
         final String[] expected = {};

@@ -84,7 +84,7 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractMod
     public void testAttributes() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
-        checkConfig.addAttribute("targetConstantTypes", "LITERAL_FALSE,NUM_INT,NUM_FLOAT");
+        checkConfig.addProperty("targetConstantTypes", "LITERAL_FALSE,NUM_INT,NUM_FLOAT");
         final String[] expected = {
             "25:15: " + getCheckMessage(MSG_KEY, "=="),
             "28:18: " + getCheckMessage(MSG_KEY, "=="),
@@ -106,7 +106,7 @@ public class AvoidConstantAsFirstOperandInConditionCheckTest extends AbstractMod
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidConstantAsFirstOperandInConditionCheck.class);
 
-        checkConfig.addAttribute("targetConstantTypes", null);
+        checkConfig.addProperty("targetConstantTypes", null);
 
         final String[] expected = {
             "24:20: " + getCheckMessage(MSG_KEY, "=="),

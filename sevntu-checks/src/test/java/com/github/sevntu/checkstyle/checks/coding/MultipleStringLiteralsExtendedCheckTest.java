@@ -37,9 +37,9 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
     public void testIt() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("allowedDuplicates", "2");
-        checkConfig.addAttribute("ignoreStringsRegexp", "");
-        checkConfig.addAttribute("highlightAllDuplicates", "false");
+        checkConfig.addProperty("allowedDuplicates", "2");
+        checkConfig.addProperty("ignoreStringsRegexp", "");
+        checkConfig.addProperty("highlightAllDuplicates", "false");
 
         final String[] expected = {
             "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
@@ -55,9 +55,9 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("allowedDuplicates", "2");
-        checkConfig.addAttribute("ignoreStringsRegexp", "");
-        checkConfig.addAttribute("highlightAllDuplicates", "true");
+        checkConfig.addProperty("allowedDuplicates", "2");
+        checkConfig.addProperty("ignoreStringsRegexp", "");
+        checkConfig.addProperty("highlightAllDuplicates", "true");
 
         final String[] expected = {
             "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
@@ -79,8 +79,8 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
     public void testItIgnoreEmpty() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("allowedDuplicates", "2");
-        checkConfig.addAttribute("highlightAllDuplicates", "false");
+        checkConfig.addProperty("allowedDuplicates", "2");
+        checkConfig.addProperty("highlightAllDuplicates", "false");
 
         final String[] expected = {
             "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
@@ -94,9 +94,9 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
     public void testItIgnoreEmptyAndComaSpace() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("allowedDuplicates", "2");
-        checkConfig.addAttribute("ignoreStringsRegexp", "^((\"\")|(\", \"))$");
-        checkConfig.addAttribute("highlightAllDuplicates", "false");
+        checkConfig.addProperty("allowedDuplicates", "2");
+        checkConfig.addProperty("ignoreStringsRegexp", "^((\"\")|(\", \"))$");
+        checkConfig.addProperty("highlightAllDuplicates", "false");
 
         final String[] expected = {
             "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
@@ -109,9 +109,9 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
     public void testItWithoutIgnoringAnnotations() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("allowedDuplicates", "3");
-        checkConfig.addAttribute("ignoreOccurrenceContext", "");
-        checkConfig.addAttribute("highlightAllDuplicates", "false");
+        checkConfig.addProperty("allowedDuplicates", "3");
+        checkConfig.addProperty("ignoreOccurrenceContext", "");
+        checkConfig.addProperty("highlightAllDuplicates", "false");
 
         final String[] expected = {
             "19:23: " + getCheckMessage(MSG_KEY, "\"unchecked\"", 4),
@@ -124,7 +124,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
     public void testNullProperty() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("ignoreStringsRegexp", null);
+        checkConfig.addProperty("ignoreStringsRegexp", null);
 
         final String[] expected = {
             "5:16: " + getCheckMessage(MSG_KEY, "\"StringContents\"", 3),
@@ -140,7 +140,7 @@ public class MultipleStringLiteralsExtendedCheckTest extends AbstractModuleTestS
     public void testIgnoreOccurrenceContextProperty() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MultipleStringLiteralsExtendedCheck.class);
-        checkConfig.addAttribute("ignoreOccurrenceContext", "EXPR, PLUS");
+        checkConfig.addProperty("ignoreOccurrenceContext", "EXPR, PLUS");
 
         final String[] expected = {};
 

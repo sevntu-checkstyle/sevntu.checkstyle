@@ -54,7 +54,7 @@ public class EnumValueNameCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(EnumValueNameCheck.class);
 
-        checkConfig.addAttribute("format", "[a-z]+");
+        checkConfig.addProperty("format", "[a-z]+");
 
         final String[] expected = {
             "35:22: " + getCheckMessage(MSG_INVALID_PATTERN, "SECOND_SIMPLE", "[a-z]+"),

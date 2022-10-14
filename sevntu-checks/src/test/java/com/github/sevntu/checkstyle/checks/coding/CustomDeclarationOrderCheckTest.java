@@ -65,7 +65,7 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
                     "InnerClass (private .*)"),
             "105:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private .*)", "Ctor()"),
         };
-        checkConfig.addAttribute("customDeclarationOrder",
+        checkConfig.addProperty("customDeclarationOrder",
                                   "Field(private static final long serialVersionUID) ###"
                                 + "Field(.*final public .*|.*public final .*) ###"
                                 + "Field(@SuppressWarnings(.*serial.*).*) ###"
@@ -79,10 +79,10 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
                                     + "protected .*) ###"
                                 + "InnerClass (public .*abstract .*) ###"
                                 + "InnerClass (private .*)");
-        checkConfig.addAttribute("caseSensitive", "true");
+        checkConfig.addProperty("caseSensitive", "true");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheck.java"), expected);
         checkConfig
-                .addAttribute("customDeclarationOrder", "Field .*final.*public|.*public.*final)");
+                .addProperty("customDeclarationOrder", "Field .*final.*public|.*public.*final)");
     }
 
     @Test
@@ -101,7 +101,7 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
                     "Field(private .*)"),
         };
         checkConfig
-            .addAttribute(
+            .addProperty(
                     "customDeclarationOrder",
                     "DeclareAnonClassField(private .*) ###"
                             + "DeclareAnonClassField(protected .*) ###"
@@ -112,7 +112,7 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
                             + "Ctor(public .*) ###"
                             + "Method(public .*)"
         );
-        checkConfig.addAttribute("caseSensitive", "false");
+        checkConfig.addProperty("caseSensitive", "false");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheckAnonymousClasses.java"),
                 expected);
     }
@@ -140,11 +140,11 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
             "286:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
             "291:5: " + getCheckMessage(MSG_KEY_METHOD, "GetterSetter(.*)", "Method(.*)"),
         };
-        checkConfig.addAttribute(
+        checkConfig.addProperty(
             "customDeclarationOrder",
             "GetterSetter(.*) ### Method(.*)"
         );
-        checkConfig.addAttribute("caseSensitive", "false");
+        checkConfig.addProperty("caseSensitive", "false");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheckGettersSetters.java"),
                 expected);
     }
@@ -161,12 +161,12 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
             "70:5: " + getCheckMessage(MSG_KEY_METHOD, "Method(.*)", "InnerEnum(.*)"),
         };
 
-        checkConfig.addAttribute(
+        checkConfig.addProperty(
             "customDeclarationOrder",
             "Field(private ) ### Field(public ) ### Method(.*) ### InnerInterface(.*) ### "
                     + "InnerEnum(.*)"
         );
-        checkConfig.addAttribute("caseSensitive", "true");
+        checkConfig.addProperty("caseSensitive", "true");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheckInnerInterfaceEnum.java"),
                 expected);
     }
@@ -181,11 +181,11 @@ public class CustomDeclarationOrderCheckTest extends AbstractModuleTestSupport {
             "17:5: " + getCheckMessage(MSG_KEY_FIELD, "Field(private )", "MainMethod(.*)"),
             "23:5: " + getCheckMessage(MSG_KEY_METHOD, "MainMethod(.*)", "Method(.*)"),
         };
-        checkConfig.addAttribute(
+        checkConfig.addProperty(
                         "customDeclarationOrder",
                         "Field(private ) ### Field(public ) ### MainMethod(.*) ### Method(.*)"
         );
-        checkConfig.addAttribute("caseSensitive", "false");
+        checkConfig.addProperty("caseSensitive", "false");
         verify(checkConfig, getPath("InputCustomDeclarationOrderCheckMainMethod.java"), expected);
     }
 

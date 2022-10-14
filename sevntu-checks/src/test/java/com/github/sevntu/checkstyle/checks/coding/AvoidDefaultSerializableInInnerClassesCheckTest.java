@@ -67,7 +67,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
-        checkConfig.addAttribute("allowPartialImplementation", "true");
+        checkConfig.addProperty("allowPartialImplementation", "true");
 
         final String[] expected = {
             "10:22: " + warningMessage,
@@ -94,7 +94,7 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
-        checkConfig.addAttribute("allowPartialImplementation", "true");
+        checkConfig.addProperty("allowPartialImplementation", "true");
         final String[] expected = {
             "33:48: " + warningMessage,
             "59:30: " + warningMessage,

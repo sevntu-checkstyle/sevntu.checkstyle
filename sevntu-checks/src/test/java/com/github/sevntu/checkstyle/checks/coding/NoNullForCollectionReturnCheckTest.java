@@ -53,7 +53,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
     public void testArraysDeep() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
-        checkConfig.addAttribute("searchThroughMethodBody", "true");
+        checkConfig.addProperty("searchThroughMethodBody", "true");
         final String[] expected = {
             "11:9: " + warningMessage,
             "18:9: " + warningMessage,
@@ -69,7 +69,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
     public void testCollections() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
-        checkConfig.addAttribute("collectionList",
+        checkConfig.addProperty("collectionList",
                 "Collection ArrayList LinkedList Stack Vector HashSet TreeSet");
         final String[] expected = {
             "7:9: " + warningMessage,
@@ -100,7 +100,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
     public void testRevereCodeDeep() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
-        checkConfig.addAttribute("searchThroughMethodBody", "true");
+        checkConfig.addProperty("searchThroughMethodBody", "true");
         final String[] expected = {
             "13:25: " + warningMessage,
             "16:25: " + warningMessage,
@@ -137,7 +137,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
     public void testRealCode() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
-        checkConfig.addAttribute("searchThroughMethodBody", "true");
+        checkConfig.addProperty("searchThroughMethodBody", "true");
         final String[] expected = {
         };
 
@@ -161,7 +161,7 @@ public class NoNullForCollectionReturnCheckTest extends AbstractModuleTestSuppor
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NoNullForCollectionReturnCheck.class);
-        checkConfig.addAttribute("searchThroughMethodBody", "true");
+        checkConfig.addProperty("searchThroughMethodBody", "true");
         final String[] expected = {
             "8:9: " + warningMessage,
         };

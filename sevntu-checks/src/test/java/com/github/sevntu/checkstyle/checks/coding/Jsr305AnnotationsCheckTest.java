@@ -41,7 +41,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testParameters() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "36:44: " + getCheckMessage(
@@ -63,7 +63,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testPrimitives() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "28:37: " + getCheckMessage(
@@ -91,7 +91,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testReturnValues() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "46:5: " + getCheckMessage(Jsr305AnnotationsCheck.MSG_RETURN_VALUE_WITH_NULLABLE, "e"),
@@ -121,7 +121,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testConstructors() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "37:55: " + getCheckMessage(Jsr305AnnotationsCheck.MSG_PARAM_NONNULL_AND_NULLABLE, "e"),
@@ -139,7 +139,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testArrays() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "40:43: " + getCheckMessage(
@@ -164,7 +164,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testClasses() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "32:5: " + getCheckMessage(
@@ -197,7 +197,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testEnums() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "42:32: " + getCheckMessage(
@@ -218,7 +218,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testInheritance() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "43:47: " + getCheckMessage(
@@ -233,7 +233,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testReturnValueDefaults() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "35:5: " + getCheckMessage(
@@ -247,7 +247,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testRedudantClassLevelAnnotations() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "28:5: " + getCheckMessage(
@@ -261,7 +261,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testLambdas() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {
             "34:10: " + getCheckMessage(
@@ -278,9 +278,9 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testAllowOverridingParameters() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
-        checkConfig.addAttribute("allowOverridingReturnValue", "true");
-        checkConfig.addAttribute("allowOverridingParameter", "true");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("allowOverridingReturnValue", "true");
+        checkConfig.addProperty("allowOverridingParameter", "true");
 
         final String[] expected = {
             "36:44: " + getCheckMessage(
@@ -300,9 +300,9 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testAllowOverridingLambdas() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
-        checkConfig.addAttribute("allowOverridingReturnValue", "true");
-        checkConfig.addAttribute("allowOverridingParameter", "true");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("allowOverridingReturnValue", "true");
+        checkConfig.addProperty("allowOverridingParameter", "true");
 
         final String[] expected = {
             "43:5: " + getCheckMessage(
@@ -317,9 +317,9 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testAllowOverridingInheritance() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
-        checkConfig.addAttribute("allowOverridingReturnValue", "true");
-        checkConfig.addAttribute("allowOverridingParameter", "true");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("allowOverridingReturnValue", "true");
+        checkConfig.addProperty("allowOverridingParameter", "true");
 
         final String[] expected = {
             "43:47: " + getCheckMessage(
@@ -334,7 +334,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testCatch() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
         verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithCatch.java"),
                 new String[0]);
     }
@@ -342,7 +342,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testInclude1Package() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages",
+        checkConfig.addProperty("packages",
                 "com.github.sevntu.checkstyle.checks.naming");
 
         verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithCatch.java"), new String[0]);
@@ -351,7 +351,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testInclude2Packages() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages",
+        checkConfig.addProperty("packages",
                 "com.github.sevntu.checkstyle.internal,com.github.sevntu.checkstyle.checks.coding");
 
         verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithCatch.java"), new String[0]);
@@ -360,8 +360,8 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testExcludePackage() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
-        checkConfig.addAttribute("excludePackages",
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("excludePackages",
                 "com.github.sevntu.checkstyle.internal,com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {};
@@ -400,7 +400,7 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testNestedAnnotations() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
-        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addProperty("packages", "com.github.sevntu.checkstyle.checks.coding");
 
         final String[] expected = {};
 

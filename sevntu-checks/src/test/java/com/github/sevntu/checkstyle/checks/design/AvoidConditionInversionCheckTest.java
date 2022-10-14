@@ -62,7 +62,7 @@ public class AvoidConditionInversionCheckTest extends AbstractModuleTestSupport 
     public void avoidOnlyRelationalOperandsInCondition() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidConditionInversionCheck.class);
-        checkConfig.addAttribute("applyOnlyToRelationalOperands",
+        checkConfig.addProperty("applyOnlyToRelationalOperands",
                 "true");
 
         final String[] expected = {

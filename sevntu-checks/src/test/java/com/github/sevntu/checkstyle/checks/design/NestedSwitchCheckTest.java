@@ -56,7 +56,7 @@ public class NestedSwitchCheckTest extends AbstractModuleTestSupport {
     @Test
     public void testMax() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(NestedSwitchCheck.class);
-        checkConfig.addAttribute("max", "99");
+        checkConfig.addProperty("max", "99");
         final String[] expected = CommonUtil.EMPTY_STRING_ARRAY;
 
         verify(checkConfig, getPath("InputNestedSwitchCheck.java"),

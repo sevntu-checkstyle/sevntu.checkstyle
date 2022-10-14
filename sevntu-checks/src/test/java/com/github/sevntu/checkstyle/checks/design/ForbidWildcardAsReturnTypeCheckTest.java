@@ -127,15 +127,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final String[] expected = createExpectedMessages(LINES);
 
         verify(checkConfig,
@@ -154,15 +154,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "false");
-        checkConfig.addAttribute("checkProtectedMethods", "false");
-        checkConfig.addAttribute("checkPackageMethods", "false");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "false");
+        checkConfig.addProperty("checkProtectedMethods", "false");
+        checkConfig.addProperty("checkPackageMethods", "false");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final String[] expected =
                 createExpectedMessages(LINES_WITH_PUBLIC_METHODS);
 
@@ -182,15 +182,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "false");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "false");
-        checkConfig.addAttribute("checkPackageMethods", "false");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "false");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "false");
+        checkConfig.addProperty("checkPackageMethods", "false");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final String[] expected =
                 createExpectedMessages(LINES_WITH_PRIVATE_METHODS);
 
@@ -210,15 +210,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "false");
-        checkConfig.addAttribute("checkPrivateMethods", "false");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "false");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "false");
+        checkConfig.addProperty("checkPrivateMethods", "false");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "false");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final String[] expected =
                 createExpectedMessages(LINES_WITH_PROTECTED_METHODS);
 
@@ -238,15 +238,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "false");
-        checkConfig.addAttribute("checkPrivateMethods", "false");
-        checkConfig.addAttribute("checkProtectedMethods", "false");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "false");
+        checkConfig.addProperty("checkPrivateMethods", "false");
+        checkConfig.addProperty("checkProtectedMethods", "false");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final String[] expected =
                 createExpectedMessages(LINES_WITH_PACKAGE_METHODS);
 
@@ -266,15 +266,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "true");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptSuper = new TreeSet<>(LINES);
         exceptSuper.removeAll(LINES_WITH_SUPER);
         exceptSuper.addAll(LINES_WITH_EXTENDS);
@@ -296,15 +296,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptExtends = new TreeSet<>(LINES);
         exceptExtends.removeAll(LINES_WITH_EXTENDS);
         exceptExtends.addAll(LINES_WITH_SUPER);
@@ -326,15 +326,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "true");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "true");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptSuperAndExtends =
                 new TreeSet<>(LINES);
         exceptSuperAndExtends.removeAll(LINES_WITH_SUPER);
@@ -357,15 +357,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex",
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex",
                 "(Compar.+)|Collection");
         final SortedSet<Integer> exceptSuperAndExtends =
                 new TreeSet<>(LINES);
@@ -388,15 +388,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "false");
-        checkConfig.addAttribute("checkDeprecatedMethods", "true");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "false");
+        checkConfig.addProperty("checkDeprecatedMethods", "true");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptOverride =
                 new TreeSet<>(LINES);
         exceptOverride.removeAll(LINES_WITH_OVERRIDE);
@@ -418,15 +418,15 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ForbidWildcardAsReturnTypeCheck.class);
-        checkConfig.addAttribute("checkPublicMethods", "true");
-        checkConfig.addAttribute("checkPrivateMethods", "true");
-        checkConfig.addAttribute("checkProtectedMethods", "true");
-        checkConfig.addAttribute("checkPackageMethods", "true");
-        checkConfig.addAttribute("checkOverrideMethods", "true");
-        checkConfig.addAttribute("checkDeprecatedMethods", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithSuper", "false");
-        checkConfig.addAttribute("allowReturnWildcardWithExtends", "false");
-        checkConfig.addAttribute("returnTypeClassNamesIgnoreRegex", "");
+        checkConfig.addProperty("checkPublicMethods", "true");
+        checkConfig.addProperty("checkPrivateMethods", "true");
+        checkConfig.addProperty("checkProtectedMethods", "true");
+        checkConfig.addProperty("checkPackageMethods", "true");
+        checkConfig.addProperty("checkOverrideMethods", "true");
+        checkConfig.addProperty("checkDeprecatedMethods", "false");
+        checkConfig.addProperty("allowReturnWildcardWithSuper", "false");
+        checkConfig.addProperty("allowReturnWildcardWithExtends", "false");
+        checkConfig.addProperty("returnTypeClassNamesIgnoreRegex", "");
         final SortedSet<Integer> exceptOverride =
                 new TreeSet<>(LINES);
         exceptOverride.removeAll(LINES_WITH_DEPRECATED);

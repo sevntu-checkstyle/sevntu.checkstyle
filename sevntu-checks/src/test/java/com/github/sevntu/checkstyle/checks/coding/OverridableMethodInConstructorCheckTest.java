@@ -42,9 +42,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void revereCodeTest() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "false");
-        checkConfig.addAttribute("checkReadObjectMethod", "false");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "false");
+        checkConfig.addProperty("checkReadObjectMethod", "false");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "11:17: " + getCheckMessage(MSG_KEY_LEADS, "init", CTOR_KEY, "getPart"),
@@ -57,9 +57,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void newFeature() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "14:27: " + getCheckMessage(MSG_KEY, "overrideMe", CTOR_KEY),
@@ -73,9 +73,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void newFeatureWithoutMethodsByArgCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "false");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "false");
 
         final String[] expected = {
             "15:21: " + getCheckMessage(MSG_KEY, "init", CTOR_KEY),
@@ -88,9 +88,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testNoWarnings() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -101,9 +101,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testWarning() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "false");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "false");
 
         final String[] expected = {
             "10:27: " + getCheckMessage(MSG_KEY, "overrideMe", CTOR_KEY),
@@ -116,9 +116,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void test2WarningsIn2Ctors() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "10:27: " + getCheckMessage(MSG_KEY, "overrideMe", CTOR_KEY),
@@ -133,9 +133,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testWarningInSecondDepth() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", CTOR_KEY, "overrideMe2"),
@@ -148,9 +148,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testWarningsInThirdDepth() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "10:32: " + getCheckMessage(MSG_KEY_LEADS, "overrideMe", CTOR_KEY, "overrideMe3"),
@@ -164,9 +164,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCloneNoWarningsSimple() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -177,9 +177,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCloneNoWarnings() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -190,9 +190,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCloneWarnings() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "20:37: " + getCheckMessage(MSG_KEY, "doSmth", CLONE_KEY),
@@ -206,9 +206,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCloneSecondDepth() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "25:37: " + getCheckMessage(MSG_KEY_LEADS, "doSmth", CLONE_KEY, "doSmth2"),
@@ -222,9 +222,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCloneThirdDepthImplementation() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "25:37: " + getCheckMessage(MSG_KEY, "doSmth", CLONE_KEY),
@@ -241,9 +241,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testSerializableNoWarnings() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -254,9 +254,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testSerializableWarning() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "31:20: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
@@ -269,9 +269,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testStaticModifiers() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
         };
@@ -284,9 +284,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "34:20: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
@@ -307,9 +307,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCtorOverloadedMethods() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -320,9 +320,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void test2EqualMethodNamesWithNoWarning() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -333,9 +333,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void test2EqualMethodNamesWithoutWarning2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "17:32: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
@@ -349,9 +349,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCallMethodIsNotInBuildPath2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -362,9 +362,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testCallMethodIsNotInBuildPath() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -375,9 +375,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testReadObjectInInterface() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -388,9 +388,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testStackOverFlowError() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -401,9 +401,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testStackOverFlowErrorWithWarning() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "5:15: " + getCheckMessage(MSG_KEY_LEADS, "doSMTH", CTOR_KEY, "doPublic"),
@@ -416,9 +416,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testStackOverFlowErrorWithoutWarning() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -429,9 +429,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testAbstractMethodCall() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
             "11:22: " + getCheckMessage(MSG_KEY, "buildGetter", CTOR_KEY),
@@ -444,9 +444,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testFinalClass() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 
@@ -457,9 +457,9 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     public final void testExtendsSimilarNamedClass() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(OverridableMethodInConstructorCheck.class);
-        checkConfig.addAttribute("checkCloneMethod", "true");
-        checkConfig.addAttribute("checkReadObjectMethod", "true");
-        checkConfig.addAttribute("matchMethodsByArgCount", "true");
+        checkConfig.addProperty("checkCloneMethod", "true");
+        checkConfig.addProperty("checkReadObjectMethod", "true");
+        checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {};
 

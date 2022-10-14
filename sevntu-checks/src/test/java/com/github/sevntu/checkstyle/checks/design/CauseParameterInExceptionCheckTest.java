@@ -41,9 +41,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testNormalWork() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", ".+Exception");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", null);
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", ".+Exception");
+        checkConfig.addProperty("ignoredClassNamesRegexp", null);
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
             "5:5: " + getCheckMessage(MSG_KEY, "TestException"),
@@ -56,9 +56,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testNormalWork2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", null);
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", ".+Exception2");
+        checkConfig.addProperty("ignoredClassNamesRegexp", null);
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
             "5:5: " + getCheckMessage(MSG_KEY, "TestException2"),
@@ -72,9 +72,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testIgnorePattern() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", "Test.+");
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", ".+Exception2");
+        checkConfig.addProperty("ignoredClassNamesRegexp", "Test.+");
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
             "16:5: " + getCheckMessage(MSG_KEY, "MyException2"),
@@ -87,9 +87,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testIgnorePattern2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", ".+Exception2");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", "My.+");
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", ".+Exception2");
+        checkConfig.addProperty("ignoredClassNamesRegexp", "My.+");
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
             "5:5: " + getCheckMessage(MSG_KEY, "TestException2"),
@@ -102,9 +102,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testStrangeSituation() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", ".+Exception");
-        checkConfig.addAttribute("ignoredClassNamesRegexp", "");
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", ".+Exception");
+        checkConfig.addProperty("ignoredClassNamesRegexp", "");
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
         };
@@ -116,9 +116,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testStrangeSituation2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", null);
-        checkConfig.addAttribute("ignoredClassNamesRegexp", null);
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", null);
+        checkConfig.addProperty("ignoredClassNamesRegexp", null);
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
         };
@@ -130,9 +130,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testStrangeSituation3() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", null);
-        checkConfig.addAttribute("ignoredClassNamesRegexp", null);
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", null);
+        checkConfig.addProperty("ignoredClassNamesRegexp", null);
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
         };
@@ -144,9 +144,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
     public void testStrangeSituation4() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CauseParameterInExceptionCheck.class);
-        checkConfig.addAttribute("classNamesRegexp", null);
-        checkConfig.addAttribute("ignoredClassNamesRegexp", null);
-        checkConfig.addAttribute("allowedCauseTypes", "Throwable, Exception");
+        checkConfig.addProperty("classNamesRegexp", null);
+        checkConfig.addProperty("ignoredClassNamesRegexp", null);
+        checkConfig.addProperty("allowedCauseTypes", "Throwable, Exception");
 
         final String[] expected = {
         };

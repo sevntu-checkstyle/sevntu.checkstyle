@@ -89,7 +89,7 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
     public void testInvalidFileIgnoreVerifies() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CheckstyleTestMakeupCheck.class);
-        checkConfig.addAttribute("verifyMethodRegexp", "BAD");
+        checkConfig.addProperty("verifyMethodRegexp", "BAD");
 
         final String[] expected = {};
 
@@ -100,7 +100,7 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
     public void testInvalidFileIgnoreCreates() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(CheckstyleTestMakeupCheck.class);
-        checkConfig.addAttribute("createMethodRegexp", "BAD");
+        checkConfig.addProperty("createMethodRegexp", "BAD");
 
         final String[] expected = {
             "16:36: " + getCheckMessage(MSG_KEY_CONFIG_NOT_ASSIGNED_WITH),

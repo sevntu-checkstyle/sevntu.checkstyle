@@ -39,12 +39,12 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testNullOnIgnoreMethodsNames() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "99");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "99");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "99");
-        checkConfig.addAttribute("ignoreEmptyReturns", "true");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "99");
-        checkConfig.addAttribute("ignoreMethodsNames", null);
+        checkConfig.addProperty("maxReturnCount", "99");
+        checkConfig.addProperty("ignoreMethodLinesCount", "99");
+        checkConfig.addProperty("minIgnoreReturnDepth", "99");
+        checkConfig.addProperty("ignoreEmptyReturns", "true");
+        checkConfig.addProperty("topLinesToIgnoreCount", "99");
+        checkConfig.addProperty("ignoreMethodsNames", null);
 
         final String[] expected = {};
 
@@ -55,11 +55,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testMethodsMaxReturnLiteralsIsOne() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "26:16: " + getCheckMessage(MSG_KEY_METHOD, "twoReturnsInMethod", 2, 1),
@@ -76,11 +76,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testMethodsMaxReturnLiteralsIsTwo() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "2");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "2");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 2),
@@ -95,11 +95,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testIgnoreEmptyReturns() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "2");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "true");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "2");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "true");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 2),
@@ -113,11 +113,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testConstructorsMaxReturnLiteralsIsOne() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "29:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
@@ -132,11 +132,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testignoreMethodLinesCount() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "10");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "10");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
@@ -151,11 +151,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testignoreMethodLinesCount2() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "20");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "20");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
@@ -169,11 +169,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testminIgnoreReturnDepth() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "0");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "1");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "0");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "1");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "7:16: " + getCheckMessage(MSG_KEY_METHOD, "oneReturnInMethod", 1, 0),
@@ -189,11 +189,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testIgnoreNonEmptyReturns() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "29:12: " + getCheckMessage(MSG_KEY_CTOR, "InputReturnCountExtendedCheckCtors", 2, 1),
@@ -208,11 +208,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testMethodsInMethods() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "104:24: " + getCheckMessage(MSG_KEY_METHOD, "handleEvent", 3, 1),
@@ -226,12 +226,12 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testIgnoreMethodsNamesProperty() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
-        checkConfig.addAttribute("ignoreMethodsNames", "threeReturnsInMethod, twoReturnsInMethod");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("ignoreMethodsNames", "threeReturnsInMethod, twoReturnsInMethod");
 
         final String[] expected = {
             "58:16: " + getCheckMessage(MSG_KEY_METHOD, "fourReturnsInMethod", 4, 1),
@@ -246,12 +246,12 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testRegexIgnoreMethodsNamesProperty() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "5");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
-        checkConfig.addAttribute("ignoreMethodsNames", "(?iu)(?:TwO|Four)(?-iu)ReturnsInMethod");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "5");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("ignoreMethodsNames", "(?iu)(?:TwO|Four)(?-iu)ReturnsInMethod");
 
         final String[] expected = {
             "38:16: " + getCheckMessage(MSG_KEY_METHOD, "threeReturnsInMethod", 3, 1),
@@ -266,11 +266,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testAnonymousClass() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "99");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "99");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "14:16: " + getCheckMessage(MSG_KEY_METHOD, "method2", 2, 1),
@@ -285,11 +285,11 @@ public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
     public void testLambda() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(ReturnCountExtendedCheck.class);
-        checkConfig.addAttribute("maxReturnCount", "1");
-        checkConfig.addAttribute("ignoreMethodLinesCount", "0");
-        checkConfig.addAttribute("minIgnoreReturnDepth", "99");
-        checkConfig.addAttribute("ignoreEmptyReturns", "false");
-        checkConfig.addAttribute("topLinesToIgnoreCount", "0");
+        checkConfig.addProperty("maxReturnCount", "1");
+        checkConfig.addProperty("ignoreMethodLinesCount", "0");
+        checkConfig.addProperty("minIgnoreReturnDepth", "99");
+        checkConfig.addProperty("ignoreEmptyReturns", "false");
+        checkConfig.addProperty("topLinesToIgnoreCount", "0");
 
         final String[] expected = {
             "12:55: " + getCheckMessage(MSG_KEY_LAMBDA, 2, 1),

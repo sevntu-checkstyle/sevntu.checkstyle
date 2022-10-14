@@ -52,8 +52,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testNullProperties() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", null);
-        checkConfig.addAttribute("annotationTargets", null);
+        checkConfig.addProperty("annotationNames", null);
+        checkConfig.addProperty("annotationTargets", null);
 
         final String[] expected1 = {};
 
@@ -64,7 +64,7 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testFullAnnotationName() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "Test");
+        checkConfig.addProperty("annotationNames", "Test");
 
         final String[] expected1 = {};
 
@@ -75,9 +75,9 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testVariableIsForbidden() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames",
+        checkConfig.addProperty("annotationNames",
                 "Edible,Author,Author2,SuppressWarnings");
-        checkConfig.addAttribute("annotationTargets", "VARIABLE_DEF");
+        checkConfig.addProperty("annotationTargets", "VARIABLE_DEF");
 
         final String[] expected2 = {
             "13:5: " + getCheckMessage(MSG_KEY, "VARIABLE_DEF", "Edible"),
@@ -93,8 +93,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testMethodIsForbidden() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "Twizzle,One,Two,Three,B");
-        checkConfig.addAttribute("annotationTargets", "METHOD_DEF");
+        checkConfig.addProperty("annotationNames", "Twizzle,One,Two,Three,B");
+        checkConfig.addProperty("annotationTargets", "METHOD_DEF");
 
         final String[] expected3 = {
             "28:7: " + getCheckMessage(MSG_KEY, "METHOD_DEF", "Twizzle"),
@@ -111,8 +111,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testClassAndConstuctorIsForbidden() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "Test,ctor,ctor2");
-        checkConfig.addAttribute("annotationTargets", "CLASS_DEF,CTOR_DEF");
+        checkConfig.addProperty("annotationNames", "Test,ctor,ctor2");
+        checkConfig.addProperty("annotationTargets", "CLASS_DEF,CTOR_DEF");
 
         final String[] expected4 = {
             "6:1: " + getCheckMessage(MSG_KEY, "CLASS_DEF", "Test"),
@@ -127,8 +127,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testAnnotationIsForbidden() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "Retention,Target");
-        checkConfig.addAttribute("annotationTargets", "ANNOTATION_DEF");
+        checkConfig.addProperty("annotationNames", "Retention,Target");
+        checkConfig.addProperty("annotationTargets", "ANNOTATION_DEF");
 
         final String[] expected5 = {
             "34:7: " + getCheckMessage(MSG_KEY, "ANNOTATION_DEF", "Retention"),
@@ -142,8 +142,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testParameterAndInterfaceIsForbidden() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "MyAnnotation,A");
-        checkConfig.addAttribute("annotationTargets",
+        checkConfig.addProperty("annotationNames", "MyAnnotation,A");
+        checkConfig.addProperty("annotationTargets",
                 "PARAMETER_DEF,INTERFACE_DEF");
 
         final String[] expected6 = {
@@ -158,8 +158,8 @@ public class ForbidAnnotationCheckTest extends AbstractModuleTestSupport {
     public void testEnumIsForbidden() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ForbidAnnotationCheck.class);
 
-        checkConfig.addAttribute("annotationNames", "C,int1,int2,int3");
-        checkConfig.addAttribute("annotationTargets",
+        checkConfig.addProperty("annotationNames", "C,int1,int2,int3");
+        checkConfig.addProperty("annotationTargets",
                 "ENUM_DEF,ENUM_CONSTANT_DEF");
 
         final String[] expected7 = {

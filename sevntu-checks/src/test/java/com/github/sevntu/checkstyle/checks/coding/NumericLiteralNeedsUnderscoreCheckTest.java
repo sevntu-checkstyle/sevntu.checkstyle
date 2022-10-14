@@ -83,12 +83,12 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
     public void testWithConfig() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NumericLiteralNeedsUnderscoreCheck.class);
-        checkConfig.addAttribute("minDecimalSymbolLength", "1");
-        checkConfig.addAttribute("maxDecimalSymbolsUntilUnderscore", "3");
-        checkConfig.addAttribute("minHexSymbolLength", "1");
-        checkConfig.addAttribute("maxHexSymbolsUntilUnderscore", "2");
-        checkConfig.addAttribute("minBinarySymbolLength", "1");
-        checkConfig.addAttribute("maxBinarySymbolsUntilUnderscore", "4");
+        checkConfig.addProperty("minDecimalSymbolLength", "1");
+        checkConfig.addProperty("maxDecimalSymbolsUntilUnderscore", "3");
+        checkConfig.addProperty("minHexSymbolLength", "1");
+        checkConfig.addProperty("maxHexSymbolsUntilUnderscore", "2");
+        checkConfig.addProperty("minBinarySymbolLength", "1");
+        checkConfig.addProperty("maxBinarySymbolsUntilUnderscore", "4");
         final String[] expected = {
             "23:22: " + warningMessage,
             "24:24: " + warningMessage,
@@ -149,8 +149,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
     public void testConfiguredIgnore() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NumericLiteralNeedsUnderscoreCheck.class);
-        checkConfig.addAttribute("ignoreFieldNamePattern", "RED");
-        checkConfig.addAttribute("minDecimalSymbolLength", "1");
+        checkConfig.addProperty("ignoreFieldNamePattern", "RED");
+        checkConfig.addProperty("minDecimalSymbolLength", "1");
         final String[] expected = {
             "7:36: " + warningMessage,
             "8:37: " + warningMessage,

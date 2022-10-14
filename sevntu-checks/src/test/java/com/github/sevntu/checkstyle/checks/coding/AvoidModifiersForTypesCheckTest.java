@@ -41,16 +41,16 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testFinal() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
 
         final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
@@ -66,16 +66,16 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testPackagePrivate() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
             "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
@@ -91,15 +91,15 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testAnnotationPrivateStatic() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", "File");
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", "File");
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", "File");
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", "File");
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", "File");
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", "File");
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
             "18:5: " + getCheckMessage(MSG_KEY, "File", "annotation"),
@@ -114,17 +114,17 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testProtectedAndTransient() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected",
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
             "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
@@ -138,16 +138,16 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testPublicAndVolatile() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic",
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic",
                 "InputAvoidModifiersForTypesCheck");
 
         final String[] expected = {
@@ -162,17 +162,17 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testFinalAndPrivatePackage() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate",
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
@@ -192,17 +192,17 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testFinalAndStatic() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic",
+        checkConfig.addProperty("forbiddenClassesRegexpStatic",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
@@ -219,16 +219,16 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testProtected() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected",
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected",
                 "InputAvoidModifiersForTypesCheck");
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
             "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
@@ -241,15 +241,15 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testLogger() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", "Logger");
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", "Logger");
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", "Logger");
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", "Logger");
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", "Logger");
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", "Logger");
 
         final String[] expected = {
             "36:9: " + getCheckMessage(MSG_KEY, "Logger", "protected"),
@@ -264,15 +264,15 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
     public void testAnyFile() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(AvoidModifiersForTypesCheck.class);
-        checkConfig.addAttribute("forbiddenClassesRegexpAnnotation", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpFinal", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpStatic", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpTransient", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpVolatile", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPackagePrivate", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpProtected", null);
-        checkConfig.addAttribute("forbiddenClassesRegexpPublic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpAnnotation", null);
+        checkConfig.addProperty("forbiddenClassesRegexpFinal", null);
+        checkConfig.addProperty("forbiddenClassesRegexpStatic", null);
+        checkConfig.addProperty("forbiddenClassesRegexpTransient", null);
+        checkConfig.addProperty("forbiddenClassesRegexpVolatile", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPackagePrivate", null);
+        checkConfig.addProperty("forbiddenClassesRegexpProtected", null);
+        checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {};
 

@@ -40,9 +40,9 @@ public class MapIterationInForEachLoopCheckTest extends AbstractModuleTestSuppor
     public final void basicTest() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MapIterationInForEachLoopCheck.class);
-        checkConfig.addAttribute("proposeValuesUsage", "true");
-        checkConfig.addAttribute("proposeKeySetUsage", "true");
-        checkConfig.addAttribute("proposeEntrySetUsage", "true");
+        checkConfig.addProperty("proposeValuesUsage", "true");
+        checkConfig.addProperty("proposeKeySetUsage", "true");
+        checkConfig.addProperty("proposeEntrySetUsage", "true");
 
         final String[] expected = {
             "23:13: " + getCheckMessage(MSG_KEY_ENTRYSET),
@@ -64,9 +64,9 @@ public class MapIterationInForEachLoopCheckTest extends AbstractModuleTestSuppor
     public final void importsWithoutFullPathTest() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MapIterationInForEachLoopCheck.class);
-        checkConfig.addAttribute("proposeValuesUsage", "true");
-        checkConfig.addAttribute("proposeKeySetUsage", "true");
-        checkConfig.addAttribute("proposeEntrySetUsage", "true");
+        checkConfig.addProperty("proposeValuesUsage", "true");
+        checkConfig.addProperty("proposeKeySetUsage", "true");
+        checkConfig.addProperty("proposeEntrySetUsage", "true");
 
         final String[] expected = {
             "12:9: " + getCheckMessage(MSG_KEY_ENTRYSET),
@@ -80,10 +80,10 @@ public class MapIterationInForEachLoopCheckTest extends AbstractModuleTestSuppor
     public final void skipIfConditionTest() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MapIterationInForEachLoopCheck.class);
-        checkConfig.addAttribute("proposeValuesUsage", "false");
-        checkConfig.addAttribute("proposeKeySetUsage", "true");
-        checkConfig.addAttribute("proposeEntrySetUsage", "true");
-        checkConfig.addAttribute("supportedMapImplQualifiedNames",
+        checkConfig.addProperty("proposeValuesUsage", "false");
+        checkConfig.addProperty("proposeKeySetUsage", "true");
+        checkConfig.addProperty("proposeEntrySetUsage", "true");
+        checkConfig.addProperty("supportedMapImplQualifiedNames",
                 "java.util.Map, java.util.HashMap, java.util.TreeMap, com.myTest.InputMyMap");
 
         final String[] expected = {
@@ -99,9 +99,9 @@ public class MapIterationInForEachLoopCheckTest extends AbstractModuleTestSuppor
     public final void testClassExtendingMap() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(MapIterationInForEachLoopCheck.class);
-        checkConfig.addAttribute("proposeValuesUsage", "true");
-        checkConfig.addAttribute("proposeKeySetUsage", "true");
-        checkConfig.addAttribute("proposeEntrySetUsage", "true");
+        checkConfig.addProperty("proposeValuesUsage", "true");
+        checkConfig.addProperty("proposeKeySetUsage", "true");
+        checkConfig.addProperty("proposeEntrySetUsage", "true");
 
         verify(checkConfig,
                 getPath("InputMapIterationInForEachLoopCheckExtendingMap.java"),

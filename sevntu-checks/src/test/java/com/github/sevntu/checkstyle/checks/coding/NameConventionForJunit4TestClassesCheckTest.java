@@ -36,10 +36,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex",
+        customConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        customConfig.addAttribute("classAnnotationNameRegex", "RunWith");
-        customConfig.addAttribute("methodAnnotationNameRegex", "");
+        customConfig.addProperty("classAnnotationNameRegex", "RunWith");
+        customConfig.addProperty("methodAnnotationNameRegex", "");
 
         final String[] expected = {
             "14:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
@@ -55,10 +55,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        checkConfig.addAttribute("expectedClassNameRegex",
+        checkConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        checkConfig.addAttribute("classAnnotationNameRegex", "");
-        checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
+        checkConfig.addProperty("classAnnotationNameRegex", "");
+        checkConfig.addProperty("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
             "8:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
@@ -74,10 +74,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        checkConfig.addAttribute("expectedClassNameRegex",
+        checkConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        checkConfig.addAttribute("classAnnotationNameRegex", "");
-        checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
+        checkConfig.addProperty("classAnnotationNameRegex", "");
+        checkConfig.addProperty("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
         };
@@ -91,10 +91,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        checkConfig.addAttribute("expectedClassNameRegex",
+        checkConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        checkConfig.addAttribute("classAnnotationNameRegex", "");
-        checkConfig.addAttribute("methodAnnotationNameRegex", "Test");
+        checkConfig.addProperty("classAnnotationNameRegex", "");
+        checkConfig.addProperty("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
             "7:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
@@ -110,10 +110,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex",
+        customConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        customConfig.addAttribute("classAnnotationNameRegex", "");
-        customConfig.addAttribute("methodAnnotationNameRegex", "org.junit.Test");
+        customConfig.addProperty("classAnnotationNameRegex", "");
+        customConfig.addProperty("methodAnnotationNameRegex", "org.junit.Test");
 
         final String[] expected = {
             "8:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
@@ -129,10 +129,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex",
+        customConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        customConfig.addAttribute("classAnnotationNameRegex", "SomeTestAnnotation");
-        customConfig.addAttribute("methodAnnotationNameRegex", "");
+        customConfig.addProperty("classAnnotationNameRegex", "SomeTestAnnotation");
+        customConfig.addProperty("methodAnnotationNameRegex", "");
 
         final String[] expected = {
             "7:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
@@ -148,10 +148,10 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex",
+        customConfig.addProperty("expectedClassNameRegex",
                 ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase|.+TestCases");
-        customConfig.addAttribute("classAnnotationNameRegex", "");
-        customConfig.addAttribute("methodAnnotationNameRegex", "SomeTestAnnotation");
+        customConfig.addProperty("classAnnotationNameRegex", "");
+        customConfig.addProperty("methodAnnotationNameRegex", "SomeTestAnnotation");
 
         final String[] expected = {
             "6:18: " + getCheckMessage(NameConventionForJunit4TestClassesCheck.MSG_KEY,
@@ -167,9 +167,9 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex", "Hello*");
-        customConfig.addAttribute("classAnnotationNameRegex", "");
-        customConfig.addAttribute("methodAnnotationNameRegex", "Test");
+        customConfig.addProperty("expectedClassNameRegex", "Hello*");
+        customConfig.addProperty("classAnnotationNameRegex", "");
+        customConfig.addProperty("methodAnnotationNameRegex", "Test");
 
         final String[] expected = {
             "5:14: "
@@ -185,9 +185,9 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex", null);
-        customConfig.addAttribute("classAnnotationNameRegex", null);
-        customConfig.addAttribute("methodAnnotationNameRegex", null);
+        customConfig.addProperty("expectedClassNameRegex", null);
+        customConfig.addProperty("classAnnotationNameRegex", null);
+        customConfig.addProperty("methodAnnotationNameRegex", null);
 
         final String[] expected = {};
 
@@ -200,9 +200,9 @@ public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleT
             throws Exception {
         final DefaultConfiguration customConfig =
                 createModuleConfig(NameConventionForJunit4TestClassesCheck.class);
-        customConfig.addAttribute("expectedClassNameRegex", "");
-        customConfig.addAttribute("classAnnotationNameRegex", "");
-        customConfig.addAttribute("methodAnnotationNameRegex", "");
+        customConfig.addProperty("expectedClassNameRegex", "");
+        customConfig.addProperty("classAnnotationNameRegex", "");
+        customConfig.addProperty("methodAnnotationNameRegex", "");
 
         final String[] expected = {};
 

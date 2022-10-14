@@ -61,7 +61,7 @@ public class PreferMethodReferenceCheckTest extends AbstractModuleTestSupport {
     public void testMethodCallsOnEverything() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(PreferMethodReferenceCheck.class);
-        checkConfig.addAttribute("detectForExpression", "true");
+        checkConfig.addProperty("detectForExpression", "true");
         final String[] expected = {
             "23:28: " + getCheckMessage(MSG_METHOD_REF),
             "24:40: " + getCheckMessage(MSG_METHOD_REF),
@@ -92,7 +92,7 @@ public class PreferMethodReferenceCheckTest extends AbstractModuleTestSupport {
     public void testStatementsListsWithExpressions() throws Exception {
         final DefaultConfiguration checkConfig =
             createModuleConfig(PreferMethodReferenceCheck.class);
-        checkConfig.addAttribute("detectForExpression", "true");
+        checkConfig.addProperty("detectForExpression", "true");
         final String[] expected = {
             "23:29: " + getCheckMessage(MSG_METHOD_REF),
             "25:41: " + getCheckMessage(MSG_METHOD_REF),

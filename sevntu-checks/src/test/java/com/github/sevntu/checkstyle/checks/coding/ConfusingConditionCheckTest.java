@@ -67,10 +67,10 @@ public class ConfusingConditionCheckTest extends AbstractModuleTestSupport {
     public void testFalseProperties() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
-        checkConfig.addAttribute("ignoreInnerIf", "false");
-        checkConfig.addAttribute("ignoreNullCaseInIf", "false");
-        checkConfig.addAttribute("ignoreSequentialIf", "false");
-        checkConfig.addAttribute("ignoreThrowInElse", "false");
+        checkConfig.addProperty("ignoreInnerIf", "false");
+        checkConfig.addProperty("ignoreNullCaseInIf", "false");
+        checkConfig.addProperty("ignoreSequentialIf", "false");
+        checkConfig.addProperty("ignoreThrowInElse", "false");
 
         final String[] expected = {
             "10:9: " + warningMessage,
@@ -111,7 +111,7 @@ public class ConfusingConditionCheckTest extends AbstractModuleTestSupport {
     public void testMultiplyFactor() throws Exception {
         final DefaultConfiguration checkConfig = createModuleConfig(ConfusingConditionCheck.class);
 
-        checkConfig.addAttribute("multiplyFactorForElseBlocks", "0");
+        checkConfig.addProperty("multiplyFactorForElseBlocks", "0");
 
         final String[] expected = {
             "10:9: " + warningMessage,

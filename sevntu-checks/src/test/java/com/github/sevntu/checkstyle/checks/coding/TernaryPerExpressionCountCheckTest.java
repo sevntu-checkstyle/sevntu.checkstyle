@@ -40,11 +40,11 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "true");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "true");
-        checkConfig.addAttribute("maxTernaryPerExpressionCount",
+        checkConfig.addProperty("maxTernaryPerExpressionCount",
                 "1");
         final String[] expected = {
             "14:26: " + getCheckMessage(MSG_KEY, 1),
@@ -65,11 +65,11 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "true");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "false");
-        checkConfig.addAttribute("maxTernaryPerExpressionCount",
+        checkConfig.addProperty("maxTernaryPerExpressionCount",
                 "-1");
         final String[] expected = {};
 
@@ -94,11 +94,11 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
             throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "true");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "false");
-        checkConfig.addAttribute("maxTernaryPerExpressionCount",
+        checkConfig.addProperty("maxTernaryPerExpressionCount",
                 "2");
         final String[] expected = {"14:26: " + getCheckMessage(MSG_KEY, 2)};
         verify(checkConfig,
@@ -109,11 +109,11 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
     public void testWithZeroValue() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "false");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "true");
-        checkConfig.addAttribute("maxTernaryPerExpressionCount",
+        checkConfig.addProperty("maxTernaryPerExpressionCount",
                 "0");
         final String[] expected = {
             "14:26: " + getCheckMessage(MSG_KEY, 0),
@@ -139,9 +139,9 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
     public void testWithoutIgnoringExpressionInBraces() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "false");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "true");
         final String[] expected = {
             "14:26: " + getCheckMessage(MSG_KEY, 1),
@@ -167,9 +167,9 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
     public void testWithoutIgnoringSingleTernariesPerLine() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "false");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "false");
         final String[] expected = {
             "14:26: " + getCheckMessage(MSG_KEY, 1),
@@ -202,11 +202,11 @@ public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSuppor
     public void testWithIgnoringOneTernaryPerLine() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(TernaryPerExpressionCountCheck.class);
-        checkConfig.addAttribute("ignoreTernaryOperatorsInBraces",
+        checkConfig.addProperty("ignoreTernaryOperatorsInBraces",
                 "false");
-        checkConfig.addAttribute("ignoreIsolatedTernaryOnLine",
+        checkConfig.addProperty("ignoreIsolatedTernaryOnLine",
                 "true");
-        checkConfig.addAttribute("maxTernaryPerExpressionCount",
+        checkConfig.addProperty("maxTernaryPerExpressionCount",
                 "0");
         final String[] expected = {
             "14:26: " + getCheckMessage(MSG_KEY, 0),

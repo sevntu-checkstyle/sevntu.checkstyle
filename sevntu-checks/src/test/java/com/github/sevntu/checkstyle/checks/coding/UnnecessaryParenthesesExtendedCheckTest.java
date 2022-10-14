@@ -48,9 +48,9 @@ public class UnnecessaryParenthesesExtendedCheckTest extends AbstractModuleTestS
     public void testDefault() throws Exception {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UnnecessaryParenthesesExtendedCheck.class);
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "false");
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "false");
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "false");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariables", "false");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariablesWithReturn", "false");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariablesWithAssert", "false");
         final String[] expected = {
             "5:22: " + getCheckMessage(MSG_KEY_ASSIGN),
             "5:29: " + getCheckMessage(MSG_KEY_EXPR),
@@ -107,9 +107,9 @@ public class UnnecessaryParenthesesExtendedCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(UnnecessaryParenthesesExtendedCheck.class);
         final String[] expected = {};
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "false");
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "false");
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "false");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariables", "false");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariablesWithReturn", "false");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariablesWithAssert", "false");
         verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheck2.java"), expected);
     }
 
@@ -166,9 +166,9 @@ public class UnnecessaryParenthesesExtendedCheckTest extends AbstractModuleTestS
             "100:24: " + getCheckMessage(MSG_KEY_EXPR),
             "123:27: " + getCheckMessage(MSG_KEY_IDENT, "i"),
         };
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariables", "true");
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithReturn", "true");
-        checkConfig.addAttribute("ignoreCalculationOfBooleanVariablesWithAssert", "true");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariables", "true");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariablesWithReturn", "true");
+        checkConfig.addProperty("ignoreCalculationOfBooleanVariablesWithAssert", "true");
         verify(checkConfig, getPath("InputUnnecessaryParenthesesExtendedCheckUbv.java"), expected);
     }
 
