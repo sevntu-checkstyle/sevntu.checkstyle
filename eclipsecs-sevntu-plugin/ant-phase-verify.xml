@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="phase-package" default="execute">
+  <condition property="run">
+    <or>
+        <not>
+            <isset property="checkstyle.ant.skip"/>
+        </not>
+        <isfalse value="${checkstyle.ant.skip}"/>
+     </or>
+  </condition>
+
+  <target name="execute" if="run">
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties"/>
+
+    <tstamp>
+      <format property="STARTED" pattern="dd/MM/yyyy hh:mm:ss aa" />
+    </tstamp>
+    <echo level="info">Checkstyle started (${checkstyle.configLocation}): ${STARTED}</echo>
+
+    <checkstyle config="${checkstyle.configLocation}"
+                failOnViolation="false"
+                failureProperty="checkstyle.failure.property"
+                executeIgnoredModules="true"
+                >
+      <fileset dir="src"
+               includes="**/*"/>
+      <formatter type="plain"/>
+      <formatter type="xml" toFile="${mvn.project.build.directory}/cs_errors.xml"/>
+      <property key="checkstyle.cache.file" file="${mvn.project.build.directory}/cachefile"/>
+      <property key="checkstyle.header.file" value="${checkstyle.header}"/>
+      <property key="checkstyle.regexp.header.file" value="${checkstyle.regexp.header}"/>
+      <property key="checkstyle.importcontrol.file" file="import-control.xml"/>
+      <property key="checkstyle.importcontroltest.file" file="import-control-test.xml"/>
+      <property key="checkstyle.suppressions.file" file="suppressions.xml"/>
+      <property key="checkstyle.suppressions-xpath.file" file="suppressions.xml"/>
+    </checkstyle>
+
+    <tstamp>
+      <format property="FINISHED" pattern="dd/MM/yyyy hh:mm:ss aa"/>
+    </tstamp>
+    <echo level="info">Checkstyle finished (${checkstyle.configLocation}) : ${FINISHED}</echo>
+
+    <fail if="checkstyle.failure.property"
+          message="Checkstyle failed: ${checkstyle.failure.property}"
+    />
+  </target>
+</project>

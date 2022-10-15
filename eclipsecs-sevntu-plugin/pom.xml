@@ -27,6 +27,12 @@
 
   <properties>
     <eclipsecs.version>10.0.0-SNAPSHOT</eclipsecs.version>
+    <!-- verify time version -->
+    <checkstyle.version>10.3.4</checkstyle.version>
+    <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
+    <checkstyle.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java.header</checkstyle.header>
+    <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java_regexp.header</checkstyle.regexp.header>
+    <antrun.plugin.version>3.1.0</antrun.plugin.version>
   </properties>
 
   <dependencies>
@@ -49,6 +55,36 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${antrun.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>ant-phase-verify</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <property name="mvn.project.build.directory" value="${project.build.directory}" />
+                <property name="checkstyle.configLocation" value="${checkstyle.configLocation}" />
+                <property name="checkstyle.header" value="${checkstyle.header}" />
+                <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}" />
+                <ant antfile="ant-phase-verify.xml" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
