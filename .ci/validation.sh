@@ -13,7 +13,7 @@ eclipse-cs)
                            | sed "s/-SNAPSHOT//")
   cd ../
   cd sevntu-checks
-  mvn -B -e clean install -Dmaven.test.skip=true -Pno-validations
+  mvn -B -e clean install -Pno-validations
   cd ..
   mkdir -p .ci-temp
   cd .ci-temp
@@ -30,27 +30,24 @@ eclipse-cs)
 
 idea-extension)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
+  mvn -e clean install -Pno-validations
   cd ..
   cd sevntu-checkstyle-idea-extension
   mvn -e verify
-  mvn -e javadoc:javadoc
   ;;
 
 sonar-plugin)
   cd sevntu-checks
-  mvn -e clean install -Dmaven.test.skip=true -Pno-validations
+  mvn -e clean install -Pno-validations
   cd ..
   cd sevntu-checkstyle-sonar-plugin
   mvn -e verify
-  mvn -e javadoc:javadoc
   ;;
 
 sevntu-checks)
   cd sevntu-checks
   mvn -e -Pcoverall install
   mvn -e verify -Pno-validations,selftesting
-  mvn -e javadoc:javadoc
   if [[ $TRAVIS == 'true' ]]; then
    mvn -e -Pcoverall jacoco:report coveralls:report
   fi
@@ -102,8 +99,8 @@ checkstyle-regression)
   cd ../
   # execute checkstyle validation on updated config file
   cd .ci-temp/checkstyle
-  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true \
-      -Dfindbugs.skip=true -Dcobertura.skip=true -Dxml.skip=true \
+  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dspotbugs.skip=true \
+      -Dfindbugs.skip=true -Djacoco.skip=true -Dxml.skip=true \
       -Dmaven.sevntu-checkstyle-check.checkstyle.version=$ECLIPSE_CS_VERSION \
       -Dmaven.sevntu.checkstyle.plugin.version=$SEVNTU_VERSION
   ;;
