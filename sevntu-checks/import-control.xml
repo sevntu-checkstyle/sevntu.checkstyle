@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE import-control PUBLIC
-    "-//Puppy Crawl//DTD Import Control 1.2//EN"
-    "http://checkstyle.sourceforge.net/dtds/import_control_1_2.dtd">
+    "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
+    "https://checkstyle.org/dtds/import_control_1_4.dtd">
 
 <import-control pkg="com.github.sevntu.checkstyle">
 
@@ -43,6 +43,12 @@
       <allow class="com.google.common.base.CharMatcher" local-only="true"/>
       <allow class="com.google.common.base.Joiner" local-only="true"/>
       <allow class="com.google.common.collect.Sets" local-only="true"/>
+    </subpackage>
+
+    <subpackage name="coding">
+      <file name="CustomDeclarationOrderCheck">
+        <allow class="java.beans.Introspector"/>
+      </file>
     </subpackage>
   </subpackage>
 
