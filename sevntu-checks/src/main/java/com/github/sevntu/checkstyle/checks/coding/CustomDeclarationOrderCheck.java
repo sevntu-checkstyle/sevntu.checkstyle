@@ -235,6 +235,9 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /** Prefix for setter method name. */
     private static final String SETTER_PREFIX = "set";
 
+    /** Macro string for String. */
+    private static final String STRING_MACRO = "String";
+
     /** Default format for custom declaration check. */
     private static final String DEFAULT_DECLARATION = "Field(.*public .*) "
             + "### Field(.*protected .*) ### Field(.*private .*) ### CTOR(.*) ### "
@@ -1147,7 +1150,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
             if (hasChildToken(parameterTypeAST, TokenTypes.ARRAY_DECLARATOR)) {
                 final String parameterName =
                         parameterTypeAST.getFirstChild().getText();
-                result = "String".equals(parameterName);
+                result = STRING_MACRO.equals(parameterName);
             }
             else {
                 result = false;
@@ -1179,7 +1182,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                         parameterDefinitionAST.findFirstToken(TokenTypes.TYPE);
                 final String parameterName =
                         getIdentifier(parameterTypeAST);
-                result = "String".equals(parameterName);
+                result = STRING_MACRO.equals(parameterName);
             }
             else {
                 result = false;

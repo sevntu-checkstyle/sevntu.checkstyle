@@ -5,14 +5,11 @@
     "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
+    <!-- not easy to break apart the switch -->
+    <suppress checks="ChildBlockLength" files="ChecksTest.java"/>
+
     <!-- Tone down the checking for test code -->
     <suppress checks="IllegalCatchExtended" files="[\\/]internal[\\/]\w+Util\.java"/>
     <suppress checks="MultipleStringLiteralsExtended" files=".*[\\/]+src[\\/]test[\\/]"/>
     <suppress checks="LineLengthExtended" files=".*[\\/]src[\\/]test[\\/]"/>
-
-    <!-- START of legacy code, all violations will be resolved during transition to main project -->
-    <suppress checks="MultipleStringLiteralsExtended" files="(CustomDeclarationOrderCheck|ForbidWildcardAsReturnTypeCheck).java"/>
-    <suppress checks="LineLengthExtended" files="DiamondOperatorForVariableDefinitionCheck.java"/>
-    <suppress checks="ChildBlockLength" files="ChecksTest.java"/>
-    <!-- END of legacy code -->
 </suppressions>
