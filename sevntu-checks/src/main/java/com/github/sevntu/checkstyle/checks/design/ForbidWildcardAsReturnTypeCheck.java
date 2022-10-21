@@ -87,14 +87,29 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     /** {@link Deprecated Deprecated} annotation name. */
     private static final String DEPRECATED = "Deprecated";
 
+    /** Macro string for "java.lang.". */
+    private static final String JAVA_LANG_MACRO = "java.lang.";
+
     /** Fully-qualified {@link Deprecated Deprecated} annotation name. */
-    private static final String FQ_DEPRECATED = "java.lang." + DEPRECATED;
+    private static final String FQ_DEPRECATED = JAVA_LANG_MACRO + DEPRECATED;
 
     /** {@link Override Override} annotation name. */
     private static final String OVERRIDE = "Override";
 
     /** Fully-qualified {@link Override Override} annotation name. */
-    private static final String FQ_OVERRIDE = "java.lang." + OVERRIDE;
+    private static final String FQ_OVERRIDE = JAVA_LANG_MACRO + OVERRIDE;
+
+    /** Macro string for public. */
+    private static final String PUBLIC_MACRO = "public";
+
+    /** Macro string for private. */
+    private static final String PRIVATE_MACRO = "private";
+
+    /** Macro string for protected. */
+    private static final String PROTECTED_MACRO = "protected";
+
+    /** Macro string for package. */
+    private static final String PACKAGE_MACRO = "package";
 
     /**
      * Empty array of DetailAST.
@@ -264,10 +279,10 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return {@code true} if the method should be checked.
      */
     private boolean isCheckableMethodScope(String methodScope) {
-        return checkPublicMethods && "public".equals(methodScope)
-                || checkPrivateMethods && "private".equals(methodScope)
-                || checkProtectedMethods && "protected".equals(methodScope)
-                || checkPackageMethods && "package".equals(methodScope);
+        return checkPublicMethods && PUBLIC_MACRO.equals(methodScope)
+                || checkPrivateMethods && PRIVATE_MACRO.equals(methodScope)
+                || checkProtectedMethods && PROTECTED_MACRO.equals(methodScope)
+                || checkPackageMethods && PACKAGE_MACRO.equals(methodScope);
     }
 
     /**
@@ -277,13 +292,13 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
      * @return one of "public", "private", "protected", "package"
      */
     private static String getVisibilityScope(DetailAST methodDefAst) {
-        String result = "package";
+        String result = PACKAGE_MACRO;
         if (isInsideInterfaceDefinition(methodDefAst)) {
-            result = "public";
+            result = PUBLIC_MACRO;
         }
         else {
-            final String[] visibilityScopeModifiers = {"public", "private",
-                "protected", };
+            final String[] visibilityScopeModifiers = {PUBLIC_MACRO, PRIVATE_MACRO,
+                PROTECTED_MACRO, };
             final Set<String> methodModifiers = getModifiers(methodDefAst);
             for (final String modifier : visibilityScopeModifiers) {
                 if (methodModifiers.contains(modifier)) {
