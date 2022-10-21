@@ -370,44 +370,62 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         if (ast.getType() == TokenTypes.CLASS_DEF) {
-            if (!isClassDefInMethodDef(ast)) {
-                if (checkInnerClasses && !classDetails.isEmpty()) {
-                    final int position = getPositionInOrderDeclaration(ast);
-
-                    if (position != -1) {
-                        if (isWrongPosition(position)) {
-                            logWrongOrderedElement(ast, position);
-                        }
-                        else {
-                            classDetails.peek().setCurrentPosition(position);
-                        }
-                    }
-                }
-
-                classDetails.push(new ClassDetail());
-            }
+            validateClassDef(ast);
         }
         else {
-            final DetailAST objBlockAst = ast.getParent();
-            if (objBlockAst != null
-                && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
-                final DetailAST classDefAst = objBlockAst.getParent();
+            validateNonClassDef(ast);
+        }
+    }
 
-                if (classDefAst.getType() == TokenTypes.CLASS_DEF
-                    && !isClassDefInMethodDef(classDefAst)) {
-                    if (checkGettersSetters) {
-                        collectGetterSetter(ast);
+    /**
+     * Validate the class definition.
+     *
+     * @param ast The class definition.
+     */
+    private void validateClassDef(DetailAST ast) {
+        if (!isClassDefInMethodDef(ast)) {
+            if (checkInnerClasses && !classDetails.isEmpty()) {
+                final int position = getPositionInOrderDeclaration(ast);
+
+                if (position != -1) {
+                    if (isWrongPosition(position)) {
+                        logWrongOrderedElement(ast, position);
                     }
+                    else {
+                        classDetails.peek().setCurrentPosition(position);
+                    }
+                }
+            }
 
-                    final int position = getPositionInOrderDeclaration(ast);
+            classDetails.push(new ClassDetail());
+        }
+    }
 
-                    if (position != -1) {
-                        if (isWrongPosition(position)) {
-                            logWrongOrderedElement(ast, position);
-                        }
-                        else {
-                            classDetails.peek().setCurrentPosition(position);
-                        }
+    /**
+     * Validate the {@code ast} which is not a class definition.
+     *
+     * @param ast The AST to validate.
+     */
+    private void validateNonClassDef(DetailAST ast) {
+        final DetailAST objBlockAst = ast.getParent();
+        if (objBlockAst != null
+            && objBlockAst.getType() == TokenTypes.OBJBLOCK) {
+            final DetailAST classDefAst = objBlockAst.getParent();
+
+            if (classDefAst.getType() == TokenTypes.CLASS_DEF
+                && !isClassDefInMethodDef(classDefAst)) {
+                if (checkGettersSetters) {
+                    collectGetterSetter(ast);
+                }
+
+                final int position = getPositionInOrderDeclaration(ast);
+
+                if (position != -1) {
+                    if (isWrongPosition(position)) {
+                        logWrongOrderedElement(ast, position);
+                    }
+                    else {
+                        classDetails.peek().setCurrentPosition(position);
                     }
                 }
             }

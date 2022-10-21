@@ -109,7 +109,6 @@ public class HideUtilityClassConstructorCheck extends AbstractCheck {
 
             // figure out if class extends java.lang.object directly
             // keep it simple for now and get a 99% solution
-            // TODO: check for "extends java.lang.Object" and "extends Object"
             // consider "import org.omg.CORBA.*"
             final boolean extendsJlo =
                 // J.Lo even made it into in our sources :-)
