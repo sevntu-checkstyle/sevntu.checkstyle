@@ -90,8 +90,6 @@
     <exclude name="CompareObjectsWithEquals"/>
     <!-- Too many false positives. -->
     <exclude name="DataflowAnomalyAnalysis"/>
-    <!-- This rule does not have any option, unreasonable to use. -->
-    <exclude name="MissingBreakInSwitch"/>
     <!-- We reuse Check instances between java files, we need to clear state of
          class in beginTree() methods. -->
     <exclude name="NullAssignment"/>
