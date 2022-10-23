@@ -20,7 +20,9 @@
     <!-- verify time version -->
     <checkstyle.version>10.3.4</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
-    <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
+    <checkstyle.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java.header</checkstyle.header>
+    <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java_regexp.header</checkstyle.regexp.header>
+    <antrun.plugin.version>3.1.0</antrun.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.jacoco.plugin.version>0.8.7</maven.jacoco.plugin.version>
     <maven.pmd.plugin.version>3.11.0</maven.pmd.plugin.version>
@@ -250,8 +252,26 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.plugin.version}</version>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${antrun.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>ant-phase-verify</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <property name="mvn.project.build.directory" value="${project.build.directory}" />
+                <property name="checkstyle.configLocation" value="${checkstyle.configLocation}" />
+                <property name="checkstyle.header" value="${checkstyle.header}" />
+                <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}" />
+                <ant antfile="ant-phase-verify.xml" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
         <dependencies>
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
@@ -259,27 +279,6 @@
             <version>${checkstyle.version}</version>
           </dependency>
         </dependencies>
-        <executions>
-          <execution>
-            <!-- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference
-                 to run checkstyle validation in terminal please use command "mvn process-classes"
-            -->
-            <phase>process-classes</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <configuration>
-              <configLocation>${checkstyle.configLocation}</configLocation>
-              <failOnViolation>true</failOnViolation>
-              <linkXRef>false</linkXRef>
-              <propertiesLocation>checkstyle.properties</propertiesLocation>
-              <sourceDirectories>
-                <sourceDirectory>${project.basedir}/src</sourceDirectory>
-              </sourceDirectories>
-              <excludes>**/test/resources/**/*,**/test/resources-noncompilable/**/*</excludes>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -873,7 +872,7 @@
         <skipTests>true</skipTests>
         <linkcheck.skip>true</linkcheck.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <checkstyle.skip>true</checkstyle.skip>
+        <checkstyle.ant.skip>true</checkstyle.ant.skip>
         <pmd.skip>true</pmd.skip>
         <xml.skip>true</xml.skip>
         <forbiddenapis.skip>true</forbiddenapis.skip>
@@ -884,48 +883,39 @@
     </profile>
     <profile>
       <id>selftesting</id>
-      <properties>
-        <checkstyle.skip>false</checkstyle.skip>
-      </properties>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>${checkstyle.plugin.version}</version>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>${antrun.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>ant-phase-verify</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <property name="mvn.project.build.directory" value="${project.build.directory}" />
+                    <ant antfile="ant-phase-verify-sevntu.xml" />
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
             <dependencies>
               <dependency>
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
-                <version>${checkstyle.eclipse-cs.version}</version>
+                <version>${checkstyle.version}</version>
               </dependency>
-              <!-- attention here is self-referencing, so be sure you did "mvn install" before "mvn verify -Pselftesting" -->
-              <dependency>
+             <dependency>
                 <groupId>com.github.sevntu-checkstyle</groupId>
                 <artifactId>sevntu-checks</artifactId>
                 <version>${project.version}</version>
               </dependency>
             </dependencies>
-            <executions>
-              <execution>
-                <!-- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference
-                     to run checkstyle validation in terminal please use command "mvn process-classes"
-                -->
-                <phase>process-classes</phase>
-                <goals>
-                  <goal>check</goal>
-                </goals>
-                <configuration>
-                  <configLocation>sevntu-checks.xml</configLocation>
-                  <failOnViolation>true</failOnViolation>
-                  <linkXRef>false</linkXRef>
-                  <sourceDirectories>
-                    <sourceDirectory>${project.basedir}/src</sourceDirectory>
-                  </sourceDirectories>
-                  <excludes>**/test/resources/**/*,**/test/resources-noncompilable/**/*</excludes>
-                </configuration>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>
