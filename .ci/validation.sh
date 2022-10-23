@@ -126,7 +126,7 @@ sonarqube)
        -Dsonar.host.url=https://sonarcloud.io \
        -Dsonar.login=$SONAR_TOKEN \
        -Dmaven.test.failure.ignore=true \
-       -Dcheckstyle.skip=true -Dpmd.skip=true
+       -Dcheckstyle.ant.skip=true -Dpmd.skip=true
   ;;
 
 git-diff)
