@@ -47,6 +47,7 @@ sonar-plugin)
 sevntu-checks)
   cd sevntu-checks
   mvn -e -Pcoverall install
+  mvn -e verify -Pno-validations,selftesting
   if [[ $TRAVIS == 'true' ]]; then
    mvn -e -Pcoverall jacoco:report coveralls:report
   fi
