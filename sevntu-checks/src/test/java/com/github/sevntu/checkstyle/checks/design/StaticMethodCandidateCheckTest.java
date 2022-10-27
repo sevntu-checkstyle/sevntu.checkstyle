@@ -22,8 +22,6 @@ package com.github.sevntu.checkstyle.checks.design;
 import static com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck.MSG_KEY;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import java.io.File;
-
 import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
@@ -135,8 +133,8 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
                 createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
         };
-        verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "design/InputStaticMethodCandidateCheckLambda.java", expected);
+        verify(checkConfig, getNonCompilablePath("InputStaticMethodCandidateCheckLambda.java"),
+                expected);
     }
 
     @Test
@@ -146,9 +144,9 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
         final String[] expected = {
             "16:5: " + getCheckMessage(MSG_KEY, "bar"),
         };
-        verify(checkConfig, new File("src/test/resources-noncompilable/com/github/"
-            + "sevntu/checkstyle/checks/design/InputStaticMethodCandidateCheckInterfaceMethod.java")
-                .getCanonicalPath(), expected);
+        verify(checkConfig,
+                getNonCompilablePath("InputStaticMethodCandidateCheckInterfaceMethod.java"),
+                expected);
     }
 
     @Test

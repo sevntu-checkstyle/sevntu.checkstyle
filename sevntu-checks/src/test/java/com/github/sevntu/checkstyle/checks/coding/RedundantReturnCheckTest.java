@@ -111,8 +111,8 @@ public class RedundantReturnCheckTest extends AbstractModuleTestSupport {
 
         final String[] expected = {};
 
-        verify(checkConfig, "src/test/resources-noncompilable/com/github/sevntu/checkstyle/checks/"
-                + "coding/InputRedundantReturnCheckTestNPE.java", expected);
+        verify(checkConfig, getNonCompilablePath("InputRedundantReturnCheckTestNPE.java"),
+                expected);
     }
 
     @Test
