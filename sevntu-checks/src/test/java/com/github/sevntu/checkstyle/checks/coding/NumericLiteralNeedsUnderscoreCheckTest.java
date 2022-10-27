@@ -21,8 +21,6 @@ package com.github.sevntu.checkstyle.checks.coding;
 
 import static com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck.MSG_KEY;
 
-import java.io.File;
-
 import org.junit.jupiter.api.Test;
 
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
@@ -139,10 +137,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
             "33:19: " + warningMessage,
             "40:32: " + warningMessage,
         };
-        verify(checkConfig,
-                new File("src/test/resources-noncompilable/com/github/sevntu/"
-                        + "checkstyle/checks/coding/InputNumericLiteralNeedsUnderscoreCheck3.java")
-                        .getCanonicalPath(), expected);
+        verify(checkConfig, getNonCompilablePath("InputNumericLiteralNeedsUnderscoreCheck3.java"),
+                expected);
     }
 
     @Test
@@ -166,10 +162,8 @@ public class NumericLiteralNeedsUnderscoreCheckTest extends AbstractModuleTestSu
             "33:19: " + warningMessage,
             "38:55: " + warningMessage,
         };
-        verify(checkConfig,
-                new File("src/test/resources-noncompilable/com/github/sevntu/"
-                        + "checkstyle/checks/coding/InputNumericLiteralNeedsUnderscoreCheck3.java")
-                        .getCanonicalPath(), expected);
+        verify(checkConfig, getNonCompilablePath("InputNumericLiteralNeedsUnderscoreCheck3.java"),
+                expected);
     }
 
 }
