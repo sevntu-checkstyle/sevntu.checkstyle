@@ -198,11 +198,13 @@ public class PreferMethodReferenceCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        final List<String> args = getLambdaArgs(ast);
-        final DetailAST expr = ast.getLastChild();
-        final boolean hasViolation = checkExpr(expr, args);
-        if (hasViolation) {
-            log(ast, MSG_METHOD_REF);
+        if (ast.getParent().getType() != TokenTypes.SWITCH_RULE) {
+            final List<String> args = getLambdaArgs(ast);
+            final DetailAST expr = ast.getLastChild();
+            final boolean hasViolation = checkExpr(expr, args);
+            if (hasViolation) {
+                log(ast, MSG_METHOD_REF);
+            }
         }
     }
 

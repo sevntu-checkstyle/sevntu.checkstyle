@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import com.puppycrawl.tools.checkstyle.AbstractModuleTestSupport;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 
 public class PreferMethodReferenceCheckTest extends AbstractModuleTestSupport {
 
@@ -155,5 +156,13 @@ public class PreferMethodReferenceCheckTest extends AbstractModuleTestSupport {
         Assertions.assertArrayEquals(check.getAcceptableTokens(), expected);
         Assertions.assertArrayEquals(check.getDefaultTokens(), expected);
         Assertions.assertArrayEquals(check.getRequiredTokens(), expected);
+    }
+
+    @Test
+    public void testSwitchExpression() throws Exception {
+        final DefaultConfiguration checkConfig =
+            createModuleConfig(PreferMethodReferenceCheck.class);
+        verify(checkConfig, getNonCompilablePath("InputPreferMethodReferenceCheck5.java"),
+                CommonUtil.EMPTY_STRING_ARRAY);
     }
 }
