@@ -66,4 +66,16 @@ public class LogicConditionNeedOptimizationCheckTest extends AbstractModuleTestS
         verify(checkConfig, getPath("InputLogicConditionNeedOptimizationCheck.java"), expected);
     }
 
+    @Test
+    public void testPatternDefinition() throws Exception {
+        final DefaultConfiguration checkConfig =
+                createModuleConfig(LogicConditionNeedOptimizationCheck.class);
+        final String[] expected = {
+            "32:17: " + getCheckMessage(MSG_KEY, "&&", 32, 16),
+            "66:34: " + getCheckMessage(MSG_KEY, "&&", 66, 33),
+        };
+        verify(checkConfig, getNonCompilablePath("InputLogicConditionNeedOptimizationCheck2.java"),
+                expected);
+    }
+
 }
