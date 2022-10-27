@@ -25,6 +25,30 @@ setup)
   cd ..
   ;;
 
+checkstyle)
+  cd sevntu-checks
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+                     -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  echo CS_version: ${CS_POM_VERSION}
+  echo SEVNTU_version: ${SEVNTU_POM_VERSION}
+  checkout_from https://github.com/checkstyle/contribution.git
+  cd .ci-temp/contribution/checkstyle-tester
+  sed -i'' 's/^guava/#guava/' projects-to-test-on.properties
+  sed -i'' 's/#checkstyle/checkstyle/' projects-to-test-on.properties
+  groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
+      --patchConfig checks-sevntu-error.xml --allowExcludes \
+      --mode single --patchBranch "$BRANCH" -r ../../..\
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -Dcheckstyle.failsOnError=false"
+  cd ../../
+  rm -rf contribution
+  cd ..
+  ;;
+
 struts)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
