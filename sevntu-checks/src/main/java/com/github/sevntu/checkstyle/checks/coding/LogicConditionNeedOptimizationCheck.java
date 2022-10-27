@@ -119,7 +119,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
         int parenthesis = 0;
 
         do {
-            if (node.getType() == TokenTypes.LPAREN) {
+            if (node.getType() == TokenTypes.LPAREN && node.getFirstChild() == null) {
                 parenthesis++;
             }
             else {
