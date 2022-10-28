@@ -29,7 +29,7 @@
     <pmd.version>6.38.0</pmd.version>
     <java.version>11</java.version>
     <junit.version>5.8.0</junit.version>
-    <assertj.version>3.19.0</assertj.version>
+    <assertj.version>3.23.1</assertj.version>
     <truth.version>1.1.2</truth.version>
   </properties>
 
