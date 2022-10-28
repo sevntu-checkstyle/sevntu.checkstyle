@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.jar.JarEntry;
 
-import org.assertj.core.internal.bytebuddy.implementation.bytecode.member.MethodInvocation;
+
 
 /* Config: default
  *
@@ -56,9 +56,9 @@ public class InputNoNullForCollectionReturnCheckObjectArray {
         return null;
     }
 
-    protected Object[] getMethodArguments(MethodInvocation invocation) {
+    protected Object[] getMethodArguments(Object invocation) {
         if (invocation != null) {
-              return new MethodInvocation[2];
+              return new Object[2];
         }
         else {
               return null;
