@@ -189,7 +189,7 @@ pmd-elasticsearch-lombok-ast)
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
-  checkout_from "-b issue-529 https://github.com/nmancus1/contribution "
+  checkout_from "https://github.com/checkstyle/contribution.git"
   cd .ci-temp/contribution/checkstyle-tester
   sed -i.'' 's/^guava/#guava/' projects-to-test-on.properties
   sed -i.'' 's/#pmd/pmd/' projects-to-test-on.properties
