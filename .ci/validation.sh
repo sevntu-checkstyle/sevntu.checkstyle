@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+source ./.ci/util.sh
+
 case $1 in
 
 eclipse-cs)
@@ -15,10 +17,8 @@ eclipse-cs)
   cd sevntu-checks
   mvn -B -e clean install -Pno-validations
   cd ..
-  mkdir -p .ci-temp
-  cd .ci-temp
-  git clone https://github.com/checkstyle/eclipse-cs.git
-  cd eclipse-cs/
+  checkout_from "https://github.com/checkstyle/eclipse-cs.git"
+  cd .ci-temp/eclipse-cs/
   echo "Eclipse-cs tag: "$ECLIPSECS_TAG_NAME
   git checkout $ECLIPSECS_TAG_NAME
   mvn -B -e install
@@ -81,10 +81,7 @@ all-sevntu-checks-contribution)
   ;;
 
 checkstyle-regression)
-  mkdir -p .ci-temp
-  cd .ci-temp
-  git clone https://github.com/checkstyle/checkstyle
-  cd ../
+  checkout_from "https://github.com/checkstyle/checkstyle"
   # update checkstyle_sevntu_checks.xml file in checkstyle for new modules
   cd sevntu-checks
   SEVNTU_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
