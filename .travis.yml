@@ -26,7 +26,6 @@ jobs:
   include:
     # eclipse-cs
     - jdk: openjdk11
-      arch: s390x
       env:
         - DESC="eclipse-cs"
         - USE_MAVEN_REPO="true"
