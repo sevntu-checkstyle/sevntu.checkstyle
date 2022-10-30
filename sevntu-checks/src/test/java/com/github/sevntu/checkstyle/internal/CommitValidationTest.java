@@ -19,9 +19,7 @@
 
 package com.github.sevntu.checkstyle.internal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static com.google.common.truth.Truth.assertWithMessage;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -77,7 +75,7 @@ public class CommitValidationTest {
     private static final String ISSUE_COMMIT_MESSAGE_REGEX_PATTERN = "^Issue #\\d+: .*$";
     private static final String PR_COMMIT_MESSAGE_REGEX_PATTERN = "^Pull #\\d+: .*$";
     private static final String OTHER_COMMIT_MESSAGE_REGEX_PATTERN =
-            "^(minor|config|infra|doc|spelling|dependency): .*$";
+            "^(minor|config|infra|doc|spelling|dependency|supplemental): .*$";
 
     private static final String ACCEPTED_COMMIT_MESSAGE_REGEX_PATTERN =
               "(" + ISSUE_COMMIT_MESSAGE_REGEX_PATTERN + ")|"
@@ -103,38 +101,78 @@ public class CommitValidationTest {
 
     @Test
     public void testHasCommits() {
-        assertTrue(lastCommits != null && !lastCommits.isEmpty(),
-                "must have at least one commit to validate");
+        assertWithMessage("must have at least one commit to validate")
+                .that(lastCommits != null && !lastCommits.isEmpty())
+                .isTrue();
     }
 
     @Test
     public void testCommitMessage() {
-        assertEquals(3, validateCommitMessage("minor: Test. Test."),
-                "should not accept commit message with periods on end");
-        assertEquals(3, validateCommitMessage("minor: Test. "),
-                "should not accept commit message with spaces on end");
-        assertEquals(3, validateCommitMessage("minor: Test.\t"),
-                "should not accept commit message with tabs on end");
-        assertEquals(3, validateCommitMessage("minor: Test.\n"),
-                "should not accept commit message with period on end, ignoring new line");
-        assertEquals(1, validateCommitMessage("Test. Test"),
-                "should not accept commit message with missing prefix");
-        assertEquals(1, validateCommitMessage("Test. Test\n"),
-                "should not accept commit message with missing prefix");
-        assertEquals(2, validateCommitMessage("minor: Test.\nTest"),
-                "should not accept commit message with multiple lines with text");
-        assertEquals(0, validateCommitMessage("minor: Test\n"),
-                "should accept commit message with a new line on end");
-        assertEquals(0, validateCommitMessage("minor: Test\n\n"),
-                "should accept commit message with multiple new lines on end");
-        assertEquals(0, validateCommitMessage("minor: Test. Test"),
-                "should accept commit message that ends properly");
-        assertEquals(
-                4, validateCommitMessage("minor: Test Test Test Test Test"
+        assertWithMessage("should not accept commit message with periods on end")
+            .that(validateCommitMessage("minor: Test. Test."))
+            .isEqualTo(3);
+        assertWithMessage("should not accept commit message with spaces on end")
+            .that(validateCommitMessage("minor: Test. "))
+            .isEqualTo(3);
+        assertWithMessage("should not accept commit message with tabs on end")
+            .that(validateCommitMessage("minor: Test.\t"))
+            .isEqualTo(3);
+        assertWithMessage("should not accept commit message with period on end, ignoring new line")
+            .that(validateCommitMessage("minor: Test.\n"))
+            .isEqualTo(3);
+        assertWithMessage("should not accept commit message with missing prefix")
+            .that(validateCommitMessage("Test. Test"))
+            .isEqualTo(1);
+        assertWithMessage("should not accept commit message with missing prefix")
+            .that(validateCommitMessage("Test. Test\n"))
+            .isEqualTo(1);
+        assertWithMessage("should not accept commit message with multiple lines with text")
+            .that(validateCommitMessage("minor: Test.\nTest"))
+            .isEqualTo(2);
+        assertWithMessage("should accept commit message with a new line on end")
+            .that(validateCommitMessage("minor: Test\n"))
+            .isEqualTo(0);
+        assertWithMessage("should accept commit message with multiple new lines on end")
+            .that(validateCommitMessage("minor: Test\n\n"))
+            .isEqualTo(0);
+        assertWithMessage("should accept commit message that ends properly")
+            .that(validateCommitMessage("minor: Test. Test"))
+            .isEqualTo(0);
+        assertWithMessage("should accept commit message with less than or equal to 200 characters")
+            .that(validateCommitMessage("minor: Test Test Test Test Test"
                 + "Test Test Test Test Test Test Test Test Test Test Test Test Test Test "
                 + "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test "
-                + "Test Test Test Test Test Test Test  Test Test Test Test Test Test"),
-                "should accept commit message with less than or equal to 200 characters");
+                + "Test Test Test Test Test Test Test  Test Test Test Test Test Test"))
+            .isEqualTo(4);
+    }
+
+    @Test
+    public void testSupplementalPrefix() {
+        assertWithMessage("should accept commit message with supplemental prefix")
+                .that(0)
+                .isEqualTo(validateCommitMessage("supplemental: Test message for supplemental for"
+                        + " Issue #XXXX"));
+        assertWithMessage("should not accept commit message with periods on end")
+                .that(3)
+                .isEqualTo(validateCommitMessage("supplemental: Test. Test."));
+        assertWithMessage("should not accept commit message with spaces on end")
+                .that(3)
+                .isEqualTo(validateCommitMessage("supplemental: Test. "));
+        assertWithMessage("should not accept commit message with tabs on end")
+                .that(3)
+                .isEqualTo(validateCommitMessage("supplemental: Test.\t"));
+        assertWithMessage("should not accept commit message with period on end, ignoring new line")
+                .that(3)
+                .isEqualTo(validateCommitMessage("supplemental: Test.\n"));
+        assertWithMessage("should not accept commit message with multiple lines with text")
+                .that(2)
+                .isEqualTo(validateCommitMessage("supplemental: Test.\nTest"));
+        assertWithMessage("should accept commit message with a new line on end")
+                .that(0)
+                .isEqualTo(validateCommitMessage("supplemental: Test\n"));
+        assertWithMessage("should accept commit message with multiple new lines on end")
+                .that(0)
+                .isEqualTo(validateCommitMessage("supplemental: Test\n\n"));
     }
 
     @Test
@@ -146,7 +184,9 @@ public class CommitValidationTest {
             if (error != 0) {
                 final String commitId = commit.getId().getName();
 
-                fail(getInvalidCommitMessageFormattingError(commitId, commitMessage) + error);
+                assertWithMessage(
+                        getInvalidCommitMessageFormattingError(commitId, commitMessage) + error)
+                                .fail();
             }
         }
     }
@@ -161,8 +201,8 @@ public class CommitValidationTest {
             result = 1;
         }
         else if (!trimRight.equals(message)) {
-            // single line of text (multiple new lines are allowed on end because of
-            // git (1 new line) and github's web ui (2 new lines))
+            // single-line of text (multiple new lines are allowed on end because of
+            // git (1 new line) and GitHub's web ui (2 new lines))
             result = 2;
         }
         else if (INVALID_POSTFIX_PATTERN.matcher(message).matches()) {
@@ -210,7 +250,8 @@ public class CommitValidationTest {
     private static RevCommitsPair resolveRevCommitsPair(Repository repo) {
         RevCommitsPair revCommitIteratorPair;
 
-        try (RevWalk revWalk = new RevWalk(repo); Git git = new Git(repo)) {
+        try (RevWalk revWalk = new RevWalk(repo);
+             Git git = new Git(repo)) {
             final Iterator<RevCommit> first;
             final Iterator<RevCommit> second;
             final ObjectId headId = repo.resolve(Constants.HEAD);
@@ -303,17 +344,17 @@ public class CommitValidationTest {
 
     }
 
-    private static class RevCommitsPair {
+    private static final class RevCommitsPair {
 
         private final Iterator<RevCommit> first;
         private final Iterator<RevCommit> second;
 
-        /* package */ RevCommitsPair() {
+        private RevCommitsPair() {
             first = Collections.emptyIterator();
             second = Collections.emptyIterator();
         }
 
-        /* package */ RevCommitsPair(Iterator<RevCommit> first, Iterator<RevCommit> second) {
+        private RevCommitsPair(Iterator<RevCommit> first, Iterator<RevCommit> second) {
             this.first = first;
             this.second = second;
         }
@@ -328,11 +369,11 @@ public class CommitValidationTest {
 
     }
 
-    private static class OmitMergeCommitsIterator implements Iterator<RevCommit> {
+    private static final class OmitMergeCommitsIterator implements Iterator<RevCommit> {
 
         private final Iterator<RevCommit> revCommitIterator;
 
-        /* package */ OmitMergeCommitsIterator(Iterator<RevCommit> revCommitIterator) {
+        private OmitMergeCommitsIterator(Iterator<RevCommit> revCommitIterator) {
             this.revCommitIterator = revCommitIterator;
         }
 
