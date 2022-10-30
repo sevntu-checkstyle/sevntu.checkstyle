@@ -5,9 +5,9 @@
     "https://checkstyle.org/dtds/packages_1_0.dtd">
 
 <checkstyle-packages>
-  <!-- 
-    Define the Java packages where your custom Checkstyle module classes (checks, filters) reside here.
-    See http://checkstyle.sourceforge.net/config.html#Packages for more info.
+  <!--
+    Define the Java packages where your custom Checkstyle module classes (checks, filters) reside
+    here. See https://checkstyle.org/config.html#Packages for more info.
     -->
 
   <package name="com.github.sevntu.checkstyle">

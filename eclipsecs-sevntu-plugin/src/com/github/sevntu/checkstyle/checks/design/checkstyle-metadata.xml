@@ -131,7 +131,6 @@
       <message-key key="static.method.candidate"/>
     </rule-metadata>
 
-
     <rule-metadata name="%ConstructorWithoutParamsCheck.name" internal-name="ConstructorWithoutParamsCheck" parent="TreeWalker">
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck"/>
       <description>%ConstructorWithoutParamsCheck.desc</description>
