@@ -4,17 +4,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
                              http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
-    <description>
-        PMD ruleset for Sevntu main code
-    </description>
-    <exclude-pattern>.*/src/test/.*</exclude-pattern>
-    <rule ref="pmd.xml"/>
-
-    <!-- Till https://github.com/pmd/pmd/issues/3292 -->
-    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
-        <properties>
-            <property name="violationSuppressXPath"
-                     value="//ClassOrInterfaceDeclaration[@SimpleName ='ForbidCertainMethodCheck']"/>
-        </properties>
-    </rule>
+  <description>
+    PMD ruleset for Sevntu main code
+  </description>
+  <exclude-pattern>.*/src/test/.*</exclude-pattern>
+  <rule ref="pmd.xml">
+    <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/525 -->
+    <exclude name="TooManyMethods"/>
+    <exclude name="ExcessiveClassLength"/>
+    <exclude name="NPathComplexity"/>
+  </rule>
 </ruleset>
