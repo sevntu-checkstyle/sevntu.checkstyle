@@ -9,12 +9,10 @@
   </description>
 
   <rule ref="category/java/bestpractices.xml">
-    <!-- We do not care about this minor overhead, we are not Android application and we do not
-         want to change visibility of methods. Package-private visibility should be avoid almost
-         always. -->
-    <exclude name="AccessorMethodGeneration"/>
     <!-- The PMD mistakes the AbstractViolationReporter::log() as a debug log. -->
     <exclude name="GuardLogStatement"/>
+    <!-- too much false-positives from 6.18.0 -->
+    <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/bestpractices.xml/SystemPrintln">
     <properties>
@@ -111,12 +109,14 @@
   </rule>
 
   <rule ref="category/java/design.xml">
+    <!-- We use our own CyclomaticComplexityCheck and count SWITCH in a special way. -->
+    <exclude name="CyclomaticComplexity"/>
     <!-- Too much false-positives on the check classes.
          We do not follow the philosophy of complete encapsulation, we like data classes
          (preferable immutable) to transfer content from one part to another.
          There is no way to configure the rule (it has no properties). -->
     <exclude name="DataClass"/>
-    <!-- Too much alarms on the check classes, we will never move logic out of the check,
+    <!-- Too many alarms on the check classes, we will never move logic out of the check,
          each check is an independent logic container. -->
     <exclude name="GodClass"/>
     <!-- Too many violations, will be suppressed until we find out how use these metrics. -->
@@ -126,11 +126,7 @@
 
     <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/525 -->
     <exclude name="CognitiveComplexity"/>
-    <exclude name="CyclomaticComplexity"/>
     <exclude name="NcssCount"/>
-    <exclude name="TooManyMethods"/>
-    <exclude name="ExcessiveClassLength"/>
-    <exclude name="NPathComplexity"/>
     <exclude name="AvoidDeeplyNestedIfStmts"/>
     <exclude name="SwitchDensity"/>
   </rule>
