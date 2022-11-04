@@ -89,6 +89,7 @@ script:
   - ./.ci/travis.sh init-m2-repo
   - ./.ci/travis.sh run-command "$CMD"
   - ./.ci/validation.sh git-diff
+  - ./.ci/travis.sh quarterly-cache-cleanup
   - sleep 5s
 
 after_success:

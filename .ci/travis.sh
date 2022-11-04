@@ -37,6 +37,10 @@ run-command)
   fi
   ;;
 
+quarterly-cache-cleanup)
+  find ~/.m2 -maxdepth 4 -type d -mtime +90 -exec rm -rf {} \;
+  ;;
+
 *)
   echo "Unexpected argument: $1"
   sleep 5s
