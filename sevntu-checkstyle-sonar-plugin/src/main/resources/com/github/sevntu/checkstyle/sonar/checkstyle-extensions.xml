@@ -726,6 +726,14 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.SingleMethodTypeParameterCheck</key>
+    <name>Single type parameter in public methods</name>
+    <tag>coding</tag>
+    <description>Single type parameter in public methods should be replaced with a wildcard.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.SingleMethodTypeParameterCheck</configKey>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck</key>
     <name>Ternary Per Expression Count</name>
     <tag>coding</tag>

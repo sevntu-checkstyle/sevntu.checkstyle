@@ -144,6 +144,7 @@
       <property name="allowReturnInEmptyMethodsAndConstructors" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck"/>
+    <module name="com.github.sevntu.checkstyle.checks.coding.SingleMethodTypeParameterCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck">
       <property name="minDecimalSymbolLength" value="7"/>
       <property name="maxDecimalSymbolsUntilUnderscore" value="3"/>
