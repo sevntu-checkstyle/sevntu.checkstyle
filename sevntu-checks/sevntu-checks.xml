@@ -154,6 +154,7 @@
       <property name="ignoreFieldNamePattern" value="serialVersionUID"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck"/>
+    <module name="com.github.sevntu.checkstyle.checks.coding.EnumTrailingComma"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck"/>

@@ -167,7 +167,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
         /**
          * Denotes a binary literal. For example, 0b0011
          */
-        BINARY
+        BINARY,
 
     }
 

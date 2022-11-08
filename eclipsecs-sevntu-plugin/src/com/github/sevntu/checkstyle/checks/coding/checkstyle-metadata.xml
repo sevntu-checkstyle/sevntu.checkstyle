@@ -162,6 +162,13 @@
       <message-key key="empty.public.ctor"/>
     </rule-metadata>
 
+    <rule-metadata name="%EnumTrailingComma.name" internal-name="EnumTrailingComma" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.EnumTrailingComma"/>
+      <description>%EnumTrailingComma.desc</description>
+
+      <message-key key="enum.trailing.comma"/>
+    </rule-metadata>
+
     <rule-metadata name="%ForbidCertainImportsCheck.name" internal-name="ForbidCertainImportsCheck" parent="TreeWalker">
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
       <description>%ForbidCertainImportsCheck.desc</description>

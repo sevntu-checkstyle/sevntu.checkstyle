@@ -294,7 +294,8 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
         PARAMETERS_ARE_NULLABLE_BY_DEFAULT("ParametersAreNullableByDefault", PKG_JAVAX_ANNOTATION),
         /** ReturnValuesAreNonnullByDefault. */
         RETURN_VALUES_ARE_NONNULL_BY_DEFAULT("ReturnValuesAreNonnullByDefault",
-                "edu.umd.cs.findbugs.annotations");
+                "edu.umd.cs.findbugs.annotations"),
+        ;
 
         /** The annotation's name. */
         private final String annotationName;

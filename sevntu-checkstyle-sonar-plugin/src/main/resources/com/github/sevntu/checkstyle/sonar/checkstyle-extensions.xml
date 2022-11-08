@@ -347,6 +347,14 @@
   </rule>
 
   <rule>
+    <key>com.github.sevntu.checkstyle.checks.coding.EnumTrailingComma</key>
+    <name>Enum Trailing Comma</name>
+    <tag>coding</tag>
+    <description>This check ensures that enums contains a trailing comma.</description>
+    <configKey>Checker/TreeWalker/com.github.sevntu.checkstyle.checks.coding.EnumTrailingComma</configKey>
+  </rule>
+
+  <rule>
     <key>com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck</key>
     <name>Finalize Implementation Check</name>
     <tag>coding</tag>
