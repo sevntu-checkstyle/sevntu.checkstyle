@@ -154,6 +154,9 @@
       <property name="ignoreFieldNamePattern" value="serialVersionUID"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck"/>
+    <module name="com.github.sevntu.checkstyle.checks.coding.FieldSingleDeclarationCheck">
+      <property name="fullyQualifiedClassName" value="java.util.logging.Logger"/>
+    </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck"/>

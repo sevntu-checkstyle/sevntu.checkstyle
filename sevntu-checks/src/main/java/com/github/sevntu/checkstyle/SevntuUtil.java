@@ -21,6 +21,9 @@ package com.github.sevntu.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import com.puppycrawl.tools.checkstyle.api.FullIdent;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.CheckUtil;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
@@ -75,6 +78,42 @@ public final class SevntuUtil {
             }
         }
         return toVisitAst;
+    }
+
+    /**
+     * Obtains full type name of first token in node.
+     * @param ast an AST node
+     * @return fully qualified name (FQN) of type, or null if none was found
+     */
+    public static String getTypeNameOfFirstToken(DetailAST ast) {
+        final DetailAST findFirstToken = ast.findFirstToken(TokenTypes.TYPE);
+        final FullIdent ident = CheckUtil.createFullType(findFirstToken);
+
+        return ident.getText();
+    }
+
+    /**
+     * Checks node for matching class, taken both FQN and short name into account.
+     *
+     * @param ast
+     *            an AST node
+     * @param fqClassName
+     *            fully qualified class name
+     * @return true if type name of first token in node is fqnClassName, or its short name; false
+     *         otherwise
+     */
+    public static boolean matchesFullyQualifiedName(DetailAST ast, String fqClassName) {
+        final String typeName = getTypeNameOfFirstToken(ast);
+        final int lastDotPosition = fqClassName.lastIndexOf('.');
+        boolean isMatched = false;
+        if (lastDotPosition == -1) {
+            isMatched = typeName.equals(fqClassName);
+        }
+        else {
+            final String shortClassName = fqClassName.substring(lastDotPosition + 1);
+            isMatched = typeName.equals(fqClassName) || typeName.equals(shortClassName);
+        }
+        return isMatched;
     }
 
 }

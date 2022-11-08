@@ -162,6 +162,17 @@
       <message-key key="empty.public.ctor"/>
     </rule-metadata>
 
+    <rule-metadata name="%FieldSingleDeclarationCheck.name" internal-name="FieldSingleDeclarationCheck" parent="TreeWalker">
+      <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.FieldSingleDeclarationCheck"/>
+      <description>%FieldSingleDeclarationCheck.desc</description>
+
+      <property-metadata name="fullyQualifiedClassName" datatype="String" default-value="java.util.logging.Logger">
+        <description>%FieldSingleDeclarationCheck.fullyQualifiedClassName</description>
+      </property-metadata>
+
+      <message-key key="field.count"/>
+    </rule-metadata>
+
     <rule-metadata name="%ForbidCertainImportsCheck.name" internal-name="ForbidCertainImportsCheck" parent="TreeWalker">
       <alternative-name internal-name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck"/>
       <description>%ForbidCertainImportsCheck.desc</description>
