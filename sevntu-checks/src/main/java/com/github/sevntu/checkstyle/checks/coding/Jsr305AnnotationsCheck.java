@@ -525,7 +525,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
         for (DetailAST child = modifiers.getFirstChild(); child != null; child =
                 child.getNextSibling()) {
             if (child.getType() == TokenTypes.ANNOTATION) {
-                addNextNullnessAnnotation(result, (DetailAST) child);
+                addNextNullnessAnnotation(result, child);
             }
         }
 
