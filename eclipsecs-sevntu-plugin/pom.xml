@@ -9,7 +9,7 @@
     <relativePath>../eclipse-pom.xml</relativePath>
     <groupId>com.github.sevntu-checkstyle</groupId>
     <artifactId>parent</artifactId>
-    <version>1.42.0</version>
+    <version>1.43.0</version>
   </parent>
 
   <groupId>com.github.sevntu-checkstyle</groupId>
@@ -68,11 +68,11 @@
             </goals>
             <configuration>
               <target>
-                <property name="mvn.project.build.directory" value="${project.build.directory}" />
-                <property name="checkstyle.configLocation" value="${checkstyle.configLocation}" />
-                <property name="checkstyle.header" value="${checkstyle.header}" />
-                <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}" />
-                <ant antfile="ant-phase-verify.xml" />
+                <property name="mvn.project.build.directory" value="${project.build.directory}"/>
+                <property name="checkstyle.configLocation" value="${checkstyle.configLocation}"/>
+                <property name="checkstyle.header" value="${checkstyle.header}"/>
+                <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}"/>
+                <ant antfile="ant-phase-verify.xml"/>
               </target>
             </configuration>
           </execution>

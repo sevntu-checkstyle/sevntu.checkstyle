@@ -11,7 +11,7 @@
 
   <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>sevntu-checks</artifactId>
-  <version>1.42.0</version>
+  <version>1.43.0</version>
 
   <properties>
     <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
@@ -263,11 +263,11 @@
             </goals>
             <configuration>
               <target>
-                <property name="mvn.project.build.directory" value="${project.build.directory}" />
-                <property name="checkstyle.configLocation" value="${checkstyle.configLocation}" />
-                <property name="checkstyle.header" value="${checkstyle.header}" />
-                <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}" />
-                <ant antfile="ant-phase-verify.xml" />
+                <property name="mvn.project.build.directory" value="${project.build.directory}"/>
+                <property name="checkstyle.configLocation" value="${checkstyle.configLocation}"/>
+                <property name="checkstyle.header" value="${checkstyle.header}"/>
+                <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}"/>
+                <ant antfile="ant-phase-verify.xml"/>
               </target>
             </configuration>
           </execution>
@@ -910,8 +910,8 @@
                 </goals>
                 <configuration>
                   <target>
-                    <property name="mvn.project.build.directory" value="${project.build.directory}" />
-                    <ant antfile="ant-phase-verify-sevntu.xml" />
+                    <property name="mvn.project.build.directory" value="${project.build.directory}"/>
+                    <ant antfile="ant-phase-verify-sevntu.xml"/>
                   </target>
                 </configuration>
               </execution>
