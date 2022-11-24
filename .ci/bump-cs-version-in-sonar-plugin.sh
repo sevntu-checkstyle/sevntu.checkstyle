@@ -10,7 +10,6 @@ fi
 VERSION=$1
 cd sevntu-checkstyle-sonar-plugin
 
-mvn versions:set-property -Dproperty=checkstyle.version -DnewVersion="$VERSION"
-rm pom.xml.versionsBackup
+mvn versions:set-property -DgenerateBackupPoms=false -Dproperty=checkstyle.version -DnewVersion="$VERSION"
 
 echo "Version updated to $VERSION at sevntu-checkstyle-sonar-plugin/pom.xml"
