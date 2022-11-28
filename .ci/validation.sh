@@ -15,12 +15,25 @@ eclipse-cs)
                            | sed "s/-SNAPSHOT//")
   cd ../
   cd sevntu-checks
+  SEVNTU_ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+                   -Dexec.args='${checkstyle.eclipse-cs.version}' \
+                   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  echo "sevntus eclipse cs version: "$SEVNTU_ECLIPSE_CS_VERSION
   mvn -B -e clean install -Pno-validations
   cd ..
   checkout_from "https://github.com/checkstyle/eclipse-cs.git"
   cd .ci-temp/eclipse-cs/
   echo "Eclipse-cs tag: "$ECLIPSECS_TAG_NAME
   git checkout $ECLIPSECS_TAG_NAME
+  ECLIPSE_CS_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+                   -Dexec.args='${maven.sevntu.checkstyle.plugin.checkstyle.version}' \
+                   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  echo "eclipse cs cs version: "$ECLIPSE_CS_CS_VERSION
+  if [[ $SEVNTU_ECLIPSE_CS_VERSION != $ECLIPSE_CS_CS_VERSION ]]; then
+    echo "Sevntu's CS version versus Eclipse-CS's CS version does not match"
+    sleep 10
+    exit
+  fi
   mvn -B -e install
   cd ../../
   cd eclipsecs-sevntu-plugin
