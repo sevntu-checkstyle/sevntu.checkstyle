@@ -31,7 +31,7 @@ jobs:
         run: |
           ./.ci/bump-cs-version-in-sevntu-checks.sh ${{ steps.VERSION.outputs.LATEST_VERSION }}
           ./.ci/bump-cs-version-in-sonar-plugin.sh ${{ steps.VERSION.outputs.LATEST_VERSION }}
-          ./.ci/bump-cs-version-in-eclipsecs-plugin.sh ${{ steps.VERSION.outputs.LATEST_VERSION }}
+          ./.ci/bump-cs-version-in-esclipsecs-plugin.sh ${{ steps.VERSION.outputs.LATEST_VERSION }}
       - name: Commit and Push
         run: |
           if [ "$(git status | grep 'Changes not staged\|Untracked files')" ]; then
