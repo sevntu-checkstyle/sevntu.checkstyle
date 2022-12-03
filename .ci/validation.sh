@@ -15,41 +15,41 @@ eclipse-cs)
                            | sed "s/-SNAPSHOT//")
   cd ../
   cd sevntu-checks
-  mvn -B -e clean install -Pno-validations
+  mvn -e --no-transfer-progress clean install -Pno-validations
   cd ..
   checkout_from "https://github.com/checkstyle/eclipse-cs.git"
   cd .ci-temp/eclipse-cs/
   echo "Eclipse-cs tag: "$ECLIPSECS_TAG_NAME
   git checkout $ECLIPSECS_TAG_NAME
-  mvn -B -e install
+  mvn -e --no-transfer-progress install
   cd ../../
   cd eclipsecs-sevntu-plugin
-  mvn -e verify
-  mvn -e javadoc:javadoc
+  mvn -e --no-transfer-progress verify
+  mvn -e --no-transfer-progress javadoc:javadoc
   ;;
 
 idea-extension)
   cd sevntu-checks
-  mvn -e clean install -Pno-validations
+  mvn -e --no-transfer-progress clean install -Pno-validations
   cd ..
   cd sevntu-checkstyle-idea-extension
-  mvn -e verify
+  mvn -e --no-transfer-progress verify
   ;;
 
 sonar-plugin)
   cd sevntu-checks
-  mvn -e clean install -Pno-validations
+  mvn -e --no-transfer-progress clean install -Pno-validations
   cd ..
   cd sevntu-checkstyle-sonar-plugin
-  mvn -e verify
+  mvn -e --no-transfer-progress verify
   ;;
 
 sevntu-checks)
   cd sevntu-checks
-  mvn -e -Pcoverall install
-  mvn -e verify -Pno-validations,selftesting
+  mvn -e --no-transfer-progress -Pcoverall install
+  mvn -e --no-transfer-progress verify -Pno-validations,selftesting
   if [[ $TRAVIS == 'true' ]]; then
-   mvn -e -Pcoverall jacoco:report coveralls:report
+   mvn -e --no-transfer-progress -Pcoverall jacoco:report coveralls:report
   fi
   ;;
 
@@ -84,19 +84,19 @@ checkstyle-regression)
   checkout_from "https://github.com/checkstyle/checkstyle"
   # update checkstyle_sevntu_checks.xml file in checkstyle for new modules
   cd sevntu-checks
-  SEVNTU_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo sevntu version:$SEVNTU_VERSION
-  ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  ECLIPSE_CS_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                    -Dexec.args='${checkstyle.eclipse-cs.version}' \
                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo eclipse-cs version:$ECLIPSE_CS_VERSION
-  mvn -e install -Pno-validations
-  mvn -e test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../.ci-temp
+  mvn -e --no-transfer-progress install -Pno-validations
+  mvn -e --no-transfer-progress test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../.ci-temp
   cd ../
   # execute checkstyle validation on updated config file
   cd .ci-temp/checkstyle
-  mvn -e clean verify -e -DskipTests -DskipITs -Dpmd.skip=true -Dspotbugs.skip=true \
+  mvn -e --no-transfer-progress clean verify -DskipTests -DskipITs -Dpmd.skip=true -Dspotbugs.skip=true \
       -Dfindbugs.skip=true -Djacoco.skip=true -Dxml.skip=true \
       -Dmaven.sevntu-checkstyle-check.checkstyle.version=$ECLIPSE_CS_VERSION \
       -Dmaven.sevntu.checkstyle.plugin.version=$SEVNTU_VERSION
@@ -104,7 +104,7 @@ checkstyle-regression)
 
 eclipse-analysis)
   cd sevntu-checks
-  mvn -e clean compile exec:exec -Peclipse-compiler
+  mvn -e --no-transfer-progress clean compile exec:exec -Peclipse-compiler
   rm org.eclipse.jdt.core.prefs
   ;;
 
@@ -118,7 +118,7 @@ sonarqube)
   if [[ -z $SONAR_TOKEN ]]; then echo "SONAR_TOKEN is not set"; sleep 5s; exit 1; fi
   export MAVEN_OPTS='-Xmx2000m'
   cd sevntu-checks
-  mvn -e clean package sonar:sonar \
+  mvn -e --no-transfer-progress clean package sonar:sonar \
        -Dsonar.organization=checkstyle \
        -Dsonar.host.url=https://sonarcloud.io \
        -Dsonar.login=$SONAR_TOKEN \

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.1//EN"
+    "https://checkstyle.org/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+  <!-- START of legacy code, all violations will be resolved -->
+  <suppress id="lineLength" files=".*"/>
+  <!-- END of legacy code -->
+
+  <!-- till https://issues.apache.org/jira/browse/MRELEASE-1008 -->
+  <suppress id="lineLength" files="pom.xml"/>
+
+  <!-- numberOfTestCasesInXpath does not apply to sevntu -->
+  <suppress id="numberOfTestCasesInXpath" files=".*" />
+</suppressions>

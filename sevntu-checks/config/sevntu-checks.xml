@@ -165,7 +165,7 @@
       <property name="detectForExpression" value="true" />
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck">
-      <!-- we ignore this Check only because we are not ready to follow it and refactor whole project for now-->
+      <!-- we ignore this Check only because we are not ready to follow it and refactor whole project for now -->
       <property name="severity" value="ignore"/>
       <property name="packages" value="com.github.sevntu.checkstyle.checks.naming,com.github.sevntu.checkstyle.checks.coding"/>
       <property name="excludePackages" value="com.github.sevntu.checkstyle.checks.sizes,com.github.sevntu.checkstyle.checks.design"/>

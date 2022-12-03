@@ -55,7 +55,7 @@ deployIdea()
     {
         echo "Deploying Idea"
         cd $SEVNTU_DIR/sevntu-checkstyle-idea-extension/
-        mvn clean deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress clean deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checkstyle-idea-extension/"
@@ -74,7 +74,7 @@ deployEclipse()
         #echo -n "Enter version number: "
         #read version
         #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
-        mvn clean install -f eclipse-pom.xml -Plocal-deploy
+        mvn -e --no-transfer-progress clean install -f eclipse-pom.xml -Plocal-deploy
         if [ "$?" != "0" ]
         then
             echo "build for eclipse-pom.xml."
@@ -82,7 +82,7 @@ deployEclipse()
         fi
 
         cd $SEVNTU_DIR/update-site
-        mvn wagon:upload -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress wagon:upload -DdeployDir=$GH_SEVNTU_HOMR_DIR
         cd $GH_SEVNTU_HOMR_DIR
         echo "$manualDeploy"
         return
@@ -97,7 +97,7 @@ deployMavenLibrary()
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $SEVNTU_DIR/sevntu-checks
-        mvn clean javadoc:javadoc deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress clean javadoc:javadoc deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checks."
@@ -121,7 +121,7 @@ deployToMavenCentral()
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $SEVNTU_DIR/sevntu-checks
-        mvn clean deploy -DskipStaging=false -Pgpg
+        mvn -e --no-transfer-progress clean deploy -DskipStaging=false -Pgpg
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checks."
@@ -129,10 +129,10 @@ deployToMavenCentral()
         fi
 
         cd $SEVNTU_DIR/sevntu-checkstyle-idea-extension/
-        mvn clean deploy -DskipStaging=false -Pgpg
+        mvn -e --no-transfer-progress clean deploy -DskipStaging=false -Pgpg
 
         cd $SEVNTU_DIR/sevntu-checkstyle-sonar-plugin/
-        mvn clean deploy -DskipStaging=false -Pgpg
+        mvn -e --no-transfer-progress clean deploy -DskipStaging=false -Pgpg
 
         return
     }
@@ -141,7 +141,7 @@ deploySonar()
     {
         echo "Deploying Sonar"
         cd $SEVNTU_DIR/sevntu-checkstyle-sonar-plugin/
-        mvn clean install wagon:upload-single -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress clean install wagon:upload-single -DdeployDir=$GH_SEVNTU_HOMR_DIR
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checkstyle-sonar-plugin/"
