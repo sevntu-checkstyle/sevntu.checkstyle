@@ -12,6 +12,10 @@
   <!-- till https://issues.apache.org/jira/browse/MRELEASE-1008 -->
   <suppress id="lineLength" files="pom.xml"/>
 
+  <!-- other images that do not support newer curl commands until
+       https://github.com/checkstyle/checkstyle/issues/12451 -->
+  <suppress id="properCurlCommand" files="bump-cs-version\.yml"/>
+
   <!-- numberOfTestCasesInXpath does not apply to sevntu -->
   <suppress id="numberOfTestCasesInXpath" files=".*" />
 </suppressions>

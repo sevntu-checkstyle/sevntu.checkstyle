@@ -148,7 +148,7 @@ $CURRENT_DIR/deploy.sh --maven-central
 
 # retrieve old milestone number
 # https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
-OLD_MILESTONE_NUMBER=$(curl --silent --show-error --fail \
+OLD_MILESTONE_NUMBER=$(curl --fail-with-body --silent --show-error --fail \
   -H "Authorization: token $SEVNTU_GITHUB_TOKEN" \
   https://api.github.com/repos/$GITHUB_PROJECT/milestones?state=open \
   | jq '.[0].number')
@@ -159,14 +159,14 @@ read -p "Press enter to continue before closing and creating new milestone"
 # close old milestone
 # https://developer.github.com/v3/issues/milestones/#update-a-milestone
 echo "Closing old milestone $OLD_MILESTONE_NUMBER"
-curl --silent --show-error --fail -H "Authorization: token $SEVNTU_GITHUB_TOKEN" \
+curl --fail-with-body --silent --show-error --fail -H "Authorization: token $SEVNTU_GITHUB_TOKEN" \
   -d "{ \"state\": \"closed\" }" \
   -X PATCH https://api.github.com/repos/$GITHUB_PROJECT/milestones/$OLD_MILESTONE_NUMBER
 
 # create new milestone
 # https://developer.github.com/v3/issues/milestones/#create-a-milestone
 echo "Creating new milestone for $NEXT_VERSION"
-curl --silent --show-error --fail -H "Authorization: token $SEVNTU_GITHUB_TOKEN" \
+curl --fail-with-body --silent --show-error --fail -H "Authorization: token $SEVNTU_GITHUB_TOKEN" \
   -d "{ \"title\": \"$NEXT_VERSION\", \
         \"state\": \"open\", \
         \"description\": \"\" }" \
