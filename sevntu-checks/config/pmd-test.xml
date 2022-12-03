@@ -9,7 +9,7 @@
   </description>
   <exclude-pattern>.*/src/main/.*</exclude-pattern>
 
-  <rule ref="pmd.xml">
+  <rule ref="config/pmd.xml">
     <!-- We do throw Exception, as any exception that in not caught in test should fail
       a test that is expected behavior and we like it as it follow fail-fast and helps
       to avoid extra catch blocks -->

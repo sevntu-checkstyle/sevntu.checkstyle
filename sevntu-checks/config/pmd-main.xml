@@ -8,7 +8,7 @@
     PMD ruleset for Sevntu main code
   </description>
   <exclude-pattern>.*/src/test/.*</exclude-pattern>
-  <rule ref="pmd.xml">
+  <rule ref="config/pmd.xml">
     <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/525 -->
     <exclude name="TooManyMethods"/>
     <exclude name="ExcessiveClassLength"/>

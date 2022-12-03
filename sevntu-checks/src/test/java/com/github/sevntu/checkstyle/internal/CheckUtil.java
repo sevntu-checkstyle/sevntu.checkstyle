@@ -44,7 +44,7 @@ public final class CheckUtil {
     }
 
     public static Set<String> getConfigCheckStyleChecks() {
-        return getCheckStyleChecksReferencedInConfig("sevntu-checks.xml");
+        return getCheckStyleChecksReferencedInConfig("config/sevntu-checks.xml");
     }
 
     /**
