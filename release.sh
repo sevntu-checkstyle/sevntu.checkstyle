@@ -51,7 +51,7 @@ git clean -f -d
 git checkout origin/master
 
 cd sevntu-checks
-ECLIPSE_CS_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${checkstyle.eclipse-cs.version}' \
+ECLIPSE_CS_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${checkstyle.eclipse-cs.version}' \
   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
 cd ..
 
@@ -79,7 +79,7 @@ git clean -f -d
 git checkout origin/master
 
 cd releasenotes-builder
-mvn package -DskipTests
+mvn -e --no-transfer-progress package -DskipTests
 cd target
 
 java -jar releasenotes-builder-1.0-all.jar -localRepoPath $CURRENT_DIR -remoteRepoPath $GITHUB_PROJECT -startRef $OLD_VERSION -releaseNumber $NEW_VERSION -githubAuthToken $SEVNTU_GITHUB_TOKEN -generateXdoc -xdocTemplate $CURRENT_DIR/sevntu_xdoc_freemarker.template
@@ -107,7 +107,7 @@ git reset --hard HEAD
 git clean -f -d
 git checkout tags/$ECLIPSE_CS_VERSION.0
 
-mvn clean install
+mvn -e --no-transfer-progress clean install
 
 # update versions in all files
 echo "Bumping all versions from $OLD_VERSION to $NEW_VERSION"

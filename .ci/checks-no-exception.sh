@@ -7,17 +7,17 @@ case $1 in
 
 setup)
   cd sevntu-checks
-  mvn -e clean install -Pno-validations
+  mvn -e --no-transfer-progress clean install -Pno-validations
   cd ..
   ;;
 
 checkstyle)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -38,10 +38,10 @@ checkstyle)
 struts)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -62,10 +62,10 @@ struts)
 guava)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -86,10 +86,10 @@ guava)
 hibernate-orm)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -110,10 +110,10 @@ hibernate-orm)
 spotbugs)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -134,10 +134,10 @@ spotbugs)
 spring-framework)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -158,10 +158,10 @@ spring-framework)
 hbase)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -182,10 +182,10 @@ hbase)
 pmd-elasticsearch-lombok-ast)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
@@ -208,10 +208,10 @@ pmd-elasticsearch-lombok-ast)
 alot-of-projects)
   cd sevntu-checks
   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  CS_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' \
+  CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}

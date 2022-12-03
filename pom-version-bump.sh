@@ -39,7 +39,7 @@ do
 	mv $i.new $i
 done
 
-#additional version reference, eclipse file
+# additional version reference, eclipse file
 FILE=eclipsecs-sevntu-plugin-feature/feature.xml
 echo "Updating: "$FILE
 xmlstarlet ed --ps \
@@ -48,7 +48,7 @@ xmlstarlet ed --ps \
     $FILE > $FILE.new
 mv $FILE.new $FILE
 
-#special, non xml file
+# special, non xml file
 FILE=eclipsecs-sevntu-plugin/META-INF/MANIFEST.MF
 echo "Updating: "$FILE
 sed -i "s/Bundle-Version: $OLD_VERSION/Bundle-Version: $NEW_VERSION/" $FILE
