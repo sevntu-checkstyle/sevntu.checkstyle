@@ -61,7 +61,7 @@ all-sevntu-checks-contribution)
     | grep -vE "Checker|TreeWalker|Filter|Holder" | grep -v "^$" \
     | sed "s/com\.github\.sevntu\.checkstyle\.checks\..*\.//" \
     | sort | uniq | sed "s/Check$//" > .ci-temp/web.txt
-  xmlstarlet sel --net --template -m .//module -v "@name" -n sevntu-checks/sevntu-checks.xml \
+  xmlstarlet sel --net --template -m .//module -v "@name" -n sevntu-checks/config/sevntu-checks.xml \
     | grep -vE "Checker|TreeWalker|Filter|Holder" | grep -v "^$" \
     | sed "s/com\.github\.sevntu\.checkstyle\.checks\..*\.//" \
     | sort | uniq | sed "s/Check$//" > .ci-temp/file.txt

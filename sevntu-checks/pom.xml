@@ -121,8 +121,8 @@
             <printFailingErrors>true</printFailingErrors>
             <includeTests>true</includeTests>
             <rulesets>
-              <ruleset>pmd-main.xml</ruleset>
-              <ruleset>pmd-test.xml</ruleset>
+              <ruleset>config/pmd-main.xml</ruleset>
+              <ruleset>config/pmd-test.xml</ruleset>
             </rulesets>
             <excludeRoots>
               <excludeRoot>src/it/resources</excludeRoot>
@@ -267,7 +267,7 @@
                 <property name="checkstyle.configLocation" value="${checkstyle.configLocation}"/>
                 <property name="checkstyle.header" value="${checkstyle.header}"/>
                 <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}"/>
-                <ant antfile="ant-phase-verify.xml"/>
+                <ant antfile="config/ant-phase-verify.xml"/>
               </target>
             </configuration>
           </execution>
@@ -911,7 +911,7 @@
                 <configuration>
                   <target>
                     <property name="mvn.project.build.directory" value="${project.build.directory}"/>
-                    <ant antfile="ant-phase-verify-sevntu.xml"/>
+                    <ant antfile="config/ant-phase-verify-sevntu.xml"/>
                   </target>
                 </configuration>
               </execution>
