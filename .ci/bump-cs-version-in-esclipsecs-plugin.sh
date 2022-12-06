@@ -10,6 +10,8 @@ fi
 VERSION=$1
 cd eclipsecs-sevntu-plugin
 
-mvn -e --no-transfer-progress versions:set-property -DgenerateBackupPoms=false -Dproperty=checkstyle.version -DnewVersion="$VERSION"
+sed -i -e "/<properties>/,/<\/properties>/ "`
+  `"s|<checkstyle.version>.*</checkstyle.version>"`
+  `"|<checkstyle.version>$VERSION</checkstyle.version>|g" pom.xml
 
 echo "Version updated to $VERSION at eclipsecs-sevntu-plugin/pom.xml"
