@@ -38,6 +38,7 @@ jobs:
             git diff
             git config --global user.name 'github-actions[bot]'
             git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-            git commit -am "minor: Bump project version to ${{ steps.VERSION.outputs.LATEST_VERSION }}"
+            git commit -am \
+              "minor: Bump project version to ${{ steps.VERSION.outputs.LATEST_VERSION }}"
             git push
           fi
