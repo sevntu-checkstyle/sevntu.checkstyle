@@ -32,7 +32,8 @@
       <property name="annotationTargets" value="METHOD_DEF"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck"/>
-    <module name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck">
+    <module
+      name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck">
       <property name="annotationName" value="Generated"/>
       <property name="requiredParameters" value="value"/>
     </module>
@@ -92,7 +93,8 @@
       <property name="matchMethodsByArgCount" value="false"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck">
+    <module
+      name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck">
       <property name="ignoreCycles" value="false"/>
       <property name="ignoreMethods" value="false"/>
     </module>
@@ -154,21 +156,27 @@
       <property name="ignoreFieldNamePattern" value="serialVersionUID"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck"/>
+    <module
+      name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
+    <module
+      name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck"/>
-    <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
+    <module
+      name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck" />
     <module name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck" />
     <module name="com.github.sevntu.checkstyle.checks.coding.PreferMethodReferenceCheck">
       <property name="detectForExpression" value="true" />
     </module>
     <module name="com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck">
-      <!-- we ignore this Check only because we are not ready to follow it and refactor whole project for now -->
+      <!-- we ignore this Check only because we are not ready to follow it and refactor whole
+           project for now -->
       <property name="severity" value="ignore"/>
-      <property name="packages" value="com.github.sevntu.checkstyle.checks.naming,com.github.sevntu.checkstyle.checks.coding"/>
-      <property name="excludePackages" value="com.github.sevntu.checkstyle.checks.sizes,com.github.sevntu.checkstyle.checks.design"/>
+      <property name="packages"
+        value="com.github.sevntu.checkstyle.checks.naming,com.github.sevntu.checkstyle.checks.coding"/>
+      <property name="excludePackages"
+        value="com.github.sevntu.checkstyle.checks.sizes,com.github.sevntu.checkstyle.checks.design"/>
       <property name="allowOverridingReturnValue" value="false"/>
       <property name="allowOverridingParameter" value="false"/>
     </module>
@@ -177,7 +185,8 @@
     <!-- Design -->
     <module name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck">
       <property name="blockTypes"
-        value="LITERAL_IF,LITERAL_ELSE,LITERAL_WHILE,LITERAL_DO,LITERAL_FOR,LITERAL_SWITCH,LITERAL_TRY,LITERAL_CATCH"/>
+        value="LITERAL_IF,LITERAL_ELSE,LITERAL_WHILE,LITERAL_DO,LITERAL_FOR,LITERAL_SWITCH,
+               LITERAL_TRY,LITERAL_CATCH"/>
       <property name="maxChildBlockPercentage" value="90"/>
       <property name="ignoreBlockLinesCount" value="50"/>
     </module>
@@ -195,7 +204,8 @@
     <module name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck"/>
     <module name="com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck">
-      <property name="skippedMethods" value="readObject, writeObject, readObjectNoData, readResolve, writeReplace"/>
+      <property name="skippedMethods"
+        value="readObject, writeObject, readObjectNoData, readResolve, writeReplace"/>
     </module>
     <module name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck">
       <property name="classNameFormat" value=".*Exception$"/>
