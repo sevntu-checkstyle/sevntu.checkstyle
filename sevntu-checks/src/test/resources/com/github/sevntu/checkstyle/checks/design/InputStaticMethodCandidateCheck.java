@@ -12,7 +12,8 @@ public class InputStaticMethodCandidateCheck extends ClassB {
     protected int instanceField;
     private static int classField;
 
-    public void foo1(int a) {int localVariable = classField;}   // ok, as we check only private methods
+    // ok, as we check only private methods
+    public void foo1(int a) {int localVariable = classField;}
 
     private void foo2() {this.classField++;}   // ok, as "this" is not allowed in static methods
 
@@ -20,17 +21,23 @@ public class InputStaticMethodCandidateCheck extends ClassB {
 
     private void foo4() {foo1(instanceField);}   // ok, as static methods can't use instance methods
 
-    private void foo5() {parentMethod();}   // ok, as we can't check whether a parent method is static
+    // ok, as we can't check whether a parent method is static
+    private void foo5() {parentMethod();}
 
-    private void foo6() {staticParentMethod();}   // ok, as we can't check whether a parent method is static
+    // ok, as we can't check whether a parent method is static
+    private void foo6() {staticParentMethod();}
 
-    private void foo7() {instanceBField++;}   // ok, as we can't check whether a parent variable is static
+    // ok, as we can't check whether a parent variable is static
+    private void foo7() {instanceBField++;}
 
-    private void foo8() {classBField++;}   // ok, as we can't check whether a parent variable is static
+    // ok, as we can't check whether a parent variable is static
+    private void foo8() {classBField++;}
 
-    private void foo9() {assertTrue(true);}   // ok, as we cannot determine whether a method or a variable is statically imported
+    // ok, as we cannot determine whether a method or a variable is statically imported
+    private void foo9() {assertTrue(true);}
 
-    private void foo10() {String a = MSG_KEY;}    // ok, as we cannot determine whether a method or a variable is statically imported
+    // ok, as we cannot determine whether a method or a variable is statically imported
+    private void foo10() {String a = MSG_KEY;}
 
     static ClassA ClassA = new ClassA();
 
@@ -62,11 +69,14 @@ public class InputStaticMethodCandidateCheck extends ClassB {
             nestedFoo3();
         }
 
-        private void nestedFoo2() {classBField++;}    // ok, as we can't check whether a parent variable is static
+        // ok, as we can't check whether a parent variable is static
+        private void nestedFoo2() {classBField++;}
 
-        private static void nestedFoo3() {classBField++;}    // ok, as it is already static
+        // ok, as it is already static
+        private static void nestedFoo3() {classBField++;}
 
-        private void nestedFoo4() {this.nestedFoo3();}     // ok, as "this" is not allowed in static methods
+        // ok, as "this" is not allowed in static methods
+        private void nestedFoo4() {this.nestedFoo3();}
     }
 
     private class Inner {
@@ -77,7 +87,8 @@ public class InputStaticMethodCandidateCheck extends ClassB {
         A(129),
         B(283),
         C(1212) {
-            private void doSomethingInner() { }    // ok, as static methods can't be declared in enum constant definitions
+            // ok, as static methods can't be declared in enum constant definitions
+            private void doSomethingInner() { }
         };
         
         EmbeddedEnum(int i) { }
@@ -124,9 +135,11 @@ class Anonymous {
         nullableStr.equals(new Runnable() {
             String nullableStr = null;
 
-            public void run() { };   // ok, as static methods can't be declared in anonymous classes 
+            // ok, as static methods can't be declared in anonymous classes
+            public void run() { }; 
 
-            private void anonClassMethod(){this.run();}    // ok, as static methods can't be declared in anonymous classes 
+            // ok, as static methods can't be declared in anonymous classes
+            private void anonClassMethod(){this.run();} 
         });
     }
 
@@ -148,9 +161,11 @@ class TestMethodSignature {
 
     public void foo(String i) { }    // ok, as only private methods are checked
 
-    private void bar1() {foo(1);}    // ok, because exists non-static method with the specified name and number of parameters
+    // ok, because exists non-static method with the specified name and number of parameters
+    private void bar1() {foo(1);}
 
-    private void bar2() {foo("1");}    // ok, because exists non-static method with the specified name and number of parameters
+    // ok, because exists non-static method with the specified name and number of parameters
+    private void bar2() {foo("1");}
 
 }
 
@@ -174,12 +189,15 @@ class TestExtended extends InputStaticMethodCandidateCheck {
     private static TestExtended getTestExtended() {return test;}    // ok, as method is static
 
     private void bar() {foo(classVar).getClass().getName().equals("");}    // violation
-    
-    private void bar1() {instanceVar.getClass().getName().equals("");}    // ok, as static methods can't use instance variables
-    
-    private void foobar() {ScopeUtil.getSurroundingScope(null);}    // ok, as we cannot determine that ScopeUtils is not inherited instance field
 
-    private void barfoo() {String i = StaticMethodCandidateCheck.MSG_KEY;}    // ok, we cannot check class StaticMethodCandidateCheck
+    // ok, as static methods can't use instance variables
+    private void bar1() {instanceVar.getClass().getName().equals("");}
+
+    // ok, as we cannot determine that ScopeUtils is not inherited instance field
+    private void foobar() {ScopeUtil.getSurroundingScope(null);}
+
+    // ok, we cannot check class StaticMethodCandidateCheck
+    private void barfoo() {String i = StaticMethodCandidateCheck.MSG_KEY;}
 
     private void fooBar() {(new TestExtended()).bar();}    // violation
 
@@ -193,7 +211,8 @@ class TestExtended extends InputStaticMethodCandidateCheck {
 
     private void foO() {int localVar = 1; localVar++;}    // violation
 
-    private void bAr() {new File(this.test.getClass().getName());} // ok, as "this" is not allowed in static methods
+    // ok, as "this" is not allowed in static methods
+    private void bAr() {new File(this.test.getClass().getName());}
 }
 
 class TestTypeVariablesAndInnerClasses<C, V>  {
@@ -201,7 +220,8 @@ class TestTypeVariablesAndInnerClasses<C, V>  {
     static Object instance;
     public class Inner{}
 
-    private void foo1(Map<C, Inner> map) {    // ok, as type variables are not allowed in static methods
+    // ok, as type variables are not allowed in static methods
+    private void foo1(Map<C, Inner> map) {
     }
 
     private Map<C, Inner> foo2() {    // ok, as type variables are not allowed in static methods

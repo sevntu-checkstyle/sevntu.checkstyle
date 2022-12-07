@@ -40,7 +40,7 @@ public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport
         final DefaultConfiguration defaultConfig =
                 createModuleConfig(ConstructorWithoutParamsCheck.class);
         final String[] expectedViolationMsg = {
-            "35:37: " + getCheckMessage(MSG_KEY, "RuntimeException"),
+            "36:37: " + getCheckMessage(MSG_KEY, "RuntimeException"),
         };
         verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"),
                 expectedViolationMsg);
@@ -53,8 +53,8 @@ public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport
         defaultConfig.addProperty("classNameFormat", "Clazz[1-9]");
         defaultConfig.addProperty("ignoredClassNameFormat", "Clazz4");
         final String[] expectedViolationMsg = {
-            "69:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
-            "72:27: " + getCheckMessage(MSG_KEY, "Clazz2"),
+            "71:27: " + getCheckMessage(MSG_KEY, "Clazz1"),
+            "74:27: " + getCheckMessage(MSG_KEY, "Clazz2"),
         };
         verify(defaultConfig, getPath("InputConstructorWithoutParamsCheck.java"),
                 expectedViolationMsg);

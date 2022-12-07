@@ -38,7 +38,9 @@ public class InputOverridableMethodInConstructorCheck10 {
 	}
 
 
-	static class Object2 extends com.github.sevntu.checkstyle.checks.coding.InputOverridableMethodInConstructorCheck10.Object1 implements java.io.Serializable {
+	static class Object2
+	    extends com.github.sevntu.checkstyle.checks.coding.
+	        InputOverridableMethodInConstructorCheck10.Object1 implements java.io.Serializable {
 
 		String value;
 

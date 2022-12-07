@@ -45,10 +45,10 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
 
         final String[] expected = {
             "6:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
-            "33:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
-            "66:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
-            "87:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
-            "114:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
+            "34:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
+            "68:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
+            "90:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
+            "118:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "firstParameter"),
         };
 
         verify(checkConfig, getPath("InputRequiredParameterForAnnotationCheck.java"), expected);
@@ -68,27 +68,27 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
             "6:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter, thirdParameter"),
             "10:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
-            "18:4: " + getCheckMessage(MSG_KEY,
+            "19:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "secondParameter, thirdParameter"),
-            "33:4: " + getCheckMessage(MSG_KEY,
+            "34:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter, thirdParameter"),
-            "38:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
-            "48:4: " + getCheckMessage(MSG_KEY,
+            "39:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
+            "50:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "secondParameter, thirdParameter"),
-            "66:4: " + getCheckMessage(MSG_KEY,
+            "68:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter, thirdParameter"),
-            "69:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
-            "75:4: " + getCheckMessage(MSG_KEY,
+            "71:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
+            "78:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "secondParameter, thirdParameter"),
-            "87:4: " + getCheckMessage(MSG_KEY,
+            "90:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter, thirdParameter"),
-            "91:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
-            "99:4: " + getCheckMessage(MSG_KEY,
+            "94:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
+            "103:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "secondParameter, thirdParameter"),
-            "114:4: " + getCheckMessage(MSG_KEY,
+            "118:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter, thirdParameter"),
-            "118:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
-            "126:4: " + getCheckMessage(MSG_KEY,
+            "122:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "thirdParameter"),
+            "131:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "secondParameter, thirdParameter"),
         };
         verify(checkConfig, getPath("InputRequiredParameterForAnnotationCheck.java"), expected);
@@ -106,19 +106,19 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         final String[] expected = {
             "6:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter"),
-            "18:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
-            "33:4: " + getCheckMessage(MSG_KEY,
+            "19:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
+            "34:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter"),
-            "48:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
-            "66:4: " + getCheckMessage(MSG_KEY,
+            "50:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
+            "68:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter"),
-            "75:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
-            "87:4: " + getCheckMessage(MSG_KEY,
+            "78:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
+            "90:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter"),
-            "99:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
-            "114:4: " + getCheckMessage(MSG_KEY,
+            "103:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
+            "118:4: " + getCheckMessage(MSG_KEY,
                     "testAnnotation1", "firstParameter, secondParameter"),
-            "126:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
+            "131:4: " + getCheckMessage(MSG_KEY, "testAnnotation1", "secondParameter"),
         };
         verify(checkConfig, getPath("InputRequiredParameterForAnnotationCheck.java"), expected);
     }
@@ -134,19 +134,19 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         checkConfig.addProperty("requiredParameters", "par1");
 
         final String[] expected = {
-            "27:4: " + getCheckMessage(MSG_KEY,
+            "28:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1"),
-            "59:4: " + getCheckMessage(MSG_KEY,
+            "61:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1"),
-            "82:4: " + getCheckMessage(MSG_KEY,
+            "85:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1"),
-            "108:4: " + getCheckMessage(MSG_KEY,
+            "112:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1"),
-            "135:4: " + getCheckMessage(MSG_KEY,
+            "140:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1"),
         };
@@ -164,19 +164,19 @@ public class RequiredParameterForAnnotationCheckTest extends AbstractModuleTestS
         checkConfig.addProperty("requiredParameters", "par1,par2");
 
         final String[] expected = {
-            "27:4: " + getCheckMessage(MSG_KEY,
+            "28:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1, par2"),
-            "59:4: " + getCheckMessage(MSG_KEY,
+            "61:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1, par2"),
-            "82:4: " + getCheckMessage(MSG_KEY,
+            "85:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1, par2"),
-            "108:4: " + getCheckMessage(MSG_KEY,
+            "112:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1, par2"),
-            "135:4: " + getCheckMessage(MSG_KEY,
+            "140:4: " + getCheckMessage(MSG_KEY,
                     "com.github.sevntu.checkstyle.checks.annotation"
                     + ".InputRequiredParameterForAnnotationCheck.testAnnotation2", "par1, par2"),
         };

@@ -149,7 +149,8 @@ public class InputAvoidHidingCauseExceptionCheck
             if (modelEx != null) {
                 throw modelEx; //
             }
-            throw new RuntimeException("Exception on set property to value! " +modelEx2.getMessage(), modelEx2); // !!!!!
+            throw new RuntimeException("Exception on set property to value! "
+                +modelEx2.getMessage(), modelEx2); // !!!!!
         }
         catch (RuntimeException e) {
             RuntimeException sqlEx = new RuntimeException("failed to open DB connection to: " + e);

@@ -43,10 +43,10 @@ public class DiamondOperatorForVariableDefinitionCheckTest extends AbstractModul
             "28:50: " + getCheckMessage(MSG_KEY),
             "29:41: " + getCheckMessage(MSG_KEY),
             "59:40: " + getCheckMessage(MSG_KEY),
-            "60:83: " + getCheckMessage(MSG_KEY),
-            "79:48: " + getCheckMessage(MSG_KEY),
-            "92:78: " + getCheckMessage(MSG_KEY),
-            "93:68: " + getCheckMessage(MSG_KEY),
+            "61:32: " + getCheckMessage(MSG_KEY),
+            "80:48: " + getCheckMessage(MSG_KEY),
+            "95:32: " + getCheckMessage(MSG_KEY),
+            "96:68: " + getCheckMessage(MSG_KEY),
         };
         verify(checkConfig,
                 getPath("InputDiamondOperatorForVariableDefinitionCheck.java"), expected);

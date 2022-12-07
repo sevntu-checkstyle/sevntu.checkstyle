@@ -1,8 +1,8 @@
 package com.github.sevntu.checkstyle.checks.coding;
 
 /**
- * Class represents a part of filters preferences page. It is responsible for building a table, where filters are
- * displayed, and control buttons: Add and Remove to add/remove filters.
+ * Class represents a part of filters preferences page. It is responsible for building a table,
+ * where filters are displayed, and control buttons: Add and Remove to add/remove filters.
  * 
  * @author <a href="mailto:rd.ryly@gmail.com">Ruslan Diachenko</a>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com">Daniil Yaroslavtsev</a>

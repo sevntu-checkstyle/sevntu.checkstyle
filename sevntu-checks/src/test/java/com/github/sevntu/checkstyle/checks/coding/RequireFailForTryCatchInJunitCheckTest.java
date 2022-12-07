@@ -139,7 +139,7 @@ public class RequireFailForTryCatchInJunitCheckTest extends AbstractModuleTestSu
         final DefaultConfiguration checkConfig =
                 createModuleConfig(RequireFailForTryCatchInJunitCheck.class);
         final String[] expected = {
-            "80:9: " + getCheckMessage(MSG_KEY),
+            "81:9: " + getCheckMessage(MSG_KEY),
         };
         verify(checkConfig, getPath("InputRequireFailForTryCatchInJunitCheck10.java"), expected);
     }

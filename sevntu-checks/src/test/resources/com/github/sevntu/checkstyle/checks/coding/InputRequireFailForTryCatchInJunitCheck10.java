@@ -46,7 +46,8 @@ public class InputRequireFailForTryCatchInJunitCheck10 {
     public void valid4() {
         try {
             obj.toString();
-            org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown(NullPointerException.class);
+            org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown(
+                    NullPointerException.class);
         }
         catch (Exception expected) {
             assertThat(expected).isInstanceOf(NullPointerException.class);

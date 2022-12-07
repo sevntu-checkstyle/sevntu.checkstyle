@@ -57,7 +57,8 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
     return paths; }
 
     List<Integer> list = new LinkedList<Integer>();
-    private transient Map<Method, String> shadowMatchCache = new ConcurrentHashMap<Method, String>(32);
+    private transient Map<Method, String> shadowMatchCache
+        = new ConcurrentHashMap<Method, String>(32);
     
     private Predicate<File> inputCsvFilesFilter = new Predicate<File>() {
         public boolean apply(File input)
@@ -87,13 +88,16 @@ public class InputDiamondOperatorForVariableDefinitionCheck {
         }
     }
     RuleViolation ruleViolation = new ParametricRuleViolation<Object>();
-    ParametricRuleViolation<? extends Object> parametricRule = new ParametricRuleViolation<String>(); // OK: no violation
+    ParametricRuleViolation<? extends Object> parametricRule
+        = new ParametricRuleViolation<String>(); // OK: no violation
     java.util.Date date = new java.util.Date();
-    static java.util.Map<List<String>, String> myMap2 = new java.util.TreeMap<List<String>, String>();
+    static java.util.Map<List<String>, String> myMap2
+        = new java.util.TreeMap<List<String>, String>();
     static java.util.Map<List<String>, String> myMap3 = new TreeMap<List<String>, String>();
 
     static List<String> myMap4 = new InputDiamondOperatorForVariableDefinitionCheck.Inner();
-    static H006_ComplexConstructors<Integer> instance = new <String>H006_ComplexConstructors<Integer>(0, "");
+    static H006_ComplexConstructors<Integer> instance
+        = new <String>H006_ComplexConstructors<Integer>(0, "");
 
     private static class Inner extends ArrayList<String> {}
     private static class H006_ComplexConstructors<T> {

@@ -31,10 +31,12 @@ public class InputConstructorWithoutParamsCheck {
 
     public void inputToTestDefaultConfig() {
 
-        // the default config prohibits constructors without parameters if a class name matches ".*Exception$"
+        // the default config prohibits constructors without parameters if a class name
+        // matches ".*Exception$"
         final RuntimeException ex = new RuntimeException(); // violation expected
 
-        // the default config applies only to classes that have the word "Exception" at the end of the class name
+        // the default config applies only to classes that have the word "Exception" at the end
+        // of the class name
         final MockExceptionHandler mockExceptionHandler = new MockExceptionHandler(); // no violation expected
 
         // the default config ignores UnsupportedOperationException
@@ -72,7 +74,8 @@ public class InputConstructorWithoutParamsCheck {
         final Clazz2 o2 = new Clazz2(); // violation expected
 
         // the check can ignore certain classes
-        // no violation expected, configured via ignoredClassNameFormat in ConstructorWithoutParamsCheckTest
+        // no violation expected, configured via ignoredClassNameFormat in
+        // ConstructorWithoutParamsCheckTest
         final Clazz4 o4 = new Clazz4();
 
         // the check allows empty String parameters
