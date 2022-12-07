@@ -62,10 +62,10 @@ public class AvoidHidingCauseExceptionCheckTest extends AbstractModuleTestSuppor
             "129:13: " + getCheckMessage(MSG_KEY, "e"),
             "142:13: " + getCheckMessage(MSG_KEY, "e"),
             "152:13: " + getCheckMessage(MSG_KEY, "e"),
-            "197:13: " + getCheckMessage(MSG_KEY, "fakeException"),
-            "216:13: " + getCheckMessage(MSG_KEY, "e"),
-            "221:13: " + getCheckMessage(MSG_KEY, "e"),
-            "226:13: " + getCheckMessage(MSG_KEY, "e"),
+            "198:13: " + getCheckMessage(MSG_KEY, "fakeException"),
+            "217:13: " + getCheckMessage(MSG_KEY, "e"),
+            "222:13: " + getCheckMessage(MSG_KEY, "e"),
+            "227:13: " + getCheckMessage(MSG_KEY, "e"),
         };
 
         verify(checkConfig, getPath("InputAvoidHidingCauseExceptionCheck.java"), expected);

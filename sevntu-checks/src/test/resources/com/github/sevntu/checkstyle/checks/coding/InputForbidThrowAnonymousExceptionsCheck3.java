@@ -52,14 +52,16 @@ public class InputForbidThrowAnonymousExceptionsCheck3 {
             
             public int compare(String o1, String o2)
             {
-                RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
+                RuntimeException runtimeException
+                    = new RuntimeException() { //anonymous exception declaration
                     //some code
                };
                 return 0;
             }
         };
         
-          RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
+          //anonymous exception declaration
+          RuntimeException runtimeException = new RuntimeException() {
                //some code
           };
           
@@ -67,8 +69,9 @@ public class InputForbidThrowAnonymousExceptionsCheck3 {
     }
     
     public void anonymousEx5() {
-        
-        RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
+
+        //anonymous exception declaration
+        RuntimeException runtimeException = new RuntimeException() {
             //some code
         };
 
@@ -77,7 +80,8 @@ public class InputForbidThrowAnonymousExceptionsCheck3 {
             
             public int compare(String o1, String o2)
             {
-                RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
+                //anonymous exception declaration
+                RuntimeException runtimeException = new RuntimeException() {
                     //some code
                };
                 return 0;
@@ -100,7 +104,8 @@ public class InputForbidThrowAnonymousExceptionsCheck3 {
             }
         };
         
-          RuntimeException runtimeException = new RuntimeException() { //anonymous exception declaration
+          //anonymous exception declaration
+          RuntimeException runtimeException = new RuntimeException() {
                //some code
           };
           
@@ -108,8 +113,9 @@ public class InputForbidThrowAnonymousExceptionsCheck3 {
     }
     
     public void anonymousEx7() {
-        
-        RuntimeException runtimeException1 = new RuntimeException() { //anonymous exception declaration
+
+        //anonymous exception declaration
+        RuntimeException runtimeException1 = new RuntimeException() {
             //some code
         };
 

@@ -259,7 +259,7 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
         checkConfig.addProperty("matchMethodsByArgCount", "true");
 
         final String[] expected = {
-            "31:20: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
+            "32:20: " + getCheckMessage(MSG_KEY, "doSmth", READ_OBJECT_KEY),
         };
 
         verify(checkConfig, getPath("InputOverridableMethodInConstructorCheck11.java"), expected);

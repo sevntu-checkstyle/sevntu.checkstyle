@@ -85,7 +85,7 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
                 "com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck");
 
         final String[] expected = {
-            "12:89: " + getCheckMessage(MSG_KEY, "InputForbidInstantiationCheck"),
+            "13:15: " + getCheckMessage(MSG_KEY, "InputForbidInstantiationCheck"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);
@@ -98,8 +98,8 @@ public class ForbidInstantiationCheckTest extends AbstractModuleTestSupport {
         checkConfig.addProperty("forbiddenClasses", "java.io.File , java.lang.String , ");
 
         final String[] expected = {
-            "13:22: " + getCheckMessage(MSG_KEY, "File"),
-            "14:20: " + getCheckMessage(MSG_KEY, "String"),
+            "14:22: " + getCheckMessage(MSG_KEY, "File"),
+            "15:20: " + getCheckMessage(MSG_KEY, "String"),
         };
 
         verify(checkConfig, getPath("InputForbidInstantiationCheckWithoutDots.java"), expected);

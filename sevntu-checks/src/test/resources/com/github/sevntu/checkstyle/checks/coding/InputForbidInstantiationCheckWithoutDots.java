@@ -9,7 +9,8 @@ public class InputForbidInstantiationCheckWithoutDots
         int []x = new int[10];
         new InputForbidInstantiationCheck();
         NullPointerException ex2 = new java.lang.NullPointerException("message"); // !
-        com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck File = new com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck(); // !
+        com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck File
+            = new com.github.sevntu.checkstyle.checks.coding.InputForbidInstantiationCheck(); // !
         File File1 = new java.io.File(""); // 2 !
         String a = new String(); // 2 !
         InputForbidInstantiationCheck c = new InputForbidInstantiationCheck();

@@ -49,7 +49,9 @@ public class InputAvoidModifiersForTypesCheck2 extends BaseClass
         checkConfig.addAttribute("ignoreConstructor", "true");
         checkConfig.addAttribute("ignoreField", "true");
         checkConfig.addAttribute("ignoreMethod", "true");
-        //System.setProperty("testinputs.dir", "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl/tools/checkstyle/sizes");
+        //System.setProperty("testinputs.dir",
+        // "/home/romani/Practice/New_workspace/sevntu.checkstyle/src/testinputs/com/puppycrawl"
+        // + "/tools/checkstyle/sizes");
         verify(checkConfig, getPath("InputSomeFile.java"), expected);
     }
 

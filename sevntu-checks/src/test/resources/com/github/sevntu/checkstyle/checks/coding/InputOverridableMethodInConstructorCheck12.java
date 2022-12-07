@@ -25,7 +25,8 @@ public class InputOverridableMethodInConstructorCheck12 {
 
     private static class Object1 implements Serializable {
 
-        public void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+        public void readObject(java.io.ObjectInputStream in)
+                throws IOException, ClassNotFoundException {
         	 System.out.println("1"); // no warnings here
              doSmth(); // no warnings here
              this.doSmth(); // no warnings here
@@ -64,7 +65,8 @@ public class InputOverridableMethodInConstructorCheck12 {
         }
 
         //@Override
-        public void readObject(java.io.ObjectInputStream in)throws IOException, ClassNotFoundException {
+        public void readObject(java.io.ObjectInputStream in)throws IOException,
+            ClassNotFoundException {
             //doSmth();
         }
 

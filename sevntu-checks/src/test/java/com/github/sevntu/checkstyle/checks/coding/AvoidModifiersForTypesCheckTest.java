@@ -55,8 +55,8 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "29:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "25:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "30:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -78,9 +78,9 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
-            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
-                    "package-private"),
             "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
+                    "package-private"),
+            "25:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
                     "package-private"),
         };
 
@@ -127,8 +127,8 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
-            "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
-            "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "transient"),
+            "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
+            "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "transient"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -151,8 +151,8 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
                 "InputAvoidModifiersForTypesCheck");
 
         final String[] expected = {
-            "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "public"),
-            "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "volatile"),
+            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "public"),
+            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "volatile"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -177,12 +177,12 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         final String[] expected = {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "23:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
-                    "package-private"),
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
                     "package-private"),
-            "29:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "25:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck",
+                    "package-private"),
+            "25:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "30:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -208,8 +208,8 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
             "19:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
             "20:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "static"),
-            "24:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
-            "29:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "25:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
+            "30:9: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "final"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -231,7 +231,7 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         checkConfig.addProperty("forbiddenClassesRegexpPublic", null);
 
         final String[] expected = {
-            "21:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
+            "22:5: " + getCheckMessage(MSG_KEY, "InputAvoidModifiersForTypesCheck", "protected"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);
@@ -252,9 +252,9 @@ public class AvoidModifiersForTypesCheckTest extends AbstractModuleTestSupport {
         checkConfig.addProperty("forbiddenClassesRegexpPublic", "Logger");
 
         final String[] expected = {
-            "36:9: " + getCheckMessage(MSG_KEY, "Logger", "protected"),
-            "37:9: " + getCheckMessage(MSG_KEY, "Logger", "public"),
-            "38:9: " + getCheckMessage(MSG_KEY, "Logger", "package-private"),
+            "37:9: " + getCheckMessage(MSG_KEY, "Logger", "protected"),
+            "38:9: " + getCheckMessage(MSG_KEY, "Logger", "public"),
+            "39:9: " + getCheckMessage(MSG_KEY, "Logger", "package-private"),
         };
 
         verify(checkConfig, getPath("InputAvoidModifiersForTypesCheck.java"), expected);

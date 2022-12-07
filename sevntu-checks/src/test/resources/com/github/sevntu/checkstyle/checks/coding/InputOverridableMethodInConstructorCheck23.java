@@ -27,14 +27,16 @@ public class InputOverridableMethodInConstructorCheck23 {
 		}
 	}
 
-	private void addAssociationsToTheSetForAllProperties(String[] names, String[] types, String prefix, String factory) {
+	private void addAssociationsToTheSetForAllProperties(String[] names, String[] types,
+	        String prefix, String factory) {
 		final int length = names.length;
 		for( int index = 0 ; index < length; index++ ) {
 			addAssociationsToTheSetForOneProperty( names[index], types[index], prefix, factory );
 		}
 	}
 
-	private void addAssociationsToTheSetForOneProperty(String name, String type, String prefix, String factory) {
+	private void addAssociationsToTheSetForOneProperty(String name, String type, String prefix,
+	        String factory) {
 
 		if ( true ) {
 			String[] collType = {};
@@ -54,7 +56,8 @@ public class InputOverridableMethodInConstructorCheck23 {
 		}
 	}
 
-	private String getStringBasedPath(String traversableProperty, String pathToTraversableObject) throws Exception {
+	private String getStringBasedPath(String traversableProperty, String pathToTraversableObject)
+	        throws Exception {
 		StringBuilder path = new StringBuilder( );
 		String[] s = {};
 		for ( String node : s ) {
@@ -64,8 +67,8 @@ public class InputOverridableMethodInConstructorCheck23 {
 		}
 		if ( traversableProperty == null ) {
 			throw new Exception(
-					"TraversableResolver being passed a traversableProperty with null name. pathToTraversableObject: "
-							+ path.toString() );
+					"TraversableResolver being passed a traversableProperty with null name."
+					        + " pathToTraversableObject: " + path.toString() );
 		}
 		path.append( traversableProperty );
 

@@ -17,7 +17,8 @@ public class InputAvoidModifiersForTypesCheck
 
     @Rule private static java.io.File k = new java.io.File("");
     private final InputAvoidModifiersForTypesCheck i = new InputAvoidModifiersForTypesCheck();
-    private static final InputAvoidModifiersForTypesCheck m = new InputAvoidModifiersForTypesCheck();
+    private static final InputAvoidModifiersForTypesCheck m
+        = new InputAvoidModifiersForTypesCheck();
     protected transient InputAvoidModifiersForTypesCheck a = new InputAvoidModifiersForTypesCheck();
     public volatile InputAvoidModifiersForTypesCheck d = new InputAvoidModifiersForTypesCheck();
     InputAvoidModifiersForTypesCheck e = new InputAvoidModifiersForTypesCheck();

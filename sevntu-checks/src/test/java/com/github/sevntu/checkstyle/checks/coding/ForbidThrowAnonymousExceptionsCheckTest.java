@@ -65,10 +65,10 @@ public class ForbidThrowAnonymousExceptionsCheckTest extends AbstractModuleTestS
         final String[] expected = {
             "12:15: " + getCheckMessage(MSG_KEY),
             "23:13: " + getCheckMessage(MSG_KEY),
-            "66:9: " + getCheckMessage(MSG_KEY),
-            "88:9: " + getCheckMessage(MSG_KEY),
-            "107:9: " + getCheckMessage(MSG_KEY),
-            "127:9: " + getCheckMessage(MSG_KEY),
+            "68:9: " + getCheckMessage(MSG_KEY),
+            "92:9: " + getCheckMessage(MSG_KEY),
+            "112:9: " + getCheckMessage(MSG_KEY),
+            "133:9: " + getCheckMessage(MSG_KEY),
         };
 
         verify(checkConfig,

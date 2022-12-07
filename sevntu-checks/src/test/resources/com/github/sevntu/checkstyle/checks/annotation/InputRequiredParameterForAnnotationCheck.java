@@ -11,7 +11,8 @@ public class InputRequiredParameterForAnnotationCheck
    public void method2() {
    }
    
-   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue", thirdParameter="thevalue")
+   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue",
+       thirdParameter="thevalue")
    public void method3() {
    }
    
@@ -40,7 +41,8 @@ public class InputRequiredParameterForAnnotationCheck
    {
    }
    
-   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue", thirdParameter="thevalue")
+   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue",
+       thirdParameter="thevalue")
    class Class4 
    {
    }
@@ -69,7 +71,8 @@ public class InputRequiredParameterForAnnotationCheck
    @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue")
    public int var2;
    
-   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue", thirdParameter="thevalue")
+   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue",
+       thirdParameter="thevalue")
    public int var3;
    
    @testAnnotation1(firstParameter="thevalue")
@@ -92,7 +95,8 @@ public class InputRequiredParameterForAnnotationCheck
    interface interface2 {
    }
    
-   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue", thirdParameter="thevalue")
+   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue",
+       thirdParameter="thevalue")
    interface interface3 {
    }
    
@@ -119,7 +123,8 @@ public class InputRequiredParameterForAnnotationCheck
    enum enum2 {
    }
    
-   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue", thirdParameter="thevalue")
+   @testAnnotation1(firstParameter="thevalue", secondParameter="thevalue",
+       thirdParameter="thevalue")
    enum enum3 {
    }
    

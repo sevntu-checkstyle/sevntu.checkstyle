@@ -158,7 +158,8 @@ class MyConstructor
 {
     MyConstructor(boolean expr)
     {
-        boolean x = InputAvoidNotShortCircuitOperatorsForBooleanCheck.x | InputAvoidNotShortCircuitOperatorsForBooleanCheck.x;
+        boolean x = InputAvoidNotShortCircuitOperatorsForBooleanCheck.x
+            | InputAvoidNotShortCircuitOperatorsForBooleanCheck.x;
     }
 
     public void test() {

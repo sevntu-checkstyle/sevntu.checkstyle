@@ -40,17 +40,17 @@ public class StaticMethodCandidateCheckTest extends AbstractModuleTestSupport {
         final DefaultConfiguration checkConfig =
                 createModuleConfig(StaticMethodCandidateCheck.class);
         final String[] expected = {
-            "37:5: " + getCheckMessage(MSG_KEY, "foo11"),
-            "56:9: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
-            "86:9: " + getCheckMessage(MSG_KEY, "doSomething"),
-            "123:5: " + getCheckMessage(MSG_KEY, "main"),
-            "176:5: " + getCheckMessage(MSG_KEY, "bar"),
-            "184:5: " + getCheckMessage(MSG_KEY, "fooBar"),
-            "186:5: " + getCheckMessage(MSG_KEY, "barFoo"),
-            "188:5: " + getCheckMessage(MSG_KEY, "fooo"),
-            "190:5: " + getCheckMessage(MSG_KEY, "baar"),
-            "192:5: " + getCheckMessage(MSG_KEY, "fOo"),
-            "194:5: " + getCheckMessage(MSG_KEY, "foO"),
+            "44:5: " + getCheckMessage(MSG_KEY, "foo11"),
+            "63:9: " + getCheckMessage(MSG_KEY, "nestedFoo1"),
+            "97:9: " + getCheckMessage(MSG_KEY, "doSomething"),
+            "134:5: " + getCheckMessage(MSG_KEY, "main"),
+            "191:5: " + getCheckMessage(MSG_KEY, "bar"),
+            "202:5: " + getCheckMessage(MSG_KEY, "fooBar"),
+            "204:5: " + getCheckMessage(MSG_KEY, "barFoo"),
+            "206:5: " + getCheckMessage(MSG_KEY, "fooo"),
+            "208:5: " + getCheckMessage(MSG_KEY, "baar"),
+            "210:5: " + getCheckMessage(MSG_KEY, "fOo"),
+            "212:5: " + getCheckMessage(MSG_KEY, "foO"),
         };
         verify(checkConfig, getPath("InputStaticMethodCandidateCheck.java"), expected);
     }
