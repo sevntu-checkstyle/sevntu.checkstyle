@@ -34,7 +34,8 @@ fi
 wget https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-$2/config/org.eclipse.jdt.core.prefs
 
 # Suppress Eclipse compiler false violation. See https://bugs.eclipse.org/bugs/show_bug.cgi?id=353394
-sed -i -e "s/reportMethodCanBeStatic=error/reportMethodCanBeStatic=warning/g" org.eclipse.jdt.core.prefs
+sed -i -e "s/reportMethodCanBeStatic=error/reportMethodCanBeStatic=warning/g" \
+  org.eclipse.jdt.core.prefs
 
 mkdir -p target/classes target/test-classes target/eclipse
 

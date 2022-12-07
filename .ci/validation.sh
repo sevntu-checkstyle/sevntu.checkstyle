@@ -61,7 +61,8 @@ all-sevntu-checks-contribution)
     | grep -vE "Checker|TreeWalker|Filter|Holder" | grep -v "^$" \
     | sed "s/com\.github\.sevntu\.checkstyle\.checks\..*\.//" \
     | sort | uniq | sed "s/Check$//" > .ci-temp/web.txt
-  xmlstarlet sel --net --template -m .//module -v "@name" -n sevntu-checks/config/sevntu-checks.xml \
+  xmlstarlet sel --net --template -m .//module -v "@name" \
+      -n sevntu-checks/config/sevntu-checks.xml \
     | grep -vE "Checker|TreeWalker|Filter|Holder" | grep -v "^$" \
     | sed "s/com\.github\.sevntu\.checkstyle\.checks\..*\.//" \
     | sort | uniq | sed "s/Check$//" > .ci-temp/file.txt
@@ -84,20 +85,22 @@ checkstyle-regression)
   checkout_from "https://github.com/checkstyle/checkstyle"
   # update checkstyle_sevntu_checks.xml file in checkstyle for new modules
   cd sevntu-checks
-  SEVNTU_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                   --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                   -Dexec.args='${project.version}' --non-recursive \
+                   org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo sevntu version:$SEVNTU_VERSION
   ECLIPSE_CS_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                    -Dexec.args='${checkstyle.eclipse-cs.version}' \
                    --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo eclipse-cs version:$ECLIPSE_CS_VERSION
   mvn -e --no-transfer-progress install -Pno-validations
-  mvn -e --no-transfer-progress test -Dtest=CheckstyleRegressionTest#setupFiles -Dregression-path=../.ci-temp
+  mvn -e --no-transfer-progress test -Dtest=CheckstyleRegressionTest#setupFiles \
+    -Dregression-path=../.ci-temp
   cd ../
   # execute checkstyle validation on updated config file
   cd .ci-temp/checkstyle
-  mvn -e --no-transfer-progress clean verify -DskipTests -DskipITs -Dpmd.skip=true -Dspotbugs.skip=true \
-      -Dfindbugs.skip=true -Djacoco.skip=true -Dxml.skip=true \
+  mvn -e --no-transfer-progress clean verify -DskipTests -DskipITs -Dpmd.skip=true \
+      -Dspotbugs.skip=true -Dfindbugs.skip=true -Djacoco.skip=true -Dxml.skip=true \
       -Dmaven.sevntu-checkstyle-check.checkstyle.version=$ECLIPSE_CS_VERSION \
       -Dmaven.sevntu.checkstyle.plugin.version=$SEVNTU_VERSION
   ;;

@@ -25,7 +25,8 @@ then
 fi
 if [[ -z "$SEVNTU_GITHUB_TOKEN" ]]
 then
-    echo "Github token needs to be specified in the script or as an environment variable 'SEVNTU_GITHUB_TOKEN'"
+    echo "Github token needs to be specified in the script or as an "
+    echo "environment variable 'SEVNTU_GITHUB_TOKEN'"
     exit 1
 fi
 
@@ -51,8 +52,9 @@ git clean -f -d
 git checkout origin/master
 
 cd sevntu-checks
-ECLIPSE_CS_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${checkstyle.eclipse-cs.version}' \
-  --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+ECLIPSE_CS_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+  -Dexec.args='${checkstyle.eclipse-cs.version}' --non-recursive \
+  org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
 cd ..
 
 # bring in and run release notes builder
@@ -82,7 +84,10 @@ cd releasenotes-builder
 mvn -e --no-transfer-progress package -DskipTests
 cd target
 
-java -jar releasenotes-builder-1.0-all.jar -localRepoPath $CURRENT_DIR -remoteRepoPath $GITHUB_PROJECT -startRef $OLD_VERSION -releaseNumber $NEW_VERSION -githubAuthToken $SEVNTU_GITHUB_TOKEN -generateXdoc -xdocTemplate $CURRENT_DIR/sevntu_xdoc_freemarker.template
+java -jar releasenotes-builder-1.0-all.jar -localRepoPath $CURRENT_DIR \
+  -remoteRepoPath $GITHUB_PROJECT -startRef $OLD_VERSION -releaseNumber $NEW_VERSION \
+  -githubAuthToken $SEVNTU_GITHUB_TOKEN -generateXdoc -xdocTemplate \
+  $CURRENT_DIR/sevntu_xdoc_freemarker.template
 
 # bring in eclipse-cs version in-use
 echo "Cloning and installing Eclipse CS version $ECLIPSE_CS_VERSION"
@@ -138,7 +143,8 @@ git push --tags
 # deploy gh-pages
 echo "Updating gh-pages"
 
-$CURRENT_DIR/deploy.sh --gh-pages $NEW_VERSION $CONTRIBUTION_DIR/contribution/releasenotes-builder/target/xdoc.xml
+$CURRENT_DIR/deploy.sh --gh-pages $NEW_VERSION \
+  $CONTRIBUTION_DIR/contribution/releasenotes-builder/target/xdoc.xml
 
 # deploy to maven central
 echo "Deploying to maven central"
