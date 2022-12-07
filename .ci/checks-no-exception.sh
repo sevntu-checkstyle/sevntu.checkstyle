@@ -17,8 +17,9 @@ checkstyle)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -28,7 +29,8 @@ checkstyle)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -41,8 +43,9 @@ struts)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -52,7 +55,8 @@ struts)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -65,8 +69,9 @@ guava)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -76,7 +81,8 @@ guava)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -89,8 +95,9 @@ hibernate-orm)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                      -Dexec.args='${project.version}' --non-recursive \
+                      org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -100,7 +107,8 @@ hibernate-orm)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -113,8 +121,9 @@ spotbugs)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -124,7 +133,8 @@ spotbugs)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -137,8 +147,9 @@ spring-framework)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                      -Dexec.args='${project.version}' --non-recursive \
+                      org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -148,7 +159,8 @@ spring-framework)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -161,8 +173,9 @@ hbase)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -172,7 +185,8 @@ hbase)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -185,8 +199,9 @@ pmd-elasticsearch-lombok-ast)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from "https://github.com/checkstyle/contribution.git"
@@ -198,7 +213,8 @@ pmd-elasticsearch-lombok-ast)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution
@@ -211,8 +227,9 @@ alot-of-projects)
   CS_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
                      -Dexec.args='${checkstyle.eclipse-cs.version}' \
                      --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
-  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' -Dexec.args='${project.version}' \
-                     --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+  SEVNTU_POM_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+                     -Dexec.args='${project.version}' --non-recursive \
+                     org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
   echo CS_version: ${CS_POM_VERSION}
   echo SEVNTU_version: ${SEVNTU_POM_VERSION}
   checkout_from https://github.com/checkstyle/contribution.git
@@ -227,7 +244,8 @@ alot-of-projects)
   groovy ./diff.groovy --listOfProjects projects-to-test-on.properties \
       --patchConfig checks-sevntu-error.xml --allowExcludes \
       --mode single --patchBranch "$BRANCH" -r ../../..\
-      -xm "-Dcheckstyle.version=${CS_POM_VERSION} -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
+      -xm "-Dcheckstyle.version=${CS_POM_VERSION} \
+      -Dsevntu-checkstyle.version=${SEVNTU_POM_VERSION} \
       -Dcheckstyle.failsOnError=false"
   cd ../../
   rm -rf contribution

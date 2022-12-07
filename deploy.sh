@@ -73,7 +73,8 @@ deployEclipse()
         cd $SEVNTU_DIR
         #echo -n "Enter version number: "
         #read version
-        #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version -f eclipse-pom.xml
+        #mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$version \
+        #-f eclipse-pom.xml
         mvn -e --no-transfer-progress clean install -f eclipse-pom.xml -Plocal-deploy
         if [ "$?" != "0" ]
         then
@@ -92,12 +93,13 @@ deployMavenLibrary()
     {
         echo "Deploying Sevntu Checks"
         # As we do not use SNAPSHOT qualifier for development in pom.xml
-        # we have to deploy library sevntu-checks always even it overrides existing binaries in maven repository
-        # for release build - it will not override binaries
+        # we have to deploy library sevntu-checks always even it overrides existing binaries
+        # in maven repository for release build - it will not override binaries
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $SEVNTU_DIR/sevntu-checks
-        mvn -e --no-transfer-progress clean javadoc:javadoc deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress clean javadoc:javadoc deploy -Plocal-deploy \
+          -DdeployDir=$GH_SEVNTU_HOMR_DIR
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checks."
@@ -106,7 +108,9 @@ deployMavenLibrary()
         # deployment of Javadoc to static site
         cp -rf target/site/apidocs $GH_SEVNTU_HOMR_DIR
 
-        # no need push to repository only library it should be done together with IDE plugins release
+        # no need push to repository only library it should be done together with IDE plugins
+        # release
+
         #cd $GH_SEVNTU_HOMR_DIR
         #echo "$manualDeploy"
         return
@@ -116,8 +120,8 @@ deployToMavenCentral()
     {
         echo "Deploying All to Maven Central"
         # As we do not use SNAPSHOT qualifier for development in pom.xml
-        # we have to deploy library sevntu-checks always even it overrides existing binaries in maven repository
-        # for release build - it will not override binaries
+        # we have to deploy library sevntu-checks always even it overrides existing binaries
+        # in maven repository for release build - it will not override binaries
         # for test build - it will override as we need to be sure that in repository,
         #                  we have previous release version but compiled with from new code
         cd $SEVNTU_DIR/sevntu-checks
@@ -141,7 +145,8 @@ deploySonar()
     {
         echo "Deploying Sonar"
         cd $SEVNTU_DIR/sevntu-checkstyle-sonar-plugin/
-        mvn -e --no-transfer-progress clean install wagon:upload-single -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress clean install wagon:upload-single \
+          -DdeployDir=$GH_SEVNTU_HOMR_DIR
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checkstyle-sonar-plugin/"
