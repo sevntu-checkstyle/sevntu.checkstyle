@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="com.github.sevntu.checkstyle.checks.feature"
-   label="Extension for eclipse-cs plugin with additional Checks" version="1.44.0">
+<feature id="com.github.sevntu.checkstyle.checks.feature" label="Extension for eclipse-cs plugin with additional Checks" version="1.44.0">
 
    <description url="http://sevntu-checkstyle.github.io/sevntu.checkstyle/">
       http://sevntu-checkstyle.github.io/sevntu.checkstyle/
    </description>
 
    <copyright url="http://sevntu-checkstyle.github.io/sevntu.checkstyle/">
-      Please visit site to view developer list -
-      https://github.com/sevntu-checkstyle/sevntu.checkstyle#contributors
+      Please visit site to view developer list - https://github.com/sevntu-checkstyle/sevntu.checkstyle#contributors
    </copyright>
 
    <license url="http://www.eclipse.org/legal/epl-v10.html">
@@ -17,15 +15,11 @@ Eclipse Public License - Version 1.0
    </license>
 
    <url>
-      <discovery label="Sources on GitHub"
-         url="https://github.com/sevntu-checkstyle/sevntu.checkstyle"/>
-      <discovery label="SevNTU checks site"
-         url="http://sevntu-checkstyle.github.io/sevntu.checkstyle/"/>
-      <discovery label="Eclipse Update site"
-         url="http://sevntu-checkstyle.github.io/sevntu.checkstyle/update-site/"/>
+      <discovery label="Sources on GitHub" url="https://github.com/sevntu-checkstyle/sevntu.checkstyle"/>
+      <discovery label="SevNTU checks site" url="http://sevntu-checkstyle.github.io/sevntu.checkstyle/"/>
+      <discovery label="Eclipse Update site" url="http://sevntu-checkstyle.github.io/sevntu.checkstyle/update-site/"/>
    </url>
 
-   <plugin id="eclipsecs-sevntu-plugin" download-size="0" install-size="0" version="1.44.0"
-      unpack="false"/>
+   <plugin id="eclipsecs-sevntu-plugin" download-size="0" install-size="0" version="1.44.0" unpack="false"/>
 
 </feature>
