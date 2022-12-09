@@ -56,19 +56,21 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
-          <executions>
-            <execution>
-              <id>attach-javadocs</id>
-              <phase>package</phase>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-              <configuration>
-                <sourcepath>${basedir}/src</sourcepath>
-              </configuration>
-            </execution>
-          </executions>
+        <version>3.4.1</version>
+        <configuration>
+          <!-- To allow build with latest JDK the source version must be explicitly set
+            See https://bugs.openjdk.java.net/browse/JDK-8212233 for details -->
+          <source>${java.version}</source>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+         </execution>
+       </executions>
       </plugin>
 
       <plugin>
