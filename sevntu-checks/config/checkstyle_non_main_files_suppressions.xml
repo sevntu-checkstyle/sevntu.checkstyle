@@ -6,11 +6,21 @@
 
 <suppressions>
   <!-- START of legacy code, all violations will be resolved -->
-  <suppress id="lineLength" files=".*"/>
+  <suppress id="lineLength" files="checkstyle-metadata.xml"/>
+  <suppress id="lineLength" files="checkstyle-metadata.properties"/>
+  <suppress id="lineLength" files="CheckstyleFormatterForEclipse.xml"/>
+  <suppress id="lineLength" files="category.xml"/>
+  <suppress id="lineLength" files="sevntu-checks.xml"/>
+  <suppress id="lineLength" files="InputJsr305AnnotationsCheckWithConstructor.java"/>
+  <suppress id="lineLength" files="InputTernaryPerExpressionCountCheck.java"/>
+  <suppress id="lineLength" files="InputConstructorWithoutParamsCheck.java"/>
   <!-- END of legacy code -->
 
   <!-- till https://issues.apache.org/jira/browse/MRELEASE-1008 -->
   <suppress id="lineLength" files="pom.xml"/>
+
+  <!-- Eclipse maintains this file and will be modified on deployment -->
+  <suppress id="lineLength" files="eclipsecs-sevntu-plugin-feature[\\/]feature.xml"/>
 
   <!-- other images that do not support newer curl commands until
        https://github.com/checkstyle/checkstyle/issues/12451 -->
