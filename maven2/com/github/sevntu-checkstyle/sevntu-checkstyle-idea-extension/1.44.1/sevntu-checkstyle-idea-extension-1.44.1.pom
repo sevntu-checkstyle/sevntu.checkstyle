@@ -16,6 +16,10 @@
 
   <name>Sevntu Checkstyle Idea extension</name>
 
+  <properties>
+    <java.version>11</java.version>
+  </properties>
+
   <licenses>
     <license>
       <name>LGPL-2.1+</name>
@@ -40,17 +44,12 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
       </plugin>
 
       <plugin>
