@@ -55,7 +55,8 @@ deployIdea()
     {
         echo "Deploying Idea"
         cd $SEVNTU_DIR/sevntu-checkstyle-idea-extension/
-        mvn -e --no-transfer-progress clean deploy -Plocal-deploy -DdeployDir=$GH_SEVNTU_HOMR_DIR
+        mvn -e --no-transfer-progress clean javadoc:javadoc deploy -Plocal-deploy \
+          -DdeployDir=$GH_SEVNTU_HOMR_DIR
         if [ "$?" != "0" ]
         then
             echo "build for $SEVNTU_DIR/sevntu-checkstyle-idea-extension/"
