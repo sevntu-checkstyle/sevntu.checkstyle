@@ -1,43 +1,158 @@
-ATTENTION: before release process, verify that 
-[ALL CIs](https://github.com/sevntu-checkstyle/sevntu.checkstyle) are finished and green.
-Regression testing on New Checks is activated only after merge to master.
+# Sevntu Release Process
 
+## Prerequisites
 
-Prerequisites) Install xmlstarlet.
+* Install the necessary software
+  * Java
+  * Maven
+  * `sudo apt install git`
+  * `sudo apt install xmlstarlet`
+  * `sudo apt install jq`
+* Set up your user name and email in Git.
+  * `git config user.email`
+  * `git config user.name`
+* [Follow Sonatype setup](http://central.sonatype.org/pages/ossrh-guide.html), this includes :
+  * Setup JIRA account, [link](https://issues.sonatype.org/secure/Signup!default.jspa),
+    and request write access to repository
+    ([example](https://issues.sonatype.org/browse/OSSRH-11819)).
+  * Create a GPG key set and upload
+    ([example](https://github.com/sevntu-checkstyle/dsm-maven-plugin/wiki/How-to-config-GPG-and-sign-artifact-with-it))
+  * Setup ~/.m2/settings.xml to include the servers
+    ([instructions](http://central.sonatype.org/pages/apache-maven.html)).
+    Follow Maven guide on how to encrypt passwords
+* verify that all CI are green, all CI badges should be green -
+  [https://github.com/sevntu-checkstyle/sevntu.checkstyle](https://github.com/sevntu-checkstyle/sevntu.checkstyle)
+* Identify next version of Sevntu.
+
+## Manual Release Activities
+
+0)
+Prep contribution.
+(TODO number)
+
+0.1)
+Clone contribution using SSSH and enter it.
+
 ```
-sudo apt install xmlstarlet
+git clone git@github.com:checkstyle/contribution.git
+cd contribution
 ```
 
-1) do clone
+0.2)
+Reset it.
+
 ```
-git clone https://github.com/sevntu-checkstyle/sevntu.checkstyle.git
+git reset --hard HEAD
+git clean -f -d
+git checkout master
+git fetch origin
+git reset --hard origin/master
 ```
 
-2) do compilation of eclipse-CS plugin (see [SevNTU plugin for EclipseCS plugin compilation](https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/SevNTU-plugin-for-EclipseCS-plugin-compilation))
+0.3)
+Package releasenotes-builder.
 
-2.1) 
-Recheck if that is required to update version of eclipse-cs (make sure tag exists in eclpse-cs repo)
-- in [eclipsecs-sevntu-plugin/pom.xml](https://github.com/sevntu-checkstyle/sevntu.checkstyle/blob/master/eclipsecs-sevntu-plugin/pom.xml#L29).
-Latest version of elcipse-cs is at https://github.com/checkstyle/eclipse-cs.
-https://github.com/sevntu-checkstyle/sevntu.checkstyle/blob/master/sevntu-checks/pom.xml#L19 .
+```
+cd releasenotes-builder
+mvn package
+cd ../..
+```
 
-If there was change in eclipse-cs, please send PR for eclipse-cs update first, see [SevNTU plugin for EclipseCS plugin compilation](https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/SevNTU-plugin-for-EclipseCS-plugin-compilation)
+**Note:** Ensure there are no errors.
 
-3.1) Setup version variables
+1)
+Prep sevntu.
+
+1.1)
+Clone Sevntu using SSH and enter it.
+
+```
+git clone git@github.com:sevntu-checkstyle/sevntu.checkstyle.git
+cd sevntu.checkstyle
+```
+
+1.2)
+Reset it.
+
+```
+git reset --hard HEAD
+git clean -f -d
+git checkout master
+git fetch origin
+git reset --hard origin/master
+```
+
+2)
+Identify, clone and compile the necessary version of Eclipse-CS plugin
+(taken from [SevNTU plugin for EclipseCS plugin compilation](https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/SevNTU-plugin-for-EclipseCS-plugin-compilation))
+
+2.1)
+Set necessary Eclipse-CS version.
+
+```
+cd sevntu-checks
+ECLIPSE_CS_VERSION=$(mvn -e --no-transfer-progress -q -Dexec.executable='echo' \
+  -Dexec.args='${checkstyle.eclipse-cs.version}' --non-recursive \
+  org.codehaus.mojo:exec-maven-plugin:1.3.1:exec)
+echo "Necessary Eclipse-CS Version:"$ECLIPSE_CS_VERSION
+```
+
+2.2)
+Leave sevntu.
+
+```
+cd ../..
+```
+
+2.3)
+Prep Eclipse-CS.
+
+```
+git clone git@github.com:checkstyle/eclipse-cs.git
+cd eclipse-cs
+```
+
+2.4)
+Clone, checkout, compile, and install Eclipse-CS.
+
+```
+git checkout $ECLIPSE_CS_VERSION
+mvn -e --no-transfer-progress clean install
+```
+
+**Note:** Ensure there are no errors.
+
+2.5)
+Back to sevntu.
+
+```
+cd ../sevntu.checkstyle
+```
+
+3)
+Start updating all versions in Sevntu.
+
+3.1)
+Setup version variables.
+
 ```
 OLD_VERSION=$(git describe --abbrev=0)
 echo $OLD_VERSION
 NEW_VERSION=1.21.0
 ```
 
-3.2) update version in all files 
-Usage: 
+**Note**: The value for `NEW_VERSION` should be swapped with the actual new release value.
+
+3.2)
+Update version in all files.
+
 ```
 ./pom-version-bump.sh $OLD_VERSION $NEW_VERSION
 ```
 
-
+**Note**:
 Expected to update - 9 files:
+
 ```
 eclipse-pom.xml
 eclipsecs-sevntu-plugin-feature/feature.xml
@@ -50,32 +165,94 @@ sevntu-checkstyle-sonar-plugin/pom.xml
 update-site/pom.xml 
 ```
 
-4 ) launch `./deploy-all.sh`, make sure that no "[ERROR]" in logs
+3.3)
+Manually update `README.textile` with the new Compatibility Matrix.
 
-4.1) If no errors
+4)
+Deploy all projects.
+
+```
+./deploy-all.sh
+```
+
+**Note:** Make sure that there are no "[ERROR]" in logs and everything completes successfully.
+
+**Note:** This process will create artifacts for later deployment in another directory.
+
+5)
+Start Uploading to Maven Central.
+
+5.1)
+Deploy.
+
+```
+./deploy.sh --maven-central
+```
+
+5.2)
+Open https://oss.sonatype.org/#stagingRepositories and login using sevntu credentials.
+
+WAIT for deploy completion, find in table smth like "comgithubsevntu-checkstyle-1012"
+(should be nearly instant) and ensure there are no errors.
+
+5.3)
+Select and press "Close".
+
+**Note:** Make sure that there are no errors by selecting the sevntu release, and clicking on
+the Activity sub-tab. The list of activities should end with "Repository closed" with a green
+check. There should also be no error counter next to the sevntu release.
+
+5.4)
+Press "Release" when button become enabled (could take few minutes).
+
+6)
+Complete release process in Git.
+
+6.1)
+Do version bump to Git.
+
 ```
 git add .
 git commit -m "config: version bump to $NEW_VERSION"
 git push origin
 ```
-do tagging for [master branch](https://github.com/sevntu-checkstyle/sevntu.checkstyle/releases): 
+
+6.2)
+Do tagging for [master branch](https://github.com/sevntu-checkstyle/sevntu.checkstyle/releases): 
+
 ```
 git tag -a $NEW_VERSION -m 'release $NEW_VERSION'
 git push --tags
 ```
 
-5) 
+6.3)
+Swap to the directory which contains all artifacts created by `deploy-all.sh`.
+
+ 
 ```
 cd /tmp/sevntu.checkstyle.gh/sevntu.checkstyle
-# change in .git/config origin to ssh protocol git@github.com:sevntu-checkstyle/sevntu.checkstyle.git
+```
+
+6.4)
+Change config protocol to SSH.
+
+```
+sed -i 's/url = https:\/\/github.com\/sevntu-checkstyle\/sevntu.checkstyle.git/url = git@github.com:sevntu-checkstyle\/sevntu.checkstyle.git/g' .git/config
+```
+
+6.5)
+Do gh-pages to Git.
+
+```
 git checkout gh-pages
-#git config user.email "email@mail.ru"
 git add .
 git commit -m "binaries for $NEW_VERSION release"
 git push origin gh-pages
 ```
 
-Expected amount of changes(✚ 11…168), expected updates for binaries:
+**Note**:
+Expected amount of changes(+11...168), expected updates for binaries:
+
 ```
 maven2/com/github/sevntu/checkstyle/sevntu-checks/1.11.0/sevntu-checks-1.11.0.jar
 maven2/com/github/sevntu/checkstyle/sevntu-checks/1.11.0/sevntu-checks-1.11.0.jar.md5
@@ -102,58 +279,43 @@ update-site/features/com.github.sevntu.checkstyle.checks.feature_1.11.0.jar
 update-site/plugins/eclipsecs-sevntu-plugin_1.11.0.jar 
 ```
 
-5.2) upload to maven central (partly manual)
-Make sure that settings.xml have sonatype credentials for 'sevntu-checkstyle' folder on maven central (backup user is 'sevntu_checkstyle')
-```
-<settings>
-    <servers>
-        <server>
-            <id>sonatype-nexus-staging</id>
-            <username>romanivanov</username>
-            <password>xxxxxxxxxxxx</password>
-        </server>
-   </servers>
-    <profiles>
-      <profile>
-          <!-- "mvn deploy .... -Pgpg" to skip question for passphrase in build time
-               Use "gpg \-\-list-keys", "pub   1024D/C6EED5AA 2010-01-13"
-                    to get "gpg.keyname" in example it is  value "C6EED5AA"
-          -->
-          <id>gpg</id>
-          <properties>
-              <gpg.passphrase>xxxxxxxxx</gpg.passphrase>
-              <gpg.keyname>C6EED5AA</gpg.keyname>
-          </properties>
-      </profile>
-    </profiles>
-</settings>
+6.6)
+Do release notes to git ([old example](https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/Update-for-release-description-in-gh-pages-branch))
 
 ```
+GITHUB_TOKEN=$(cat ~/.m2/token-checkstyle.txt)
 
-Come back to source folder. Run deployment to central: 
+java -jar ~/release/contribution/releasenotes-builder/target/releasenotes-builder-1.0-all.jar \
+  -localRepoPath ~/release/sevntu.checkstyle \
+  -remoteRepoPath sevntu-checkstyle/sevntu.checkstyle \
+  -startRef $OLD_VERSION -releaseNumber $NEW_VERSION \
+  -githubAuthToken $GITHUB_TOKEN -generateXdoc -xdocTemplate \
+  ~/release/sevntu.checkstyle/sevntu_xdoc_freemarker.template \
+  -outputLocation ../
+
+sed -i "/<h2> New and noteworthy<\/h2>/r ../xdoc.xml" index.html
+
+git add index.html
+git commit -m "doc: add release notes for $NEW_VERSION"
+
+git push origin gh-pages
 ```
-cd -
-./deploy.sh --maven-central
-```
 
-open https://oss.sonatype.org/#stagingRepositories
-login as sevntu_checkstyle
+7)
+Complete the remaining manually activities.
 
-WAIT for deploy completion, find in table smth like "comgithubsevntu-checkstyle-1012"
-Select and press "Close", if no error happen then press "Release" when button become enabled (could take few minutes).
+7.2) close milestone, create new - https://github.com/sevntu-checkstyle/sevntu.checkstyle/milestones
 
-5.3) Do update to HTML page to describe changes - [Update for release description in gh pages branch](https://github.com/sevntu-checkstyle/sevntu.checkstyle/wiki/Update-for-release-description-in-gh-pages-branch)
+7.3) create release from tag - https://github.com/sevntu-checkstyle/sevntu.checkstyle/tags. Put a link to HTML release notes at github release notes - http://sevntu-checkstyle.github.io/sevntu.checkstyle/#1.XX.0
 
-5.4) close milestone, create new - https://github.com/sevntu-checkstyle/sevntu.checkstyle/milestones
-
-5.5) create release from tag - https://github.com/sevntu-checkstyle/sevntu.checkstyle/tags. Put a link to HTML release notes at github release notes - http://sevntu-checkstyle.github.io/sevntu.checkstyle/#1.XX.0
-
-5.6)
+7.4)
 recheck that jar appeared at [maven central](https://repo1.maven.org/maven2/com/github/sevntu-checkstyle/sevntu-checks/)
 
-6) update to latest versions and make sure each of them works:
+8) update to latest versions and make sure each of them works:
 
-6.1) update projects that use sevntu:
+8.1) update projects that use sevntu:
+
+Use commit message `config: upgrade sevntu to 1.44.1`
 
 https://github.com/checkstyle/checkstyle/edit/master/pom.xml#L204
 
@@ -161,15 +323,19 @@ https://github.com/checkstyle/contribution/edit/master/checkstyle-tester/pom.xml
 
 https://github.com/checkstyle/eclipse-cs/edit/master/pom.xml#28
 
-6.3) Update other configs for new version:
+https://github.com/checkstyle/sonar-checkstyle/edit/master/pom.xml#L99
+
+8.2) Update other configs for new version:
 
 https://github.com/sevntu-checkstyle/checkstyle-samples/edit/master/ant-project/ivy.xml#L6 , 
 
 https://github.com/sevntu-checkstyle/checkstyle-samples/edit/master/gradle-project/build.gradle#L16 , 
 
-https://github.com/sevntu-checkstyle/checkstyle-samples/edit/master/maven-project/pom.xml#L16 
+https://github.com/sevntu-checkstyle/checkstyle-samples/edit/master/maven-project/pom.xml#L16 ,
 
-6.4)
+https://github.com/sevntu-checkstyle/checkstyle-samples/edit/master/maven-ant-project/pom.xml#L16 
+
+8.3)
 update checkstyle version of sevntu in 
 
 https://github.com/checkstyle/checkstyle/edit/master/pom.xml#L206
@@ -177,11 +343,6 @@ it should be the same as at
 
 https://github.com/sevntu-checkstyle/sevntu.checkstyle/edit/master/sevntu-checks/pom.xml#L19
 
+9) create PR to Checkstyle project to use new Checks at https://github.com/checkstyle/checkstyle/blob/master/config/checkstyle_sevntu_checks.xml
 
-7) ~update https://github.com/sevntu-checkstyle/sevntu.checkstyle/blob/gh-pages/sevntu-checkstyle-default-configuration.xml to contains default configuration WITH ALL PROPERTIES WITH DEFAULT VALUES for new Checks (it is used for Sonar and Ant configuration samples).~ **Obsolete.**
-
-
-8) create PR to Checkstyle project to use new Checks at https://github.com/checkstyle/checkstyle/blob/master/config/checkstyle_sevntu_checks.xml
-
-
-9) spread news in social networks, [twitter](https://twitter.com/checkstyle_java)
+10) spread news in social networks, [twitter](https://twitter.com/checkstyle_java)
