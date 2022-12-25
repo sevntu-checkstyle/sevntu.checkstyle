@@ -8,8 +8,8 @@
         <#list breakingMessages as message>
           <li>
             ${message.title}.
-	    Author: ${message.author}<#if message.issueNo != -1>
-	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+        Author: ${message.author}<#if message.issueNo != -1>
+        <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
           </li>
         </#list>
         </ul>
@@ -20,8 +20,8 @@
           <#list newMessages as message>
           <li>
             ${message.title}.
-	    Author: ${message.author}<#if message.issueNo != -1>
-	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+        Author: ${message.author}<#if message.issueNo != -1>
+        <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
           </li>
           </#list>
         </ul>
@@ -32,8 +32,8 @@
           <#list bugMessages as message>
           <li>
             ${message.title}.
-	    Author: ${message.author}<#if message.issueNo != -1>
-	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+        Author: ${message.author}<#if message.issueNo != -1>
+        <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
           </li>
           </#list>
         </ul>
@@ -44,8 +44,8 @@
           <#list notesMessages as message>
           <li>
             ${message.title}.
-	    Author: ${message.author}<#if message.issueNo != -1>
-	    <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
+        Author: ${message.author}<#if message.issueNo != -1>
+        <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/${message.issueNo}">#${message.issueNo}</a></#if>
           </li>
           </#list>
         </ul>
