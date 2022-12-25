@@ -1,6 +1,6 @@
   <#escape x as x?html>
     <div id="${releaseNo}" class="spoiler pre_opened_spoiler">
-    <div class="name"><span><h3>Release ${releaseNo}</h3></span></div>
+    <div class="name"><span><h3>Release ${releaseNo} (${todaysDate})</h3></span></div>
     <div class="text">
       <#if breakingMessages?has_content>
       <p>Breaking backward compatibility:</p>
@@ -53,4 +53,3 @@
     </div>
     </div>
   </#escape>
-
