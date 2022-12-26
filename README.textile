@@ -19,6 +19,8 @@ Additional(non-standard) checks for Checkstyle that are compiled as:
 h3. Compatibility Matrix
 
 | Sevntu Plugin | Checkstyle | Jdk |
+| 1.44.1        | 10.4       | 11  |
+| 1.44.0        | 10.4       | 11  |
 | 1.43.0        | 10.4       | 11  |
 | 1.42.0        | 10.0       | 11  |
 | 1.41.0        | 9.1        | 8   |
