@@ -7,7 +7,7 @@
 name: "Bump license year"
 on:
   schedule:
-    - cron: "0 0 1 1 *"
+    - cron: "0 2 1 1 *"
   workflow_dispatch:
 permissions:
   contents: write
