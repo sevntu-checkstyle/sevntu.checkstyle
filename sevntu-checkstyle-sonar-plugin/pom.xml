@@ -27,7 +27,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <checkstyle.version>10.6.0</checkstyle.version>
-    <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
+    <checkstyle.plugin.version>3.2.1</checkstyle.plugin.version>
     <sonar.version>7.9</sonar.version>
     <staxmate.version>2.0.1</staxmate.version>
     <java.version>11</java.version>
