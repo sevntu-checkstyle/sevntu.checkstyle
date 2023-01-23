@@ -5,38 +5,23 @@
 
 <import-control pkg="com.github.sevntu.checkstyle">
 
-  <allow pkg="antlr"/>
-  <allow pkg="org.antlr.v4.runtime"/>
-  <allow pkg="com.puppycrawl.tools.checkstyle.api"/>
-  <allow pkg="com.puppycrawl.tools.checkstyle.checks"/>
-  <allow pkg="java.io"/>
-  <allow pkg="java.net"/>
-  <allow pkg="java.nio"/>
   <allow pkg="java.util"/>
-  <allow pkg="javax.xml.parsers"/>
-  <allow pkg="org.apache.commons.beanutils"/>
-  <allow pkg="org.apache.commons.logging"/>
-  <allow pkg="org.xml.sax"/>
-  <allow pkg="com.puppycrawl.tools.checkstyle"/>
-  <allow pkg="java.lang.reflect"/>
 
-  <allow class="com.github.sevntu.checkstyle.SevntuUtil"/>
-
-  <!-- The local ones -->
-  <allow class="java.security.MessageDigest" local-only="true"/>
-  <allow class="java.security.NoSuchAlgorithmException" local-only="true"/>
-  <allow class="javax.xml.bind.DatatypeConverter" local-only="true"/>
-  <allow pkg="com.puppycrawl.tools.checkstyle.grammars" local-only="true"/>
-  <allow pkg="org.apache.commons.cli" local-only="true"/>
-
-  <subpackage name="utils">
-    <allow class="com.google.common.base.CharMatcher" local-only="true"/>
-  </subpackage>
+  <allow class="com.puppycrawl.tools.checkstyle.StatelessCheck"/>
+  <allow class="com.puppycrawl.tools.checkstyle.api.AbstractCheck"/>
+  <allow class="com.puppycrawl.tools.checkstyle.api.DetailAST"/>
+  <allow class="com.puppycrawl.tools.checkstyle.api.TokenTypes"/>
+  <allow class="com.puppycrawl.tools.checkstyle.utils.TokenUtil"/>
 
   <subpackage name="checks">
-    <allow pkg="com.github.sevntu.checkstyle.checks"/>
-    <allow class="com.puppycrawl.tools.checkstyle.Definitions"/>
-    <allow pkg="java.math"/>
+    <allow class="com.github.sevntu.checkstyle.SevntuUtil"/>
+
+    <allow class="com.puppycrawl.tools.checkstyle.api.CheckstyleException"/>
+    <allow class="com.puppycrawl.tools.checkstyle.api.FullIdent"/>
+    <allow class="com.puppycrawl.tools.checkstyle.utils.AnnotationUtil"/>
+    <allow class="com.puppycrawl.tools.checkstyle.utils.CheckUtil"/>
+    <allow class="com.puppycrawl.tools.checkstyle.utils.CommonUtil"/>
+    <allow class="com.puppycrawl.tools.checkstyle.utils.ScopeUtil"/>
 
     <subpackage name="annotation">
       <!-- following allows does not exist in main projects -->
@@ -49,14 +34,27 @@
       <file name="CustomDeclarationOrderCheck">
         <allow class="java.beans.Introspector"/>
       </file>
-    </subpackage>
-  </subpackage>
 
-  <subpackage name="filters">
-    <allow pkg="java.lang.ref"/>
-    <!-- check's subpackages -->
-    <disallow pkg="com\.puppycrawl\.tools\.checkstyle\.checks\.[^.]+" regex="true"/>
-    <disallow pkg="com\.puppycrawl\.tools\.checkstyle\.(ant|doclets|gui)" regex="true"/>
+      <file name="OverridableMethodInConstructorCheck">
+        <allow class="java.io.Serializable"/>
+      </file>
+
+      <file name="ReturnCountExtendedCheck">
+        <allow class="com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck"/>
+      </file>
+    </subpackage>
+
+    <subpackage name="design">
+      <file name="CheckstyleTestMakeupCheck">
+        <allow class="java.io.File"/>
+        <allow class="com.puppycrawl.tools.checkstyle.DefaultConfiguration"/>
+        <allow class="com.puppycrawl.tools.checkstyle.api.Configuration"/>
+      </file>
+    </subpackage>
+
+    <subpackage name="naming">
+      <allow class="com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck"/>
+    </subpackage>
   </subpackage>
 
 </import-control>
