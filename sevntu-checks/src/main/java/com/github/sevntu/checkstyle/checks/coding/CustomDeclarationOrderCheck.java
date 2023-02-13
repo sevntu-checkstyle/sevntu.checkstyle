@@ -1326,7 +1326,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Class to keep current position and collect getters, setters.
      */
-    private static class ClassDetail {
+    private static final class ClassDetail {
 
         /**
          * Current position in custom order declaration.
