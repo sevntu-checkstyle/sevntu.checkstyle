@@ -22,7 +22,7 @@
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <checkstyle.nonMain.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_non_main_files_checks.xml</checkstyle.nonMain.configLocation>
     <checkstyle.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java.header</checkstyle.header>
-    <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java_regexp.header</checkstyle.regexp.header>
+    <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java-regexp.header</checkstyle.regexp.header>
     <antrun.plugin.version>3.1.0</antrun.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.jacoco.plugin.version>0.8.7</maven.jacoco.plugin.version>
