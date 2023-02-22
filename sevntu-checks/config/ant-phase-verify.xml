@@ -52,6 +52,8 @@
                 failureProperty="checkstyle.failure.property"
                 executeIgnoredModules="true"
                 >
+      <property key="checkstyle.non-main-files-suppressions.file"
+                file="${checkstyle.non-main-files-suppressions.file}"/>
       <path>
         <fileset dir="${basedir}/.." includes="**/*">
           <exclude name=".git/**/*"/>
