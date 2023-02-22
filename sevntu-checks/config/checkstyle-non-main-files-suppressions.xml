@@ -8,7 +8,7 @@
   <!-- START of legacy code, all violations will be resolved -->
   <suppress id="lineLength" files="checkstyle-metadata.xml"/>
   <suppress id="lineLength" files="checkstyle-metadata.properties"/>
-  <suppress id="lineLength" files="CheckstyleFormatterForEclipse.xml"/>
+  <suppress id="lineLength" files="checkstyle-formatter-for-eclipse.xml"/>
   <suppress id="lineLength" files="category.xml"/>
   <suppress id="lineLength" files="sevntu-checks.xml"/>
   <suppress id="lineLength" files="InputJsr305AnnotationsCheckWithConstructor.java"/>
