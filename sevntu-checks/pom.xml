@@ -18,7 +18,7 @@
     <!-- It is compile dependency to checkstyle, this version has to be the same as eclipse-cs depends on -->
     <checkstyle.eclipse-cs.version>10.4</checkstyle.eclipse-cs.version>
     <!-- verify time version -->
-    <checkstyle.version>10.7.0</checkstyle.version>
+    <checkstyle.version>10.8.0</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</checkstyle.configLocation>
     <checkstyle.nonMain.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_non_main_files_checks.xml</checkstyle.nonMain.configLocation>
     <checkstyle.non-main-files-suppressions.file>config/checkstyle_non_main_files_suppressions.xml</checkstyle.non-main-files-suppressions.file>
