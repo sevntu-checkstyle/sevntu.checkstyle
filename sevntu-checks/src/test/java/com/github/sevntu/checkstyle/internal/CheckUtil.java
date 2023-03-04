@@ -48,11 +48,11 @@ public final class CheckUtil {
     }
 
     /**
-     * Gets a set of names of checkstyle's checks which are referenced in checkstyle_checks.xml.
+     * Gets a set of names of checkstyle's checks which are referenced in checkstyle-checks.xml.
      *
      * @param configFilePath
-     *            file path of checkstyle_checks.xml.
-     * @return names of checkstyle's checks which are referenced in checkstyle_checks.xml.
+     *            file path of checkstyle-checks.xml.
+     * @return names of checkstyle's checks which are referenced in checkstyle-checks.xml.
      */
     public static Set<String> getCheckStyleChecksReferencedInConfig(String configFilePath) {
         try {

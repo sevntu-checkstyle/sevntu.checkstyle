@@ -180,7 +180,7 @@
               <goal>check</goal>
             </goals>
             <configuration>
-              <configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle_checks.xml</configLocation>
+              <configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle-checks.xml</configLocation>
               <failOnViolation>true</failOnViolation>
               <linkXRef>false</linkXRef>
               <propertiesLocation>checkstyle.properties</propertiesLocation>

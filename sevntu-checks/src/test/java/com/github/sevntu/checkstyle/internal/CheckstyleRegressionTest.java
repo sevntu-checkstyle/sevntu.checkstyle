@@ -58,7 +58,7 @@ public class CheckstyleRegressionTest {
                 throw new IllegalStateException("Can't find project: " + project.getAbsolutePath());
             }
 
-            final File config = new File(project, "config/checkstyle_sevntu_checks.xml");
+            final File config = new File(project, "config/checkstyle-sevntu-checks.xml");
 
             if (!config.exists() || !config.isFile() || !config.canRead() || !config.canWrite()) {
                 throw new IllegalStateException("Can't read config: " + config.getAbsolutePath());
@@ -66,7 +66,7 @@ public class CheckstyleRegressionTest {
 
             System.out.println("Config Path: " + config.getCanonicalPath());
 
-            final File suppression = new File(project, "config/sevntu_suppressions.xml");
+            final File suppression = new File(project, "config/sevntu-suppressions.xml");
 
             if (!suppression.exists() || !suppression.isFile() || !suppression.canRead()
                     || !suppression.canWrite()) {
