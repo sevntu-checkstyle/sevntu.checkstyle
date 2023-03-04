@@ -1,26 +1,79 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+
+  validate-with-maven-script:
+    description: "Runs a maven script using the job name as the argument."
+    parameters:
+      image-name:
+        type: string
+        default: "cimg/openjdk:11.0.18"
+        description: "docker image to use"
+      command:
+        description: "command to run"
+        type: string
+        default: ""
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: << parameters.image-name >>
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Maven repo cache
+          keys:
+            - mvn-cache-{{ checksum "pom.xml" }}
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          command: << parameters.command >>
+      - run:
+          command: |
+            ./.ci/validation.sh git-diff
+      - save_cache:
+          name: Save Maven repo cache
+          key: mvn-cache-{{ checksum "pom.xml" }}
+          paths:
+            - .m2
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  sonarqube:
+    docker:
+      - image: checkstyle/jdk-11-groovy-git-mvn:11.0.13__3.0.9__2.25.1__3.6.3
+
+    steps:
+      - checkout
+      - run: apt-get install -y jq
+      - run:
+          name: Run sonarqube
+          command: |
+            export PR_NUMBER=$CIRCLE_PR_NUMBER
+            export PR_BRANCH_NAME=$CIRCLE_BRANCH
+            export SONAR_API_TOKEN=$SONAR_TOKEN
+            ./.ci/validation.sh sonarqube
+
 workflows:
-  say-hello-workflow:
+  sonarqube:
     jobs:
-      - say-hello
+      - sonarqube:
+          context:
+            - sonarqube
+
+  test:
+    jobs:
+      - validate-with-maven-script:
+          name: "eclipse-cs"
+          command: "./.ci/validation.sh eclipse-cs"
+      - validate-with-maven-script:
+          name: "idea-extension"
+          command: "./.ci/validation.sh idea-extension"
+      - validate-with-maven-script:
+          name: "sonar-plugin"
+          command: "./.ci/validation.sh sonar-plugin"
+      - validate-with-maven-script:
+          name: "sevntu-checks"
+          command: "./.ci/validation.sh sevntu-checks"
+      - validate-with-maven-script:
+          name: "all-sevntu-checks-contribution"
+          command: "./.ci/validation.sh all-sevntu-checks-contribution"
+      - validate-with-maven-script:
+          name: "checkstyle-regression"
+          command: "./.ci/validation.sh checkstyle-regression"
+      - validate-with-maven-script:
+          name: "eclipse-analysis"
+          command: "./.ci/validation.sh eclipse-analysis"
