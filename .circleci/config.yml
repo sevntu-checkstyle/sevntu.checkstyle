@@ -3,7 +3,7 @@ version: 2.1
 jobs:
 
   validate-with-maven-script:
-    description: "Runs a maven script using the job name as the argument."
+    resource_class: small
     parameters:
       image-name:
         type: string
@@ -20,19 +20,18 @@ jobs:
       - restore_cache:
           name: Restore Maven repo cache
           keys:
-            - mvn-cache-{{ checksum "pom.xml" }}
+            - mvn-cache-{{ checksum "sevntu-checks/pom.xml" }}
       - run:
           command: << parameters.command >>
-      - run:
-          command: |
-            ./.ci/validation.sh git-diff
+      - run: ./.ci/validation.sh git-diff
       - save_cache:
           name: Save Maven repo cache
-          key: mvn-cache-{{ checksum "pom.xml" }}
+          key: mvn-cache-{{ checksum "sevntu-checks/pom.xml" }}
           paths:
             - .m2
 
   sonarqube:
+    resource_class: small
     docker:
       - image: checkstyle/jdk-11-groovy-git-mvn:11.0.13__3.0.9__2.25.1__3.6.3
 

@@ -25,6 +25,7 @@
   <!-- other images that do not support newer curl commands until
        https://github.com/checkstyle/checkstyle/issues/12451 -->
   <suppress id="properCurlCommand" files="bump-cs-version\.yml"/>
+  <suppress id="properCurlCommand" files="sonar-break-build\.sh"/>
 
   <!-- numberOfTestCasesInXpath does not apply to sevntu -->
   <suppress id="numberOfTestCasesInXpath" files=".*" />
