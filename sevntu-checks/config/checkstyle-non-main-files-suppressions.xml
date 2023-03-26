@@ -32,5 +32,5 @@
 
   <!-- Suppressed until https://github.com/checkstyle/checkstyle/pull/12900
        is merged and 10.9.3 is released. -->
-  <suppress id="workflowJobStepSpacing" files=".*" />
+  <suppress id="workflowJobStepSpacing" files="^.((?!github[\\/]workflows[\\/]).)*$" />
 </suppressions>
