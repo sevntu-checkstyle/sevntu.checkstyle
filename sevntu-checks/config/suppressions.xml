@@ -29,4 +29,7 @@
     <suppress id="MatchXPathBranchContains" files="[\\/]ConfusingConditionCheck.java"/>
     <suppress id="MatchXPathBranchContains" files="[\\/]StaticMethodCandidateCheck.java"/>
 
+    <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/1017 -->
+    <suppress id="missingMessageKeyAnnotation" files=".*" />
+
 </suppressions>
