@@ -28,7 +28,7 @@
   <properties>
     <eclipsecs.version>10.4.0-SNAPSHOT</eclipsecs.version>
     <!-- verify time version -->
-    <checkstyle.version>10.12.4</checkstyle.version>
+    <checkstyle.version>10.12.5</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle-checks.xml</checkstyle.configLocation>
     <checkstyle.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java.header</checkstyle.header>
     <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java-regexp.header</checkstyle.regexp.header>
