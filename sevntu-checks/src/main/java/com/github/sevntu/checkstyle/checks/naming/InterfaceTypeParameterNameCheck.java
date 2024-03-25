@@ -24,32 +24,32 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
 
 /**
-* <p>
-* Checks that interface type parameter names conform to a format specified
-* by the format property.  The format is a
-* {@link java.util.regex.Pattern regular expression} and defaults to
-* <strong>^[A-Z]$</strong>.
-* </p>
-* <p>
-* An example of how to configure the check is:
-* </p>
-* <pre>
-* &lt;module name="InterfaceTypeParameterName"/&gt;
-* </pre>
-* <p>
-* An example of how to configure the check for names that are only a single
-* letter is
-* </p>
-* <pre>
-* &lt;module name="InterfaceTypeParameterName"&gt;
-*    &lt;property name="format" value="^[a-zA-Z]$"/&gt;
-* &lt;/module&gt;
-* </pre>
-*
-* @author Dmitry Gridyushko
-* @version 1.0
-* @since 1.8.0
-*/
+ * <p>
+ * Checks that interface type parameter names conform to a format specified
+ * by the format property.  The format is a
+ * {@link java.util.regex.Pattern regular expression} and defaults to
+ * <strong>^[A-Z]$</strong>.
+ * </p>
+ * <p>
+ * An example of how to configure the check is:
+ * </p>
+ * <pre>
+ * &lt;module name="InterfaceTypeParameterName"/&gt;
+ * </pre>
+ * <p>
+ * An example of how to configure the check for names that are only a single
+ * letter is
+ * </p>
+ * <pre>
+ * &lt;module name="InterfaceTypeParameterName"&gt;
+ *    &lt;property name="format" value="^[a-zA-Z]$"/&gt;
+ * &lt;/module&gt;
+ * </pre>
+ *
+ * @author Dmitry Gridyushko
+ * @version 1.0
+ * @since 1.8.0
+ */
 public class InterfaceTypeParameterNameCheck
         extends AbstractNameCheck {
 
