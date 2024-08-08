@@ -271,6 +271,7 @@
                 <property name="checkstyle.non-main-files-suppressions.file" value="${checkstyle.non-main-files-suppressions.file}"/>
                 <property name="checkstyle.header" value="${checkstyle.header}"/>
                 <property name="checkstyle.regexp.header" value="${checkstyle.regexp.header}"/>
+                <property name="mvn.java.version" value="${java.version}"/>
                 <ant antfile="config/ant-phase-verify.xml"/>
               </target>
             </configuration>
