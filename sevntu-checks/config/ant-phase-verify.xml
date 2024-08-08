@@ -35,6 +35,7 @@
       <property key="checkstyle.importcontroltest.file" file="config/import-control-test.xml"/>
       <property key="checkstyle.suppressions.file" file="config/suppressions.xml"/>
       <property key="checkstyle.suppressions-xpath.file" file="config/suppressions.xml"/>
+      <property key="checkstyle.java.version" value="${mvn.java.version}"/>
     </checkstyle>
 
     <tstamp>
