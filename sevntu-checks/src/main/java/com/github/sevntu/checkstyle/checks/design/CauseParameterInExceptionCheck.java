@@ -39,7 +39,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * someone debugging the problem that caused the higher-level exception. The
  * lower-level exception (the cause) is passed to the higher-level.."
  * <i>[Joshua Bloch - Effective Java 2nd Edition, Chapter 4, Item 61]</i>
- * </p><p> Parameters: </p><ol>
+ * </p><p>Parameters: </p><ol>
  * <li>Exception classNames regexp. ("classNamesRegexp" option).</li>
  * <li>regexp to ignore classes by names ("ignoredClassNamesRegexp" option).
  * </li><li>The names of classes which would be considered as Exception cause
