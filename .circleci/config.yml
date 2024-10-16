@@ -73,6 +73,7 @@ workflows:
       - validate-with-maven-script:
           name: "checkstyle-regression"
           command: "./.ci/validation.sh checkstyle-regression"
-      - validate-with-maven-script:
-          name: "eclipse-analysis"
-          command: "./.ci/validation.sh eclipse-analysis"
+      # until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/1039
+      # - validate-with-maven-script:
+      #    name: "eclipse-analysis"
+      #    command: "./.ci/validation.sh eclipse-analysis"
