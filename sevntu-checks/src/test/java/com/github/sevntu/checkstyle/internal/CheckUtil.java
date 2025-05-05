@@ -205,7 +205,7 @@ public final class CheckUtil {
             final MessageFormat formatter = new MessageFormat(pr.getProperty(messageKey));
             result = formatter.format(arguments);
         }
-        catch (IOException ex) {
+        catch (IOException exc) {
             result = null;
         }
         return result;

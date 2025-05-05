@@ -399,9 +399,9 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
 
             fail("exception expected");
         }
-        catch (IllegalArgumentException ex) {
+        catch (IllegalArgumentException exc) {
             Assertions.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED",
-                    ex.getMessage());
+                    exc.getMessage());
         }
     }
 

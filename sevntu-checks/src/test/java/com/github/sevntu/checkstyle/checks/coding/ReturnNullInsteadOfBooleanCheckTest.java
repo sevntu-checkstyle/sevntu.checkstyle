@@ -61,9 +61,9 @@ public class ReturnNullInsteadOfBooleanCheckTest extends AbstractModuleTestSuppo
 
             fail("exception expected");
         }
-        catch (IllegalArgumentException ex) {
+        catch (IllegalArgumentException exc) {
             Assertions.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED",
-                    ex.getMessage());
+                    exc.getMessage());
         }
     }
 
@@ -78,9 +78,9 @@ public class ReturnNullInsteadOfBooleanCheckTest extends AbstractModuleTestSuppo
 
             fail("exception expected");
         }
-        catch (IllegalArgumentException ex) {
+        catch (IllegalArgumentException exc) {
             Assertions.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED",
-                    ex.getMessage());
+                    exc.getMessage());
         }
     }
 

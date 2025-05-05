@@ -268,8 +268,8 @@ public class LineLengthExtendedCheck extends AbstractCheck {
         try {
             ignorePattern = Pattern.compile(format);
         }
-        catch (final PatternSyntaxException ex) {
-            throw new IllegalArgumentException("unable to parse " + format, ex);
+        catch (final PatternSyntaxException exc) {
+            throw new IllegalArgumentException("unable to parse " + format, exc);
         }
     }
 

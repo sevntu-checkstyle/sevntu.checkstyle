@@ -124,13 +124,13 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
             fail("exception expected");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             final String messagePrefix = "cannot initialize module"
                     + " com.puppycrawl.tools.checkstyle.TreeWalker -"
                     + " cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck -"
                     + " Cannot set property 'formats' to '\\'";
-            Assertions.assertTrue(ex.getMessage().startsWith(messagePrefix),
+            Assertions.assertTrue(exc.getMessage().startsWith(messagePrefix),
                 "Exception's message does not start with: " + messagePrefix);
         }
     }
@@ -152,12 +152,12 @@ public class UniformEnumConstantNameCheckTest extends AbstractModuleTestSupport 
             verify(checkConfig, getPath("InputUniformEnumConstantNameCheck.java"), expected);
             fail("exception expected");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             final String messagePrefix = "cannot initialize module "
                 + "com.puppycrawl.tools.checkstyle.TreeWalker - "
                 + "Token \"INTERFACE_DEF\" was not found in "
                 + "Acceptable tokens list in check ";
-            Assertions.assertTrue(ex.getMessage().startsWith(messagePrefix),
+            Assertions.assertTrue(exc.getMessage().startsWith(messagePrefix),
                 "Exception's message does not start with: " + messagePrefix);
         }
     }
