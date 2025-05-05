@@ -204,10 +204,10 @@ public class AllChecksTest {
         try {
             result = CheckUtil.getCheckMessage(module, messageString);
         }
-        catch (IllegalArgumentException ex) {
+        catch (IllegalArgumentException exc) {
             Assertions.fail(module.getSimpleName() + " with the message '" + messageString
                     + "' failed with: "
-                    + ex.getClass().getSimpleName() + " - " + ex.getMessage());
+                    + exc.getClass().getSimpleName() + " - " + exc.getMessage());
         }
 
         Assertions.assertNotNull(
@@ -229,8 +229,8 @@ public class AllChecksTest {
             try {
                 path = getSimplePath(file.getCanonicalPath()).replace("Test.java", "");
             }
-            catch (IOException ex) {
-                throw new IllegalStateException(ex);
+            catch (IOException exc) {
+                throw new IllegalStateException(exc);
             }
 
             final int slash = path.lastIndexOf(File.separatorChar);
@@ -255,8 +255,8 @@ public class AllChecksTest {
             try {
                 path = getSimplePath(file.getCanonicalPath());
             }
-            catch (IOException ex) {
-                throw new IllegalStateException(ex);
+            catch (IOException exc) {
+                throw new IllegalStateException(exc);
             }
 
             String fileName = file.getName();

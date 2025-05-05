@@ -1301,8 +1301,8 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
                 regExp = Pattern.compile(newFormat, compileFlags);
                 format = newFormat;
             }
-            catch (final PatternSyntaxException ex) {
-                throw new IllegalArgumentException("unable to parse " + newFormat, ex);
+            catch (final PatternSyntaxException exc) {
+                throw new IllegalArgumentException("unable to parse " + newFormat, exc);
             }
         }
 

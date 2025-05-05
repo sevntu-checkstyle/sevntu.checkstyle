@@ -65,13 +65,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to ''",
-                    ex.getMessage(), "Exception did not have correct error message.");
+                    exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -85,13 +85,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to '  '",
-                    ex.getMessage(), "Exception did not have correct error message.");
+                    exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -105,13 +105,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to ' , '",
-                    ex.getMessage(), "Exception did not have correct error message.");
+                    exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -125,13 +125,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to 'null'",
-                    ex.getMessage(), "Exception did not have correct error message.");
+                    exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -158,9 +158,9 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             check.visitToken(sync);
             Assertions.fail("Expecting IllegalArgumentException");
         }
-        catch (IllegalArgumentException ex) {
+        catch (IllegalArgumentException exc) {
             Assertions.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED",
-                    ex.getMessage());
+                    exc.getMessage());
         }
     }
 
@@ -173,13 +173,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'methodName' to 'null'",
-                    ex.getMessage(), "Exception did not have correct error message.");
+                    exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -200,13 +200,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"));
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'methodName' to '[exit'",
-                    ex.getMessage(), "Exception did not have correct error message.");
+                    exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -222,13 +222,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to 'badArgCount'",
-                ex.getMessage(), "Exception did not have correct error message.");
+                exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -244,13 +244,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to 'badStart-badEnd'",
-                ex.getMessage(), "Exception did not have correct error message.");
+                exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -266,13 +266,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to '2, badStart-badEnd'",
-                ex.getMessage(), "Exception did not have correct error message.");
+                exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -288,13 +288,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to ' , 1-4 '",
-                ex.getMessage(), "Exception did not have correct error message.");
+                exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -310,13 +310,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to ' - '",
-                ex.getMessage(), "Exception did not have correct error message.");
+                exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 
@@ -332,13 +332,13 @@ public class ForbidCertainMethodCheckTest extends AbstractModuleTestSupport {
             verify(checkConfig, getPath("InputForbidCertainMethodCheck.java"), expected);
             Assertions.fail("Expecting CheckstyleException");
         }
-        catch (CheckstyleException ex) {
+        catch (CheckstyleException exc) {
             Assertions.assertEquals(
                 "cannot initialize module com.puppycrawl.tools.checkstyle.TreeWalker - "
                     + "cannot initialize module"
                     + " com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck -"
                     + " Cannot set property 'argumentCount' to '10-1'",
-                ex.getMessage(), "Exception did not have correct error message.");
+                exc.getMessage(), "Exception did not have correct error message.");
         }
     }
 

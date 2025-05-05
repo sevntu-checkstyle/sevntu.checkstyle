@@ -41,8 +41,8 @@ public class SevntuUtilTest {
             SevntuUtil.reportInvalidToken(TokenTypes.CLASS_DEF);
             fail("exception expected");
         }
-        catch (IllegalArgumentException ex) {
-            Assertions.assertEquals("Found unsupported token: CLASS_DEF", ex.getMessage());
+        catch (IllegalArgumentException exc) {
+            Assertions.assertEquals("Found unsupported token: CLASS_DEF", exc.getMessage());
         }
     }
 

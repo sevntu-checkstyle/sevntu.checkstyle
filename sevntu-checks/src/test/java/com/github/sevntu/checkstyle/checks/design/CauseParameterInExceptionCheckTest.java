@@ -165,9 +165,9 @@ public class CauseParameterInExceptionCheckTest extends AbstractModuleTestSuppor
 
             fail("exception expected");
         }
-        catch (IllegalArgumentException ex) {
+        catch (IllegalArgumentException exc) {
             Assertions.assertEquals("Found unsupported token: LITERAL_SYNCHRONIZED",
-                    ex.getMessage());
+                    exc.getMessage());
         }
     }
 

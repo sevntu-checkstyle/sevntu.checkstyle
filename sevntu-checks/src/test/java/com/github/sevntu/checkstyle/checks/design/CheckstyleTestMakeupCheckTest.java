@@ -122,8 +122,8 @@ public class CheckstyleTestMakeupCheckTest extends AbstractModuleTestSupport {
             check.visitToken(parent);
             fail("exception expected");
         }
-        catch (IllegalArgumentException ex) {
-            Assertions.assertEquals("Found unsupported token: OBJBLOCK", ex.getMessage());
+        catch (IllegalArgumentException exc) {
+            Assertions.assertEquals("Found unsupported token: OBJBLOCK", exc.getMessage());
         }
     }
 
