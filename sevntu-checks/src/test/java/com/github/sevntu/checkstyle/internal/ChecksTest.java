@@ -85,7 +85,7 @@ public final class ChecksTest {
             validateEclipseCsMetaXmlFile(
                     new File(getEclipseCsPath(packageName
                             + "/checkstyle-metadata.xml")), packageName, new HashSet<>(
-                            pkgModules));
+                                pkgModules));
 
             validateEclipseCsMetaPropFile(new File(getEclipseCsPath(packageName
                     + "/checkstyle-metadata.properties")), packageName, new HashSet<>(pkgModules));
