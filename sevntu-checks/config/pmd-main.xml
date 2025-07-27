@@ -11,7 +11,21 @@
   <rule ref="config/pmd.xml">
     <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/525 -->
     <exclude name="TooManyMethods"/>
-    <exclude name="ExcessiveClassLength"/>
     <exclude name="NPathComplexity"/>
+    <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/1048 -->
+    <exclude name="AvoidLiteralsInIfCondition"/>
+    <exclude name="ConfusingTernary"/>
+    <exclude name="ConsecutiveAppendsShouldReuse"/>
+    <exclude name="LongVariable"/>
+    <exclude name="LooseCoupling"/>
+    <exclude name="SingularField"/>
+    <exclude name="SystemPrintln"/>
+    <exclude name="UnnecessaryCast"/>
+    <exclude name="UnnecessaryVarargsArrayCreation"/>
+    <exclude name="UnusedAssignment"/>
+    <exclude name="UseEnumCollections"/>
+    <exclude name="UselessParentheses"/>
+    <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
+    <exclude name="UnitTestShouldIncludeAssert"/>
   </rule>
 </ruleset>
