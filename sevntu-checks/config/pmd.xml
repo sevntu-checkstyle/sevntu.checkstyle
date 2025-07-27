@@ -31,11 +31,6 @@
   <rule ref="category/java/codestyle.xml">
     <!-- Opposite to UnnecessaryConstructor. -->
     <exclude name="AtLeastOneConstructor"/>
-    <!-- Turning a local variable to the field may create design problems and extend the scope of
-           the variable. -->
-    <exclude name="AvoidFinalLocalVariable"/>
-    <!-- Conflicts with names that does not mean in/out. -->
-    <exclude name="AvoidPrefixingMethodParameters"/>
     <!-- Calling super() is completely pointless, no matter if class inherits anything or not;
          it is meaningful only if you do not call implicit constructor of the base class. -->
     <exclude name="CallSuperInConstructor"/>
@@ -78,16 +73,9 @@
     </properties>
   </rule>
   <rule ref="category/java/errorprone.xml">
-    <!-- That rule is not practical, no options to allow some magic numbers,
-         we will use our implementation. -->
-    <exclude name="AvoidLiteralsInIfCondition"/>
-    <!-- It is not our goal for now to keep all Serializable, maybe in the future. -->
-    <exclude name="BeanMembersShouldSerialize"/>
     <!-- We need compare by ref as Tree structure is immutable, we can easily
          rely on refs. -->
     <exclude name="CompareObjectsWithEquals"/>
-    <!-- Too many false positives. -->
-    <exclude name="DataflowAnomalyAnalysis"/>
     <!-- We reuse Check instances between java files, we need to clear state of
          class in beginTree() methods. -->
     <exclude name="NullAssignment"/>
@@ -141,33 +129,6 @@
     <exclude name="AvoidInstantiatingObjectsInLoops"/>
     <!-- Not configurable, decreases readability. -->
     <exclude name="UseStringBufferForStringAppends"/>
-  </rule>
-
-  <!-- Checkstyle own rules. -->
-  <rule name="CheckstyleCustomShortVariable"
-        message="Avoid variables with short names that shorter than 2 symbols: {0}"
-        language="java"
-        class="net.sourceforge.pmd.lang.rule.XPathRule"
-        externalInfoUrl="">
-    <description>
-      Fields, local variables, or parameter names that are very short are not helpful to the reader.
-    </description>
-    <priority>3</priority>
-    <properties>
-      <property name="xpath">
-        <value>
-          <![CDATA[
-          //VariableDeclaratorId[string-length(@Name) < 2]
-          [not(ancestor::ForInit)]
-          [not(../../VariableDeclarator and ../../../LocalVariableDeclaration
-                and ../../../../ForStatement)]
-          [not((ancestor::FormalParameter) and (ancestor::TryStatement))]
-          [not(ancestor::ClassOrInterfaceDeclaration[
-              //MarkerAnnotation/Name[pmd-java:typeIs('java.lang.Override')]])]
-          ]]>
-        </value>
-      </property>
-    </properties>
   </rule>
 
 </ruleset>
