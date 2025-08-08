@@ -32,7 +32,7 @@
     <java.version>17</java.version>
     <junit.version>5.8.0</junit.version>
     <assertj.version>3.24.2</assertj.version>
-    <truth.version>1.1.2</truth.version>
+    <truth.version>1.4.4</truth.version>
   </properties>
 
   <licenses>
