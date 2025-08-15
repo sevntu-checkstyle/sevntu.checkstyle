@@ -31,7 +31,7 @@
     <sonar.version>7.9</sonar.version>
     <staxmate.version>2.0.1</staxmate.version>
     <java.version>17</java.version>
-    <junit.version>4.13.1</junit.version>
+    <junit.version>4.13.2</junit.version>
   </properties>
 
   <dependencies>
