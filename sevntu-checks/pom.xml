@@ -26,7 +26,7 @@
     <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java-regexp.header</checkstyle.regexp.header>
     <antrun.plugin.version>3.1.0</antrun.plugin.version>
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
-    <maven.jacoco.plugin.version>0.8.7</maven.jacoco.plugin.version>
+    <maven.jacoco.plugin.version>0.8.13</maven.jacoco.plugin.version>
     <maven.pmd.plugin.version>3.27.0</maven.pmd.plugin.version>
     <pmd.version>7.16.0</pmd.version>
     <java.version>17</java.version>
