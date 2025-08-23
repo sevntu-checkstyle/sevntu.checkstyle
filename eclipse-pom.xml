@@ -27,11 +27,12 @@
 
   <repositories>
     <repository>
-      <id>2020-09</id>
+      <id>eclipse-2020-09</id>
       <layout>p2</layout>
-      <url>https://download.eclipse.org/releases/2020-09</url>
+      <url>https://download.eclipse.org/releases/2020-09/</url>
     </repository>
   </repositories>
+
 
   <build>
     <plugins>

@@ -12,7 +12,6 @@
     <version>1.44.1</version>
   </parent>
 
-  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>eclipsecs-sevntu-plugin</artifactId>
   <packaging>eclipse-plugin</packaging>
 
@@ -26,14 +25,13 @@
   </licenses>
 
   <properties>
-    <eclipsecs.version>10.4.0-SNAPSHOT</eclipsecs.version>
+    <eclipsecs.version>11.0.0-SNAPSHOT</eclipsecs.version>
     <!-- verify time version -->
-    <checkstyle.version>10.26.1</checkstyle.version>
+    <checkstyle.version>11.0.0</checkstyle.version>
     <checkstyle.configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyle.version}/config/checkstyle-checks.xml</checkstyle.configLocation>
     <checkstyle.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java.header</checkstyle.header>
     <checkstyle.regexp.header>https://raw.githubusercontent.com/checkstyle/checkstyle/master/config/java-regexp.header</checkstyle.regexp.header>
     <antrun.plugin.version>3.1.0</antrun.plugin.version>
-    <checkstyle.java.version>17</checkstyle.java.version>
   </properties>
 
   <dependencies>
