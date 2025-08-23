@@ -17,7 +17,7 @@
   <name>Sevntu Checkstyle Idea extension</name>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>21</java.version>
   </properties>
 
   <licenses>

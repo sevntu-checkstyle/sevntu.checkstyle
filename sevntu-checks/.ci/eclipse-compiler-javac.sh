@@ -12,7 +12,7 @@ if [ -z "$2" ]; then
     exit 1
 fi
 
-JAVA_RELEASE=${3:-11}
+JAVA_RELEASE=${3:-21}
 
 ECLIPSE_URL="http://ftp-stud.fht-esslingen.de/pub/Mirrors/eclipse/eclipse/downloads/drops4"
 ECJ_MAVEN_VERSION=$(wget --quiet -O- "$ECLIPSE_URL/?C=M;O=D" | grep -o "R-[^/]*" | head -n1)
