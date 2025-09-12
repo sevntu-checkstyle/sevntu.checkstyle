@@ -151,7 +151,8 @@ public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
         for (DetailAST child = logicNode.getFirstChild(); child != null; child = child
                 .getNextSibling()) {
             if (child.getType() != TokenTypes.LPAREN && child.getType() != TokenTypes.RPAREN) {
-                children[index++] = child;
+                children[index] = child;
+                index++;
             }
         }
 

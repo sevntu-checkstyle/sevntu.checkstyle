@@ -26,6 +26,8 @@
     <!-- We use class comments as source for xdoc files,
          so content is big and that is by design. -->
     <exclude name="CommentSize"/>
+    <!-- too much false positives -->
+    <exclude name="DanglingJavadoc"/>
   </rule>
 
   <rule ref="category/java/codestyle.xml">
