@@ -31,7 +31,7 @@
     <pmd.version>7.16.0</pmd.version>
     <java.version>17</java.version>
     <junit.version>5.13.4</junit.version>
-    <assertj.version>3.27.4</assertj.version>
+    <assertj.version>3.27.6</assertj.version>
     <truth.version>1.4.4</truth.version>
   </properties>
 
