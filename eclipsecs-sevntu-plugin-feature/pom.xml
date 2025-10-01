@@ -10,7 +10,6 @@
     <version>1.44.1</version>
   </parent>
 
-  <groupId>com.github.sevntu-checkstyle</groupId>
   <artifactId>com.github.sevntu.checkstyle.checks.feature</artifactId>
   <packaging>eclipse-feature</packaging>
   <name>Extension for eclipse-cs Plugin with additional Checks</name>
