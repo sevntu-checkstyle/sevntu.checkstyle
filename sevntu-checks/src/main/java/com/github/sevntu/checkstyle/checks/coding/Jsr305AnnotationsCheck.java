@@ -329,6 +329,8 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
     private boolean allowOverridingReturnValue;
     /** Parameter: overriding parameter annotations allowed. */
     private boolean allowOverridingParameter;
+    /** Parameter: allow nullable return value. */
+    private boolean allowNullableReturnValue;
 
     /** State, is a package excluded. */
     private boolean packageExcluded;
@@ -413,6 +415,16 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
      */
     public void setAllowOverridingParameter(final boolean newAllowOverridingParameter) {
         allowOverridingParameter = newAllowOverridingParameter;
+    }
+
+    /**
+     * Sets the property for allowing nullable return values.
+     *
+     * @param newAllowNullableReturnValue
+     *        true if yes
+     */
+    public void setAllowNullableReturnValue(final boolean newAllowNullableReturnValue) {
+        allowNullableReturnValue = newAllowNullableReturnValue;
     }
 
     /**
@@ -771,8 +783,10 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
         protected void runReturnAnnotationHandler() {
             checkContainsAny(MSG_RETURN_VALUE_WITH_NONNULL_BY_DEFAULT,
                     NullnessAnnotation.RETURN_VALUES_ARE_NONNULL_BY_DEFAULT);
-            checkContainsAny(MSG_RETURN_VALUE_WITH_NULLABLE,
+            if (!allowNullableReturnValue) {
+                checkContainsAny(MSG_RETURN_VALUE_WITH_NULLABLE,
                     NullnessAnnotation.NULLABLE);
+            }
             checkContainsAll(MSG_CONTRADICTING_RETURN_VALUE_ANNOTATIONS, NullnessAnnotation.NONNULL,
                     NullnessAnnotation.CHECK_FOR_NULL);
             checkContainsAll(MSG_OVERRIDDEN_METHOD_WITH_CHECK_RETURN_VALUE,
