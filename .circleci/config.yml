@@ -7,7 +7,7 @@ jobs:
     parameters:
       image-name:
         type: string
-        default: "cimg/openjdk:17.0.7"
+        default: "cimg/openjdk:17.0.8"
         description: "docker image to use"
       command:
         description: "command to run"
@@ -52,7 +52,6 @@ workflows:
       - validate-with-maven-script:
           name: "checkstyle-regression"
           command: "./.ci/validation.sh checkstyle-regression"
-      # until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/1039
-      # - validate-with-maven-script:
-      #    name: "eclipse-analysis"
-      #    command: "./.ci/validation.sh eclipse-analysis"
+      - validate-with-maven-script:
+          name: "eclipse-analysis"
+          command: "./.ci/validation.sh eclipse-analysis"
