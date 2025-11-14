@@ -382,12 +382,9 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
         final DetailAstImpl ast = new DetailAstImpl();
         ast.setType(TokenTypes.WILDCARD_TYPE);
 
-        final Method handleDefinition =
-                TestUtil.getClassDeclaredMethod(
-                        Jsr305AnnotationsCheck.class, "handleDefinition", 1);
-
         try {
-            handleDefinition.invoke(new Jsr305AnnotationsCheck(), ast);
+            TestUtil.invokeMethod(
+                    new Jsr305AnnotationsCheck(), "handleDefinition", Method.class, ast);
             Assertions.fail("Exception expected.");
         }
         catch (final InvocationTargetException exc) {
