@@ -444,13 +444,13 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      */
     private int minSymbolsBeforeChecking(NumericType type) {
         final int minLength;
-        if (type.equals(NumericType.DECIMAL)) {
+        if (type == NumericType.DECIMAL) {
             minLength = minDecimalSymbolLength;
         }
-        else if (type.equals(NumericType.HEX)) {
+        else if (type == NumericType.HEX) {
             minLength = minHexSymbolLength;
         }
-        else if (type.equals(NumericType.BINARY)) {
+        else if (type == NumericType.BINARY) {
             minLength = minBinarySymbolLength;
         }
         else {
@@ -471,13 +471,13 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      */
     private int maxSymbolsUntilUnderscore(NumericType type) {
         final int maxSymbols;
-        if (type.equals(NumericType.DECIMAL)) {
+        if (type == NumericType.DECIMAL) {
             maxSymbols = maxDecimalSymbolsUntilUnderscore;
         }
-        else if (type.equals(NumericType.HEX)) {
+        else if (type == NumericType.HEX) {
             maxSymbols = maxHexSymbolsUntilUnderscore;
         }
-        else if (type.equals(NumericType.BINARY)) {
+        else if (type == NumericType.BINARY) {
             maxSymbols = maxBinarySymbolsUntilUnderscore;
         }
         else {
@@ -507,13 +507,13 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      */
     private static String[] getNumericSegments(String strippedLiteral, NumericType type) {
         final String[] numericSegments;
-        if (type.equals(NumericType.DECIMAL)) {
+        if (type == NumericType.DECIMAL) {
             numericSegments = DECIMAL_SPLITTER.split(strippedLiteral);
         }
-        else if (type.equals(NumericType.HEX)) {
+        else if (type == NumericType.HEX) {
             numericSegments = HEX_SPLITTER.split(strippedLiteral);
         }
-        else if (type.equals(NumericType.BINARY)) {
+        else if (type == NumericType.BINARY) {
             numericSegments = new String[1];
             numericSegments[0] = strippedLiteral;
         }
@@ -610,14 +610,14 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
      */
     private static String removePrePostfixByType(String rawLiteral, NumericType literalType) {
         String processedLiteral;
-        if (literalType.equals(NumericType.DECIMAL)) {
+        if (literalType == NumericType.DECIMAL) {
             processedLiteral = removeLetterPostfix(rawLiteral);
         }
-        else if (literalType.equals(NumericType.HEX)) {
+        else if (literalType == NumericType.HEX) {
             processedLiteral = removePrefix(rawLiteral);
             processedLiteral = removePostfixHex(processedLiteral);
         }
-        else if (literalType.equals(NumericType.BINARY)) {
+        else if (literalType == NumericType.BINARY) {
             processedLiteral = removePrefix(rawLiteral);
             processedLiteral = removeLetterPostfix(processedLiteral);
         }
