@@ -28,7 +28,7 @@
     <sevntu.maven.plugin>RELEASE</sevntu.maven.plugin>
     <maven.jacoco.plugin.version>0.8.14</maven.jacoco.plugin.version>
     <maven.pmd.plugin.version>3.28.0</maven.pmd.plugin.version>
-    <pmd.version>7.18.0</pmd.version>
+    <pmd.version>7.19.0</pmd.version>
     <java.version>17</java.version>
     <junit.version>6.0.1</junit.version>
     <assertj.version>3.27.6</assertj.version>
