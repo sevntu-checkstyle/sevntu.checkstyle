@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 public class TernaryPerExpressionCountCheckTest extends AbstractModuleTestSupport {
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

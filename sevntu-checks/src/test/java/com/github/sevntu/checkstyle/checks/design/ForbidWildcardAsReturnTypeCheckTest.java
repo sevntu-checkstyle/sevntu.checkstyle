@@ -112,7 +112,7 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
     }
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/design";
     }
 

@@ -30,7 +30,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
 public class MoveVariableInsideIfCheckTest extends AbstractModuleTestSupport {
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

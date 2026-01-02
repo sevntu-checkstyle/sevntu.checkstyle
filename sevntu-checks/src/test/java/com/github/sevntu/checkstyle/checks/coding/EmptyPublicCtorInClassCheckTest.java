@@ -35,7 +35,7 @@ public class EmptyPublicCtorInClassCheckTest extends AbstractModuleTestSupport {
     private final String message = getCheckMessage(MSG_KEY);
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

@@ -27,7 +27,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class NameConventionForJunit4TestClassesCheckTest extends AbstractModuleTestSupport {
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 
