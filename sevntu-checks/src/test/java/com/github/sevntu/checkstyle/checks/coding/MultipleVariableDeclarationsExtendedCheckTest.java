@@ -34,7 +34,7 @@ public class MultipleVariableDeclarationsExtendedCheckTest extends AbstractModul
     private final String msgVarDeclarations = getCheckMessage(MSG_VAR_DECLARATIONS);
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

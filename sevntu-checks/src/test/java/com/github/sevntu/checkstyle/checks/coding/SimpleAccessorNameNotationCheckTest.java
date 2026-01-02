@@ -33,7 +33,7 @@ public class SimpleAccessorNameNotationCheckTest extends AbstractModuleTestSuppo
     private final String warningSetterMessage = getCheckMessage(MSG_KEY_SETTER);
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

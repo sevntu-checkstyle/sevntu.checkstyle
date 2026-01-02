@@ -34,7 +34,7 @@ import com.puppycrawl.tools.checkstyle.internal.utils.TestUtil;
 public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

@@ -31,7 +31,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 public class ReturnCountExtendedCheckTest extends AbstractModuleTestSupport {
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

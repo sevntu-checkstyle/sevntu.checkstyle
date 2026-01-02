@@ -34,7 +34,7 @@ public class OverridableMethodInConstructorCheckTest extends AbstractModuleTestS
     private static final String READ_OBJECT_KEY = "'readObject()' method";
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

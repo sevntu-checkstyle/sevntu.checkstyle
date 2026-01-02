@@ -34,7 +34,7 @@ public class ForbidReturnInFinallyBlockCheckTest extends AbstractModuleTestSuppo
     private final String warningMessage = getCheckMessage(MSG_KEY);
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/coding";
     }
 

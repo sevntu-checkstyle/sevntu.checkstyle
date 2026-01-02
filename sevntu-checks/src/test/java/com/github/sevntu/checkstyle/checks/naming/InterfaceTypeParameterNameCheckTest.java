@@ -30,7 +30,7 @@ public class InterfaceTypeParameterNameCheckTest extends AbstractModuleTestSuppo
     private static final String MSG_KEY = "name.invalidPattern";
 
     @Override
-    protected String getPackageLocation() {
+    public String getPackageLocation() {
         return "com/github/sevntu/checkstyle/checks/naming";
     }
 
