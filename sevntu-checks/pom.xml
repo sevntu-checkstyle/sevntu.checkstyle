@@ -30,7 +30,7 @@
     <maven.pmd.plugin.version>3.28.0</maven.pmd.plugin.version>
     <pmd.version>7.20.0</pmd.version>
     <java.version>17</java.version>
-    <junit.version>6.0.1</junit.version>
+    <junit.version>6.0.2</junit.version>
     <assertj.version>3.27.6</assertj.version>
     <truth.version>1.4.5</truth.version>
   </properties>
