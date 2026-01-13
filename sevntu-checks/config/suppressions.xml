@@ -38,6 +38,8 @@
     <!-- until https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/1038 -->
     <suppress checks="JavadocParagraph" message="tag should be preceded with an empty line."/>
     <suppress checks="JavadocParagraph" message="Redundant .* tag."/>
+    <!--one down the checking for eclipse pref file  -->
+    <suppress files="org\.eclipse\.jdt\.core\.prefs-e" checks="LineLength"/>
 
     <!-- until sevntu is migrated to JDK 14+ -->
     <suppress checks="UseEnhancedSwitch" files=".*"/>
