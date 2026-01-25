@@ -36,6 +36,7 @@ workflows:
     jobs:
       - validate-with-maven-script:
           name: "eclipse-cs"
+          image-name: "cimg/openjdk:17.0.7"
           command: "./.ci/validation.sh eclipse-cs"
       - validate-with-maven-script:
           name: "idea-extension"
