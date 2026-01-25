@@ -7,7 +7,7 @@ jobs:
     parameters:
       image-name:
         type: string
-        default: "cimg/openjdk:17.0.7"
+        default: "cimg/openjdk:21.0.6"
         description: "docker image to use"
       command:
         description: "command to run"
