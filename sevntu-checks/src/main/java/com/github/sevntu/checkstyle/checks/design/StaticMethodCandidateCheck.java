@@ -782,7 +782,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param exprAst EXPR ast.
          */
-        public void addExpr(DetailAST exprAst) {
+        private void addExpr(DetailAST exprAst) {
             expressions.add(exprAst);
         }
 
@@ -791,7 +791,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param child frame to add.
          */
-        public void addChild(Frame child) {
+        private void addChild(Frame child) {
             children.add(child);
         }
 
@@ -800,7 +800,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param field the ast of the field.
          */
-        public void addField(DetailAST field) {
+        private void addField(DetailAST field) {
             fields.add(field);
         }
 
@@ -809,7 +809,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param method METHOD_DEF ast.
          */
-        public void addMethod(DetailAST method) {
+        private void addMethod(DetailAST method) {
             methods.add(method);
         }
 
@@ -818,7 +818,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param enumConst ENUM_CONST_DEF ast.
          */
-        public void addEnumConst(DetailAST enumConst) {
+        private void addEnumConst(DetailAST enumConst) {
             enumConstants.add(enumConst);
         }
 
@@ -827,7 +827,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param typeVariable the type variable name.
          */
-        public void addTypeVariable(String typeVariable) {
+        private void addTypeVariable(String typeVariable) {
             typeVariables.add(typeVariable);
         }
 
@@ -836,7 +836,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          *
          * @param type the type name.
          */
-        public void addType(String type) {
+        private void addType(String type) {
             types.add(type);
         }
 
@@ -846,7 +846,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          * @param name the name of the field to check.
          * @return search result.
          */
-        public Optional<DetailAST> findFieldInFrame(final String name) {
+        private Optional<DetailAST> findFieldInFrame(final String name) {
             return fields.stream()
                 .filter(field -> getIdentText(field).equals(name))
                 .findFirst();
@@ -858,7 +858,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
          * @param name the name of the enum constant to check.
          * @return search result.
          */
-        public Optional<DetailAST> findEnumConstInFrame(final String name) {
+        private Optional<DetailAST> findEnumConstInFrame(final String name) {
             return enumConstants.stream()
                     .filter(enumConstant -> getIdentText(enumConstant).equals(name))
                     .findFirst();

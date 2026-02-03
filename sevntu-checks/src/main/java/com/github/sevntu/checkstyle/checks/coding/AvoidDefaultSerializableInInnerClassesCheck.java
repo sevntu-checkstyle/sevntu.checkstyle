@@ -261,7 +261,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
          *
          * @return boolean value
          */
-        public boolean hasNextSibling() {
+        private boolean hasNextSibling() {
             return next != null;
         }
 
@@ -273,7 +273,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
          * @return next DetailAST.
          */
 
-        public DetailAST nextSibling() {
+        private DetailAST nextSibling() {
             final DetailAST result = next;
             while (next != null) {
                 next = next.getNextSibling();

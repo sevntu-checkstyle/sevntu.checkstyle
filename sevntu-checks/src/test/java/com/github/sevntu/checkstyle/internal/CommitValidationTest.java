@@ -359,11 +359,11 @@ public class CommitValidationTest {
             this.second = second;
         }
 
-        public Iterator<RevCommit> getFirst() {
+        private Iterator<RevCommit> getFirst() {
             return first;
         }
 
-        public Iterator<RevCommit> getSecond() {
+        private Iterator<RevCommit> getSecond() {
             return second;
         }
 
