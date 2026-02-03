@@ -299,7 +299,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
          *
          * @param blockNode The given block node to report for.
          */
-        public void setBlockNode(DetailAST blockNode) {
+        private void setBlockNode(DetailAST blockNode) {
             if (this.blockNode == null) {
                 this.blockNode = blockNode;
             }
@@ -309,7 +309,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
         }
 
         /** Sets the state to exit examining further nodes. */
-        public void setExit() {
+        private void setExit() {
             blockNode = null;
             exit = true;
         }
@@ -323,7 +323,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
          *        then the last node is when we leave the start node.
          * @return true if the identifier has been found, otherwise false.
          */
-        public boolean hasIdent(DetailAST start, DetailAST end) {
+        private boolean hasIdent(DetailAST start, DetailAST end) {
             boolean found = false;
             DetailAST curNode = start;
 

@@ -1257,7 +1257,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @return the RegExp to match against
          */
-        public Pattern getRegexp() {
+        private Pattern getRegexp() {
             return regExp;
         }
 
@@ -1266,7 +1266,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @return the original immutable input rule
          */
-        public String getRule() {
+        private String getRule() {
             return rule;
         }
 
@@ -1275,7 +1275,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @return the Class Member
          */
-        public int getClassMember() {
+        private int getClassMember() {
             return classMember;
         }
 
@@ -1284,7 +1284,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @param compileFlags the compile flags to use.
          */
-        public void setCompileFlags(final int compileFlags) {
+        private void setCompileFlags(final int compileFlags) {
             updateRegexp(format, compileFlags);
         }
 
@@ -1312,7 +1312,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          * @param ruleCheck string
          * @return true if format matcher contains rule.
          */
-        public boolean hasRule(String ruleCheck) {
+        private boolean hasRule(String ruleCheck) {
             return rule.indexOf(ruleCheck) > -1;
         }
 
@@ -1346,7 +1346,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @return the current position
          */
-        public int getCurrentPosition() {
+        private int getCurrentPosition() {
             return currentPosition;
         }
 
@@ -1355,7 +1355,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @param position the new position
          */
-        public void setCurrentPosition(int position) {
+        private void setCurrentPosition(int position) {
             currentPosition = position;
         }
 
@@ -1364,7 +1364,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @param getterAst DetailAST of getter.
          */
-        public void addGetter(DetailAST getterAst) {
+        private void addGetter(DetailAST getterAst) {
             getters.add(getterAst);
         }
 
@@ -1373,7 +1373,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @param setterAst DetailAST of setter.
          */
-        public void addSetter(DetailAST setterAst) {
+        private void addSetter(DetailAST setterAst) {
             setters.add(setterAst);
         }
 
@@ -1383,7 +1383,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
          *
          * @return Map with setter AST as key and getter AST as value.
          */
-        public Map<DetailAST, DetailAST> getWrongOrderedGettersSetters() {
+        private Map<DetailAST, DetailAST> getWrongOrderedGettersSetters() {
             final Map<DetailAST, DetailAST> result = new LinkedHashMap<>();
             if (!getters.isEmpty() && !setters.isEmpty()) {
                 //  all getters and setters

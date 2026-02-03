@@ -252,7 +252,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
          *
          * @throws CheckstyleException if the specified range is not valid
          */
-        private static IntRange from(String range) throws CheckstyleException {
+        /* package */ static IntRange from(String range) throws CheckstyleException {
             int lowerLimit = 0;
             int upperLimit = Integer.MAX_VALUE;
             if (range.contains("-")) {
@@ -291,7 +291,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
          * @param num the number to be checked
          * @return true if number is contained in the range, false otherwise
          */
-        public boolean contains(int num) {
+        /* package */ boolean contains(int num) {
             return num >= lowerLimit && num <= upperLimit;
         }
     }
