@@ -12,4 +12,8 @@
     <suppress checks="IllegalCatchExtended" files="[\\/]internal[\\/]\w+Util\.java"/>
     <suppress checks="MultipleStringLiteralsExtended" files=".*[\\/]+src[\\/]test[\\/]"/>
     <suppress checks="LineLengthExtended" files=".*[\\/]src[\\/]test[\\/]"/>
+
+    <!-- temporary suppression while developing -->
+    <suppress checks="UnusedPrivateField"
+              files="[\\/]StaticMethodCandidateCheck.java"/>
 </suppressions>
