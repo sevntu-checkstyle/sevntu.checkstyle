@@ -12,4 +12,10 @@
     <suppress checks="IllegalCatchExtended" files="[\\/]internal[\\/]\w+Util\.java"/>
     <suppress checks="MultipleStringLiteralsExtended" files=".*[\\/]+src[\\/]test[\\/]"/>
     <suppress checks="LineLengthExtended" files=".*[\\/]src[\\/]test[\\/]"/>
+
+    <!--  supressed for StaticMethodCandidateCheck because inner classes -->
+    <suppress
+            checks="UnusedPrivateFieldCheck"
+            files=".*[\\/]src[\\/]main[\\/]java[\\/]checkstyle[\\/]checks[\\/]design[\\/]StaticMethodCandidateCheck\.java"/>
+
 </suppressions>
