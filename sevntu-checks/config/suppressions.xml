@@ -45,4 +45,9 @@
     <!-- until sevntu is migrated to JDK 21 -->
     <suppress checks="MissingNullCaseInSwitch" files=".*"/>
 
+    <!-- suppressed for javadoc exceeding max length -->
+    <suppress checks="JavaLineLengthCheck"
+              files=".*[\\/]src[\\/]main[\\/]java[\\/]checkstyle[\\/]checks[\\/]coding[\\/]RequireFailForTryCatchInJunitCheck\.java"/>
+    <suppress checks="JavaLineLengthCheck"
+              files=".*[\\/]src[\\/]main[\\/]java[\\/]checkstyle[\\/]checks[\\/]coding[\\/]DiamondOperatorForVariableDefinitionCheck\.java"/>
 </suppressions>
