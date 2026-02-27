@@ -100,7 +100,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      * @param blockTypes
      *        - DetailAST tokenTypes that are related to the types which are
      *        allowed by user in check preferences.
-     **/
+     */
     public void setBlockTypes(final String... blockTypes) {
         this.blockTypes = new int[blockTypes.length];
         for (int index = 0; index < blockTypes.length; index++) {

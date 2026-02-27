@@ -77,7 +77,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
 
     /**
      * A key to search the warning message text in "messages.properties" file.
-     * */
+     */
     public static final String MSG_KEY = "avoid.not.short.circuit.operators.for.boolean";
 
     /**
@@ -88,13 +88,13 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     /**
      * A list contains all names of operands, which are used in the current
      * expression, which calculates with using "|", "&", "|=", "&=" operators.
-     * */
+     */
     private final List<String> supportedOperands = new LinkedList<>();
 
     /**
      * Variable, that indicates keywords "true" or "false" in current
      * expression.
-     * */
+     */
     private boolean hasTrueOrFalseLiteralInExpression;
 
     @Override

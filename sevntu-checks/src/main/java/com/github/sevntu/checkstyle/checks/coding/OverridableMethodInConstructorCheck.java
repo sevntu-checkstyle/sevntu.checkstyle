@@ -134,32 +134,32 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
-     * */
+     */
     public static final String MSG_KEY = "overridable.method";
 
     /**
      * A key is pointing to the warning message text in "messages.properties"
      * file.
-     * */
+     */
     public static final String MSG_KEY_LEADS = "overridable.method.leads";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any constructor body.
-     * */
+     */
     private static final String KEY_CTOR = "constructor";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any clone() method is implemented from Cloneable interface.
-     * */
+     */
     private static final String KEY_CLONE = "'clone()' method";
 
     /**
      * A key is using to build a warning message about calls of an overridable
      * methods from any readObject() method is implemented from Serializable
      * interface.
-     * */
+     */
     private static final String KEY_READ_OBJECT = "'readObject()' method";
 
     /** String representation of this keyword. */
@@ -171,24 +171,24 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     /**
      * A list contains all METHOD_CALL DetailAST nodes that have been already
      * visited by check.
-     * */
+     */
     private final List<DetailAST> visitedMethodCalls = new LinkedList<>();
 
     /**
      * A current MethodDef AST is being processed by check.
-     * */
+     */
     private DetailAST curMethodDef;
 
     /**
      * A current root of the syntax tree is being processed.
-     * */
+     */
     private DetailAST treeRootAST;
 
     /**
      * A boolean check box that enables the searching of calls to overridable
      * methods from the body of any clone() method is implemented from Cloneable
      * interface.
-     * */
+     */
     private boolean checkCloneMethod;
 
     /**
@@ -721,7 +721,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *            A METHOD_DEF or METHOD_CALL DetailAST node for current method.
      * @return The parent CLASS_DEF node for the class that owns a METHOD_CALL
      *         node named aMethodNode.
-     * */
+     */
     private static DetailAST getClassDef(final DetailAST methodNode) {
         DetailAST curNode = methodNode;
 
