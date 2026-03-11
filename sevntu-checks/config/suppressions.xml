@@ -45,4 +45,7 @@
     <!-- until sevntu is migrated to JDK 21 -->
     <suppress checks="MissingNullCaseInSwitch" files=".*"/>
 
+    <!-- Suppress MatchXpath from checkstyle#19168 -->
+    <suppress checks="MatchXpath" files=".*[\\/]CommitValidationTest\.java"/>
+
 </suppressions>
