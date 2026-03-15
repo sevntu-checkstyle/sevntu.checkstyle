@@ -69,10 +69,10 @@
 
           <!-- m2e-code-quality Eclipse IDE plugin temporary configuration files
                for Eclipse CS Checkstyle / PMD / SpotBugs Plug-Ins -->
-          <exclude name=".checkstyle"/>
-          <exclude name=".pmd/**/*"/>
-          <exclude name=".pmdruleset.xml"/>
-          <exclude name=".fbExcludeFilterFile/**/*"/>
+          <exclude name="**/.checkstyle"/>
+          <exclude name="**/.pmd/**/*"/>
+          <exclude name="**/.pmdruleset.xml"/>
+          <exclude name="**/.fbExcludeFilterFile/**/*"/>
 
           <!-- NetBeans project files -->
           <exclude name="**/nbactions.xml"/>
@@ -83,10 +83,10 @@
           <exclude name="**/bin/**/*" />
 
           <!-- IDEA project files -->
-          <exclude name="*.iml"/>
-          <exclude name="*.ipr"/>
-          <exclude name="*.iws"/>
-          <exclude name=".idea/**/*"/>
+          <exclude name="**/*.iml"/>
+          <exclude name="**/*.ipr"/>
+          <exclude name="**/*.iws"/>
+          <exclude name="**/.idea/**/*"/>
 
           <!-- Temp files -->
           <exclude name="*~" />
@@ -96,7 +96,7 @@
           <exclude name="replay_pid*"/>
 
           <!-- Apple MAC OSX hidden file -->
-          <exclude name=".DS_Store" />
+          <exclude name="**/.DS_Store" />
 
           <!-- Do not validate possible source code remnants after regression testing -->
           <exclude name=".ci-temp/**/*"/>
