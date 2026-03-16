@@ -3,11 +3,11 @@ version: 2.1
 jobs:
 
   validate-with-maven-script:
-    resource_class: small
+    resource_class: large
     parameters:
       image-name:
         type: string
-        default: "cimg/openjdk:21.0.6"
+        default: "cimg/openjdk:21.0.6-node"
         description: "docker image to use"
       command:
         description: "command to run"

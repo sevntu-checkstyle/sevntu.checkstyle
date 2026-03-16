@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export MAVEN_OPTS='-Xmx4g -XX:MaxRAMPercentage=75'
+
 source ./.ci/util.sh
 
 case $1 in
@@ -131,7 +133,7 @@ sonarqube)
   fi
 
   cd sevntu-checks
-  export MAVEN_OPTS='-Xmx2000m'
+  export MAVEN_OPTS='-Xmx4g -XX:MaxRAMPercentage=75'
   # until https://github.com/checkstyle/checkstyle/issues/11637
   # shellcheck disable=SC2086
   mvn -e --no-transfer-progress clean package sonar:sonar \
