@@ -3,7 +3,7 @@ version: 2.1
 jobs:
 
   validate-with-maven-script:
-    resource_class: large
+    resource_class: medium+
     parameters:
       image-name:
         type: string
