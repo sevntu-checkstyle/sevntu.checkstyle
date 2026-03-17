@@ -71,11 +71,24 @@ public class LogicConditionNeedOptimizationCheckTest extends AbstractModuleTestS
         final DefaultConfiguration checkConfig =
                 createModuleConfig(LogicConditionNeedOptimizationCheck.class);
         final String[] expected = {
-            "32:17: " + getCheckMessage(MSG_KEY, "&&", 32, 16),
-            "66:34: " + getCheckMessage(MSG_KEY, "&&", 66, 33),
+            "41:49: Condition with && at line 41 position 48 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
+            "43:56: Condition with && at line 43 position 55 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
+            "43:66: Condition with && at line 43 position 65 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
+            "87:49: Condition with && at line 87 position 48 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
+            "89:56: Condition with && at line 89 position 55 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
+            "89:66: Condition with && at line 89 position 65 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
+            "112:24: Condition with && at line 112 position 23 need optimization. "
+                + "All method calls are advised to move to end of logic expression.",
         };
         verify(checkConfig, getNonCompilablePath("InputLogicConditionNeedOptimizationCheck2.java"),
                 expected);
     }
 
 }
+
