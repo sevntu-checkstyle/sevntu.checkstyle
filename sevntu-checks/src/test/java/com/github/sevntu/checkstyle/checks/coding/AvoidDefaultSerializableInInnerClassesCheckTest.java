@@ -112,4 +112,16 @@ public class AvoidDefaultSerializableInInnerClassesCheckTest extends AbstractMod
                 expected);
     }
 
+    @Test
+    public void testInterfaceInnerClassShouldNotTrigger() throws Exception {
+        final DefaultConfiguration checkConfig =
+                        createModuleConfig(AvoidDefaultSerializableInInnerClassesCheck.class);
+
+        final String[] expected = {};
+
+        verify(checkConfig,
+                        getPath("InputAvoidDefaultSerializableInInnerClassesCheck.java"),
+                        expected);
+    }
+
 }
