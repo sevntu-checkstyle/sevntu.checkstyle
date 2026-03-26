@@ -84,12 +84,33 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
                 detailAST.getParent().getType() == TokenTypes.COMPILATION_UNIT;
         if (!topLevelClass && isSerializable(detailAST)
                 && !isStatic(detailAST)
+                && !isInsideInterface(detailAST)
                 && !hasSerialazableMethods(detailAST)) {
             final DetailAST implementsBlock = detailAST
                     .findFirstToken(TokenTypes.IMPLEMENTS_CLAUSE);
             log(implementsBlock,
                     MSG_KEY);
         }
+    }
+
+    /**
+     * Checks whether the class is inside an interface.
+     *
+     * @param ast DetailAST of the class
+     * @return true if inside interface
+     */
+    private static boolean isInsideInterface(DetailAST ast) {
+        boolean result = false;
+        DetailAST parent = ast.getParent();
+
+        while (parent != null && !result) {
+            if (parent.getType() == TokenTypes.INTERFACE_DEF) {
+                result = true;
+            }
+            parent = parent.getParent();
+        }
+
+        return result;
     }
 
     /**
