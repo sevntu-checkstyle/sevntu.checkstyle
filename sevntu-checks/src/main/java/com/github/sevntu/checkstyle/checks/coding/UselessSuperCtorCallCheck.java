@@ -172,22 +172,24 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     /**
      * Sets flag to allowCallToNoArgsSuperCtor.
      *
-     * @param aAllowCallToNoArgsSuperCtor
+     * @param allowCallToNoArgsSuperCtor
      *        if true, check will allow super() calls without arguments
      */
-    public void setAllowCallToNoArgsSuperCtor(boolean aAllowCallToNoArgsSuperCtor) {
-        allowCallToNoArgsSuperCtor = aAllowCallToNoArgsSuperCtor;
+    public void setAllowCallToNoArgsSuperCtor(boolean allowCallToNoArgsSuperCtor) {
+        this.allowCallToNoArgsSuperCtor = allowCallToNoArgsSuperCtor;
     }
 
     /**
      * Sets flag to allowCallToNoArgsSuperCtorIfMultiplePublicCtor.
      *
-     * @param aAllowCall
+     * @param allowCallToNoArgsSuperCtorIfMultiplePublicCtor
      *        if true, check will allow super() calls without arguments if class
      *        has multiple public constructors
      */
-    public void setAllowCallToNoArgsSuperCtorIfMultiplePublicCtor(boolean aAllowCall) {
-        allowCallToNoArgsSuperCtorIfMultiplePublicCtor = aAllowCall;
+    public void setAllowCallToNoArgsSuperCtorIfMultiplePublicCtor(
+        boolean allowCallToNoArgsSuperCtorIfMultiplePublicCtor) {
+        this.allowCallToNoArgsSuperCtorIfMultiplePublicCtor =
+            allowCallToNoArgsSuperCtorIfMultiplePublicCtor;
     }
 
     @Override
@@ -228,23 +230,23 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     /**
      * Returns class name for given class definition node.
      *
-     * @param aClassDefNode
+     * @param classDefNode
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return class name for given class definition
      */
-    private static String getClassName(DetailAST aClassDefNode) {
-        return aClassDefNode.findFirstToken(TokenTypes.IDENT).getText();
+    private static String getClassName(DetailAST classDefNode) {
+        return classDefNode.findFirstToken(TokenTypes.IDENT).getText();
     }
 
     /**
      * Returns arguments count for super ctor call.
      *
-     * @param aMethodCallNode
+     * @param methodCallNode
      *        a super ctor call node(TokenTypes.SUPER_CTOR_CALL)
      * @return arguments count for super ctor call
      */
-    private static int getSuperCallArgsCount(DetailAST aMethodCallNode) {
-        final DetailAST argsListNode = aMethodCallNode.findFirstToken(TokenTypes.ELIST);
+    private static int getSuperCallArgsCount(DetailAST methodCallNode) {
+        final DetailAST argsListNode = methodCallNode.findFirstToken(TokenTypes.ELIST);
 
         return argsListNode.getChildCount();
     }
@@ -252,12 +254,12 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     /**
      * Returns class definition node for class, which contains given AST node.
      *
-     * @param aNode
+     * @param node
      *        AST node inside class
      * @return class definition node
      */
-    private static DetailAST getClassDefinitionNode(DetailAST aNode) {
-        DetailAST result = aNode;
+    private static DetailAST getClassDefinitionNode(DetailAST node) {
+        DetailAST result = node;
 
         while (result.getType() != TokenTypes.CLASS_DEF) {
             result = result.getParent();
@@ -269,13 +271,13 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     /**
      * Calculates public constructor count for given class.
      *
-     * @param aClassDefNode
+     * @param classDefNode
      *          a class definition node(TokenTypes.CLASS_DEF)
      * @return public constructor count for given class
      */
-    private static int getClassPublicCtorCount(DetailAST aClassDefNode) {
+    private static int getClassPublicCtorCount(DetailAST classDefNode) {
         int publicCtorCount = 0;
-        DetailAST classMemberNode = aClassDefNode.findFirstToken(TokenTypes.OBJBLOCK)
+        DetailAST classMemberNode = classDefNode.findFirstToken(TokenTypes.OBJBLOCK)
                 .getFirstChild();
 
         while (classMemberNode != null) {
@@ -292,12 +294,12 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     /**
      * Checks whether given ctor is public.
      *
-     * @param aCtorDefNode
+     * @param ctorDefNode
      *          a ctor definition node(TokenTypes.CTOR_DEF)
      * @return true, if given ctor is public
      */
-    private static boolean isCtorPublic(DetailAST aCtorDefNode) {
-        return aCtorDefNode
+    private static boolean isCtorPublic(DetailAST ctorDefNode) {
+        return ctorDefNode
                 .findFirstToken(TokenTypes.MODIFIERS)
                 .findFirstToken(TokenTypes.LITERAL_PUBLIC) != null;
     }
@@ -305,12 +307,12 @@ public class UselessSuperCtorCallCheck extends AbstractCheck {
     /**
      * Checks whether this class is derived from other class.
      *
-     * @param aClassDefNode
+     * @param classDefNode
      *        class definition node
      * @return true, if this class extends anything
      */
-    private static boolean isClassDerived(DetailAST aClassDefNode) {
-        return aClassDefNode.findFirstToken(TokenTypes.EXTENDS_CLAUSE) != null;
+    private static boolean isClassDerived(DetailAST classDefNode) {
+        return classDefNode.findFirstToken(TokenTypes.EXTENDS_CLAUSE) != null;
     }
 
 }

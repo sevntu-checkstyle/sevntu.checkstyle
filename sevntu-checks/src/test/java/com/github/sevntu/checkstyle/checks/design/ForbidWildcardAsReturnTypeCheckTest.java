@@ -466,24 +466,24 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
     /**
      * Create new set of line numbers.
      *
-     * @param aLines
+     * @param lines
      *        arrays of line numbers
      * @return sorted set of line numbers.
      */
-    private static SortedSet<Integer> newSetOfLines(Integer... aLines) {
-        return new TreeSet<>(Arrays.asList(aLines));
+    private static SortedSet<Integer> newSetOfLines(Integer... lines) {
+        return new TreeSet<>(Arrays.asList(lines));
     }
 
     /**
      * Create array of expected messages.
      *
-     * @param aLines sorted set of line numbers.
+     * @param lines sorted set of line numbers.
      * @return array of messages.
      */
-    private String[] createExpectedMessages(SortedSet<Integer> aLines) {
-        final String[] expected = new String[aLines.size()];
+    private String[] createExpectedMessages(SortedSet<Integer> lines) {
+        final String[] expected = new String[lines.size()];
         int index = 0;
-        for (Integer element : aLines) {
+        for (Integer element : lines) {
             expected[index] = element + ":" + getColumnNumber(element) + ": " + warningMessage;
             index++;
         }

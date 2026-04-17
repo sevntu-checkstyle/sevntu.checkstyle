@@ -582,11 +582,11 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
     /**
      * Get the leftmost ident of the method call.
      *
-     * @param mCall METHOD_CALL to get ident from.
+     * @param call METHOD_CALL to get ident from.
      * @return the leftmost's ident DetailAST.
      */
-    private static DetailAST getTheLeftmostIdent(DetailAST mCall) {
-        DetailAST result = mCall.getFirstChild();
+    private static DetailAST getTheLeftmostIdent(DetailAST call) {
+        DetailAST result = call.getFirstChild();
         while (result.getChildCount() != 0
                 && result.getType() != TokenTypes.METHOD_CALL) {
             result = result.getFirstChild();
