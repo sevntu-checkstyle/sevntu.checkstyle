@@ -208,17 +208,17 @@ public class LineLengthExtendedCheck extends AbstractCheck {
     public void visitToken(DetailAST ast) {
         if (ast.getParent().getType() == TokenTypes.OBJBLOCK
                 || ast.getType() == TokenTypes.CLASS_DEF) {
-            final int mNumberOfLine = ast.getLineNo();
+            final int numberOfLine = ast.getLineNo();
             final DetailAST endOfIgnoreLine = ast.findFirstToken(TokenTypes.SLIST);
 
             if (endOfIgnoreLine == null) {
-                lines[mNumberOfLine - 1] = null;
+                lines[numberOfLine - 1] = null;
             }
             else {
-                int mEndNumberOfLine = endOfIgnoreLine.getLineNo();
-                while (mEndNumberOfLine >= mNumberOfLine) {
-                    lines[mEndNumberOfLine - 1] = null;
-                    mEndNumberOfLine--;
+                int endNumberOfLine = endOfIgnoreLine.getLineNo();
+                while (endNumberOfLine >= numberOfLine) {
+                    lines[endNumberOfLine - 1] = null;
+                    endNumberOfLine--;
                 }
             }
         }

@@ -262,11 +262,11 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
             }
 
             if (curMethodLinesCount >= ignoreMethodLinesCount) {
-                final int mCurReturnCount = getReturnCount(node,
+                final int curReturnCount = getReturnCount(node,
                         openingBrace);
 
-                if (mCurReturnCount > maxReturnCount) {
-                    logViolation(node, nodeName, mCurReturnCount);
+                if (curReturnCount > maxReturnCount) {
+                    logViolation(node, nodeName, curReturnCount);
                 }
             }
         }
@@ -277,12 +277,12 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      *
      * @param node The node that the violation is on.
      * @param nodeName The name given to the node.
-     * @param mCurReturnCount The return count violation amount.
+     * @param curReturnCount The return count violation amount.
      */
-    private void logViolation(DetailAST node, String nodeName, int mCurReturnCount) {
+    private void logViolation(DetailAST node, String nodeName, int curReturnCount) {
         if (node.getType() == TokenTypes.LAMBDA) {
             // lambdas have no name
-            log(node, MSG_KEY_LAMBDA, mCurReturnCount, maxReturnCount);
+            log(node, MSG_KEY_LAMBDA, curReturnCount, maxReturnCount);
         }
         else {
             final DetailAST nodeNameToken = node
@@ -297,7 +297,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
             }
 
             log(nodeNameToken, mKey,
-                    nodeName, mCurReturnCount,
+                    nodeName, curReturnCount,
                     maxReturnCount);
         }
     }

@@ -105,10 +105,10 @@ public class ConfusingConditionCheck extends AbstractCheck {
     /**
      * Enable(true) | Disable(false) warnings for all inner "if".
      *
-     * @param aIgnoreInnerIf ignore inner if
+     * @param ignoreInnerIf ignore inner if
      */
-    public void setIgnoreInnerIf(final boolean aIgnoreInnerIf) {
-        ignoreInnerIf = aIgnoreInnerIf;
+    public void setIgnoreInnerIf(final boolean ignoreInnerIf) {
+        this.ignoreInnerIf = ignoreInnerIf;
     }
 
     /**

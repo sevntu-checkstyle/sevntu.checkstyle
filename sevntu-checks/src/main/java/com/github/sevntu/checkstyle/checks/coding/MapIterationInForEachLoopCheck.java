@@ -707,15 +707,15 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      *
      * @param nodesList
      *        DetailAST List witch maybe contains specific token.
-     * @param aSpecificType
+     * @param specificType
      *        A specific type of token.
      * @return specific token or null.
      */
     private static DetailAST getFirstNodeOfType(List<DetailAST> nodesList,
-            int aSpecificType) {
+            int specificType) {
         DetailAST result = null;
         for (DetailAST node : nodesList) {
-            if (node.getType() == aSpecificType) {
+            if (node.getType() == specificType) {
                 result = node;
                 break;
             }
