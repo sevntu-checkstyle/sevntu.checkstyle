@@ -405,4 +405,34 @@ public class Jsr305AnnotationsCheckTest extends AbstractModuleTestSupport {
                 expected);
     }
 
+    @Test
+    public void testAllowNullableReturn() throws Exception {
+        final DefaultConfiguration checkConfig = createModuleConfig(Jsr305AnnotationsCheck.class);
+        checkConfig.addAttribute("packages", "com.github.sevntu.checkstyle.checks.coding");
+        checkConfig.addAttribute("allowNullableReturnValue", "true");
+
+        final String[] expected = {
+            "51:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_CONTRADICTING_RETURN_VALUE_ANNOTATIONS, "e"),
+            "69:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_PRIMITIVES_WITH_NULLNESS_ANNOTATION, "e"),
+            "75:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_PRIMITIVES_WITH_NULLNESS_ANNOTATION, "e"),
+            "92:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_CONTRADICTING_CLASS_LEVEL_ANNOTATIONS, "e"),
+            "95:26: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
+            "95:48: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_PARAMETER_WITHOUT_NULLNESS_ANNOTATION, "e"),
+            "99:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_OVERRIDDEN_METHOD_WITH_CHECK_RETURN_VALUE, "e"),
+            "105:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_VOID_WITH_CHECK_RETURN_VALUE_ANNOTATION, "e"),
+            "110:5: " + getCheckMessage(
+                Jsr305AnnotationsCheck.MSG_PRIMITIVES_WITH_NULLNESS_ANNOTATION, "e"),
+        };
+
+        verify(checkConfig, getPath("InputJsr305AnnotationsCheckWithReturnValue.java"), expected);
+    }
+
 }
