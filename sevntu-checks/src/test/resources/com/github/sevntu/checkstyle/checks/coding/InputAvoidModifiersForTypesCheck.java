@@ -7,10 +7,8 @@ import org.junit.Rule;
 import com.google.common.annotations.Beta;
 
 /**
- * <p>
  * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:yasser.aziza@gmail.com">Yasser Aziza</a>
- * </p>
  */
 public class InputAvoidModifiersForTypesCheck
 {
