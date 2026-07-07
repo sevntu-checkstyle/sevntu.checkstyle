@@ -61,7 +61,7 @@ public class ConstructorWithoutParamsCheckTest extends AbstractModuleTestSupport
     }
 
     /*
-     Added to comply with the sevntu.checkstyle regulation of 100% code coverage.
+     * Added to comply with the sevntu.checkstyle regulation of 100% code coverage.
      */
     @Test
     public void testGetAcceptableTokens() {
