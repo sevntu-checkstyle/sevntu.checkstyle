@@ -486,4 +486,5 @@ public class PreferMethodReferenceCheck extends AbstractCheck {
         }
         return result;
     }
+
 }
