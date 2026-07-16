@@ -165,4 +165,5 @@ public class PreferMethodReferenceCheckTest extends AbstractModuleTestSupport {
         verify(checkConfig, getNonCompilablePath("InputPreferMethodReferenceCheck5.java"),
                 CommonUtil.EMPTY_STRING_ARRAY);
     }
+
 }

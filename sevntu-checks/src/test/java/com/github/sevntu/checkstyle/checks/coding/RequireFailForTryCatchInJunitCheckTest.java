@@ -187,4 +187,5 @@ public class RequireFailForTryCatchInJunitCheckTest extends AbstractModuleTestSu
                 exc.getMessage());
         }
     }
+
 }

@@ -90,4 +90,5 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheckTest extends AbstractMo
                 getPath("InputAvoidNotShortCircuitOperatorsForBooleanCheckBitwiseAfterArray.java"),
                 expected);
     }
+
 }
