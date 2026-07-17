@@ -48,4 +48,10 @@
     <!-- Suppress MatchXpath from checkstyle#19168 -->
     <suppress checks="MatchXpath" files=".*[\\/]CommitValidationTest\.java"/>
 
+    <!-- suppressed for javadoc exceeding max length -->
+    <suppress checks="JavaLineLengthCheck"
+              files=".*[\\/]src[\\/]main[\\/]java[\\/]checkstyle[\\/]checks[\\/]coding[\\/]RequireFailForTryCatchInJunitCheck\.java"/>
+    <suppress checks="JavaLineLengthCheck"
+              files=".*[\\/]src[\\/]main[\\/]java[\\/]checkstyle[\\/]checks[\\/]coding[\\/]DiamondOperatorForVariableDefinitionCheck\.java"/>
+
 </suppressions>
