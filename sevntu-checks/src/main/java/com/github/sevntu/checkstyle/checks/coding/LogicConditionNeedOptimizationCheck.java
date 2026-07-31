@@ -29,7 +29,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * methods and instanceof in '&amp;&amp;' and '||' conditions.
  * </p>
  * <p>
- * For example: if(getProperty() &amp;&amp; property) ==&gt; if(property &amp;&amp; getProperty()),
+ * For example:
+ * {@code if(getProperty() && property) ==> if(property && getProperty())}
  * and similarly for any expression.
  * </p>
  *
