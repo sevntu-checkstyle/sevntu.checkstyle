@@ -39,7 +39,8 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  * </p>
  *
  * <p>
- * This check was extended to include all equality checks like "&gt;", "&gt;=", "&lt;", "&lt;="
+ * This check was extended to include all equality checks like {@literal >},
+ * {@literal >=}, {@literal <}, {@literal <=}
  * for users who prefer constants always be on the right-hand side for any condition.
  * </p>
  *

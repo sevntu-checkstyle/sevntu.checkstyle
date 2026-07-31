@@ -47,7 +47,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
     public static final String MSG_KEY = "multiple.string.literal";
 
     /**
-     * The found strings and their positions. &lt;String, ArrayList&gt;, with
+     * The found strings and their positions. {@code <String,ArrayList>}, with
      * the ArrayList containing StringInfo objects.
      */
     private final Map<String, List<DetailAST>> stringMap = new HashMap<>();
