@@ -74,7 +74,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ol>
  * ATTENTION!
  * <p>
- * Use separator <code>' ', '.', '\s'</code> between declaration in the RegExp.
+ * Use separator {@code ' ', '.', '\s'} between declaration in the RegExp.
  * Whitespace should be added after each modifier.
  * </p>
  * <pre>
@@ -86,20 +86,20 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * NOTICE!
  * <p>
  * It is important to write exact order of modifiers in rules. So rule
- * <code><i>Field(public final)</i></code> does not match to
- * <code><i>final public value;</i></code>.
+ * {@code Field(public final)} does not match to
+ * {@code final public value;}.
  * <a href='https://checkstyle.org/config_modifier.html#ModifierOrder'>
  * ModifierOrderCheck</a>
  * is recommended to use.
  * </p>
  * <p>
- * If you set empty RegExp e.g. <code>Field()</code>, it means that class member
+ * If you set empty RegExp e.g. {@code Field()}, it means that class member
  * doesn't have modifiers(default modifier) and checking the type and name of
  * member doesn't occur.
  * </p>
  * <p>
  * Between the declaration of a array and generic can't be whitespaces.
- * E.g.: <code>ArrayList&lt;String[]&gt; someName</code>
+ * E.g.: {@code ArrayList<String[]> someName}
  * </p>
  * <p>
  * Use the separator '###' between the class declarations.
@@ -115,7 +115,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * InnerClass(public abstract .*) ### InnerInterface(.*) ### InnerEnum(.*)</code>
  * </p>
  *
- * <p><b>What is group of getters and setters(<code>GetterSetter</code>)?</b></p>
+ * <p><b>What is group of getters and setters({@code GetterSetter})?</b></p>
  *
  * <p>
  * It is ordered sequence of getters and setters like:
@@ -1241,7 +1241,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
         private String format;
 
         /**
-         * Creates a new <code>FormatMatcher</code> instance.
+         * Creates a new {@code FormatMatcher} instance.
          *
          * @param inputRule input string with MemberDefinition and RegExp.
          * @param classMember the member of class

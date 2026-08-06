@@ -75,16 +75,16 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <ul>
  * <li>logger is declared as class field</li>
  * <li>logger is declared as method's local variable</li>
- * <li>logger is declared as local variable in <code>catch</code> block</li>
+ * <li>logger is declared as local variable in {@code catch} block</li>
  * <li>logger is passed through method's parameters</li>
  * </ul>
  * <b>Exceptions</b>
  * <ul>
- * <li>logger logs <code>catch</code> parameter exception or its message</li>
- * <li>throw <code>catch</code> parameter exception</li>
- * <li>throw another exception which is based on <code>catch</code> parameter
+ * <li>logger logs {@code catch} parameter exception or its message</li>
+ * <li>throw {@code catch} parameter exception</li>
+ * <li>throw another exception which is based on {@code catch} parameter
  * exception</li>
- * <li>printStackTrace was called on <code>catch</code> parameter exception</li>
+ * <li>printStackTrace was called on {@code catch} parameter exception</li>
  * </ul>
  * <p>
  * <b>What check can not detect:</b> <br>

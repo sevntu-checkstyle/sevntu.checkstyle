@@ -174,7 +174,7 @@ public class SingleBreakOrContinueCheck extends AbstractCheck {
      * statements. This check is needed in order to e.g. ignore Switch statements and inner loops.
      *
      * @param node current node.
-     * @return <code>true</code> if the node should be ignored, otherwise <code>false</code>
+     * @return {@code true} if the node should be ignored, otherwise {@code false}
      */
     private static boolean shouldIgnore(DetailAST node) {
         return TokenTypes.LITERAL_SWITCH == node.getType()

@@ -34,7 +34,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  * to prevent situations of assignment rather than equality checking. It is easy to write "="
  * instead of "==", and no compile error will be produced but condition will work in a different
  * way then intended. However, in Java it is impossible to use assignment inside the
- * <code>if</code> condition, so that habit becomes unnecessary and does damage to the readability
+ * {@code if} condition, so that habit becomes unnecessary and does damage to the readability
  * of the code.
  * </p>
  *
@@ -46,11 +46,11 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  *
  * <p>
  * Example:
- * <code>if (null == variable)</code>
+ * {@code if (null == variable)}
  * rather than
- * <code>if (variable == null)</code>
+ * {@code if (variable == null)}
  * because if you forget one (typo mistake) of the equal sign, you end up with
- * <code>if (variable = null)</code>
+ * {@code if (variable = null)}
  * which assigns null to variable and IF always evaluate to true.
  * </p>
  *

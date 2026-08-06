@@ -53,7 +53,7 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
 public class InterfaceTypeParameterNameCheck
         extends AbstractNameCheck {
 
-    /** Creates a new <code>InterfaceTypeParameterNameCheck</code> instance. */
+    /** Creates a new {@code InterfaceTypeParameterNameCheck} instance. */
     public InterfaceTypeParameterNameCheck() {
         super("^[A-Z]$");
     }

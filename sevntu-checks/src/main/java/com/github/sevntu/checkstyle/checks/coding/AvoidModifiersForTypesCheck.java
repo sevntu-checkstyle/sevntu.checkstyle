@@ -78,7 +78,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  * </pre>
  *
  * <p>
- * <b>Example 2:</b> Forbid using annotation for fields: (e.g. <code>&#64;Autowired</code> ). This
+ * <b>Example 2:</b> Forbid using annotation for fields: (e.g. {@code @Autowired} ). This
  * can be done by setting up the "forbiddenClassesRegexpAnnotation" option to "Person" regexp
  * String.
  * </p>
@@ -452,8 +452,8 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
      *
      * @param modifierType the modifier type
      * @param className the class name
-     * @return either <code>true</code> if the regexp match the className,
-     *     else <code>false</code>
+     * @return either {@code true} if the regexp match the className,
+     *     else {@code false}
      */
     private boolean match(int modifierType, String className) {
         final Pattern pattern = mapToRegExp(modifierType);

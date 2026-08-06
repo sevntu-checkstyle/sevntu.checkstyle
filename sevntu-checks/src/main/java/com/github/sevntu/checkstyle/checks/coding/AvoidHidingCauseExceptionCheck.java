@@ -134,13 +134,13 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
     }
 
     /**
-     * Returns a List of<code>DetailAST</code> that contains the names of
+     * Returns a List of {@code DetailAST} that contains the names of
      * parameters  for current "throw" keyword.
      *
      * @param startNode The start node for exception name searching.
      * @param paramNamesAST The list, that will be contain names of the
      *     parameters
-     * @return A null-safe list of tokens (<code>DetailAST</code>) contains the
+     * @return A null-safe list of tokens ({@code DetailAST}) contains the
      *     thrown exception name if it was found or null otherwise.
      */
     private List<DetailAST> buildThrowParamNamesList(DetailAST startNode,
@@ -160,13 +160,12 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
     }
 
     /**
-     * Recursive method which searches for the <code>LITERAL_THROW</code>
-     * DetailASTs all levels below on the current <code>aParentAST</code> node
+     * Recursive method which searches for the {@code LITERAL_THROW}
+     * DetailASTs all levels below on the current {@code aParentAST} node
      * without entering into nested try/catch blocks.
      *
-     * @param parentAST A start node for "throw" keyword <code>DetailASTs
-     *     </code> searching.
-     * @return null-safe list of <code>LITERAL_THROW</code> literals
+     * @param parentAST A start node for "throw" keyword {@code DetailASTs} searching.
+     * @return null-safe list of {@code LITERAL_THROW} literals
      */
     private List<DetailAST> makeThrowList(DetailAST parentAST) {
         final List<DetailAST> throwList = new LinkedList<>();

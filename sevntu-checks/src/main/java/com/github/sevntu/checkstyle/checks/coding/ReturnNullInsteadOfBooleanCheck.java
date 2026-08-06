@@ -29,7 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * <p>
- * It is a bad practice to use <code>Boolean</code> type for ternary logic. It
+ * It is a bad practice to use {@code Boolean} type for ternary logic. It
  * is intended to be used for binary logic.
  * </p>
  *
