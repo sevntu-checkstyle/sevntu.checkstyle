@@ -52,4 +52,9 @@
 
     <!-- temporal suppression until we have time to fix it -->
     <suppress checks="MissingCtor" files=".*"/>
+
+    <!-- until sevntu is migrated to JDK 17+ -->
+    <suppress checks="PreferCodeOrSnippetJavadocInlineTag"
+          files=".*"
+          message="Use snippet inline tag instead of.*"/>
 </suppressions>
