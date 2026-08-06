@@ -41,7 +41,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </pre>
  *
  * <p>
- * Nested switch block that checks <code>type</code> parameter should be converted into separate
+ * Nested switch block that checks {@code type} parameter should be converted into separate
  * method.<br>
  * To enable this check use following configuration:
  * </p>

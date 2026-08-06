@@ -118,7 +118,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
     private boolean ignoreClass;
 
     /**
-     * Creates a new <code>LineLengthCheck</code> instance.
+     * Creates a new {@code LineLengthCheck} instance.
      */
     public LineLengthExtendedCheck() {
         setIgnorePattern("^$");
@@ -260,7 +260,7 @@ public class LineLengthExtendedCheck extends AbstractCheck {
      * Set the ignore pattern.
      *
      * @param format
-     *            a <code>String</code> value
+     *            a {@code String} value
      * @throws IllegalArgumentException
      *             unable to parse aFormat
      */

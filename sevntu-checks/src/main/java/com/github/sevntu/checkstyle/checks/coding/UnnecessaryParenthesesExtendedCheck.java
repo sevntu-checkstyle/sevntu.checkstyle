@@ -44,7 +44,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *     int x = (a + b) + c;</pre>
  * <p>
  * In the above case, given that <em>a</em>, <em>b</em>, and <em>c</em> are
- * all <code>int</code> variables, the parentheses around <code>a + b</code>
+ * all {@code int} variables, the parentheses around {@code a + b}
  * are not needed.
  * </p>
  *
@@ -278,14 +278,14 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Tests if the given <code>DetailAST</code> is surrounded by parentheses.
-     * In short, does <code>aAST</code> have a previous sibling whose type is
-     * <code>TokenTypes.LPAREN</code> and a next sibling whose type is <code>
-     * TokenTypes.RPAREN</code>.
+     * Tests if the given {@code DetailAST} is surrounded by parentheses.
+     * In short, does {@code aAST} have a previous sibling whose type is
+     * {@code TokenTypes.LPAREN} and a next sibling whose type is
+     * {@code TokenTypes.RPAREN}.
      *
-     * @param ast the <code>DetailAST</code> to check if it is surrounded by
+     * @param ast the {@code DetailAST} to check if it is surrounded by
      *        parentheses.
-     * @return <code>true</code> if <code>aAST</code> is surrounded by
+     * @return {@code true} if {@code aAST} is surrounded by
      *         parentheses.
      */
     private static boolean isSurrounded(DetailAST ast) {
@@ -299,12 +299,10 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     /**
      * Tests if the given expression node is surrounded by parentheses.
      *
-     * @param ast a <code>DetailAST</code> whose type is
-     *        <code>TokenTypes.EXPR</code>.
-     * @return <code>true</code> if the expression is surrounded by
-     *         parentheses.
-     * @throws IllegalArgumentException if <code>aAST.getType()</code> is not
-     *         equal to <code>TokenTypes.EXPR</code>.
+     * @param ast a {@code DetailAST} whose type is {@code TokenTypes.EXPR}.
+     * @return {@code true} if the expression is surrounded by parentheses.
+     * @throws IllegalArgumentException if {@code aAST.getType()} is not equal to
+     *         {@code TokenTypes.EXPR}.
      */
     private static boolean exprSurrounded(DetailAST ast) {
         return ast.getChildCount() >= MIN_CHILDREN_FOR_MATCH;
@@ -315,8 +313,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      *
      * @param type the token type.
      * @param tokens an array of token types to search.
-     * @return <code>true</code> if <code>aType</code> was found in <code>
-     *         aTokens</code>.
+     * @return {@code true} if {@code aType} was found in {@code aTokens}
      */
     private static boolean inTokenList(int type, int... tokens) {
         // NOTE: Given the small size of the two arrays searched, I'm not sure
@@ -331,13 +328,13 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Returns the specified string chopped to <code>MAX_QUOTED_LENGTH</code>
-     * plus an ellipsis (...) if the length of the string exceeds <code>
-     * MAX_QUOTED_LENGTH</code>.
+     * Returns the specified string chopped to {@code MAX_QUOTED_LENGTH}
+     * plus an ellipsis (...) if the length of the string exceeds
+     * {@code MAX_QUOTED_LENGTH}.
      *
      * @param string the string to potentially chop.
-     * @return the chopped string if <code>aString</code> is longer than
-     *         <code>MAX_QUOTED_LENGTH</code>; otherwise <code>aString</code>.
+     * @return the chopped string if {@code aString} is longer than
+     *         {@code MAX_QUOTED_LENGTH}; otherwise {@code aString}.
      */
     private static String chopString(String string) {
         final String result;
@@ -354,7 +351,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      * Returns the type of the subtree, witch need to detect equals
      * in boolean calculation.
      *
-     * @param ast the <code>DetailAST</code>
+     * @param ast the {@code DetailAST}
      * @return integer value of subtree
      */
     private static int subtreeType(DetailAST ast) {
