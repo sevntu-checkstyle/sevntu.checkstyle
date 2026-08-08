@@ -12,6 +12,7 @@
 
     <suppress checks="WriteTag" files=".*[\\/]src[\\/]main[\\/]java[\\/]com[\\/]github[\\/]sevntu[\\/]checkstyle[\\/]"/>
     <suppress checks="IllegalBlockTag" files=".*[\\/]src[\\/]main[\\/]java[\\/]com[\\/]github[\\/]sevntu[\\/]checkstyle[\\/]"/>
+    <suppress checks="IllegalBlockTag" files=".*[\\/]src[\\/]test[\\/]java[\\/]com[\\/]github[\\/]sevntu[\\/]checkstyle[\\/]"/>
 
     <!-- Tone down the checking for test code -->
     <suppress checks="IllegalCatch" files="[\\/]internal[\\/]\w+Util\.java"/>
