@@ -26,7 +26,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * <p>
  * This check prevents the placement of local variables and fields after calling
- * methods and instanceof in '&amp;&amp;' and '||' conditions.
+ * methods and instanceof in '{@literal &&}' and '||' conditions.
  * </p>
  * <p>
  * For example:

@@ -30,10 +30,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * This check limits using of not short-circuit operators
- * ("|", "&amp;", "|=", "&amp;=") in boolean expressions.
+ * ("|", "{@literal &}", "|=", "{@literal &=}") in boolean expressions.
  * <br>
  * Reason: <br>
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Short-circuit operators ("||", "&amp;&amp;") are more
+ * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Short-circuit operators ("||", "{@literal &&}") are more
  * safer and can accelerate the evaluation of complex boolean expressions.
  * Check identifies an expression as a boolean if it contains at least one
  * boolean operand or if result of expression evaluation sets the value of a
@@ -149,12 +149,12 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     }
 
     /**
-     * Checks that current expression is calculated using "|", "&amp;", "|=", "&amp;="
+     * Checks that current expression is calculated using "|","{@literal &}", "|=","{@literal &=}"
      * operators contains at least one Boolean operand.
      *
      * @param node - current TokenTypes.EXPR node to check.
-     * @return "true" if current expression is calculated using "|", "&amp;",
-     *     "|=". "&amp;=" operators contains at least one Boolean operand or false
+     * @return "true" if current expression is calculated using "|", "{@literal &}",
+     *     "|=". "{@literal &=}" operators contains at least one Boolean operand or false
      *     otherwise.
      */
     public final boolean isBooleanExpression(final DetailAST node) {
