@@ -68,7 +68,7 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
  * &lt;/module&gt;
  * </pre>
  * <p>
- * An example of how to configure the check to ignore lines that begin with &quot; * &quot;,
+ * An example of how to configure the check to ignore lines that begin with {@code "*"},
  * followed by just one word, such as within a Javadoc comment, is:
  * </p>
  *
