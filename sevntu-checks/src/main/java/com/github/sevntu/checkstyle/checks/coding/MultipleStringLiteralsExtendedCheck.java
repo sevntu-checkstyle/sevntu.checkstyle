@@ -167,7 +167,7 @@ public class MultipleStringLiteralsExtendedCheck extends AbstractCheck {
      * @param ast
      *            the node from where to start searching towards the root node
      * @return whether the path from the root node to aAST contains one of the token type in
-     *         {@link #ignoreOccurrenceContext}.
+     *         {@code ignoreOccurrenceContext}.
      */
     private boolean isInIgnoreOccurrenceContext(DetailAST ast) {
         boolean result = false;
