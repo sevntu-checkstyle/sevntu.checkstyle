@@ -171,7 +171,8 @@ public final class ChecksTest {
     }
 
     private static void validateEclipseCsMetaXmlFile(File file, String pkg,
-            Set<Class<?>> pkgModules) throws Exception {
+            Set<Class<?>> pkgModules)
+                    throws Exception {
         Assertions.assertTrue(file.exists(),
                 "'checkstyle-metadata.xml' must exist in eclipsecs in inside " + pkg);
 
@@ -197,7 +198,8 @@ public final class ChecksTest {
     }
 
     private static void validateEclipseCsMetaXmlFileRules(String pkg,
-            Set<Class<?>> pkgModules, Set<Node> rules) throws Exception {
+            Set<Class<?>> pkgModules, Set<Node> rules)
+                    throws Exception {
         for (Node rule : rules) {
             final NamedNodeMap attributes = rule.getAttributes();
             final Node internalNameNode = attributes.getNamedItem("internal-name");
@@ -236,7 +238,8 @@ public final class ChecksTest {
     }
 
     private static void validateEclipseCsMetaXmlFileRule(String pkg, Class<?> module,
-            Set<Node> children) throws Exception {
+            Set<Node> children)
+                    throws Exception {
         final String moduleName = module.getSimpleName();
         final Set<String> properties = getFinalProperties(module);
         final Set<Field> fieldMessages = CheckUtil.getCheckMessages(module);
@@ -323,7 +326,8 @@ public final class ChecksTest {
     }
 
     private static void validateEclipseCsMetaPropFile(File file, String pkg,
-            Set<Class<?>> pkgModules) throws Exception {
+            Set<Class<?>> pkgModules)
+                    throws Exception {
         Assertions.assertTrue(file.exists(),
                 "'checkstyle-metadata.properties' must exist in eclipsecs in inside " + pkg);
 

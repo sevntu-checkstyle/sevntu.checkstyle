@@ -187,7 +187,8 @@ public class AllChecksTest {
     }
 
     private static void verifyCheckstyleMessage(Map<String, List<String>> usedMessages,
-            Class<?> module, Field message) throws Exception {
+            Class<?> module, Field message)
+                    throws Exception {
         final String messageString = message.get(null).toString();
         final String packageName = module.getPackage().getName();
         List<String> packageMessages = usedMessages.get(packageName);
