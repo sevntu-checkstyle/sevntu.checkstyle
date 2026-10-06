@@ -225,6 +225,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
      * </ul>
      */
     /* package */ static class IntRange {
+
         /** Regex for matching range. */
         private static final Pattern RANGE_PATTERN =
             Pattern.compile("^\\s*+(\\d*+)\\s*+-\\s*+(\\d*+)\\s*+$");
@@ -294,6 +295,7 @@ public class ForbidCertainMethodCheck extends AbstractCheck {
         /* package */ boolean contains(int num) {
             return num >= lowerLimit && num <= upperLimit;
         }
+
     }
 
 }

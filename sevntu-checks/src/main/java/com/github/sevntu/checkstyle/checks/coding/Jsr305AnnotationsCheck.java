@@ -714,6 +714,7 @@ public class Jsr305AnnotationsCheck extends AbstractCheck {
                 }
             }
         }
+
     }
 
     /**
