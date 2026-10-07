@@ -231,7 +231,7 @@ public class AllChecksTest {
                 path = getSimplePath(file.getCanonicalPath()).replace("Test.java", "");
             }
             catch (IOException exc) {
-                throw new IllegalStateException(exc);
+                throw new IllegalStateException(file.getAbsolutePath(), exc);
             }
 
             final int slash = path.lastIndexOf(File.separatorChar);
@@ -257,7 +257,7 @@ public class AllChecksTest {
                 path = getSimplePath(file.getCanonicalPath());
             }
             catch (IOException exc) {
-                throw new IllegalStateException(exc);
+                throw new IllegalStateException(file.getAbsolutePath(), exc);
             }
 
             String fileName = file.getName();
