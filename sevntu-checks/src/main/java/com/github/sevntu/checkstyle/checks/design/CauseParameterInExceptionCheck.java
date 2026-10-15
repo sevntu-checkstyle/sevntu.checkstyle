@@ -32,8 +32,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 /**
  * Checks that any Exception class which matches the defined className regexp
- * have at least one constructor with Exception cause as a parameter. <br><p>
- * Rationale: <br><br>
+ * have at least one constructor with Exception cause as a parameter. <br><p>Rationale: <br><br>
  * "A special form of exception translation called exception chaining is
  * appropriate in cases where the lower-level exception might be helpful to
  * someone debugging the problem that caused the higher-level exception. The
@@ -45,15 +44,13 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </li><li>The names of classes which would be considered as Exception cause
  * ("allowedCauseTypes" option).</li></ol><br>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @since 1.8.0
  */
 public class CauseParameterInExceptionCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "cause.parameter.in.exception";
 
@@ -76,8 +73,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     private final Set<String> allowedCauseTypes = new HashSet<>();
 
     /**
-     * List of DetailAST objects which are related to Exception classes that
-     * need to be warned.
+     * List of DetailAST objects which are related to Exception classes that need to be warned.
      */
     private final List<DetailAST> exceptionClassesToWarn =
             new LinkedList<>();
@@ -94,8 +90,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      * Sets the regexp for the names of classes, that should be checked.
      *
      * @param classNamesRegexp
-     *        String contains the regex to set for the names of classes, that
-     *        should be checked.
+     *        String contains the regex to set for the names of classes, that should be checked.
      */
     public void setClassNamesRegexp(String classNamesRegexp) {
         final String regexp;
@@ -109,8 +104,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that should be ignored by
-     * check.
+     * Sets the regexp for the names of classes, that should be ignored by check.
      *
      * @param ignoredClassNamesRegexp
      *        String contains the regex to set for the names of classes, that
@@ -197,14 +191,11 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     }
 
     /**
-     * Checks that the given constructor contains exception cause as a
-     * parameter.
+     * Checks that the given constructor contains exception cause as a parameter.
      *
      * @param ctorDefNode
-     *        The CTOR_DEF DetailAST node is related to the constructor
-     *        definition.
-     * @return true if the given ctor contains exception cause as a parameter
-     *         and false otherwise.
+     *        The CTOR_DEF DetailAST node is related to the constructor definition.
+     * @return true if the given ctor contains exception cause as a parameter and false otherwise.
      */
     private boolean hasCauseAsParameter(DetailAST ctorDefNode) {
         boolean result = false;
@@ -244,8 +235,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
      *
      * @param classOrCtorDefNode
      *        the a CLASS_DEF or CTOR_DEF node
-     * @return the name of class or constructor is related to CLASS_DEF or
-     *         CTOR_DEF node.
+     * @return the name of class or constructor is related to CLASS_DEF or CTOR_DEF node.
      */
     private static String getName(final DetailAST classOrCtorDefNode) {
         final DetailAST classNameIdent = classOrCtorDefNode
@@ -271,8 +261,7 @@ public class CauseParameterInExceptionCheck extends AbstractCheck {
     }
 
     /**
-     * Gets all the children which are one level below on the current DetailAST
-     * parent node.
+     * Gets all the children which are one level below on the current DetailAST parent node.
      *
      * @param node
      *        Current parent node.

@@ -33,8 +33,7 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
  * For example, method has name 'setXXX', but define field with name 'YYY'.
  * Setter and getter methods must have next view: XXXType getXXXName() {return
  * XXXName} XXXType getXXXName() {return this.XXXName} void setXXXName(XXXType
- * value) { this.XXXName = value} void setXXXName(XXXType value) { XXXName =
- * value}
+ * value) { this.XXXName = value} void setXXXName(XXXType value) { XXXName = value}
  * </p>
  * <p>If name of field contains prefix,then must to be define parameter 'prefix'
  * , for example:</p>
@@ -53,13 +52,11 @@ import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
 public class SimpleAccessorNameNotationCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_GETTER = "incorrect.getter.name";
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_SETTER = "incorrect.setter.name";
     /** Prefix for boolean getter methods. */

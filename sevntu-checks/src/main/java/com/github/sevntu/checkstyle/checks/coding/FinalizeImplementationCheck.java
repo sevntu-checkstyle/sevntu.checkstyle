@@ -56,27 +56,23 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class FinalizeImplementationCheck extends AbstractCheck {
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_MISSED_TRY_FINALLY =
             "finalize.implementation.missed.try.finally";
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_PUBLIC_FINALIZE = "finalize.implementation.public";
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_USELESS_FINALIZE = "finalize.implementation.useless";
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_MISSED_SUPER_FINALIZE_CALL =
             "finalize.implementation.missed.super.finalize";

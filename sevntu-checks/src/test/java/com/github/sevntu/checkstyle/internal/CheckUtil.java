@@ -188,8 +188,7 @@ public final class CheckUtil {
     }
 
     /**
-     * Gets the check message 'as is' from appropriate 'messages.properties'
-     * file.
+     * Gets the check message 'as is' from appropriate 'messages.properties' file.
      *
      * @param module the module to load resources from.
      * @param messageKey the key of message in 'messages*.properties' file.

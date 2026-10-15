@@ -71,22 +71,19 @@ import com.puppycrawl.tools.checkstyle.checks.coding.ReturnCountCheck;
 public class ReturnCountExtendedCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_METHOD =
             "return.count.extended.method";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_CTOR =
             "return.count.extended.ctor";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_LAMBDA =
             "return.count.extended.lambda";
@@ -97,8 +94,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     private static final int DEFAULT_MAX_RETURN_COUNT = 1;
 
     /**
-     * Default number of lines of which method/ctor/lambda body may consist to be
-     * skipped by check.
+     * Default number of lines of which method/ctor/lambda body may consist to be skipped by check.
      */
     private static final int DEFAULT_IGNORE_METHOD_LINES_COUNT = 20;
 
@@ -192,8 +188,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the minimum "return" statement depth with that will be skipped by
-     * check.
+     * Sets the minimum "return" statement depth with that will be skipped by check.
      *
      * @param minIgnoreReturnDepth
      *        - the new "minIgnoreReturnDepth" property value.
@@ -308,11 +303,9 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
      * an iterative algorithm.
      *
      * @param methodDefNode
-     *        DetailAST node is pointing to current method definition is being
-     *        processed.
+     *        DetailAST node is pointing to current method definition is being processed.
      * @param methodOpeningBrace
-     *        a DetailAST node that points to the current method`s opening
-     *        brace.
+     *        a DetailAST node that points to the current method`s opening brace.
      * @return "return" literals count for given method.
      */
     private int getReturnCount(final DetailAST methodDefNode,
@@ -358,8 +351,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Checks that the current processed "return" statement is "empty" and
-     * should to be counted.
+     * Checks that the current processed "return" statement is "empty" and should to be counted.
      *
      * @param returnNode
      *        the DetailAST node is pointing to the current "return" statement.
@@ -375,8 +367,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
 
     /**
      * Gets the depth level of given "return" statement. There are few supported
-     * coding blocks when depth counting: "if-else", "for", "while"/"do-while"
-     * and "switch".
+     * coding blocks when depth counting: "if-else", "for", "while"/"do-while" and "switch".
      *
      * @param methodDefNode
      *        a DetailAST node that points to the current method`s definition.
@@ -406,8 +397,7 @@ public class ReturnCountExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Gets the name of given method by DetailAST node is pointing to desired
-     * method definition.
+     * Gets the name of given method by DetailAST node is pointing to desired method definition.
      *
      * @param methodDefNode
      *        a DetailAST node that points to the current method`s definition.

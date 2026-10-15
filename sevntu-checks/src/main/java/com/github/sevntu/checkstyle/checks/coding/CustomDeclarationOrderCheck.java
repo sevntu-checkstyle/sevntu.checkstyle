@@ -51,8 +51,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <pre>
  * ClassMember(RegExp)
  * </pre>
- * To set class order use the following notation of the class members (case
- * insensitive):
+ * To set class order use the following notation of the class members (case insensitive):
  * <ol>
  * <li>"Field" to denote the Fields</li>
  * <li>"DeclareAnonClassField" to denote the fields keeping objects of anonymous classes</li>
@@ -94,8 +93,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </p>
  * <p>
  * If you set empty RegExp e.g. {@code Field()}, it means that class member
- * doesn't have modifiers(default modifier) and checking the type and name of
- * member doesn't occur.
+ * doesn't have modifiers(default modifier) and checking the type and name of member doesn't occur.
  * </p>
  * <p>
  * Between the declaration of a array and generic can't be whitespaces.
@@ -158,44 +156,37 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class CustomDeclarationOrderCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_FIELD = "custom.declaration.order.field";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_METHOD = "custom.declaration.order.method";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_CONSTRUCTOR = "custom.declaration.order.constructor";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_CLASS = "custom.declaration.order.class";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_INTERFACE = "custom.declaration.order.interface";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_ENUM = "custom.declaration.order.enum";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_INVALID_SETTER = "custom.declaration.order.invalid.setter";
 
@@ -275,8 +266,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     private String fieldPrefix = "";
 
     /**
-     * Stack of GetterSetterContainer objects to keep all getters and all setters
-     * of certain class.
+     * Stack of GetterSetterContainer objects to keep all getters and all setters of certain class.
      */
     private final Deque<ClassDetail> classDetails = new LinkedList<>();
 
@@ -288,8 +278,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     /**
      * Set custom order declaration from string with user rules.
      *
-     * @param inputOrderDeclaration The string line with the user custom
-     *            declaration.
+     * @param inputOrderDeclaration The string line with the user custom declaration.
      * @throws IllegalArgumentException if the input rule could not be parsed
      */
     public final void setCustomDeclarationOrder(final String inputOrderDeclaration) {
@@ -450,8 +439,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * Parse input current declaration rule and create new instance of
-     * FormatMather with matcher.
+     * Parse input current declaration rule and create new instance of FormatMather with matcher.
      *
      * @param currentState input string with MemberDefinition and RegExp.
      * @return new FormatMatcher with parsed and compile rule
@@ -487,8 +475,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
      * its complete naming in system.
      *
      * @param inputMemberName a string name which must be normalize.
-     * @return correct name of member or initial string if no matches was
-     *         found.
+     * @return correct name of member or initial string if no matches was found.
      */
     private static int convertMacroToTokenType(
             String inputMemberName) {
@@ -675,13 +662,11 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * Verify that there is anonymous class in variable definition and this
-     * variable is a field.
+     * Verify that there is anonymous class in variable definition and this variable is a field.
      *
      * @param varDefinitionAst
      *        DetailAST of variable definition.
-     * @return true if there is anonymous class in variable definition and this
-     *         variable is a field.
+     * @return true if there is anonymous class in variable definition and this variable is a field.
      */
     private static boolean isAnonymousClassField(DetailAST varDefinitionAst) {
         boolean result = false;
@@ -839,8 +824,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * Use for concatenation modifiers, annotations, type and
-     * name of member in single line. <br>
+     * Use for concatenation modifiers, annotations, type and name of member in single line. <br>
      * Contains TokenTypes parameters for entry in child.
      *
      * @param ast current DetailAST state.
@@ -1151,8 +1135,7 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * Return true if AST of method parameters has String[] parameter child
-     * token.
+     * Return true if AST of method parameters has String[] parameter child token.
      *
      * @param parametersAST
      *        DetailAST of method parameters.
@@ -1182,13 +1165,11 @@ public class CustomDeclarationOrderCheck extends AbstractCheck {
     }
 
     /**
-     * Return true if AST of method parameters has String... parameter child
-     * token.
+     * Return true if AST of method parameters has String... parameter child token.
      *
      * @param parametersAST
      *        DetailAST of method parameters.
-     * @return true if aParametersAST has String... parameter child token, false
-     *         otherwise.
+     * @return true if aParametersAST has String... parameter child token, false otherwise.
      */
     private static boolean hasOnlyStringEllipsisParameter(final DetailAST parametersAST) {
         final boolean result;

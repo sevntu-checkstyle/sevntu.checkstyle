@@ -46,12 +46,10 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  *
  * <p>
  * Example:
- * {@code if (null == variable)}
- * rather than
+ * {@code if (null == variable)} rather than
  * {@code if (variable == null)}
  * because if you forget one (typo mistake) of the equal sign, you end up with
- * {@code if (variable = null)}
- * which assigns null to variable and IF always evaluate to true.
+ * {@code if (variable = null)} which assigns null to variable and IF always evaluate to true.
  * </p>
  *
  * @author Sergey Burtsev
@@ -60,8 +58,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 public class AvoidConstantAsFirstOperandInConditionCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "avoid.constant.as.first.operand.in.condition";
 

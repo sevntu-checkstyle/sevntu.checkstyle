@@ -135,8 +135,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 public class PreferMethodReferenceCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_METHOD_REF = "method.reference";
 
@@ -468,8 +467,7 @@ public class PreferMethodReferenceCheck extends AbstractCheck {
     /**
      * Check if ast is a method ident.
      * Either it is last child of {@link TokenTypes#DOT}<br/>
-     * or has {@link TokenTypes#ELIST} as next sibling
-     * or is a part of method reference.
+     * or has {@link TokenTypes#ELIST} as next sibling or is a part of method reference.
      *
      * @param node ident to check
      * @return true if method ident, false otherwise

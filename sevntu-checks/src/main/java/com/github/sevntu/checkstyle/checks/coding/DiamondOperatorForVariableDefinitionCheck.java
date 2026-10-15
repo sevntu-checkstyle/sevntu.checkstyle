@@ -29,8 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * diamond operator</a> could be used.<br>
  * <b>Rationale</b>: using diamond operator (introduced in Java 1.7) leads to shorter code<br>
  * and better code readability. It is suggested by Oracle that the diamond primarily using<br>
- * for variable declarations.<br><br>
- * E.g. of statements:
+ * for variable declarations.<br><br> E.g. of statements:
  *
  * <p><b>Without diamond operator:</b><br><code>
  * Map&lt;String, Map&lt;String, Integer&gt;&gt; someMap =

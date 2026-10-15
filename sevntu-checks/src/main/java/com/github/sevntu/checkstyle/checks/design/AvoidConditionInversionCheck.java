@@ -72,8 +72,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <b>applyOnlyToRelationalOperands</b> - if true Check will only put violation on<br>
  * condition inversions with
  * <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html">
- * relational</a> operands.<br>
- * This option makes Check less strict, e.g.:<br>
+ * relational</a> operands.<br> This option makes Check less strict, e.g.:<br>
  * Using with value <b>true</b> does not put violation on code below:<br>
  * <p>
  * <code>
@@ -87,8 +86,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class AvoidConditionInversionCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "avoid.condition.inversion";
 
@@ -241,8 +239,7 @@ public class AvoidConditionInversionCheck extends AbstractCheck {
     /**
      * Checks if current inverted condition has to be skipped by Check,
      * it depends from user-defined property <b>"applyOnlyToRelationalOperands"</b>.
-     * if it's <b>true</b> - Check will ignore inverted conditions with
-     * non-relational operands
+     * if it's <b>true</b> - Check will ignore inverted conditions with non-relational operands
      *
      * @param inversionConditionAst
      *             Node of type {@link com.puppycrawl.tools.checkstyle.api.TokenTypes#LNOT}

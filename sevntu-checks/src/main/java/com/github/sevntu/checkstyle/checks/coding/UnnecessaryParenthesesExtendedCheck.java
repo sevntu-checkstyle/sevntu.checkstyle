@@ -37,15 +37,13 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <p>
  * The check is not "type aware", that is to say, it can't tell if parentheses
  * are unnecessary based on the types in an expression.  It also doesn't know
- * about operator precedence and associativity; therefore it won't catch
- * something like
+ * about operator precedence and associativity; therefore it won't catch something like
  * </p>
  * <pre>
  *     int x = (a + b) + c;</pre>
  * <p>
  * In the above case, given that <em>a</em>, <em>b</em>, and <em>c</em> are
- * all {@code int} variables, the parentheses around {@code a + b}
- * are not needed.
+ * all {@code int} variables, the parentheses around {@code a + b} are not needed.
  * </p>
  *
  * @author Eric Roe
@@ -109,20 +107,17 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     };
 
     /**
-     * Used to ignore unnecessary parentheses check
-     * in calculation of boolean.
+     * Used to ignore unnecessary parentheses check in calculation of boolean.
      */
     private boolean ignoreCalculationOfBooleanVariables;
 
     /**
-     * Used to ignore unnecessary parentheses check
-     * in calculation of boolean with return state.
+     * Used to ignore unnecessary parentheses check in calculation of boolean with return state.
      */
     private boolean ignoreCalculationOfBooleanVariablesWithReturn;
 
     /**
-     * Used to ignore unnecessary parentheses check
-     * in calculation of boolean with assert state.
+     * Used to ignore unnecessary parentheses check in calculation of boolean with assert state.
      */
     private boolean ignoreCalculationOfBooleanVariablesWithAssert;
 
@@ -283,10 +278,8 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      * {@code TokenTypes.LPAREN} and a next sibling whose type is
      * {@code TokenTypes.RPAREN}.
      *
-     * @param ast the {@code DetailAST} to check if it is surrounded by
-     *        parentheses.
-     * @return {@code true} if {@code aAST} is surrounded by
-     *         parentheses.
+     * @param ast the {@code DetailAST} to check if it is surrounded by parentheses.
+     * @return {@code true} if {@code aAST} is surrounded by parentheses.
      */
     private static boolean isSurrounded(DetailAST ast) {
         final DetailAST prev = ast.getPreviousSibling();
@@ -348,8 +341,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Returns the type of the subtree, witch need to detect equals
-     * in boolean calculation.
+     * Returns the type of the subtree, witch need to detect equals in boolean calculation.
      *
      * @param ast the {@code DetailAST}
      * @return integer value of subtree
@@ -364,8 +356,7 @@ public class UnnecessaryParenthesesExtendedCheck extends AbstractCheck {
      * Sets flag to IgnoreCalculationOfBooleanVariables.
      *
      * @param ignoreCalculationOfBooleanVariables
-     *            if true ignore unnecessary parentheses check in calculation of
-     *            boolean.
+     *            if true ignore unnecessary parentheses check in calculation of boolean.
      */
 
     public final void setIgnoreCalculationOfBooleanVariables(

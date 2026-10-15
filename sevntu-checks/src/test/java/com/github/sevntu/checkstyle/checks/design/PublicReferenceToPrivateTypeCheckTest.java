@@ -73,8 +73,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
     }
 
     /**
-     * Test file with method return instance of private class private class
-     * implements interface.
+     * Test file with method return instance of private class private class implements interface.
      *
      * @throws Exception
      *         exceptions while verify()
@@ -91,8 +90,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
     }
 
     /**
-     * Test file with method return instance of private class private class
-     * extends another class.
+     * Test file with method return instance of private class private class extends another class.
      *
      * @throws Exception
      *         exceptions while verify()
@@ -145,8 +143,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
     }
 
     /**
-     * Test file with method return collection of collections instances of
-     * private class.
+     * Test file with method return collection of collections instances of private class.
      *
      * @throws Exception
      *         exceptions while verify()
@@ -164,8 +161,7 @@ public class PublicReferenceToPrivateTypeCheckTest extends AbstractModuleTestSup
     }
 
     /**
-     * Test file with method return several times included in collection
-     * instances of private class.
+     * Test file with method return several times included in collection instances of private class.
      *
      * @throws Exception
      *         exceptions while verify()

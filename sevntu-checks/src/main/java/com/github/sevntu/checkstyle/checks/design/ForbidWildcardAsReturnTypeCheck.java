@@ -419,8 +419,7 @@ public class ForbidWildcardAsReturnTypeCheck extends AbstractCheck {
     }
 
     /**
-     * Verify that method with wildcards as return type is allowed by current
-     * check configuration.
+     * Verify that method with wildcards as return type is allowed by current check configuration.
      *
      * @param methodDefAst DetailAST of method definition.
      * @param wildcardTypeArguments list of wildcard type arguments.

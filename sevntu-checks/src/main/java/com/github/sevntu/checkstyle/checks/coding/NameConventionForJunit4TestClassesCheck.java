@@ -28,10 +28,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * <p>
  * This check verifies the name of JUnit4 test class for compliance with user
- * defined naming convention(by default Check expects test classes names
- * matching
- * ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*"
- * regex).
+ * defined naming convention(by default Check expects test classes names matching
+ * ".+Test\\d*|.+Tests\\d*|Test.+|Tests.+|.+IT|.+ITs|.+TestCase\\d*|.+TestCases\\d*" regex).
  * </p>
  * <p>
  * Class is considered to be a test if its definition or one of its method
@@ -233,13 +231,11 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     }
 
     /**
-     * Checks whether class contains at least one method annotated with user
-     * defined annotation.
+     * Checks whether class contains at least one method annotated with user defined annotation.
      *
      * @param classDefNode
      *        a class definition node
-     * @return true, if class contains at least one method annotated with user
-     *         defined annotation
+     * @return true, if class contains at least one method annotated with user defined annotation
      */
     private boolean isAtleastOneMethodAnnotated(DetailAST classDefNode) {
         boolean result = false;
@@ -272,8 +268,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
     }
 
     /**
-     * Returns true, if class or method has annotation with name specified in
-     * regexp.
+     * Returns true, if class or method has annotation with name specified in regexp.
      *
      * @param methodOrClassDefNode
      *        the node of type TokenTypes.METHOD_DEF or TokenTypes.CLASS_DEF
@@ -354,8 +349,7 @@ public class NameConventionForJunit4TestClassesCheck extends AbstractCheck {
      *        regex to match string with. May be null.
      * @param str
      *        a string to match against regex.
-     * @return false if regex is null, otherwise result of matching string
-     *         against regex.
+     * @return false if regex is null, otherwise result of matching string against regex.
      */
     private static boolean isMatchesRegex(Pattern regexPattern, String str) {
         final boolean result;

@@ -51,8 +51,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * Check has an option which contains the regular expression for exception class name matching<br>
  * Default value is "^.*Exception" because usually exception type ends with suffix "Exception".<br>
  * Then, if we have an ObjBlock (distinguished by curly braces), it's anonymous<br>
- * exception definition. It could be defined in <b>throw</b> statement
- * immediately.<br>
+ * exception definition. It could be defined in <b>throw</b> statement immediately.<br>
  * In that case, after literal new, there would be an expression type finishing
  * with and ObjBlock.<br>
  * <br>

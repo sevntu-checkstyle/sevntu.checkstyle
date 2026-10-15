@@ -208,8 +208,7 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     }
 
     /**
-     * Return true if AST of method parameters has String[] parameter child
-     * token.
+     * Return true if AST of method parameters has String[] parameter child token.
      *
      * @param parametersAST
      *        DetailAST of method parameters.
@@ -239,13 +238,11 @@ public class NoMainMethodInAbstractClassCheck extends AbstractCheck {
     }
 
     /**
-     * Return true if AST of method parameters has String... parameter child
-     * token.
+     * Return true if AST of method parameters has String... parameter child token.
      *
      * @param parametersAST
      *        DetailAST of method parameters.
-     * @return true if aParametersAST has String... parameter child token, false
-     *         otherwise.
+     * @return true if aParametersAST has String... parameter child token, false otherwise.
      */
     private static boolean hasOnlyStringEllipsisParameter(final DetailAST parametersAST) {
         final boolean result;

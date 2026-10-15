@@ -42,8 +42,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *
  * <p>
  * Nested switch block that checks {@code type} parameter should be converted into separate
- * method.<br>
- * To enable this check use following configuration:
+ * method.<br> To enable this check use following configuration:
  * </p>
  *
  * <pre>
@@ -56,8 +55,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class NestedSwitchCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "avoid.nested.switch";
 

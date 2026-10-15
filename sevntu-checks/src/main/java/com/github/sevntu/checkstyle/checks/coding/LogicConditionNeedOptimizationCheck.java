@@ -40,8 +40,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "logic.condition.need.optimization";
 
@@ -149,8 +148,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      * @param operands the list operands in order of start and stop
      * @param setNumber to retrieve the 1st or 2nd operand
      * @param type a TokenType
-     * @return true if and only if the node range
-     *     contains a token of type {@code type}.
+     * @return true if and only if the node range contains a token of type {@code type}.
      */
     private static boolean branchContains(DetailAST[] operands, int setNumber, int type) {
         final boolean result;
@@ -171,8 +169,7 @@ public class LogicConditionNeedOptimizationCheck extends AbstractCheck {
      * @param start the token to start checking with (inclusive)
      * @param end the token to end with (inclusive)
      * @param type a TokenType
-     * @return true if and only if the node range
-     *     contains a token of type {@code type}.
+     * @return true if and only if the node range contains a token of type {@code type}.
      */
     private static boolean branchContains(DetailAST start, DetailAST end, int type) {
         boolean result;

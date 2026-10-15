@@ -67,16 +67,14 @@ public class ForbidWildcardAsReturnTypeCheckTest extends AbstractModuleTestSuppo
                 174, 179, 189, 202, 207, 214, 218, 221, 244, 248, 251, 254, 264,
                 267, 270, 291, });
     /**
-     * Line numbers with methods which have upper bounded wildcard in return
-     * type.
+     * Line numbers with methods which have upper bounded wildcard in return type.
      */
     private static final SortedSet<Integer> LINES_WITH_EXTENDS =
             newSetOfLines(new Integer[] {29, 34, 39, 44, 49, 54, 104, 114,
                 129, 134, 164, 169, 174, 179, 189, 202, 214, 218, 228, 242, 248,
                 264, 282, 283, 286, 291, });
     /**
-     * Line numbers with methods which have lower bounded wildcard in return
-     * type.
+     * Line numbers with methods which have lower bounded wildcard in return type.
      */
     private static final SortedSet<Integer> LINES_WITH_SUPER =
             newSetOfLines(new Integer[] {9, 14, 19, 24, 59, 119, 189, 207, 231,

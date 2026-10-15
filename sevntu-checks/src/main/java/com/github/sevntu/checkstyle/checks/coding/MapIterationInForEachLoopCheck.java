@@ -129,20 +129,17 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class MapIterationInForEachLoopCheck extends AbstractCheck {
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_KEYSET = "map.iteration.keySet";
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_ENTRYSET = "map.iteration.entrySet";
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_VALUES = "map.iteration.values";
 
@@ -399,8 +396,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
      *
      * @param forEachNode
      *        Contains current for node.
-     * @return keySet() or entrySet() node. If such node didn't found, method
-     *         return null.
+     * @return keySet() or entrySet() node. If such node didn't found, method return null.
      */
     private DetailAST getKeySetOrEntrySetNode(DetailAST forEachNode) {
         final List<DetailAST> identAndThisNodesList = getSubTreeNodesOfType(forEachNode,
@@ -445,8 +441,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     }
 
     /**
-     * Returns true, if any method call inside for loop contains map
-     * object as parameter.
+     * Returns true, if any method call inside for loop contains map object as parameter.
      *
      * @param forEachOpeningBraceNode
      *        List with subtree IDENT nodes.
@@ -639,8 +634,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     }
 
     /**
-     * Checks, is mSupportedMapImplQualifiedNames List contains
-     * current class.
+     * Checks, is mSupportedMapImplQualifiedNames List contains current class.
      *
      * @param className
      *        current class name.
@@ -663,8 +657,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     }
 
     /**
-     * Checks, is mQualifiedImportList contains
-     * current class.
+     * Checks, is mQualifiedImportList contains current class.
      *
      * @param className
      *        current class name.
@@ -702,8 +695,7 @@ public class MapIterationInForEachLoopCheck extends AbstractCheck {
     }
 
     /**
-     * Searches the first specific
-     * DetailAST node inside List.
+     * Searches the first specific DetailAST node inside List.
      *
      * @param nodesList
      *        DetailAST List witch maybe contains specific token.

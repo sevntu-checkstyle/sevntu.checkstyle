@@ -49,8 +49,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * superclass constructor runs before the subclass constructor, so the
  * overriding method in the subclass will be invoked before the subclass
  * constructor has run. If the overriding method depends on any
- * initialization performed by the subclass constructor, the method will
- * not behave as expected.
+ * initialization performed by the subclass constructor, the method will not behave as expected.
  * <li>If you do decide to implement Cloneable or Serializable in a class
  * designed for inheritance, you should be aware that because the clone and
  * readObject methods behave a lot like constructors, a similar restriction
@@ -124,22 +123,19 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * </ul>
  * <br>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  * @since 1.8.0
  */
 public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "overridable.method";
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY_LEADS = "overridable.method.leads";
 
@@ -157,8 +153,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * A key is using to build a warning message about calls of an overridable
-     * methods from any readObject() method is implemented from Serializable
-     * interface.
+     * methods from any readObject() method is implemented from Serializable interface.
      */
     private static final String KEY_READ_OBJECT = "'readObject()' method";
 
@@ -169,8 +164,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     private static final String PATH_SEPARATOR = ".";
 
     /**
-     * A list contains all METHOD_CALL DetailAST nodes that have been already
-     * visited by check.
+     * A list contains all METHOD_CALL DetailAST nodes that have been already visited by check.
      */
     private final List<DetailAST> visitedMethodCalls = new LinkedList<>();
 
@@ -186,21 +180,18 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * A boolean check box that enables the searching of calls to overridable
-     * methods from the body of any clone() method is implemented from Cloneable
-     * interface.
+     * methods from the body of any clone() method is implemented from Cloneable interface.
      */
     private boolean checkCloneMethod;
 
     /**
      * A boolean check box that enables the searching of calls to overridable
-     * methods from the body of any readObject() method is implemented from
-     * Serializable interface.
+     * methods from the body of any readObject() method is implemented from Serializable interface.
      */
     private boolean checkReadObjectMethod;
 
     /**
-     * A boolean check box that enables the matching methods by number of
-     * their parameters.
+     * A boolean check box that enables the matching methods by number of their parameters.
      */
     private boolean matchMethodsByArgCount;
 
@@ -310,8 +301,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *
      * @param detailAST
      *            A DetailAST node which is pointing to current method or c-tor
-     *            body is being processed to retrieve overridable method calls
-     *            list.
+     *            body is being processed to retrieve overridable method calls list.
      * @param key
      *            A string is using to retrieve the warning message text from
      *            "messages.properties" file.
@@ -336,15 +326,13 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * Searches for all METHOD_CALL DetailASTs that are pointing to overridable
-     * methods calls in current method or c-tor body and generates a list of
-     * them.
+     * methods calls in current method or c-tor body and generates a list of them.
      *
      * @param parentAST
      *            A DetailAST METHOD_DEF of CTOR_DEF node which is pointing to
      *            the current method or c-tor body is being processed to
      *            retrieve overridable method calls.
-     * @return A list of overridable methods calls for current method or
-     *         constructor body.
+     * @return A list of overridable methods calls for current method or constructor body.
      */
     private List<OverridableMetCall> getOverridables(final DetailAST parentAST) {
         final List<OverridableMetCall> result =
@@ -366,8 +354,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Checks that current processed METHOD_CALL DetailAST is pointing to
-     * overridable method call.
+     * Checks that current processed METHOD_CALL DetailAST is pointing to overridable method call.
      *
      * @param methodCallAST
      *            A METHOD_CALL DetailAST is currently being processed.
@@ -404,13 +391,11 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Gets all METHOD_CALL nodes which are below on the current parent
-     * METHOD_DEF or CTOR_DEF node.
+     * Gets all METHOD_CALL nodes which are below on the current parent METHOD_DEF or CTOR_DEF node.
      *
      * @param parentAST
      *            The current parent METHOD_DEF or CTOR_DEF node.
-     * @return List contains all METHOD_CALL nodes which are below on the
-     *         current parent node.
+     * @return List contains all METHOD_CALL nodes which are below on the current parent node.
      */
     private List<DetailAST> getMethodCallsList(final DetailAST parentAST) {
         final List<DetailAST> result = new LinkedList<>();
@@ -477,8 +462,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * @param methodCallAST
      *            A METHOD_CALL DetailAST node is currently being processed.
      * @return the METHOD_DEF DetailAST node is pointing to the method
-     *         definition which is related to the current METHOD_CALL DetailAST
-     *         node.
+     *         definition which is related to the current METHOD_CALL DetailAST node.
      */
     private DetailAST getMethodDef(final DetailAST methodCallAST) {
         DetailAST result = null;
@@ -543,11 +527,9 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * methods (retrieves only one METHOD_DEF node).
      *
      * @param parentAST
-     *            A parent CLASS_DEF DetailAST node which uses as a start point
-     *            when searching.
+     *            A parent CLASS_DEF DetailAST node which uses as a start point when searching.
      * @param methodName
-     *            String containing the name of method is currently being
-     *            searched.
+     *            String containing the name of method is currently being searched.
      * @return a List of method definition
      */
     private List<DetailAST> getMethodDef(final DetailAST parentAST,
@@ -608,8 +590,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Return true when usedIbjectName contains current class name or base class
-     * name.
+     * Return true when usedIbjectName contains current class name or base class name.
      *
      * @param objectTypeName The object type name to check against.
      * @param classDefNode The token to examine.
@@ -653,11 +634,9 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Gets the count of parameters for current method definition or
-     * method call.
+     * Gets the count of parameters for current method definition or method call.
      *
-     * @param methodDefOrCallAST METHOD_DEF or METHOD_CALL
-     *     DetailAST node
+     * @param methodDefOrCallAST METHOD_DEF or METHOD_CALL DetailAST node
      * @return the count of parameters for current method.
      */
     private static int getMethodParamsCount(DetailAST methodDefOrCallAST) {
@@ -689,8 +668,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * CLASS_DEF DetailAST node has a specified modifier (private, final etc).
      *
      * @param methodOrClassDefAST
-     *            A METHOD_DEF or CLASS_DEF DetailAST node is currently being
-     *            processed.
+     *            A METHOD_DEF or CLASS_DEF DetailAST node is currently being processed.
      * @param modifierType
      *            desired modifier type.
      * @return true if method is related to current aMethodDefAST METHOD_DEF
@@ -714,8 +692,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Gets a parent CLASS_DEF DetailAST node for current METHOD_CALL DetailAST
-     * node.
+     * Gets a parent CLASS_DEF DetailAST node for current METHOD_CALL DetailAST node.
      *
      * @param methodNode
      *            A METHOD_DEF or METHOD_CALL DetailAST node for current method.
@@ -739,8 +716,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      *            A root node of syntax tree is being processed.
      * @param className
      *            The name of class to search.
-     * @return The CLASS_DEF DetailAST node which is related to the class is
-     *         named "aClassName".
+     * @return The CLASS_DEF DetailAST node which is related to the class is named "aClassName".
      */
     private static DetailAST getClassDef(DetailAST rootNode, String className) {
         DetailAST curNode = rootNode;
@@ -768,15 +744,13 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * Checks that class realizes "anInterfaceName" interface (checks that class
-     * implements this interface or has at least one parent class which
-     * implements this interface).
+     * implements this interface or has at least one parent class which implements this interface).
      *
      * @param classDefNode
      *            A CLASS_DEF DetailAST for class is currently being checked.
      * @param interfaceName
      *            The name of the interface to check.
-     * @return true if class realizes "anInterfaceName" interface and false
-     *         otherwise.
+     * @return true if class realizes "anInterfaceName" interface and false otherwise.
      */
     private boolean realizesAnInterface(final DetailAST classDefNode,
             final String interfaceName) {
@@ -803,8 +777,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * @param interfaceName
      *            The name of the interface to check.
      * @return true if class is related to the current CLASS_DEF DetailAST is
-     *         being processed implements "anInterfaceName" interface and false
-     *         otherwise.
+     *         being processed implements "anInterfaceName" interface and false otherwise.
      */
     private static boolean implementsAnInterface(final DetailAST classDefAST,
             final String interfaceName) {
@@ -828,8 +801,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
      * is currently being processed and all it`s base classes.
      *
      * @param classDefNode
-     *            A CLASS_DEF DetailAST is related to the class is currently
-     *            being processed.
+     *            A CLASS_DEF DetailAST is related to the class is currently being processed.
      * @return a list of CLASS_DEF DetailAST nodes for class is currently being
      *         processed and all it`s base classes.
      */
@@ -886,13 +858,11 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
     }
 
     /**
-     * Gets all the children one level below on the current DetailAST parent
-     * node.
+     * Gets all the children one level below on the current DetailAST parent node.
      *
      * @param node
      *            Current parent node.
-     * @return An array of children one level below on the current parent node
-     *         aNode.
+     * @return An array of children one level below on the current parent node aNode.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
         final List<DetailAST> result = new LinkedList<>();
@@ -906,8 +876,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * Class that encapsulates the DetailAST node related to the method call
-     * that leads to call of the overridable method and the name of
-     * overridable method.
+     * that leads to call of the overridable method and the name of overridable method.
      */
     private final class OverridableMetCall {
 
