@@ -351,8 +351,7 @@ public class EitherLogOrThrowCheck extends AbstractCheck {
 
     /**
      * Look at the each statement of catch block to find logging and throwing.
-     * If same exception is being logged and throwed, then prints warning
-     * message.
+     * If same exception is being logged and throwed, then prints warning message.
      *
      * @param catchAst
      *        DetailAST of catch block.

@@ -41,15 +41,13 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * instead of "NullpointerException".
  * </p>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @since 1.8.0
  */
 public class ForbidInstantiationCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "forbid.instantiation";
 
@@ -57,14 +55,12 @@ public class ForbidInstantiationCheck extends AbstractCheck {
     private static final String PATH_SEPARATOR = ".";
 
     /**
-     * Set which contains classNames for objects that are forbidden to
-     * instantiate.
+     * Set which contains classNames for objects that are forbidden to instantiate.
      */
     private final Set<String> forbiddenClasses = new HashSet<>();
 
     /**
-     * List which contains String representation of imports for class is
-     * currently being processed.
+     * List which contains String representation of imports for class is currently being processed.
      */
     private final List<String> importsList = new LinkedList<>();
 
@@ -157,8 +153,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
     }
 
     /**
-     * Checks that the class with given className is visible because of the
-     * forbidden import.
+     * Checks that the class with given className is visible because of the forbidden import.
      *
      * @param className
      *        - the name of the class to check.
@@ -242,8 +237,7 @@ public class ForbidInstantiationCheck extends AbstractCheck {
      *        - DetailAST node is pointing to import definition or to the "new"
      *        literal node ("IMPORT" or "LITERAL_NEW" node types).
      * @return Import text without "import" word and semicolons for given
-     *         "IMPORT" node or instantiated class Name&Path for given
-     *         "LITERAL_NEW" node.
+     *         "IMPORT" node or instantiated class Name&Path for given "LITERAL_NEW" node.
      */
     private static String getText(final DetailAST ast) {
         String result = null;

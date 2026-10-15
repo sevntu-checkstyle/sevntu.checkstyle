@@ -33,8 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * It points to complicated ternary
  * <a href="http://docs.oracle.com/javase/tutorial/java/nutsandbolts/expressions.html">
  * expressions</a>.
- * Reason:<br>
- * - Complicated ternary expressions are not easy to read.<br>
+ * Reason:<br> - Complicated ternary expressions are not easy to read.<br>
  * - Complicated ternary expressions could lead to ambiguous result if user<br>
  * does not know Java's operators priority well, e.g.:<br>
  *
@@ -94,8 +93,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class TernaryPerExpressionCountCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "ternary.per.expression.count";
 
@@ -106,14 +104,12 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
     private int maxTernaryPerExpressionCount = DEFAULT_MAX_TERNARY_PER_EXPRESSION_COUNT;
 
     /**
-     * If true Check will ignore ternary operators in braces (braces explicitly
-     * set priority level).
+     * If true Check will ignore ternary operators in braces (braces explicitly set priority level).
      */
     private boolean ignoreTernaryOperatorsInBraces = true;
 
     /**
-     * If true Check will ignore one line ternary operators, if only it is
-     * places in line alone.
+     * If true Check will ignore one line ternary operators, if only it is places in line alone.
      */
     private boolean ignoreIsolatedTernaryOnLine = true;
 
@@ -149,8 +145,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
     }
 
     /**
-     * Sets parameter to ignore ternary operators in braces, default value =
-     * true.
+     * Sets parameter to ignore ternary operators in braces, default value = true.
      *
      * @param ignoreTernaryOperatorsInBraces ignore ternary operators in braces
      */
@@ -217,8 +212,7 @@ public class TernaryPerExpressionCountCheck extends AbstractCheck {
     }
 
     /**
-     * Checks ternary operator if it is in braces, which are explicitly setting
-     * the priority level.
+     * Checks ternary operator if it is in braces, which are explicitly setting the priority level.
      *
      * @param questionAST The token to examine.
      * @return true if ternary operator is in braces.

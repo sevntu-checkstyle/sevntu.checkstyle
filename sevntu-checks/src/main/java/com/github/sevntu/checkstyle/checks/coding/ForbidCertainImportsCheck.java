@@ -55,21 +55,18 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * You can cover more sophisticated rules by means of few check instances.
  * </p>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @since 1.8.0
  */
 public class ForbidCertainImportsCheck extends AbstractCheck {
 
     /**
-     * The key is pointing to the warning message text in "messages.properties"
-     * file.
+     * The key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "forbid.certain.imports";
 
     /**
-     * Pattern for matching package fully qualified name
-     * (sets the scope of affected packages).
+     * Pattern for matching package fully qualified name (sets the scope of affected packages).
      */
     private Pattern packageNamesRegexp;
 
@@ -84,8 +81,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
     private Pattern forbiddenImportsExcludesRegexp;
 
     /**
-     * True, if currently processed package fully qualified name
-     * matches regexp is provided by user.
+     * True, if currently processed package fully qualified name matches regexp is provided by user.
      */
     private boolean packageMatches;
 
@@ -194,8 +190,7 @@ public class ForbidCertainImportsCheck extends AbstractCheck {
      * Checks if given import both matches 'include' and not matches 'exclude' patterns.
      *
      * @param importText package fully qualified name
-     * @return true is given import is forbidden in current
-     *     classes package, false otherwise
+     * @return true is given import is forbidden in current classes package, false otherwise
      */
     private boolean isImportForbidden(String importText) {
         return packageMatches

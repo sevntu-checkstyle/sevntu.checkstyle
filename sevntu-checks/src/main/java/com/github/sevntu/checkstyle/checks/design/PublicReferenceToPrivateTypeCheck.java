@@ -32,9 +32,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 /**
  * This Check warns on propagation of inner private types to outer classes:<br>
  * - Externally accessible method if it returns private inner type.<br>
- * - Externally accessible field if its type is a private inner type.<br>
- * These types could be <a href=
- * 'http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html'>private
+ * - Externally accessible field if its type is a private inner type.<br> These types could be
+ * <a href='http://docs.oracle.com/javase/tutorial/java/javaOO/nested.html'>private
  * inner classes</a>, interfaces or enumerations.<br>
  * <br>
  * Examples:
@@ -61,13 +60,10 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  * <b>Rationale:</b> it is possible to return<br>
- * private inner type or use it as the parameter of non-private method, but it
- * is impossible<br>
+ * private inner type or use it as the parameter of non-private method, but it is impossible<br>
  * to use it in other classes (besides inner classes)<br>
- * unless it extends or implements at least one <u>non-private</u> class or
- * interface.<br>
- * Such situation usually happens after bulk refactoring and usually means
- * dead/useless code<br>
+ * unless it extends or implements at least one <u>non-private</u> class or interface.<br>
+ * Such situation usually happens after bulk refactoring and usually means dead/useless code<br>
  * <br>
  *
  * @author <a href="mailto:nesterenko-aleksey@list.ru">Aleksey Nesterenko</a>
@@ -272,12 +268,10 @@ public class PublicReferenceToPrivateTypeCheck extends AbstractCheck {
     }
 
     /**
-     * Checks if inner class or interface extends or implements <u>inner private
-     * type</u>.
+     * Checks if inner class or interface extends or implements <u>inner private type</u>.
      *
      * @param classOrInterfaceDefAst The token to examine.
-     * @return true if extending or implementing type is in collection of inner
-     *         private types
+     * @return true if extending or implementing type is in collection of inner private types
      */
     private boolean
             isExtendsOrImplementsPrivate(DetailAST classOrInterfaceDefAst) {

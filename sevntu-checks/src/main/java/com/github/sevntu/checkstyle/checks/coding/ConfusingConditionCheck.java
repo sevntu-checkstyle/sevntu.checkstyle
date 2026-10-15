@@ -112,8 +112,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
     }
 
     /**
-     * Enable(true) | Disable(false) warnings for all "if" that follows the
-     * "else".
+     * Enable(true) | Disable(false) warnings for all "if" that follows the "else".
      *
      * @param ignoreSequentialIf ignore sequential if
      */
@@ -228,8 +227,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
     }
 
     /**
-     * Check IF - ELSE or not that contained THROW in the expression in a block
-     * ELSE.
+     * Check IF - ELSE or not that contained THROW in the expression in a block ELSE.
      *
      * @param literalIf The token to examine.
      * @return true if the ELSE contains a THROW.
@@ -314,8 +312,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
     }
 
     /**
-     * Number of comparison operators in IF must be one less than negative
-     * symbols.
+     * Number of comparison operators in IF must be one less than negative symbols.
      *
      * @param literalIf The token to examine.
      * @return true
@@ -353,8 +350,7 @@ public class ConfusingConditionCheck extends AbstractCheck {
     }
 
     /**
-     * Recursive method which counts a tokens of the provided type in detAst
-     * tree.
+     * Recursive method which counts a tokens of the provided type in detAst tree.
      *
      * @param detAst a tree for "atype" tokens searching.
      * @param type a TokenType

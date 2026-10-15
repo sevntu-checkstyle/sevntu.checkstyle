@@ -152,8 +152,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 public class AvoidModifiersForTypesCheck extends AbstractCheck {
 
     /**
-     * The key is pointing to the message text String in
-     * "messages.properties file".
+     * The key is pointing to the message text String in "messages.properties file".
      */
     public static final String MSG_KEY = "avoid.modifiers.for.types";
 
@@ -212,8 +211,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     private Pattern forbiddenClassesRegexpPublic = Pattern.compile("");
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'annotation'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'annotation' modifier.
      *
      * @param forbiddenClassesRegexpAnnotation
      *        String contains the regex to set for the names of classes, that
@@ -233,8 +231,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'final'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'final' modifier.
      *
      * @param forbiddenClassesRegexpFinal
      *        String contains the regex to set for the names of classes, that
@@ -254,8 +251,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'static'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'static' modifier.
      *
      * @param forbiddenClassesRegexpStatic
      *        String contains the regex to set for the names of classes, that
@@ -275,8 +271,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'transient'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'transient' modifier.
      *
      * @param forbiddenClassesRegexpTransient
      *        String contains the regex to set for the names of classes, that
@@ -296,8 +291,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'volatile'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'volatile' modifier.
      *
      * @param forbiddenClassesRegexpVolatile
      *        String contains the regex to set for the names of classes, that
@@ -317,8 +311,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'private'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'private' modifier.
      *
      * @param forbiddenClassesRegexpPrivate
      *        String contains the regex to set for the names of classes, that
@@ -360,8 +353,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'protected'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'protected' modifier.
      *
      * @param forbiddenClassesRegexpProtected
      *        String contains the regex to set for the names of classes, that
@@ -381,8 +373,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Sets the regexp for the names of classes, that could not have 'public'
-     * modifier.
+     * Sets the regexp for the names of classes, that could not have 'public' modifier.
      *
      * @param forbiddenClassesRegexpPublic
      *        String contains the regex to set for the names of classes, that
@@ -507,8 +498,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
      * Gets the full className of the defined variable.
      *
      * @param variableDefNode
-     *        A DetailAST node is related to variable definition (VARIABLE_DEF
-     *        node type).
+     *        A DetailAST node is related to variable definition (VARIABLE_DEF node type).
      * @return String contains the className of the defined variable or null if
      *         the current processed object is an array of primitive types
      */
@@ -552,8 +542,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
      * transient or volatile).
      *
      * @param variableDefAst
-     *        A DetailAST node is related to the variable definition
-     *        (VARIABLE_DEF type)
+     *        A DetailAST node is related to the variable definition (VARIABLE_DEF type)
      * @return List of token types is related to the given variable modifiers.
      */
     private static Set<Integer> getModifiers(DetailAST variableDefAst) {
@@ -568,8 +557,7 @@ public class AvoidModifiersForTypesCheck extends AbstractCheck {
     }
 
     /**
-     * Gets all the children which are one level below on the current DetailAST
-     * parent node.
+     * Gets all the children which are one level below on the current DetailAST parent node.
      *
      * @param node
      *        The parent node.

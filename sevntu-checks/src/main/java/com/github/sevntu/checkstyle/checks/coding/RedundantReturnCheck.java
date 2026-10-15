@@ -82,8 +82,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class RedundantReturnCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "redundant.return.check";
 
@@ -145,8 +144,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     }
 
     /**
-     * Ignores method or constructor if it contains <b>only</b> return statement
-     * in its body.
+     * Ignores method or constructor if it contains <b>only</b> return statement in its body.
      *
      * @param objectBlockAst The token to examine.
      * @return true if the block can be ignored.
@@ -182,8 +180,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     }
 
     /**
-     * Puts violation on each redundant return met in object block of
-     * method or ctor.
+     * Puts violation on each redundant return met in object block of method or ctor.
      *
      * @param redundantReturnsAst The token to examine.
      */
@@ -194,8 +191,7 @@ public class RedundantReturnCheck extends AbstractCheck {
     }
 
     /**
-     * Returns the list of redundant returns found in method's or ctor's
-     * object block.
+     * Returns the list of redundant returns found in method's or ctor's object block.
      *
      * @param objectBlockAst
      *            - a method or constructor object block

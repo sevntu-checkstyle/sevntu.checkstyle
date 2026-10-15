@@ -49,14 +49,12 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
                           "java.lang.Throwable", }).collect(Collectors.toSet());
 
     /**
-     * Disable warnings for "catch" blocks containing
-     * throwing an exception.
+     * Disable warnings for "catch" blocks containing throwing an exception.
      */
     private boolean allowThrow = true;
 
     /**
-     * Disable warnings for "catch" blocks containing
-     * rethrowing an exception.
+     * Disable warnings for "catch" blocks containing rethrowing an exception.
      */
     private boolean allowRethrow = true;
 
@@ -81,8 +79,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Enable(false) | Disable(true) warnings for "catch" blocks containing
-     * throwing an exception.
+     * Enable(false) | Disable(true) warnings for "catch" blocks containing throwing an exception.
      *
      * @param value Disable warning for throwing
      */
@@ -91,8 +88,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
     }
 
     /**
-     * Enable(false) | Disable(true) warnings for "catch" blocks containing
-     * rethrowing an exception.
+     * Enable(false) | Disable(true) warnings for "catch" blocks containing rethrowing an exception.
      *
      * @param value Disable warnings for rethrowing
      */
@@ -152,8 +148,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
      * Looking for the keyword "throw" among current (aParentAST) node childs.
      *
      * @param parentAST - the current parent node.
-     * @return null if the "throw" keyword was not found
-     *     or the LITERAL_THROW DetailAST otherwise
+     * @return null if the "throw" keyword was not found or the LITERAL_THROW DetailAST otherwise
      */
     public DetailAST getThrowAST(DetailAST parentAST) {
         DetailAST result = null;
@@ -178,8 +173,7 @@ public final class IllegalCatchExtendedCheck extends AbstractCheck {
      * Gets all the children one level below on the current top node.
      *
      * @param node - current parent node.
-     * @return an array of childs one level below
-     *     on the current parent node aNode.
+     * @return an array of childs one level below on the current parent node aNode.
      */
     private static DetailAST[] getChilds(DetailAST node) {
         final DetailAST[] result = new DetailAST[node.getChildCount()];

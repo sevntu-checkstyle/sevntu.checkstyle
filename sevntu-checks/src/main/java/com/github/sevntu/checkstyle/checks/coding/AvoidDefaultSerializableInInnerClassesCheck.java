@@ -39,8 +39,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "avoid.default.serializable.in.inner.classes";
 
@@ -56,8 +55,7 @@ public class AvoidDefaultSerializableInInnerClassesCheck extends AbstractCheck {
      * Set allow partly implementation serializable interface.
      * </p>
      *
-     * @param allow - Option, that allow partial implementation
-     *        of serializable interface.
+     * @param allow - Option, that allow partial implementation of serializable interface.
      */
     public void setAllowPartialImplementation(boolean allow) {
         allowPartialImplementation = allow;

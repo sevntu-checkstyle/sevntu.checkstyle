@@ -33,8 +33,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * cause to provide a full stack trace for the problem.</p>
  * <p>
  * Rationale: When handling exceptions using try/catch blocks junior developers
- * may lose the original/cause exception object and information associated
- * with it.
+ * may lose the original/cause exception object and information associated with it.
  * </p>
  * Examples:
  * <br> <br>
@@ -61,16 +60,14 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *      }
  * </pre>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @author <a href="mailto:IliaDubinin91@gmail.com">Ilja Dubinin</a>
  * @since 1.8.0
  */
 public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "avoid.hiding.cause.exception";
 
@@ -138,8 +135,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      * parameters  for current "throw" keyword.
      *
      * @param startNode The start node for exception name searching.
-     * @param paramNamesAST The list, that will be contain names of the
-     *     parameters
+     * @param paramNamesAST The list, that will be contain names of the parameters
      * @return A null-safe list of tokens ({@code DetailAST}) contains the
      *     thrown exception name if it was found or null otherwise.
      */
@@ -188,13 +184,10 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      * Searches for all exceptions that wraps the original exception
      * object (only in current "catch" block).
      *
-     * @param currentCatchAST A LITERAL_CATCH node of the
-     *     current "catch" block.
+     * @param currentCatchAST A LITERAL_CATCH node of the current "catch" block.
      * @param parentAST Current parent node to start search.
-     * @param currentExcName The name of exception handled by
-     *     current "catch" block.
-     * @return List contains exceptions that wraps the original
-     *     exception object.
+     * @param currentExcName The name of exception handled by current "catch" block.
+     * @return List contains exceptions that wraps the original exception object.
      */
     private List<String> makeExceptionsList(DetailAST currentCatchAST,
             DetailAST parentAST, String currentExcName) {
@@ -238,8 +231,7 @@ public class AvoidHidingCauseExceptionCheck extends AbstractCheck {
      * Gets all the children one level below on the current parent node.
      *
      * @param node Current parent node.
-     * @return List of children one level below on the current
-     *         parent node (aNode).
+     * @return List of children one level below on the current parent node (aNode).
      */
     private static List<DetailAST> getChildNodes(DetailAST node) {
         final List<DetailAST> result = new LinkedList<>();

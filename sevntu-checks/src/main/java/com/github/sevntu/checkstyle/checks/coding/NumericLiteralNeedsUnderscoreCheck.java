@@ -285,8 +285,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     }
 
     /**
-     * Sets how many characters in a hex literal there must be before it checks for an
-     * underscore.
+     * Sets how many characters in a hex literal there must be before it checks for an underscore.
      *
      * @param length
      *        minimum checking length of the literal
@@ -296,8 +295,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     }
 
     /**
-     * Sets how many characters there can be until there must be an underscore (for hex
-     * literals).
+     * Sets how many characters there can be until there must be an underscore (for hex literals).
      *
      * @param amount
      *        maximum number of characters between underscores
@@ -307,8 +305,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     }
 
     /**
-     * Sets how many characters in a byte literal there must be before it checks for an
-     * underscore.
+     * Sets how many characters in a byte literal there must be before it checks for an underscore.
      *
      * @param length
      *        minimum checking length of the literal
@@ -318,8 +315,7 @@ public class NumericLiteralNeedsUnderscoreCheck extends AbstractCheck {
     }
 
     /**
-     * Sets how many characters there can be until there must be an underscore (binary
-     * literals).
+     * Sets how many characters there can be until there must be an underscore (binary literals).
      *
      * @param amount
      *        maximum number of characters between underscores

@@ -386,8 +386,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * Check expressions in the given frame for being acceptable is static methods.
      *
      * @param frame the frame to check.
-     * @return true if the currently checked method
-     *     is still a static method candidate.
+     * @return true if the currently checked method is still a static method candidate.
      */
     private static boolean isFrameExpressionsAcceptable(final Frame frame) {
         return frame.expressions.stream()
@@ -400,8 +399,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      * Check types in the given frame for being acceptable in static methods.
      *
      * @param frame the frame to check.
-     * @return true if the currently checked method
-     *     is still a static method candidate.
+     * @return true if the currently checked method is still a static method candidate.
      */
     private static boolean isFrameTypesAcceptable(final Frame frame) {
         final Predicate<String> predicate = frameName -> {
@@ -421,8 +419,7 @@ public class StaticMethodCandidateCheck extends AbstractCheck {
      *
      * @param frame the frame where the expression is located.
      * @param expr the expression to check.
-     * @return true if the currently checked method
-     *     is still a static method candidate.
+     * @return true if the currently checked method is still a static method candidate.
      */
     private static boolean isExprAcceptable(Frame frame, DetailAST expr) {
         boolean isStaticCandidate = true;

@@ -36,8 +36,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Short-circuit operators ("||", "{@literal &&}") are more
  * safer and can accelerate the evaluation of complex boolean expressions.
  * Check identifies an expression as a boolean if it contains at least one
- * boolean operand or if result of expression evaluation sets the value of a
- * boolean variable.
+ * boolean operand or if result of expression evaluation sets the value of a boolean variable.
  * <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Using boolean variables that do not belong
  * to the current class and all calls to boolean methods are not handled by
  * this check. <br><br> Examples: <br>
@@ -54,8 +53,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * // any code
  * result &amp;= true | x || false; // a warning here
  * </pre>
- * 3. Expression calculated with not short-circuit operators contains at least
- * one boolean operand.
+ * 3. Expression calculated with not short-circuit operators contains at least one boolean operand.
  * <pre>
  * public boolean isTrue() {
  *     return this.z | MyObject.is() // no warnings here
@@ -69,8 +67,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * </pre>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @since 1.8.0
  */
 public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck {
@@ -92,8 +89,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     private final List<String> supportedOperands = new LinkedList<>();
 
     /**
-     * Variable, that indicates keywords "true" or "false" in current
-     * expression.
+     * Variable, that indicates keywords "true" or "false" in current expression.
      */
     private boolean hasTrueOrFalseLiteralInExpression;
 
@@ -134,8 +130,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     }
 
     /**
-     * Checks whether the current method/variable definition type
-     * is "Boolean".
+     * Checks whether the current method/variable definition type is "Boolean".
      *
      * @param node - current method or variable definition node.
      * @return "true" if current method or variable has a Boolean type.
@@ -154,8 +149,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      *
      * @param node - current TokenTypes.EXPR node to check.
      * @return "true" if current expression is calculated using "|", "{@literal &}",
-     *     "|=". "{@literal &=}" operators contains at least one Boolean operand or false
-     *     otherwise.
+     *     "|=". "{@literal &=}" operators contains at least one Boolean operand or false otherwise.
      */
     public final boolean isBooleanExpression(final DetailAST node) {
         DetailAST curNode = node;
@@ -218,8 +212,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
     }
 
     /**
-     * Checks is the current expression has
-     * keywords "true" or "false".
+     * Checks is the current expression has keywords "true" or "false".
      *
      * @param parentAST - the current TokenTypes.EXPR parent node.
      * @return true if the current processed expression contains
@@ -248,8 +241,7 @@ public class AvoidNotShortCircuitOperatorsForBooleanCheck extends AbstractCheck 
      * Gets all the children one level below on the current top node.
      *
      * @param node - current parent node.
-     * @return an array of children one level below on the current parent node
-     *         aNode.
+     * @return an array of children one level below on the current parent node aNode.
      */
     private static List<DetailAST> getChildren(final DetailAST node) {
         final List<DetailAST> result = new LinkedList<>();

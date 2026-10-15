@@ -117,8 +117,7 @@ import com.puppycrawl.tools.checkstyle.utils.ScopeUtil;
 public class MoveVariableInsideIfCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "move.variable.inside";
 
@@ -145,8 +144,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
     }
 
     /**
-     * Examines the local variable for violations to be moved inside an nest if
-     * statement.
+     * Examines the local variable for violations to be moved inside an nest if statement.
      *
      * @param ast The local variable to examine.
      */
@@ -172,8 +170,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * Examines an if statement to see how many times the specified variable
      * identifier was used inside it.
      *
-     * @param holder The object holder with the specified variable to check and
-     *        its current state.
+     * @param holder The object holder with the specified variable to check and its current state.
      * @param ifNodeGiven The current if node to examine.
      */
     private static void validateIf(Holder holder, DetailAST ifNodeGiven) {
@@ -233,8 +230,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * Examines the else of an if statement to see how many times the specified
      * variable identifier was used inside it.
      *
-     * @param holder The object holder with the specified variable to check and
-     *        its current state.
+     * @param holder The object holder with the specified variable to check and its current state.
      * @param ifNode The if node of the specified else.
      * @param elseNode The current else node to examine.
      */
@@ -257,8 +253,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
      * Examines other nodes to see how many times a variable was used inside it.
      * If the variable is used, no violations are reported for it.
      *
-     * @param holder The object holder with the specified variable to check and
-     *        its current state.
+     * @param holder The object holder with the specified variable to check and its current state.
      * @param child The current node to examine.
      */
     private static void validateOther(Holder holder, DetailAST child) {
@@ -294,8 +289,7 @@ public class MoveVariableInsideIfCheck extends AbstractCheck {
 
         /**
          * Sets the specified node that is to be reported for the violation for
-         * the block. If there is already a node being reported, then no nodes
-         * are reported.
+         * the block. If there is already a node being reported, then no nodes are reported.
          *
          * @param blockNode The given block node to report for.
          */

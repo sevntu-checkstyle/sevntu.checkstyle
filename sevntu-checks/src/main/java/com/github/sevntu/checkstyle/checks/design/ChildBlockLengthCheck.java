@@ -29,8 +29,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
- * This check detects the child blocks, which length is more then 80% of parent
- * block length. <br>
+ * This check detects the child blocks, which length is more then 80% of parent block length. <br>
  * <p>
  * Supported keywords are used to detect blocks: <br>
  * "if", "else", "for", "switch", "do", "while", "try", "catch".
@@ -44,33 +43,28 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
  * should be refactored or moved to separate method.
  * </p>
  *
- * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil
- *         Yaroslavtsev</a>
+ * @author <a href="mailto:Daniil.Yaroslavtsev@gmail.com"> Daniil Yaroslavtsev</a>
  * @since 1.8.0
  */
 public class ChildBlockLengthCheck extends AbstractCheck {
 
     /**
-     * A key is pointing to the warning message text in "messages.properties"
-     * file.
+     * A key is pointing to the warning message text in "messages.properties" file.
      */
     public static final String MSG_KEY = "child.block.length";
 
     /**
-     * The constant is used in percentage arithmetic operations. Represents
-     * '100%'
+     * The constant is used in percentage arithmetic operations. Represents '100%'
      */
     private static final double PERCENTS_FACTOR = 100.0;
 
     /**
-     * Default value of maximum percentage ratio between the child and the
-     * parent block.
+     * Default value of maximum percentage ratio between the child and the parent block.
      */
     private static final double DEFAULT_MAX_CHILD_BLOCK_PERCENTAGE = 80.0;
 
     /**
-     * Default number of lines of which block body may consist to be skipped by
-     * check.
+     * Default number of lines of which block body may consist to be skipped by check.
      */
     private static final int DEFAULT_IGNORE_BLOCK_LINESCOUNT = 50;
 
@@ -87,8 +81,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     private double maxChildBlockPercentage = DEFAULT_MAX_CHILD_BLOCK_PERCENTAGE;
 
     /**
-     * Maximum number of lines of which block body may consist to be skipped by
-     * check.
+     * Maximum number of lines of which block body may consist to be skipped by check.
      */
     private int ignoreBlockLinesCount = DEFAULT_IGNORE_BLOCK_LINESCOUNT;
 
@@ -190,12 +183,10 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     }
 
     /**
-     * Gets all the child blocks for given parent block. Uses an iterative
-     * algorithm.
+     * Gets all the child blocks for given parent block. Uses an iterative algorithm.
      *
      * @param blockOpeningBrace
-     *        a DetailAST node that points to the current method`s opening
-     *        brace.
+     *        a DetailAST node that points to the current method`s opening brace.
      * @param blockClosingBrace
      *        the a block closing brace
      * @return all child blocks that have braces.
@@ -272,8 +263,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     }
 
     /**
-     * Checks if the child block size percentage from parent block is greater
-     * than.
+     * Checks if the child block size percentage from parent block is greater than.
      *
      * @param childBlock
      *        the a child block node
@@ -294,8 +284,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
     }
 
     /**
-     * Gets the percentage which the child block occupies inside the parent
-     * block.
+     * Gets the percentage which the child block occupies inside the parent block.
      *
      * @param parentBlockSize
      *        the parent block size in lines
@@ -351,8 +340,7 @@ public class ChildBlockLengthCheck extends AbstractCheck {
      * Gets the lines count between braces of the given block.
      *
      * @param blockAst
-     *        - the DetailAST node is related to the given block (the block
-     *        should have braces!).
+     *        - the DetailAST node is related to the given block (the block should have braces!).
      * @return the lines count between the given block braces.
      */
     private static int linesCount(DetailAST blockAst) {

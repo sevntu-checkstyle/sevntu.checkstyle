@@ -30,8 +30,7 @@ import com.puppycrawl.tools.checkstyle.utils.TokenUtil;
 
 /**
  * Forbid specific annotation of variable,methods,class,package and other. If
- * you want to forbid use of '@XXX' annotation with methods and class, you must
- * write:
+ * you want to forbid use of '@XXX' annotation with methods and class, you must write:
  * <pre>
  * &lt;module name="ForbidAnnotation"&gt; &lt;property name="annotationNames"
  * value="XXX"/&gt; &lt;property name="annotationTargets"

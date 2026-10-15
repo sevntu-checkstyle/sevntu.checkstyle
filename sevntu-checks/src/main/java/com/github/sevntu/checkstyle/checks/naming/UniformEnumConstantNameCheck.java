@@ -42,8 +42,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * }
  * public enum EnumTwo {
  *    FIRST_ELEMENT, SECOND_ELEMENT, THIRD_ELEMENT;
- * }</pre> But the following enum, is violated, because values conform
- * different notations: <pre>
+ * }</pre> But the following enum, is violated, because values conform different notations: <pre>
  * public enum EnumThree {
  *    FirstElement, SECOND_ELEMENT, ThirdElement;
  * }
@@ -79,13 +78,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 public class UniformEnumConstantNameCheck extends AbstractCheck {
 
     /**
-     * Message code for format violations. Used, when more than one format
-     * violated.
+     * Message code for format violations. Used, when more than one format violated.
      */
     public static final String MSG_NOT_VALID_MULTI = "enum.name.formats.violated";
     /**
-     * Message code for format violations. Used, when exactly one format
-     * violated.
+     * Message code for format violations. Used, when exactly one format violated.
      */
     public static final String MSG_NOT_VALID_SINGLE = "enum.name.format.violated";
     /**
