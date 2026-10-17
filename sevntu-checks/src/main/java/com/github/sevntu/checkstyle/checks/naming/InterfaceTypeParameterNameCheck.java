@@ -50,8 +50,7 @@ import com.puppycrawl.tools.checkstyle.checks.naming.AbstractNameCheck;
  * @version 1.0
  * @since 1.8.0
  */
-public class InterfaceTypeParameterNameCheck
-        extends AbstractNameCheck {
+public class InterfaceTypeParameterNameCheck extends AbstractNameCheck {
 
     /** Creates a new {@code InterfaceTypeParameterNameCheck} instance. */
     public InterfaceTypeParameterNameCheck() {
