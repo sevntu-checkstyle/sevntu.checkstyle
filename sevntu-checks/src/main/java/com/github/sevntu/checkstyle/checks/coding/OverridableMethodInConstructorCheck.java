@@ -619,7 +619,7 @@ public class OverridableMethodInConstructorCheck extends AbstractCheck {
 
     /**
      * Return true when the method called via keyword "this" (this.methodName
-     * or ClassName.this.methodName)
+     * or ClassName.this.methodName).
      *
      * @param firstPartOfTheMethodCall The first part of the method call.
      * @param classDefNode The token to examine.
